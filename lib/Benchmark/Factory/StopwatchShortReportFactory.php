@@ -47,7 +47,7 @@ readonly class StopwatchShortReportFactory implements IReportFactory
                 sprintf(
                     '%01.2f%s',
                     $measurement->getAverage(),
-                    $this->stopwatch->getUnits(),
+                    $this->stopwatch->getUnit()->value,
                 );
         } catch (Throwable $_) {
             return

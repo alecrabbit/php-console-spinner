@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Benchmark\Builder;
+namespace AlecRabbit\Tests\Unit\Benchmark\Builder;
 
 use AlecRabbit\Benchmark\BenchmarkingDriver;
 use AlecRabbit\Benchmark\Builder\BenchmarkingDriverBuilder;

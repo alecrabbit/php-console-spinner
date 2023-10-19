@@ -10,6 +10,7 @@ use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Factory\BenchmarkingDriverProviderFactory;
 use AlecRabbit\Benchmark\Factory\StopwatchReportFactory;
 use AlecRabbit\Benchmark\Factory\StopwatchShortReportFactory;
+use AlecRabbit\Benchmark\MicrosecondTimer;
 use AlecRabbit\Benchmark\Stopwatch;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
@@ -35,7 +36,10 @@ require_once __DIR__ . '/../../bootstrap.php';
         new class implements IStopwatchFactory {
             public function create(): IStopwatch
             {
-                return new Stopwatch();
+                return
+                    new Stopwatch(
+                        new MicrosecondTimer(),
+                    );
             }
         }
     );
@@ -65,21 +69,22 @@ $echo =
     );
 
 $stopwatch = $driver->getStopwatch();
+$shortReportFactory = new StopwatchShortReportFactory($stopwatch);
+$finalReportFactory = new StopwatchReportFactory($stopwatch);
 
 // Create report functions:
 $shortReport =
-    static function () use ($stopwatch, $echo): void {
-        $factory = new StopwatchShortReportFactory($stopwatch);
+    static function () use ($shortReportFactory, $echo): void {
         $echo(
             (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED)
             . ' '
-            . $factory->report()
+            . $shortReportFactory->report()
         );
     };
+
 $finalReport =
-    static function () use ($stopwatch): void {
-        $factory = new StopwatchReportFactory($stopwatch);
-        echo $factory->report();
+    static function () use ($finalReportFactory, $echo): void {
+        $echo($finalReportFactory->report());
     };
 
 
@@ -89,8 +94,8 @@ $loop
     ->delay(
         RUNTIME,
         static function () use ($driver, $loop, $finalReport): void {
-            $driver->finalize();
             $loop->stop();
+            $driver->finalize();
             $finalReport();
         }
     )

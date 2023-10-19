@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark;
 
 use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Contract\TimeUnit;
 use LogicException;
 
 class Measurement implements IMeasurement
@@ -18,6 +19,7 @@ class Measurement implements IMeasurement
     protected int $count = 0;
 
     public function __construct(
+        protected readonly TimeUnit $unit,
         protected readonly int $threshold = self::DEFAULT_THRESHOLD,
         protected readonly string $label = self::DEFAULT_LABEL,
     ) {
@@ -80,5 +82,15 @@ class Measurement implements IMeasurement
     public function getLabel(): string
     {
         return $this->label;
+    }
+
+    public function getUnit(): TimeUnit
+    {
+        return $this->unit;
+    }
+
+    public function getThreshold(): int
+    {
+        return $this->threshold;
     }
 }

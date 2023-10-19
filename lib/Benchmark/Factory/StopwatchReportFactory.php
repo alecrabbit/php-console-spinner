@@ -47,7 +47,7 @@ readonly class StopwatchReportFactory implements IReportFactory
 
     protected function formatMeasurement(IMeasurement $measurement): string
     {
-        $units = $this->stopwatch->getUnits();
+        $units = $this->stopwatch->getUnit()->value;
 
         try {
             return

@@ -6,6 +6,8 @@ namespace AlecRabbit\Benchmark;
 
 use AlecRabbit\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Benchmark\Contract\ITimer;
+use AlecRabbit\Benchmark\Contract\TimeUnit;
 use RuntimeException;
 
 class Stopwatch implements IStopwatch
@@ -16,13 +18,19 @@ class Stopwatch implements IStopwatch
     protected array $current = [];
     protected array $measurements = [];
 
+    public function __construct(
+        protected readonly ITimer $timer,
+        protected readonly int $requiredMeasurements = self::COUNT,
+    ) {
+    }
+
     public function start(string $label, string ...$labels): void
     {
         $key = $this->getKey($label, $labels);
         if (isset($this->current[$key])) {
-            throw new RuntimeException('Already started');
+            throw new RuntimeException('Already started.');
         }
-        $this->current[$key] = $this->getNow();
+        $this->current[$key] = $this->timer->now();
     }
 
     protected function getKey(string $label, array $labels): string
@@ -30,14 +38,9 @@ class Stopwatch implements IStopwatch
         return $label . self::KEY_GLUE . implode(self::KEY_GLUE, $labels);
     }
 
-    protected function getNow(): int
-    {
-        return (int)(microtime(true) * 1_000_000); // microseconds
-    }
-
     public function stop(string $label, string ...$labels): void
     {
-        $now = $this->getNow();
+        $now = $this->timer->now();
 
         $key = $this->getKey($label, $labels);
 
@@ -57,7 +60,11 @@ class Stopwatch implements IStopwatch
 
     protected function createMeasurement(): IMeasurement
     {
-        return new Measurement(self::COUNT);
+        return
+            new Measurement(
+                $this->timer->getUnit(),
+                self::COUNT
+            );
     }
 
     public function getMeasurements(): iterable
@@ -65,13 +72,13 @@ class Stopwatch implements IStopwatch
         return $this->measurements;
     }
 
-    public function getUnits(): string
+    public function getUnit(): TimeUnit
     {
-        return 'μs';
+        return $this->timer->getUnit();
     }
 
     public function getRequiredMeasurements(): int
     {
-        return self::COUNT;
+        return $this->requiredMeasurements;
     }
 }

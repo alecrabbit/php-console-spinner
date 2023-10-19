@@ -15,7 +15,7 @@ interface IStopwatch
      */
     public function getMeasurements(): iterable;
 
-    public function getUnits(): string;
+    public function getUnit(): TimeUnit;
 
     public function getRequiredMeasurements(): int;
 }
