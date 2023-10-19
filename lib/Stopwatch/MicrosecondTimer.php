@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark;
+namespace AlecRabbit\Stopwatch;
 
-use AlecRabbit\Benchmark\A\ATimer;
-use AlecRabbit\Benchmark\Contract\TimeUnit;
+use AlecRabbit\Stopwatch\A\ATimer;
+use AlecRabbit\Stopwatch\Contract\TimeUnit;
 
 final class MicrosecondTimer extends ATimer
 {

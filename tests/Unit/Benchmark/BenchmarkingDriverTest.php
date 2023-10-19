@@ -6,12 +6,12 @@ namespace AlecRabbit\Tests\Unit\Benchmark;
 
 use AlecRabbit\Benchmark\BenchmarkingDriver;
 use AlecRabbit\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Stopwatch\Contract\IStopwatch;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

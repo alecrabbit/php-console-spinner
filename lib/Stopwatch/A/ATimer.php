@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark\A;
+namespace AlecRabbit\Stopwatch\A;
 
-use AlecRabbit\Benchmark\Contract\ITimer;
-use AlecRabbit\Benchmark\Contract\TimeUnit;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Stopwatch\Contract\ITimer;
+use AlecRabbit\Stopwatch\Contract\TimeUnit;
 use ReflectionFunction;
 use Throwable;
 

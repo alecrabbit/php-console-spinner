@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Contract\Builder;
 
 use AlecRabbit\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Stopwatch\Contract\IStopwatch;
 
 interface IBenchmarkingDriverBuilder
 {

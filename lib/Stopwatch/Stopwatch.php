@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark;
+namespace AlecRabbit\Stopwatch;
 
-use AlecRabbit\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Contract\IStopwatch;
-use AlecRabbit\Benchmark\Contract\ITimer;
-use AlecRabbit\Benchmark\Contract\TimeUnit;
+use AlecRabbit\Stopwatch\Contract\IMeasurement;
+use AlecRabbit\Stopwatch\Contract\IStopwatch;
+use AlecRabbit\Stopwatch\Contract\ITimer;
+use AlecRabbit\Stopwatch\Contract\TimeUnit;
 use RuntimeException;
 
 class Stopwatch implements IStopwatch

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Benchmark;
+namespace AlecRabbit\Tests\Unit\Stopwatch;
 
-use AlecRabbit\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Contract\TimeUnit;
-use AlecRabbit\Benchmark\Measurement;
+use AlecRabbit\Stopwatch\Contract\IMeasurement;
+use AlecRabbit\Stopwatch\Contract\TimeUnit;
+use AlecRabbit\Stopwatch\Measurement;
 use AlecRabbit\Tests\TestCase\TestCase;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;

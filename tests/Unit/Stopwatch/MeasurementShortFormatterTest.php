@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Unit\Benchmark;
+namespace AlecRabbit\Tests\Unit\Stopwatch;
 
-use AlecRabbit\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
-use AlecRabbit\Benchmark\Contract\TimeUnit;
-use AlecRabbit\Benchmark\MeasurementShortFormatter;
 use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Stopwatch\Contract\IMeasurement;
+use AlecRabbit\Stopwatch\Contract\IMeasurementFormatter;
+use AlecRabbit\Stopwatch\Contract\TimeUnit;
+use AlecRabbit\Stopwatch\MeasurementShortFormatter;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

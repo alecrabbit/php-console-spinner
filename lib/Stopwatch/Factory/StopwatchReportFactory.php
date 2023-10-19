@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark\Factory;
+namespace AlecRabbit\Stopwatch\Factory;
 
-use AlecRabbit\Benchmark\Contract\Factory\IReportFactory;
-use AlecRabbit\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
-use AlecRabbit\Benchmark\Contract\IStopwatch;
-use Throwable;
+use AlecRabbit\Stopwatch\Contract\Factory\IReportFactory;
+use AlecRabbit\Stopwatch\Contract\IMeasurement;
+use AlecRabbit\Stopwatch\Contract\IMeasurementFormatter;
+use AlecRabbit\Stopwatch\Contract\IStopwatch;
 
 use function sprintf;
 use function trim;

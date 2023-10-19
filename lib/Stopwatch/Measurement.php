@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark;
+namespace AlecRabbit\Stopwatch;
 
-use AlecRabbit\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Contract\TimeUnit;
+use AlecRabbit\Stopwatch\Contract\IMeasurement;
+use AlecRabbit\Stopwatch\Contract\TimeUnit;
 use LogicException;
 
 class Measurement implements IMeasurement

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark\Contract;
+namespace AlecRabbit\Stopwatch\Contract;
 
 interface IMeasurementFormatter
 {

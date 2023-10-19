@@ -7,9 +7,9 @@ namespace AlecRabbit\Benchmark\Builder;
 use AlecRabbit\Benchmark\BenchmarkingDriver;
 use AlecRabbit\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Stopwatch\Contract\IStopwatch;
 
 final class BenchmarkingDriverBuilder implements IBenchmarkingDriverBuilder
 {

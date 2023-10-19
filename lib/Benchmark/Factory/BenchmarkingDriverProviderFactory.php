@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Factory;
 
 use AlecRabbit\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
-use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\DriverProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
+use AlecRabbit\Stopwatch\Contract\Factory\IStopwatchFactory;
 
 final class BenchmarkingDriverProviderFactory implements IDriverProviderFactory
 {

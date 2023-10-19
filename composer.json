@@ -46,6 +46,7 @@
     "autoload": {
         "psr-4": {
             "AlecRabbit\\Benchmark\\": "lib\\Benchmark\\",
+            "AlecRabbit\\Stopwatch\\": "lib\\Stopwatch\\",
             "AlecRabbit\\Spinner\\": "src\\Spinner\\"
         },
         "files": [

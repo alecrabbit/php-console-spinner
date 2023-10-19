@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Benchmark;
+namespace AlecRabbit\Tests\Unit\Stopwatch;
 
-use AlecRabbit\Benchmark\Contract\IStopwatch;
-use AlecRabbit\Benchmark\Contract\ITimer;
-use AlecRabbit\Benchmark\Contract\TimeUnit;
-use AlecRabbit\Benchmark\Stopwatch;
+use AlecRabbit\Stopwatch\Contract\IStopwatch;
+use AlecRabbit\Stopwatch\Contract\ITimer;
+use AlecRabbit\Stopwatch\Contract\TimeUnit;
+use AlecRabbit\Stopwatch\Stopwatch;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
