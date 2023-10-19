@@ -18,6 +18,12 @@ final class DriverLinker implements IDriverLinker
     public function __construct(
         private readonly ILoop $loop,
     ) {
+        $this->attachLoop();
+    }
+
+    private function attachLoop(): void
+    {
+        // $this->loop->attach($this);
     }
 
     public function link(IDriver $driver): void
@@ -42,7 +48,7 @@ final class DriverLinker implements IDriverLinker
         $this->linkTimer($driver);
 
         if ($this->driver === null) {
-            $this->observe($driver);
+            $this->attachDriver($driver);
         }
     }
 
@@ -67,7 +73,7 @@ final class DriverLinker implements IDriverLinker
         }
     }
 
-    private function observe(IDriver $driver): void
+    private function attachDriver(IDriver $driver): void
     {
         $this->driver = $driver;
         $driver->attach($this);
