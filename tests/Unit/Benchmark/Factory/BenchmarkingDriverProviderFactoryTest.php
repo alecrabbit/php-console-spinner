@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Benchmark\Factory;
+namespace Unit\Benchmark\Factory;
 
-use AlecRabbit\Spinner\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
-use AlecRabbit\Spinner\Benchmark\Contract\Factory\IStopwatchFactory;
-use AlecRabbit\Spinner\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
-use AlecRabbit\Spinner\Benchmark\Factory\BenchmarkingDriverProviderFactory;
+use AlecRabbit\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
+use AlecRabbit\Benchmark\Contract\IBenchmarkingDriver;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Benchmark\Factory\BenchmarkingDriverProviderFactory;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;

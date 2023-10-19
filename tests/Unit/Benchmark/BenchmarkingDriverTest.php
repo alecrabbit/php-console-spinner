@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Benchmark;
+namespace Unit\Benchmark;
 
-use AlecRabbit\Spinner\Benchmark\BenchmarkingDriver;
-use AlecRabbit\Spinner\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Benchmark\BenchmarkingDriver;
+use AlecRabbit\Benchmark\Contract\IBenchmarkingDriver;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

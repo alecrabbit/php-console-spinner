@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Benchmark;
+namespace AlecRabbit\Benchmark;
 
-use AlecRabbit\Spinner\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Contract\IMeasurement;
 use LogicException;
 
 class Measurement implements IMeasurement

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Benchmark\Builder;
+namespace Unit\Benchmark\Builder;
 
-use AlecRabbit\Spinner\Benchmark\BenchmarkingDriver;
-use AlecRabbit\Spinner\Benchmark\Builder\BenchmarkingDriverBuilder;
-use AlecRabbit\Spinner\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
-use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Benchmark\BenchmarkingDriver;
+use AlecRabbit\Benchmark\Builder\BenchmarkingDriverBuilder;
+use AlecRabbit\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;

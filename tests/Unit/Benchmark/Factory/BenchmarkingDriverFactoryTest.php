@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Benchmark\Factory;
+namespace Unit\Benchmark\Factory;
 
-use AlecRabbit\Spinner\Benchmark\BenchmarkingDriver;
-use AlecRabbit\Spinner\Benchmark\Factory\BenchmarkingDriverFactory;
+use AlecRabbit\Benchmark\BenchmarkingDriver;
+use AlecRabbit\Benchmark\Factory\BenchmarkingDriverFactory;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;

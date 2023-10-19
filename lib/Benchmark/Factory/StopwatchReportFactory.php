@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Benchmark\Factory;
+namespace AlecRabbit\Benchmark\Factory;
 
-use AlecRabbit\Spinner\Benchmark\Contract\Factory\IReportFactory;
-use AlecRabbit\Spinner\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Benchmark\Contract\Factory\IReportFactory;
+use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
 use Throwable;
 
 use function sprintf;

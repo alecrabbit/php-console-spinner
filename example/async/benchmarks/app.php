@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Benchmark\Builder\BenchmarkingDriverBuilder;
-use AlecRabbit\Spinner\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
-use AlecRabbit\Spinner\Benchmark\Contract\Factory\IStopwatchFactory;
-use AlecRabbit\Spinner\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
-use AlecRabbit\Spinner\Benchmark\Factory\BenchmarkingDriverProviderFactory;
-use AlecRabbit\Spinner\Benchmark\Factory\StopwatchReportFactory;
-use AlecRabbit\Spinner\Benchmark\Factory\StopwatchShortReportFactory;
-use AlecRabbit\Spinner\Benchmark\Stopwatch;
+use AlecRabbit\Benchmark\Builder\BenchmarkingDriverBuilder;
+use AlecRabbit\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
+use AlecRabbit\Benchmark\Contract\IBenchmarkingDriver;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Benchmark\Factory\BenchmarkingDriverProviderFactory;
+use AlecRabbit\Benchmark\Factory\StopwatchReportFactory;
+use AlecRabbit\Benchmark\Factory\StopwatchShortReportFactory;
+use AlecRabbit\Benchmark\Stopwatch;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
@@ -126,6 +126,7 @@ $loop
     )
 ;
 
+$echo(sprintf('Runtime: %ss', RUNTIME));
 $echo(PHP_EOL . sprintf('Using loop: "%s"', get_debug_type($loop)));
 $echo();
 

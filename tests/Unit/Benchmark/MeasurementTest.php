@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Benchmark;
+namespace Unit\Benchmark;
 
-use AlecRabbit\Spinner\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Spinner\Benchmark\Measurement;
+use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Measurement;
 use AlecRabbit\Tests\TestCase\TestCase;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;

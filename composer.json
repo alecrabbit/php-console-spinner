@@ -45,6 +45,7 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
+            "AlecRabbit\\Benchmark\\": "lib\\Benchmark\\",
             "AlecRabbit\\Spinner\\": "src\\Spinner\\"
         },
         "files": [

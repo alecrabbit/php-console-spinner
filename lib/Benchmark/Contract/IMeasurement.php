@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Benchmark\Contract;
+namespace AlecRabbit\Benchmark\Contract;
 
 interface IMeasurement
 {
