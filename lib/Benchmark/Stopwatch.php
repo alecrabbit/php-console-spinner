@@ -63,7 +63,7 @@ class Stopwatch implements IStopwatch
         return
             new Measurement(
                 $this->timer->getUnit(),
-                self::COUNT
+                $this->getRequiredMeasurements(),
             );
     }
 

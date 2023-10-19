@@ -71,4 +71,88 @@ final class StopwatchTest extends TestCase
 
         self::assertEquals($unit, $stopwatch->getUnit());
     }
+
+    #[Test]
+    public function canStart(): void
+    {
+        $label = 'testLabel';
+        $labels = ['testLabel1', 'testLabel2'];
+
+        $key = 'testLabel:testLabel1:testLabel2';
+
+        $timer = $this->getTimerMock();
+        $value = 1.0;
+        $timer
+            ->expects(self::once())
+            ->method('now')
+            ->willReturn($value)
+        ;
+
+        $stopwatch = $this->getTesteeInstance(
+            timer: $timer,
+        );
+
+        $stopwatch->start($label, ...$labels);
+
+        $current = self::getPropertyValue('current', $stopwatch);
+
+        self::assertArrayHasKey($key, $current);
+        self::assertSame($value, $current[$key]);
+    }
+
+    #[Test]
+    public function canStop(): void
+    {
+        $label = 'testLabel';
+        $labels = ['testLabel1', 'testLabel2'];
+
+        $key = 'testLabel:testLabel1:testLabel2';
+
+        $timer = $this->getTimerMock();
+
+        $valueStart = 1.0;
+        $valueStop = $valueStart + 1.0;
+
+        $timer
+            ->expects(self::exactly(2))
+            ->method('now')
+            ->willReturnOnConsecutiveCalls($valueStart, $valueStop)
+        ;
+
+        $stopwatch = $this->getTesteeInstance(
+            timer: $timer,
+        );
+
+        $stopwatch->start($label, ...$labels);
+
+        $current = self::getPropertyValue('current', $stopwatch);
+
+        self::assertArrayHasKey($key, $current);
+        self::assertSame($valueStart, $current[$key]);
+
+        $stopwatch->stop($label, ...$labels);
+
+        $current = self::getPropertyValue('current', $stopwatch);
+        self::assertArrayNotHasKey($key, $current);
+
+        $measurements = $stopwatch->getMeasurements();
+
+        self::assertArrayHasKey($key, $measurements);
+        self::assertCount(1, $measurements);
+    }
+
+    #[Test]
+    public function throwsIfAlreadyStarted(): void
+    {
+        $label = 'testLabel';
+
+        $stopwatch = $this->getTesteeInstance();
+
+        $stopwatch->start($label);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Already started.');
+
+        $stopwatch->start($label);
+    }
 }
