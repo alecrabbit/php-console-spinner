@@ -96,7 +96,7 @@ $loop = Facade::getLoop();
 
 $loop
     ->delay(
-        RUNTIME,
+        RUNTIME - 0.5,
         static function () use ($driver, $loop, $finalReport): void {
             $loop->stop();
             $driver->finalize();
@@ -104,6 +104,7 @@ $loop
         }
     )
 ;
+
 
 $loop
     ->repeat(
@@ -142,3 +143,12 @@ $echo();
 $memoryReport(); // initial report
 
 $spinner = Facade::createSpinner();
+
+$loop
+    ->delay(
+        RUNTIME - 2,
+        static function () use ($driver, $spinner): void {
+            $driver->remove($spinner);
+        }
+    )
+;
