@@ -6,6 +6,7 @@ namespace AlecRabbit\Benchmark\Factory;
 
 use AlecRabbit\Benchmark\Contract\Factory\IReportFactory;
 use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use Throwable;
 
@@ -17,6 +18,8 @@ readonly class StopwatchReportFactory implements IReportFactory
 {
     public function __construct(
         private IStopwatch $stopwatch,
+        private IMeasurementFormatter $measurementFormatter,
+        private string $title = 'Measurements report',
     ) {
     }
 
@@ -25,7 +28,7 @@ readonly class StopwatchReportFactory implements IReportFactory
         $output = PHP_EOL
             . sprintf(
                 '%s (%s: %s):',
-                'Measurements report',
+                $this->title,
                 'Required data points',
                 $this->stopwatch->getRequiredMeasurements(),
             )
@@ -34,60 +37,16 @@ readonly class StopwatchReportFactory implements IReportFactory
         /** @var string $key */
         /** @var IMeasurement $measurement */
         foreach ($this->stopwatch->getMeasurements() as $key => $measurement) {
-            $output .= sprintf(
-                '%s: %s (Data points: %s)' . PHP_EOL,
-                $this->formatKey($key),
-                $this->formatMeasurement($measurement),
-                $measurement->getCount(),
-            );
+            $output .=
+                sprintf(
+                    '%s: %s (Data points: %s)' . PHP_EOL,
+                    $this->formatKey($key),
+                    $this->measurementFormatter->format($measurement),
+                    $measurement->getCount(),
+                );
         }
 
         return $output . PHP_EOL;
-    }
-
-    protected function formatMeasurement(IMeasurement $measurement): string
-    {
-        $units = $this->stopwatch->getUnit()->value;
-
-        try {
-            return
-                sprintf(
-                    '%01.2f%s [%01.2f%s/%01.2f%s]',
-                    $measurement->getAverage(),
-                    $units,
-                    $measurement->getMax(),
-                    $units,
-                    $measurement->getMin(),
-                    $units,
-                );
-        } catch (Throwable $e) {
-            try {
-                if ($measurement->getCount() >= 2) {
-                    return
-                        sprintf(
-                            '%01.2f%s [%01.2f%s/%01.2f%s]',
-                            $measurement->getAny(),
-                            $units,
-                            $measurement->getMax(),
-                            $units,
-                            $measurement->getMin(),
-                            $units,
-                        );
-                }
-                return
-                    sprintf(
-                        '%01.2f%s',
-                        $measurement->getAny(),
-                        $units,
-                    );
-            } catch (Throwable $e) {
-                return
-                    sprintf(
-                        '%s',
-                        $e->getMessage(),
-                    );
-            }
-        }
     }
 
     protected function formatKey(string $key): string

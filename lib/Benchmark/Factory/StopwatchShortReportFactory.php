@@ -42,19 +42,4 @@ readonly class StopwatchShortReportFactory implements IReportFactory
 
         return \trim($output);
     }
-
-    protected function formatMeasurement(IMeasurement $measurement): string
-    {
-        try {
-            return
-                sprintf(
-                    '%01.2f%s',
-                    $measurement->getAverage(),
-                    $this->stopwatch->getUnit()->value,
-                );
-        } catch (Throwable $_) {
-            return
-                '--';
-        }
-    }
 }

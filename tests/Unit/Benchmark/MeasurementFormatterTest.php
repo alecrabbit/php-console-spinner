@@ -44,25 +44,18 @@ final class MeasurementFormatterTest extends TestCase
             ->method('getAverage')
             ->willReturn(1.0)
         ;
-
-        self::assertEquals('1.00μs', $formatter->format($measurement));
-    }    #[Test]
-    public function canFormatWithoutAverage(): void
-    {
-        $formatter = $this->getTesteeInstance();
-
-        $measurement =
-            $this->getMeasurementMock(
-                unit: TimeUnit::MICROSECOND
-            );
-
         $measurement
             ->expects(self::once())
-            ->method('getAverage')
-            ->willThrowException(new LogicException(''))
+            ->method('getMax')
+            ->willReturn(1.0)
+        ;
+        $measurement
+            ->expects(self::once())
+            ->method('getMin')
+            ->willReturn(1.0)
         ;
 
-        self::assertEquals('--', $formatter->format($measurement));
+        self::assertEquals('1.00μs [1.00μs/1.00μs]', $formatter->format($measurement));
     }
 
     private function getMeasurementMock(?TimeUnit $unit = null): MockObject&IMeasurement
@@ -73,5 +66,114 @@ final class MeasurementFormatterTest extends TestCase
                 'getUnit' => $unit ?? TimeUnit::HOUR,
             ]
         );
+    }
+
+    #[Test]
+    public function canFormatWithoutAverageAndWithoutAny(): void
+    {
+        $formatter = $this->getTesteeInstance();
+
+        $measurement =
+            $this->getMeasurementMock(
+                unit: TimeUnit::MICROSECOND
+            );
+
+        $str = 'Exception.';
+
+        $measurement
+            ->expects(self::once())
+            ->method('getCount')
+            ->willReturn(0)
+        ;
+
+        $measurement
+            ->expects(self::once())
+            ->method('getAny')
+            ->willThrowException(new LogicException($str))
+        ;
+
+        $measurement
+            ->expects(self::once())
+            ->method('getAverage')
+            ->willThrowException(new LogicException($str))
+        ;
+
+        self::assertEquals($str, $formatter->format($measurement));
+    }
+
+    #[Test]
+    public function canFormatWithoutAverageButWithAny(): void
+    {
+        $formatter = $this->getTesteeInstance();
+
+        $measurement =
+            $this->getMeasurementMock(
+                unit: TimeUnit::MICROSECOND
+            );
+
+        $str = 'Exception.';
+
+        $measurement
+            ->expects(self::once())
+            ->method('getCount')
+            ->willReturn(0)
+        ;
+
+        $measurement
+            ->expects(self::once())
+            ->method('getAny')
+            ->willReturn(2.0)
+        ;
+
+        $measurement
+            ->expects(self::once())
+            ->method('getAverage')
+            ->willThrowException(new LogicException($str))
+        ;
+
+        self::assertEquals('2.00μs', $formatter->format($measurement));
+    }
+
+    #[Test]
+    public function canFormatWithoutAverageButWithAnyAndMinMax(): void
+    {
+        $formatter = $this->getTesteeInstance();
+
+        $measurement =
+            $this->getMeasurementMock(
+                unit: TimeUnit::MICROSECOND
+            );
+
+        $str = 'Exception.';
+
+        $measurement
+            ->expects(self::once())
+            ->method('getCount')
+            ->willReturn(3)
+        ;
+
+        $measurement
+            ->expects(self::once())
+            ->method('getAny')
+            ->willReturn(2.0)
+        ;
+        $measurement
+            ->expects(self::once())
+            ->method('getMin')
+            ->willReturn(1.0)
+        ;
+        $measurement
+            ->expects(self::once())
+            ->method('getMax')
+            ->willReturn(3.0)
+        ;
+
+        $measurement
+            ->expects(self::once())
+            ->method('getAverage')
+            ->willThrowException(new LogicException($str))
+        ;
+
+        self::assertEquals('2.00μs [3.00μs/1.00μs]', $formatter->format($measurement));
     }
 }
