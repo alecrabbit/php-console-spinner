@@ -10,6 +10,7 @@ use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Factory\BenchmarkingDriverProviderFactory;
 use AlecRabbit\Benchmark\Factory\StopwatchReportFactory;
 use AlecRabbit\Benchmark\Factory\StopwatchShortReportFactory;
+use AlecRabbit\Benchmark\MeasurementFormatter;
 use AlecRabbit\Benchmark\MicrosecondTimer;
 use AlecRabbit\Benchmark\Stopwatch;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
@@ -69,7 +70,8 @@ $echo =
     );
 
 $stopwatch = $driver->getStopwatch();
-$shortReportFactory = new StopwatchShortReportFactory($stopwatch);
+$formatter = new MeasurementFormatter();
+$shortReportFactory = new StopwatchShortReportFactory($stopwatch, $formatter);
 $finalReportFactory = new StopwatchReportFactory($stopwatch);
 
 // Create report functions:
