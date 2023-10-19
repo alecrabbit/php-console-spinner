@@ -65,7 +65,7 @@ if (!$driver instanceof IBenchmarkingDriver) {
 // Create echo function
 $echo =
     $driver->wrap(
-        static function (?string $message = null) {
+        static function (?string $message = null): void {
             echo $message . PHP_EOL;
         }
     );

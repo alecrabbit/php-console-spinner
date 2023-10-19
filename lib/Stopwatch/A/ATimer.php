@@ -54,21 +54,21 @@ abstract class ATimer implements ITimer
         };
     }
 
-    private static function assertIntersectionType(ReflectionIntersectionType $intersectionType)
+    private static function assertIntersectionType(ReflectionIntersectionType $intersectionType): void
     {
         throw new InvalidArgumentException(
             'Unexpected intersection type.',
         );
     }
 
-    private static function assertUnionType(ReflectionUnionType $unionType)
+    private static function assertUnionType(ReflectionUnionType $unionType): void
     {
         foreach ($unionType->getTypes() as $type) {
             self::assertReturnType($type);
         }
     }
 
-    private static function assertNamedType(ReflectionNamedType $namedType)
+    private static function assertNamedType(ReflectionNamedType $namedType): void
     {
         $type = $namedType->getName();
         if ($type === 'null' || $namedType->allowsNull()) {
