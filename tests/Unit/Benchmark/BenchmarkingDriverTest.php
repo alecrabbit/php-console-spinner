@@ -7,7 +7,11 @@ namespace AlecRabbit\Tests\Unit\Benchmark;
 use AlecRabbit\Benchmark\BenchmarkingDriver;
 use AlecRabbit\Benchmark\Contract\IBenchmarkingDriver;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -26,11 +30,13 @@ final class BenchmarkingDriverTest extends TestCase
     private function getTesteeInstance(
         ?IDriver $driver = null,
         ?IStopwatch $stopwatch = null,
+        ?IObserver $observer = null,
     ): IBenchmarkingDriver {
         return
             new BenchmarkingDriver(
                 driver: $driver ?? $this->getDriverMock(),
                 stopwatch: $stopwatch ?? $this->getStopwatchMock(),
+                observer: $observer,
             );
     }
 
@@ -111,5 +117,297 @@ final class BenchmarkingDriverTest extends TestCase
         );
 
         $benchmarkingDriver->render($dt);
+    }
+
+    #[Test]
+    public function canAdd(): void
+    {
+        $spinner = $this->getSpinnerMock();
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('add')
+            ->with(self::identicalTo($spinner))
+        ;
+
+        $stopwatch = $this->getStopwatchMock();
+        $stopwatch
+            ->expects(self::once())
+            ->method('start')
+        ;
+        $stopwatch
+            ->expects(self::once())
+            ->method('stop')
+        ;
+
+        $benchmarkingDriver = $this->getTesteeInstance(
+            driver: $driver,
+            stopwatch: $stopwatch,
+        );
+
+        $benchmarkingDriver->add($spinner);
+    }
+
+    private function getSpinnerMock(): MockObject&ISpinner
+    {
+        return $this->createMock(ISpinner::class);
+    }
+
+    #[Test]
+    public function canRemove(): void
+    {
+        $spinner = $this->getSpinnerMock();
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('remove')
+            ->with(self::identicalTo($spinner))
+        ;
+
+        $stopwatch = $this->getStopwatchMock();
+        $stopwatch
+            ->expects(self::once())
+            ->method('start')
+        ;
+        $stopwatch
+            ->expects(self::once())
+            ->method('stop')
+        ;
+
+        $benchmarkingDriver = $this->getTesteeInstance(
+            driver: $driver,
+            stopwatch: $stopwatch,
+        );
+
+        $benchmarkingDriver->remove($spinner);
+    }
+
+    #[Test]
+    public function canInitialize(): void
+    {
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('initialize')
+        ;
+
+        $stopwatch = $this->getStopwatchMock();
+        $stopwatch
+            ->expects(self::once())
+            ->method('start')
+        ;
+        $stopwatch
+            ->expects(self::once())
+            ->method('stop')
+        ;
+
+        $benchmarkingDriver = $this->getTesteeInstance(
+            driver: $driver,
+            stopwatch: $stopwatch,
+        );
+
+        $benchmarkingDriver->initialize();
+    }
+
+    #[Test]
+    public function canInterrupt(): void
+    {
+        $message = 'message';
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('interrupt')
+            ->with(self::identicalTo($message))
+        ;
+
+        $stopwatch = $this->getStopwatchMock();
+        $stopwatch
+            ->expects(self::once())
+            ->method('start')
+        ;
+        $stopwatch
+            ->expects(self::once())
+            ->method('stop')
+        ;
+
+        $benchmarkingDriver = $this->getTesteeInstance(
+            driver: $driver,
+            stopwatch: $stopwatch,
+        );
+
+        $benchmarkingDriver->interrupt($message);
+    }
+
+    #[Test]
+    public function canFinalize(): void
+    {
+        $message = 'message';
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('finalize')
+            ->with(self::identicalTo($message))
+        ;
+
+        $stopwatch = $this->getStopwatchMock();
+        $stopwatch
+            ->expects(self::once())
+            ->method('start')
+        ;
+        $stopwatch
+            ->expects(self::once())
+            ->method('stop')
+        ;
+
+        $benchmarkingDriver = $this->getTesteeInstance(
+            driver: $driver,
+            stopwatch: $stopwatch,
+        );
+
+        $benchmarkingDriver->finalize($message);
+    }
+
+    #[Test]
+    public function canUpdate(): void
+    {
+        $subject = $this->getSubjectMock();
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('update')
+            ->with(self::identicalTo($subject))
+        ;
+
+        $stopwatch = $this->getStopwatchMock();
+        $stopwatch
+            ->expects(self::exactly(2))
+            ->method('start')
+        ;
+        $stopwatch
+            ->expects(self::exactly(2))
+            ->method('stop')
+        ;
+
+        $observer = $this->getObserverMock();
+
+        $benchmarkingDriver = $this->getTesteeInstance(
+            driver: $driver,
+            stopwatch: $stopwatch,
+            observer: $observer,
+        );
+
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with(self::identicalTo($benchmarkingDriver))
+        ;
+
+        $benchmarkingDriver->update($subject);
+    }
+
+    private function getSubjectMock(): MockObject&ISubject
+    {
+        return $this->createMock(ISubject::class);
+    }
+
+    private function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
+    }
+
+    #[Test]
+    public function canHas(): void
+    {
+        $has = true;
+        $spinner = $this->getSpinnerMock();
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('has')
+            ->with(self::identicalTo($spinner))
+            ->willReturn($has)
+        ;
+
+        $stopwatch = $this->getStopwatchMock();
+        $stopwatch
+            ->expects(self::once())
+            ->method('start')
+        ;
+        $stopwatch
+            ->expects(self::once())
+            ->method('stop')
+        ;
+
+        $benchmarkingDriver = $this->getTesteeInstance(
+            driver: $driver,
+            stopwatch: $stopwatch,
+        );
+
+        self::assertSame($has, $benchmarkingDriver->has($spinner));
+    }
+
+    #[Test]
+    public function canWrap(): void
+    {
+        $wrapper = fn() => null;
+        $closure = fn() => null;
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('wrap')
+            ->with(self::identicalTo($closure))
+            ->willReturn($wrapper)
+        ;
+
+        $stopwatch = $this->getStopwatchMock();
+        $stopwatch
+            ->expects(self::once())
+            ->method('start')
+        ;
+        $stopwatch
+            ->expects(self::once())
+            ->method('stop')
+        ;
+
+        $benchmarkingDriver = $this->getTesteeInstance(
+            driver: $driver,
+            stopwatch: $stopwatch,
+        );
+
+        self::assertSame($wrapper, $benchmarkingDriver->wrap($closure));
+    }
+
+    #[Test]
+    public function canGetInterval(): void
+    {
+        $interval = $this->getIntervalMock();
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
+
+        $stopwatch = $this->getStopwatchMock();
+        $stopwatch
+            ->expects(self::once())
+            ->method('start')
+        ;
+        $stopwatch
+            ->expects(self::once())
+            ->method('stop')
+        ;
+
+        $benchmarkingDriver = $this->getTesteeInstance(
+            driver: $driver,
+            stopwatch: $stopwatch,
+        );
+
+        self::assertSame($interval, $benchmarkingDriver->getInterval());
+    }
+
+    private function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 }
