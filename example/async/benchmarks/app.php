@@ -110,7 +110,7 @@ $loop = Facade::getLoop();
 // Stop loop after RUNTIME seconds
 $loop
     ->delay(
-        RUNTIME - 0.5,
+        RUNTIME - 0.1,
         static function () use ($driver, $loop, $finalReport): void {
             $loop->stop();
             $driver->finalize();
@@ -140,7 +140,7 @@ $spinner = Facade::createSpinner();
 // Remove spinner before loop stops
 $loop
     ->delay(
-        RUNTIME - 2,
+        RUNTIME - 0.2,
         static function () use ($driver, $spinner): void {
             $driver->remove($spinner);
         }

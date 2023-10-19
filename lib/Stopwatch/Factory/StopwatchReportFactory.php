@@ -45,11 +45,11 @@ readonly class StopwatchReportFactory implements IReportFactory
                 );
         }
 
-        return $output . PHP_EOL;
+        return $output;
     }
 
     protected function formatKey(string $key): string
     {
-        return ucfirst(trim($key, ':'),);
+        return ucfirst(trim($key, ':'));
     }
 }

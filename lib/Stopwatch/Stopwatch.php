@@ -67,11 +67,13 @@ class Stopwatch implements IStopwatch
             );
     }
 
+    /** @inheritDoc */
     public function getUnit(): TimeUnit
     {
         return $this->timer->getUnit();
     }
 
+    /** @inheritDoc */
     public function getRequiredMeasurements(): int
     {
         return $this->requiredMeasurements;
