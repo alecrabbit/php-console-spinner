@@ -14,7 +14,6 @@ use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use Closure;
-use ReflectionClass;
 
 final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 {
@@ -44,14 +43,12 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function has(ISpinner $spinner): bool
     {
-        $this->benchmark->run(
-            __FUNCTION__,
-            function (ISpinner $spinner) use (&$result): void {
-                $result = $this->driver->has($spinner);
-            },
-            $spinner
-        );
-        return $result;
+        return
+            $this->benchmark->run(
+                __FUNCTION__,
+                $this->driver->has(...),
+                $spinner
+            );
     }
 
     public function remove(ISpinner $spinner): void
@@ -91,36 +88,32 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function wrap(Closure $callback): Closure
     {
-        $this->benchmark->run(
-            __FUNCTION__,
-            function (Closure $callback) use (&$result): void {
-                $result = $this->driver->wrap($callback);
-            },
-            $callback
-        );
-        return $result;
+        return
+            $this->benchmark->run(
+                __FUNCTION__,
+                $this->driver->wrap(...),
+                $callback
+            );
     }
 
     public function getInterval(): IInterval
     {
-        $this->benchmark->run(
-            __FUNCTION__,
-            function () use (&$result): void {
-                $result = $this->driver->getInterval();
-            },
-        );
-        return $result;
+        return
+            $this->benchmark->run(
+                __FUNCTION__,
+                $this->driver->getInterval(...),
+            );
     }
 
     public function update(ISubject $subject): void
     {
         $this->benchmark->run(
-            __FUNCTION__ . '[update]',
+            __FUNCTION__,
             $this->driver->update(...),
             $subject
         );
         $this->benchmark->run(
-            __FUNCTION__ . '[notify]',
+            __FUNCTION__,
             $this->notify(...),
         );
     }
