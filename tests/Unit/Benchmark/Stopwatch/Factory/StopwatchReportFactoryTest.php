@@ -77,7 +77,7 @@ final class StopwatchReportFactoryTest extends TestCase
 
         self::assertSame(
             '
-testTitle (Required data points: 0):
+testTitle:
 A1: 1 (Data points: 0)
 A2: 2 (Data points: 0)
 ',

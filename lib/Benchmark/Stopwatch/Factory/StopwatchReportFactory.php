@@ -26,10 +26,8 @@ readonly class StopwatchReportFactory implements IReportFactory
     {
         $output = PHP_EOL
             . sprintf(
-                '%s (%s: %s):',
+                '%s:',
                 $this->title,
-                'Required data points',
-                $this->stopwatch->getRequiredMeasurements(),
             )
             . PHP_EOL;
 

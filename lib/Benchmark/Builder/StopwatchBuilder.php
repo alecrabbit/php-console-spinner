@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Builder;
 
 use AlecRabbit\Benchmark\Contract\Builder\IStopwatchBuilder;
+use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Contract\ITimer;
 use AlecRabbit\Benchmark\Stopwatch\Stopwatch;
-use ReflectionFunction;
-use Throwable;
 
 final class StopwatchBuilder implements IStopwatchBuilder
 {
     private ?ITimer $timer = null;
-    private ?\Closure $measurementSpawner = null;
+    private ?IMeasurementFactory $measurementFactory = null;
 
     public function build(): IStopwatch
     {
@@ -23,7 +22,7 @@ final class StopwatchBuilder implements IStopwatchBuilder
         return
             new Stopwatch(
                 timer: $this->timer,
-                requiredMeasurements: 0,
+                measurementFactory: $this->measurementFactory,
             );
     }
 
@@ -31,42 +30,9 @@ final class StopwatchBuilder implements IStopwatchBuilder
     {
         match (true) {
             null === $this->timer => throw new \LogicException('Timer is not set.'),
-            null === $this->measurementSpawner => throw new \LogicException('Measurement spawner is not set.'),
+            null === $this->measurementFactory => throw new \LogicException('Measurement factory is not set.'),
             default => null,
         };
-
-        self::assertSpawner($this->measurementSpawner);
-    }
-
-    private static function assertSpawner(?\Closure $spawner): void
-    {
-        try {
-            $spawner();
-        } catch (Throwable $e) {
-            $message =
-                sprintf(
-                    '%s: %s.',
-                    'Measurement spawner invocation throws',
-                    $e->getMessage()
-                );
-            throw new \InvalidArgumentException(message: $message, previous: $e);
-        }
-
-        $reflection = new ReflectionFunction($spawner);
-
-        $returnType = $reflection->getReturnType();
-        if ($returnType === null) {
-            throw new \InvalidArgumentException(
-                'Return type of time function is not specified.'
-            );
-        }
-
-        self::assertReturnType($returnType);
-    }
-
-    private static function assertReturnType(
-        \ReflectionIntersectionType|\ReflectionNamedType|\ReflectionUnionType $returnType
-    ): void {
     }
 
     public function withTimer(ITimer $timer): IStopwatchBuilder
@@ -76,10 +42,10 @@ final class StopwatchBuilder implements IStopwatchBuilder
         return $clone;
     }
 
-    public function withMeasurementSpawner(\Closure $spawner): IStopwatchBuilder
+    public function withMeasurementFactory(IMeasurementFactory $measurementFactory): IStopwatchBuilder
     {
         $clone = clone $this;
-        $clone->measurementSpawner = $spawner;
+        $clone->measurementFactory = $measurementFactory;
         return $clone;
     }
 }

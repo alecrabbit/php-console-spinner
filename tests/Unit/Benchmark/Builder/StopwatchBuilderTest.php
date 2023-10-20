@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Benchmark\Builder;
 
 use AlecRabbit\Benchmark\Builder\StopwatchBuilder;
 use AlecRabbit\Benchmark\Contract\Builder\IStopwatchBuilder;
-use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
 use AlecRabbit\Benchmark\Contract\ITimer;
 use AlecRabbit\Benchmark\Stopwatch\Stopwatch;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -36,9 +36,7 @@ final class StopwatchBuilderTest extends TestCase
         $stopwatch =
             $builder
                 ->withTimer($this->getTimerMock())
-                ->withMeasurementSpawner(
-                    $this->getSpawner()
-                )
+                ->withMeasurementFactory($this->getMeasurementFactoryMock())
                 ->build()
         ;
 
@@ -50,11 +48,9 @@ final class StopwatchBuilderTest extends TestCase
         return $this->createMock(ITimer::class);
     }
 
-    protected function getSpawner(): \Closure
+    private function getMeasurementFactoryMock(): MockObject&IMeasurementFactory
     {
-        return function (): IMeasurement {
-            return $this->createMock(IMeasurement::class);
-        };
+        return $this->createMock(IMeasurementFactory::class);
     }
 
     #[Test]
@@ -69,57 +65,16 @@ final class StopwatchBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfSpawnerIsNotSet(): void
+    public function throwsIfMeasurementFactoryIsNotSet(): void
     {
         $builder = $this->getTesteeInstance();
 
         $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage('Measurement spawner is not set.');
+        $this->expectExceptionMessage('Measurement factory is not set.');
 
         $builder
             ->withTimer($this->getTimerMock())
             ->build()
         ;
-    }
-
-    #[Test]
-    public function throwsIfSpawnerIsThrowing(): void
-    {
-        $builder = $this->getTesteeInstance();
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Measurement spawner invocation throws: Test.');
-
-        $builder
-            ->withTimer($this->getTimerMock())
-            ->withMeasurementSpawner(
-                function (): string {
-                    throw new \RuntimeException('Test');
-                }
-            )
-            ->build()
-        ;
-
-        self::fail('Exception was not thrown.');
-    }
-    #[Test]
-    public function throwsIfSpawnerHasNoReturnType(): void
-    {
-        $builder = $this->getTesteeInstance();
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Return type of time function is not specified.');
-
-        $builder
-            ->withTimer($this->getTimerMock())
-            ->withMeasurementSpawner(
-                function () {
-                    return null;
-                }
-            )
-            ->build()
-        ;
-
-        self::fail('Exception was not thrown.');
     }
 }

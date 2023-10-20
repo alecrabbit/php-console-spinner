@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark\Stopwatch;
 
+use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Contract\ITimer;
 use AlecRabbit\Benchmark\Contract\TimeUnit;
@@ -25,12 +26,12 @@ final class StopwatchTest extends TestCase
 
     private function getTesteeInstance(
         ?ITimer $timer = null,
-        ?int $threshold = null,
+        ?IMeasurementFactory $factory = null,
     ): IStopwatch {
         return
             new Stopwatch(
                 timer: $timer ?? $this->getTimerMock(),
-                requiredMeasurements: $threshold ?? 0,
+                measurementFactory: $factory ?? $this->getMeasurementFactoryMock(),
             );
     }
 
@@ -44,14 +45,9 @@ final class StopwatchTest extends TestCase
         );
     }
 
-    #[Test]
-    public function canGetRequiredMeasurements(): void
+    private function getMeasurementFactoryMock(): MockObject&IMeasurementFactory
     {
-        $threshold = 2;
-
-        $stopwatch = $this->getTesteeInstance(threshold: $threshold);
-
-        self::assertSame($threshold, $stopwatch->getRequiredMeasurements());
+        return $this->createMock(IMeasurementFactory::class);
     }
 
     #[Test]

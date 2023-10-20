@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Benchmark\Stopwatch;
 
+use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
 use AlecRabbit\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Contract\ITimer;
@@ -19,7 +20,7 @@ class Stopwatch implements IStopwatch
 
     public function __construct(
         protected readonly ITimer $timer,
-        protected readonly int $requiredMeasurements = self::COUNT,
+        protected readonly IMeasurementFactory $measurementFactory,
     ) {
     }
 
@@ -52,22 +53,13 @@ class Stopwatch implements IStopwatch
     protected function createMeasurement(): IMeasurement
     {
         return
-            new Measurement(
-                unit: $this->timer->getUnit(),
-                threshold: $this->getRequiredMeasurements(),
-            );
+            $this->measurementFactory->create();
     }
 
     /** @inheritDoc */
     public function getUnit(): TimeUnit
     {
         return $this->timer->getUnit();
-    }
-
-    /** @inheritDoc */
-    public function getRequiredMeasurements(): int
-    {
-        return $this->requiredMeasurements;
     }
 
     public function getMeasurements(): iterable

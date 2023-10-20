@@ -2,10 +2,15 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Benchmark\Builder\StopwatchBuilder;
+use AlecRabbit\Benchmark\Contract\Builder\IStopwatchBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkFactory;
+use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
 use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
-use AlecRabbit\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Benchmark\Contract\ITimer;
 use AlecRabbit\Benchmark\Factory\BenchmarkFactory;
+use AlecRabbit\Benchmark\Factory\MeasurementFactory;
+use AlecRabbit\Benchmark\Factory\StopwatchFactory;
 use AlecRabbit\Benchmark\Spinner\Builder\BenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
@@ -15,7 +20,6 @@ use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchShortReportFactory;
 use AlecRabbit\Benchmark\Stopwatch\MeasurementFormatter;
 use AlecRabbit\Benchmark\Stopwatch\MeasurementShortFormatter;
 use AlecRabbit\Benchmark\Stopwatch\MicrosecondTimer;
-use AlecRabbit\Benchmark\Stopwatch\Stopwatch;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
@@ -33,25 +37,17 @@ require_once __DIR__ . '/../../bootstrap.php';
 {
     $registry = DefinitionRegistry::getInstance();
 
+    $registry->bind(ITimer::class, new MicrosecondTimer());
     $registry->bind(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class);
     $registry->bind(IBenchmarkingDriverBuilder::class, BenchmarkingDriverBuilder::class);
     $registry->bind(IBenchmarkFactory::class, BenchmarkFactory::class);
-    $registry->bind(
-        IStopwatchFactory::class,
-        new class implements IStopwatchFactory {
-            public function create(): IStopwatch
-            {
-                return
-                    new Stopwatch(
-                        new MicrosecondTimer(),
-                    );
-            }
-        }
-    );
+    $registry->bind(IMeasurementFactory::class, MeasurementFactory::class);
+    $registry->bind(IStopwatchBuilder::class, StopwatchBuilder::class);
+    $registry->bind(IStopwatchFactory::class, StopwatchFactory::class);
 
     $container = (new ContainerFactory($registry))->getContainer();
 
-    Facade::setContainer($container);
+    Facade::useContainer($container);
 }
 
 $driver = Facade::getDriver();
