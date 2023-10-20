@@ -27,18 +27,19 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
+        $this->benchmark->setPrefix($this::class);
         $this->shortName = (new ReflectionClass($this))->getShortName();
         $this->driver->attach($this);
     }
 
     public function getStopwatch(): IStopwatch
     {
-        return $this->stopwatch;
+        return $this->benchmark->getStopwatch();
     }
 
     public function add(ISpinner $spinner): void
     {
-        $this->benchmark(
+        $this->benchmark->run(
             __FUNCTION__,
             $this->driver->add(...),
             $spinner
@@ -61,7 +62,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function has(ISpinner $spinner): bool
     {
-        $this->benchmark(
+        $this->benchmark->run(
             __FUNCTION__,
             function (ISpinner $spinner) use (&$result): void {
                 $result = $this->driver->has($spinner);
@@ -73,7 +74,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function remove(ISpinner $spinner): void
     {
-        $this->benchmark(
+        $this->benchmark->run(
             __FUNCTION__,
             $this->driver->remove(...),
             $spinner
@@ -82,7 +83,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function initialize(): void
     {
-        $this->benchmark(
+        $this->benchmark->run(
             __FUNCTION__,
             $this->driver->initialize(...),
         );
@@ -90,7 +91,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function interrupt(?string $interruptMessage = null): void
     {
-        $this->benchmark(
+        $this->benchmark->run(
             __FUNCTION__,
             $this->driver->interrupt(...),
             $interruptMessage
@@ -99,7 +100,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function finalize(?string $finalMessage = null): void
     {
-        $this->benchmark(
+        $this->benchmark->run(
             __FUNCTION__,
             $this->driver->finalize(...),
             $finalMessage
@@ -108,7 +109,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function wrap(Closure $callback): Closure
     {
-        $this->benchmark(
+        $this->benchmark->run(
             __FUNCTION__,
             function (Closure $callback) use (&$result): void {
                 $result = $this->driver->wrap($callback);
@@ -120,7 +121,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function getInterval(): IInterval
     {
-        $this->benchmark(
+        $this->benchmark->run(
             __FUNCTION__,
             function () use (&$result): void {
                 $result = $this->driver->getInterval();
@@ -131,12 +132,12 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function update(ISubject $subject): void
     {
-        $this->benchmark(
+        $this->benchmark->run(
             __FUNCTION__ . '[update]',
             $this->driver->update(...),
             $subject
         );
-        $this->benchmark(
+        $this->benchmark->run(
             __FUNCTION__ . '[notify]',
             $this->notify(...),
         );
@@ -144,10 +145,15 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function render(?float $dt = null): void
     {
-        $this->benchmark(
+        $this->benchmark->run(
             __FUNCTION__,
             $this->driver->render(...),
             $dt
         );
+    }
+
+    public function getBenchmark(): IBenchmark
+    {
+        return $this->benchmark;
     }
 }

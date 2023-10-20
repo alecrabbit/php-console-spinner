@@ -89,13 +89,32 @@ final class BenchmarkingDriverTest extends TestCase
     public function canGetStopwatch(): void
     {
         $stopwatch = $this->getStopwatchMock();
+        $benchmark = $this->getBenchmarkMock();
+        $benchmark
+            ->expects(self::once())
+            ->method('getStopwatch')
+            ->willReturn($stopwatch)
+        ;
 
         $driver =
             $this->getTesteeInstance(
-                stopwatch: $stopwatch
+                benchmark: $benchmark
             );
 
         self::assertSame($stopwatch, $driver->getStopwatch(),);
+    }
+
+    #[Test]
+    public function canGetBenchmark(): void
+    {
+        $benchmark = $this->getBenchmarkMock();
+
+        $driver =
+            $this->getTesteeInstance(
+                benchmark: $benchmark
+            );
+
+        self::assertSame($benchmark, $driver->getBenchmark(),);
     }
 
     #[Test]
@@ -103,25 +122,21 @@ final class BenchmarkingDriverTest extends TestCase
     {
         $dt = 100.0;
         $driver = $this->getDriverMock();
-        $driver
-            ->expects(self::once())
-            ->method('render')
-            ->with(self::identicalTo($dt))
-        ;
 
-        $stopwatch = $this->getStopwatchMock();
-        $stopwatch
+        $benchmark = $this->getBenchmarkMock();
+        $benchmark
             ->expects(self::once())
-            ->method('start')
-        ;
-        $stopwatch
-            ->expects(self::once())
-            ->method('stop')
+            ->method('run')
+            ->with(
+                'render',
+                $driver->render(...),
+                $dt
+            )
         ;
 
         $benchmarkingDriver = $this->getTesteeInstance(
             driver: $driver,
-            stopwatch: $stopwatch,
+            benchmark: $benchmark,
         );
 
         $benchmarkingDriver->render($dt);
@@ -132,25 +147,21 @@ final class BenchmarkingDriverTest extends TestCase
     {
         $spinner = $this->getSpinnerMock();
         $driver = $this->getDriverMock();
-        $driver
-            ->expects(self::once())
-            ->method('add')
-            ->with(self::identicalTo($spinner))
-        ;
 
-        $stopwatch = $this->getStopwatchMock();
-        $stopwatch
+        $benchmark = $this->getBenchmarkMock();
+        $benchmark
             ->expects(self::once())
-            ->method('start')
-        ;
-        $stopwatch
-            ->expects(self::once())
-            ->method('stop')
+            ->method('run')
+            ->with(
+                'add',
+                $driver->add(...),
+                $spinner
+            )
         ;
 
         $benchmarkingDriver = $this->getTesteeInstance(
             driver: $driver,
-            stopwatch: $stopwatch,
+            benchmark: $benchmark,
         );
 
         $benchmarkingDriver->add($spinner);
