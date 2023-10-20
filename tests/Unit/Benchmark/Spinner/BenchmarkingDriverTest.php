@@ -37,7 +37,6 @@ final class BenchmarkingDriverTest extends TestCase
         return
             new BenchmarkingDriver(
                 driver: $driver ?? $this->getDriverMock(),
-                stopwatch: $stopwatch ?? $this->getStopwatchMock(),
                 benchmark: $benchmark ?? $this->getBenchmarkMock(),
                 observer: $observer,
             );
@@ -48,47 +47,33 @@ final class BenchmarkingDriverTest extends TestCase
         return $this->createMock(IDriver::class);
     }
 
-    private function getStopwatchMock(): MockObject&IStopwatch
-    {
-        return $this->createMock(IStopwatch::class);
-    }
-
     private function getBenchmarkMock(): MockObject&IBenchmark
     {
         return $this->createMock(IBenchmark::class);
     }
 
     #[Test]
-    public function createdWithDefinedShortName(): void
+    public function prefixForBenchmarkIsSet(): void
     {
-        $driver = $this->getTesteeInstance();
+        $benchmark = $this->getBenchmarkMock();
+        $benchmark
+            ->expects(self::once())
+            ->method('setPrefix')
+            ->with(self::identicalTo(BenchmarkingDriver::class))
+        ;
 
-        $value = 'BenchmarkingDriver';
-
-        self::assertSame(
-            self::getPropertyValue('shortName', $driver),
-            $value,
+        $driver = $this->getTesteeInstance(
+            benchmark: $benchmark
         );
-    }
-
-    #[Test]
-    public function canCreateLabel(): void
-    {
-        $driver = $this->getTesteeInstance();
-
-        $shortName = 'BenchmarkingDriver';
-        $function = 'function';
-
-        self::assertSame(
-            self::callMethod($driver, 'createLabel', $function),
-            $shortName . '::' . $function . '()',
-        );
+        
+        self::assertInstanceOf(BenchmarkingDriver::class, $driver);
     }
 
     #[Test]
     public function canGetStopwatch(): void
     {
         $stopwatch = $this->getStopwatchMock();
+
         $benchmark = $this->getBenchmarkMock();
         $benchmark
             ->expects(self::once())
@@ -102,6 +87,11 @@ final class BenchmarkingDriverTest extends TestCase
             );
 
         self::assertSame($stopwatch, $driver->getStopwatch(),);
+    }
+
+    private function getStopwatchMock(): MockObject&IStopwatch
+    {
+        return $this->createMock(IStopwatch::class);
     }
 
     #[Test]

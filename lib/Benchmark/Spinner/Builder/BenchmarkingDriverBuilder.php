@@ -26,7 +26,6 @@ final class BenchmarkingDriverBuilder implements IBenchmarkingDriverBuilder
         return
             new BenchmarkingDriver(
                 driver: $this->driver,
-                stopwatch: $this->stopwatch,
                 benchmark: $this->benchmark,
             );
     }

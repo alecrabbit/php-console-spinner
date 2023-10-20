@@ -29,6 +29,7 @@ final class Benchmark implements IBenchmark
         $this->stopwatch->start($key);
         $result = $callback(...$args);
         $this->stopwatch->stop($key);
+
         return $result;
     }
 

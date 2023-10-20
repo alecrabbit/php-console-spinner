@@ -18,17 +18,13 @@ use ReflectionClass;
 
 final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 {
-    private string $shortName;
-
     public function __construct(
         protected readonly IDriver $driver,
-        protected readonly IStopwatch $stopwatch,
         protected readonly IBenchmark $benchmark,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
         $this->benchmark->setPrefix($this::class);
-        $this->shortName = (new ReflectionClass($this))->getShortName();
         $this->driver->attach($this);
     }
 
@@ -44,20 +40,6 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
             $this->driver->add(...),
             $spinner
         );
-    }
-
-    protected function benchmark(string $func, Closure $callback, mixed ...$args): void
-    {
-        $label = $this->createLabel($func);
-
-        $this->stopwatch->start($label);
-        $callback(...$args);
-        $this->stopwatch->stop($label);
-    }
-
-    private function createLabel(string $func): string
-    {
-        return $this->shortName . '::' . $func . '()';
     }
 
     public function has(ISpinner $spinner): bool
