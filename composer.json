@@ -46,8 +46,7 @@
     "autoload": {
         "psr-4": {
             "AlecRabbit\\Benchmark\\": "lib\\Benchmark\\",
-            "AlecRabbit\\Spinner\\": "src\\Spinner\\",
-            "AlecRabbit\\Stopwatch\\": "lib\\Stopwatch\\"
+            "AlecRabbit\\Spinner\\": "src\\Spinner\\"
         },
         "files": [
             "src/Spinner/bootstrap.php",
