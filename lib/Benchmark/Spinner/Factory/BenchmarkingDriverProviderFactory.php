@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Spinner\Factory;
 
 use AlecRabbit\Benchmark\Benchmark;
+use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkFactory;
 use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
 use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -20,6 +21,7 @@ final class BenchmarkingDriverProviderFactory implements IDriverProviderFactory
         protected IDriverFactory $driverFactory,
         protected IDriverLinker $linker,
         protected IBenchmarkingDriverBuilder $benchmarkingDriverBuilder,
+        protected IBenchmarkFactory $benchmarkFactory,
         protected IStopwatchFactory $stopwatchFactory,
     ) {
     }
@@ -38,7 +40,7 @@ final class BenchmarkingDriverProviderFactory implements IDriverProviderFactory
             $this->benchmarkingDriverBuilder
                 ->withDriver($this->driverFactory->create())
                 ->withStopwatch($this->stopwatchFactory->create())
-                ->withBenchmark(new Benchmark())
+                ->withBenchmark($this->benchmarkFactory->create())
                 ->build()
         ;
 

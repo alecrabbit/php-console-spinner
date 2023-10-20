@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkFactory;
 use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Benchmark\Factory\BenchmarkFactory;
 use AlecRabbit\Benchmark\Spinner\Builder\BenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
@@ -33,6 +35,7 @@ require_once __DIR__ . '/../../bootstrap.php';
 
     $registry->bind(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class);
     $registry->bind(IBenchmarkingDriverBuilder::class, BenchmarkingDriverBuilder::class);
+    $registry->bind(IBenchmarkFactory::class, BenchmarkFactory::class);
     $registry->bind(
         IStopwatchFactory::class,
         new class implements IStopwatchFactory {
