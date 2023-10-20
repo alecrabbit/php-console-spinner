@@ -10,14 +10,22 @@ use Throwable;
 
 final class MeasurementShortFormatter implements IMeasurementFormatter
 {
+    private const FORMAT = '%01.2f%s';
+
+    public function __construct(
+        protected string $format = self::FORMAT,
+        protected string $units = 'μs',
+    ) {
+    }
+
     public function format(IMeasurement $measurement): string
     {
         try {
             return
                 sprintf(
-                    '%01.2f%s',
+                    $this->format,
                     $measurement->getAverage(),
-                    'μs',
+                    $this->units,
                 );
         } catch (Throwable $_) {
             return

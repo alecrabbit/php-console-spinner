@@ -17,7 +17,7 @@ final class MeasurementFormatter implements IMeasurementFormatter
         string $format = null,
         protected string $shortFormat = self::FORMAT,
         string $formatPrototype = '%s [%s/%s]',
-        protected $units = 'μs',
+        protected string $units = 'μs',
     ) {
         $this->format =
             $format

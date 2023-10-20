@@ -76,16 +76,6 @@ class Measurement implements IMeasurement
         return $this->max ?? throw new LogicException('Max is not set.');
     }
 
-    public function getLabel(): string
-    {
-        return $this->label;
-    }
-
-    public function getUnit(): TimeUnit
-    {
-        return $this->unit;
-    }
-
     public function getThreshold(): int
     {
         return $this->threshold;
