@@ -73,7 +73,9 @@ $echo =
         }
     );
 
-$stopwatch = $driver->getStopwatch();
+$benchmark = $driver->getBenchmark();
+$stopwatch = $benchmark->getStopwatch();
+
 $shortReportFactory =
     new StopwatchShortReportFactory($stopwatch, new MeasurementShortFormatter());
 $finalReportFactory =

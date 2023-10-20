@@ -61,21 +61,6 @@ final class BenchmarkingDriverTest extends TestCase
     }
 
     #[Test]
-    public function canGetStopwatch(): void
-    {
-        $stopwatch = $this->getStopwatchMock();
-
-        $benchmark = $this->getBenchmark($stopwatch);
-
-        $driver =
-            $this->getTesteeInstance(
-                benchmark: $benchmark
-            );
-
-        self::assertSame($stopwatch, $driver->getStopwatch(),);
-    }
-
-    #[Test]
     public function canGetBenchmark(): void
     {
         $benchmark = $this->getBenchmark();

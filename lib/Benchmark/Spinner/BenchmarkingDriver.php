@@ -27,11 +27,6 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
         $this->driver->attach($this);
     }
 
-    public function getStopwatch(): IStopwatch
-    {
-        return $this->benchmark->getStopwatch();
-    }
-
     public function add(ISpinner $spinner): void
     {
         $this->benchmark->run(

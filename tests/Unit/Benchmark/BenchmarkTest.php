@@ -116,6 +116,20 @@ final class BenchmarkTest extends TestCase
             $benchmark->run($label, $callback, ...$args)
         );
     }
+
+    #[Test]
+    public function canGetStopwatch(): void
+    {
+        $stopwatch = $this->getStopwatchMock();
+
+        $benchmark =
+            $this->getTesteeInstance(
+                stopwatch: $stopwatch,
+            );
+
+        self::assertEquals($stopwatch, $benchmark->getStopwatch());
+    }
+
     #[Test]
     public function canRunWithoutPrefix(): void
     {

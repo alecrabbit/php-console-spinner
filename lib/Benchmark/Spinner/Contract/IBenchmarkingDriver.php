@@ -10,7 +10,5 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 
 interface IBenchmarkingDriver extends IDriver
 {
-    public function getStopwatch(): IStopwatch;
-
     public function getBenchmark(): IBenchmark;
 }
