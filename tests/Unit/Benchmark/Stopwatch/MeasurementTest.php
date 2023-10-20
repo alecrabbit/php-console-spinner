@@ -25,15 +25,11 @@ final class MeasurementTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?TimeUnit $unit = null,
         ?int $threshold = null,
-        ?string $label = null,
     ): IMeasurement {
         return
             new Measurement(
-                unit: $unit ?? TimeUnit::MICROSECOND,
                 threshold: $threshold ?? self::THRESHOLD,
-                label: $label ?? self::LABEL,
             );
     }
 
@@ -43,29 +39,8 @@ final class MeasurementTest extends TestCase
         $measurement = $this->getTesteeInstance();
 
         self::assertEquals(0, $measurement->getCount());
-        self::assertEquals(self::LABEL, $measurement->getLabel());
+        self::assertEquals(2, $measurement->getThreshold());
     }
-
-    #[Test]
-    public function canGetUnit(): void
-    {
-        $unit = TimeUnit::MILLISECOND;
-
-        $measurement = $this->getTesteeInstance(unit: $unit);
-
-        self::assertSame($unit, $measurement->getUnit());
-    }
-
-    #[Test]
-    public function canBeInstantiatedWithCustomLabel(): void
-    {
-        $label = 'custom';
-
-        $measurement = $this->getTesteeInstance(label: $label);
-
-        self::assertSame($label, $measurement->getLabel());
-    }
-
 
     #[Test]
     public function canAdd(): void
@@ -130,17 +105,11 @@ final class MeasurementTest extends TestCase
     public function checkDefaultValues(): void
     {
         $expectedDefaultThreshold = 2;
-        $expectedDefaultLabel = '--undefined--';
 
-        $unit = TimeUnit::HOUR;
+        $measurement = new Measurement();
 
-        $measurement = new Measurement($unit);
+        self::assertEquals($expectedDefaultThreshold, $measurement->getThreshold());
 
-        self::assertSame($measurement->getUnit(), $unit);
-
-        self::assertSame($measurement->getThreshold(), $expectedDefaultThreshold);
-
-        self::assertSame($measurement->getLabel(), $expectedDefaultLabel);
     }
 
     #[Test]

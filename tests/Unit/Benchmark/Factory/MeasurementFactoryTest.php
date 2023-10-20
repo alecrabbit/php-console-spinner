@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark\Factory;
 
-use AlecRabbit\Benchmark\Benchmark;
 use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
-use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
 use AlecRabbit\Benchmark\Contract\ITimer;
 use AlecRabbit\Benchmark\Contract\TimeUnit;
 use AlecRabbit\Benchmark\Factory\MeasurementFactory;
@@ -25,13 +23,10 @@ final class MeasurementFactoryTest extends TestCase
         self::assertInstanceOf(MeasurementFactory::class, $measurement);
     }
 
-    private function getTesteeInstance(
-        ?ITimer $timer = null,
-    ): IMeasurementFactory {
+    private function getTesteeInstance(): IMeasurementFactory
+    {
         return
-            new MeasurementFactory(
-                timer: $timer ?? $this->getTimerMock(),
-            );
+            new MeasurementFactory();
     }
 
 

@@ -17,7 +17,7 @@ final class MeasurementShortFormatter implements IMeasurementFormatter
                 sprintf(
                     '%01.2f%s',
                     $measurement->getAverage(),
-                    $measurement->getUnit()->value,
+                    'μs',
                 );
         } catch (Throwable $_) {
             return

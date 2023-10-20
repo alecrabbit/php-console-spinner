@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Unit\Benchmark\Stopwatch;
 
 use AlecRabbit\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
-use AlecRabbit\Benchmark\Contract\TimeUnit;
 use AlecRabbit\Benchmark\Stopwatch\MeasurementFormatter;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -35,9 +34,7 @@ final class MeasurementFormatterTest extends TestCase
         $formatter = $this->getTesteeInstance();
 
         $measurement =
-            $this->getMeasurementMock(
-                unit: TimeUnit::MICROSECOND
-            );
+            $this->getMeasurementMock();
 
         $measurement
             ->expects(self::once())
@@ -58,14 +55,9 @@ final class MeasurementFormatterTest extends TestCase
         self::assertEquals('1.00μs [1.00μs/1.00μs]', $formatter->format($measurement));
     }
 
-    private function getMeasurementMock(?TimeUnit $unit = null): MockObject&IMeasurement
+    private function getMeasurementMock(): MockObject&IMeasurement
     {
-        return $this->createConfiguredMock(
-            IMeasurement::class,
-            [
-                'getUnit' => $unit ?? TimeUnit::HOUR,
-            ]
-        );
+        return $this->createMock(IMeasurement::class);
     }
 
     #[Test]
@@ -74,9 +66,7 @@ final class MeasurementFormatterTest extends TestCase
         $formatter = $this->getTesteeInstance();
 
         $measurement =
-            $this->getMeasurementMock(
-                unit: TimeUnit::MICROSECOND
-            );
+            $this->getMeasurementMock();
 
         $str = 'Exception.';
 
@@ -107,9 +97,7 @@ final class MeasurementFormatterTest extends TestCase
         $formatter = $this->getTesteeInstance();
 
         $measurement =
-            $this->getMeasurementMock(
-                unit: TimeUnit::MICROSECOND
-            );
+            $this->getMeasurementMock();
 
         $str = 'Exception.';
 
@@ -140,9 +128,7 @@ final class MeasurementFormatterTest extends TestCase
         $formatter = $this->getTesteeInstance();
 
         $measurement =
-            $this->getMeasurementMock(
-                unit: TimeUnit::MICROSECOND
-            );
+            $this->getMeasurementMock();
 
         $str = 'Exception.';
 

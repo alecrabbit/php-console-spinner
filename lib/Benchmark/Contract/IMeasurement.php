@@ -14,13 +14,9 @@ interface IMeasurement
 
     public function getCount(): int;
 
-    public function getLabel(): string;
-
     public function getMax(): int|float;
 
     public function getMin(): int|float;
-
-    public function getUnit(): TimeUnit;
 
     public function getThreshold(): int;
 }

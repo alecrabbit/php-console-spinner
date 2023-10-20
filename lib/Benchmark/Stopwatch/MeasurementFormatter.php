@@ -17,6 +17,7 @@ final class MeasurementFormatter implements IMeasurementFormatter
         string $format = null,
         protected string $shortFormat = self::FORMAT,
         string $formatPrototype = '%s [%s/%s]',
+        protected $units = 'μs',
     ) {
         $this->format =
             $format
@@ -32,17 +33,16 @@ final class MeasurementFormatter implements IMeasurementFormatter
 
     public function format(IMeasurement $measurement): string
     {
-        $units = $measurement->getUnit()->value;
         try {
             return
                 sprintf(
                     $this->format,
                     $measurement->getAverage(),
-                    $units,
+                    $this->units,
                     $measurement->getMax(),
-                    $units,
+                    $this->units,
                     $measurement->getMin(),
-                    $units,
+                    $this->units,
                 );
         } catch (Throwable $_) {
             return $this->extractAny($measurement);
@@ -51,26 +51,24 @@ final class MeasurementFormatter implements IMeasurementFormatter
 
     protected function extractAny(IMeasurement $measurement): string
     {
-        $units = $measurement->getUnit()->value;
-
         try {
             if ($measurement->getCount() >= 2) {
                 return
                     sprintf(
                         $this->format,
                         $measurement->getAny(),
-                        $units,
+                        $this->units,
                         $measurement->getMax(),
-                        $units,
+                        $this->units,
                         $measurement->getMin(),
-                        $units,
+                        $this->units,
                     );
             }
             return
                 sprintf(
                     $this->shortFormat,
                     $measurement->getAny(),
-                    $units,
+                    $this->units,
                 );
         } catch (Throwable $e) {
             return

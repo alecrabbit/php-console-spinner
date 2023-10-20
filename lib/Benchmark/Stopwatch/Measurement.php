@@ -11,7 +11,6 @@ use LogicException;
 class Measurement implements IMeasurement
 {
     protected const DEFAULT_THRESHOLD = 2;
-    protected const DEFAULT_LABEL = '--undefined--';
     protected array $data = [];
     protected int|float $average;
     protected int|float $min;
@@ -19,9 +18,7 @@ class Measurement implements IMeasurement
     protected int $count = 0;
 
     public function __construct(
-        protected readonly TimeUnit $unit,
         protected readonly int $threshold = self::DEFAULT_THRESHOLD,
-        protected readonly string $label = self::DEFAULT_LABEL,
     ) {
     }
 
