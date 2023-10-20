@@ -6,9 +6,9 @@ namespace AlecRabbit\Benchmark\Contract;
 
 interface IStopwatch
 {
-    public function start(string $label, string ...$labels): void;
+    public function start(string $key): void;
 
-    public function stop(string $label, string ...$labels): void;
+    public function stop(string $key): void;
 
     /**
      * @return iterable<IMeasurement>

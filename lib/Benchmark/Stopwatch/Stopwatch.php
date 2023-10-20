@@ -12,7 +12,6 @@ use RuntimeException;
 
 class Stopwatch implements IStopwatch
 {
-    protected const KEY_GLUE = ':';
     protected const COUNT = 100;
 
     protected array $current = [];
@@ -24,25 +23,17 @@ class Stopwatch implements IStopwatch
     ) {
     }
 
-    public function start(string $label, string ...$labels): void
+    public function start(string $key): void
     {
-        $key = $this->getKey($label, $labels);
         if (isset($this->current[$key])) {
             throw new RuntimeException('Already started.');
         }
         $this->current[$key] = $this->timer->now();
     }
 
-    protected function getKey(string $label, array $labels): string
-    {
-        return $label . self::KEY_GLUE . implode(self::KEY_GLUE, $labels);
-    }
-
-    public function stop(string $label, string ...$labels): void
+    public function stop(string $key): void
     {
         $now = $this->timer->now();
-
-        $key = $this->getKey($label, $labels);
 
         if (isset($this->current[$key])) {
             $this->addMeasurement($key, $now - $this->current[$key]);
@@ -62,8 +53,8 @@ class Stopwatch implements IStopwatch
     {
         return
             new Measurement(
-                $this->timer->getUnit(),
-                $this->getRequiredMeasurements(),
+                unit: $this->timer->getUnit(),
+                threshold: $this->getRequiredMeasurements(),
             );
     }
 

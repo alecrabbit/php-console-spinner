@@ -76,10 +76,7 @@ final class StopwatchTest extends TestCase
     #[Test]
     public function canStart(): void
     {
-        $label = 'testLabel';
-        $labels = ['testLabel1', 'testLabel2'];
-
-        $key = 'testLabel:testLabel1:testLabel2';
+        $key = 'testLabel';
 
         $timer = $this->getTimerMock();
         $value = 1.0;
@@ -93,7 +90,7 @@ final class StopwatchTest extends TestCase
             timer: $timer,
         );
 
-        $stopwatch->start($label, ...$labels);
+        $stopwatch->start($key);
 
         $current = self::getPropertyValue('current', $stopwatch);
 
@@ -104,10 +101,7 @@ final class StopwatchTest extends TestCase
     #[Test]
     public function canStop(): void
     {
-        $label = 'testLabel';
-        $labels = ['testLabel1', 'testLabel2'];
-
-        $key = 'testLabel:testLabel1:testLabel2';
+        $key = 'testLabel';
 
         $timer = $this->getTimerMock();
 
@@ -124,14 +118,14 @@ final class StopwatchTest extends TestCase
             timer: $timer,
         );
 
-        $stopwatch->start($label, ...$labels);
+        $stopwatch->start($key);
 
         $current = self::getPropertyValue('current', $stopwatch);
 
         self::assertArrayHasKey($key, $current);
         self::assertSame($valueStart, $current[$key]);
 
-        $stopwatch->stop($label, ...$labels);
+        $stopwatch->stop($key);
 
         $current = self::getPropertyValue('current', $stopwatch);
         self::assertArrayNotHasKey($key, $current);

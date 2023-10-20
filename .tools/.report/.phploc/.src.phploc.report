@@ -50,8 +50,8 @@ Structure
   Classes                                          165
     Abstract Classes                                11 (6.67%)
     Concrete Classes                               154 (93.33%)
-      Final Classes                                106 (68.83%)
-      Non-Final Classes                             48 (31.17%)
+      Final Classes                                107 (69.48%)
+      Non-Final Classes                             47 (30.52%)
   Methods                                          852
     Scope
       Non-Static Methods                           779 (91.43%)
