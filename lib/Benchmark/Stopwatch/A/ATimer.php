@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Benchmark\Stopwatch\A;
 
-use AlecRabbit\Benchmark\Stopwatch\Contract\ITimer;
-use AlecRabbit\Benchmark\Stopwatch\Contract\TimeUnit;
+use AlecRabbit\Benchmark\Contract\ITimer;
+use AlecRabbit\Benchmark\Contract\TimeUnit;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
 use ReflectionFunction;

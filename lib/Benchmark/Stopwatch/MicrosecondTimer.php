@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Benchmark\Stopwatch;
 
+use AlecRabbit\Benchmark\Contract\TimeUnit;
 use AlecRabbit\Benchmark\Stopwatch\A\ATimer;
-use AlecRabbit\Benchmark\Stopwatch\Contract\TimeUnit;
 use Closure;
 
 use function microtime;

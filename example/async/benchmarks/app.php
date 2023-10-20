@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Spinner\Builder\BenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverProviderFactory;
-use AlecRabbit\Benchmark\Stopwatch\Contract\Factory\IStopwatchFactory;
-use AlecRabbit\Benchmark\Stopwatch\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchReportFactory;
 use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchShortReportFactory;
 use AlecRabbit\Benchmark\Stopwatch\MeasurementFormatter;

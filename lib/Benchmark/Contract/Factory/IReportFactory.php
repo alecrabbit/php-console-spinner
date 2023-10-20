@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark\Stopwatch\Contract\Factory;
+namespace AlecRabbit\Benchmark\Contract\Factory;
 
 interface IReportFactory
 {

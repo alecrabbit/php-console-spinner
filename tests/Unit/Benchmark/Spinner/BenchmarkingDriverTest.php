@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark\Spinner;
 
+use AlecRabbit\Benchmark\Contract\IBenchmark;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Spinner\BenchmarkingDriver;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
-use AlecRabbit\Benchmark\Stopwatch\Contract\IStopwatch;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
@@ -30,12 +31,14 @@ final class BenchmarkingDriverTest extends TestCase
     private function getTesteeInstance(
         ?IDriver $driver = null,
         ?IStopwatch $stopwatch = null,
+        ?IBenchmark $benchmark = null,
         ?IObserver $observer = null,
     ): IBenchmarkingDriver {
         return
             new BenchmarkingDriver(
                 driver: $driver ?? $this->getDriverMock(),
                 stopwatch: $stopwatch ?? $this->getStopwatchMock(),
+                benchmark: $benchmark ?? $this->getBenchmarkMock(),
                 observer: $observer,
             );
     }
@@ -48,6 +51,11 @@ final class BenchmarkingDriverTest extends TestCase
     private function getStopwatchMock(): MockObject&IStopwatch
     {
         return $this->createMock(IStopwatch::class);
+    }
+
+    private function getBenchmarkMock(): MockObject&IBenchmark
+    {
+        return $this->createMock(IBenchmark::class);
     }
 
     #[Test]

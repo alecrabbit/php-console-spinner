@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark\Stopwatch\Factory;
 
-use AlecRabbit\Benchmark\Stopwatch\Contract\Factory\IReportFactory;
-use AlecRabbit\Benchmark\Stopwatch\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Stopwatch\Contract\IMeasurementFormatter;
-use AlecRabbit\Benchmark\Stopwatch\Contract\IStopwatch;
+use AlecRabbit\Benchmark\Contract\Factory\IReportFactory;
+use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchReportFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

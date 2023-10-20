@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Benchmark\Spinner\Builder;
 
+use AlecRabbit\Benchmark\Contract\IBenchmark;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Spinner\BenchmarkingDriver;
 use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
-use AlecRabbit\Benchmark\Stopwatch\Contract\IStopwatch;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Exception\LogicException;
 
@@ -16,6 +17,7 @@ final class BenchmarkingDriverBuilder implements IBenchmarkingDriverBuilder
 
     private ?IDriver $driver = null;
     private ?IStopwatch $stopwatch = null;
+    private ?IBenchmark $benchmark = null;
 
     public function build(): IBenchmarkingDriver
     {
@@ -25,6 +27,7 @@ final class BenchmarkingDriverBuilder implements IBenchmarkingDriverBuilder
             new BenchmarkingDriver(
                 driver: $this->driver,
                 stopwatch: $this->stopwatch,
+                benchmark: $this->benchmark,
             );
     }
 
@@ -36,6 +39,7 @@ final class BenchmarkingDriverBuilder implements IBenchmarkingDriverBuilder
         match (true) {
             $this->driver === null => throw new LogicException('Driver is not set.'),
             $this->stopwatch === null => throw new LogicException('Stopwatch is not set.'),
+            $this->benchmark === null => throw new LogicException('Benchmark is not set.'),
             default => null,
         };
     }
@@ -51,6 +55,13 @@ final class BenchmarkingDriverBuilder implements IBenchmarkingDriverBuilder
     {
         $clone = clone $this;
         $clone->stopwatch = $stopwatch;
+        return $clone;
+    }
+
+    public function withBenchmark(IBenchmark $benchmark): IBenchmarkingDriverBuilder
+    {
+        $clone = clone $this;
+        $clone->benchmark = $benchmark;
         return $clone;
     }
 }

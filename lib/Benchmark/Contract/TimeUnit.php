@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark\Stopwatch\Contract;
+namespace AlecRabbit\Benchmark\Contract;
 
 enum TimeUnit: string
 {

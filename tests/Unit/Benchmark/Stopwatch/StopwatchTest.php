@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark\Stopwatch;
 
-use AlecRabbit\Benchmark\Stopwatch\Contract\IStopwatch;
-use AlecRabbit\Benchmark\Stopwatch\Contract\ITimer;
-use AlecRabbit\Benchmark\Stopwatch\Contract\TimeUnit;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Benchmark\Contract\ITimer;
+use AlecRabbit\Benchmark\Contract\TimeUnit;
 use AlecRabbit\Benchmark\Stopwatch\Stopwatch;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

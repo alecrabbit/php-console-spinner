@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark\Spinner\Factory;
 
+use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverProviderFactory;
-use AlecRabbit\Benchmark\Stopwatch\Contract\Factory\IStopwatchFactory;
-use AlecRabbit\Benchmark\Stopwatch\Contract\IStopwatch;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;

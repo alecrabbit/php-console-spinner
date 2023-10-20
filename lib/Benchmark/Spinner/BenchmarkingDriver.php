@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Benchmark\Spinner;
 
+use AlecRabbit\Benchmark\Contract\IBenchmark;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
-use AlecRabbit\Benchmark\Stopwatch\Contract\IStopwatch;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
@@ -22,6 +23,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     public function __construct(
         protected readonly IDriver $driver,
         protected readonly IStopwatch $stopwatch,
+        protected readonly IBenchmark $benchmark,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);

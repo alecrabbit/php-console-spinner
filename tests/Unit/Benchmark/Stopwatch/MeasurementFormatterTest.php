@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark\Stopwatch;
 
-use AlecRabbit\Benchmark\Stopwatch\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Stopwatch\Contract\IMeasurementFormatter;
-use AlecRabbit\Benchmark\Stopwatch\Contract\TimeUnit;
+use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
+use AlecRabbit\Benchmark\Contract\TimeUnit;
 use AlecRabbit\Benchmark\Stopwatch\MeasurementFormatter;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;

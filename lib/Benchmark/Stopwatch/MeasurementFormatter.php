@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Benchmark\Stopwatch;
 
-use AlecRabbit\Benchmark\Stopwatch\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Stopwatch\Contract\IMeasurementFormatter;
+use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
 use Throwable;
 
 final class MeasurementFormatter implements IMeasurementFormatter

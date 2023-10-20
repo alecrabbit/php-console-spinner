@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark\Spinner\Builder;
 
+use AlecRabbit\Benchmark\Contract\IBenchmark;
+use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Spinner\BenchmarkingDriver;
 use AlecRabbit\Benchmark\Spinner\Builder\BenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
-use AlecRabbit\Benchmark\Stopwatch\Contract\IStopwatch;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -38,12 +39,16 @@ final class BenchmarkingDriverBuilderTest extends TestCase
         $driver = $driverBuilder
             ->withDriver($this->getDriverMock())
             ->withStopwatch($this->getStopwatchMock())
+            ->withBenchmark($this->getBenchmarkMock())
             ->build()
         ;
 
         self::assertInstanceOf(BenchmarkingDriver::class, $driver);
     }
-
+    private function getBenchmarkMock(): MockObject&IBenchmark
+    {
+        return $this->createMock(IBenchmark::class);
+    }
     private function getDriverMock(): MockObject&IDriver
     {
         return $this->createMock(IDriver::class);
@@ -87,6 +92,29 @@ final class BenchmarkingDriverBuilderTest extends TestCase
 
             $driverBuilder
                 ->withDriver($this->getDriverMock())
+                ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+
+    #[Test]
+    public function throwsIfBenchmarkIsNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'Benchmark is not set.';
+
+        $test = function (): void {
+            $driverBuilder = $this->getTesteeInstance();
+
+            $driverBuilder
+                ->withDriver($this->getDriverMock())
+                ->withStopwatch($this->getStopwatchMock())
                 ->build()
             ;
         };
