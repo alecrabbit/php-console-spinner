@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Stopwatch;
 
 use AlecRabbit\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Contract\TimeUnit;
 use LogicException;
 
 class Measurement implements IMeasurement
@@ -38,11 +37,16 @@ class Measurement implements IMeasurement
         }
 
         // update average
-        if (count($this->data) >= $this->threshold) {
+        if ($this->reachedThreshold()) {
             $average = array_sum($this->data) / count($this->data);
             $this->average = ($average + ($this->average ?? $average)) / 2;
             $this->data = [];
         }
+    }
+
+    protected function reachedThreshold(): bool
+    {
+        return count($this->data) >= $this->threshold;
     }
 
     public function getAverage(): int|float

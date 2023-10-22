@@ -15,8 +15,8 @@ use AlecRabbit\Benchmark\Spinner\Builder\BenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverProviderFactory;
-use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchReportFactory;
-use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchShortReportFactory;
+use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchLegacyReportFactory;
+use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchShortLegacyReportFactory;
 use AlecRabbit\Benchmark\Stopwatch\MeasurementFormatter;
 use AlecRabbit\Benchmark\Stopwatch\MeasurementShortFormatter;
 use AlecRabbit\Benchmark\Stopwatch\MicrosecondTimer;
@@ -73,9 +73,9 @@ $benchmark = $driver->getBenchmark();
 $stopwatch = $benchmark->getStopwatch();
 
 $shortReportFactory =
-    new StopwatchShortReportFactory($stopwatch, new MeasurementShortFormatter());
+    new StopwatchShortLegacyReportFactory($stopwatch, new MeasurementShortFormatter());
 $finalReportFactory =
-    new StopwatchReportFactory($stopwatch, new MeasurementFormatter());
+    new StopwatchLegacyReportFactory($stopwatch, new MeasurementFormatter());
 
 // Create report functions:
 $shortReport =

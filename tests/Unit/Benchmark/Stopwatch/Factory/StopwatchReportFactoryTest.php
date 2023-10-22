@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark\Stopwatch\Factory;
 
-use AlecRabbit\Benchmark\Contract\Factory\IReportFactory;
+use AlecRabbit\Benchmark\Contract\Factory\ILegacyReportFactory;
 use AlecRabbit\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
-use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchReportFactory;
+use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchLegacyReportFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -20,16 +20,16 @@ final class StopwatchReportFactoryTest extends TestCase
     {
         $factory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(StopwatchReportFactory::class, $factory);
+        self::assertInstanceOf(StopwatchLegacyReportFactory::class, $factory);
     }
 
     public function getTesteeInstance(
         ?IStopwatch $stopwatch = null,
         ?IMeasurementFormatter $measurementFormatter = null,
         ?string $title = null,
-    ): IReportFactory {
+    ): ILegacyReportFactory {
         return
-            new StopwatchReportFactory(
+            new StopwatchLegacyReportFactory(
                 stopwatch: $stopwatch ?? $this->getStopwatchMock(),
                 measurementFormatter: $measurementFormatter ?? $this->getMeasurementFormatterMock(),
                 title: $title ?? 'Default Title',
