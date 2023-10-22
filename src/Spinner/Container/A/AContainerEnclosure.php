@@ -25,7 +25,7 @@ abstract class AContainerEnclosure
             self::$container ?? throw new ContainerException('Container is not set.');
     }
 
-    public static function setContainer(?ContainerInterface $container): void
+    public static function useContainer(?ContainerInterface $container): void
     {
         self::$container = $container;
     }

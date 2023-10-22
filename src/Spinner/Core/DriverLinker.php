@@ -22,12 +22,16 @@ final class DriverLinker implements IDriverLinker
 
     public function link(IDriver $driver): void
     {
-        $this->assertDriver($driver);
+        $this->assertDriverCanBeLinked($driver);
 
-        $this->doLink($driver);
+        $this->linkTimer($driver);
+
+        if ($this->driver === null) {
+            $this->observeDriver($driver);
+        }
     }
 
-    private function assertDriver(IDriver $driver): void
+    private function assertDriverCanBeLinked(IDriver $driver): void
     {
         if ($this->driver === null || $this->driver === $driver) {
             return;
@@ -35,15 +39,6 @@ final class DriverLinker implements IDriverLinker
         throw new LogicException(
             'Other instance of driver is already linked.'
         );
-    }
-
-    protected function doLink(IDriver $driver): void
-    {
-        $this->linkTimer($driver);
-
-        if ($this->driver === null) {
-            $this->observe($driver);
-        }
     }
 
     private function linkTimer(IDriver $driver): void
@@ -67,7 +62,7 @@ final class DriverLinker implements IDriverLinker
         }
     }
 
-    private function observe(IDriver $driver): void
+    private function observeDriver(IDriver $driver): void
     {
         $this->driver = $driver;
         $driver->attach($this);

@@ -29,5 +29,5 @@ foreach (getDefinitions() as $id => $definition) {
 
 $container = (new ContainerFactory($registry))->getContainer();
 
-Facade::setContainer($container);
+Facade::useContainer($container);
 // @codeCoverageIgnoreEnd
