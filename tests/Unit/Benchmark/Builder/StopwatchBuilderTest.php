@@ -10,6 +10,7 @@ use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
 use AlecRabbit\Benchmark\Contract\ITimer;
 use AlecRabbit\Benchmark\Stopwatch\Stopwatch;
 use AlecRabbit\Tests\TestCase\TestCase;
+use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -58,7 +59,7 @@ final class StopwatchBuilderTest extends TestCase
     {
         $builder = $this->getTesteeInstance();
 
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Timer is not set.');
 
         $builder->build();
@@ -69,7 +70,7 @@ final class StopwatchBuilderTest extends TestCase
     {
         $builder = $this->getTesteeInstance();
 
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Measurement factory is not set.');
 
         $builder

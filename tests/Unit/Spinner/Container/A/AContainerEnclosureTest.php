@@ -31,11 +31,6 @@ final class AContainerEnclosureTest extends TestCase
         return $this->createMock(ContainerInterface::class);
     }
 
-    protected static function setContainer(?ContainerInterface $container): void
-    {
-        AContainerEnclosure::useContainer($container);
-    }
-
     protected static function extractContainer(): mixed
     {
         return self::callMethod(AContainerEnclosureOverride::class, self::GET_CONTAINER);
@@ -55,6 +50,11 @@ final class AContainerEnclosureTest extends TestCase
         self::$container = self::extractContainer();
         self::setContainer(null);
         parent::setUp();
+    }
+
+    protected static function setContainer(?ContainerInterface $container): void
+    {
+        AContainerEnclosure::useContainer($container);
     }
 
     protected function tearDown(): void

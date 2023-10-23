@@ -69,12 +69,6 @@ final class BenchmarkingDriverTest extends TestCase
         self::assertInstanceOf(BenchmarkingDriver::class, $driver);
     }
 
-
-    private function getStopwatchMock(): MockObject&IStopwatch
-    {
-        return $this->createMock(IStopwatch::class);
-    }
-
     #[Test]
     public function canGetBenchmark(): void
     {
@@ -356,5 +350,10 @@ final class BenchmarkingDriverTest extends TestCase
     private function getIntervalMock(): MockObject&IInterval
     {
         return $this->createMock(IInterval::class);
+    }
+
+    private function getStopwatchMock(): MockObject&IStopwatch
+    {
+        return $this->createMock(IStopwatch::class);
     }
 }

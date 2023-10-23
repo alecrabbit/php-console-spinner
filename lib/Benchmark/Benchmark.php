@@ -6,6 +6,7 @@ namespace AlecRabbit\Benchmark;
 
 use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
+use Closure;
 
 final class Benchmark implements IBenchmark
 {
@@ -22,7 +23,7 @@ final class Benchmark implements IBenchmark
         $this->prefix = $prefix;
     }
 
-    public function run(string $label, \Closure $callback, mixed ...$args): mixed
+    public function run(string $label, Closure $callback, mixed ...$args): mixed
     {
         $key = $this->refineLabel($label);
 

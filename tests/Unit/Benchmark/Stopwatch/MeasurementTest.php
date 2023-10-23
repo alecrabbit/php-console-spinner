@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Benchmark\Stopwatch;
 
 use AlecRabbit\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Contract\TimeUnit;
 use AlecRabbit\Benchmark\Stopwatch\Measurement;
 use AlecRabbit\Tests\TestCase\TestCase;
 use LogicException;
@@ -109,7 +108,6 @@ final class MeasurementTest extends TestCase
         $measurement = new Measurement();
 
         self::assertEquals($expectedDefaultThreshold, $measurement->getThreshold());
-
     }
 
     #[Test]

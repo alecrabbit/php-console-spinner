@@ -4,25 +4,19 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Benchmark\Spinner\Factory;
 
-use AlecRabbit\Benchmark\Benchmark;
-use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkFactory;
-use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
-use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Benchmark\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\DriverProvider;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 
+// FIXME (2023-10-23 13:0) [Alec Rabbit]: this implementation doing too much [a3f8554e-1dc8-41a9-abdf-39a6386a490b]
 final class BenchmarkingDriverProviderFactory implements IDriverProviderFactory
 {
     public function __construct(
-        protected IDriverFactory $driverFactory,
-        protected IDriverLinker $linker,
-        protected IBenchmarkingDriverBuilder $benchmarkingDriverBuilder,
-        protected IBenchmarkFactory $benchmarkFactory,
-        protected IStopwatchFactory $stopwatchFactory,
+        protected IBenchmarkingDriverFactory $benchmarkingDriverFactory,
+        protected IDriverLinker $driverLinker,
     ) {
     }
 
@@ -37,16 +31,13 @@ final class BenchmarkingDriverProviderFactory implements IDriverProviderFactory
     protected function createDriver(): IDriver
     {
         $benchmarkingDriver =
-            $this->benchmarkingDriverBuilder
-                ->withDriver($this->driverFactory->create())
-                ->withStopwatch($this->stopwatchFactory->create())
-                ->withBenchmark($this->benchmarkFactory->create())
-                ->build()
+            $this->benchmarkingDriverFactory
+                ->create()
         ;
 
         $benchmarkingDriver->initialize();
 
-        $this->linker->link($benchmarkingDriver);
+        $this->driverLinker->link($benchmarkingDriver);
 
         return $benchmarkingDriver;
     }

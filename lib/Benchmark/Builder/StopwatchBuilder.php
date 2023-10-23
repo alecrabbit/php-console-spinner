@@ -9,6 +9,7 @@ use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Contract\ITimer;
 use AlecRabbit\Benchmark\Stopwatch\Stopwatch;
+use LogicException;
 
 final class StopwatchBuilder implements IStopwatchBuilder
 {
@@ -29,8 +30,8 @@ final class StopwatchBuilder implements IStopwatchBuilder
     private function validate(): void
     {
         match (true) {
-            null === $this->timer => throw new \LogicException('Timer is not set.'),
-            null === $this->measurementFactory => throw new \LogicException('Measurement factory is not set.'),
+            null === $this->timer => throw new LogicException('Timer is not set.'),
+            null === $this->measurementFactory => throw new LogicException('Measurement factory is not set.'),
             default => null,
         };
     }

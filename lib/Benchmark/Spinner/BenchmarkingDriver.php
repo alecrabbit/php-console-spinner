@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Spinner;
 
 use AlecRabbit\Benchmark\Contract\IBenchmark;
-use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;

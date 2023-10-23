@@ -38,25 +38,21 @@ final class BenchmarkingDriverBuilderTest extends TestCase
 
         $driver = $driverBuilder
             ->withDriver($this->getDriverMock())
-            ->withStopwatch($this->getStopwatchMock())
             ->withBenchmark($this->getBenchmarkMock())
             ->build()
         ;
 
         self::assertInstanceOf(BenchmarkingDriver::class, $driver);
     }
-    private function getBenchmarkMock(): MockObject&IBenchmark
-    {
-        return $this->createMock(IBenchmark::class);
-    }
+
     private function getDriverMock(): MockObject&IDriver
     {
         return $this->createMock(IDriver::class);
     }
 
-    private function getStopwatchMock(): MockObject&IStopwatch
+    private function getBenchmarkMock(): MockObject&IBenchmark
     {
-        return $this->createMock(IStopwatch::class);
+        return $this->createMock(IBenchmark::class);
     }
 
     #[Test]
@@ -69,29 +65,7 @@ final class BenchmarkingDriverBuilderTest extends TestCase
             $driverBuilder = $this->getTesteeInstance();
 
             $driverBuilder
-                ->withStopwatch($this->getStopwatchMock())
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    #[Test]
-    public function throwsIfStopwatchIsNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Stopwatch is not set.';
-
-        $test = function (): void {
-            $driverBuilder = $this->getTesteeInstance();
-
-            $driverBuilder
-                ->withDriver($this->getDriverMock())
+                ->withBenchmark($this->getBenchmarkMock())
                 ->build()
             ;
         };
@@ -114,7 +88,6 @@ final class BenchmarkingDriverBuilderTest extends TestCase
 
             $driverBuilder
                 ->withDriver($this->getDriverMock())
-                ->withStopwatch($this->getStopwatchMock())
                 ->build()
             ;
         };
@@ -124,5 +97,10 @@ final class BenchmarkingDriverBuilderTest extends TestCase
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
+    }
+
+    private function getStopwatchMock(): MockObject&IStopwatch
+    {
+        return $this->createMock(IStopwatch::class);
     }
 }

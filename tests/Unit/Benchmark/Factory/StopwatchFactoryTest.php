@@ -11,8 +11,6 @@ use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Contract\ITimer;
 use AlecRabbit\Benchmark\Contract\TimeUnit;
 use AlecRabbit\Benchmark\Factory\StopwatchFactory;
-use AlecRabbit\Benchmark\Stopwatch\Measurement;
-use AlecRabbit\Benchmark\Stopwatch\Stopwatch;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -78,7 +76,8 @@ final class StopwatchFactoryTest extends TestCase
             ->expects(self::once())
             ->method('withMeasurementFactory')
             ->with($measurementFactory)
-            ->willReturnSelf();
+            ->willReturnSelf()
+        ;
         $builder
             ->expects(self::once())
             ->method('build')

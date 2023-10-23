@@ -13,7 +13,9 @@ use AlecRabbit\Benchmark\Factory\MeasurementFactory;
 use AlecRabbit\Benchmark\Factory\StopwatchFactory;
 use AlecRabbit\Benchmark\Spinner\Builder\BenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Benchmark\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
+use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverFactory;
 use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverProviderFactory;
 use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchLegacyReportFactory;
 use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchShortLegacyReportFactory;
@@ -39,6 +41,7 @@ require_once __DIR__ . '/../../bootstrap.php';
 
     $registry->bind(ITimer::class, new MicrosecondTimer());
     $registry->bind(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class);
+    $registry->bind(IBenchmarkingDriverFactory::class, BenchmarkingDriverFactory::class);
     $registry->bind(IBenchmarkingDriverBuilder::class, BenchmarkingDriverBuilder::class);
     $registry->bind(IBenchmarkFactory::class, BenchmarkFactory::class);
     $registry->bind(IMeasurementFactory::class, MeasurementFactory::class);
