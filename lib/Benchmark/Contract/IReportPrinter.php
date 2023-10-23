@@ -6,5 +6,5 @@ namespace AlecRabbit\Benchmark\Contract;
 
 interface IReportPrinter
 {
-    public function print(IReport $report): void;
+    public function print(): void;
 }

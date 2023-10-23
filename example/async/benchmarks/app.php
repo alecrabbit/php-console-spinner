@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Benchmark\Builder\StopwatchBuilder;
 use AlecRabbit\Benchmark\Contract\Builder\IStopwatchBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkFactory;
 use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
@@ -17,6 +16,7 @@ use AlecRabbit\Benchmark\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverFactory;
 use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverProviderFactory;
+use AlecRabbit\Benchmark\Stopwatch\Builder\StopwatchBuilder;
 use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchLegacyReportFactory;
 use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchShortLegacyReportFactory;
 use AlecRabbit\Benchmark\Stopwatch\MeasurementFormatter;

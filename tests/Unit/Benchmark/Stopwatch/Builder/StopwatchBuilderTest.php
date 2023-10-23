@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Benchmark\Builder;
+namespace AlecRabbit\Tests\Unit\Benchmark\Stopwatch\Builder;
 
-use AlecRabbit\Benchmark\Builder\StopwatchBuilder;
 use AlecRabbit\Benchmark\Contract\Builder\IStopwatchBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
 use AlecRabbit\Benchmark\Contract\ITimer;
+use AlecRabbit\Benchmark\Stopwatch\Builder\StopwatchBuilder;
 use AlecRabbit\Benchmark\Stopwatch\Stopwatch;
 use AlecRabbit\Tests\TestCase\TestCase;
 use LogicException;

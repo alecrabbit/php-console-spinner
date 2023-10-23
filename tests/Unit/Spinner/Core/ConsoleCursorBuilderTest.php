@@ -29,17 +29,17 @@ final class ConsoleCursorBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canBuild(): void
     {
-        $output = $this->getBufferedOutputMock();
+        $bufferedOutput = $this->getBufferedOutputMock();
         $consoleCursorBuilder = $this->getTesteeInstance();
         $cursorMode = CursorVisibilityMode::VISIBLE;
         $consoleCursor =
             $consoleCursorBuilder
-                ->withOutput($output)
+                ->withOutput($bufferedOutput)
                 ->withCursorVisibilityMode($cursorMode)
                 ->build()
         ;
         self::assertInstanceOf(ConsoleCursor::class, $consoleCursor);
-        self::assertSame($output, self::getPropertyValue('output', $consoleCursor));
+        self::assertSame($bufferedOutput, self::getPropertyValue('output', $consoleCursor));
         self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $consoleCursor));
     }
 }
