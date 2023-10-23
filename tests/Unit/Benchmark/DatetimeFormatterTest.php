@@ -8,6 +8,7 @@ namespace AlecRabbit\Tests\Unit\Benchmark;
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
 use AlecRabbit\Benchmark\DatetimeFormatter;
 use AlecRabbit\Tests\TestCase\TestCase;
+use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\Test;
 
 final class DatetimeFormatterTest extends TestCase
@@ -33,7 +34,7 @@ final class DatetimeFormatterTest extends TestCase
     public function canFormat(): void
     {
         $formatter = $this->getTesteeInstance();
-        $datetime = new \DateTimeImmutable('2021-01-01 00:00:00.000000');
+        $datetime = new DateTimeImmutable('2021-01-01 00:00:00.000000');
         $format = 'Y-m-d H:i:s.u';
         $expected = '2021-01-01 00:00:00.000000';
         self::assertEquals($expected, $formatter->format($datetime, $format));

@@ -8,6 +8,7 @@ use AlecRabbit\Benchmark\Contract\Builder\IReportBuilder;
 use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IReport;
 use AlecRabbit\Benchmark\Report;
+use LogicException;
 
 final class ReportBuilder implements IReportBuilder
 {
@@ -28,8 +29,8 @@ final class ReportBuilder implements IReportBuilder
     private function validate(): void
     {
         match (true) {
-            !isset($this->benchmark) => throw new \LogicException('Benchmark is not set.'),
-            !isset($this->title) => throw new \LogicException('Title is not set.'),
+            !isset($this->benchmark) => throw new LogicException('Benchmark is not set.'),
+            !isset($this->title) => throw new LogicException('Title is not set.'),
             default => null,
         };
     }

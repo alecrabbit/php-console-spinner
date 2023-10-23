@@ -2,14 +2,25 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Benchmark\Builder\ReportPrinterBuilder;
+use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\Builder\IStopwatchBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkFactory;
 use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
+use AlecRabbit\Benchmark\Contract\Factory\IReportPrinterFactory;
 use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
+use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
+use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
+use AlecRabbit\Benchmark\Contract\IMeasurementKeyFormatter;
+use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\Contract\ITimer;
+use AlecRabbit\Benchmark\DatetimeFormatter;
 use AlecRabbit\Benchmark\Factory\BenchmarkFactory;
 use AlecRabbit\Benchmark\Factory\MeasurementFactory;
+use AlecRabbit\Benchmark\Factory\ReportFactory;
+use AlecRabbit\Benchmark\Factory\ReportPrinterFactory;
 use AlecRabbit\Benchmark\Factory\StopwatchFactory;
+use AlecRabbit\Benchmark\MeasurementKeyFormatter;
 use AlecRabbit\Benchmark\Spinner\Builder\BenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
 use AlecRabbit\Benchmark\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
@@ -17,19 +28,20 @@ use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverFactory;
 use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverProviderFactory;
 use AlecRabbit\Benchmark\Stopwatch\Builder\StopwatchBuilder;
-use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchLegacyReportFactory;
 use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchShortLegacyReportFactory;
 use AlecRabbit\Benchmark\Stopwatch\MeasurementFormatter;
 use AlecRabbit\Benchmark\Stopwatch\MeasurementShortFormatter;
 use AlecRabbit\Benchmark\Stopwatch\MicrosecondTimer;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
+use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
+use Psr\Container\ContainerInterface;
 
 // values are in seconds
-const RUNTIME = 600;
+const RUNTIME = 60;
 const TIMING_REPORT_INTERVAL = 60;
 const MEMORY_REPORT_INTERVAL = 60;
 
@@ -47,6 +59,36 @@ require_once __DIR__ . '/../../bootstrap.php';
     $registry->bind(IMeasurementFactory::class, MeasurementFactory::class);
     $registry->bind(IStopwatchBuilder::class, StopwatchBuilder::class);
     $registry->bind(IStopwatchFactory::class, StopwatchFactory::class);
+    $registry->bind(IReportPrinterFactory::class, ReportPrinterFactory::class);
+    $registry->bind(IReportPrinterBuilder::class, ReportPrinterBuilder::class);
+    $registry->bind(IDatetimeFormatter::class, DatetimeFormatter::class);
+    $registry->bind(IMeasurementFormatter::class, MeasurementFormatter::class);
+    $registry->bind(IMeasurementKeyFormatter::class, MeasurementKeyFormatter::class);
+    $registry->bind(IReportPrinter::class, static function (ContainerInterface $container): IReportPrinter {
+        return $container->get(IReportPrinterFactory::class)->create();
+    });
+    $registry->bind(
+        IOutput::class,
+        new class implements IOutput {
+            public function write(string|iterable $messages, bool $newline = false, int $options = 0): void
+            {
+                if (!is_iterable($messages)) {
+                    $messages = [$messages];
+                }
+                foreach ($messages as $message) {
+                    if ($newline) {
+                        $message .= PHP_EOL;
+                    }
+                    echo $message;
+                }
+            }
+
+            public function writeln(iterable|string $messages, int $options = 0): void
+            {
+                $this->write($messages, true, $options);
+            }
+        }
+    );
 
     $container = (new ContainerFactory($registry))->getContainer();
 
@@ -77,8 +119,9 @@ $stopwatch = $benchmark->getStopwatch();
 
 $shortReportFactory =
     new StopwatchShortLegacyReportFactory($stopwatch, new MeasurementShortFormatter());
-$finalReportFactory =
-    new StopwatchLegacyReportFactory($stopwatch, new MeasurementFormatter());
+
+$reportPrinter = $container->get(IReportPrinter::class);
+$reportObject = (new ReportFactory(benchmark: $benchmark, title: 'Benchmarking'))->create();
 
 // Create report functions:
 $shortReport =
@@ -90,9 +133,9 @@ $shortReport =
         );
     };
 
-$finalReport =
-    static function () use ($finalReportFactory, $echo): void {
-        $echo($finalReportFactory->report());
+$fullReport =
+    static function () use ($reportPrinter, $reportObject): void {
+        $reportPrinter->print($reportObject);
     };
 
 $memoryReport =
@@ -108,17 +151,16 @@ $memoryReport =
         );
     };
 
-
 $loop = Facade::getLoop();
 
 // Stop loop after RUNTIME seconds
 $loop
     ->delay(
         RUNTIME - 0.1,
-        static function () use ($driver, $loop, $finalReport): void {
+        static function () use ($driver, $loop, $fullReport): void {
             $loop->stop();
             $driver->finalize();
-            $finalReport();
+            $fullReport();
         }
     )
 ;
@@ -151,8 +193,10 @@ $loop
     )
 ;
 
+// Begin benchmarking
 $echo(sprintf('Runtime: %ss', RUNTIME));
-$echo(PHP_EOL . sprintf('Using loop: "%s"', get_debug_type($loop)));
+$echo();
+$echo(sprintf('Using loop: "%s"', get_debug_type($loop)));
 $echo();
 
 $memoryReport(); // initial memory report

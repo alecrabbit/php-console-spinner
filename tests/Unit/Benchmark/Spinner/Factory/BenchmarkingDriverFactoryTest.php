@@ -13,7 +13,6 @@ use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverFactory;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -54,11 +53,6 @@ final class BenchmarkingDriverFactoryTest extends TestCase
     private function getDriverFactoryMock(): MockObject&IDriverFactory
     {
         return $this->createMock(IDriverFactory::class);
-    }
-
-    private function getDriverLinkerMock(): MockObject&IDriverLinker
-    {
-        return $this->createMock(IDriverLinker::class);
     }
 
     #[Test]
@@ -129,5 +123,10 @@ final class BenchmarkingDriverFactoryTest extends TestCase
     protected function getDriverMock(): MockObject&IDriver
     {
         return $this->createMock(IDriver::class);
+    }
+
+    private function getDriverLinkerMock(): MockObject&IDriverLinker
+    {
+        return $this->createMock(IDriverLinker::class);
     }
 }

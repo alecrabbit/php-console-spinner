@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Builder\Contract;
 
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 
 interface IConsoleCursorBuilder

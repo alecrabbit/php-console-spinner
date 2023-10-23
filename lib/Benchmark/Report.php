@@ -10,7 +10,7 @@ use AlecRabbit\Benchmark\Contract\IReport;
 final class Report implements IReport
 {
     public function __construct(
-        protected IBenchmark $benchmark ,
+        protected IBenchmark $benchmark,
         protected string $header,
     ) {
     }

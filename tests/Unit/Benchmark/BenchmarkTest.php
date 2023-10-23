@@ -64,7 +64,7 @@ final class BenchmarkTest extends TestCase
     }
 
     #[Test]
-    public function canSetPrefix(): void
+    public function canSetAndGetPrefix(): void
     {
         $prefix = 'testPrefix';
 
@@ -72,7 +72,44 @@ final class BenchmarkTest extends TestCase
 
         $benchmark->setPrefix($prefix);
 
-        self::assertEquals($prefix, $this->extractPrefix($benchmark));
+        self::assertEquals($prefix, $benchmark->getPrefix());
+    }
+
+    #[Test]
+    public function canGetPrefix(): void
+    {
+        $prefix = 'testPrefix';
+
+        $benchmark = $this->getTesteeInstance(
+            prefix: $prefix
+        );
+
+        self::assertEquals($prefix, $benchmark->getPrefix());
+    }
+
+    #[Test]
+    public function canGetMeasurements(): void
+    {
+        $measurements = $this->getMeasurementsMock();
+
+        $stopwatch = $this->getStopwatchMock();
+        $stopwatch
+            ->expects(self::once())
+            ->method('getMeasurements')
+            ->willReturn($measurements)
+        ;
+
+        $benchmark =
+            $this->getTesteeInstance(
+                stopwatch: $stopwatch,
+            );
+
+        self::assertEquals($measurements, $benchmark->getMeasurements());
+    }
+
+    private function getMeasurementsMock(): MockObject&\Traversable
+    {
+        return $this->createMock(\Traversable::class);
     }
 
     #[Test]

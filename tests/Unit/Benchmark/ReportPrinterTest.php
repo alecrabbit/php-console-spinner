@@ -27,7 +27,6 @@ final class ReportPrinterTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?IReport $report = null,
         ?IOutput $output = null,
         ?IDatetimeFormatter $datetimeFormatter = null,
         ?IMeasurementFormatter $measurementFormatter = null,
@@ -35,17 +34,11 @@ final class ReportPrinterTest extends TestCase
     ): IReportPrinter {
         return
             new ReportPrinter(
-                report: $report ?? $this->getReportMock(),
                 output: $output ?? $this->getOutputMock(),
                 datetimeFormatter: $datetimeFormatter ?? $this->getDatetimeFormatterMock(),
                 measurementFormatter: $measurementFormatter ?? $this->getMeasurementFormatterMock(),
                 measurementKeyFormatter: $measurementKeyFormatter ?? $this->getMeasurementKeyFormatterMock(),
             );
-    }
-
-    protected function getReportMock(): MockObject&IReport
-    {
-        return $this->createMock(IReport::class);
     }
 
     private function getOutputMock(): MockObject&IOutput
@@ -79,7 +72,7 @@ final class ReportPrinterTest extends TestCase
         ;
         $prefix = "testPrefix";
         $report
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getPrefix')
             ->willReturn($prefix)
         ;
@@ -113,10 +106,10 @@ final class ReportPrinterTest extends TestCase
                 Benchmark Report
                 testHeader
                 Date: testDatetime
-                
+
                 {$prefix}
                 {$key}[{$count}]: {$value}
-                
+
                 HEADER;
 
         $measurementFormatter = $this->getMeasurementFormatterMock();
@@ -145,14 +138,18 @@ final class ReportPrinterTest extends TestCase
         ;
 
         $printer = $this->getTesteeInstance(
-            report: $report,
             output: $output,
             datetimeFormatter: $datetimeFormatter,
             measurementFormatter: $measurementFormatter,
             measurementKeyFormatter: $measurementKeyFormatter,
         );
 
-        $printer->print();
+        $printer->print($report);
+    }
+
+    protected function getReportMock(): MockObject&IReport
+    {
+        return $this->createMock(IReport::class);
     }
 
     private function getMeasurementMock(): MockObject&IMeasurement

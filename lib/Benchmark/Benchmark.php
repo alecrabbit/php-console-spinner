@@ -7,6 +7,7 @@ namespace AlecRabbit\Benchmark;
 use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use Closure;
+use RuntimeException;
 
 final class Benchmark implements IBenchmark
 {
@@ -42,6 +43,7 @@ final class Benchmark implements IBenchmark
                 : $this->prefix . self::LABEL_GLUE . $label;
     }
 
+    /** @inheritDoc */
     public function getStopwatch(): IStopwatch
     {
         return $this->stopwatch;
@@ -49,13 +51,11 @@ final class Benchmark implements IBenchmark
 
     public function getPrefix(): string
     {
-        // TODO: Implement getPrefix() method.
-        throw new \RuntimeException('Not implemented.');
+        return $this->prefix ?? '';
     }
 
     public function getMeasurements(): iterable
     {
-        // TODO: Implement getMeasurements() method.
-        throw new \RuntimeException('Not implemented.');
+        return $this->stopwatch->getMeasurements();
     }
 }

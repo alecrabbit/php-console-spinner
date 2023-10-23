@@ -8,8 +8,10 @@ use AlecRabbit\Benchmark\Builder\ReportBuilder;
 use AlecRabbit\Benchmark\Contract\Builder\IReportBuilder;
 use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Tests\TestCase\TestCase;
+use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class ReportBuilderTest extends TestCase
 {
@@ -51,9 +53,9 @@ final class ReportBuilderTest extends TestCase
         self::assertSame($header, $report->getHeader());
     }
 
-    private function getMeasurementsMock(): MockObject&\Traversable
+    private function getMeasurementsMock(): MockObject&Traversable
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(Traversable::class);
     }
 
     private function getBenchmarkMock(): MockObject&IBenchmark
@@ -66,7 +68,7 @@ final class ReportBuilderTest extends TestCase
     {
         $reportBuilder = $this->getTesteeInstance();
 
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Title is not set');
 
         $reportBuilder
@@ -80,7 +82,7 @@ final class ReportBuilderTest extends TestCase
     {
         $reportBuilder = $this->getTesteeInstance();
 
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Benchmark is not set');
 
         $reportBuilder

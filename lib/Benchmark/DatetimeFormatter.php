@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark;
 
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
+use DateTimeInterface;
 
 final class DatetimeFormatter implements IDatetimeFormatter
 {
@@ -15,7 +16,7 @@ final class DatetimeFormatter implements IDatetimeFormatter
     ) {
     }
 
-    public function format(\DateTimeInterface $datetime, string $format = null): string
+    public function format(DateTimeInterface $datetime, string $format = null): string
     {
         return $datetime->format($format ?? $this->format);
     }

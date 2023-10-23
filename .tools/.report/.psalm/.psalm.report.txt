@@ -26,7 +26,6 @@
 /app/src/Spinner/Core/Builder/BufferedOutputBuilder.php:16:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder is marked deprecated
 /app/src/Spinner/Core/Builder/BufferedOutputBuilder.php:24:41:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\StreamBufferedOutput::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/BufferedOutputBuilder.php:34:58:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder is marked as deprecated
-/app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:25:17:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct expects AlecRabbit\Spinner\Contract\Output\IBufferedOutput, but parent type AlecRabbit\Spinner\Contract\Output\IOutput|null provided
 /app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:25:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:26:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/DriverBuilder.php:58:25:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided

@@ -16,7 +16,6 @@ use DateTimeImmutable;
 final class ReportPrinter implements IReportPrinter
 {
     public function __construct(
-        protected IReport $report,
         protected IOutput $output,
         protected IDatetimeFormatter $datetimeFormatter,
         protected IMeasurementFormatter $measurementFormatter,
@@ -24,15 +23,15 @@ final class ReportPrinter implements IReportPrinter
     ) {
     }
 
-    public function print(): void
+    public function print(IReport $report): void
     {
-        $prefix = $this->report->getPrefix();
+        $prefix = $report->getPrefix();
 
-        $output = $this->initialOutput($prefix);
+        $output = $this->initialOutput($report);
 
         /** @var string $key */
         /** @var IMeasurement $measurement */
-        foreach ($this->report->getMeasurements() as $key => $measurement) {
+        foreach ($report->getMeasurements() as $key => $measurement) {
             $output .=
                 sprintf(
                     '%s[%s]: %s' . PHP_EOL,
@@ -45,15 +44,15 @@ final class ReportPrinter implements IReportPrinter
         $this->output->write($output);
     }
 
-    private function initialOutput(string $prefix): string
+    private function initialOutput(IReport $report): string
     {
         return
             <<<HEADER
             Benchmark Report
-            {$this->report->getHeader()}
+            {$report->getHeader()}
             Date: {$this->datetimeFormatter->format(new DateTimeImmutable())}
             
-            {$prefix}
+            {$report->getPrefix()}
             
             HEADER;
     }

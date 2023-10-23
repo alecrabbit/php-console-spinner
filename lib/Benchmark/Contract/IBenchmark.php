@@ -12,6 +12,7 @@ interface IBenchmark
 
     public function run(string $label, Closure $callback, mixed ...$args): mixed;
 
+    /** @deprecated */
     public function getStopwatch(): IStopwatch;
 
     public function getPrefix(): string;

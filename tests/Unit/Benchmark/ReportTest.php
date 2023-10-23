@@ -10,6 +10,7 @@ use AlecRabbit\Benchmark\Report;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class ReportTest extends TestCase
 {
@@ -57,9 +58,9 @@ final class ReportTest extends TestCase
         self::assertSame($measurements, $report->getMeasurements());
     }
 
-    private function getMeasurementsMock(): MockObject&\Traversable
+    private function getMeasurementsMock(): MockObject&Traversable
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(Traversable::class);
     }
 
     #[Test]
