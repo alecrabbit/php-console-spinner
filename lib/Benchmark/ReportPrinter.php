@@ -26,19 +26,9 @@ final class ReportPrinter implements IReportPrinter
 
     public function print(): void
     {
-        $datetime = $this->datetimeFormatter->format(new DateTimeImmutable());
-        $header = $this->report->getHeader();
         $prefix = $this->report->getPrefix();
 
-        $output =
-            <<<HEADER
-            Benchmark Report
-            $header
-            Date: $datetime
-            
-            $prefix
-            
-            HEADER;
+        $output = $this->initialOutput($prefix);
 
         /** @var string $key */
         /** @var IMeasurement $measurement */
@@ -53,5 +43,18 @@ final class ReportPrinter implements IReportPrinter
         }
 
         $this->output->write($output);
+    }
+
+    private function initialOutput(string $prefix): string
+    {
+        return
+            <<<HEADER
+            Benchmark Report
+            {$this->report->getHeader()}
+            Date: {$this->datetimeFormatter->format(new DateTimeImmutable())}
+            
+            {$prefix}
+            
+            HEADER;
     }
 }
