@@ -46,4 +46,16 @@ final class Benchmark implements IBenchmark
     {
         return $this->stopwatch;
     }
+
+    public function getPrefix(): string
+    {
+        // TODO: Implement getPrefix() method.
+        throw new \RuntimeException('Not implemented.');
+    }
+
+    public function getMeasurements(): iterable
+    {
+        // TODO: Implement getMeasurements() method.
+        throw new \RuntimeException('Not implemented.');
+    }
 }

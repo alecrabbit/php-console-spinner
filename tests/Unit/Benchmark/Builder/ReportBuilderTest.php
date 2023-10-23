@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Benchmark\Builder;
 
 use AlecRabbit\Benchmark\Builder\ReportBuilder;
 use AlecRabbit\Benchmark\Contract\Builder\IReportBuilder;
+use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -29,20 +30,25 @@ final class ReportBuilderTest extends TestCase
     #[Test]
     public function canBuild(): void
     {
-        $reportBuilder = $this->getTesteeInstance();
-        $measurements = $this->getMeasurementsMock();
         $header = 'testHeader';
-        $prefix = 'testPrefix';
+        $measurements = $this->getMeasurementsMock();
+
+        $benchmark = $this->getBenchmarkMock();
+        $benchmark
+            ->expects(self::once())
+            ->method('getMeasurements')
+            ->willReturn($measurements)
+        ;
+
+        $reportBuilder = $this->getTesteeInstance();
         $report =
             $reportBuilder
-                ->withMeasurements($measurements)
-                ->withHeader($header)
-                ->withPrefix($prefix)
+                ->withBenchmark($benchmark)
+                ->withTitle($header)
                 ->build()
         ;
         self::assertSame($measurements, $report->getMeasurements());
         self::assertSame($header, $report->getHeader());
-        self::assertSame($prefix, $report->getPrefix());
     }
 
     private function getMeasurementsMock(): MockObject&\Traversable
@@ -50,37 +56,37 @@ final class ReportBuilderTest extends TestCase
         return $this->createMock(\Traversable::class);
     }
 
+    private function getBenchmarkMock(): MockObject&IBenchmark
+    {
+        return $this->createMock(IBenchmark::class);
+    }
+
     #[Test]
     public function throwsIfHeaderIsNotSet(): void
     {
         $reportBuilder = $this->getTesteeInstance();
 
-        $measurements = $this->getMeasurementsMock();
-        $prefix = 'testPrefix';
-
         $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage('Header is not set');
+        $this->expectExceptionMessage('Title is not set');
+
         $reportBuilder
-            ->withMeasurements($measurements)
-            ->withPrefix($prefix)
+            ->withBenchmark($this->getBenchmarkMock())
             ->build()
         ;
     }
 
     #[Test]
-    public function throwsIfPrefixIsNotSet(): void
+    public function throwsIfBenchmarkIsNotSet(): void
     {
         $reportBuilder = $this->getTesteeInstance();
 
-        $measurements = $this->getMeasurementsMock();
-        $header = 'testHeader';
-
         $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage('Prefix is not set');
+        $this->expectExceptionMessage('Benchmark is not set');
+
         $reportBuilder
-            ->withMeasurements($measurements)
-            ->withHeader($header)
+            ->withTitle('testHeader')
             ->build()
         ;
     }
+
 }

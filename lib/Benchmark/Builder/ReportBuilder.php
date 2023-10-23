@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Builder;
 
 use AlecRabbit\Benchmark\Contract\Builder\IReportBuilder;
+use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IReport;
 use AlecRabbit\Benchmark\Report;
 
 final class ReportBuilder implements IReportBuilder
 {
-    private \Traversable $measurements;
-    private string $header;
-    private string $prefix;
+    private IBenchmark $benchmark;
+    private string $title;
 
     public function build(): IReport
     {
@@ -20,40 +20,31 @@ final class ReportBuilder implements IReportBuilder
 
         return
             new Report(
-                $this->measurements,
-                $this->header,
-                $this->prefix,
+                $this->benchmark,
+                $this->title,
             );
     }
 
     private function validate(): void
     {
         match (true) {
-            !isset($this->measurements) => throw new \LogicException('Measurements are not set.'),
-            !isset($this->header) => throw new \LogicException('Header is not set.'),
-            !isset($this->prefix) => throw new \LogicException('Prefix is not set.'),
+            !isset($this->benchmark) => throw new \LogicException('Benchmark is not set.'),
+            !isset($this->title) => throw new \LogicException('Title is not set.'),
             default => null,
         };
     }
 
-    public function withMeasurements(\Traversable $measurements): IReportBuilder
+    public function withTitle(string $title): IReportBuilder
     {
         $clone = clone $this;
-        $clone->measurements = $measurements;
+        $clone->title = $title;
         return $clone;
     }
 
-    public function withHeader(string $header): IReportBuilder
+    public function withBenchmark(IBenchmark $benchmark): IReportBuilder
     {
         $clone = clone $this;
-        $clone->header = $header;
-        return $clone;
-    }
-
-    public function withPrefix(string $prefix): IReportBuilder
-    {
-        $clone = clone $this;
-        $clone->prefix = $prefix;
+        $clone->benchmark = $benchmark;
         return $clone;
     }
 }

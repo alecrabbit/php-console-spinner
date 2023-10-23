@@ -9,5 +9,5 @@ use AlecRabbit\Benchmark\Contract\IReport;
 
 interface IReportFactory
 {
-    public function create(?IBenchmark $benchmark = null): IReport;
+    public function create(): IReport;
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark;
 
+use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IReport;
 use AlecRabbit\Benchmark\Report;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -21,21 +22,19 @@ final class ReportTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?\Traversable $measurements = null,
+        ?IBenchmark $benchmark = null,
         ?string $header = null,
-        ?string $prefix = null,
     ): IReport {
         return
             new Report(
-                measurements: $measurements ?? $this->getMeasurementsMock(),
+                benchmark: $benchmark ?? $this->getBenchmarkMock(),
                 header: $header ?? '--header--',
-                prefix: $prefix ?? '--prefix--',
             );
     }
 
-    private function getMeasurementsMock(): MockObject&\Traversable
+    private function getBenchmarkMock(): MockObject&IBenchmark
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(IBenchmark::class);
     }
 
     #[Test]
@@ -43,9 +42,24 @@ final class ReportTest extends TestCase
     {
         $measurements = $this->getMeasurementsMock();
 
-        $report = $this->getTesteeInstance($measurements);
+        $benchmark = $this->getBenchmarkMock();
+
+        $benchmark
+            ->expects(self::once())
+            ->method('getMeasurements')
+            ->willReturn($measurements)
+        ;
+
+        $report = $this->getTesteeInstance(
+            benchmark: $benchmark
+        );
 
         self::assertSame($measurements, $report->getMeasurements());
+    }
+
+    private function getMeasurementsMock(): MockObject&\Traversable
+    {
+        return $this->createMock(\Traversable::class);
     }
 
     #[Test]
@@ -63,7 +77,16 @@ final class ReportTest extends TestCase
     {
         $prefix = 'testPrefix';
 
-        $report = $this->getTesteeInstance(prefix: $prefix);
+        $benchmark = $this->getBenchmarkMock();
+        $benchmark
+            ->expects(self::once())
+            ->method('getPrefix')
+            ->willReturn($prefix)
+        ;
+
+        $report = $this->getTesteeInstance(
+            benchmark: $benchmark,
+        );
 
         self::assertSame($prefix, $report->getPrefix());
     }

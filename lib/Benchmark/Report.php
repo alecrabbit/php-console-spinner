@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Benchmark;
 
+use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IReport;
 
 final class Report implements IReport
 {
     public function __construct(
-        protected \Traversable $measurements,
+        protected IBenchmark $benchmark ,
         protected string $header,
-        protected string $prefix,
     ) {
     }
 
@@ -22,12 +22,12 @@ final class Report implements IReport
 
     public function getPrefix(): string
     {
-        return $this->prefix;
+        return $this->benchmark->getPrefix();
     }
 
     /** @inheritDoc */
     public function getMeasurements(): iterable
     {
-        return $this->measurements;
+        return $this->benchmark->getMeasurements();
     }
 }
