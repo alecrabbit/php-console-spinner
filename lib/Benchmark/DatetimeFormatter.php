@@ -9,15 +9,15 @@ use DateTimeInterface;
 
 final class DatetimeFormatter implements IDatetimeFormatter
 {
-    private const DEFAULT_FORMAT = 'Y-m-d H:i:s.u';
+    private const DEFAULT_FORMAT = DATE_RFC3339_EXTENDED;
 
     public function __construct(
         private string $format = self::DEFAULT_FORMAT
     ) {
     }
 
-    public function format(DateTimeInterface $datetime, string $format = null): string
+    public function format(DateTimeInterface $datetime): string
     {
-        return $datetime->format($format ?? $this->format);
+        return $datetime->format($this->format);
     }
 }

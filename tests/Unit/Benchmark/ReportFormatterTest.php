@@ -100,7 +100,7 @@ final class ReportFormatterTest extends TestCase
                 testHeader
                 Date: testDatetime
 
-                {$prefix}
+                Prefix: {$prefix}
                 {$key}[{$count}]: {$value}
 
                 HEADER;

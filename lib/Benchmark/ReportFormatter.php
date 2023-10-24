@@ -9,9 +9,7 @@ use AlecRabbit\Benchmark\Contract\IKeyFormatter;
 use AlecRabbit\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Benchmark\Contract\IReport;
 use AlecRabbit\Benchmark\Contract\IReportFormatter;
-use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\Contract\IResultFormatter;
-use AlecRabbit\Spinner\Contract\Output\IOutput;
 use DateTimeImmutable;
 
 final class ReportFormatter implements IReportFormatter
@@ -51,9 +49,13 @@ final class ReportFormatter implements IReportFormatter
             Benchmark Report
             {$report->getTitle()}
             Date: {$this->datetimeFormatter->format(new DateTimeImmutable())}
-            
-            {$report->getPrefix()}
-            
+            {$this->extractPrefix($report)}
             HEADER;
+    }
+
+    protected function extractPrefix(IReport $report): string
+    {
+        $prefix = $report->getPrefix();
+        return $prefix === '' ? '' : PHP_EOL . "Prefix: {$prefix}" . PHP_EOL;
     }
 }

@@ -8,5 +8,5 @@ use DateTimeInterface;
 
 interface IDatetimeFormatter
 {
-    public function format(DateTimeInterface $datetime, string $format = null): string;
+    public function format(DateTimeInterface $datetime): string;
 }
