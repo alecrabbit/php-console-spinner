@@ -26,13 +26,12 @@ final class Container implements IContainer
 
     private ArrayObject $dependencyStack;
 
-    /**
-     * Create a container object with a set of definitions.
-     */
     public function __construct(Closure $spawnerCreatorCb, ?Traversable $definitions = null)
     {
         $this->serviceSpawner = $this->createSpawner($spawnerCreatorCb);
+        /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->definitions = new ArrayObject();
+        /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->services = new ArrayObject();
         $this->dependencyStack = new ArrayObject();
 
