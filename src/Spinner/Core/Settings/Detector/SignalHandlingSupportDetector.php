@@ -20,6 +20,7 @@ final class SignalHandlingSupportDetector implements ISignalHandlingSupportDetec
 
     public function getSupportValue(): SignalHandlingOption
     {
+        /** @var class-string<ISignalHandlingProbe> $probe */
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);
             if ($probe::isSupported()) {

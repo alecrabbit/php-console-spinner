@@ -188,6 +188,10 @@ final class Container implements IContainer
         $this->dependencyStack->offsetUnset($this->dependencyStack->count() - 1);
     }
 
+    /**
+     * @psalm-suppress MixedInferredReturnType
+     * @psalm-suppress MixedReturnStatement
+     */
     protected function createSpawner(Closure $spawnerCreatorCb): IServiceSpawner
     {
         return $spawnerCreatorCb($this);

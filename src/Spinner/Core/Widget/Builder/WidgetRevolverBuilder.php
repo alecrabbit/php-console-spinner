@@ -12,10 +12,13 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Spinner\Exception\LogicException;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRevolverBuilder
 {
-    protected ?IFrameRevolver $styleRevolver = null;
-    protected ?IFrameRevolver $charRevolver = null;
+    private ?IFrameRevolver $styleRevolver = null;
+    private ?IFrameRevolver $charRevolver = null;
     private ?ITolerance $tolerance = null;
 
     public function build(): IWidgetRevolver

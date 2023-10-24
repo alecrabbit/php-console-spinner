@@ -20,6 +20,7 @@ final readonly class ColorSupportDetector implements IColorSupportDetector
 
     public function getSupportValue(): StylingMethodOption
     {
+        /** @var class-string<IColorSupportProbe> $probe */
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);
             if ($probe::isSupported()) {

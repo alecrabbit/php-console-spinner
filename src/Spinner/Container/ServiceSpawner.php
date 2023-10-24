@@ -49,9 +49,12 @@ final class ServiceSpawner implements IServiceSpawner
         }
     }
 
+    /**
+     * @psalm-suppress MixedInferredReturnType
+     * @psalm-suppress MixedReturnStatement
+     */
     private function spawnByCallable(callable $definition): object
     {
-        /** @psalm-suppress MixedReturnStatement */
         return $definition($this->container);
     }
 
@@ -66,7 +69,7 @@ final class ServiceSpawner implements IServiceSpawner
     {
         return match (true) {
             class_exists($definition) => $this->createInstanceByReflection($definition),
-            default => throw new ClassDoesNotExistException('Class does not exist: ' . $definition),
+            default => throw new ClassDoesNotExistException(sprintf('Class does not exist: %s', (string)$definition)),
         };
     }
 
@@ -122,6 +125,9 @@ final class ServiceSpawner implements IServiceSpawner
     }
 
     /**
+     * @psalm-suppress MixedInferredReturnType
+     * @psalm-suppress MixedReturnStatement
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
