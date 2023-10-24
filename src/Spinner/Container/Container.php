@@ -31,13 +31,16 @@ final class Container implements IContainer
      */
     public function __construct(Closure $spawnerCreatorCb, ?Traversable $definitions = null)
     {
-        $this->serviceSpawner = $spawnerCreatorCb($this);
+        $this->serviceSpawner = $this->createSpawner($spawnerCreatorCb);
         $this->definitions = new ArrayObject();
         $this->services = new ArrayObject();
         $this->dependencyStack = new ArrayObject();
 
         if ($definitions) {
-            /** @var callable|object|string $definition */
+            /**
+             * @var string $id
+             * @var callable|object|string $definition
+             */
             foreach ($definitions as $id => $definition) {
                 $this->register($id, $definition);
             }
@@ -83,6 +86,7 @@ final class Container implements IContainer
         return $this->definitions->offsetExists($id);
     }
 
+    /** @inheritDoc */
     public function replace(string $id, callable|object|string $definition): void
     {
         $serviceInstantiated = $this->hasService($id);
@@ -117,6 +121,7 @@ final class Container implements IContainer
         $this->register($id, $definition);
     }
 
+    /** @inheritDoc */
     public function get(string $id): object
     {
         if ($this->hasService($id)) {
@@ -182,5 +187,10 @@ final class Container implements IContainer
     private function removeDependencyFromStack(): void
     {
         $this->dependencyStack->offsetUnset($this->dependencyStack->count() - 1);
+    }
+
+    protected function createSpawner(Closure $spawnerCreatorCb): IServiceSpawner
+    {
+        return $spawnerCreatorCb($this);
     }
 }

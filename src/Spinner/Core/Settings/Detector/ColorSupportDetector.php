@@ -31,7 +31,7 @@ final readonly class ColorSupportDetector implements IColorSupportDetector
         return StylingMethodOption::NONE;
     }
 
-    protected static function assertProbe($probe): void
+    protected static function assertProbe(mixed $probe): void
     {
         if (!is_a($probe, IColorSupportProbe::class, true)) {
             throw new InvalidArgumentException(

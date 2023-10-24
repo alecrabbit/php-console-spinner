@@ -10,8 +10,21 @@ use Psr\Container\NotFoundExceptionInterface;
 
 interface IContainer extends ContainerInterface
 {
+    /**
+     * Finds an entry of the container by its identifier and returns it.
+     *
+     * @psalm-template T of object
+     *
+     * @psalm-param class-string<T> $id
+     *
+     * @psalm-return T
+     *
+     * @throws ContainerExceptionInterface Error while retrieving the entry.
+     * @throws NotFoundExceptionInterface  No entry was found for **this** identifier.
+     */
     public function get(string $id): object;
 
+    /** @inheritDoc */
     public function has(string $id): bool;
 
     /**
@@ -36,8 +49,10 @@ interface IContainer extends ContainerInterface
     /**
      * Replaces definition and service(if any) with **this** identifier in the container.
      *
-     * @param string $id Identifier of the entry to replace.
-     * @param callable|object|string $definition Definition of the entry to replace.
+     * @psalm-template T of object
+     *
+     * @psalm-param class-string<T> $id
+     * @psalm-param callable|object|string $definition Definition of the entry to replace.
      *
      * @throws NotFoundExceptionInterface No entry was found for **this** identifier.
      */

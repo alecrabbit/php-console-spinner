@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
+use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
@@ -161,37 +162,36 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
-use Psr\Container\ContainerInterface;
 use Traversable;
 
 // @codeCoverageIgnoreStart
 function getDefinitions(): Traversable
 {
     yield from [
-        IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
+        IResourceStream::class => static function (IContainer $container): IResourceStream {
             return
                 new ResourceStream(STDERR); // FIXME (2023-10-11 14:49) [Alec Rabbit]: stub!
         },
-        ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
+        ISettingsProvider::class => static function (IContainer $container): ISettingsProvider {
             return $container->get(ISettingsProviderFactory::class)->create();
         },
-        IConfigProvider::class => static function (ContainerInterface $container): IConfigProvider {
+        IConfigProvider::class => static function (IContainer $container): IConfigProvider {
             return $container->get(IConfigProviderFactory::class)->create();
         },
-        ILoopProvider::class => static function (ContainerInterface $container): ILoopProvider {
+        ILoopProvider::class => static function (IContainer $container): ILoopProvider {
             return $container->get(ILoopProviderFactory::class)->create();
         },
-        IDriverProvider::class => static function (ContainerInterface $container): IDriverProvider {
+        IDriverProvider::class => static function (IContainer $container): IDriverProvider {
             return $container->get(IDriverProviderFactory::class)->create();
         },
 
-        IDriverLinker::class => static function (ContainerInterface $container): IDriverLinker {
+        IDriverLinker::class => static function (IContainer $container): IDriverLinker {
             return $container->get(IDriverLinkerFactory::class)->create();
         },
-        IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
+        IIntervalNormalizer::class => static function (IContainer $container): IIntervalNormalizer {
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },
-        ILoopCreatorClassProvider::class => static function (ContainerInterface $container): ILoopCreatorClassProvider {
+        ILoopCreatorClassProvider::class => static function (IContainer $container): ILoopCreatorClassProvider {
             $creatorClass = $container->get(ILoopCreatorClassExtractor::class)->extract(
                 Probes::load(ILoopProbe::class)
             );
@@ -218,28 +218,28 @@ function getDefinitions(): Traversable
 function configs(): Traversable
 {
     yield from [
-        IConfig::class => static function (ContainerInterface $container): IConfig {
+        IConfig::class => static function (IContainer $container): IConfig {
             return $container->get(IConfigProvider::class)->getConfig();
         },
-        IDriverConfig::class => static function (ContainerInterface $container): IDriverConfig {
+        IDriverConfig::class => static function (IContainer $container): IDriverConfig {
             return $container->get(IConfig::class)->get(IDriverConfig::class);
         },
-        IOutputConfig::class => static function (ContainerInterface $container): IOutputConfig {
+        IOutputConfig::class => static function (IContainer $container): IOutputConfig {
             return $container->get(IConfig::class)->get(IOutputConfig::class);
         },
-        ILoopConfig::class => static function (ContainerInterface $container): ILoopConfig {
+        ILoopConfig::class => static function (IContainer $container): ILoopConfig {
             return $container->get(IConfig::class)->get(ILoopConfig::class);
         },
-        IAuxConfig::class => static function (ContainerInterface $container): IAuxConfig {
+        IAuxConfig::class => static function (IContainer $container): IAuxConfig {
             return $container->get(IConfig::class)->get(IAuxConfig::class);
         },
-        IWidgetConfig::class => static function (ContainerInterface $container): IWidgetConfig {
+        IWidgetConfig::class => static function (IContainer $container): IWidgetConfig {
             return $container->get(IConfig::class)->get(IWidgetConfig::class);
         },
-        IRootWidgetConfig::class => static function (ContainerInterface $container): IRootWidgetConfig {
+        IRootWidgetConfig::class => static function (IContainer $container): IRootWidgetConfig {
             return $container->get(IConfig::class)->get(IRootWidgetConfig::class);
         },
-        RunMethodMode::class => static function (ContainerInterface $container): RunMethodMode {
+        RunMethodMode::class => static function (IContainer $container): RunMethodMode {
             return $container->get(IAuxConfig::class)->getRunMethodMode();
         },
     ];
@@ -320,10 +320,15 @@ function factories(): Traversable
         IOutputConfigFactory::class => OutputConfigFactory::class,
         IDriverConfigFactory::class => DriverConfigFactory::class,
 
-        ILoopFactory::class => static function (ContainerInterface $container): ILoopFactory {
+        ILoopFactory::class => static function (IContainer $container): ILoopFactory {
+            $creatorClass =
+                $container->get(ILoopCreatorClassProvider::class)->getCreatorClass()
+                ??
+                throw new \RuntimeException('Loop creator class is not defined.');
+
             return
                 new LoopFactory(
-                    loopCreator: (string)$container->get(ILoopCreatorClassProvider::class)->getCreatorClass(),
+                    loopCreator: $creatorClass,
                 );
         },
 
@@ -335,7 +340,7 @@ function factories(): Traversable
 function detectors(): Traversable
 {
     yield from [
-        ILoopSupportDetector::class => static function (ContainerInterface $container): LoopSupportDetector {
+        ILoopSupportDetector::class => static function (IContainer $container): LoopSupportDetector {
             return
                 new LoopSupportDetector(
                     $container->get(ILoopCreatorClassProvider::class)->getCreatorClass(),
@@ -413,7 +418,7 @@ function substitutes(): Traversable
                     }
                 };
         },
-        NormalizerMode::class => static function (ContainerInterface $container): NormalizerMode {
+        NormalizerMode::class => static function (IContainer $container): NormalizerMode {
             return
                 NormalizerMode::BALANCED; // FIXME (2023-09-29 13:57) [Alec Rabbit]: stub!
         },

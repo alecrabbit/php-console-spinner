@@ -1,18 +1,12 @@
-/app/src/Spinner/AFacade.php:15:52:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\AFacade::getSpinnerFactory
-/app/src/Spinner/AFacade.php:17:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/AFacade.php:20:50:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider' for AlecRabbit\Spinner\AFacade::getLoopProvider
-/app/src/Spinner/AFacade.php:22:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/AFacade.php:25:52:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverProvider' for AlecRabbit\Spinner\AFacade::getDriverProvider
-/app/src/Spinner/AFacade.php:27:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/AFacade.php:30:54:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider' for AlecRabbit\Spinner\AFacade::getSettingsProvider
-/app/src/Spinner/AFacade.php:32:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Asynchronous/Revolt/RevoltLoopAdapter.php:52:9:error - UnsupportedPropertyReferenceUsage: This reference cannot be analyzed by Psalm.
-/app/src/Spinner/Container/Container.php:34:9:error - MixedAssignment: Unable to determine the type that $this->serviceSpawner is being assigned to
 /app/src/Spinner/Container/Container.php:35:30:error - MixedPropertyTypeCoercion: $this->definitions expects 'ArrayObject<string, callable|object|string>',  parent type `ArrayObject<mixed, mixed>` provided
 /app/src/Spinner/Container/Container.php:36:27:error - MixedPropertyTypeCoercion: $this->services expects 'ArrayObject<string, object>',  parent type `ArrayObject<mixed, mixed>` provided
-/app/src/Spinner/Container/Container.php:41:38:error - MixedAssignment: Unable to determine the type that $id is being assigned to
-/app/src/Spinner/Container/Container.php:42:33:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Container::register cannot be mixed, expecting string
-/app/src/Spinner/Container/Container.php:165:49:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Container\Contract\IServiceSpawner::spawn expects callable|class-string|object, but parent type callable|object|string provided
+/app/src/Spinner/Container/Container.php:125:38:error - InvalidReturnType: The declared return type 'T:fn-alecrabbit\spinner\container\contract\icontainer::get as object' for AlecRabbit\Spinner\Container\Container::get is incorrect, got 'object'
+/app/src/Spinner/Container/Container.php:128:20:error - InvalidReturnStatement: The inferred type 'object' does not match the declared return type 'T:fn-alecrabbit\spinner\container\contract\icontainer::get as object' for AlecRabbit\Spinner\Container\Container::get
+/app/src/Spinner/Container/Container.php:148:16:error - InvalidReturnStatement: The inferred type 'object' does not match the declared return type 'T:fn-alecrabbit\spinner\container\contract\icontainer::get as object' for AlecRabbit\Spinner\Container\Container::get
+/app/src/Spinner/Container/Container.php:170:49:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Container\Contract\IServiceSpawner::spawn expects callable|class-string|object, but parent type callable|object|string provided
+/app/src/Spinner/Container/Container.php:192:66:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Container\Contract\IServiceSpawner' for AlecRabbit\Spinner\Container\Container::createSpawner
+/app/src/Spinner/Container/Container.php:194:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Container/Contract/IContainer.php:25:32:error - MoreSpecificImplementedParamType: Argument 1 of AlecRabbit\Spinner\Container\Contract\IContainer::get has the more specific type 'class-string<T:fn-alecrabbit\spinner\container\contract\icontainer::get as object>', expecting 'string' as defined by Psr\Container\ContainerInterface::get
 /app/src/Spinner/Container/Exception/CircularDependencyException.php:23:43:error - MixedArgumentTypeCoercion: Argument 2 of implode expects array<array-key, null|object{__tostring()}|scalar>, but parent type array<array-key, mixed> provided
 /app/src/Spinner/Container/ServiceSpawner.php:52:61:error - MixedInferredReturnType: Could not verify return type 'object' for AlecRabbit\Spinner\Container\ServiceSpawner::spawnByCallable
 /app/src/Spinner/Container/ServiceSpawner.php:69:88:error - MixedOperand: Right operand cannot be mixed
@@ -39,6 +33,8 @@
 /app/src/Spinner/Core/Builder/TimerBuilder.php:24:19:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Timer::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Config/Config.php:22:33:error - MixedPropertyTypeCoercion: $this->configElements expects 'ArrayObject<class-string<AlecRabbit\Spinner\Core\Config\Contract\IConfigElement>, AlecRabbit\Spinner\Core\Config\Contract\IConfigElement>',  parent type `ArrayObject` provided
 /app/src/Spinner/Core/Config/Config.php:26:43:error - ParamNameMismatch: Argument 1 of AlecRabbit\Spinner\Core\Config\Config::set has wrong name $configElements, expecting $settingsElements as defined by AlecRabbit\Spinner\Core\Config\Contract\IConfig::set
+/app/src/Spinner/Core/Config/Config.php:54:38:error - InvalidReturnType: The declared return type 'T:fn-alecrabbit\spinner\core\config\contract\iconfig::get as AlecRabbit\Spinner\Core\Config\Contract\IConfigElement' for AlecRabbit\Spinner\Core\Config\Config::get is incorrect, got 'AlecRabbit\Spinner\Core\Config\Contract\IConfigElement'
+/app/src/Spinner/Core/Config/Config.php:62:16:error - InvalidReturnStatement: The inferred type 'AlecRabbit\Spinner\Core\Config\Contract\IConfigElement' does not match the declared return type 'T:fn-alecrabbit\spinner\core\config\contract\iconfig::get as AlecRabbit\Spinner\Core\Config\Contract\IConfigElement' for AlecRabbit\Spinner\Core\Config\Config::get
 /app/src/Spinner/Core/Config/Solver/AutoStartModeSolver.php:166:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\AutoStartOption|null' for AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver::extractOption
 /app/src/Spinner/Core/Config/Solver/AutoStartModeSolver.php:168:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Config/Solver/AutoStartModeSolver.php:168:81:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getAutoStartOption does not exist
@@ -91,7 +87,6 @@
 /app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:27:24:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:27:25:error - MixedMethodCall: Cannot call constructor on an unknown class
 /app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:27:38:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:34:43:error - MissingParamType: Parameter $probe has no provided type
 /app/src/Spinner/Core/Settings/Detector/LoopSupportDetector.php:19:31:error - PossiblyNullArgument: Argument 1 of is_subclass_of cannot be null, possibly null value provided
 /app/src/Spinner/Core/Settings/Detector/SignalHandlingSupportDetector.php:21:40:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\SignalHandlingOption' for AlecRabbit\Spinner\Core\Settings\Detector\SignalHandlingSupportDetector::getSupportValue
 /app/src/Spinner/Core/Settings/Detector/SignalHandlingSupportDetector.php:23:35:error - MixedAssignment: Unable to determine the type that $probe is being assigned to
@@ -101,7 +96,6 @@
 /app/src/Spinner/Core/Settings/Detector/SignalHandlingSupportDetector.php:27:24:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Settings/Detector/SignalHandlingSupportDetector.php:27:25:error - MixedMethodCall: Cannot call constructor on an unknown class
 /app/src/Spinner/Core/Settings/Detector/SignalHandlingSupportDetector.php:27:38:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Settings/Detector/SignalHandlingSupportDetector.php:34:43:error - MissingParamType: Parameter $probe has no provided type
 /app/src/Spinner/Core/Settings/Settings.php:18:15:error - InvalidParamDefault: Default value type ArrayObject<mixed, mixed> for argument 1 of method AlecRabbit\Spinner\Core\Settings\Settings::__construct does not match the given type ArrayObject<class-string<AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement>, AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement>
 /app/src/Spinner/Core/Timer.php:40:17:error - TypeDoesNotContainNull: ReflectionType does not contain null
 /app/src/Spinner/Core/Timer.php:40:17:error - RedundantCondition: Type ReflectionType for $returnType is never null
@@ -125,55 +119,5 @@
 /app/src/Spinner/Core/WidgetContextToIntervalMap.php:27:40:error - MixedAssignment: Unable to determine the type that $value is being assigned to
 /app/src/Spinner/Core/WidgetContextToIntervalMap.php:43:47:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IInterval|null' for AlecRabbit\Spinner\Core\WidgetContextToIntervalMap::offsetGet
 /app/src/Spinner/Core/WidgetContextToIntervalMap.php:51:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/WidgetContextToIntervalMap.php:66:9:error - MixedAssignment: Unable to determine the type that $value is being assigned to
-/app/src/Spinner/Helper/Stringify.php:37:45:error - MixedArgument: Argument 3 of sprintf cannot be 'false'|'true'|mixed, expecting float|int|string
-/app/src/Spinner/definitions.php:175:86:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider' for /app/src/spinner/definitions.php:175:10602:-:closure
-/app/src/Spinner/definitions.php:176:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:176:70:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:178:84:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IConfigProvider' for /app/src/spinner/definitions.php:178:10795:-:closure
-/app/src/Spinner/definitions.php:179:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:179:68:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:181:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider' for /app/src/spinner/definitions.php:181:10982:-:closure
-/app/src/Spinner/definitions.php:182:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:182:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:184:84:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverProvider' for /app/src/spinner/definitions.php:184:11167:-:closure
-/app/src/Spinner/definitions.php:185:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:185:68:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:188:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverLinker' for /app/src/spinner/definitions.php:188:11355:-:closure
-/app/src/Spinner/definitions.php:189:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:189:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:191:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer' for /app/src/spinner/definitions.php:191:11544:-:closure
-/app/src/Spinner/definitions.php:192:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:192:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:195:13:error - MixedAssignment: Unable to determine the type that $creatorClass is being assigned to
-/app/src/Spinner/definitions.php:195:81:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:200:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider::__construct cannot be mixed, expecting class-string<AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreator>|null
-/app/src/Spinner/definitions.php:221:76:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IConfig' for /app/src/spinner/definitions.php:221:12537:-:closure
-/app/src/Spinner/definitions.php:222:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:222:61:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:224:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig' for /app/src/spinner/definitions.php:224:12712:-:closure
-/app/src/Spinner/definitions.php:225:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:225:53:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:227:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig' for /app/src/spinner/definitions.php:227:12899:-:closure
-/app/src/Spinner/definitions.php:228:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:228:53:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:230:80:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig' for /app/src/spinner/definitions.php:230:13084:-:closure
-/app/src/Spinner/definitions.php:231:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:231:53:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:233:79:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig' for /app/src/spinner/definitions.php:233:13264:-:closure
-/app/src/Spinner/definitions.php:234:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:234:53:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:236:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig' for /app/src/spinner/definitions.php:236:13445:-:closure
-/app/src/Spinner/definitions.php:237:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:237:53:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:239:86:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig' for /app/src/spinner/definitions.php:239:13636:-:closure
-/app/src/Spinner/definitions.php:240:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:240:53:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:242:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Mode\RunMethodMode' for /app/src/spinner/definitions.php:242:13831:-:closure
-/app/src/Spinner/definitions.php:243:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:243:56:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:196:17:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor::extract expects Traversable<mixed, AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe>, but parent type Traversable<mixed, AlecRabbit\Spinner\Contract\Probe\IStaticProbe> provided
 /app/src/Spinner/definitions.php:259:42:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder is deprecated
-/app/src/Spinner/definitions.php:326:34:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Loop\Factory\LoopFactory::__construct expects class-string<AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreator>, but parent type string provided
-/app/src/Spinner/definitions.php:326:93:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:341:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector::__construct cannot be mixed, expecting null|string
-/app/src/Spinner/definitions.php:341:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression

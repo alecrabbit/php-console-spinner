@@ -31,7 +31,7 @@ final class SignalHandlingSupportDetector implements ISignalHandlingSupportDetec
         return SignalHandlingOption::DISABLED;
     }
 
-    protected static function assertProbe($probe): void
+    protected static function assertProbe(mixed $probe): void
     {
         if (!is_a($probe, ISignalHandlingProbe::class, true)) {
             throw new InvalidArgumentException(

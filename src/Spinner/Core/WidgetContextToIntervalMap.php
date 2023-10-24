@@ -63,9 +63,10 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         $this->assertOffset($offset);
         $this->assertValue($value);
 
-        $value = $value ?? false;
-
-        $this->map->offsetSet($offset, $value);
+        $this->map->offsetSet(
+            $offset,
+            $value ?? false
+        );
     }
 
     private function assertValue(mixed $value): void

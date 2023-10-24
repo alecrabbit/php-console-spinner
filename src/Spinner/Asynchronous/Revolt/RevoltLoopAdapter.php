@@ -49,6 +49,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
             $hasRun = true;
         });
 
+        /** @psalm-suppress UnsupportedPropertyReferenceUsage */
         $stopped = &self::$stopped;
         register_shutdown_function(static function () use (&$hasRun, &$stopped): void {
             // Don't run if we're coming from a fatal error (uncaught exception).
