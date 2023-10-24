@@ -8,8 +8,8 @@ namespace AlecRabbit\Tests\Unit\Benchmark\Factory;
 use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IReportPrinterFactory;
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
-use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
+use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\Factory\ReportPrinterFactory;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
@@ -31,7 +31,7 @@ final class ReportPrinterFactoryTest extends TestCase
         ?IReportPrinterBuilder $builder = null,
         ?IOutput $output = null,
         ?IDatetimeFormatter $datetimeFormatter = null,
-        ?IMeasurementFormatter $measurementFormatter = null,
+        ?IResultFormatter $measurementFormatter = null,
         ?IKeyFormatter $measurementKeyFormatter = null,
     ): IReportPrinterFactory {
         return
@@ -59,9 +59,9 @@ final class ReportPrinterFactoryTest extends TestCase
         return $this->createMock(IDatetimeFormatter::class);
     }
 
-    private function getMeasurementFormatterMock(): MockObject&IMeasurementFormatter
+    private function getMeasurementFormatterMock(): MockObject&IResultFormatter
     {
-        return $this->createMock(IMeasurementFormatter::class);
+        return $this->createMock(IResultFormatter::class);
     }
 
     private function getMeasurementKeyFormatterMock(): MockObject&IKeyFormatter

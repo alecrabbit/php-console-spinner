@@ -126,7 +126,7 @@ final class StopwatchTest extends TestCase
         $current = self::getPropertyValue('current', $stopwatch);
         self::assertArrayNotHasKey($key, $current);
 
-        $measurements = $stopwatch->getMeasurements();
+        $measurements = iterator_to_array($stopwatch->getMeasurements());
 
         self::assertArrayHasKey($key, $measurements);
         self::assertCount(1, $measurements);

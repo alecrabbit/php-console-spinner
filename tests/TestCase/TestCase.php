@@ -9,6 +9,7 @@ use AlecRabbit\Tests\Helper\PickLock;
 use AlecRabbit\Tests\Mixin\AppRelatedConstTrait;
 use ArrayAccess;
 use Faker\Factory as FakerFactory;
+use Faker\Generator;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Throwable;
 
@@ -115,7 +116,7 @@ abstract class TestCase extends PHPUnitTestCase
         );
     }
 
-    protected function getFaker(): \Faker\Generator
+    protected function getFaker(): Generator
     {
         return FakerFactory::create();
     }

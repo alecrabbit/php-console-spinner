@@ -6,13 +6,14 @@ namespace AlecRabbit\Benchmark\Builder;
 
 use AlecRabbit\Benchmark\Contract\Builder\IReportBuilder;
 use AlecRabbit\Benchmark\Contract\IBenchmark;
+use AlecRabbit\Benchmark\Contract\IBenchmarkResults;
 use AlecRabbit\Benchmark\Contract\IReport;
 use AlecRabbit\Benchmark\Report;
 use LogicException;
 
 final class ReportBuilder implements IReportBuilder
 {
-    private IBenchmark $benchmark;
+    private IBenchmarkResults $results;
     private string $title;
 
     public function build(): IReport
@@ -21,7 +22,7 @@ final class ReportBuilder implements IReportBuilder
 
         return
             new Report(
-                $this->benchmark,
+                $this->results,
                 $this->title,
             );
     }
@@ -29,8 +30,8 @@ final class ReportBuilder implements IReportBuilder
     private function validate(): void
     {
         match (true) {
-            !isset($this->benchmark) => throw new LogicException('Benchmark is not set.'),
-            !isset($this->title) => throw new LogicException('Title is not set.'),
+            !isset($this->results) => throw new \InvalidArgumentException('BenchmarkResults is not set.'),
+            !isset($this->title) => throw new \InvalidArgumentException('Title is not set.'),
             default => null,
         };
     }
@@ -42,10 +43,10 @@ final class ReportBuilder implements IReportBuilder
         return $clone;
     }
 
-    public function withBenchmark(IBenchmark $benchmark): IReportBuilder
+    public function withBenchmarkResults(IBenchmarkResults $results): IReportBuilder
     {
         $clone = clone $this;
-        $clone->benchmark = $benchmark;
+        $clone->results = $results;
         return $clone;
     }
 }

@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Benchmark;
 
 use AlecRabbit\Benchmark\Benchmark;
-use AlecRabbit\Benchmark\Contract\Factory\IResultsFactory;
+use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkResultsFactory;
 use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class BenchmarkTest extends TestCase
 {
@@ -24,12 +25,10 @@ final class BenchmarkTest extends TestCase
 
     private function getTesteeInstance(
         ?IStopwatch $stopwatch = null,
-        ?string $prefix = null,
     ): IBenchmark {
         return
             new Benchmark(
                 stopwatch: $stopwatch ?? $this->getStopwatchMock(),
-                prefix: $prefix,
             );
     }
 
@@ -38,59 +37,9 @@ final class BenchmarkTest extends TestCase
         return $this->createMock(IStopwatch::class);
     }
 
-    private function getResultsFactoryMock(): MockObject&IResultsFactory
-    {
-        return $this->createMock(IResultsFactory::class);
-    }
-
-    #[Test]
-    public function createdWithNoPrefix(): void
-    {
-        $benchmark = $this->getTesteeInstance();
-
-        self::assertEquals('', $this->extractPrefix($benchmark));
-    }
-
     protected function extractPrefix(IBenchmark $benchmark): mixed
     {
         return self::getPropertyValue(self::PREFIX, $benchmark);
-    }
-
-    #[Test]
-    public function createdWithPrefix(): void
-    {
-        $prefix = 'testPrefix';
-
-        $benchmark =
-            $this->getTesteeInstance(
-                prefix: $prefix
-            );
-
-        self::assertEquals($prefix, $this->extractPrefix($benchmark));
-    }
-
-    #[Test]
-    public function canSetAndGetPrefix(): void
-    {
-        $prefix = 'testPrefix';
-
-        $benchmark = $this->getTesteeInstance();
-
-        $benchmark->setPrefix($prefix);
-
-        self::assertEquals($prefix, $benchmark->getPrefix());
-    }
-
-    #[Test]
-    public function canGetPrefix(): void
-    {
-        $prefix = 'testPrefix';
-
-        $benchmark = $this->getTesteeInstance(
-            prefix: $prefix
-        );
-
-        self::assertEquals($prefix, $benchmark->getPrefix());
     }
 
     #[Test]
@@ -110,27 +59,24 @@ final class BenchmarkTest extends TestCase
                 stopwatch: $stopwatch,
             );
 
-        self::assertEquals($measurements, $benchmark->getResults());
+        self::assertEquals($measurements, $benchmark->getMeasurements());
     }
 
-    private function getMeasurementsMock(): MockObject&\Traversable
+    private function getMeasurementsMock(): MockObject&Traversable
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(Traversable::class);
     }
 
     #[Test]
-    public function canRunWithPrefix(): void
+    public function canRun(): void
     {
         $arg1 = 'testArg1';
         $arg2 = 'testArg2';
 
         $args = [$arg1, $arg2];
 
-        $prefix = 'testPrefix';
-        $label = 'testLabel';
-
         $result = $arg1 . '+' . $arg2;
-        $key = $prefix . ':' . $label;
+        $key = 'testKey';
 
         $stopwatch = $this->getStopwatchMock();
         $stopwatch
@@ -147,7 +93,6 @@ final class BenchmarkTest extends TestCase
         $benchmark =
             $this->getTesteeInstance(
                 stopwatch: $stopwatch,
-                prefix: $prefix,
             );
 
         $callback = function (string $arg1, string $arg2): string {
@@ -156,7 +101,7 @@ final class BenchmarkTest extends TestCase
 
         self::assertEquals(
             $result,
-            $benchmark->run($label, $callback, ...$args)
+            $benchmark->run($key, $callback, ...$args)
         );
     }
 
@@ -210,5 +155,10 @@ final class BenchmarkTest extends TestCase
             $result,
             $benchmark->run($label, $callback, ...$args)
         );
+    }
+
+    private function getResultsFactoryMock(): MockObject&IBenchmarkResultsFactory
+    {
+        return $this->createMock(IBenchmarkResultsFactory::class);
     }
 }

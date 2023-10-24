@@ -6,7 +6,7 @@ namespace AlecRabbit\Benchmark;
 
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
 use AlecRabbit\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
+use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
 use AlecRabbit\Benchmark\Contract\IReport;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
@@ -18,8 +18,8 @@ final class ReportPrinter implements IReportPrinter
     public function __construct(
         protected IOutput $output,
         protected IDatetimeFormatter $datetimeFormatter,
-        protected IMeasurementFormatter $measurementFormatter,
-        protected IKeyFormatter $measurementKeyFormatter,
+        protected IResultFormatter $resultFormatter,
+        protected IKeyFormatter $keyFormatter,
     ) {
     }
 
@@ -30,14 +30,14 @@ final class ReportPrinter implements IReportPrinter
         $output = $this->initialOutput($report);
 
         /** @var string $key */
-        /** @var IMeasurement $measurement */
-        foreach ($report->getMeasurements() as $key => $measurement) {
+        /** @var IMeasurement $result */
+        foreach ($report->getResults() as $key => $result) {
             $output .=
                 sprintf(
                     '%s[%s]: %s' . PHP_EOL,
-                    $this->measurementKeyFormatter->format($key, $prefix),
-                    $measurement->getCount(),
-                    $this->measurementFormatter->format($measurement),
+                    $this->keyFormatter->format($key, $prefix),
+                    $result->getCount(),
+                    $this->resultFormatter->format($result),
                 );
         }
 
@@ -49,7 +49,7 @@ final class ReportPrinter implements IReportPrinter
         return
             <<<HEADER
             Benchmark Report
-            {$report->getHeader()}
+            {$report->getTitle()}
             Date: {$this->datetimeFormatter->format(new DateTimeImmutable())}
             
             {$report->getPrefix()}

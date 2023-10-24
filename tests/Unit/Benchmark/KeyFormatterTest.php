@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark;
 
-
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
 use AlecRabbit\Benchmark\KeyFormatter;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class MeasurementKeyFormatterTest extends TestCase
+final class KeyFormatterTest extends TestCase
 {
     public static function canFormatDataProvider(): iterable
     {

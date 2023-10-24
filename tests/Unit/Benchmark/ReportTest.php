@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark;
 
-use AlecRabbit\Benchmark\Contract\IBenchmark;
+use AlecRabbit\Benchmark\Contract\IBenchmarkResults;
 use AlecRabbit\Benchmark\Contract\IReport;
 use AlecRabbit\Benchmark\Report;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -23,39 +23,41 @@ final class ReportTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?IBenchmark $benchmark = null,
-        ?string $header = null,
+        ?IBenchmarkResults $benchmarkResults = null,
+        ?string $title = null,
+        ?string $prefix = null,
     ): IReport {
         return
             new Report(
-                benchmark: $benchmark ?? $this->getBenchmarkMock(),
-                header: $header ?? '--header--',
+                benchmarkResults: $benchmarkResults ?? $this->getBenchmarkResultsMock(),
+                title: $title ?? $this->getFaker()->word(),
+                prefix: $prefix ?? $this->getFaker()->word(),
             );
     }
 
-    private function getBenchmarkMock(): MockObject&IBenchmark
+    private function getBenchmarkResultsMock(): MockObject&IBenchmarkResults
     {
-        return $this->createMock(IBenchmark::class);
+        return $this->createMock(IBenchmarkResults::class);
     }
 
     #[Test]
     public function canGetMeasurements(): void
     {
-        $measurements = $this->getMeasurementsMock();
+        $results = $this->getMeasurementsMock();
 
-        $benchmark = $this->getBenchmarkMock();
+        $benchmarkResults = $this->getBenchmarkResultsMock();
 
-        $benchmark
+        $benchmarkResults
             ->expects(self::once())
             ->method('getResults')
-            ->willReturn($measurements)
+            ->willReturn($results)
         ;
 
         $report = $this->getTesteeInstance(
-            benchmark: $benchmark
+            benchmarkResults: $benchmarkResults
         );
 
-        self::assertSame($measurements, $report->getMeasurements());
+        self::assertSame($results, $report->getResults());
     }
 
     private function getMeasurementsMock(): MockObject&Traversable
@@ -68,9 +70,9 @@ final class ReportTest extends TestCase
     {
         $header = 'testHeader';
 
-        $report = $this->getTesteeInstance(header: $header);
+        $report = $this->getTesteeInstance(title: $header);
 
-        self::assertSame($header, $report->getHeader());
+        self::assertSame($header, $report->getTitle());
     }
 
     #[Test]
@@ -78,15 +80,8 @@ final class ReportTest extends TestCase
     {
         $prefix = 'testPrefix';
 
-        $benchmark = $this->getBenchmarkMock();
-        $benchmark
-            ->expects(self::once())
-            ->method('getPrefix')
-            ->willReturn($prefix)
-        ;
-
         $report = $this->getTesteeInstance(
-            benchmark: $benchmark,
+            prefix: $prefix,
         );
 
         self::assertSame($prefix, $report->getPrefix());

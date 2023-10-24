@@ -5,29 +5,31 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark;
 
 use AlecRabbit\Benchmark\Contract\IBenchmark;
+use AlecRabbit\Benchmark\Contract\IBenchmarkResults;
 use AlecRabbit\Benchmark\Contract\IReport;
 
 final class Report implements IReport
 {
     public function __construct(
-        protected IBenchmark $benchmark,
-        protected string $header,
+        protected IBenchmarkResults $benchmarkResults,
+        protected string $title,
+        protected ?string $prefix = null,
     ) {
     }
 
-    public function getHeader(): string
+    public function getTitle(): string
     {
-        return $this->header;
+        return $this->title;
     }
 
     public function getPrefix(): string
     {
-        return $this->benchmark->getPrefix();
+        return $this->prefix ?? '';
     }
 
     /** @inheritDoc */
-    public function getMeasurements(): iterable
+    public function getResults(): iterable
     {
-        return $this->benchmark->getResults();
+        return $this->benchmarkResults->getResults();
     }
 }

@@ -6,7 +6,7 @@ namespace AlecRabbit\Benchmark\Stopwatch\Factory;
 
 use AlecRabbit\Benchmark\Contract\Factory\ILegacyReportFactory;
 use AlecRabbit\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
+use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 
 use function sprintf;
@@ -17,7 +17,7 @@ readonly class StopwatchLegacyReportFactory implements ILegacyReportFactory
 {
     public function __construct(
         private IStopwatch $stopwatch,
-        private IMeasurementFormatter $measurementFormatter,
+        private IResultFormatter $measurementFormatter,
         private string $title = 'Measurements report',
     ) {
     }

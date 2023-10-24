@@ -7,7 +7,7 @@ namespace AlecRabbit\Benchmark\Factory;
 use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IReportPrinterFactory;
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
-use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
+use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
@@ -18,7 +18,7 @@ final class ReportPrinterFactory implements IReportPrinterFactory
         protected IReportPrinterBuilder $builder,
         protected IOutput $output,
         protected IDatetimeFormatter $datetimeFormatter,
-        protected IMeasurementFormatter $measurementFormatter,
+        protected IResultFormatter $measurementFormatter,
         protected IKeyFormatter $measurementKeyFormatter,
     ) {
     }

@@ -6,7 +6,8 @@ namespace AlecRabbit\Tests\Unit\Benchmark\Stopwatch\Factory;
 
 use AlecRabbit\Benchmark\Contract\Factory\ILegacyReportFactory;
 use AlecRabbit\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
+use AlecRabbit\Benchmark\Contract\IResult;
+use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Stopwatch\Factory\StopwatchShortLegacyReportFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -25,7 +26,7 @@ final class StopwatchShortReportFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IStopwatch $stopwatch = null,
-        ?IMeasurementFormatter $measurementFormatter = null,
+        ?IResultFormatter $measurementFormatter = null,
         ?string $title = null,
     ): ILegacyReportFactory {
         return
@@ -41,9 +42,9 @@ final class StopwatchShortReportFactoryTest extends TestCase
         return $this->createMock(IStopwatch::class);
     }
 
-    private function getMeasurementFormatterMock(): MockObject&IMeasurementFormatter
+    private function getMeasurementFormatterMock(): MockObject&IResultFormatter
     {
-        return $this->createMock(IMeasurementFormatter::class);
+        return $this->createMock(IResultFormatter::class);
     }
 
     #[Test]
@@ -54,17 +55,19 @@ final class StopwatchShortReportFactoryTest extends TestCase
             ->expects($this->once())
             ->method('getMeasurements')
             ->willReturn(
-                [
-                    $this->getMeasurementMock(),
-                    $this->getMeasurementMock(),
-                ]
+                new \ArrayObject(
+                    [
+                        $this->getResultMock(),
+                        $this->getResultMock(),
+                    ]
+                )
             )
         ;
         $measurementFormatter = $this->getMeasurementFormatterMock();
         $measurementFormatter
             ->expects($this->exactly(2))
             ->method('format')
-            ->with(self::isInstanceOf(IMeasurement::class))
+            ->with(self::isInstanceOf(IResult::class))
             ->willReturnOnConsecutiveCalls('1', '2')
         ;
 
@@ -77,9 +80,9 @@ final class StopwatchShortReportFactoryTest extends TestCase
         self::assertSame('testTitle: 1 2', $factory->report());
     }
 
-    private function getMeasurementMock(): MockObject&IMeasurement
+    private function getResultMock(): MockObject&IResult
     {
-        return $this->createMock(IMeasurement::class);
+        return $this->createMock(IResult::class);
     }
 
 }

@@ -8,6 +8,7 @@ namespace AlecRabbit\Tests\Unit\Benchmark\Factory;
 use AlecRabbit\Benchmark\Contract\Builder\IReportBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IReportFactory;
 use AlecRabbit\Benchmark\Contract\IBenchmark;
+use AlecRabbit\Benchmark\Contract\IBenchmarkResults;
 use AlecRabbit\Benchmark\Contract\IReport;
 use AlecRabbit\Benchmark\Factory\ReportFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -25,21 +26,21 @@ final class ReportFactoryTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?IBenchmark $benchmark = null,
+        ?IBenchmarkResults $benchmarkResults = null,
         ?IReportBuilder $reportBuilder = null,
         ?string $title = null,
     ): IReportFactory {
         return
             new ReportFactory(
-                benchmark: $benchmark ?? $this->getBenchmarkMock(),
-                title: $title ?? '--title--',
+                benchmarkResults: $benchmarkResults ?? $this->getBenchmarkResultsMock(),
+                title: $title ?? $this->getFaker()->word(),
                 reportBuilder: $reportBuilder ?? $this->getReportBuilderMock(),
             );
     }
 
-    private function getBenchmarkMock(): MockObject&IBenchmark
+    private function getBenchmarkResultsMock(): MockObject&IBenchmarkResults
     {
-        return $this->createMock(IBenchmark::class);
+        return $this->createMock(IBenchmarkResults::class);
     }
 
     private function getReportBuilderMock(): MockObject&IReportBuilder
@@ -51,21 +52,21 @@ final class ReportFactoryTest extends TestCase
     public function canCreate(): void
     {
         $header = 'testHeader';
-        $benchmark = $this->getBenchmarkMock();
+        $benchmarkResults = $this->getBenchmarkResultsMock();
 
         $report = $this->getReportMock();
 
         $reportBuilder = $this->getReportBuilderMock();
         $reportBuilder
             ->expects(self::once())
-            ->method('withBenchmark')
-            ->with($benchmark)
+            ->method('withTitle')
+            ->with($header)
             ->willReturnSelf()
         ;
         $reportBuilder
             ->expects(self::once())
-            ->method('withTitle')
-            ->with($header)
+            ->method('withBenchmarkResults')
+            ->with($benchmarkResults)
             ->willReturnSelf()
         ;
 
@@ -76,7 +77,7 @@ final class ReportFactoryTest extends TestCase
         ;
 
         $factory = $this->getTesteeInstance(
-            benchmark: $benchmark,
+            benchmarkResults: $benchmarkResults,
             reportBuilder: $reportBuilder,
             title: $header,
         );
@@ -89,5 +90,10 @@ final class ReportFactoryTest extends TestCase
     private function getReportMock(): MockObject&IReport
     {
         return $this->createMock(IReport::class);
+    }
+
+    private function getBenchmarkMock(): MockObject&IBenchmark
+    {
+        return $this->createMock(IBenchmark::class);
     }
 }

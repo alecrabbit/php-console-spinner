@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Benchmark;
 
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
-use AlecRabbit\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
+use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Contract\IResult;
+use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\Contract\IReport;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\ReportPrinter;
@@ -29,15 +30,15 @@ final class ReportPrinterTest extends TestCase
     private function getTesteeInstance(
         ?IOutput $output = null,
         ?IDatetimeFormatter $datetimeFormatter = null,
-        ?IMeasurementFormatter $measurementFormatter = null,
-        ?IKeyFormatter $measurementKeyFormatter = null,
+        ?IResultFormatter $resultFormatter = null,
+        ?IKeyFormatter $keyFormatter = null,
     ): IReportPrinter {
         return
             new ReportPrinter(
                 output: $output ?? $this->getOutputMock(),
                 datetimeFormatter: $datetimeFormatter ?? $this->getDatetimeFormatterMock(),
-                measurementFormatter: $measurementFormatter ?? $this->getMeasurementFormatterMock(),
-                measurementKeyFormatter: $measurementKeyFormatter ?? $this->getMeasurementKeyFormatterMock(),
+                resultFormatter: $resultFormatter ?? $this->getResultFormatterMock(),
+                keyFormatter: $keyFormatter ?? $this->getKeyFormatterMock(),
             );
     }
 
@@ -51,12 +52,12 @@ final class ReportPrinterTest extends TestCase
         return $this->createMock(IDatetimeFormatter::class);
     }
 
-    private function getMeasurementFormatterMock(): MockObject&IMeasurementFormatter
+    private function getResultFormatterMock(): MockObject&IResultFormatter
     {
-        return $this->createMock(IMeasurementFormatter::class);
+        return $this->createMock(IResultFormatter::class);
     }
 
-    private function getMeasurementKeyFormatterMock(): MockObject&IKeyFormatter
+    private function getKeyFormatterMock(): MockObject&IKeyFormatter
     {
         return $this->createMock(IKeyFormatter::class);
     }
@@ -67,7 +68,7 @@ final class ReportPrinterTest extends TestCase
         $report = $this->getReportMock();
         $report
             ->expects(self::once())
-            ->method('getHeader')
+            ->method('getTitle')
             ->willReturn('testHeader')
         ;
         $prefix = "testPrefix";
@@ -79,7 +80,7 @@ final class ReportPrinterTest extends TestCase
 
         $count = 1;
         $value = 'M';
-        $measurement = $this->getMeasurementMock();
+        $measurement = $this->getResultMock();
         $measurement
             ->expects(self::once())
             ->method('getCount')
@@ -89,7 +90,7 @@ final class ReportPrinterTest extends TestCase
         $key = 'testKey';
         $report
             ->expects(self::once())
-            ->method('getMeasurements')
+            ->method('getResults')
             ->willReturn(
                 [$key => $measurement],
             )
@@ -112,7 +113,7 @@ final class ReportPrinterTest extends TestCase
 
                 HEADER;
 
-        $measurementFormatter = $this->getMeasurementFormatterMock();
+        $measurementFormatter = $this->getResultFormatterMock();
         $measurementFormatter
             ->expects(self::once())
             ->method('format')
@@ -120,8 +121,8 @@ final class ReportPrinterTest extends TestCase
             ->willReturn($value)
         ;
 
-        $measurementKeyFormatter = $this->getMeasurementKeyFormatterMock();
-        $measurementKeyFormatter
+        $keyFormatter = $this->getKeyFormatterMock();
+        $keyFormatter
             ->expects(self::once())
             ->method('format')
             ->with($key, $prefix)
@@ -140,8 +141,8 @@ final class ReportPrinterTest extends TestCase
         $printer = $this->getTesteeInstance(
             output: $output,
             datetimeFormatter: $datetimeFormatter,
-            measurementFormatter: $measurementFormatter,
-            measurementKeyFormatter: $measurementKeyFormatter,
+            resultFormatter: $measurementFormatter,
+            keyFormatter: $keyFormatter,
         );
 
         $printer->print($report);
@@ -152,8 +153,8 @@ final class ReportPrinterTest extends TestCase
         return $this->createMock(IReport::class);
     }
 
-    private function getMeasurementMock(): MockObject&IMeasurement
+    private function getResultMock(): MockObject&IResult
     {
-        return $this->createMock(IMeasurement::class);
+        return $this->createMock(IResult::class);
     }
 }

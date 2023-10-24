@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Benchmark\Stopwatch;
 
 use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Exception\MeasurementException;
 use AlecRabbit\Benchmark\Stopwatch\Measurement;
 use AlecRabbit\Tests\TestCase\TestCase;
 use LogicException;
@@ -56,7 +57,7 @@ final class MeasurementTest extends TestCase
         self::assertEquals(1, $measurement->getMin());
         self::assertEquals(4, $measurement->getMax());
 
-        $this->expectException(LogicException::class);
+        $this->expectException(MeasurementException::class);
         $this->expectExceptionMessage('Can not return any.');
 
         self::assertEquals(-1, $measurement->getAny());
@@ -115,7 +116,7 @@ final class MeasurementTest extends TestCase
     {
         $measurement = $this->getTesteeInstance();
 
-        $this->expectException(LogicException::class);
+        $this->expectException(MeasurementException::class);
         $this->expectExceptionMessage('Min is not set.');
 
         $measurement->getMin();
@@ -126,7 +127,7 @@ final class MeasurementTest extends TestCase
     {
         $measurement = $this->getTesteeInstance();
 
-        $this->expectException(LogicException::class);
+        $this->expectException(MeasurementException::class);
         $this->expectExceptionMessage('Max is not set.');
 
         $measurement->getMax();
@@ -137,7 +138,7 @@ final class MeasurementTest extends TestCase
     {
         $measurement = $this->getTesteeInstance();
 
-        $this->expectException(LogicException::class);
+        $this->expectException(MeasurementException::class);
         $this->expectExceptionMessage('Not enough data.');
 
         $measurement->getAverage();

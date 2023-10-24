@@ -7,8 +7,8 @@ namespace AlecRabbit\Tests\Unit\Benchmark\Builder;
 use AlecRabbit\Benchmark\Builder\ReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
-use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
+use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\ReportPrinter;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -59,9 +59,9 @@ final class ReportPrinterBuilderTest extends TestCase
         return $this->createMock(IDatetimeFormatter::class);
     }
 
-    private function getMeasurementFormatterMock(): MockObject&IMeasurementFormatter
+    private function getMeasurementFormatterMock(): MockObject&IResultFormatter
     {
-        return $this->createMock(IMeasurementFormatter::class);
+        return $this->createMock(IResultFormatter::class);
     }
 
     private function getMeasurementKeyFormatterMock(): MockObject&IKeyFormatter

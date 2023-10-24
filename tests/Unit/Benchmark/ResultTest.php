@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Stopwatch;
+namespace AlecRabbit\Tests\Unit\Benchmark;
 
 use AlecRabbit\Benchmark\Contract\IResult;
 use AlecRabbit\Benchmark\Stopwatch\Result;

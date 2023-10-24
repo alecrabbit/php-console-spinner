@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Stopwatch;
 
 use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Exception\MeasurementException;
 use LogicException;
 
 class Measurement implements IMeasurement
@@ -49,11 +50,13 @@ class Measurement implements IMeasurement
         return count($this->data) >= $this->threshold;
     }
 
+    /** @inheritDoc */
     public function getAverage(): int|float
     {
-        return $this->average ?? throw new LogicException('Not enough data.');
+        return $this->average ?? throw new MeasurementException('Not enough data.');
     }
 
+    /** @inheritDoc */
     public function getAny(): int|float
     {
         $count = count($this->data);
@@ -62,7 +65,7 @@ class Measurement implements IMeasurement
             return array_sum($this->data) / $count;
         }
 
-        throw new LogicException('Can not return any.');
+        throw new MeasurementException('Can not return any.');
     }
 
     public function getCount(): int
@@ -70,14 +73,16 @@ class Measurement implements IMeasurement
         return $this->count;
     }
 
+    /** @inheritDoc */
     public function getMin(): int|float
     {
-        return $this->min ?? throw new LogicException('Min is not set.');
+        return $this->min ?? throw new MeasurementException('Min is not set.');
     }
 
+    /** @inheritDoc */
     public function getMax(): int|float
     {
-        return $this->max ?? throw new LogicException('Max is not set.');
+        return $this->max ?? throw new MeasurementException('Max is not set.');
     }
 
     public function getThreshold(): int

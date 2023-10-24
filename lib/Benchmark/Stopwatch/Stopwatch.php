@@ -10,6 +10,7 @@ use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Contract\ITimer;
 use AlecRabbit\Benchmark\Contract\TimeUnit;
 use RuntimeException;
+use Traversable;
 
 class Stopwatch implements IStopwatch
 {
@@ -62,8 +63,10 @@ class Stopwatch implements IStopwatch
         return $this->timer->getUnit();
     }
 
-    public function getMeasurements(): iterable
+    public function getMeasurements(): Traversable
     {
-        return $this->measurements;
+        foreach ($this->measurements as $key => $measurement) {
+            yield $key => $measurement;
+        }
     }
 }

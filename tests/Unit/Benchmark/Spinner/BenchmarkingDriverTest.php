@@ -53,23 +53,6 @@ final class BenchmarkingDriverTest extends TestCase
     }
 
     #[Test]
-    public function prefixForBenchmarkIsSet(): void
-    {
-        $benchmark = $this->getBenchmarkMock();
-        $benchmark
-            ->expects(self::once())
-            ->method('setPrefix')
-            ->with(self::identicalTo(BenchmarkingDriver::class))
-        ;
-
-        $driver = $this->getTesteeInstance(
-            benchmark: $benchmark
-        );
-
-        self::assertInstanceOf(BenchmarkingDriver::class, $driver);
-    }
-
-    #[Test]
     public function canGetBenchmark(): void
     {
         $benchmark = $this->getBenchmarkMock();
@@ -93,7 +76,7 @@ final class BenchmarkingDriverTest extends TestCase
             ->expects(self::once())
             ->method('run')
             ->with(
-                'render',
+                $this->getExpectedKey('render'),
                 $driver->render(...),
                 $dt
             )
@@ -105,6 +88,11 @@ final class BenchmarkingDriverTest extends TestCase
         );
 
         $benchmarkingDriver->render($dt);
+    }
+
+    private function getExpectedKey(string $key): string
+    {
+        return BenchmarkingDriver::class . '::' . $key;
     }
 
     #[Test]
@@ -119,7 +107,7 @@ final class BenchmarkingDriverTest extends TestCase
             ->expects(self::once())
             ->method('run')
             ->with(
-                'add',
+                $this->getExpectedKey('add'),
                 $driver->add(...),
                 $spinner
             )
@@ -148,7 +136,7 @@ final class BenchmarkingDriverTest extends TestCase
             ->expects(self::once())
             ->method('run')
             ->with(
-                'remove',
+                $this->getExpectedKey('remove'),
                 $driver->remove(...),
                 $spinner
             )
@@ -171,7 +159,7 @@ final class BenchmarkingDriverTest extends TestCase
             ->expects(self::once())
             ->method('run')
             ->with(
-                'initialize',
+                $this->getExpectedKey('initialize'),
                 $driver->initialize(...),
             )
         ;
@@ -194,7 +182,7 @@ final class BenchmarkingDriverTest extends TestCase
             ->expects(self::once())
             ->method('run')
             ->with(
-                'interrupt',
+                $this->getExpectedKey('interrupt'),
                 $driver->interrupt(...),
                 $message
             )
@@ -218,7 +206,7 @@ final class BenchmarkingDriverTest extends TestCase
             ->expects(self::once())
             ->method('run')
             ->with(
-                'finalize',
+                $this->getExpectedKey('finalize'),
                 $driver->finalize(...),
                 $message
             )
@@ -277,7 +265,7 @@ final class BenchmarkingDriverTest extends TestCase
             ->expects(self::once())
             ->method('run')
             ->with(
-                'has',
+                $this->getExpectedKey('has'),
                 $driver->has(...),
                 $spinner
             )
@@ -306,7 +294,7 @@ final class BenchmarkingDriverTest extends TestCase
             ->expects(self::once())
             ->method('run')
             ->with(
-                'wrap',
+                $this->getExpectedKey('wrap'),
                 $driver->wrap(...),
                 $closure
             )
@@ -332,7 +320,7 @@ final class BenchmarkingDriverTest extends TestCase
             ->expects(self::once())
             ->method('run')
             ->with(
-                'getInterval',
+                $this->getExpectedKey('getInterval'),
                 $driver->getInterval(...),
             )
             ->willReturn($interval)

@@ -22,14 +22,13 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
-        $this->benchmark->setPrefix($this::class);
         $this->driver->attach($this);
     }
 
     public function add(ISpinner $spinner): void
     {
         $this->benchmark->run(
-            __FUNCTION__,
+            $this->refineKey(__FUNCTION__),
             $this->driver->add(...),
             $spinner
         );
@@ -39,7 +38,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     {
         return
             $this->benchmark->run(
-                __FUNCTION__,
+                $this->refineKey(__FUNCTION__),
                 $this->driver->has(...),
                 $spinner
             );
@@ -48,7 +47,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     public function remove(ISpinner $spinner): void
     {
         $this->benchmark->run(
-            __FUNCTION__,
+            $this->refineKey(__FUNCTION__),
             $this->driver->remove(...),
             $spinner
         );
@@ -57,7 +56,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     public function initialize(): void
     {
         $this->benchmark->run(
-            __FUNCTION__,
+            $this->refineKey(__FUNCTION__),
             $this->driver->initialize(...),
         );
     }
@@ -65,7 +64,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     public function interrupt(?string $interruptMessage = null): void
     {
         $this->benchmark->run(
-            __FUNCTION__,
+            $this->refineKey(__FUNCTION__),
             $this->driver->interrupt(...),
             $interruptMessage
         );
@@ -74,7 +73,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     public function finalize(?string $finalMessage = null): void
     {
         $this->benchmark->run(
-            __FUNCTION__,
+            $this->refineKey(__FUNCTION__),
             $this->driver->finalize(...),
             $finalMessage
         );
@@ -84,7 +83,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     {
         return
             $this->benchmark->run(
-                __FUNCTION__,
+                $this->refineKey(__FUNCTION__),
                 $this->driver->wrap(...),
                 $callback
             );
@@ -94,7 +93,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     {
         return
             $this->benchmark->run(
-                __FUNCTION__,
+                $this->refineKey(__FUNCTION__),
                 $this->driver->getInterval(...),
             );
     }
@@ -102,12 +101,12 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     public function update(ISubject $subject): void
     {
         $this->benchmark->run(
-            __FUNCTION__,
+            $this->refineKey(__FUNCTION__),
             $this->driver->update(...),
             $subject
         );
         $this->benchmark->run(
-            __FUNCTION__,
+            $this->refineKey(__FUNCTION__),
             $this->notify(...),
         );
     }
@@ -115,7 +114,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     public function render(?float $dt = null): void
     {
         $this->benchmark->run(
-            __FUNCTION__,
+            $this->refineKey(__FUNCTION__),
             $this->driver->render(...),
             $dt
         );
@@ -124,5 +123,10 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     public function getBenchmark(): IBenchmark
     {
         return $this->benchmark;
+    }
+
+    protected function refineKey(string $func): string
+    {
+        return $this::class. '::' . $func;
     }
 }

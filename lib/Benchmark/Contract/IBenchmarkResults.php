@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Benchmark\Contract;
 
-interface IReport
+interface IBenchmarkResults
 {
-    public function getTitle(): string;
-
-    public function getPrefix(): string;
-
     /**
      * @return iterable<string, IResult>
      */

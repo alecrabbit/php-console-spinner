@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Benchmark\Contract;
 
+use Traversable;
+
 interface IStopwatch
 {
     public function start(string $key): void;
@@ -11,9 +13,9 @@ interface IStopwatch
     public function stop(string $key): void;
 
     /**
-     * @return iterable<IMeasurement>
+     * @return Traversable<string, IMeasurement>
      */
-    public function getMeasurements(): iterable;
+    public function getMeasurements(): Traversable;
 
     /** @deprecated */
     public function getUnit(): TimeUnit;
