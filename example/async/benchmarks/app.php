@@ -45,7 +45,7 @@ use AlecRabbit\Spinner\Helper\MemoryUsage;
 use Psr\Container\ContainerInterface;
 
 // in seconds
-const RUNTIME = 300;
+const RUNTIME = 20;
 const MEMORY_REPORT_INTERVAL = 60;
 
 require_once __DIR__ . '/../../bootstrap.php';

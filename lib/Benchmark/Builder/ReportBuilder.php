@@ -15,6 +15,7 @@ final class ReportBuilder implements IReportBuilder
 {
     private IBenchmarkResults $results;
     private string $title;
+    private ?string $prefix = null;
 
     public function build(): IReport
     {
@@ -24,6 +25,7 @@ final class ReportBuilder implements IReportBuilder
             new Report(
                 $this->results,
                 $this->title,
+                $this->prefix,
             );
     }
 

@@ -21,7 +21,7 @@ final class BenchmarkResultsFactory implements IBenchmarkResultsFactory
     }
 
     /** @inheritDoc */
-    public function create(Traversable $measurements): IBenchmarkResults
+    public function create(iterable $measurements): IBenchmarkResults
     {
         return
             new BenchmarkResults(
@@ -30,10 +30,10 @@ final class BenchmarkResultsFactory implements IBenchmarkResultsFactory
     }
 
     /**
-     * @param Traversable<string, IMeasurement> $measurements
+     * @param iterable<string, IMeasurement> $measurements
      * @return Traversable<string, IResult>
      */
-    private function createResults(Traversable $measurements): Traversable
+    private function createResults(iterable $measurements): Traversable
     {
         /** @var string $key */
         /** @var IMeasurement $measurement */

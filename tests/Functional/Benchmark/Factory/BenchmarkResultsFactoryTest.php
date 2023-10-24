@@ -102,6 +102,9 @@ final class BenchmarkResultsFactoryTest extends TestCase
         self::assertArrayHasKey(self::A_3, $arr);
         self::assertArrayHasKey(self::A_5, $arr);
 
+        self::assertArrayNotHasKey(self::A_2, $arr);
+        self::assertArrayNotHasKey(self::A_4, $arr);
+
         self::assertInstanceOf(IResult::class, $arr[self::A_1]);
         self::assertInstanceOf(IResult::class, $arr[self::A_3]);
         self::assertInstanceOf(IResult::class, $arr[self::A_5]);
@@ -109,10 +112,22 @@ final class BenchmarkResultsFactoryTest extends TestCase
 
     private function getMeasurementsWithExceptions(): \Traversable
     {
+        $measurementA1 = $this->getMeasurementMock();
+        $measurementA1
+            ->expects(self::once())
+            ->method('getAverage')
+            ->willThrowException(new MeasurementException())
+        ;
+
         $measurementA2 = $this->getMeasurementMock();
         $measurementA2
             ->expects(self::once())
             ->method('getAverage')
+            ->willThrowException(new MeasurementException())
+        ;
+        $measurementA2
+            ->expects(self::once())
+            ->method('getAny')
             ->willThrowException(new MeasurementException())
         ;
 
@@ -122,9 +137,14 @@ final class BenchmarkResultsFactoryTest extends TestCase
             ->method('getAverage')
             ->willThrowException(new MeasurementException())
         ;
+        $measurementA4
+            ->expects(self::once())
+            ->method('getAny')
+            ->willThrowException(new MeasurementException())
+        ;
 
         yield from [
-            self::A_1 => $this->getMeasurementMock(),
+            self::A_1 => $measurementA1,
             self::A_2 => $measurementA2,
             self::A_3 => $this->getMeasurementMock(),
             self::A_4 => $measurementA4,
