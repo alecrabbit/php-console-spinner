@@ -28,6 +28,6 @@ final class Report implements IReport
     /** @inheritDoc */
     public function getMeasurements(): iterable
     {
-        return $this->benchmark->getMeasurements();
+        return $this->benchmark->getResults();
     }
 }

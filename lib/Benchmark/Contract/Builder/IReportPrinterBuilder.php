@@ -6,7 +6,7 @@ namespace AlecRabbit\Benchmark\Contract\Builder;
 
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
 use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
-use AlecRabbit\Benchmark\Contract\IMeasurementKeyFormatter;
+use AlecRabbit\Benchmark\Contract\IKeyFormatter;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 
@@ -21,6 +21,6 @@ interface IReportPrinterBuilder
     public function withMeasurementFormatter(IMeasurementFormatter $measurementFormatter): IReportPrinterBuilder;
 
     public function withMeasurementKeyFormatter(
-        IMeasurementKeyFormatter $measurementKeyFormatter
+        IKeyFormatter $measurementKeyFormatter
     ): IReportPrinterBuilder;
 }

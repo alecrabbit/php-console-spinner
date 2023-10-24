@@ -47,7 +47,7 @@ final class ReportTest extends TestCase
 
         $benchmark
             ->expects(self::once())
-            ->method('getMeasurements')
+            ->method('getResults')
             ->willReturn($measurements)
         ;
 

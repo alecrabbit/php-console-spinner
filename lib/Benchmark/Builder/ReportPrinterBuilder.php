@@ -7,7 +7,7 @@ namespace AlecRabbit\Benchmark\Builder;
 use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
 use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
-use AlecRabbit\Benchmark\Contract\IMeasurementKeyFormatter;
+use AlecRabbit\Benchmark\Contract\IKeyFormatter;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\ReportPrinter;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
@@ -18,7 +18,7 @@ final class ReportPrinterBuilder implements IReportPrinterBuilder
     protected IOutput $output;
     protected IDatetimeFormatter $datetimeFormatter;
     protected IMeasurementFormatter $measurementFormatter;
-    protected IMeasurementKeyFormatter $measurementKeyFormatter;
+    protected IKeyFormatter $measurementKeyFormatter;
 
     public function build(): IReportPrinter
     {
@@ -68,7 +68,7 @@ final class ReportPrinterBuilder implements IReportPrinterBuilder
     }
 
     public function withMeasurementKeyFormatter(
-        IMeasurementKeyFormatter $measurementKeyFormatter
+        IKeyFormatter $measurementKeyFormatter
     ): IReportPrinterBuilder {
         $clone = clone $this;
         $clone->measurementKeyFormatter = $measurementKeyFormatter;

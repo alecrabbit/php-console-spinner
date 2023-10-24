@@ -38,7 +38,7 @@ final class ReportBuilderTest extends TestCase
         $benchmark = $this->getBenchmarkMock();
         $benchmark
             ->expects(self::once())
-            ->method('getMeasurements')
+            ->method('getResults')
             ->willReturn($measurements)
         ;
 

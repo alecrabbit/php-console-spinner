@@ -8,6 +8,7 @@ use Closure;
 
 interface IBenchmark
 {
+    /** @deprecated */
     public function setPrefix(string $prefix): void;
 
     public function run(string $label, Closure $callback, mixed ...$args): mixed;
@@ -17,5 +18,5 @@ interface IBenchmark
 
     public function getPrefix(): string;
 
-    public function getMeasurements(): iterable;
+    public function getResults(): iterable;
 }

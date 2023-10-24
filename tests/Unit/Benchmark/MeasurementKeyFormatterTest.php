@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Benchmark;
 
 
-use AlecRabbit\Benchmark\Contract\IMeasurementKeyFormatter;
-use AlecRabbit\Benchmark\MeasurementKeyFormatter;
+use AlecRabbit\Benchmark\Contract\IKeyFormatter;
+use AlecRabbit\Benchmark\KeyFormatter;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -29,12 +29,12 @@ final class MeasurementKeyFormatterTest extends TestCase
     {
         $formatter = $this->getTesteeInstance();
 
-        self::assertInstanceOf(MeasurementKeyFormatter::class, $formatter);
+        self::assertInstanceOf(KeyFormatter::class, $formatter);
     }
 
-    private function getTesteeInstance(): IMeasurementKeyFormatter
+    private function getTesteeInstance(): IKeyFormatter
     {
-        return new MeasurementKeyFormatter();
+        return new KeyFormatter();
     }
 
     #[Test]

@@ -8,7 +8,7 @@ use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IReportPrinterFactory;
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
 use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
-use AlecRabbit\Benchmark\Contract\IMeasurementKeyFormatter;
+use AlecRabbit\Benchmark\Contract\IKeyFormatter;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 
@@ -19,7 +19,7 @@ final class ReportPrinterFactory implements IReportPrinterFactory
         protected IOutput $output,
         protected IDatetimeFormatter $datetimeFormatter,
         protected IMeasurementFormatter $measurementFormatter,
-        protected IMeasurementKeyFormatter $measurementKeyFormatter,
+        protected IKeyFormatter $measurementKeyFormatter,
     ) {
     }
 

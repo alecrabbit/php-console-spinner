@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Benchmark;
 
+use AlecRabbit\Benchmark\Contract\Factory\IResultsFactory;
 use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use Closure;
-use RuntimeException;
 
 final class Benchmark implements IBenchmark
 {
@@ -19,6 +19,7 @@ final class Benchmark implements IBenchmark
     ) {
     }
 
+    /** @inheritDoc */
     public function setPrefix(string $prefix): void
     {
         $this->prefix = $prefix;
@@ -54,7 +55,7 @@ final class Benchmark implements IBenchmark
         return $this->prefix ?? '';
     }
 
-    public function getMeasurements(): iterable
+    public function getResults(): iterable
     {
         return $this->stopwatch->getMeasurements();
     }

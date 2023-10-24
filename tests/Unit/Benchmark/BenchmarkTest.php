@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Benchmark;
 
 use AlecRabbit\Benchmark\Benchmark;
+use AlecRabbit\Benchmark\Contract\Factory\IResultsFactory;
 use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -35,6 +36,11 @@ final class BenchmarkTest extends TestCase
     private function getStopwatchMock(): MockObject&IStopwatch
     {
         return $this->createMock(IStopwatch::class);
+    }
+
+    private function getResultsFactoryMock(): MockObject&IResultsFactory
+    {
+        return $this->createMock(IResultsFactory::class);
     }
 
     #[Test]
@@ -104,7 +110,7 @@ final class BenchmarkTest extends TestCase
                 stopwatch: $stopwatch,
             );
 
-        self::assertEquals($measurements, $benchmark->getMeasurements());
+        self::assertEquals($measurements, $benchmark->getResults());
     }
 
     private function getMeasurementsMock(): MockObject&\Traversable
