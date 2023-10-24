@@ -8,6 +8,7 @@ use AlecRabbit\Benchmark\Builder\ReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
+use AlecRabbit\Benchmark\Contract\IReportFormatter;
 use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\ReportPrinter;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
@@ -40,9 +41,7 @@ final class ReportPrinterBuilderTest extends TestCase
         $printer =
             $printerBuilder
                 ->withOutput($this->getOutputMock())
-                ->withDatetimeFormatter($this->getDatetimeFormatterMock())
-                ->withMeasurementFormatter($this->getMeasurementFormatterMock())
-                ->withMeasurementKeyFormatter($this->getMeasurementKeyFormatterMock())
+                ->withReportFormatter($this->getReportFormatterMock())
                 ->build()
         ;
 
@@ -78,58 +77,28 @@ final class ReportPrinterBuilderTest extends TestCase
         $this->expectExceptionMessage('Output is not set.');
 
         $printerBuilder
-            ->withDatetimeFormatter($this->getDatetimeFormatterMock())
-            ->withMeasurementFormatter($this->getMeasurementFormatterMock())
-            ->withMeasurementKeyFormatter($this->getMeasurementKeyFormatterMock())
+            ->withReportFormatter($this->getReportFormatterMock())
             ->build()
         ;
     }
 
     #[Test]
-    public function throwsIfDatetimeFormatterIsNotSet(): void
+    public function throwsIfReportFormatterIsNotSet(): void
     {
         $printerBuilder = $this->getTesteeInstance();
 
         $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('Datetime formatter is not set.');
+        $this->expectExceptionMessage('Report formatter is not set.');
 
         $printerBuilder
             ->withOutput($this->getOutputMock())
-            ->withMeasurementFormatter($this->getMeasurementFormatterMock())
-            ->withMeasurementKeyFormatter($this->getMeasurementKeyFormatterMock())
             ->build()
         ;
     }
 
-    #[Test]
-    public function throwsIfMeasurementFormatterIsNotSet(): void
+
+    private function getReportFormatterMock(): MockObject&IReportFormatter
     {
-        $printerBuilder = $this->getTesteeInstance();
-
-        $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('Measurement formatter is not set.');
-
-        $printerBuilder
-            ->withOutput($this->getOutputMock())
-            ->withDatetimeFormatter($this->getDatetimeFormatterMock())
-            ->withMeasurementKeyFormatter($this->getMeasurementKeyFormatterMock())
-            ->build()
-        ;
-    }
-
-    #[Test]
-    public function throwsIfMeasurementKeyFormatterIsNotSet(): void
-    {
-        $printerBuilder = $this->getTesteeInstance();
-
-        $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('Measurement key formatter is not set.');
-
-        $printerBuilder
-            ->withOutput($this->getOutputMock())
-            ->withDatetimeFormatter($this->getDatetimeFormatterMock())
-            ->withMeasurementFormatter($this->getMeasurementFormatterMock())
-            ->build()
-        ;
+        return $this->createMock(IReportFormatter::class);
     }
 }

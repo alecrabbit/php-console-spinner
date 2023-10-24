@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Contract\Builder;
 
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
-use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
+use AlecRabbit\Benchmark\Contract\IReportFormatter;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
+use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 
 interface IReportPrinterBuilder
@@ -16,11 +17,5 @@ interface IReportPrinterBuilder
 
     public function withOutput(IOutput $output): IReportPrinterBuilder;
 
-    public function withDatetimeFormatter(IDatetimeFormatter $datetimeFormatter): IReportPrinterBuilder;
-
-    public function withMeasurementFormatter(IResultFormatter $measurementFormatter): IReportPrinterBuilder;
-
-    public function withMeasurementKeyFormatter(
-        IKeyFormatter $measurementKeyFormatter
-    ): IReportPrinterBuilder;
+    public function withReportFormatter(IReportFormatter $reportFormatter): IReportPrinterBuilder;
 }

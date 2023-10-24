@@ -6,6 +6,7 @@ namespace AlecRabbit\Benchmark\Builder;
 
 use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
+use AlecRabbit\Benchmark\Contract\IReportFormatter;
 use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
@@ -15,10 +16,8 @@ use LogicException;
 
 final class ReportPrinterBuilder implements IReportPrinterBuilder
 {
-    protected IOutput $output;
-    protected IDatetimeFormatter $datetimeFormatter;
-    protected IResultFormatter $measurementFormatter;
-    protected IKeyFormatter $measurementKeyFormatter;
+    private IOutput $output;
+    private IReportFormatter $reportFormatter;
 
     public function build(): IReportPrinter
     {
@@ -27,21 +26,15 @@ final class ReportPrinterBuilder implements IReportPrinterBuilder
         return
             new ReportPrinter(
                 output: $this->output,
-                datetimeFormatter: $this->datetimeFormatter,
-                resultFormatter: $this->measurementFormatter,
-                keyFormatter: $this->measurementKeyFormatter,
+                reportFormatter: $this->reportFormatter,
             );
     }
 
     private function validate(): void
     {
         match (true) {
-            !isset($this->output) => throw new LogicException('Output is not set.'),
-            !isset($this->datetimeFormatter) => throw new LogicException('Datetime formatter is not set.'),
-            !isset($this->measurementFormatter) => throw new LogicException('Measurement formatter is not set.'),
-            !isset($this->measurementKeyFormatter) => throw new LogicException(
-                'Measurement key formatter is not set.'
-            ),
+            !isset($this->output) => throw new \InvalidArgumentException('Output is not set.'),
+            !isset($this->reportFormatter) => throw new \InvalidArgumentException('Report formatter is not set.'),
             default => null,
         };
     }
@@ -53,25 +46,10 @@ final class ReportPrinterBuilder implements IReportPrinterBuilder
         return $clone;
     }
 
-    public function withDatetimeFormatter(IDatetimeFormatter $datetimeFormatter): IReportPrinterBuilder
+    public function withReportFormatter(IReportFormatter $reportFormatter): IReportPrinterBuilder
     {
         $clone = clone $this;
-        $clone->datetimeFormatter = $datetimeFormatter;
-        return $clone;
-    }
-
-    public function withMeasurementFormatter(IResultFormatter $measurementFormatter): IReportPrinterBuilder
-    {
-        $clone = clone $this;
-        $clone->measurementFormatter = $measurementFormatter;
-        return $clone;
-    }
-
-    public function withMeasurementKeyFormatter(
-        IKeyFormatter $measurementKeyFormatter
-    ): IReportPrinterBuilder {
-        $clone = clone $this;
-        $clone->measurementKeyFormatter = $measurementKeyFormatter;
+        $clone->reportFormatter = $reportFormatter;
         return $clone;
     }
 }

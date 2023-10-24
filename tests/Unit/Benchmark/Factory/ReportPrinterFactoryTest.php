@@ -9,8 +9,9 @@ use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IReportPrinterFactory;
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
-use AlecRabbit\Benchmark\Contract\IResultFormatter;
+use AlecRabbit\Benchmark\Contract\IReportFormatter;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
+use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\Factory\ReportPrinterFactory;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -30,17 +31,13 @@ final class ReportPrinterFactoryTest extends TestCase
     private function getTesteeInstance(
         ?IReportPrinterBuilder $builder = null,
         ?IOutput $output = null,
-        ?IDatetimeFormatter $datetimeFormatter = null,
-        ?IResultFormatter $measurementFormatter = null,
-        ?IKeyFormatter $measurementKeyFormatter = null,
+        ?IReportFormatter $reportFormatter = null,
     ): IReportPrinterFactory {
         return
             new ReportPrinterFactory(
                 builder: $builder ?? $this->getReportPrinterBuilderMock(),
                 output: $output ?? $this->getOutputMock(),
-                datetimeFormatter: $datetimeFormatter ?? $this->getDatetimeFormatterMock(),
-                measurementFormatter: $measurementFormatter ?? $this->getMeasurementFormatterMock(),
-                measurementKeyFormatter: $measurementKeyFormatter ?? $this->getMeasurementKeyFormatterMock(),
+                reportFormatter: $reportFormatter ?? $this->getReportFormatterMock(),
             );
     }
 
@@ -75,9 +72,7 @@ final class ReportPrinterFactoryTest extends TestCase
         $reportPrinter = $this->getReportPrinterMock();
 
         $output = $this->getOutputMock();
-        $datetimeFormatter = $this->getDatetimeFormatterMock();
-        $measurementFormatter = $this->getMeasurementFormatterMock();
-        $measurementKeyFormatter = $this->getMeasurementKeyFormatterMock();
+        $reportFormatter = $this->getReportFormatterMock();
         $builder = $this->getReportPrinterBuilderMock();
         $builder
             ->expects(self::once())
@@ -87,20 +82,8 @@ final class ReportPrinterFactoryTest extends TestCase
         ;
         $builder
             ->expects(self::once())
-            ->method('withDatetimeFormatter')
-            ->with($datetimeFormatter)
-            ->willReturnSelf()
-        ;
-        $builder
-            ->expects(self::once())
-            ->method('withMeasurementFormatter')
-            ->with($measurementFormatter)
-            ->willReturnSelf()
-        ;
-        $builder
-            ->expects(self::once())
-            ->method('withMeasurementKeyFormatter')
-            ->with($measurementKeyFormatter)
+            ->method('withReportFormatter')
+            ->with($reportFormatter)
             ->willReturnSelf()
         ;
         $builder
@@ -113,9 +96,7 @@ final class ReportPrinterFactoryTest extends TestCase
         $factory = $this->getTesteeInstance(
             builder: $builder,
             output: $output,
-            datetimeFormatter: $datetimeFormatter,
-            measurementFormatter: $measurementFormatter,
-            measurementKeyFormatter: $measurementKeyFormatter,
+            reportFormatter: $reportFormatter,
         );
 
         $printer = $factory->create();
@@ -126,5 +107,10 @@ final class ReportPrinterFactoryTest extends TestCase
     private function getReportPrinterMock(): MockObject&IReportPrinter
     {
         return $this->createMock(IReportPrinter::class);
+    }
+
+    private function getReportFormatterMock(): MockObject&IReportFormatter
+    {
+        return $this->createMock(IReportFormatter::class);
     }
 }

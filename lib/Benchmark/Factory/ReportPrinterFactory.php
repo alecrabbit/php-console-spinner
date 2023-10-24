@@ -7,6 +7,7 @@ namespace AlecRabbit\Benchmark\Factory;
 use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IReportPrinterFactory;
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
+use AlecRabbit\Benchmark\Contract\IReportFormatter;
 use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
@@ -17,9 +18,7 @@ final class ReportPrinterFactory implements IReportPrinterFactory
     public function __construct(
         protected IReportPrinterBuilder $builder,
         protected IOutput $output,
-        protected IDatetimeFormatter $datetimeFormatter,
-        protected IResultFormatter $measurementFormatter,
-        protected IKeyFormatter $measurementKeyFormatter,
+        protected IReportFormatter $reportFormatter,
     ) {
     }
 
@@ -28,9 +27,7 @@ final class ReportPrinterFactory implements IReportPrinterFactory
         return
             $this->builder
                 ->withOutput($this->output)
-                ->withDatetimeFormatter($this->datetimeFormatter)
-                ->withMeasurementFormatter($this->measurementFormatter)
-                ->withMeasurementKeyFormatter($this->measurementKeyFormatter)
+                ->withReportFormatter($this->reportFormatter)
                 ->build()
         ;
     }
