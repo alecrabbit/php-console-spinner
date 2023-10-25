@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -24,15 +25,22 @@ final class DriverSetupTest extends TestCase
 
     public function getTesteeInstance(
         ?IDriverLinker $driverLinker = null,
+        ?ISignalHandlingSetup $signalHandlingSetup = null,
     ): IDriverSetup {
         return new DriverSetup(
             driverLinker: $driverLinker ?? $this->getDriverLinkerMock(),
+            signalHandlingSetup: $signalHandlingSetup ?? $this->getSignalHandlingSetupMock(),
         );
     }
 
     private function getDriverLinkerMock(): MockObject&IDriverLinker
     {
         return $this->createMock(IDriverLinker::class);
+    }
+
+    private function getSignalHandlingSetupMock(): MockObject&ISignalHandlingSetup
+    {
+        return $this->createMock(ISignalHandlingSetup::class);
     }
 
     #[Test]

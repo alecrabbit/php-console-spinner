@@ -8,10 +8,12 @@ use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\ISignalHandlersContainer;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class LoopConfigBuilderTest extends TestCase
 {
@@ -37,10 +39,16 @@ final class LoopConfigBuilderTest extends TestCase
         $config = $configBuilder
             ->withAutoStartMode(AutoStartMode::DISABLED)
             ->withSignalHandlingMode(SignalHandlingMode::DISABLED)
+            ->withSignalHandlersContainer($this->getSignalHandlersContainerMock())
             ->build()
         ;
 
         self::assertInstanceOf(LoopConfig::class, $config);
+    }
+
+    private function getSignalHandlersContainerMock(): MockObject&ISignalHandlersContainer
+    {
+        return $this->createMock(ISignalHandlersContainer::class);
     }
 
     #[Test]
@@ -81,6 +89,29 @@ final class LoopConfigBuilderTest extends TestCase
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
+                ->withSignalHandlingMode(SignalHandlingMode::DISABLED)
+                ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+
+    #[Test]
+    public function throwsIfSignalHandlersContainerIsNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'Signal handlers container is not set.';
+
+        $test = function (): void {
+            $configBuilder = $this->getTesteeInstance();
+
+            $configBuilder
+                ->withAutoStartMode(AutoStartMode::DISABLED)
                 ->withSignalHandlingMode(SignalHandlingMode::DISABLED)
                 ->build()
             ;

@@ -12,4 +12,6 @@ interface ILoopConfig extends IConfigElement
     public function getSignalHandlingMode(): SignalHandlingMode;
 
     public function getAutoStartMode(): AutoStartMode;
+
+    public function getSignalHandlersContainer(): ISignalHandlersContainer;
 }

@@ -20,6 +20,7 @@ final class DriverLinker implements IDriverLinker
     ) {
     }
 
+    /** @inheritDoc */
     public function link(IDriver $driver): void
     {
         $this->assertDriverCanBeLinked($driver);
@@ -31,6 +32,9 @@ final class DriverLinker implements IDriverLinker
         }
     }
 
+    /**
+     * @throws LogicException
+     */
     private function assertDriverCanBeLinked(IDriver $driver): void
     {
         if ($this->driver === null || $this->driver === $driver) {

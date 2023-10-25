@@ -7,9 +7,11 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Config;
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ISignalHandlersContainer;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class LoopConfigTest extends TestCase
 {
@@ -24,12 +26,19 @@ final class LoopConfigTest extends TestCase
     protected function getTesteeInstance(
         ?AutoStartMode $autoStartMode = null,
         ?SignalHandlingMode $signalHandlersMode = null,
+        ?ISignalHandlersContainer $signalHandlersContainer = null,
     ): ILoopConfig {
         return
             new LoopConfig(
                 autoStartMode: $autoStartMode ?? AutoStartMode::DISABLED,
                 signalHandlersMode: $signalHandlersMode ?? SignalHandlingMode::DISABLED,
+                signalHandlersContainer: $signalHandlersContainer ?? $this->getSignalHandlersContainerMock(),
             );
+    }
+
+    private function getSignalHandlersContainerMock(): MockObject&ISignalHandlersContainer
+    {
+        return $this->createMock(ISignalHandlersContainer::class);
     }
 
     #[Test]
@@ -55,7 +64,6 @@ final class LoopConfigTest extends TestCase
 
         self::assertSame($signalHandlersMode, $config->getSignalHandlingMode());
     }
-
 
     #[Test]
     public function canGetIdentifier(): void

@@ -7,12 +7,14 @@ namespace AlecRabbit\Spinner\Core\Config;
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ISignalHandlersContainer;
 
 final readonly class LoopConfig implements ILoopConfig
 {
     public function __construct(
         protected AutoStartMode $autoStartMode,
         protected SignalHandlingMode $signalHandlersMode,
+        protected ISignalHandlersContainer $signalHandlersContainer,
     ) {
     }
 
@@ -32,5 +34,10 @@ final readonly class LoopConfig implements ILoopConfig
     public function getIdentifier(): string
     {
         return ILoopConfig::class;
+    }
+
+    public function getSignalHandlersContainer(): ISignalHandlersContainer
+    {
+        return $this->signalHandlersContainer;
     }
 }

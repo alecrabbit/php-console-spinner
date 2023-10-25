@@ -83,6 +83,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\BufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
@@ -99,6 +100,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
@@ -109,6 +111,7 @@ use AlecRabbit\Spinner\Core\Factory\DriverProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\SignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
@@ -189,6 +192,9 @@ function getDefinitions(): Traversable
         },
 
         IDriverSetup::class => DriverSetup::class,
+        ISignalHandlingSetup::class => static function (IContainer $container): ISignalHandlingSetup {
+            return $container->get(ISignalHandlingSetupFactory::class)->create();
+        },
         IDriverLinker::class => static function (IContainer $container): IDriverLinker {
             return $container->get(IDriverLinkerFactory::class)->create();
         },
@@ -304,6 +310,7 @@ function factories(): Traversable
         IDefaultSettingsFactory::class => DefaultSettingsFactory::class,
         IDetectedSettingsFactory::class => DetectedSettingsFactory::class,
         IDriverLinkerFactory::class => DriverLinkerFactory::class,
+        ISignalHandlingSetupFactory::class => SignalHandlingSetupFactory::class,
         IDriverOutputFactory::class => DriverOutputFactory::class,
         IFrameCollectionFactory::class => FrameCollectionFactory::class,
         IIntervalFactory::class => IntervalFactory::class,

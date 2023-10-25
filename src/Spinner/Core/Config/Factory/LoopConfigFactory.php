@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Config\Factory;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Config\SignalHandlersContainer;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
 
@@ -28,6 +29,9 @@ final class LoopConfigFactory implements ILoopConfigFactory
                 )
                 ->withSignalHandlingMode(
                     $this->signalHandlersModeSolver->solve()
+                )
+                ->withSignalHandlersContainer(
+                    new SignalHandlersContainer() // FIXME (2023-10-25 16:21) [Alec Rabbit]: stub!
                 )
                 ->build()
         ;

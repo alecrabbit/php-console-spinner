@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ISignalHandlersContainer;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
@@ -95,6 +96,11 @@ final class LoopConfigFactoryTest extends TestCase
         ;
         $loopConfigBuilder
             ->expects(self::once())
+            ->method('withSignalHandlersContainer')
+            ->willReturnSelf()
+        ;
+        $loopConfigBuilder
+            ->expects(self::once())
             ->method('build')
             ->willReturn($loopConfig)
         ;
@@ -126,5 +132,10 @@ final class LoopConfigFactoryTest extends TestCase
                     'getSignalHandlingMode' => $signalHandlersMode ?? SignalHandlingMode::DISABLED,
                 ]
             );
+    }
+
+    private function getSignalHandlersContainerMock(): MockObject&ISignalHandlersContainer
+    {
+        return $this->createMock(ISignalHandlersContainer::class);
     }
 }

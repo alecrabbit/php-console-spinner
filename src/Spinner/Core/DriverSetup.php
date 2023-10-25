@@ -7,11 +7,13 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
 
 final readonly class DriverSetup implements IDriverSetup
 {
     public function __construct(
         protected IDriverLinker $driverLinker,
+        protected ISignalHandlingSetup $signalHandlingSetup,
     ) {
     }
 
@@ -20,5 +22,7 @@ final readonly class DriverSetup implements IDriverSetup
         $driver->initialize();
 
         $this->driverLinker->link($driver);
+
+        $this->signalHandlingSetup->setup($driver);
     }
 }
