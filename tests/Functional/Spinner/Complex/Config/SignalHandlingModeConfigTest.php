@@ -43,7 +43,7 @@ final class SignalHandlingModeConfigTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new LoopSettings(
-                    signalHandlersOption: SignalHandlingOption::ENABLED,
+                    signalHandlingOption: SignalHandlingOption::ENABLED,
                 ),
             )
         ;
@@ -60,7 +60,7 @@ final class SignalHandlingModeConfigTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new LoopSettings(
-                    signalHandlersOption: SignalHandlingOption::DISABLED,
+                    signalHandlingOption: SignalHandlingOption::DISABLED,
                 ),
             )
         ;

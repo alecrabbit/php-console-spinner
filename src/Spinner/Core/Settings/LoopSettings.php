@@ -12,7 +12,7 @@ final class LoopSettings implements ILoopSettings
 {
     public function __construct(
         protected AutoStartOption $autoStartOption = AutoStartOption::AUTO,
-        protected SignalHandlingOption $signalHandlersOption = SignalHandlingOption::AUTO,
+        protected SignalHandlingOption $signalHandlingOption = SignalHandlingOption::AUTO,
     ) {
     }
 
@@ -21,21 +21,9 @@ final class LoopSettings implements ILoopSettings
         return $this->autoStartOption;
     }
 
-    /** @deprecated */
-    public function setAutoStartOption(AutoStartOption $autoStartOption): void
-    {
-        $this->autoStartOption = $autoStartOption;
-    }
-
     public function getSignalHandlingOption(): SignalHandlingOption
     {
-        return $this->signalHandlersOption;
-    }
-
-    /** @deprecated */
-    public function setSignalHandlingOption(SignalHandlingOption $signalHandlersOption): void
-    {
-        $this->signalHandlersOption = $signalHandlersOption;
+        return $this->signalHandlingOption;
     }
 
     public function getIdentifier(): string

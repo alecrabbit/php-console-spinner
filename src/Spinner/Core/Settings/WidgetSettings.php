@@ -23,21 +23,9 @@ final class WidgetSettings implements IWidgetSettings
         return $this->leadingSpacer;
     }
 
-    /** @deprecated */
-    public function setLeadingSpacer(?IFrame $leadingSpacer): void
-    {
-        $this->leadingSpacer = $leadingSpacer;
-    }
-
     public function getTrailingSpacer(): ?IFrame
     {
         return $this->trailingSpacer;
-    }
-
-    /** @deprecated */
-    public function setTrailingSpacer(?IFrame $trailingSpacer): void
-    {
-        $this->trailingSpacer = $trailingSpacer;
     }
 
     public function getStylePalette(): ?IPalette
@@ -45,21 +33,9 @@ final class WidgetSettings implements IWidgetSettings
         return $this->stylePalette;
     }
 
-    /** @deprecated */
-    public function setStylePalette(?IPalette $stylePalette): void
-    {
-        $this->stylePalette = $stylePalette;
-    }
-
     public function getCharPalette(): ?IPalette
     {
         return $this->charPalette;
-    }
-
-    /** @deprecated */
-    public function setCharPalette(?IPalette $charPalette): void
-    {
-        $this->charPalette = $charPalette;
     }
 
     /**

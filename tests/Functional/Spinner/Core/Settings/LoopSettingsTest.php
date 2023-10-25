@@ -28,7 +28,7 @@ final class LoopSettingsTest extends TestCase
         return
             new LoopSettings(
                 autoStartOption: $autoStartOption ?? AutoStartOption::AUTO,
-                signalHandlersOption: $signalHandlersOption ?? SignalHandlingOption::AUTO,
+                signalHandlingOption: $signalHandlersOption ?? SignalHandlingOption::AUTO,
             );
     }
 
@@ -53,24 +53,6 @@ final class LoopSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canSetAutoStartOption(): void
-    {
-        $autoStartOptionInitial = AutoStartOption::ENABLED;
-
-        $settings = $this->getTesteeInstance(
-            autoStartOption: $autoStartOptionInitial,
-        );
-
-        $autoStartOption = AutoStartOption::DISABLED;
-
-        self::assertNotEquals($autoStartOption, $settings->getAutoStartOption());
-
-        $settings->setAutoStartOption($autoStartOption);
-
-        self::assertEquals($autoStartOption, $settings->getAutoStartOption());
-    }
-
-    #[Test]
     public function canGetSignalHandlingOption(): void
     {
         $signalHandlersOption = SignalHandlingOption::ENABLED;
@@ -78,24 +60,6 @@ final class LoopSettingsTest extends TestCase
         $settings = $this->getTesteeInstance(
             signalHandlersOption: $signalHandlersOption,
         );
-
-        self::assertEquals($signalHandlersOption, $settings->getSignalHandlingOption());
-    }
-
-    #[Test]
-    public function canSetSignalHandlingOption(): void
-    {
-        $signalHandlersOptionInitial = SignalHandlingOption::ENABLED;
-
-        $settings = $this->getTesteeInstance(
-            signalHandlersOption: $signalHandlersOptionInitial,
-        );
-
-        $signalHandlersOption = SignalHandlingOption::DISABLED;
-
-        self::assertNotEquals($signalHandlersOption, $settings->getSignalHandlingOption());
-
-        $settings->setSignalHandlingOption($signalHandlersOption);
 
         self::assertEquals($signalHandlersOption, $settings->getSignalHandlingOption());
     }

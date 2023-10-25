@@ -22,21 +22,9 @@ final class DriverSettings implements IDriverSettings
         return $this->linkerOption;
     }
 
-    /** @deprecated */
-    public function setLinkerOption(LinkerOption $linkerOption): void
-    {
-        $this->linkerOption = $linkerOption;
-    }
-
     public function getInitializationOption(): InitializationOption
     {
         return $this->initializationOption;
-    }
-
-    /** @deprecated */
-    public function setInitializationOption(InitializationOption $initializationOption): void
-    {
-        $this->initializationOption = $initializationOption;
     }
 
     public function getIdentifier(): string

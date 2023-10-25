@@ -53,24 +53,6 @@ final class AuxSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canSetRunMethodOption(): void
-    {
-        $runMethodOptionInitial = RunMethodOption::ASYNC;
-
-        $settings = $this->getTesteeInstance(
-            runMethodOption: $runMethodOptionInitial,
-        );
-
-        $runMethodOption = RunMethodOption::SYNCHRONOUS;
-
-        self::assertNotEquals($runMethodOption, $settings->getRunMethodOption());
-
-        $settings->setRunMethodOption($runMethodOption);
-
-        self::assertEquals($runMethodOption, $settings->getRunMethodOption());
-    }
-
-    #[Test]
     public function canGetNormalizerOption(): void
     {
         $normalizerOption = NormalizerOption::BALANCED;
@@ -78,24 +60,6 @@ final class AuxSettingsTest extends TestCase
         $settings = $this->getTesteeInstance(
             normalizerOption: $normalizerOption,
         );
-
-        self::assertEquals($normalizerOption, $settings->getNormalizerOption());
-    }
-
-    #[Test]
-    public function canSetNormalizerOption(): void
-    {
-        $normalizerOptionInitial = NormalizerOption::SMOOTH;
-
-        $settings = $this->getTesteeInstance(
-            normalizerOption: $normalizerOptionInitial,
-        );
-
-        $normalizerOption = NormalizerOption::PERFORMANCE;
-
-        self::assertNotEquals($normalizerOption, $settings->getNormalizerOption());
-
-        $settings->setNormalizerOption($normalizerOption);
 
         self::assertEquals($normalizerOption, $settings->getNormalizerOption());
     }

@@ -50,7 +50,7 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
             ),
             new LoopSettings(
                 autoStartOption: AutoStartOption::ENABLED,
-                signalHandlersOption: SignalHandlingOption::ENABLED,
+                signalHandlingOption: SignalHandlingOption::ENABLED,
             ),
             new OutputSettings(
                 stylingMethodOption: StylingMethodOption::ANSI8,

@@ -11,11 +11,5 @@ interface IOutputSettings extends ISettingsElement
 {
     public function getCursorVisibilityOption(): CursorVisibilityOption;
 
-    /** @deprecated */
-    public function setStylingMethodOption(StylingMethodOption $stylingMethodOption): void;
-
-    /** @deprecated */
-    public function setCursorVisibilityOption(CursorVisibilityOption $cursorVisibilityOption): void;
-
     public function getStylingMethodOption(): StylingMethodOption;
 }

@@ -21,21 +21,9 @@ final class OutputSettings implements IOutputSettings
         return $this->stylingMethodOption;
     }
 
-    /** @deprecated */
-    public function setStylingMethodOption(StylingMethodOption $stylingMethodOption): void
-    {
-        $this->stylingMethodOption = $stylingMethodOption;
-    }
-
     public function getCursorVisibilityOption(): CursorVisibilityOption
     {
         return $this->cursorVisibilityOption;
-    }
-
-    /** @deprecated */
-    public function setCursorVisibilityOption(CursorVisibilityOption $cursorVisibilityOption): void
-    {
-        $this->cursorVisibilityOption = $cursorVisibilityOption;
     }
 
     public function getIdentifier(): string

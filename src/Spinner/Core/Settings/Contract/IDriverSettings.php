@@ -11,9 +11,5 @@ interface IDriverSettings extends ISettingsElement
 {
     public function getInitializationOption(): InitializationOption;
 
-    public function setLinkerOption(LinkerOption $linkerOption): void;
-
-    public function setInitializationOption(InitializationOption $initializationOption): void;
-
     public function getLinkerOption(): LinkerOption;
 }

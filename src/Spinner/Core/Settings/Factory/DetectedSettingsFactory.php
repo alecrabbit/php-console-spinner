@@ -49,7 +49,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
             ),
             new LoopSettings(
                 autoStartOption: $this->getAutoStartOption(),
-                signalHandlersOption: $this->getSignalMethodOption(),
+                signalHandlingOption: $this->getSignalMethodOption(),
             ),
             new OutputSettings(
                 stylingMethodOption: $this->detectStylingMethodOption(),

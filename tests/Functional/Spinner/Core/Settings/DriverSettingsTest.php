@@ -53,24 +53,6 @@ final class DriverSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canSetLinkerOption(): void
-    {
-        $linkerOptionInitial = LinkerOption::ENABLED;
-
-        $settings = $this->getTesteeInstance(
-            linkerOption: $linkerOptionInitial,
-        );
-
-        $linkerOption = LinkerOption::DISABLED;
-
-        self::assertNotEquals($linkerOption, $settings->getLinkerOption());
-
-        $settings->setLinkerOption($linkerOption);
-
-        self::assertEquals($linkerOption, $settings->getLinkerOption());
-    }
-
-    #[Test]
     public function canGetInitializationOption(): void
     {
         $initializationOption = InitializationOption::ENABLED;
@@ -78,24 +60,6 @@ final class DriverSettingsTest extends TestCase
         $settings = $this->getTesteeInstance(
             initializationOption: $initializationOption,
         );
-
-        self::assertEquals($initializationOption, $settings->getInitializationOption());
-    }
-
-    #[Test]
-    public function canSetInitializationOption(): void
-    {
-        $initializationOptionInitial = InitializationOption::ENABLED;
-
-        $settings = $this->getTesteeInstance(
-            initializationOption: $initializationOptionInitial,
-        );
-
-        $initializationOption = InitializationOption::DISABLED;
-
-        self::assertNotEquals($initializationOption, $settings->getInitializationOption());
-
-        $settings->setInitializationOption($initializationOption);
 
         self::assertEquals($initializationOption, $settings->getInitializationOption());
     }

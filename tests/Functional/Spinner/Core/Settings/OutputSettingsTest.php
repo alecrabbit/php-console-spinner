@@ -53,24 +53,6 @@ final class OutputSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canSetStylingMethodOption(): void
-    {
-        $stylingMethodOptionInitial = StylingMethodOption::ANSI4;
-
-        $settings = $this->getTesteeInstance(
-            stylingMethodOption: $stylingMethodOptionInitial,
-        );
-
-        $stylingMethodOption = StylingMethodOption::ANSI24;
-
-        self::assertNotEquals($stylingMethodOption, $settings->getStylingMethodOption());
-
-        $settings->setStylingMethodOption($stylingMethodOption);
-
-        self::assertEquals($stylingMethodOption, $settings->getStylingMethodOption());
-    }
-
-    #[Test]
     public function canGetCursorVisibilityOption(): void
     {
         $cursorVisibilityOption = CursorVisibilityOption::VISIBLE;
@@ -78,24 +60,6 @@ final class OutputSettingsTest extends TestCase
         $settings = $this->getTesteeInstance(
             cursorVisibilityOption: $cursorVisibilityOption,
         );
-
-        self::assertEquals($cursorVisibilityOption, $settings->getCursorVisibilityOption());
-    }
-
-    #[Test]
-    public function canSetCursorVisibilityOption(): void
-    {
-        $cursorVisibilityOptionInitial = CursorVisibilityOption::HIDDEN;
-
-        $settings = $this->getTesteeInstance(
-            cursorVisibilityOption: $cursorVisibilityOptionInitial,
-        );
-
-        $cursorVisibilityOption = CursorVisibilityOption::VISIBLE;
-
-        self::assertNotEquals($cursorVisibilityOption, $settings->getCursorVisibilityOption());
-
-        $settings->setCursorVisibilityOption($cursorVisibilityOption);
 
         self::assertEquals($cursorVisibilityOption, $settings->getCursorVisibilityOption());
     }
