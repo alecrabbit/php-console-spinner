@@ -19,10 +19,10 @@ final readonly class DriverSetup implements IDriverSetup
 
     public function setup(IDriver $driver): void
     {
-        $driver->initialize();
-
         $this->driverLinker->link($driver);
 
         $this->signalHandlingSetup->setup($driver);
+
+        $driver->initialize();
     }
 }
