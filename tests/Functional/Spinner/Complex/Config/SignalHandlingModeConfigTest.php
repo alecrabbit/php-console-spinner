@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Functional\Spinner\Complex;
+namespace AlecRabbit\Tests\Functional\Spinner\Complex\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;

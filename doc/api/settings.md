@@ -40,7 +40,7 @@ $driverSettings = new DriverSettings();
 
 $driverSettings->setLinkerOption(LinkerOption::AUTO); // todo: check semantics
 // TODO (2023-10-16 13:56) [Alec Rabbit]: do move [36e6c435-2f98-4a19-9709-49848fd0a605]
-// $driverSettings->setInitializationOption(InitializationOption::AUTO); // moved to OutputSettings
+// $driverSettings->setInitializationOption(InitializationOption::AUTO); // moved to OutputSettings 
 # NEW FEATURE? // $driverSettings->setFinalMessage('');
 # NEW FEATURE? // $driverSettings->setInterruptMessage('');
 

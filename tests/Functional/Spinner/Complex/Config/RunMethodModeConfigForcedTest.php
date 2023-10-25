@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Functional\Spinner\Complex;
+namespace AlecRabbit\Tests\Functional\Spinner\Complex\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
