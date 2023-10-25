@@ -45,20 +45,22 @@ $driverSettings->setLinkerOption(LinkerOption::AUTO); // todo: check semantics
 # NEW FEATURE? // $driverSettings->setInterruptMessage('');
 
 // Widget settings
-$widgetSettings = new WidgetSettings();
-
-$widgetSettings->setCharPattern(null); // default: none
-$widgetSettings->setStylePattern(null); // default: none
-$widgetSettings->setLeadingSpacer(null); // default: CharFrame('', 0) 
-$widgetSettings->setTrailingSpacer(null); // default: CharFrame('', 0)
+$widgetSettings = 
+    new WidgetSettings(
+        leadingSpacer: $leadingSpacer, // null, defaults to: CharFrame('', 0)
+        trailingSpacer: $trailingSpacer, // null, defaults to: CharFrame('', 0)
+        stylePalette: $stylePalette, // null, defaults to: none
+        charPalette: $charPalette, // null, defaults to: none
+    );
 
 // Root Widget settings
-$rootWidgetSettings = new RootWidgetSettings();
-
-$rootWidgetSettings->setCharPattern(new Snake()); // default: Snake::class
-$rootWidgetSettings->setStylePattern(new Rainbow()); // default: Rainbow::class
-$rootWidgetSettings->setLeadingSpacer(null); // default: CharFrame('', 0) 
-$rootWidgetSettings->setTrailingSpacer(null); // default: CharFrame(' ', 1)
+$rootWidgetSettings = 
+    new RootWidgetSettings(
+        leadingSpacer: $leadingSpacer, // null, defaults to: WidgetConfig.leadingSpacer
+        trailingSpacer: $trailingSpacer, // null, defaults to: WidgetConfig.trailingSpacer
+        stylePalette: $stylePalette, // null, defaults to:  new Rainbow() 
+        charPalette: $charPalette, // null, defaults to: new Snake() 
+    );
 ```
 
 ```php
