@@ -22,10 +22,10 @@ $driver = Facade::getDriver();
 
 echo 'Synchronous mode forced' . PHP_EOL;
 
-for ($i = 0; $i < 10; $i++) {
+for ($i = 0; $i < 100; $i++) {
     $driver->render();
     \usleep(100000);
 }
+$driver->finalize();
 
-echo PHP_EOL;
 echo 'Finished' . PHP_EOL;
