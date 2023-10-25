@@ -36,12 +36,9 @@ final class SignalHandlingSetup implements ISignalHandlingSetup
 
     private function getHandlers(): \Traversable
     {
-        yield SIGINT => static function (IDriver $driver, ILoop $loop): \Closure {
-            return
-                static function () use ($driver, $loop): void {
-                    $driver->interrupt('Interrupted' . PHP_EOL);
-                    $loop->stop();
-                };
-        };
+        return
+            $this->loopConfig->getSignalHandlersContainer()
+                ->getSignalHandlers()
+        ;
     }
 }

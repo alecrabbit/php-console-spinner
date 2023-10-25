@@ -9,10 +9,11 @@ use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\ISignalHandlersContainer;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
+use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -30,14 +31,23 @@ final class LoopConfigFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IAutoStartModeSolver $autoStartModeSolver = null,
         ?ISignalHandlingModeSolver $signalHandlersModeSolver = null,
+        ?ISignalHandlersContainerSolver $signalHandlersContainerSolver = null,
         ?ILoopConfigBuilder $loopConfigBuilder = null,
     ): ILoopConfigFactory {
+        $signalHandlersContainerSolver ??= $this->getSignalHandlersContainerSolverMock();
+
         return
             new LoopConfigFactory(
                 autoStartModeSolver: $autoStartModeSolver ?? $this->getAutoStartModeSolverMock(),
                 signalHandlersModeSolver: $signalHandlersModeSolver ?? $this->getSignalHandlingModeSolverMock(),
+                signalHandlersContainerSolver: $signalHandlersContainerSolver,
                 loopConfigBuilder: $loopConfigBuilder ?? $this->getLoopConfigBuilderMock(),
             );
+    }
+
+    protected function getSignalHandlersContainerSolverMock(): MockObject&ISignalHandlersContainerSolver
+    {
+        return $this->createMock(ISignalHandlersContainerSolver::class);
     }
 
     protected function getAutoStartModeSolverMock(
@@ -74,12 +84,20 @@ final class LoopConfigFactoryTest extends TestCase
     {
         $autoStartMode = AutoStartMode::ENABLED;
         $signalHandlersMode = SignalHandlingMode::ENABLED;
+        $signalHandlersContainer = $this->getSignalHandlersContainerMock();
 
         $loopConfig =
             $this->getLoopConfigMock(
                 $autoStartMode,
                 $signalHandlersMode
             );
+
+        $signalHandlersContainerSolver = $this->getSignalHandlersContainerSolverMock();
+        $signalHandlersContainerSolver
+            ->expects(self::once())
+            ->method('solve')
+            ->willReturn($signalHandlersContainer)
+        ;
 
         $loopConfigBuilder = $this->getLoopConfigBuilderMock();
         $loopConfigBuilder
@@ -97,6 +115,7 @@ final class LoopConfigFactoryTest extends TestCase
         $loopConfigBuilder
             ->expects(self::once())
             ->method('withSignalHandlersContainer')
+            ->with($signalHandlersContainer)
             ->willReturnSelf()
         ;
         $loopConfigBuilder
@@ -109,6 +128,7 @@ final class LoopConfigFactoryTest extends TestCase
             $this->getTesteeInstance(
                 autoStartModeSolver: $this->getAutoStartModeSolverMock($autoStartMode),
                 signalHandlersModeSolver: $this->getSignalHandlingModeSolverMock($signalHandlersMode),
+                signalHandlersContainerSolver: $signalHandlersContainerSolver,
                 loopConfigBuilder: $loopConfigBuilder,
             );
 

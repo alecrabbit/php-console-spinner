@@ -66,9 +66,11 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\SignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
@@ -288,6 +290,7 @@ function solvers(): Traversable
         INormalizerModeSolver::class => NormalizerModeSolver::class,
         IAutoStartModeSolver::class => AutoStartModeSolver::class,
         ISignalHandlingModeSolver::class => SignalHandlingModeSolver::class,
+        ISignalHandlersContainerSolver::class => SignalHandlersContainerSolver::class,
         IStylingMethodModeSolver::class => StylingMethodModeSolver::class,
         ICursorVisibilityModeSolver::class => CursorVisibilityModeSolver::class,
         ILinkerModeSolver::class => LinkerModeSolver::class,

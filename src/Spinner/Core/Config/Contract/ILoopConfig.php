@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\Contract;
 
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
+use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
 
 interface ILoopConfig extends IConfigElement
 {

@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Config;
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\ISignalHandlersContainer;
+use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
 
 final readonly class LoopConfig implements ILoopConfig
 {

@@ -13,7 +13,6 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final readonly class SignalHandlingModeSolver extends ASolver implements Contract\ISignalHandlingModeSolver
 {
-
     public function solve(): SignalHandlingMode
     {
         return

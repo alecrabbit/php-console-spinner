@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Config\Contract\Builder;
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\ISignalHandlersContainer;
+use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 interface ILoopConfigBuilder
