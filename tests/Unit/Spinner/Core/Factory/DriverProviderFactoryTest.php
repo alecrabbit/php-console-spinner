@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
+use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverProviderFactory;
@@ -25,12 +26,12 @@ final class DriverProviderFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IDriverFactory $driverFactory = null,
-        ?IDriverLinker $driverLinker = null,
+        ?IDriverSetup $driverSetup = null,
     ): IDriverProviderFactory {
         return
             new DriverProviderFactory(
                 driverFactory: $driverFactory ?? $this->getDriverFactoryMock(),
-                linker: $driverLinker ?? $this->getDriverLinkerMock(),
+                driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
             );
     }
 
@@ -39,19 +40,15 @@ final class DriverProviderFactoryTest extends TestCase
         return $this->createMock(IDriverFactory::class);
     }
 
-    private function getDriverLinkerMock(): MockObject&IDriverLinker
+    private function getDriverSetupMock(): MockObject&IDriverSetup
     {
-        return $this->createMock(IDriverLinker::class);
+        return $this->createMock(IDriverSetup::class);
     }
 
     #[Test]
     public function canCreate(): void
     {
         $driver = $this->getDriverMock();
-        $driver
-            ->expects(self::once())
-            ->method('initialize')
-        ;
 
         $driverFactory = $this->getDriverFactoryMock();
         $driverFactory
@@ -60,17 +57,17 @@ final class DriverProviderFactoryTest extends TestCase
             ->willReturn($driver)
         ;
 
-        $driverLinker = $this->getDriverLinkerMock();
-        $driverLinker
+        $driverSetup = $this->getDriverSetupMock();
+        $driverSetup
             ->expects(self::once())
-            ->method('link')
+            ->method('setup')
             ->with(self::identicalTo($driver))
         ;
 
         $factory =
             $this->getTesteeInstance(
                 driverFactory: $driverFactory,
-                driverLinker: $driverLinker,
+                driverSetup: $driverSetup,
             );
 
         $driverProvider = $factory->create();
@@ -81,5 +78,10 @@ final class DriverProviderFactoryTest extends TestCase
     protected function getDriverMock(): MockObject&IDriver
     {
         return $this->createMock(IDriver::class);
+    }
+
+    private function getDriverLinkerMock(): MockObject&IDriverLinker
+    {
+        return $this->createMock(IDriverLinker::class);
     }
 }

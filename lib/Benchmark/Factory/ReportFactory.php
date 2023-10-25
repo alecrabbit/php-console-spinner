@@ -7,7 +7,6 @@ namespace AlecRabbit\Benchmark\Factory;
 use AlecRabbit\Benchmark\Builder\ReportBuilder;
 use AlecRabbit\Benchmark\Contract\Builder\IReportBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IReportFactory;
-use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IBenchmarkResults;
 use AlecRabbit\Benchmark\Contract\IReport;
 

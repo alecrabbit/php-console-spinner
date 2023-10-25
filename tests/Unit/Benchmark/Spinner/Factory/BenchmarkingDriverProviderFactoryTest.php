@@ -12,6 +12,7 @@ use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverProviderFactory;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
+use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -29,13 +30,13 @@ final class BenchmarkingDriverProviderFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IDriverLinker $driverLinker = null,
-        ?IBenchmarkingDriverFactory $benchmarkingDriverFactory = null,
+        ?IBenchmarkingDriverFactory $driverFactory = null,
+        ?IDriverSetup $driverSetup = null,
     ): IDriverProviderFactory {
         return
             new BenchmarkingDriverProviderFactory(
-                benchmarkingDriverFactory: $benchmarkingDriverFactory ?? $this->getBenchmarkingDriverFactoryMock(),
-                driverLinker: $driverLinker ?? $this->getDriverLinkerMock(),
+                driverFactory: $driverFactory ?? $this->getBenchmarkingDriverFactoryMock(),
+                driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
             );
     }
 
@@ -44,43 +45,40 @@ final class BenchmarkingDriverProviderFactoryTest extends TestCase
         return $this->createMock(IBenchmarkingDriverFactory::class);
     }
 
-    private function getDriverLinkerMock(): MockObject&IDriverLinker
+    private function getDriverSetupMock(): MockObject&IDriverSetup
     {
-        return $this->createMock(IDriverLinker::class);
+        return $this->createMock(IDriverSetup::class);
     }
 
     #[Test]
     public function canCreate(): void
+
     {
-        $benchmarkingDriver = $this->getBenchmarkingDriverMock();
-        $benchmarkingDriver
+        $driver = $this->getBenchmarkingDriverMock();
+
+        $driverSetup = $this->getDriverSetupMock();
+        $driverSetup
             ->expects(self::once())
-            ->method('initialize')
+            ->method('setup')
+            ->with(self::identicalTo($driver))
         ;
 
-        $driverLinker = $this->getDriverLinkerMock();
-        $driverLinker
-            ->expects(self::once())
-            ->method('link')
-            ->with(self::identicalTo($benchmarkingDriver))
-        ;
-
-        $benchmarkingDriverFactory = $this->getBenchmarkingDriverFactoryMock();
-        $benchmarkingDriverFactory
+        $driverFactory = $this->getBenchmarkingDriverFactoryMock();
+        $driverFactory
             ->expects(self::once())
             ->method('create')
-            ->willReturn($benchmarkingDriver)
+            ->willReturn($driver)
         ;
 
         $factory =
             $this->getTesteeInstance(
-                driverLinker: $driverLinker,
-                benchmarkingDriverFactory: $benchmarkingDriverFactory,
+                driverFactory: $driverFactory,
+                driverSetup: $driverSetup,
             );
 
         $driverProvider = $factory->create();
 
-        self::assertSame($benchmarkingDriver, $driverProvider->getDriver());
+        self::assertSame($driver, $driverProvider->getDriver());
     }
 
     protected function getBenchmarkingDriverMock(): MockObject&IBenchmarkingDriver
@@ -96,6 +94,11 @@ final class BenchmarkingDriverProviderFactoryTest extends TestCase
     protected function getDriverMock(): MockObject&IDriver
     {
         return $this->createMock(IDriver::class);
+    }
+
+    private function getDriverLinkerMock(): MockObject&IDriverLinker
+    {
+        return $this->createMock(IDriverLinker::class);
     }
 
     private function getBenchmarkFactoryMock(): MockObject&IBenchmarkFactory

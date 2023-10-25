@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Builder;
 
 use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
-use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
 use AlecRabbit\Benchmark\Contract\IReportFormatter;
-use AlecRabbit\Benchmark\Contract\IResultFormatter;
-use AlecRabbit\Benchmark\Contract\IKeyFormatter;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\ReportPrinter;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
-use LogicException;
+use InvalidArgumentException;
 
 final class ReportPrinterBuilder implements IReportPrinterBuilder
 {
@@ -33,8 +30,8 @@ final class ReportPrinterBuilder implements IReportPrinterBuilder
     private function validate(): void
     {
         match (true) {
-            !isset($this->output) => throw new \InvalidArgumentException('Output is not set.'),
-            !isset($this->reportFormatter) => throw new \InvalidArgumentException('Report formatter is not set.'),
+            !isset($this->output) => throw new InvalidArgumentException('Output is not set.'),
+            !isset($this->reportFormatter) => throw new InvalidArgumentException('Report formatter is not set.'),
             default => null,
         };
     }

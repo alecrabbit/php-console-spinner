@@ -12,6 +12,7 @@ use AlecRabbit\Benchmark\Factory\BenchmarkResultsFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class BenchmarkResultsFactoryTest extends TestCase
 {
@@ -49,9 +50,9 @@ final class BenchmarkResultsFactoryTest extends TestCase
         self::assertInstanceOf(BenchmarkResults::class, $benchmarkResults);
     }
 
-    private function getTraversableMock(): MockObject&\Traversable
+    private function getTraversableMock(): MockObject&Traversable
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(Traversable::class);
     }
 
 }

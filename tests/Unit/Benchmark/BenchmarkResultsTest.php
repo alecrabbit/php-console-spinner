@@ -9,6 +9,7 @@ use AlecRabbit\Benchmark\Contract\IBenchmarkResults;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class BenchmarkResultsTest extends TestCase
 {
@@ -41,8 +42,8 @@ final class BenchmarkResultsTest extends TestCase
         self::assertSame($results, $benchmarkResults->getResults());
     }
 
-    private function getTraversableMock(): MockObject&\Traversable
+    private function getTraversableMock(): MockObject&Traversable
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(Traversable::class);
     }
 }

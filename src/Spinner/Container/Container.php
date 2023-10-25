@@ -46,6 +46,15 @@ final class Container implements IContainer
         }
     }
 
+    /**
+     * @psalm-suppress MixedInferredReturnType
+     * @psalm-suppress MixedReturnStatement
+     */
+    protected function createSpawner(Closure $spawnerCreatorCb): IServiceSpawner
+    {
+        return $spawnerCreatorCb($this);
+    }
+
     private function register(string $id, mixed $definition): void
     {
         $this->assertDefinition($definition);
@@ -102,6 +111,7 @@ final class Container implements IContainer
         return $this->services->offsetExists($id);
     }
 
+    /** @inheritDoc */
     public function remove(string $id): void
     {
         if (!$this->has($id)) {
@@ -115,6 +125,7 @@ final class Container implements IContainer
         unset($this->definitions[$id], $this->services[$id]);
     }
 
+    /** @inheritDoc */
     public function add(string $id, callable|object|string $definition): void
     {
         $this->register($id, $definition);
@@ -186,14 +197,5 @@ final class Container implements IContainer
     private function removeDependencyFromStack(): void
     {
         $this->dependencyStack->offsetUnset($this->dependencyStack->count() - 1);
-    }
-
-    /**
-     * @psalm-suppress MixedInferredReturnType
-     * @psalm-suppress MixedReturnStatement
-     */
-    protected function createSpawner(Closure $spawnerCreatorCb): IServiceSpawner
-    {
-        return $spawnerCreatorCb($this);
     }
 }

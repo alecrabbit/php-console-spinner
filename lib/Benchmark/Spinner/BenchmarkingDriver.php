@@ -34,6 +34,11 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
         );
     }
 
+    protected function refineKey(string $func): string
+    {
+        return $this::class . '::' . $func;
+    }
+
     public function has(ISpinner $spinner): bool
     {
         return
@@ -123,10 +128,5 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
     public function getBenchmark(): IBenchmark
     {
         return $this->benchmark;
-    }
-
-    protected function refineKey(string $func): string
-    {
-        return $this::class. '::' . $func;
     }
 }

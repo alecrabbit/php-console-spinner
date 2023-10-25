@@ -81,7 +81,9 @@ use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
+use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\BufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
@@ -162,6 +164,7 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
+use RuntimeException;
 use Traversable;
 
 // @codeCoverageIgnoreStart
@@ -185,6 +188,7 @@ function getDefinitions(): Traversable
             return $container->get(IDriverProviderFactory::class)->create();
         },
 
+        IDriverSetup::class => DriverSetup::class,
         IDriverLinker::class => static function (IContainer $container): IDriverLinker {
             return $container->get(IDriverLinkerFactory::class)->create();
         },
@@ -192,9 +196,12 @@ function getDefinitions(): Traversable
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },
         ILoopCreatorClassProvider::class => static function (IContainer $container): ILoopCreatorClassProvider {
-            $creatorClass = $container->get(ILoopCreatorClassExtractor::class)->extract(
-                Probes::load(ILoopProbe::class)
-            );
+            $creatorClass =
+                $container->get(ILoopCreatorClassExtractor::class)
+                    ->extract(
+                        Probes::load(ILoopProbe::class)
+                    )
+            ;
             return
                 new LoopCreatorClassProvider(
                     $creatorClass,
@@ -324,7 +331,7 @@ function factories(): Traversable
             $creatorClass =
                 $container->get(ILoopCreatorClassProvider::class)->getCreatorClass()
                 ??
-                throw new \RuntimeException('Loop creator class is not defined.');
+                throw new RuntimeException('Loop creator class is not defined.');
 
             return
                 new LoopFactory(

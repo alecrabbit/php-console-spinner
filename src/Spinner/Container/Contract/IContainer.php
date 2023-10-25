@@ -22,12 +22,14 @@ interface IContainer extends ContainerInterface
      * @throws ContainerExceptionInterface Error while retrieving the entry.
      * @throws NotFoundExceptionInterface  No entry was found for **this** identifier.
      */
-    public function get(string $id): object;
+    public function get(string $id);
 
     /** @inheritDoc */
     public function has(string $id): bool;
 
     /**
+     * @deprecated Container should be aware immutable.
+     *
      * Adds definition to the container. **Does not** instantiate service.
      *
      * @param string $id Identifier of the entry to add.
@@ -38,6 +40,8 @@ interface IContainer extends ContainerInterface
     public function add(string $id, callable|object|string $definition): void;
 
     /**
+     * @deprecated Container should be aware immutable.
+     *
      * Removes definition and service(if any) with **this** identifier from the container.
      *
      * @param string $id Identifier of the entry to remove.
@@ -47,6 +51,8 @@ interface IContainer extends ContainerInterface
     public function remove(string $id): void;
 
     /**
+     * @deprecated Container should be aware immutable.
+     *
      * Replaces definition and service(if any) with **this** identifier in the container.
      *
      * @psalm-template T of object

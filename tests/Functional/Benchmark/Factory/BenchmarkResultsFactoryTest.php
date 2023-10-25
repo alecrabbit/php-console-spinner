@@ -16,6 +16,7 @@ use AlecRabbit\Benchmark\Factory\ResultMaker;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class BenchmarkResultsFactoryTest extends TestCase
 {
@@ -70,7 +71,7 @@ final class BenchmarkResultsFactoryTest extends TestCase
         self::assertInstanceOf(IResult::class, $arr[self::A_3]);
     }
 
-    private function getMeasurements(): \Traversable
+    private function getMeasurements(): Traversable
     {
         yield from [
             self::A_1 => $this->getMeasurementMock(),
@@ -110,7 +111,7 @@ final class BenchmarkResultsFactoryTest extends TestCase
         self::assertInstanceOf(IResult::class, $arr[self::A_5]);
     }
 
-    private function getMeasurementsWithExceptions(): \Traversable
+    private function getMeasurementsWithExceptions(): Traversable
     {
         $measurementA1 = $this->getMeasurementMock();
         $measurementA1

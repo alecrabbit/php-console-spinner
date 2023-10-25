@@ -8,7 +8,6 @@ use AlecRabbit\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Benchmark\Exception\MeasurementException;
 use AlecRabbit\Benchmark\Stopwatch\Measurement;
 use AlecRabbit\Tests\TestCase\TestCase;
-use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 
 final class MeasurementTest extends TestCase

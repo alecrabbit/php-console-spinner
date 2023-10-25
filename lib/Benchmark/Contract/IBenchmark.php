@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Contract;
 
 use Closure;
+use Traversable;
 
 interface IBenchmark
 {
@@ -13,5 +14,5 @@ interface IBenchmark
     /** @deprecated */
     public function getStopwatch(): IStopwatch;
 
-    public function getMeasurements(): \Traversable;
+    public function getMeasurements(): Traversable;
 }
