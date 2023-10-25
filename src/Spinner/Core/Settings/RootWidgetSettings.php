@@ -24,6 +24,7 @@ final class RootWidgetSettings implements IRootWidgetSettings
         return $this->leadingSpacer;
     }
 
+    /** @deprecated */
     public function setLeadingSpacer(?IFrame $leadingSpacer): void
     {
         $this->leadingSpacer = $leadingSpacer;
@@ -34,6 +35,7 @@ final class RootWidgetSettings implements IRootWidgetSettings
         return $this->trailingSpacer;
     }
 
+    /** @deprecated */
     public function setTrailingSpacer(?IFrame $trailingSpacer): void
     {
         $this->trailingSpacer = $trailingSpacer;
@@ -44,6 +46,7 @@ final class RootWidgetSettings implements IRootWidgetSettings
         return $this->stylePalette;
     }
 
+    /** @deprecated */
     public function setStylePalette(?IPalette $stylePalette): void
     {
         $this->stylePalette = $stylePalette;
@@ -54,6 +57,7 @@ final class RootWidgetSettings implements IRootWidgetSettings
         return $this->charPalette;
     }
 
+    /** @deprecated */
     public function setCharPalette(?IPalette $charPalette): void
     {
         $this->charPalette = $charPalette;

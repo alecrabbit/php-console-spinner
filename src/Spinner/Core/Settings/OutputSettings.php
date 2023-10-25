@@ -21,6 +21,7 @@ final class OutputSettings implements IOutputSettings
         return $this->stylingMethodOption;
     }
 
+    /** @deprecated */
     public function setStylingMethodOption(StylingMethodOption $stylingMethodOption): void
     {
         $this->stylingMethodOption = $stylingMethodOption;
@@ -31,6 +32,7 @@ final class OutputSettings implements IOutputSettings
         return $this->cursorVisibilityOption;
     }
 
+    /** @deprecated */
     public function setCursorVisibilityOption(CursorVisibilityOption $cursorVisibilityOption): void
     {
         $this->cursorVisibilityOption = $cursorVisibilityOption;

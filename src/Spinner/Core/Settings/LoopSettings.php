@@ -21,6 +21,7 @@ final class LoopSettings implements ILoopSettings
         return $this->autoStartOption;
     }
 
+    /** @deprecated */
     public function setAutoStartOption(AutoStartOption $autoStartOption): void
     {
         $this->autoStartOption = $autoStartOption;
@@ -31,6 +32,7 @@ final class LoopSettings implements ILoopSettings
         return $this->signalHandlersOption;
     }
 
+    /** @deprecated */
     public function setSignalHandlingOption(SignalHandlingOption $signalHandlersOption): void
     {
         $this->signalHandlersOption = $signalHandlersOption;
