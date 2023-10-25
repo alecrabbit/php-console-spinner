@@ -21,7 +21,7 @@ final class Container implements IContainer
     /** @var ArrayObject<string, callable|object|string> */
     private ArrayObject $definitions;
 
-    /** @var ArrayObject<string, object> */
+    /** @var ArrayObject<string, mixed> */
     private ArrayObject $services;
 
     private ArrayObject $dependencyStack;
@@ -29,6 +29,7 @@ final class Container implements IContainer
     public function __construct(Closure $spawnerCreatorCb, ?Traversable $definitions = null)
     {
         $this->serviceSpawner = $this->createSpawner($spawnerCreatorCb);
+
         /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->definitions = new ArrayObject();
         /** @psalm-suppress MixedPropertyTypeCoercion */
@@ -44,6 +45,15 @@ final class Container implements IContainer
                 $this->register($id, $definition);
             }
         }
+    }
+
+    /**
+     * @psalm-suppress MixedInferredReturnType
+     * @psalm-suppress MixedReturnStatement
+     */
+    protected function createSpawner(Closure $spawnerCreatorCb): IServiceSpawner
+    {
+        return $spawnerCreatorCb($this);
     }
 
     private function register(string $id, mixed $definition): void
@@ -85,43 +95,13 @@ final class Container implements IContainer
         return $this->definitions->offsetExists($id);
     }
 
-    /** @inheritDoc */
-    public function replace(string $id, callable|object|string $definition): void
-    {
-        $serviceInstantiated = $this->hasService($id);
-
-        $this->remove($id);
-        $this->add($id, $definition);
-        if ($serviceInstantiated) {
-            $this->get($id); // instantiates service with new definition
-        }
-    }
-
     private function hasService(string $id): bool
     {
         return $this->services->offsetExists($id);
     }
 
-    public function remove(string $id): void
-    {
-        if (!$this->has($id)) {
-            throw new NotInContainerException(
-                sprintf(
-                    'Definition with id "%s" is not registered in the container.',
-                    $id,
-                )
-            );
-        }
-        unset($this->definitions[$id], $this->services[$id]);
-    }
-
-    public function add(string $id, callable|object|string $definition): void
-    {
-        $this->register($id, $definition);
-    }
-
     /** @inheritDoc */
-    public function get(string $id): object
+    public function get(string $id): mixed
     {
         if ($this->hasService($id)) {
             return $this->services[$id];
@@ -186,14 +166,5 @@ final class Container implements IContainer
     private function removeDependencyFromStack(): void
     {
         $this->dependencyStack->offsetUnset($this->dependencyStack->count() - 1);
-    }
-
-    /**
-     * @psalm-suppress MixedInferredReturnType
-     * @psalm-suppress MixedReturnStatement
-     */
-    protected function createSpawner(Closure $spawnerCreatorCb): IServiceSpawner
-    {
-        return $spawnerCreatorCb($this);
     }
 }

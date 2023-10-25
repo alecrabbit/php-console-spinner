@@ -6,7 +6,6 @@ namespace AlecRabbit\Benchmark\Stopwatch;
 
 use AlecRabbit\Benchmark\Contract\IResult;
 use AlecRabbit\Benchmark\Contract\IResultFormatter;
-use Throwable;
 
 final class ResultFormatter implements IResultFormatter
 {

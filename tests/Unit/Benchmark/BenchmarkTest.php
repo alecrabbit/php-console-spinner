@@ -37,11 +37,6 @@ final class BenchmarkTest extends TestCase
         return $this->createMock(IStopwatch::class);
     }
 
-    protected function extractPrefix(IBenchmark $benchmark): mixed
-    {
-        return self::getPropertyValue(self::PREFIX, $benchmark);
-    }
-
     #[Test]
     public function canGetMeasurements(): void
     {
@@ -155,6 +150,11 @@ final class BenchmarkTest extends TestCase
             $result,
             $benchmark->run($label, $callback, ...$args)
         );
+    }
+
+    protected function extractPrefix(IBenchmark $benchmark): mixed
+    {
+        return self::getPropertyValue(self::PREFIX, $benchmark);
     }
 
     private function getResultsFactoryMock(): MockObject&IBenchmarkResultsFactory

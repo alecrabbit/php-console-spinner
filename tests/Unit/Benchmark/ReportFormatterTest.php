@@ -11,7 +11,6 @@ use AlecRabbit\Benchmark\Contract\IReportFormatter;
 use AlecRabbit\Benchmark\Contract\IResult;
 use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\ReportFormatter;
-use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

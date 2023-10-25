@@ -51,19 +51,9 @@ final class ReportPrinterFactoryTest extends TestCase
         return $this->createMock(IOutput::class);
     }
 
-    private function getDatetimeFormatterMock(): MockObject&IDatetimeFormatter
+    private function getReportFormatterMock(): MockObject&IReportFormatter
     {
-        return $this->createMock(IDatetimeFormatter::class);
-    }
-
-    private function getMeasurementFormatterMock(): MockObject&IResultFormatter
-    {
-        return $this->createMock(IResultFormatter::class);
-    }
-
-    private function getMeasurementKeyFormatterMock(): MockObject&IKeyFormatter
-    {
-        return $this->createMock(IKeyFormatter::class);
+        return $this->createMock(IReportFormatter::class);
     }
 
     #[Test]
@@ -109,8 +99,18 @@ final class ReportPrinterFactoryTest extends TestCase
         return $this->createMock(IReportPrinter::class);
     }
 
-    private function getReportFormatterMock(): MockObject&IReportFormatter
+    private function getDatetimeFormatterMock(): MockObject&IDatetimeFormatter
     {
-        return $this->createMock(IReportFormatter::class);
+        return $this->createMock(IDatetimeFormatter::class);
+    }
+
+    private function getMeasurementFormatterMock(): MockObject&IResultFormatter
+    {
+        return $this->createMock(IResultFormatter::class);
+    }
+
+    private function getMeasurementKeyFormatterMock(): MockObject&IKeyFormatter
+    {
+        return $this->createMock(IKeyFormatter::class);
     }
 }

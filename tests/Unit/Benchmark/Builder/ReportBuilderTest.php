@@ -6,9 +6,9 @@ namespace AlecRabbit\Tests\Unit\Benchmark\Builder;
 
 use AlecRabbit\Benchmark\Builder\ReportBuilder;
 use AlecRabbit\Benchmark\Contract\Builder\IReportBuilder;
-use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IBenchmarkResults;
 use AlecRabbit\Tests\TestCase\TestCase;
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Traversable;
@@ -67,7 +67,7 @@ final class ReportBuilderTest extends TestCase
     {
         $reportBuilder = $this->getTesteeInstance();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Title is not set');
 
         $reportBuilder
@@ -81,7 +81,7 @@ final class ReportBuilderTest extends TestCase
     {
         $reportBuilder = $this->getTesteeInstance();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('BenchmarkResults is not set');
 
         $reportBuilder

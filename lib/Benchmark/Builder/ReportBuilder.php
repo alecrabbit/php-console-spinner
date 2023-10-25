@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Benchmark\Builder;
 
 use AlecRabbit\Benchmark\Contract\Builder\IReportBuilder;
-use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IBenchmarkResults;
 use AlecRabbit\Benchmark\Contract\IReport;
 use AlecRabbit\Benchmark\Report;
-use LogicException;
+use InvalidArgumentException;
 
 final class ReportBuilder implements IReportBuilder
 {
@@ -32,8 +31,8 @@ final class ReportBuilder implements IReportBuilder
     private function validate(): void
     {
         match (true) {
-            !isset($this->results) => throw new \InvalidArgumentException('BenchmarkResults is not set.'),
-            !isset($this->title) => throw new \InvalidArgumentException('Title is not set.'),
+            !isset($this->results) => throw new InvalidArgumentException('BenchmarkResults is not set.'),
+            !isset($this->title) => throw new InvalidArgumentException('Title is not set.'),
             default => null,
         };
     }

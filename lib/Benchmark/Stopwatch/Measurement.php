@@ -6,7 +6,6 @@ namespace AlecRabbit\Benchmark\Stopwatch;
 
 use AlecRabbit\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Benchmark\Exception\MeasurementException;
-use LogicException;
 
 class Measurement implements IMeasurement
 {

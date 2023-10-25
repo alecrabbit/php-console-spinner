@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Benchmark\Stopwatch;
 
-use AlecRabbit\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Benchmark\Contract\IResult;
 use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use AlecRabbit\Benchmark\Stopwatch\ResultShortFormatter;
-use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
