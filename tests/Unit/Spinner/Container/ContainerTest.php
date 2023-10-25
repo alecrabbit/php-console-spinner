@@ -74,19 +74,6 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function canAddDefinitionsAfterCreate(): void
-    {
-        $container = $this->getTesteeInstance(new ArrayObject([]));
-
-        $container->add('foo', 'bar');
-        $container->add('bar', 'baz');
-
-        self::assertTrue($container->has('foo'));
-        self::assertTrue($container->has('bar'));
-        self::assertCount(2, self::getPropertyValue('definitions', $container));
-    }
-
-    #[Test]
     public function canGetServiceAndItIsSameServiceEveryTime(): void
     {
         $container = $this->getTesteeInstance(
@@ -109,91 +96,6 @@ final class ContainerTest extends TestCase
         self::assertInstanceOf(stdClass::class, $serviceThree);
         self::assertSame($serviceThree, $container->get('bar'));
     }
-//
-//    #[Test]
-//    public function canRemoveDefinitionAndServiceRegisteredEarlier(): void
-//    {
-//        $container = $this->getTesteeInstance(
-//            new ArrayObject([
-//                'foo' => 'bar',
-//                'bar' => 'baz',
-//            ])
-//        );
-//
-//        $container->remove('foo');
-//        $container->remove('bar');
-//
-//        self::assertFalse($container->has('foo'));
-//        self::assertFalse($container->has('bar'));
-//        self::assertCount(0, self::getPropertyValue('definitions', $container));
-//        self::assertCount(0, self::getPropertyValue('services', $container));
-//    }
-
-//    #[Test]
-//    public function canReplaceDefinitionAndServiceRegisteredEarlier(): void
-//    {
-//        $serviceOne = new stdClass();
-//        $serviceTwo = new stdClass();
-//        $serviceThree = new stdClass();
-//
-//        $replacedServiceOne = new stdClass();
-//        $replacedServiceTwo = new stdClass();
-//        $replacedServiceThree = new stdClass();
-//
-//        $container = $this->getTesteeInstance(
-//            new ArrayObject([
-//                'foo' => $serviceOne,
-//                'bar' => $serviceTwo,
-//                'baz' => $serviceThree,
-//            ]),
-//            function () use (
-//                $serviceOne,
-//                $serviceTwo,
-//                $replacedServiceTwo,
-//                $replacedServiceThree,
-//                $replacedServiceOne
-//            ): IServiceSpawner {
-//                $spawner = $this->getSpawnerInstanceMock();
-//                $spawner
-//                    ->method('spawn')
-//                    ->willReturn(
-//                        $serviceOne,            // #1
-//                        $serviceTwo,            // #2
-//                        $replacedServiceOne,    // #3
-//                        $replacedServiceTwo,    // #4
-//                        $replacedServiceThree,  // #5
-//                        $replacedServiceTwo,    // #6
-//                        $replacedServiceOne,    // #7
-//                        $replacedServiceThree   // #8
-//                    )
-//                ;
-//                return $spawner;
-//            }
-//        );
-//        self::assertTrue($container->has('foo'));
-//        self::assertTrue($container->has('bar'));
-//
-//        self::assertSame($serviceOne, $container->get('foo')); // #1
-//        self::assertSame($serviceTwo, $container->get('bar')); // #2
-//        self::assertCount(2, self::getPropertyValue('services', $container));
-//
-//        $container->replace('foo', $replacedServiceOne);    // #3
-//        $container->replace('bar', $replacedServiceTwo);    // #4
-//        $container->replace('baz', $replacedServiceThree);  // #5
-//
-//        self::assertTrue($container->has('foo'));
-//        self::assertTrue($container->has('bar'));
-//
-//        self::assertCount(3, self::getPropertyValue('definitions', $container));
-//        // Services should also be replaced because we already retrieved two of them
-//        self::assertCount(2, self::getPropertyValue('services', $container));
-//
-//        self::assertSame($replacedServiceTwo, $container->get('bar'));   // #6
-//        self::assertSame($replacedServiceOne, $container->get('foo'));   // #7
-//        self::assertSame($replacedServiceThree, $container->get('baz')); // #8
-//
-//        self::assertCount(3, self::getPropertyValue('services', $container));
-//    }
 
     #[Test]
     public function throwsIfNoServiceFoundById(): void
@@ -318,26 +220,26 @@ final class ContainerTest extends TestCase
 
         self::failTest(self::exceptionNotThrownString($exceptionClass));
     }
-
-    #[Test]
-    public function throwsWhenAddedIdIsAlreadyRegistered(): void
-    {
-        $exceptionClass = ContainerException::class;
-        $exceptionMessage = 'Definition with id "foo" already registered in the container.';
-
-        $this->expectException($exceptionClass);
-        $this->expectExceptionMessage($exceptionMessage);
-
-        $container = $this->getTesteeInstance(
-            new ArrayObject([
-                'foo' => 'bar',
-            ])
-        );
-
-        $container->add('foo', 'baz');
-
-        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
-    }
+//
+//    #[Test]
+//    public function throwsWhenAddedIdIsAlreadyRegistered(): void
+//    {
+//        $exceptionClass = ContainerException::class;
+//        $exceptionMessage = 'Definition with id "foo" already registered in the container.';
+//
+//        $this->expectException($exceptionClass);
+//        $this->expectExceptionMessage($exceptionMessage);
+//
+//        $container = $this->getTesteeInstance(
+//            new ArrayObject([
+//                'foo' => 'bar',
+//            ])
+//        );
+//
+//        $container->add('foo', 'baz');
+//
+//        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
+//    }
 
     #[Test]
     public function throwsWhenOneOfDefinitionsAlreadyRegistered(): void
@@ -356,38 +258,6 @@ final class ContainerTest extends TestCase
 
         self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
-//
-//    #[Test]
-//    public function throwsWhenRemovingUnregisteredDefinition(): void
-//    {
-//        $exceptionClass = ContainerException::class;
-//        $exceptionMessage = 'Definition with id "foo" is not registered in the container.';
-//
-//        $this->expectException($exceptionClass);
-//        $this->expectExceptionMessage($exceptionMessage);
-//
-//        $container = $this->getTesteeInstance(new ArrayObject([]));
-//
-//        $container->remove('foo');
-//
-//        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
-//    }
-//
-//    #[Test]
-//    public function throwsWhenReplacingUnregisteredDefinition(): void
-//    {
-//        $exceptionClass = ContainerException::class;
-//        $exceptionMessage = 'Definition with id "bar" is not registered in the container.';
-//
-//        $this->expectException($exceptionClass);
-//        $this->expectExceptionMessage($exceptionMessage);
-//
-//        $container = $this->getTesteeInstance(new ArrayObject([]));
-//
-//        $container->replace('bar', 'foo');
-//
-//        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
-//    }
 
     #[Test]
     public function throwsWhenSpawnerCbIsInvalid(): void

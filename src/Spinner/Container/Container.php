@@ -101,12 +101,6 @@ final class Container implements IContainer
     }
 
     /** @inheritDoc */
-    public function add(string $id, callable|object|string $definition): void
-    {
-        $this->register($id, $definition);
-    }
-
-    /** @inheritDoc */
     public function get(string $id): mixed
     {
         if ($this->hasService($id)) {
