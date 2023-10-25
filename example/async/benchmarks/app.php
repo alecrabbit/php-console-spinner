@@ -96,7 +96,7 @@ require_once __DIR__ . '/../../bootstrap.php';
         }
     );
 
-    $container = (new ContainerFactory($registry))->getContainer();
+    $container = (new ContainerFactory($registry))->create();
 
     Facade::useContainer($container);
 }
