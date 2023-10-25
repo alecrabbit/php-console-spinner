@@ -21,12 +21,15 @@ final readonly class ContainerFactory implements IContainerFactory
 
     public function getContainer(): IContainer
     {
+        $spawnerCreator =
+            static function (ContainerInterface $container): IServiceSpawner {
+                return
+                    new ServiceSpawner($container);
+            };
+
         return
             new Container(
-                spawnerCreatorCb: static function (ContainerInterface $container): IServiceSpawner {
-                    return
-                        new ServiceSpawner($container);
-                },
+                spawnerCreatorCb: $spawnerCreator,
                 definitions: $this->registry->load(),
             );
     }
