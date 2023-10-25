@@ -38,29 +38,4 @@ interface IContainer extends ContainerInterface
      * @throws ContainerExceptionInterface If definition for **this** identifier is already registered.
      */
     public function add(string $id, callable|object|string $definition): void;
-
-    /**
-     * @deprecated Container should be aware immutable.
-     *
-     * Removes definition and service(if any) with **this** identifier from the container.
-     *
-     * @param string $id Identifier of the entry to remove.
-     *
-     * @throws NotFoundExceptionInterface No entry was found for **this** identifier.
-     */
-    public function remove(string $id): void;
-
-    /**
-     * @deprecated Container should be aware immutable.
-     *
-     * Replaces definition and service(if any) with **this** identifier in the container.
-     *
-     * @psalm-template T of object
-     *
-     * @psalm-param class-string<T> $id
-     * @psalm-param callable|object|string $definition Definition of the entry to replace.
-     *
-     * @throws NotFoundExceptionInterface No entry was found for **this** identifier.
-     */
-    public function replace(string $id, callable|object|string $definition): void;
 }
