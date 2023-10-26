@@ -304,127 +304,6 @@ final class SignalHandlersContainerSolverTest extends TestCase
             ];
         };
     }
-    protected static function dataSet010(): \Closure
-    {
-        return static function (self $test) {
-            $sigint = 2;
-            $sigkill = 9;
-
-            $sigIntHandlerCreator = $test->getHandlerCreatorMock();
-            $sigKillHandlerCreator = $test->getHandlerCreatorMock();
-
-            $sigIntSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
-            $sigIntSignalHandlerCreator
-                ->expects(self::once())
-                ->method('getSignal')
-                ->willReturn($sigint)
-            ;
-            $sigIntSignalHandlerCreator
-                ->expects(self::once())
-                ->method('getHandlerCreator')
-                ->willReturn($sigIntHandlerCreator)
-            ;
-
-            $sigKillSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
-            $sigKillSignalHandlerCreator
-                ->expects(self::once())
-                ->method('getSignal')
-                ->willReturn($sigkill)
-            ;
-            $sigKillSignalHandlerCreator
-                ->expects(self::once())
-                ->method('getHandlerCreator')
-                ->willReturn($sigKillHandlerCreator)
-            ;
-            // [result], [$user, $detected, $default]
-            return [
-                [
-                    [
-                        $sigint => $sigIntHandlerCreator,
-                        $sigkill => $sigKillHandlerCreator,
-                    ]
-                ],
-
-                [
-                    [
-                        $sigKillSignalHandlerCreator,
-                    ],
-                    [
-                        $sigIntSignalHandlerCreator,
-                    ],
-                    [
-                    ],
-                ],
-            ];
-        };
-    }
-    protected static function dataSet011(): \Closure
-    {
-        return static function (self $test) {
-            $sigint = 2;
-            $sigkill = 9;
-
-            $sigIntHandlerCreatorUser = $test->getHandlerCreatorMock();
-            $sigIntHandlerCreatorDetected = $test->getHandlerCreatorMock();
-            $sigKillHandlerCreator = $test->getHandlerCreatorMock();
-
-            $sigIntSignalHandlerCreatorDetected = $test->getSignalHandlerCreatorMock();
-            $sigIntSignalHandlerCreatorDetected
-                ->expects(self::once())
-                ->method('getSignal')
-                ->willReturn($sigint)
-            ;
-            $sigIntSignalHandlerCreatorDetected
-                ->expects(self::once())
-                ->method('getHandlerCreator')
-                ->willReturn($sigIntHandlerCreatorDetected)
-            ;
-            $sigIntSignalHandlerCreatorUser = $test->getSignalHandlerCreatorMock();
-            $sigIntSignalHandlerCreatorUser
-                ->expects(self::once())
-                ->method('getSignal')
-                ->willReturn($sigint)
-            ;
-            $sigIntSignalHandlerCreatorUser
-                ->expects(self::once())
-                ->method('getHandlerCreator')
-                ->willReturn($sigIntHandlerCreatorUser)
-            ;
-
-            $sigKillSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
-            $sigKillSignalHandlerCreator
-                ->expects(self::once())
-                ->method('getSignal')
-                ->willReturn($sigkill)
-            ;
-            $sigKillSignalHandlerCreator
-                ->expects(self::once())
-                ->method('getHandlerCreator')
-                ->willReturn($sigKillHandlerCreator)
-            ;
-            // [result], [$user, $detected, $default]
-            return [
-                [
-                    [
-                        $sigint => $sigIntHandlerCreatorUser,
-                        $sigkill => $sigKillHandlerCreator,
-                    ]
-                ],
-
-                [
-                    [
-                        $sigKillSignalHandlerCreator,
-                        $sigIntSignalHandlerCreatorUser,
-                    ],
-                    [
-                        $sigIntSignalHandlerCreatorDetected,
-                    ],
-                    [
-                    ],
-                ],
-            ];
-        };
-    }
 
     protected static function dataSet007(): \Closure
     {
@@ -562,6 +441,129 @@ final class SignalHandlersContainerSolverTest extends TestCase
                     [],
                     [
                         $defaultSignalHandlerCreator,
+                    ],
+                ],
+            ];
+        };
+    }
+
+    protected static function dataSet010(): \Closure
+    {
+        return static function (self $test) {
+            $sigint = 2;
+            $sigkill = 9;
+
+            $sigIntHandlerCreator = $test->getHandlerCreatorMock();
+            $sigKillHandlerCreator = $test->getHandlerCreatorMock();
+
+            $sigIntSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
+            $sigIntSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($sigint)
+            ;
+            $sigIntSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($sigIntHandlerCreator)
+            ;
+
+            $sigKillSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
+            $sigKillSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($sigkill)
+            ;
+            $sigKillSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($sigKillHandlerCreator)
+            ;
+            // [result], [$user, $detected, $default]
+            return [
+                [
+                    [
+                        $sigint => $sigIntHandlerCreator,
+                        $sigkill => $sigKillHandlerCreator,
+                    ]
+                ],
+
+                [
+                    [
+                        $sigKillSignalHandlerCreator,
+                    ],
+                    [
+                        $sigIntSignalHandlerCreator,
+                    ],
+                    [
+                    ],
+                ],
+            ];
+        };
+    }
+
+    protected static function dataSet011(): \Closure
+    {
+        return static function (self $test) {
+            $sigint = 2;
+            $sigkill = 9;
+
+            $sigIntHandlerCreatorUser = $test->getHandlerCreatorMock();
+            $sigIntHandlerCreatorDetected = $test->getHandlerCreatorMock();
+            $sigKillHandlerCreator = $test->getHandlerCreatorMock();
+
+            $sigIntSignalHandlerCreatorDetected = $test->getSignalHandlerCreatorMock();
+            $sigIntSignalHandlerCreatorDetected
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($sigint)
+            ;
+            $sigIntSignalHandlerCreatorDetected
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($sigIntHandlerCreatorDetected)
+            ;
+            $sigIntSignalHandlerCreatorUser = $test->getSignalHandlerCreatorMock();
+            $sigIntSignalHandlerCreatorUser
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($sigint)
+            ;
+            $sigIntSignalHandlerCreatorUser
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($sigIntHandlerCreatorUser)
+            ;
+
+            $sigKillSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
+            $sigKillSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($sigkill)
+            ;
+            $sigKillSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($sigKillHandlerCreator)
+            ;
+            // [result], [$user, $detected, $default]
+            return [
+                [
+                    [
+                        $sigint => $sigIntHandlerCreatorUser,
+                        $sigkill => $sigKillHandlerCreator,
+                    ]
+                ],
+
+                [
+                    [
+                        $sigKillSignalHandlerCreator,
+                        $sigIntSignalHandlerCreatorUser,
+                    ],
+                    [
+                        $sigIntSignalHandlerCreatorDetected,
+                    ],
+                    [
                     ],
                 ],
             ];
