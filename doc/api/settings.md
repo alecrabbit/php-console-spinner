@@ -46,7 +46,7 @@ $onKill =
     );
     
 $signalHandlerCreators = 
-    new SignalHandlerCreators(
+    new SignalHandlerSettings(
         $onKill,
     );
 
