@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Config\Solver\Contract;
+namespace AlecRabbit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;

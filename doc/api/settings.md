@@ -3,14 +3,17 @@
 Settings are used to configure the package. Here is the list of available settings with defaults:
 
 ```php
+use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
+
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
-use \AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use \AlecRabbit\Spinner\Core\Contract\IDriver;
+
+//...
 
 // Aux settings
 $auxSettings = 
@@ -30,11 +33,15 @@ $loopSettings =
 $onKill = 
     new SignalHandlerCreator(
         signal: SIGKILL,
-        handlerCreator: static function (IDriver $driver, ILoop $loop ) {
-            return static function () use ($driver, $loop) {
-                $driver->finalize();
-                $loop->stop();
-            };
+        handlerCreator: new class implements IHandlerCreator {
+            public function createHandler(IDriver $driver, ILoop $loop): \Closure
+            {
+                return 
+                    static function () use ($driver, $loop) {
+                        $driver->finalize();
+                        $loop->stop();
+                    }
+            }
         }
     );
     
