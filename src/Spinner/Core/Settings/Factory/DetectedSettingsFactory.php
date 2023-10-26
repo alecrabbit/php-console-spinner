@@ -9,23 +9,29 @@ use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\IHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
+use AlecRabbit\Spinner\Core\Settings\SignalHandlerCreator;
+use AlecRabbit\Spinner\Core\Settings\SignalHandlerSettings;
+use Closure;
 
-final class DetectedSettingsFactory implements IDetectedSettingsFactory
+final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
 {
     public function __construct(
-        protected ILoopSupportDetector $loopSupportDetector,
-        protected IColorSupportDetector $colorSupportDetector,
-        protected ISignalHandlingSupportDetector $signalProcessingSupportDetector,
+        private ILoopSupportDetector $loopSupportDetector,
+        private IColorSupportDetector $colorSupportDetector,
+        private ISignalHandlingSupportDetector $signalProcessingSupportDetector,
     ) {
     }
 
@@ -54,7 +60,29 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
             new OutputSettings(
                 stylingMethodOption: $this->detectStylingMethodOption(),
             ),
+
         );
+        if ($this->isSignalHandlingEnabled()) {
+            $settings->set(
+                new SignalHandlerSettings(
+                    new SignalHandlerCreator(
+                        signal: SIGINT, // requires pcntl-ext
+                        handlerCreator: new class implements IHandlerCreator {
+                            /**
+                             * @codeCoverageIgnore
+                             */
+                            public function createHandler(IDriver $driver, ILoop $loop): Closure
+                            {
+                                return static function () use ($driver, $loop): void {
+                                    $driver->interrupt();
+                                    $loop->stop();
+                                };
+                            }
+                        },
+                    )
+                ),
+            );
+        }
     }
 
     private function getRunMethodOption(): RunMethodOption
@@ -86,7 +114,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
                 : AutoStartOption::DISABLED;
     }
 
-    protected function getSignalMethodOption(): SignalHandlingOption
+    private function getSignalMethodOption(): SignalHandlingOption
     {
         return
             $this->signalProcessingSupportDetector->getSupportValue();
@@ -96,5 +124,10 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
     {
         return
             $this->colorSupportDetector->getSupportValue();
+    }
+
+    private function isSignalHandlingEnabled(): bool
+    {
+        return $this->getSignalMethodOption() === SignalHandlingOption::ENABLED;
     }
 }

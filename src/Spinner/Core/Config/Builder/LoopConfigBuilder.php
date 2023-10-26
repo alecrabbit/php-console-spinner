@@ -44,7 +44,9 @@ final class LoopConfigBuilder implements ILoopConfigBuilder
         match (true) {
             $this->autoStartMode === null => throw new LogicException('AutoStartMode is not set.'),
             $this->signalHandlersMode === null => throw new LogicException('SignalHandlingMode is not set.'),
-            $this->signalHandlersContainer === null => throw new LogicException('Signal handlers container is not set.'),
+            $this->signalHandlersContainer === null => throw new LogicException(
+                'Signal handlers container is not set.'
+            ),
             default => null,
         };
     }
