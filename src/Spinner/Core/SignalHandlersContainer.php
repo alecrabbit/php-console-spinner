@@ -4,13 +4,20 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Settings\Contract\IHandlerCreator;
+use Traversable;
+
 final class SignalHandlersContainer implements ISignalHandlersContainer
 {
-    public function __construct(protected \Traversable $signalHandlers)
+    /**
+     * @param Traversable<int, IHandlerCreator> $signalHandlers
+     */
+    public function __construct(protected Traversable $signalHandlers)
     {
     }
 
-    public function getSignalHandlers(): \Traversable
+    /** @inheritDoc */
+    public function getSignalHandlers(): Traversable
     {
         return $this->signalHandlers;
     }

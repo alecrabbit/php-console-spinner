@@ -29,7 +29,7 @@ final class NormalizerModeConfigTest extends ConfigurationTestCase
                             new class implements IDetectedSettingsFactory {
                                 public function create(): ISettings
                                 {
-                                    return new Settings();
+                                    return new Settings(); // empty object considered as AUTO
                                 }
                             };
                     },

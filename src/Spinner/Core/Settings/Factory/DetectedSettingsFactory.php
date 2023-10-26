@@ -24,6 +24,7 @@ use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Settings\SignalHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\SignalHandlerSettings;
+use Closure;
 
 final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
 {
@@ -70,7 +71,7 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
                             /**
                              * @codeCoverageIgnore
                              */
-                            public function createHandler(IDriver $driver, ILoop $loop): \Closure
+                            public function createHandler(IDriver $driver, ILoop $loop): Closure
                             {
                                 return static function () use ($driver, $loop): void {
                                     $driver->interrupt();

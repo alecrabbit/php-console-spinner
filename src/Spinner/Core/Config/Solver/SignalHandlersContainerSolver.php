@@ -7,11 +7,14 @@ namespace AlecRabbit\Spinner\Core\Config\Solver;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
+use AlecRabbit\Spinner\Core\Settings\Contract\IHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerSettings;
 use AlecRabbit\Spinner\Core\SignalHandlersContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use ArrayObject;
+use Traversable;
 
 final readonly class SignalHandlersContainerSolver extends ASolver implements ISignalHandlersContainerSolver
 {
@@ -26,9 +29,9 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
     }
 
     private function doSolve(
-        ?\Traversable $userCreators,
-        ?\Traversable $detectedCreators,
-        ?\Traversable $defaultCreators,
+        ?Traversable $userCreators,
+        ?Traversable $detectedCreators,
+        ?Traversable $defaultCreators,
     ): ISignalHandlersContainer {
         return
             new SignalHandlersContainer(
@@ -40,21 +43,31 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
             );
     }
 
+    /**
+     * @return Traversable<int, IHandlerCreator>
+     *
+     * @throws InvalidArgumentException
+     */
     private function mergeSignalHandlerCreators(
-        ?\Traversable $userCreators,
-        ?\Traversable $detectedCreators,
-        ?\Traversable $defaultCreators
-    ): \Traversable {
+        ?Traversable $userCreators,
+        ?Traversable $detectedCreators,
+        ?Traversable $defaultCreators
+    ): Traversable {
         $merged =
-            iterator_to_array($this->unwrap($userCreators ?? new \ArrayObject([]))) +
-            iterator_to_array($this->unwrap($detectedCreators ?? new \ArrayObject([]))) +
-            iterator_to_array($this->unwrap($defaultCreators ?? new \ArrayObject([])));
+            iterator_to_array($this->unwrap($userCreators ?? new ArrayObject([]))) +
+            iterator_to_array($this->unwrap($detectedCreators ?? new ArrayObject([]))) +
+            iterator_to_array($this->unwrap($defaultCreators ?? new ArrayObject([])));
 
         return
-            new \ArrayObject($merged);
+            new ArrayObject($merged);
     }
 
-    private function unwrap(\Traversable $creators): \Traversable
+    /**
+     * @return Traversable<int, IHandlerCreator>
+     *
+     * @throws InvalidArgumentException
+     */
+    private function unwrap(Traversable $creators): Traversable
     {
         /** @var ISignalHandlerCreator $creator */
         foreach ($creators as $creator) {
@@ -76,7 +89,7 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
         }
     }
 
-    protected function extractSignalHandlerCreators(ISettings $settings): ?\Traversable
+    protected function extractSignalHandlerCreators(ISettings $settings): ?Traversable
     {
         return $this->extractSettingsElement($settings, ISignalHandlerSettings::class)?->getCreators();
     }

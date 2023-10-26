@@ -95,11 +95,6 @@ final class Container implements IContainer
         return $this->definitions->offsetExists($id);
     }
 
-    private function hasService(string $id): bool
-    {
-        return $this->services->offsetExists($id);
-    }
-
     /** @inheritDoc */
     public function get(string $id): mixed
     {
@@ -125,6 +120,11 @@ final class Container implements IContainer
         $this->removeDependencyFromStack();
 
         return $this->services[$id];
+    }
+
+    private function hasService(string $id): bool
+    {
+        return $this->services->offsetExists($id);
     }
 
     private function addDependencyToStack(string $id): void

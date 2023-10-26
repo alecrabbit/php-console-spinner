@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Contract\IHandlerCreator;
+use Traversable;
 
 final class SignalHandlingSetup implements ISignalHandlingSetup
 {
@@ -34,7 +35,7 @@ final class SignalHandlingSetup implements ISignalHandlingSetup
         }
     }
 
-    private function getHandlers(): \Traversable
+    private function getHandlers(): Traversable
     {
         return
             $this->loopConfig->getSignalHandlersContainer()
