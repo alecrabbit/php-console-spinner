@@ -19,9 +19,9 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
     {
         return
             $this->doSolve(
-                $this->extractOption($this->settingsProvider->getUserSettings()),
-                $this->extractOption($this->settingsProvider->getDetectedSettings()),
-                $this->extractOption($this->settingsProvider->getDefaultSettings()),
+                $this->extractSignalHandlerCreators($this->settingsProvider->getUserSettings()),
+                $this->extractSignalHandlerCreators($this->settingsProvider->getDetectedSettings()),
+                $this->extractSignalHandlerCreators($this->settingsProvider->getDefaultSettings()),
             );
     }
 
@@ -30,28 +30,31 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
         ?\Traversable $detectedCreators,
         ?\Traversable $defaultCreators,
     ): ISignalHandlersContainer {
-        $signalHandlers =
-            $this->mergeCreators($userCreators, $detectedCreators, $defaultCreators);
-
         return
-            new SignalHandlersContainer($signalHandlers);
+            new SignalHandlersContainer(
+                $this->mergeSignalHandlerCreators(
+                    $userCreators,
+                    $detectedCreators,
+                    $defaultCreators
+                )
+            );
     }
 
-    private function mergeCreators(
+    private function mergeSignalHandlerCreators(
         ?\Traversable $userCreators,
         ?\Traversable $detectedCreators,
         ?\Traversable $defaultCreators
     ): \Traversable {
         $merged =
-            iterator_to_array($this->extractCreators($userCreators ?? new \ArrayObject([]))) +
-            iterator_to_array($this->extractCreators($detectedCreators ?? new \ArrayObject([]))) +
-            iterator_to_array($this->extractCreators($defaultCreators ?? new \ArrayObject([])));
+            iterator_to_array($this->unwrap($userCreators ?? new \ArrayObject([]))) +
+            iterator_to_array($this->unwrap($detectedCreators ?? new \ArrayObject([]))) +
+            iterator_to_array($this->unwrap($defaultCreators ?? new \ArrayObject([])));
 
         return
             new \ArrayObject($merged);
     }
 
-    private function extractCreators(\Traversable $creators): \Traversable
+    private function unwrap(\Traversable $creators): \Traversable
     {
         /** @var ISignalHandlerCreator $creator */
         foreach ($creators as $creator) {
@@ -73,7 +76,7 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
         }
     }
 
-    protected function extractOption(ISettings $settings): ?\Traversable
+    protected function extractSignalHandlerCreators(ISettings $settings): ?\Traversable
     {
         return $this->extractSettingsElement($settings, ISignalHandlerSettings::class)?->getCreators();
     }

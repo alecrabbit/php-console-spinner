@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IHandlerCreator;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerCreator;
@@ -23,7 +21,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): \Traversable
     {
-        // fn() => [[result], [$user, $detected, $default]]
+        // fn() => [[result/Exception], [$user, $detected, $default]]
         // #0
         yield from [
             [
@@ -39,6 +37,10 @@ final class SignalHandlersContainerSolverTest extends TestCase
             [self::dataSet003()],
             [self::dataSet004()],
             [self::dataSet005()],
+            [self::dataSet006()],
+            [self::dataSet007()],
+            [self::dataSet008()],
+            [self::dataSet009()],
         ];
     }
 
@@ -235,6 +237,214 @@ final class SignalHandlersContainerSolverTest extends TestCase
         };
     }
 
+    protected static function dataSet006(): \Closure
+    {
+        return static function (self $test) {
+            $signal = 2;
+            $defaultHandlerCreator = $test->getHandlerCreatorMock();
+            $detectedHandlerCreator = $test->getHandlerCreatorMock();
+            $userHandlerCreator = $test->getHandlerCreatorMock();
+
+            $detectedSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
+            $detectedSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($signal)
+            ;
+            $detectedSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($detectedHandlerCreator)
+            ;
+
+            $defaultSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
+            $defaultSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($signal)
+            ;
+            $defaultSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($defaultHandlerCreator)
+            ;
+
+            $userSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
+            $userSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($signal)
+            ;
+            $userSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($userHandlerCreator)
+            ;
+            // [result], [$user, $detected, $default]
+            return [
+                [
+                    [
+                        $signal => $userHandlerCreator,
+                    ]
+                ],
+
+                [
+                    [
+                        $userSignalHandlerCreator,
+                    ],
+                    [
+                        $detectedSignalHandlerCreator,
+                    ],
+                    [
+                        $defaultSignalHandlerCreator,
+                    ],
+                ],
+            ];
+        };
+    }
+
+    protected static function dataSet007(): \Closure
+    {
+        return static function (self $test) {
+            $signal = 2;
+            $defaultHandlerCreator = $test->getHandlerCreatorMock();
+            $userHandlerCreator = $test->getHandlerCreatorMock();
+
+            $defaultSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
+            $defaultSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($signal)
+            ;
+            $defaultSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($defaultHandlerCreator)
+            ;
+
+            $userSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
+            $userSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($signal)
+            ;
+            $userSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($userHandlerCreator)
+            ;
+            // [result], [$user, $detected, $default]
+            return [
+                [
+                    [
+                        $signal => $userHandlerCreator,
+                    ]
+                ],
+
+                [
+                    [
+                        $userSignalHandlerCreator,
+                    ],
+                    [
+                    ],
+                    [
+                        $defaultSignalHandlerCreator,
+                    ],
+                ],
+            ];
+        };
+    }
+
+    protected static function dataSet008(): \Closure
+    {
+        return static function (self $test) {
+            $signal = 2;
+            $defaultHandlerCreator = $test->getHandlerCreatorMock();
+            $detectedHandlerCreator = $test->getHandlerCreatorMock();
+
+            $detectedSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
+            $detectedSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($signal)
+            ;
+            $detectedSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($detectedHandlerCreator)
+            ;
+
+            $defaultSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
+            $defaultSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($signal)
+            ;
+            $defaultSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($defaultHandlerCreator)
+            ;
+
+            // [result], [$user, $detected, $default]
+            return [
+                [
+                    [
+                        $signal => $detectedHandlerCreator,
+                    ]
+                ],
+
+                [
+                    [
+                    ],
+                    [
+                        $detectedSignalHandlerCreator,
+                    ],
+                    [
+                        $defaultSignalHandlerCreator,
+                    ],
+                ],
+            ];
+        };
+    }
+
+    protected static function dataSet009(): \Closure
+    {
+        return static function (self $test) {
+            $signal = 2;
+            $defaultHandlerCreator = $test->getHandlerCreatorMock();
+
+            $defaultSignalHandlerCreator = $test->getSignalHandlerCreatorMock();
+            $defaultSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getSignal')
+                ->willReturn($signal)
+            ;
+            $defaultSignalHandlerCreator
+                ->expects(self::once())
+                ->method('getHandlerCreator')
+                ->willReturn($defaultHandlerCreator)
+            ;
+
+            // [result], [$user, $detected, $default]
+            return [
+                [
+                    [
+                        $signal => $defaultHandlerCreator,
+                    ]
+                ],
+
+                [
+                    [],
+                    [],
+                    [
+                        $defaultSignalHandlerCreator,
+                    ],
+                ],
+            ];
+        };
+    }
+
     #[Test]
     public function canBeInstantiated(): void
     {
@@ -362,18 +572,5 @@ final class SignalHandlersContainerSolverTest extends TestCase
     private function getSettingsMock(): MockObject&ISettings
     {
         return $this->createMock(ISettings::class);
-    }
-
-    protected function getLoopSettingsMock(?SignalHandlingOption $autoStartOption = null
-    ): (MockObject&ILoopSettings)|null {
-        return
-            $autoStartOption === null
-                ? null :
-                $this->createConfiguredMock(
-                    ILoopSettings::class,
-                    [
-                        'getSignalHandlingOption' => $autoStartOption,
-                    ]
-                );
     }
 }
