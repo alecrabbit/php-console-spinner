@@ -20,10 +20,12 @@ final class Facade extends AFacade
     {
         self::initialize();
 
+        $loopProvider = self::getLoopProvider();
+
         return
-            self::getLoopProvider()
-                ->getLoop()
-        ;
+            $loopProvider->hasLoop()
+                ? $loopProvider->getLoop()
+                : throw new DomainException('Loop is unavailable.');
     }
 
     private static function initialize(): void

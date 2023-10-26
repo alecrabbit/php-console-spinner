@@ -12,10 +12,10 @@ use AlecRabbit\Spinner\Exception\LoopException;
 final readonly class LoopFactory implements ILoopFactory
 {
     /**
-     * @param class-string<ILoopCreator> $loopCreator
+     * @param null|class-string<ILoopCreator> $loopCreator
      */
     public function __construct(
-        protected string $loopCreator,
+        protected ?string $loopCreator,
     ) {
     }
 

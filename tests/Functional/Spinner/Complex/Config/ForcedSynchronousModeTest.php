@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Complex\Config;
 
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
@@ -70,7 +71,9 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');
 
-        Facade::getLoop();
+        self::getFacadeContainer()
+            ->get(ILoopProvider::class)
+            ->getLoop();
 
         self::fail('Exception was not thrown.');
     }
@@ -97,7 +100,9 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');
 
-        Facade::getLoop();
+        self::getFacadeContainer()
+            ->get(ILoopProvider::class)
+            ->getLoop();
 
         self::fail('Exception was not thrown.');
     }
@@ -116,7 +121,9 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');
 
-        Facade::getLoop();
+        self::getFacadeContainer()
+            ->get(ILoopProvider::class)
+            ->getLoop();
 
         self::fail('Exception was not thrown.');
     }

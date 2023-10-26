@@ -341,12 +341,7 @@ function factories(): Traversable
             $creatorClass =
                 $container->get(ILoopCreatorClassProvider::class)->getCreatorClass()
                 ??
-                throw new RuntimeException(
-                    sprintf( '%s %s',
-                        'Loop creator class is not defined.',
-                        'Please enable synchronous mode explicitly.',
-                    )
-                );
+                '--undefined--'; // FIXME (2023-10-11 14:49) [Alec Rabbit]: stub!
 
             return
                 new LoopFactory(

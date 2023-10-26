@@ -22,6 +22,9 @@ $driver = Facade::getDriver();
 
 echo 'Synchronous mode forced' . PHP_EOL;
 
+// Will throw:
+Facade::getLoop()->run();
+
 for ($i = 0; $i < 100; $i++) {
     $driver->render();
     \usleep(100000);
