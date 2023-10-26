@@ -98,6 +98,9 @@ final class RunMethodModeSolverTest extends TestCase
 
             [[$mS], [$oSy, null, $oAs],], // #22
             [[$mA], [$oAs, null, $oAs],], // #23
+
+            [[$mS], [null, $oSy, $oAs],], // #24
+            [[$mS], [$oSy, $oSy, $oAs],], // #25
         ];
     }
 
