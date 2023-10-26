@@ -9,6 +9,8 @@ use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
+use \AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
+use \AlecRabbit\Spinner\Core\Contract\IDriver;
 
 // Aux settings
 $auxSettings = 
@@ -23,7 +25,23 @@ $loopSettings =
         autoStartOption: AutoStartOption::AUTO,
         signalHandlingOption: SignalHandlingOption::AUTO,
     );
-// # NEW FEATURE: $loopSettings? SignalHandler(/* TBD */); // todo: api
+
+// Signal handling settings
+$onKill = 
+    new SignalHandlerCreator(
+        signal: SIGKILL,
+        handlerCreator: static function (IDriver $driver, ILoop $loop ) {
+            return static function () use ($driver, $loop) {
+                $driver->finalize();
+                $loop->stop();
+            };
+        }
+    );
+    
+$signalHandlerCreators = 
+    new SignalHandlerCreators(
+        $onKill,
+    );
 
 // Output settings
 $outputSettings = 
@@ -74,6 +92,7 @@ $settings->set(
     $driverSettings,
     $widgetSettings,
     $rootWidgetSettings,
+    $signalHandlerCreators,
 );
 ``` 
 
