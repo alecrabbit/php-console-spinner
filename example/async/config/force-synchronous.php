@@ -23,11 +23,11 @@ $driver = Facade::getDriver();
 echo 'Synchronous mode forced' . PHP_EOL;
 
 // Will throw:
-Facade::getLoop()->run();
+//Facade::getLoop()->run();
 
-for ($i = 0; $i < 100; $i++) {
+for ($i = 0; $i < 1000; $i++) {
     $driver->render();
-    \usleep(100000);
+    \usleep(\random_int(1000, 500000)); // simulates unequal intervals
 }
 $driver->finalize();
 

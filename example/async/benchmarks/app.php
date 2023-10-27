@@ -42,6 +42,7 @@ use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
+use AlecRabbit\Spinner\Probes;
 use Psr\Container\ContainerInterface;
 
 // in seconds
@@ -49,6 +50,10 @@ const RUNTIME = 600;
 const MEMORY_REPORT_INTERVAL = 60;
 
 require_once __DIR__ . '/../../bootstrap.php';
+
+// Pick ONE of the following event loops to unregister:
+//Probes::unregister(\AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe::class);
+Probes::unregister(\AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe::class);
 
 // Replace default container:
 {

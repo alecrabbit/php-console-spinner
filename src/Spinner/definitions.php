@@ -336,18 +336,7 @@ function factories(): Traversable
 
         IOutputConfigFactory::class => OutputConfigFactory::class,
         IDriverConfigFactory::class => DriverConfigFactory::class,
-
-        ILoopFactory::class => static function (IContainer $container): ILoopFactory {
-            $creatorClass =
-                $container->get(ILoopCreatorClassProvider::class)->getCreatorClass()
-                ??
-                '--undefined--'; // FIXME (2023-10-11 14:49) [Alec Rabbit]: stub!
-
-            return
-                new LoopFactory(
-                    loopCreator: $creatorClass,
-                );
-        },
+        ILoopFactory::class => LoopFactory::class,
 
         IRuntimeWidgetConfigFactory::class => RuntimeWidgetConfigFactory::class,
         IRuntimeRootWidgetConfigFactory::class => RuntimeRootWidgetConfigFactory::class,
