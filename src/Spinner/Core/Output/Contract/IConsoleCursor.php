@@ -26,5 +26,8 @@ interface IConsoleCursor
      */
     public function erase(int $width): IConsoleCursor;
 
+    /**
+     * @deprecated Flush buffer with IBufferedOutputClass::flush()
+     */
     public function flush(): IConsoleCursor;
 }

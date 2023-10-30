@@ -34,9 +34,13 @@ final class DriverOutput implements IDriverOutput
             $this->output->append($spinnerState->getSequence());
 
             $width = $spinnerState->getWidth();
-            $eraseWidth = max($spinnerState->getPreviousWidth() - $width, 0);
+            $eraseWidth =
+                max($spinnerState->getPreviousWidth() - $width, 0);
 
-            $this->cursor->erase($eraseWidth)->moveLeft($width);
+            $this->cursor
+                ->erase($eraseWidth)
+                ->moveLeft($width)
+            ;
 
             $this->output->flush();
         }
@@ -45,13 +49,20 @@ final class DriverOutput implements IDriverOutput
     public function erase(ISpinnerState $spinnerState): void
     {
         if ($this->initialized) {
-            $this->cursor->erase($spinnerState->getPreviousWidth())->flush();
+            $this->cursor->erase(
+                $spinnerState->getPreviousWidth()
+            );
+
+            $this->output->flush();
         }
     }
 
     public function initialize(): void
     {
         $this->initialized = true;
-        $this->cursor->hide()->flush();
+
+        $this->cursor->hide();
+
+        $this->output->flush();
     }
 }

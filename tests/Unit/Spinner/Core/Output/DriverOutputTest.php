@@ -26,10 +26,11 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IBufferedOutput $output = null,
         ?IConsoleCursor $cursor = null,
     ): IDriverOutput {
-        return new DriverOutput(
-            output: $output ?? $this->getBufferedOutputMock(),
-            cursor: $cursor ?? $this->getCursorMock(),
-        );
+        return
+            new DriverOutput(
+                output: $output ?? $this->getBufferedOutputMock(),
+                cursor: $cursor ?? $this->getCursorMock(),
+            );
     }
 
     #[Test]
@@ -78,7 +79,7 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $cursor = $this->getCursorMock();
         $cursor->expects(self::once())->method('erase')->willReturnSelf();
-        $cursor->expects(self::once())->method('flush');
+        $cursor->expects(self::never())->method('flush');
 
         $driverOutput = $this->getTesteeInstance(cursor: $cursor);
 
@@ -148,7 +149,7 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
         $output = $this->getBufferedOutputMock();
 
         $output->expects(self::once())->method('append');
-        $output->expects(self::once())->method('flush');
+        $output->expects(self::exactly(2))->method('flush');
 
         $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
 

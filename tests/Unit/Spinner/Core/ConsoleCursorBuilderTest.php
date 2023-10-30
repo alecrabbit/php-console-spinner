@@ -39,7 +39,7 @@ final class ConsoleCursorBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 ->build()
         ;
         self::assertInstanceOf(ConsoleCursor::class, $consoleCursor);
-        self::assertSame($bufferedOutput, self::getPropertyValue('output', $consoleCursor));
+        self::assertSame($bufferedOutput, self::getPropertyValue('buffer', $consoleCursor));
         self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $consoleCursor));
     }
 }

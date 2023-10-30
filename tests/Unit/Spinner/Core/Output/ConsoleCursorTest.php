@@ -34,7 +34,7 @@ final class ConsoleCursorTest extends TestCase
     ): IConsoleCursor {
         return
             new ConsoleCursor(
-                output: $output ?? $this->getOutputMock(),
+                buffer: $output ?? $this->getOutputMock(),
                 cursorVisibilityMode: $cursorMode,
             );
     }
@@ -92,7 +92,12 @@ final class ConsoleCursorTest extends TestCase
         $output = $this->getOutputMock();
 
         $showSequence = "\x1b[?25h\x1b[?0c";
-        $output->expects(self::once())->method('write')->with($showSequence);
+        $output
+            ->expects(self::once())
+            ->method('append')
+            ->with($showSequence)
+            ->willReturnSelf()
+        ;
 
         $cursor = $this->getTesteeInstance(output: $output, cursorMode: $cursorMode);
 
