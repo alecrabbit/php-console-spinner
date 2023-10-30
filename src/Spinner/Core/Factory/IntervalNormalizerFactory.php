@@ -21,9 +21,10 @@ final class IntervalNormalizerFactory implements IIntervalNormalizerFactory
 
     public function create(): IIntervalNormalizer
     {
-        return new IntervalNormalizer(
-            $this->buildIntegerNormalizer(),
-        );
+        return
+            new IntervalNormalizer(
+                $this->buildIntegerNormalizer(),
+            );
     }
 
     private function buildIntegerNormalizer(): IIntegerNormalizer

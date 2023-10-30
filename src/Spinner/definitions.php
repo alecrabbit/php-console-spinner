@@ -131,7 +131,6 @@ use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
 use AlecRabbit\Spinner\Core\Output\Contract\Factory\IResourceStreamFactory;
 use AlecRabbit\Spinner\Core\Output\Factory\ResourceStreamFactory;
-use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
@@ -173,7 +172,6 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
-use RuntimeException;
 use Traversable;
 
 // @codeCoverageIgnoreStart
@@ -183,6 +181,10 @@ function getDefinitions(): Traversable
         IResourceStream::class => static function (IContainer $container): IResourceStream {
             return
                 $container->get(IResourceStreamFactory::class)->create();
+        },
+        NormalizerMode::class => static function (IContainer $container): NormalizerMode {
+            return
+                $container->get(IAuxConfig::class)->getNormalizerMode();
         },
         ISettingsProvider::class => static function (IContainer $container): ISettingsProvider {
             return $container->get(ISettingsProviderFactory::class)->create();
@@ -343,6 +345,7 @@ function factories(): Traversable
         IDriverConfigFactory::class => DriverConfigFactory::class,
         ILoopFactory::class => LoopFactory::class,
 
+        IWidgetConfigFactory::class => WidgetConfigFactory::class,
         IRuntimeWidgetConfigFactory::class => RuntimeWidgetConfigFactory::class,
         IRuntimeRootWidgetConfigFactory::class => RuntimeRootWidgetConfigFactory::class,
     ];
@@ -392,25 +395,6 @@ function substitutes(): Traversable
                 }
             };
         },
-        IWidgetConfigFactory::class => WidgetConfigFactory::class,
-//        IWidgetConfigFactory::class => static function (): IWidgetConfigFactory {
-//            return
-//                new class implements IWidgetConfigFactory {
-//                    public function create(
-//                        ?IWidgetSettings $widgetSettings = null
-//                    ): IWidgetConfig {
-//                        return
-//                            new WidgetConfig(
-//                                leadingSpacer: new CharFrame('', 0),
-//                                trailingSpacer: new CharFrame(' ', 1),
-//                                revolverConfig: new WidgetRevolverConfig(
-//                                    stylePalette: new NoStylePalette(),
-//                                    charPalette: new NoCharPalette(),
-//                                )
-//                            );
-//                    }
-//                };
-//        },
         IRootWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
             return
                 new class implements IRootWidgetConfigFactory {
@@ -428,10 +412,6 @@ function substitutes(): Traversable
                             );
                     }
                 };
-        },
-        NormalizerMode::class => static function (IContainer $container): NormalizerMode {
-            return
-                NormalizerMode::BALANCED; // FIXME (2023-09-29 13:57) [Alec Rabbit]: stub!
         },
     ];
 }

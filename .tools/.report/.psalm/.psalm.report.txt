@@ -68,5 +68,5 @@
 /app/src/Spinner/Core/WidgetContextToIntervalMap.php:27:40:error - MixedAssignment: Unable to determine the type that $value is being assigned to
 /app/src/Spinner/Core/WidgetContextToIntervalMap.php:43:47:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IInterval|null' for AlecRabbit\Spinner\Core\WidgetContextToIntervalMap::offsetGet
 /app/src/Spinner/Core/WidgetContextToIntervalMap.php:51:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:214:25:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor::extract expects Traversable<mixed, AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe>, but parent type Traversable<mixed, AlecRabbit\Spinner\Contract\Probe\IStaticProbe> provided
-/app/src/Spinner/definitions.php:278:42:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder is deprecated
+/app/src/Spinner/definitions.php:216:25:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor::extract expects Traversable<mixed, AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe>, but parent type Traversable<mixed, AlecRabbit\Spinner\Contract\Probe\IStaticProbe> provided
+/app/src/Spinner/definitions.php:280:42:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder is deprecated
