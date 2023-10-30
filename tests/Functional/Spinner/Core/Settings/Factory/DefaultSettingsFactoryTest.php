@@ -76,7 +76,6 @@ final class DefaultSettingsFactoryTest extends TestCase
         self::assertEquals(NormalizerOption::BALANCED, $auxSettings->getNormalizerOption());
 
         self::assertEquals(LinkerOption::ENABLED, $driverSettings->getLinkerOption());
-        self::assertEquals(InitializationOption::ENABLED, $driverSettings->getInitializationOption());
 
         self::assertEquals(AutoStartOption::ENABLED, $loopSettings->getAutoStartOption());
         self::assertEquals(SignalHandlingOption::ENABLED, $loopSettings->getSignalHandlingOption());

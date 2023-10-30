@@ -9,7 +9,5 @@ use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 
 interface IDriverSettings extends ISettingsElement
 {
-    public function getInitializationOption(): InitializationOption;
-
     public function getLinkerOption(): LinkerOption;
 }

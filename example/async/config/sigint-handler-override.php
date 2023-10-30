@@ -42,13 +42,16 @@ $handlerCreator =
         }
     };
 
+$creator =
+    new SignalHandlerCreator(
+        signal: SIGINT, // requires pcntl-ext
+        handlerCreator: $handlerCreator,
+    );
+
 Facade::getSettings()
     ->set(
         new SignalHandlerSettings(
-            new SignalHandlerCreator(
-                signal: SIGINT, // requires pcntl-ext
-                handlerCreator: $handlerCreator,
-            )
+            $creator
         ),
     )
 ;

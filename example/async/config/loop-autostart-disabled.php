@@ -13,13 +13,12 @@ require_once __DIR__ . '/../../bootstrap.php';
 // AutoStartOption can NOT be disabled for ReactPHP event loop
 Probes::unregister(ReactLoopProbe::class);
 
-Facade::getSettings()
-    ->set(
-        new LoopSettings(
-            autoStartOption: AutoStartOption::DISABLED,
-        ),
-    )
-;
+$loopSettings =
+    new LoopSettings(
+        autoStartOption: AutoStartOption::DISABLED,
+    );
+
+Facade::getSettings()->set($loopSettings);
 
 $spinner = Facade::createSpinner();
 

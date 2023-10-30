@@ -23,12 +23,10 @@ final class DriverSettingsTest extends TestCase
 
     public function getTesteeInstance(
         ?LinkerOption $linkerOption = null,
-        ?InitializationOption $initializationOption = null,
     ): IDriverSettings {
         return
             new DriverSettings(
                 linkerOption: $linkerOption ?? LinkerOption::AUTO,
-                initializationOption: $initializationOption ?? InitializationOption::AUTO,
             );
     }
 
@@ -50,17 +48,5 @@ final class DriverSettingsTest extends TestCase
         );
 
         self::assertEquals($linkerOption, $settings->getLinkerOption());
-    }
-
-    #[Test]
-    public function canGetInitializationOption(): void
-    {
-        $initializationOption = InitializationOption::ENABLED;
-
-        $settings = $this->getTesteeInstance(
-            initializationOption: $initializationOption,
-        );
-
-        self::assertEquals($initializationOption, $settings->getInitializationOption());
     }
 }

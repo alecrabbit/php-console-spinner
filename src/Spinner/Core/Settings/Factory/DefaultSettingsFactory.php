@@ -46,7 +46,6 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
             ),
             new DriverSettings(
                 linkerOption: LinkerOption::ENABLED,
-                initializationOption: InitializationOption::ENABLED,
             ),
             new LoopSettings(
                 autoStartOption: AutoStartOption::ENABLED,
