@@ -11,5 +11,5 @@ interface IBufferedOutput extends IOutput
      */
     public function flush(): void;
 
-    public function bufferedWrite(iterable|string $messages, bool $newline = false): IBufferedOutput;
+    public function append(iterable|string $messages, bool $newline = false): IBufferedOutput;
 }

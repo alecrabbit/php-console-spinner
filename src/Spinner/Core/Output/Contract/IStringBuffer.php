@@ -9,12 +9,12 @@ use Generator;
 interface IStringBuffer
 {
     /**
-     * Writes message to buffer.
+     * Appends message to buffer.
      */
-    public function write(iterable|string $message): IStringBuffer;
+    public function append(iterable|string $message): IStringBuffer;
 
     /**
-     * Returns buffer content and flushes it.
+     * Yields buffer content and clears buffer.
      */
     public function flush(): Generator;
 }

@@ -52,7 +52,12 @@ final class ConsoleCursorTest extends TestCase
         $output = $this->getOutputMock();
 
         $hideSequence = "\x1b[?25l";
-        $output->expects(self::once())->method('write')->with($hideSequence);
+        $output
+            ->expects(self::once())
+            ->method('append')
+            ->with($hideSequence)
+            ->willReturnSelf()
+        ;
 
         $cursor = $this->getTesteeInstance(output: $output, cursorMode: $cursorMode);
 
@@ -104,7 +109,7 @@ final class ConsoleCursorTest extends TestCase
 
         $moveLeftSequence = "\x1b[2D";
 
-        $output->expects(self::once())->method('bufferedWrite')->with($moveLeftSequence);
+        $output->expects(self::once())->method('append')->with($moveLeftSequence);
         $output->expects(self::once())->method('flush');
 
         $cursor = $this->getTesteeInstance(output: $output);
@@ -121,7 +126,7 @@ final class ConsoleCursorTest extends TestCase
 
         $eraseSequence = "\x1b[2X";
 
-        $output->expects(self::once())->method('bufferedWrite')->with($eraseSequence);
+        $output->expects(self::once())->method('append')->with($eraseSequence);
         $output->expects(self::once())->method('flush');
 
         $cursor = $this->getTesteeInstance(output: $output);

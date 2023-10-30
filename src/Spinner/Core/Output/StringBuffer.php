@@ -11,8 +11,9 @@ use function is_iterable;
 
 final class StringBuffer implements IStringBuffer
 {
-    public function __construct(protected string $buffer = '')
-    {
+    public function __construct(
+        protected string $buffer = '',
+    ) {
     }
 
     public function flush(): Generator
@@ -21,7 +22,7 @@ final class StringBuffer implements IStringBuffer
         $this->buffer = '';
     }
 
-    public function write(iterable|string $message): IStringBuffer
+    public function append(iterable|string $message): IStringBuffer
     {
         if (!is_iterable($message)) {
             $message = [$message];

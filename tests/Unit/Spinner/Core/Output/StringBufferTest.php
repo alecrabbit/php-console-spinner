@@ -17,28 +17,34 @@ final class StringBufferTest extends TestCase
         $str = 'test';
         $buffer = $this->getTesteeInstance(buffer: $str);
 
-        self::assertSame($str, self::getPropertyValue('buffer', $buffer));
+        self::assertSame($str, self::extractBufferContents($buffer));
     }
 
     public function getTesteeInstance(
         ?string $buffer = null,
     ): IStringBuffer {
-        return new StringBuffer(
-            buffer: $buffer ?? '',
-        );
+        return
+            new StringBuffer(
+                buffer: $buffer ?? '',
+            );
+    }
+
+    protected static function extractBufferContents(IStringBuffer $buffer): mixed
+    {
+        return self::getPropertyValue('buffer', $buffer);
     }
 
     #[Test]
-    public function writesToBuffer(): void
+    public function appendsToBuffer(): void
     {
         $str = 'new string';
         $buffer = $this->getTesteeInstance();
 
-        self::assertSame('', self::getPropertyValue('buffer', $buffer));
+        self::assertSame('', self::extractBufferContents($buffer));
 
-        $buffer->write($str);
+        $buffer->append($str);
 
-        self::assertSame($str, self::getPropertyValue('buffer', $buffer));
+        self::assertSame($str, self::extractBufferContents($buffer));
     }
 
     #[Test]
@@ -47,15 +53,15 @@ final class StringBufferTest extends TestCase
         $str = 'new string';
         $buffer = $this->getTesteeInstance();
 
-        self::assertSame('', self::getPropertyValue('buffer', $buffer));
+        self::assertSame('', self::extractBufferContents($buffer));
 
-        $buffer->write($str);
+        $buffer->append($str);
 
-        self::assertSame($str, self::getPropertyValue('buffer', $buffer));
+        self::assertSame($str, self::extractBufferContents($buffer));
 
         $content = implode('', iterator_to_array($buffer->flush()));
         self::assertSame($content, $str);
 
-        self::assertSame('', self::getPropertyValue('buffer', $buffer));
+        self::assertSame('', self::extractBufferContents($buffer));
     }
 }

@@ -125,7 +125,7 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $output = $this->getBufferedOutputMock();
 
-        $output->expects(self::never())->method('bufferedWrite');
+        $output->expects(self::never())->method('append');
         $output->expects(self::never())->method('flush');
 
         $driverOutput = $this->getTesteeInstance($output, $cursor);
@@ -147,7 +147,7 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $output = $this->getBufferedOutputMock();
 
-        $output->expects(self::once())->method('bufferedWrite');
+        $output->expects(self::once())->method('append');
         $output->expects(self::once())->method('flush');
 
         $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);

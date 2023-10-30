@@ -31,7 +31,7 @@ final class DriverOutput implements IDriverOutput
     public function write(ISpinnerState $spinnerState): void
     {
         if ($this->initialized) {
-            $this->output->bufferedWrite($spinnerState->getSequence());
+            $this->output->append($spinnerState->getSequence());
 
             $width = $spinnerState->getWidth();
             $eraseWidth = max($spinnerState->getPreviousWidth() - $width, 0);
@@ -52,6 +52,6 @@ final class DriverOutput implements IDriverOutput
     public function initialize(): void
     {
         $this->initialized = true;
-        $this->cursor->hide();
+        $this->cursor->hide()->flush();
     }
 }

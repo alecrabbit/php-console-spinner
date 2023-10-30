@@ -9,6 +9,13 @@ use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Output\A\AOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
 
+// FIXME (2023-10-30 15:59) [Alec Rabbit]: make this class an adapter for Output
+//  public function __construct(
+//      IOutput $output,
+//      protected readonly IStringBuffer $buffer = new StringBuffer()
+//  ) {
+//      //...
+//  }
 final class StreamBufferedOutput extends AOutput implements IBufferedOutput
 {
     public function __construct(
@@ -23,9 +30,9 @@ final class StreamBufferedOutput extends AOutput implements IBufferedOutput
         $this->doWrite($this->buffer->flush());
     }
 
-    public function bufferedWrite(iterable|string $messages, bool $newline = false): IBufferedOutput
+    public function append(iterable|string $messages, bool $newline = false): IBufferedOutput
     {
-        $this->buffer->write($this->homogenize($messages, $newline));
+        $this->buffer->append($this->homogenize($messages, $newline));
 
         return $this;
     }

@@ -95,6 +95,6 @@ final class StreamBufferedOutputTest extends TestCase
 
         $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
 
-        $streamBufferedOutput->bufferedWrite(['test', 'test2'])->flush();
+        $streamBufferedOutput->append(['test', 'test2'])->flush();
     }
 }

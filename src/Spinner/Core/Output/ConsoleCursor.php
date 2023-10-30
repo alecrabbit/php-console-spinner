@@ -19,7 +19,7 @@ final readonly class ConsoleCursor implements IConsoleCursor
     public function hide(): IConsoleCursor
     {
         if ($this->isHideCursorEnabled()) {
-            $this->output->write("\x1b[?25l");
+            $this->output->append("\x1b[?25l");
         }
 
         return $this;
@@ -41,14 +41,14 @@ final readonly class ConsoleCursor implements IConsoleCursor
 
     public function moveLeft(int $columns = 1): IConsoleCursor
     {
-        $this->output->bufferedWrite("\x1b[{$columns}D");
+        $this->output->append("\x1b[{$columns}D");
 
         return $this;
     }
 
     public function erase(int $width = 1): IConsoleCursor
     {
-        $this->output->bufferedWrite("\x1b[{$width}X");
+        $this->output->append("\x1b[{$width}X");
 
         return $this;
     }
