@@ -34,7 +34,6 @@
 /app/src/Spinner/Core/Driver.php:16:29:error - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Core\Driver::$state is not defined in constructor of AlecRabbit\Spinner\Core\Driver or in any methods called in the constructor
 /app/src/Spinner/Core/FrameCollection.php:69:34:error - InvalidNullableReturnType: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but 'int|null' contains null
 /app/src/Spinner/Core/FrameCollection.php:71:16:error - NullableReturnStatement: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but the function returns 'int|null'
-/app/src/Spinner/Core/Output/StreamBufferedOutput.php:38:30:error - MixedArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Contract\Output\IResourceStream::write expects Traversable<mixed, string>, but parent type Traversable provided
 /app/src/Spinner/Core/Palette/Rainbow.php:83:31:error - MixedAssignment: Unable to determine the type that $item is being assigned to
 /app/src/Spinner/Core/Palette/Rainbow.php:84:66:error - MixedArgument: Argument 2 of sprintf cannot be mixed, expecting float|int|string
 /app/src/Spinner/Core/Palette/Rainbow.php:129:35:error - MixedAssignment: Unable to determine the type that $item is being assigned to
