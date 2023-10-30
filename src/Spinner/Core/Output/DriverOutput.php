@@ -23,8 +23,9 @@ final class DriverOutput implements IDriverOutput
     {
         if ($this->initialized) {
             $this->cursor->show();
-            $finalMessage && $this->output->write($finalMessage);
+            $finalMessage && $this->output->append($finalMessage);
             $this->initialized = false;
+            $this->output->flush();
         }
     }
 

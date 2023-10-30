@@ -44,7 +44,8 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $message = 'final message';
 
-        $output->expects(self::once())->method('write')->with($message);
+        $output->expects(self::once())->method('append')->with($message);
+        $output->expects(self::exactly(2))->method('flush');
 
         $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
 
