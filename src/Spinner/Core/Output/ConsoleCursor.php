@@ -53,10 +53,4 @@ final readonly class ConsoleCursor implements IConsoleCursor
 
         return $this;
     }
-
-    /** @inheritDoc */
-    public function flush(): IConsoleCursor
-    {
-        throw new \RuntimeException('Do not call!');
-    }
 }

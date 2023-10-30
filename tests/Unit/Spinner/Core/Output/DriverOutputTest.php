@@ -79,7 +79,6 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $cursor = $this->getCursorMock();
         $cursor->expects(self::once())->method('erase')->willReturnSelf();
-        $cursor->expects(self::never())->method('flush');
 
         $driverOutput = $this->getTesteeInstance(cursor: $cursor);
 
@@ -91,8 +90,11 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canNotEraseIfUninitialized(): void
     {
         $cursor = $this->getCursorMock();
-        $cursor->expects(self::never())->method('erase')->willReturnSelf();
-        $cursor->expects(self::never())->method('flush');
+        $cursor
+            ->expects(self::never())
+            ->method('erase')
+            ->willReturnSelf()
+        ;
 
         $driverOutput = $this->getTesteeInstance(cursor: $cursor);
 
