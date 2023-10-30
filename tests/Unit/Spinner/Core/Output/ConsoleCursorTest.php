@@ -19,7 +19,10 @@ final class ConsoleCursorTest extends TestCase
     {
         $cursorMode = CursorVisibilityMode::VISIBLE;
 
-        $cursor = $this->getTesteeInstance(output: null, cursorMode: $cursorMode);
+        $cursor = $this->getTesteeInstance(
+            output: null,
+            cursorMode: $cursorMode
+        );
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
         self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $cursor));

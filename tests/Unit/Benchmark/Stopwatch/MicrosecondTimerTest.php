@@ -157,32 +157,27 @@ final class MicrosecondTimerTest extends TestCase
 
                 public function toMicroseconds(): float
                 {
-                    // TODO: Implement toMicroseconds() method.
-                    throw new RuntimeException('Not implemented.');
+                    throw new RuntimeException('INTENTIONALLY Not implemented.');
                 }
 
                 public function toMilliseconds(): float
                 {
-                    // TODO: Implement toMilliseconds() method.
-                    throw new RuntimeException('Not implemented.');
+                    throw new RuntimeException('INTENTIONALLY Not implemented.');
                 }
 
                 public function toSeconds(): float
                 {
-                    // TODO: Implement toSeconds() method.
-                    throw new RuntimeException('Not implemented.');
+                    throw new RuntimeException('INTENTIONALLY Not implemented.');
                 }
 
                 public function smallest(mixed $other): IInterval
                 {
-                    // TODO: Implement smallest() method.
-                    throw new RuntimeException('Not implemented.');
+                    throw new RuntimeException('INTENTIONALLY Not implemented.');
                 }
 
                 public function now(): int|float
                 {
-                    // TODO: Implement now() method.
-                    throw new RuntimeException('Not implemented.');
+                    throw new RuntimeException('INTENTIONALLY Not implemented.');
                 }
             };
     }

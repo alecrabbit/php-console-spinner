@@ -17,7 +17,7 @@ final class SignalHandlersContainer implements ISignalHandlersContainer
     }
 
     /** @inheritDoc */
-    public function getSignalHandlers(): Traversable
+    public function getHandlerCreators(): Traversable
     {
         return $this->signalHandlers;
     }

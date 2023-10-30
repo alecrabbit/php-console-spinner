@@ -682,7 +682,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
 
         $container = $solver->solve();
 
-        self::assertEquals($result, iterator_to_array($container->getSignalHandlers()));
+        self::assertEquals($result, iterator_to_array($container->getHandlerCreators()));
 
         if ($expectedException) {
             self::failTest($expectedException);

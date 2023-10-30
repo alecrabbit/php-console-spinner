@@ -12,5 +12,5 @@ interface ISignalHandlersContainer
     /**
      * @return Traversable<int, IHandlerCreator>
      */
-    public function getSignalHandlers(): Traversable;
+    public function getHandlerCreators(): Traversable;
 }

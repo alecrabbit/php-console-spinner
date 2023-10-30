@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
+use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
@@ -39,5 +40,17 @@ final readonly class LoopConfig implements ILoopConfig
     public function getSignalHandlersContainer(): ISignalHandlersContainer
     {
         return $this->signalHandlersContainer;
+    }
+
+    public function getStream(): mixed
+    {
+        // TODO: Implement getStream() method.
+        throw new \RuntimeException('Not implemented.');
+    }
+
+    public function getInitializationMode(): InitializationMode
+    {
+        // TODO: Implement getInitializationMode() method.
+        throw new \RuntimeException('Not implemented.');
     }
 }

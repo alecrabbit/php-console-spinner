@@ -16,7 +16,6 @@ class NegativeSignalHandlingProbeOverride implements ISignalHandlingProbe
 
     public static function getCreatorClass(): string
     {
-        // TODO: Implement getCreatorClass() method.
-        throw new RuntimeException('Not implemented.');
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 }

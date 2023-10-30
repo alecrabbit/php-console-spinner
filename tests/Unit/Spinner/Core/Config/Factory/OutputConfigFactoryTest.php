@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -29,12 +32,16 @@ final class OutputConfigFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IStylingMethodModeSolver $stylingMethodModeSolver = null,
         ?ICursorVisibilityModeSolver $cursorVisibilityModeSolver = null,
+        ?IInitializationModeSolver $initializationModeSolver = null,
+        ?IStreamSolver $streamSolver = null,
         ?IOutputConfigBuilder $outputConfigBuilder = null,
     ): IOutputConfigFactory {
         return
             new OutputConfigFactory(
                 stylingMethodModeSolver: $stylingMethodModeSolver ?? $this->getStylingMethodModeSolverMock(),
                 cursorVisibilityModeSolver: $cursorVisibilityModeSolver ?? $this->getCursorVisibilityModeSolverMock(),
+                initializationModeSolver: $initializationModeSolver ?? $this->getInitializationModeSolverMock(),
+                streamSolver: $streamSolver ?? $this->getStreamSolverMock(),
                 outputConfigBuilder: $outputConfigBuilder ?? $this->getOutputConfigBuilderMock(),
             );
     }
@@ -65,6 +72,25 @@ final class OutputConfigFactoryTest extends TestCase
             );
     }
 
+    private function getInitializationModeSolverMock(
+        ?InitializationMode $initializationMode = null,
+    ): MockObject&IInitializationModeSolver {
+        return $this->createConfiguredMock(
+            IInitializationModeSolver::class,
+            [
+                'solve' => $initializationMode ?? InitializationMode::DISABLED,
+            ]
+        );
+    }
+
+    private function getStreamSolverMock(mixed $stream = STDOUT): MockObject&IStreamSolver
+    {
+        return $this->createConfiguredMock(IStreamSolver::class, [
+                'solve' => $stream,
+            ]
+        );
+    }
+
     protected function getOutputConfigBuilderMock(): MockObject&IOutputConfigBuilder
     {
         return $this->createMock(IOutputConfigBuilder::class);
@@ -75,11 +101,15 @@ final class OutputConfigFactoryTest extends TestCase
     {
         $stylingMethodMode = StylingMethodMode::ANSI4;
         $cursorVisibilityMode = CursorVisibilityMode::VISIBLE;
+        $initializationMode = InitializationMode::DISABLED;
+        $stream = STDOUT;
 
         $outputConfig =
             $this->getOutputConfigMock(
                 $stylingMethodMode,
-                $cursorVisibilityMode
+                $cursorVisibilityMode,
+                $initializationMode,
+                $stream,
             );
 
         $outputConfigBuilder = $this->getOutputConfigBuilderMock();
@@ -97,6 +127,18 @@ final class OutputConfigFactoryTest extends TestCase
         ;
         $outputConfigBuilder
             ->expects(self::once())
+            ->method('withInitializationMode')
+            ->with($initializationMode)
+            ->willReturnSelf()
+        ;
+        $outputConfigBuilder
+            ->expects(self::once())
+            ->method('withStream')
+            ->with($stream)
+            ->willReturnSelf()
+        ;
+        $outputConfigBuilder
+            ->expects(self::once())
             ->method('build')
             ->willReturn($outputConfig)
         ;
@@ -105,6 +147,8 @@ final class OutputConfigFactoryTest extends TestCase
             $this->getTesteeInstance(
                 stylingMethodModeSolver: $this->getStylingMethodModeSolverMock($stylingMethodMode),
                 cursorVisibilityModeSolver: $this->getCursorVisibilityModeSolverMock($cursorVisibilityMode),
+                initializationModeSolver: $this->getInitializationModeSolverMock($initializationMode),
+                streamSolver: $this->getStreamSolverMock($stream),
                 outputConfigBuilder: $outputConfigBuilder,
             );
 
@@ -119,6 +163,8 @@ final class OutputConfigFactoryTest extends TestCase
     protected function getOutputConfigMock(
         ?StylingMethodMode $stylingMethodMode = null,
         ?CursorVisibilityMode $cursorVisibilityMode = null,
+        ?InitializationMode $initializationMode = null,
+        mixed $stream = null,
     ): MockObject&IOutputConfig {
         return
             $this->createConfiguredMock(
@@ -126,6 +172,8 @@ final class OutputConfigFactoryTest extends TestCase
                 [
                     'getStylingMethodMode' => $stylingMethodMode ?? StylingMethodMode::ANSI8,
                     'getCursorVisibilityMode' => $cursorVisibilityMode ?? CursorVisibilityMode::HIDDEN,
+                    'getInitializationMode' => $initializationMode ?? InitializationMode::DISABLED,
+                    'getStream' => $stream,
                 ]
             );
     }

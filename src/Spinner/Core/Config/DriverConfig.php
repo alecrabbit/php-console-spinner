@@ -33,4 +33,10 @@ final readonly class DriverConfig implements IDriverConfig
     {
         return IDriverConfig::class;
     }
+
+    public function getStream(): mixed
+    {
+        // TODO: Implement getStream() method.
+        throw new \RuntimeException('Not implemented.');
+    }
 }

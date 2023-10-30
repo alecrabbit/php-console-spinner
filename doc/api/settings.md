@@ -45,7 +45,7 @@ $onKill =
         }
     );
     
-$signalHandlerCreators = 
+$signalHandlerSettings = 
     new SignalHandlerSettings(
         $onKill,
     );
@@ -56,6 +56,7 @@ $outputSettings =
         stylingMethodOption: StylingMethodOption::AUTO, 
         cursorVisibilityOption: CursorVisibilityOption::AUTO, 
         initializationOption: InitializationOption::AUTO, // todo: do move from driver settings [36e6c435-2f98-4a19-9709-49848fd0a605]
+        stream: null, // defaults to: STDERR
     );
 
 // # NEW FEATURE: $outputSettings? ClearScreenOption(ClearScreenOption::AUTO);
@@ -99,7 +100,7 @@ $settings->set(
     $driverSettings,
     $widgetSettings,
     $rootWidgetSettings,
-    $signalHandlerCreators,
+    $signalHandlerSettings,
 );
 ``` 
 

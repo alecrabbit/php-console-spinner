@@ -43,6 +43,6 @@ final class SignalHandlersContainerTest extends TestCase
             handlers: $handlers,
         );
 
-        self::assertSame($handlers, $container->getSignalHandlers());
+        self::assertSame($handlers, $container->getHandlerCreators());
     }
 }

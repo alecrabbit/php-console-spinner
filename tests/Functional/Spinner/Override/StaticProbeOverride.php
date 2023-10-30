@@ -16,7 +16,6 @@ class StaticProbeOverride implements IStaticProbe
 
     public static function getCreatorClass(): string
     {
-        // TODO: Implement getCreatorClass() method.
-        throw new RuntimeException('Not implemented.');
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 }

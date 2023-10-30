@@ -20,7 +20,10 @@ $loopConfig->getSignalHandlingMode(); // SignalHandlingMode::ENABLED
 $outputConfig = $config->get(IOutputConfig::class); 
 
 $outputConfig->getStylingMethodMode(); // StylingMethodMode::ANSI8
-$outputConfig->getCursorVisibilityMode(); // CursorVisibilityMode::HIDDEN 
+$outputConfig->getCursorVisibilityMode(); // CursorVisibilityMode::HIDDEN
+$outputConfig->getInitializationMode(); // InitializationMode::ENABLED
+$outputConfig->getStream(); // STDERR
+
 # NEW FEATURE // $outputConfig->getClearScreenMode(); // ClearScreenMode::DISABLED
 
 // Driver config

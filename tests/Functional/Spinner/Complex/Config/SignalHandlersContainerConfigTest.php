@@ -73,7 +73,7 @@ final class SignalHandlersContainerConfigTest extends ConfigurationTestCase
             [
                 $signal => $handlerCreator
             ],
-            iterator_to_array($loopConfig->getSignalHandlersContainer()->getSignalHandlers())
+            iterator_to_array($loopConfig->getSignalHandlersContainer()->getHandlerCreators())
         );
     }
 }

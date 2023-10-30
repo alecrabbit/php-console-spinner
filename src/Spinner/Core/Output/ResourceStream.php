@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Helper\Asserter;
 use Traversable;
 
 /**
- * @codeCoverageIgnore Not testable
+ * @codeCoverageIgnore
  */
 final class ResourceStream implements IResourceStream
 {
@@ -35,8 +35,7 @@ final class ResourceStream implements IResourceStream
     {
         /** @var string $item */
         foreach ($data as $item) {
-            if (@fwrite($this->stream, $item) === false) {
-                // should never happen
+            if (fwrite($this->stream, $item) === false) {
                 throw new RuntimeException('Was unable to write to a stream.');
             }
         }

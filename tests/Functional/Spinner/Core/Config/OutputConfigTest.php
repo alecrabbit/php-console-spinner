@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\OutputConfig;
@@ -24,11 +25,15 @@ final class OutputConfigTest extends TestCase
     protected function getTesteeInstance(
         ?StylingMethodMode $stylingMethodMode = null,
         ?CursorVisibilityMode $cursorVisibilityMode = null,
+        ?InitializationMode $initializationMode = null,
+        mixed $stream = STDOUT,
     ): IOutputConfig {
         return
             new OutputConfig(
                 stylingMethodMode: $stylingMethodMode ?? StylingMethodMode::ANSI8,
                 cursorVisibilityMode: $cursorVisibilityMode ?? CursorVisibilityMode::HIDDEN,
+                initializationMode: $initializationMode ?? InitializationMode::ENABLED,
+                stream: $stream,
             );
     }
 

@@ -39,7 +39,7 @@ final class SignalHandlingSetup implements ISignalHandlingSetup
     {
         return
             $this->loopConfig->getSignalHandlersContainer()
-                ->getSignalHandlers()
+                ->getHandlerCreators()
         ;
     }
 }

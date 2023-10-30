@@ -51,9 +51,9 @@ const MEMORY_REPORT_INTERVAL = 60;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
-// Pick ONE of the following event loops to unregister:
-//Probes::unregister(\AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe::class);
-Probes::unregister(\AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe::class);
+// Pick ONE of the following event loops:
+Probes::unregister(\AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe::class);
+//Probes::unregister(\AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe::class);
 
 // Replace default container:
 {
@@ -132,7 +132,8 @@ $benchmarkResultsFactory = $container->get(IBenchmarkResultsFactory::class);
 $benchmarkResults =
     $benchmarkResultsFactory
         ->create(
-            $driver->getBenchmark()
+            $driver
+                ->getBenchmark()
                 ->getMeasurements()
         )
 ;

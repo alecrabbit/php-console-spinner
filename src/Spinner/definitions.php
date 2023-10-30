@@ -68,6 +68,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
@@ -77,6 +78,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\NormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\StreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
@@ -127,6 +129,8 @@ use AlecRabbit\Spinner\Core\Loop\Factory\LoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
+use AlecRabbit\Spinner\Core\Output\Contract\Factory\IResourceStreamFactory;
+use AlecRabbit\Spinner\Core\Output\Factory\ResourceStreamFactory;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
@@ -178,7 +182,7 @@ function getDefinitions(): Traversable
     yield from [
         IResourceStream::class => static function (IContainer $container): IResourceStream {
             return
-                new ResourceStream(STDERR); // FIXME (2023-10-11 14:49) [Alec Rabbit]: stub!
+                $container->get(IResourceStreamFactory::class)->create();
         },
         ISettingsProvider::class => static function (IContainer $container): ISettingsProvider {
             return $container->get(ISettingsProviderFactory::class)->create();
@@ -295,6 +299,7 @@ function solvers(): Traversable
         ICursorVisibilityModeSolver::class => CursorVisibilityModeSolver::class,
         ILinkerModeSolver::class => LinkerModeSolver::class,
         IInitializationModeSolver::class => InitializationModeSolver::class,
+        IStreamSolver::class => StreamSolver::class,
     ];
 }
 
@@ -304,7 +309,7 @@ function factories(): Traversable
         IDriverFactory::class => DriverFactory::class,
         ILoopProviderFactory::class => LoopProviderFactory::class,
         IDriverProviderFactory::class => DriverProviderFactory::class,
-
+        IResourceStreamFactory::class => ResourceStreamFactory::class,
         IBufferedOutputFactory::class => BufferedOutputFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConfigFactory::class => ConfigFactory::class,
