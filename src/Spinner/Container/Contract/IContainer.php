@@ -26,16 +26,4 @@ interface IContainer extends ContainerInterface
 
     /** @inheritDoc */
     public function has(string $id): bool;
-
-//    /**
-//     * @deprecated Container should be aware immutable.
-//     *
-//     * Adds definition to the container. **Does not** instantiate service.
-//     *
-//     * @param string $id Identifier of the entry to add.
-//     * @param callable|object|string $definition Definition of the entry to add.
-//     *
-//     * @throws ContainerExceptionInterface If definition for **this** identifier is already registered.
-//     */
-//    public function add(string $id, callable|object|string $definition): void;
 }

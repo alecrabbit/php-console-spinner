@@ -23,17 +23,15 @@ final class BufferedOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IBufferedOutputBuilder $bufferedOutputBuilder = null,
         ?IResourceStream $resourceStream = null,
     ): IBufferedOutputFactory {
         return new BufferedOutputFactory(
-            bufferedOutputBuilder: $bufferedOutputBuilder ?? $this->getBufferedOutputBuilderMock(),
             resourceStream: $resourceStream ?? $this->getResourceStreamMock(),
         );
     }
 
     #[Test]
-    public function canCreateOrRetrieve(): void
+    public function canCreate(): void
     {
         $bufferedOutputFactory = $this->getTesteeInstance();
 
@@ -42,8 +40,5 @@ final class BufferedOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $bufferedOutput = $bufferedOutputFactory->create();
 
         self::assertInstanceOf(IBufferedOutput::class, $bufferedOutput);
-
-        self::assertSame($bufferedOutput, $bufferedOutputFactory->create());
-        self::assertSame($bufferedOutput, $bufferedOutputFactory->create());
     }
 }

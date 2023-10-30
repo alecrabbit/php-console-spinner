@@ -7,12 +7,11 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
 use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
-use AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
@@ -178,6 +177,10 @@ use Traversable;
 function getDefinitions(): Traversable
 {
     yield from [
+        IBufferedOutput::class => static function (IContainer $container): IBufferedOutput {
+            return
+                $container->get(IBufferedOutputFactory::class)->create();
+        },
         IResourceStream::class => static function (IContainer $container): IResourceStream {
             return
                 $container->get(IResourceStreamFactory::class)->create();
@@ -277,7 +280,6 @@ function builders(): Traversable
         IWidgetBuilder::class => WidgetBuilder::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
         IWidgetCompositeBuilder::class => WidgetCompositeBuilder::class,
-        IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
         IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
         ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
 

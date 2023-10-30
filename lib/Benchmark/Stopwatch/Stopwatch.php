@@ -57,12 +57,6 @@ class Stopwatch implements IStopwatch
             $this->measurementFactory->create();
     }
 
-    /** @inheritDoc */
-    public function getUnit(): TimeUnit
-    {
-        return $this->timer->getUnit();
-    }
-
     public function getMeasurements(): Traversable
     {
         foreach ($this->measurements as $key => $measurement) {

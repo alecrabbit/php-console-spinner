@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
@@ -14,7 +15,7 @@ final class DriverOutputFactory implements IDriverOutputFactory
 {
     public function __construct(
         protected IDriverOutputBuilder $driverOutputBuilder,
-        protected IBufferedOutputFactory $bufferedOutputFactory,
+        protected IBufferedOutput $bufferedOutput,
         protected IConsoleCursorFactory $cursorFactory,
     ) {
     }
@@ -24,7 +25,7 @@ final class DriverOutputFactory implements IDriverOutputFactory
         return
             $this->driverOutputBuilder
                 ->withOutput(
-                    $this->bufferedOutputFactory->create()
+                    $this->bufferedOutput
                 )
                 ->withCursor(
                     $this->cursorFactory->create()
