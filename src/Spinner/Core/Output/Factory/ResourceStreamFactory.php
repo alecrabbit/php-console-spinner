@@ -18,7 +18,9 @@ final class ResourceStreamFactory implements IResourceStreamFactory
 
     public function create(): IResourceStream
     {
-        // FIXME (2023-10-30 12:55) [Alec Rabbit]: stub!
-        return new ResourceStream(STDERR);
+        return
+            new ResourceStream(
+                $this->outputConfig->getStream()
+            );
     }
 }

@@ -41,16 +41,4 @@ final readonly class LoopConfig implements ILoopConfig
     {
         return $this->signalHandlersContainer;
     }
-
-    public function getStream(): mixed
-    {
-        // TODO: Implement getStream() method.
-        throw new \RuntimeException('Not implemented.');
-    }
-
-    public function getInitializationMode(): InitializationMode
-    {
-        // TODO: Implement getInitializationMode() method.
-        throw new \RuntimeException('Not implemented.');
-    }
 }

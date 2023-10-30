@@ -1,14 +1,14 @@
 phploc 7.0.2 by Sebastian Bergmann.
 
 Directories                                         67
-Files                                              241
+Files                                              242
 
 Size
-  Lines of Code (LOC)                            27204
-  Comment Lines of Code (CLOC)                     376 (1.38%)
-  Non-Comment Lines of Code (NCLOC)              26828 (98.62%)
-  Logical Lines of Code (LLOC)                    6310 (23.20%)
-    Classes                                       6303 (99.89%)
+  Lines of Code (LOC)                            27534
+  Comment Lines of Code (CLOC)                     389 (1.41%)
+  Non-Comment Lines of Code (NCLOC)              27145 (98.59%)
+  Logical Lines of Code (LLOC)                    6370 (23.14%)
+    Classes                                       6363 (99.89%)
       Average Class Length                          26
         Minimum Class Length                         0
         Maximum Class Length                       871
@@ -24,7 +24,7 @@ Size
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.06
-  Average Complexity per Class                    2.55
+  Average Complexity per Class                    2.59
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     14.00
   Average Complexity per Method                   1.25
@@ -39,30 +39,30 @@ Dependencies
   Attribute Accesses                                22
     Non-Static                                      15 (68.18%)
     Static                                           7 (31.82%)
-  Method Calls                                    8361
-    Non-Static                                    5455 (65.24%)
-    Static                                        2906 (34.76%)
+  Method Calls                                    8449
+    Non-Static                                    5525 (65.39%)
+    Static                                        2924 (34.61%)
 
 Structure
   Namespaces                                        67
   Interfaces                                         0
   Traits                                             1
-  Classes                                          239
-    Abstract Classes                                 5 (2.09%)
-    Concrete Classes                               234 (97.91%)
-      Final Classes                                217 (92.74%)
-      Non-Final Classes                             17 (7.26%)
-  Methods                                         1532
+  Classes                                          240
+    Abstract Classes                                 5 (2.08%)
+    Concrete Classes                               235 (97.92%)
+      Final Classes                                218 (92.77%)
+      Non-Final Classes                             17 (7.23%)
+  Methods                                         1552
     Scope
-      Non-Static Methods                          1434 (93.60%)
-      Static Methods                                98 (6.40%)
+      Non-Static Methods                          1453 (93.62%)
+      Static Methods                                99 (6.38%)
     Visibility
-      Public Methods                               992 (64.75%)
-      Protected Methods                            307 (20.04%)
-      Private Methods                              233 (15.21%)
-  Functions                                         96
-    Named Functions                                  3 (3.12%)
-    Anonymous Functions                             93 (96.88%)
+      Public Methods                              1006 (64.82%)
+      Protected Methods                            310 (19.97%)
+      Private Methods                              236 (15.21%)
+  Functions                                         97
+    Named Functions                                  3 (3.09%)
+    Anonymous Functions                             94 (96.91%)
   Constants                                         72
     Global Constants                                 0 (0.00%)
     Class Constants                                 72 (100.00%)

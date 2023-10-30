@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Output\Factory;
 
-use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Output\Contract\Factory\IResourceStreamFactory;
 use AlecRabbit\Spinner\Core\Output\Factory\ResourceStreamFactory;
@@ -24,27 +23,34 @@ final class ResourceStreamFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IOutputConfig $outputConfig = null,
-    ): IResourceStreamFactory
-    {
+    ): IResourceStreamFactory {
         return
             new ResourceStreamFactory(
                 outputConfig: $outputConfig ?? $this->getOutputConfigMock(),
             );
     }
 
+    protected function getOutputConfigMock(): MockObject&IOutputConfig
+    {
+        return $this->createMock(IOutputConfig::class);
+    }
+
     #[Test]
     public function canCreate(): void
     {
-        $factory = $this->getTesteeInstance();
+        $outputConfig = $this->getOutputConfigMock();
+        $outputConfig
+            ->expects(self::once())
+            ->method('getStream')
+            ->willReturn(STDOUT)
+        ;
+        $factory = $this->getTesteeInstance(
+            outputConfig: $outputConfig,
+        );
 
         $result = $factory->create();
 
         self::assertInstanceOf(ResourceStream::class, $result);
-    }
-
-    protected function getOutputConfigMock(): MockObject&IOutputConfig
-    {
-        return $this->createMock(IOutputConfig::class);
     }
 
 }

@@ -193,18 +193,6 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
             {
                 return 'invalid';
             }
-
-            public function getStream(): mixed
-            {
-                // TODO: Implement getStream() method.
-                throw new \RuntimeException('Not implemented.');
-            }
-
-            public function getInitializationMode(): InitializationMode
-            {
-                // TODO: Implement getInitializationMode() method.
-                throw new \RuntimeException('Not implemented.');
-            }
         };
 
         $config->set($object);
@@ -224,18 +212,6 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
             public function getIdentifier(): string
             {
                 return stdClass::class;
-            }
-
-            public function getStream(): mixed
-            {
-                // TODO: Implement getStream() method.
-                throw new \RuntimeException('Not implemented.');
-            }
-
-            public function getInitializationMode(): InitializationMode
-            {
-                // TODO: Implement getInitializationMode() method.
-                throw new \RuntimeException('Not implemented.');
             }
         };
 
@@ -259,18 +235,6 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
             public function getIdentifier(): string
             {
                 return ISettings::class;
-            }
-
-            public function getStream(): mixed
-            {
-                // TODO: Implement getStream() method.
-                throw new \RuntimeException('Not implemented.');
-            }
-
-            public function getInitializationMode(): InitializationMode
-            {
-                // TODO: Implement getInitializationMode() method.
-                throw new \RuntimeException('Not implemented.');
             }
         };
 

@@ -55,6 +55,8 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
             new OutputSettings(
                 stylingMethodOption: StylingMethodOption::ANSI8,
                 cursorVisibilityOption: CursorVisibilityOption::HIDDEN,
+                initializationOption: InitializationOption::ENABLED,
+                stream: STDERR,
             ),
             new WidgetSettings(
                 leadingSpacer: new CharFrame('', 0),

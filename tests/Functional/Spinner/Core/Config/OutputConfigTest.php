@@ -61,6 +61,31 @@ final class OutputConfigTest extends TestCase
         self::assertSame($cursorVisibilityMode, $config->getCursorVisibilityMode());
     }
 
+    #[Test]
+    public function canGetInitializationMode(): void
+    {
+        $initializationMode = InitializationMode::ENABLED;
+
+        $config = $this->getTesteeInstance(
+            initializationMode: $initializationMode,
+        );
+
+        self::assertSame($initializationMode, $config->getInitializationMode());
+    }
+
+    #[Test]
+    public function canGetStream(): void
+    {
+        $stream = fopen('php://memory', 'wb+');
+
+        $config = $this->getTesteeInstance(
+            stream: $stream,
+        );
+
+        self::assertSame($stream, $config->getStream());
+
+        fclose($stream);
+    }
 
     #[Test]
     public function canGetIdentifier(): void
