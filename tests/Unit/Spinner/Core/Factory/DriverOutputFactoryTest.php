@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
-use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
@@ -24,12 +24,12 @@ final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?IDriverOutputBuilder $driverOutputBuilder = null,
-        ?IBufferedOutputFactory $bufferedOutputFactory = null,
+        ?IBufferedOutput $bufferedOutput = null,
         ?IConsoleCursorFactory $cursorFactory = null,
     ): IDriverOutputFactory {
         return new DriverOutputFactory(
             driverOutputBuilder: $driverOutputBuilder ?? $this->getDriverOutputBuilderMock(),
-            bufferedOutputFactory: $bufferedOutputFactory ?? $this->getBufferedOutputFactoryMock(),
+            bufferedOutput: $bufferedOutput ?? $this->getBufferedOutputMock(),
             cursorFactory: $cursorFactory ?? $this->getCursorFactoryMock(),
         );
     }
@@ -55,11 +55,6 @@ final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($driverOutputStub)
         ;
 
-        $bufferedOutputFactory = $this->getBufferedOutputFactoryMock();
-        $bufferedOutputFactory
-            ->expects(self::once())
-            ->method('create')
-        ;
         $cursorFactory = $this->getCursorFactoryMock();
 
         $cursorFactory
@@ -69,7 +64,6 @@ final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverOutputFactory = $this->getTesteeInstance(
             driverOutputBuilder: $driverOutputBuilder,
-            bufferedOutputFactory: $bufferedOutputFactory,
             cursorFactory: $cursorFactory,
         );
 

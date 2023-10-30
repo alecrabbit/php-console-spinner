@@ -16,7 +16,4 @@ interface IStopwatch
      * @return Traversable<string, IMeasurement>
      */
     public function getMeasurements(): Traversable;
-
-    /** @deprecated */
-    public function getUnit(): TimeUnit;
 }

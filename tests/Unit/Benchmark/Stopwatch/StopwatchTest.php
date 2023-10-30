@@ -51,25 +51,6 @@ final class StopwatchTest extends TestCase
     }
 
     #[Test]
-    public function canGetUnit(): void
-    {
-        $unit = TimeUnit::MICROSECOND;
-
-        $timer = $this->getTimerMock($unit);
-        $timer
-            ->expects(self::once())
-            ->method('getUnit')
-            ->willReturn($unit)
-        ;
-
-        $stopwatch = $this->getTesteeInstance(
-            timer: $timer,
-        );
-
-        self::assertEquals($unit, $stopwatch->getUnit());
-    }
-
-    #[Test]
     public function canStart(): void
     {
         $key = 'testLabel';

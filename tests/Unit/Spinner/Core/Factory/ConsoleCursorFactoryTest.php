@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -25,12 +25,12 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IBufferedOutputFactory $bufferedOutputFactory = null,
+        ?IBufferedOutput $bufferedOutput = null,
         ?IConsoleCursorBuilder $cursorBuilder = null,
         ?IOutputConfig $outputConfig = null,
     ): IConsoleCursorFactory {
         return new ConsoleCursorFactory(
-            bufferedOutputFactory: $bufferedOutputFactory ?? $this->getBufferedOutputFactoryMock(),
+            bufferedOutput: $bufferedOutput ?? $this->getBufferedOutputMock(),
             cursorBuilder: $cursorBuilder ?? $this->getCursorBuilderMock(),
             outputConfig: $outputConfig ?? $this->getOutputConfigMock(),
         );
@@ -47,17 +47,10 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canCreateOrRetrieve(): void
+    public function canCreate(): void
     {
         $cursorVisibilityMode = CursorVisibilityMode::HIDDEN;
         $outputConfig = $this->getOutputConfigMock($cursorVisibilityMode);
-
-        $bufferedOutputFactory = $this->getBufferedOutputFactoryMock();
-
-        $bufferedOutputFactory
-            ->expects(self::once())
-            ->method('create')
-        ;
 
         $cursorStub = $this->getCursorStub();
 
@@ -83,7 +76,6 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $cursorFactory = $this->getTesteeInstance(
-            bufferedOutputFactory: $bufferedOutputFactory,
             cursorBuilder: $cursorBuilder,
             outputConfig: $outputConfig,
         );
