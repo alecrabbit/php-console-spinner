@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
@@ -153,6 +154,6 @@ final readonly class InitializationModeSolver extends ASolver implements Contrac
 
     protected function extractOption(ISettings $settings): ?InitializationOption
     {
-        return $this->extractSettingsElement($settings, IDriverSettings::class)?->getInitializationOption();
+        return $this->extractSettingsElement($settings, IOutputSettings::class)?->getInitializationOption();
     }
 }

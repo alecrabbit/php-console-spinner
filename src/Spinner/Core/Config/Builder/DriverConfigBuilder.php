@@ -17,7 +17,6 @@ use AlecRabbit\Spinner\Exception\LogicException;
 final class DriverConfigBuilder implements IDriverConfigBuilder
 {
     private ?LinkerMode $linkerMode = null;
-    private ?InitializationMode $initializationMode = null;
 
     /**
      * @inheritDoc
@@ -29,7 +28,6 @@ final class DriverConfigBuilder implements IDriverConfigBuilder
         return
             new DriverConfig(
                 linkerMode: $this->linkerMode,
-                initializationMode: $this->initializationMode,
             );
     }
 
@@ -40,7 +38,6 @@ final class DriverConfigBuilder implements IDriverConfigBuilder
     {
         match (true) {
             $this->linkerMode === null => throw new LogicException('LinkerMode is not set.'),
-            $this->initializationMode === null => throw new LogicException('InitializationMode is not set.'),
             default => null,
         };
     }
@@ -49,13 +46,6 @@ final class DriverConfigBuilder implements IDriverConfigBuilder
     {
         $clone = clone $this;
         $clone->linkerMode = $linkerMode;
-        return $clone;
-    }
-
-    public function withInitializationMode(InitializationMode $initializationMode): IDriverConfigBuilder
-    {
-        $clone = clone $this;
-        $clone->initializationMode = $initializationMode;
         return $clone;
     }
 }

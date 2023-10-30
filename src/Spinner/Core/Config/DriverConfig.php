@@ -12,18 +12,12 @@ final readonly class DriverConfig implements IDriverConfig
 {
     public function __construct(
         protected LinkerMode $linkerMode,
-        protected InitializationMode $initializationMode,
     ) {
     }
 
     public function getLinkerMode(): LinkerMode
     {
         return $this->linkerMode;
-    }
-
-    public function getInitializationMode(): InitializationMode
-    {
-        return $this->initializationMode;
     }
 
     /**

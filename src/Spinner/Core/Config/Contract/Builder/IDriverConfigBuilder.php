@@ -16,7 +16,5 @@ interface IDriverConfigBuilder
      */
     public function build(): IDriverConfig;
 
-    public function withInitializationMode(InitializationMode $initializationMode): IDriverConfigBuilder;
-
     public function withLinkerMode(LinkerMode $linkerMode): IDriverConfigBuilder;
 }

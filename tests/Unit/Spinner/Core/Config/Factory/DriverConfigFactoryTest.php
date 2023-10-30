@@ -28,13 +28,11 @@ final class DriverConfigFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?ILinkerModeSolver $linkerModeSolver = null,
-        ?IInitializationModeSolver $initializationModeSolver = null,
         ?IDriverConfigBuilder $driverConfigBuilder = null,
     ): IDriverConfigFactory {
         return
             new DriverConfigFactory(
                 linkerModeSolver: $linkerModeSolver ?? $this->getLinkerModeSolverMock(),
-                initializationModeSolver: $initializationModeSolver ?? $this->getInitializationModeSolverMock(),
                 driverConfigBuilder: $driverConfigBuilder ?? $this->getDriverConfigBuilderMock(),
             );
     }
@@ -51,17 +49,6 @@ final class DriverConfigFactoryTest extends TestCase
             );
     }
 
-    protected function getInitializationModeSolverMock(
-        ?InitializationMode $initializationMode = null,
-    ): MockObject&IInitializationModeSolver {
-        return
-            $this->createConfiguredMock(
-                IInitializationModeSolver::class,
-                [
-                    'solve' => $initializationMode ?? InitializationMode::DISABLED,
-                ]
-            );
-    }
 
     protected function getDriverConfigBuilderMock(): MockObject&IDriverConfigBuilder
     {
@@ -72,28 +59,20 @@ final class DriverConfigFactoryTest extends TestCase
     public function canCreate(): void
     {
         $linkerMode = LinkerMode::ENABLED;
-        $initializationMode = InitializationMode::ENABLED;
 
         $driverConfig =
             $this->getDriverConfigMock(
                 $linkerMode,
-                $initializationMode
             );
 
-        $outputConfigBuilder = $this->getDriverConfigBuilderMock();
-        $outputConfigBuilder
+        $driverConfigBuilder = $this->getDriverConfigBuilderMock();
+        $driverConfigBuilder
             ->expects(self::once())
             ->method('withLinkerMode')
             ->with($linkerMode)
             ->willReturnSelf()
         ;
-        $outputConfigBuilder
-            ->expects(self::once())
-            ->method('withInitializationMode')
-            ->with($initializationMode)
-            ->willReturnSelf()
-        ;
-        $outputConfigBuilder
+        $driverConfigBuilder
             ->expects(self::once())
             ->method('build')
             ->willReturn($driverConfig)
@@ -102,8 +81,7 @@ final class DriverConfigFactoryTest extends TestCase
         $factory =
             $this->getTesteeInstance(
                 linkerModeSolver: $this->getLinkerModeSolverMock($linkerMode),
-                initializationModeSolver: $this->getInitializationModeSolverMock($initializationMode),
-                driverConfigBuilder: $outputConfigBuilder,
+                driverConfigBuilder: $driverConfigBuilder,
             );
 
         $config = $factory->create();
@@ -111,19 +89,16 @@ final class DriverConfigFactoryTest extends TestCase
         self::assertSame($driverConfig, $config);
 
         self::assertSame($linkerMode, $config->getLinkerMode());
-        self::assertSame($initializationMode, $config->getInitializationMode());
     }
 
     protected function getDriverConfigMock(
         ?LinkerMode $linkerMode = null,
-        ?InitializationMode $initializationMode = null,
     ): MockObject&IDriverConfig {
         return
             $this->createConfiguredMock(
                 IDriverConfig::class,
                 [
                     'getLinkerMode' => $linkerMode ?? LinkerMode::DISABLED,
-                    'getInitializationMode' => $initializationMode ?? InitializationMode::DISABLED,
                 ]
             );
     }

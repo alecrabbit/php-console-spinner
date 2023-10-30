@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
-use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StreamSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
@@ -21,7 +19,8 @@ final class StreamSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {
-        $sOn = fopen('php://memory', 'wb+');
+        $sOn = fopen('php://memory', 'rb+') AND fclose($sOn);
+
         $sTw = STDOUT;
         $sTh = STDERR;
 
@@ -43,7 +42,9 @@ final class StreamSolverTest extends TestCase
             [[$sTw], [$sTw, $sTh, $sOn],], // #4
             [[$sTh], [null, $sTh, $sOn],], // #5
         ];
+
     }
+
     #[Test]
     public function canBeInstantiated(): void
     {
@@ -60,6 +61,12 @@ final class StreamSolverTest extends TestCase
                 settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
             );
     }
+
+    protected function getSettingsProviderMock(): MockObject&ISettingsProvider
+    {
+        return $this->createMock(ISettingsProvider::class);
+    }
+
     #[Test]
     #[DataProvider('canSolveDataProvider')]
     public function canSolve(array $expected, array $args): void
@@ -129,11 +136,6 @@ final class StreamSolverTest extends TestCase
         if ($expectedException) {
             self::failTest($expectedException);
         }
-    }
-
-    protected function getSettingsProviderMock(): MockObject&ISettingsProvider
-    {
-        return $this->createMock(ISettingsProvider::class);
     }
 
     protected function getOutputSettingsMock(mixed $stream = null): (MockObject&IOutputSettings)|null

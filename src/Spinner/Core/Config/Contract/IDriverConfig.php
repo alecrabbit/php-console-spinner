@@ -10,6 +10,4 @@ use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 interface IDriverConfig extends IConfigElement
 {
     public function getLinkerMode(): LinkerMode;
-
-    public function getInitializationMode(): InitializationMode;
 }

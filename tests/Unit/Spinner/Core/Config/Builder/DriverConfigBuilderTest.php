@@ -36,7 +36,6 @@ final class DriverConfigBuilderTest extends TestCase
 
         $config = $configBuilder
             ->withLinkerMode(LinkerMode::DISABLED)
-            ->withInitializationMode(InitializationMode::DISABLED)
             ->build()
         ;
 
@@ -58,20 +57,6 @@ final class DriverConfigBuilderTest extends TestCase
     }
 
     #[Test]
-    public function withInitializationModeReturnsOtherInstanceOfBuilder(): void
-    {
-        $configBuilder = $this->getTesteeInstance();
-
-        $builder =
-            $configBuilder
-                ->withInitializationMode(InitializationMode::DISABLED)
-        ;
-
-        self::assertInstanceOf(DriverConfigBuilder::class, $builder);
-        self::assertNotSame($builder, $configBuilder);
-    }
-
-    #[Test]
     public function throwsIfLinkerModeModeIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
@@ -81,29 +66,6 @@ final class DriverConfigBuilderTest extends TestCase
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withInitializationMode(InitializationMode::DISABLED)
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    #[Test]
-    public function throwsIfInitializationModeIsNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'InitializationMode is not set.';
-
-        $test = function (): void {
-            $configBuilder = $this->getTesteeInstance();
-
-            $configBuilder
-                ->withLinkerMode(LinkerMode::DISABLED)
                 ->build()
             ;
         };

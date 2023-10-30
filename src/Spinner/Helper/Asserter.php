@@ -15,6 +15,7 @@ use function extension_loaded;
 final class Asserter
 {
     /**
+     * @deprecated
      * @param object|class-string $c
      * @param class-string $i
      *
@@ -46,13 +47,11 @@ final class Asserter
     }
 
     /**
-     * @param resource $stream
-     *
+     * @deprecated
      * @throws InvalidArgumentException
      */
     public static function assertStream(mixed $stream): void
     {
-        /** @psalm-suppress DocblockTypeContradiction */
         if (!is_resource($stream) || get_resource_type($stream) !== 'stream') {
             throw new InvalidArgumentException(
                 sprintf('Argument is expected to be a stream(resource), "%s" given.', get_debug_type($stream))
@@ -61,6 +60,7 @@ final class Asserter
     }
 
     /**
+     * @deprecated
      * @throws InvalidArgumentException
      */
     public static function assertColorModes(Traversable $colorModes): void
@@ -82,6 +82,7 @@ final class Asserter
     }
 
     /**
+     * @deprecated
      * @throws RuntimeException
      */
     public static function assertExtensionLoaded(string $extensionName, ?string $message = null): void
@@ -94,6 +95,7 @@ final class Asserter
     }
 
     /**
+     * @deprecated
      * @throws InvalidArgumentException
      */
     public static function assertClassExists(string $class, ?string $callerMethod = null): void
@@ -110,6 +112,7 @@ final class Asserter
     }
 
     /**
+     * @deprecated
      * @throws InvalidArgumentException
      */
     public static function assertHexStringColor(string $entry): void
@@ -138,6 +141,7 @@ final class Asserter
     }
 
     /**
+     * @deprecated
      * @throws InvalidArgumentException
      */
     public static function assertIntInRange(int $value, int $min, int $max, ?string $callerMethod = null): void
@@ -157,6 +161,7 @@ final class Asserter
     }
 
     /**
+     * @deprecated
      * @throws InvalidArgumentException
      */
     public static function assertIntColor(
