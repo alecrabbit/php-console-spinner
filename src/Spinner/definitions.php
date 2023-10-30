@@ -129,7 +129,9 @@ use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
 use AlecRabbit\Spinner\Core\Output\Contract\Factory\IResourceStreamFactory;
+use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Spinner\Core\Output\Factory\ResourceStreamFactory;
+use AlecRabbit\Spinner\Core\Output\StringBuffer;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
@@ -177,6 +179,7 @@ use Traversable;
 function getDefinitions(): Traversable
 {
     yield from [
+        IBuffer::class => StringBuffer::class,
         IBufferedOutput::class => static function (IContainer $container): IBufferedOutput {
             return
                 $container->get(IBufferedOutputFactory::class)->create();

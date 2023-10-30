@@ -9,8 +9,10 @@ use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Factory\BufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
+use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class BufferedOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -24,9 +26,11 @@ final class BufferedOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?IResourceStream $resourceStream = null,
+        ?IBuffer $buffer = null,
     ): IBufferedOutputFactory {
         return new BufferedOutputFactory(
             resourceStream: $resourceStream ?? $this->getResourceStreamMock(),
+            buffer: $buffer ?? $this->getBufferMock(),
         );
     }
 
@@ -40,5 +44,10 @@ final class BufferedOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $bufferedOutput = $bufferedOutputFactory->create();
 
         self::assertInstanceOf(IBufferedOutput::class, $bufferedOutput);
+    }
+
+    private function getBufferMock(): MockObject&IBuffer
+    {
+        return $this->createMock(IBuffer::class);
     }
 }

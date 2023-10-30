@@ -7,11 +7,12 @@ namespace AlecRabbit\Spinner\Core\Output;
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 
 final readonly class ConsoleCursor implements IConsoleCursor
 {
     public function __construct(
-        protected IBufferedOutput $buffer, // FIXME (2023-10-30 16:17) [Alec Rabbit]: we need buffer here
+        protected IBuffer $buffer,
         protected CursorVisibilityMode $cursorVisibilityMode,
     ) {
     }
@@ -56,8 +57,6 @@ final readonly class ConsoleCursor implements IConsoleCursor
     /** @inheritDoc */
     public function flush(): IConsoleCursor
     {
-        $this->buffer->flush();
-
-        return $this;
+        throw new \RuntimeException('Do not call!');
     }
 }

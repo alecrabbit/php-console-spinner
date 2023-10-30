@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
+use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -22,14 +22,14 @@ final class StringBufferTest extends TestCase
 
     public function getTesteeInstance(
         ?string $buffer = null,
-    ): IStringBuffer {
+    ): IBuffer {
         return
             new StringBuffer(
                 buffer: $buffer ?? '',
             );
     }
 
-    protected static function extractBufferContents(IStringBuffer $buffer): mixed
+    protected static function extractBufferContents(IBuffer $buffer): mixed
     {
         return self::getPropertyValue('buffer', $buffer);
     }

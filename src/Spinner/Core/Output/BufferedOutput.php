@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Output;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Output\A\AOutput;
-use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
+use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 
 // FIXME (2023-10-30 15:59) [Alec Rabbit]: make this class an adapter for Output
 //  public function __construct(
@@ -16,11 +16,11 @@ use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
 //  ) {
 //      //...
 //  }
-final class StreamBufferedOutput extends AOutput implements IBufferedOutput
+final class BufferedOutput extends AOutput implements IBufferedOutput
 {
     public function __construct(
         IResourceStream $stream,
-        protected readonly IStringBuffer $buffer = new StringBuffer()
+        protected readonly IBuffer $buffer,
     ) {
         parent::__construct($stream);
     }

@@ -6,12 +6,12 @@ namespace AlecRabbit\Spinner\Core\Output\Contract;
 
 use Generator;
 
-interface IStringBuffer
+interface IBuffer
 {
     /**
      * Appends message to buffer.
      */
-    public function append(iterable|string $message): IStringBuffer;
+    public function append(iterable|string $message): IBuffer;
 
     /**
      * Yields buffer content and clears buffer.

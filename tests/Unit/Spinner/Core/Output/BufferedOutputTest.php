@@ -6,40 +6,41 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
-use AlecRabbit\Spinner\Core\Output\StringBuffer;
+use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
+use AlecRabbit\Spinner\Core\Output\BufferedOutput;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class StreamBufferedOutputTest extends TestCase
+final class BufferedOutputTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $streamBufferedOutput = $this->getTesteeInstance(stream: null);
 
-        self::assertInstanceOf(StreamBufferedOutput::class, $streamBufferedOutput);
+        self::assertInstanceOf(BufferedOutput::class, $streamBufferedOutput);
     }
 
     public function getTesteeInstance(
-        (MockObject & IResourceStream)|null $stream,
-        ?StringBuffer $buffer = null,
+        ?IResourceStream $stream = null,
+        ?IBuffer $buffer = null,
     ): IBufferedOutput {
-        if ($buffer === null) {
-            return new StreamBufferedOutput(
-                stream: $stream ?? $this->getStreamMock(),
-            );
-        }
-        return new StreamBufferedOutput(
+        return
+            new BufferedOutput(
             stream: $stream ?? $this->getStreamMock(),
-            buffer: $buffer
+            buffer: $buffer ?? $this->getBufferMock(),
         );
     }
 
     private function getStreamMock(): MockObject&IResourceStream
     {
         return $this->createMock(IResourceStream::class);
+    }
+
+    private function getBufferMock(): MockObject&IBuffer
+    {
+        return $this->createMock(IBuffer::class);
     }
 
     #[Test]
