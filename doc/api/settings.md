@@ -30,15 +30,15 @@ $loopSettings =
     );
 
 // Signal handling settings
-$onKill = 
+$onInterrupt = 
     new SignalHandlerCreator(
-        signal: SIGKILL,
+        signal: SIGINT, // requires pcntl-ext
         handlerCreator: new class implements IHandlerCreator {
             public function createHandler(IDriver $driver, ILoop $loop): \Closure
             {
                 return 
                     static function () use ($driver, $loop) {
-                        $driver->finalize();
+                        $driver->interrupt();
                         $loop->stop();
                     }
             }
@@ -47,7 +47,7 @@ $onKill =
     
 $signalHandlerSettings = 
     new SignalHandlerSettings(
-        $onKill,
+        $onInterrupt,
     );
 
 // Output settings
@@ -55,7 +55,7 @@ $outputSettings =
     new OutputSettings(
         stylingMethodOption: StylingMethodOption::AUTO, 
         cursorVisibilityOption: CursorVisibilityOption::AUTO, 
-        initializationOption: InitializationOption::AUTO, // todo: do move from driver settings [36e6c435-2f98-4a19-9709-49848fd0a605]
+        initializationOption: InitializationOption::AUTO,
         stream: null, // defaults to: STDERR
     );
 
@@ -65,8 +65,8 @@ $outputSettings =
 $driverSettings = 
     new DriverSettings(
         linkerOption: LinkerOption::AUTO, // todo: check semantics
-        initializationOption: InitializationOption::AUTO, // todo: do move to output settings [36e6c435-2f98-4a19-9709-49848fd0a605]
     );
+
 // # NEW FEATURE: $driverSettings? FinalMessage(''); // todo: where to put it?
 // # NEW FEATURE: $driverSettings? InterruptMessage(''); // todo: where to put it?
 
