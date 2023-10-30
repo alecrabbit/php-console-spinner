@@ -4,11 +4,11 @@ Directories                                         69
 Files                                              361
 
 Size
-  Lines of Code (LOC)                            12338
-  Comment Lines of Code (CLOC)                     707 (5.73%)
-  Non-Comment Lines of Code (NCLOC)              11631 (94.27%)
-  Logical Lines of Code (LLOC)                    1343 (10.89%)
-    Classes                                       1244 (92.63%)
+  Lines of Code (LOC)                            12323
+  Comment Lines of Code (CLOC)                     694 (5.63%)
+  Non-Comment Lines of Code (NCLOC)              11629 (94.37%)
+  Logical Lines of Code (LLOC)                    1341 (10.88%)
+    Classes                                       1242 (92.62%)
       Average Class Length                           3
         Minimum Class Length                         0
         Maximum Class Length                        30
@@ -18,16 +18,16 @@ Size
       Average Methods Per Class                      2
         Minimum Methods Per Class                    0
         Maximum Methods Per Class                   12
-    Functions                                       40 (2.98%)
+    Functions                                       39 (2.91%)
       Average Function Length                        1
-    Not in classes or functions                     59 (4.39%)
+    Not in classes or functions                     60 (4.47%)
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.33
-  Average Complexity per Class                    2.13
+  Average Complexity per Class                    2.14
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     21.00
-  Average Complexity per Method                   1.52
+  Average Complexity per Method                   1.53
     Minimum Method Complexity                     1.00
     Maximum Method Complexity                    10.00
 
@@ -36,12 +36,12 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                               581
-    Non-Static                                     559 (96.21%)
+  Attribute Accesses                               580
+    Non-Static                                     558 (96.21%)
     Static                                          22 (3.79%)
-  Method Calls                                     692
-    Non-Static                                     604 (87.28%)
-    Static                                          88 (12.72%)
+  Method Calls                                     693
+    Non-Static                                     606 (87.45%)
+    Static                                          87 (12.55%)
 
 Structure
   Namespaces                                        69
@@ -52,14 +52,14 @@ Structure
     Concrete Classes                               164 (93.18%)
       Final Classes                                112 (68.29%)
       Non-Final Classes                             52 (31.71%)
-  Methods                                          871
+  Methods                                          869
     Scope
-      Non-Static Methods                           797 (91.50%)
-      Static Methods                                74 (8.50%)
+      Non-Static Methods                           795 (91.48%)
+      Static Methods                                74 (8.52%)
     Visibility
-      Public Methods                               705 (80.94%)
-      Protected Methods                             59 (6.77%)
-      Private Methods                              107 (12.28%)
+      Public Methods                               703 (80.90%)
+      Protected Methods                             59 (6.79%)
+      Private Methods                              107 (12.31%)
   Functions                                         39
     Named Functions                                 10 (25.64%)
     Anonymous Functions                             29 (74.36%)
