@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Probes;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
-// AutoStartOption can NOT be disabled for ReactPHP event loop
+// AutoStartOption can NOT be DISABLED for ReactPHP event loop
 Probes::unregister(ReactLoopProbe::class);
 
 $loopSettings =
@@ -25,5 +25,7 @@ $spinner = Facade::createSpinner();
 // perform example unrelated actions:
 require_once __DIR__ . '/../bootstrap.async.php';
 
-// Loop autostart is disabled, so we need to run loop manually
+echo 'Starting loop...' . PHP_EOL;
+
+// Loop autostart is disabled, so we need to run do it manually
 Facade::getLoop()->run();

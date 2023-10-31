@@ -13,8 +13,8 @@ use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Probes;
 
-const CYCLES = 2000000;
-const PROGRESS_CYCLE = 100000;
+const CYCLES = 200000;
+const PROGRESS_EVERY_CYCLES = CYCLES / 10;
 
 require_once __DIR__ . '/../../benchmark/bootstrap.php';
 
@@ -65,9 +65,10 @@ if (!$driver instanceof IBenchmarkingDriver) {
 
 $spinner = Facade::createSpinner();
 
+
 // Do benchmarking:
 for ($i = 0; $i < CYCLES; $i++) {
-    if ($i % PROGRESS_CYCLE === 0) {
+    if ($i % PROGRESS_EVERY_CYCLES === 0) {
         echo sprintf(
                 '%s%%, cycle: %d/%d',
                 (int)ceil(100 * $i / CYCLES),
@@ -78,8 +79,14 @@ for ($i = 0; $i < CYCLES; $i++) {
 
     $driver->render();
 }
-$driver->remove($spinner);
+echo PHP_EOL;
 
+// call other methods:
+$driver->remove($spinner);
+$driver->getInterval();
+$driver->wrap(static fn() => null);
+
+// Finalize:
 $driver->finalize();
 
 // Print report:
@@ -97,7 +104,7 @@ $benchmarkResults =
 
 $reportPrinter = $container->get(IReportPrinter::class);
 
-$title = sprintf('Benchmarking %s cycles', CYCLES);
+$title = sprintf('%s cycles', CYCLES);
 
 $reportObject =
     (new ReportFactory(benchmarkResults: $benchmarkResults, title: $title))
