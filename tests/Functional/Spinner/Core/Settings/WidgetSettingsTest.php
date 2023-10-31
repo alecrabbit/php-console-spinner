@@ -26,7 +26,7 @@ final class WidgetSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canGetInterface(): void
+    public function canGetIdentifier(): void
     {
         $settings = $this->getTesteeInstance();
 

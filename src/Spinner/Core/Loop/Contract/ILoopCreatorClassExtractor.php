@@ -9,8 +9,9 @@ use Traversable;
 interface ILoopCreatorClassExtractor
 {
     /**
-     * @param Traversable<ILoopProbe> $probes
-     * @return class-string<ILoopCreator>|null
+     * @psalm-param Traversable<ILoopProbe> $probes
+     *
+     * @psalm-return class-string<ILoopCreator>|null
      */
     public function extract(Traversable $probes): ?string;
 }

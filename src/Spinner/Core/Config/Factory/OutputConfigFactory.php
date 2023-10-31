@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 
 final readonly class OutputConfigFactory implements IOutputConfigFactory
@@ -15,6 +17,8 @@ final readonly class OutputConfigFactory implements IOutputConfigFactory
     public function __construct(
         protected IStylingMethodModeSolver $stylingMethodModeSolver,
         protected ICursorVisibilityModeSolver $cursorVisibilityModeSolver,
+        protected IInitializationModeSolver $initializationModeSolver,
+        protected IStreamSolver $streamSolver,
         protected IOutputConfigBuilder $outputConfigBuilder,
     ) {
     }
@@ -28,6 +32,12 @@ final readonly class OutputConfigFactory implements IOutputConfigFactory
                 )
                 ->withCursorVisibilityMode(
                     $this->cursorVisibilityModeSolver->solve(),
+                )
+                ->withInitializationMode(
+                    $this->initializationModeSolver->solve(),
+                )
+                ->withStream(
+                    $this->streamSolver->solve(),
                 )
                 ->build()
         ;

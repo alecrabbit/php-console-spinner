@@ -23,12 +23,10 @@ final class DriverConfigTest extends TestCase
 
     protected function getTesteeInstance(
         ?LinkerMode $linkerMode = null,
-        ?InitializationMode $initializationMode = null,
     ): IDriverConfig {
         return
             new DriverConfig(
                 linkerMode: $linkerMode ?? LinkerMode::DISABLED,
-                initializationMode: $initializationMode ?? InitializationMode::DISABLED,
             );
     }
 
@@ -43,19 +41,6 @@ final class DriverConfigTest extends TestCase
 
         self::assertSame($linkerMode, $config->getLinkerMode());
     }
-
-    #[Test]
-    public function canGetInitializationMode(): void
-    {
-        $initializationMode = InitializationMode::ENABLED;
-
-        $config = $this->getTesteeInstance(
-            initializationMode: $initializationMode,
-        );
-
-        self::assertSame($initializationMode, $config->getInitializationMode());
-    }
-
 
     #[Test]
     public function canGetIdentifier(): void

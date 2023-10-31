@@ -20,9 +20,10 @@ abstract readonly class ASolver implements ISolver
     abstract public function solve(): mixed;
 
     /**
-     * @param ISettings $settings
-     * @param class-string<ISettingsElement> $id
-     * @return ISettingsElement|null
+     * @psalm-template T as ISettingsElement
+     * @psalm-param ISettings $settings
+     * @psalm-param class-string<T> $id
+     * @psalm-return T|null
      */
     protected function extractSettingsElement(ISettings $settings, string $id): ?ISettingsElement
     {

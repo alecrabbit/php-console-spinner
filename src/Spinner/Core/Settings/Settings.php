@@ -53,9 +53,10 @@ final readonly class Settings implements ISettings
     public function get(string $id): ?ISettingsElement
     {
         self::assertIdentifier($id);
-        if (!$this->settingsElements->offsetExists($id)) {
-            return null;
-        }
-        return $this->settingsElements->offsetGet($id);
+
+        return
+            $this->settingsElements->offsetExists($id)
+                ? $this->settingsElements->offsetGet($id)
+                : null;
     }
 }

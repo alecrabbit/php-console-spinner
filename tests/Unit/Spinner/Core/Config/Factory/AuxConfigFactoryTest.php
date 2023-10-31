@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -28,13 +28,13 @@ final class AuxConfigFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IRunMethodModeSolver $runMethodModeSolver = null,
-        ?INormalizerMethodModeSolver $normalizerMethodModeSolver = null,
+        ?INormalizerModeSolver $normalizerModeSolver = null,
         ?IAuxConfigBuilder $auxConfigBuilder = null,
     ): IAuxConfigFactory {
         return
             new AuxConfigFactory(
                 runMethodModeSolver: $runMethodModeSolver ?? $this->getRunMethodModeSolverMock(),
-                normalizerMethodModeSolver: $normalizerMethodModeSolver ?? $this->getNormalizerMethodModeSolverMock(),
+                normalizerModeSolver: $normalizerModeSolver ?? $this->getNormalizerModeSolverMock(),
                 auxConfigBuilder: $auxConfigBuilder ?? $this->getAuxConfigBuilderMock(),
             );
     }
@@ -50,13 +50,13 @@ final class AuxConfigFactoryTest extends TestCase
             );
     }
 
-    protected function getNormalizerMethodModeSolverMock(?NormalizerMethodMode $normalizerMethodMode = null
-    ): MockObject&INormalizerMethodModeSolver {
+    protected function getNormalizerModeSolverMock(?NormalizerMode $normalizerMode = null
+    ): MockObject&INormalizerModeSolver {
         return
             $this->createConfiguredMock(
-                INormalizerMethodModeSolver::class,
+                INormalizerModeSolver::class,
                 [
-                    'solve' => $normalizerMethodMode ?? NormalizerMethodMode::STILL,
+                    'solve' => $normalizerMode ?? NormalizerMode::STILL,
                 ]
             );
     }
@@ -70,12 +70,12 @@ final class AuxConfigFactoryTest extends TestCase
     public function canCreate(): void
     {
         $runMethodMode = RunMethodMode::ASYNC;
-        $normalizerMethodMode = NormalizerMethodMode::BALANCED;
+        $normalizerMode = NormalizerMode::BALANCED;
 
         $auxConfig =
             $this->getAuxConfigMock(
                 $runMethodMode,
-                $normalizerMethodMode
+                $normalizerMode
             );
 
         $auxConfigBuilder = $this->getAuxConfigBuilderMock();
@@ -87,8 +87,8 @@ final class AuxConfigFactoryTest extends TestCase
         ;
         $auxConfigBuilder
             ->expects(self::once())
-            ->method('withNormalizerMethodMode')
-            ->with($normalizerMethodMode)
+            ->method('withNormalizerMode')
+            ->with($normalizerMode)
             ->willReturnSelf()
         ;
         $auxConfigBuilder
@@ -100,7 +100,7 @@ final class AuxConfigFactoryTest extends TestCase
         $factory =
             $this->getTesteeInstance(
                 runMethodModeSolver: $this->getRunMethodModeSolverMock($runMethodMode),
-                normalizerMethodModeSolver: $this->getNormalizerMethodModeSolverMock($normalizerMethodMode),
+                normalizerModeSolver: $this->getNormalizerModeSolverMock($normalizerMode),
                 auxConfigBuilder: $auxConfigBuilder,
             );
 
@@ -109,19 +109,19 @@ final class AuxConfigFactoryTest extends TestCase
         self::assertSame($auxConfig, $config);
 
         self::assertSame($runMethodMode, $config->getRunMethodMode());
-        self::assertSame($normalizerMethodMode, $config->getNormalizerMethodMode());
+        self::assertSame($normalizerMode, $config->getNormalizerMode());
     }
 
     private function getAuxConfigMock(
         RunMethodMode $runMethodMode,
-        NormalizerMethodMode $normalizerMethodMode,
+        NormalizerMode $normalizerMode,
     ): MockObject&IAuxConfig {
         return
             $this->createConfiguredMock(
                 IAuxConfig::class,
                 [
                     'getRunMethodMode' => $runMethodMode,
-                    'getNormalizerMethodMode' => $normalizerMethodMode,
+                    'getNormalizerMode' => $normalizerMode,
                 ]
             );
     }

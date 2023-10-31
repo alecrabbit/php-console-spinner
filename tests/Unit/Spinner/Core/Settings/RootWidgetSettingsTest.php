@@ -60,20 +60,6 @@ final class RootWidgetSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canSetLeadingSpacer(): void
-    {
-        $settings = $this->getTesteeInstance();
-
-        $leadingSpacer = $this->getFrameMock();
-
-        self::assertNotSame($leadingSpacer, $settings->getLeadingSpacer());
-
-        $settings->setLeadingSpacer($leadingSpacer);
-
-        self::assertSame($leadingSpacer, $settings->getLeadingSpacer());
-    }
-
-    #[Test]
     public function canGetTrailingSpacer(): void
     {
         $trailingSpacer = $this->getFrameMock();
@@ -81,20 +67,6 @@ final class RootWidgetSettingsTest extends TestCase
         $settings = $this->getTesteeInstance(
             trailingSpacer: $trailingSpacer,
         );
-
-        self::assertSame($trailingSpacer, $settings->getTrailingSpacer());
-    }
-
-    #[Test]
-    public function canSetTrailingSpacer(): void
-    {
-        $settings = $this->getTesteeInstance();
-
-        $trailingSpacer = $this->getFrameMock();
-
-        self::assertNotSame($trailingSpacer, $settings->getTrailingSpacer());
-
-        $settings->setTrailingSpacer($trailingSpacer);
 
         self::assertSame($trailingSpacer, $settings->getTrailingSpacer());
     }
@@ -112,20 +84,6 @@ final class RootWidgetSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canSetStylePalette(): void
-    {
-        $settings = $this->getTesteeInstance();
-
-        $stylePalette = $this->getPaletteMock();
-
-        self::assertNotSame($stylePalette, $settings->getStylePalette());
-
-        $settings->setStylePalette($stylePalette);
-
-        self::assertSame($stylePalette, $settings->getStylePalette());
-    }
-
-    #[Test]
     public function canGetCharPalette(): void
     {
         $charPalette = $this->getPaletteMock();
@@ -133,20 +91,6 @@ final class RootWidgetSettingsTest extends TestCase
         $settings = $this->getTesteeInstance(
             charPalette: $charPalette,
         );
-
-        self::assertSame($charPalette, $settings->getCharPalette());
-    }
-
-    #[Test]
-    public function canSetCharPalette(): void
-    {
-        $settings = $this->getTesteeInstance();
-
-        $charPalette = $this->getPaletteMock();
-
-        self::assertNotSame($charPalette, $settings->getCharPalette());
-
-        $settings->setCharPalette($charPalette);
 
         self::assertSame($charPalette, $settings->getCharPalette());
     }

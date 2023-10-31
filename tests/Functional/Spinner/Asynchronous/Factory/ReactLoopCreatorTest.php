@@ -18,7 +18,7 @@ final class ReactLoopCreatorTest extends TestCase
         if (ReactLoopProbe::isSupported()) {
             self::assertInstanceOf(
                 ReactLoopAdapter::class,
-                ReactLoopCreator::create(),
+                (new ReactLoopCreator)->create(),
             );
         } else {
             self::markTestSkipped('ReactLoop is not supported');

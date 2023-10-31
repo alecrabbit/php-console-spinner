@@ -80,7 +80,7 @@ library provides additional components to extend functionality:
 
 ### <a name="features"></a> Features
 
-> See [Features](doc/features.md) and [limitations](doc/limitations.md) for more details
+> See [Features](doc/features.md) and [limitations](./doc/limitations.md) for more details
 
 | Feature                |                             | 
 |------------------------|:---------------------------:|
@@ -99,7 +99,7 @@ is `psr/container`. That's why zero is in quotes.
 ```json
     "require": {
         "php": ">=8.2",
-        "psr/container": ">=2.0"
+        "psr/container": "^2.0"
     },
 ```
 

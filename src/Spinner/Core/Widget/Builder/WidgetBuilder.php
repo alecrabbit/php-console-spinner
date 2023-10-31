@@ -6,12 +6,15 @@ namespace AlecRabbit\Spinner\Core\Widget\Builder;
 
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Builder\A\AWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Widget;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class WidgetBuilder extends AWidgetBuilder implements IWidgetBuilder
 {
     public function build(): IWidget
@@ -26,7 +29,7 @@ final class WidgetBuilder extends AWidgetBuilder implements IWidgetBuilder
             );
     }
 
-    public function withWidgetRevolver(IRevolver $revolver): IWidgetBuilder
+    public function withWidgetRevolver(IWidgetRevolver $revolver): IWidgetBuilder
     {
         $this->revolver = $revolver;
         return $this;

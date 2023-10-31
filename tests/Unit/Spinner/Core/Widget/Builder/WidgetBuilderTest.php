@@ -81,7 +81,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
             $widget =
                 $widgetBuilder
-                    ->withWidgetRevolver($this->getRevolverMock())
+                    ->withWidgetRevolver($this->getWidgetRevolverMock())
                     ->withTrailingSpacer($this->getFrameMock())
                     ->build()
             ;
@@ -107,7 +107,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
             $widget =
                 $widgetBuilder
-                    ->withWidgetRevolver($this->getRevolverMock())
+                    ->withWidgetRevolver($this->getWidgetRevolverMock())
                     ->withLeadingSpacer($this->getFrameMock())
                     ->build()
             ;

@@ -21,19 +21,9 @@ final class AuxSettings implements IAuxSettings
         return $this->runMethodOption;
     }
 
-    public function setRunMethodOption(RunMethodOption $runMethodOption): void
-    {
-        $this->runMethodOption = $runMethodOption;
-    }
-
     public function getNormalizerOption(): NormalizerOption
     {
         return $this->normalizerOption;
-    }
-
-    public function setNormalizerOption(NormalizerOption $normalizerOption): void
-    {
-        $this->normalizerOption = $normalizerOption;
     }
 
     public function getIdentifier(): string

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\AuxConfig;
 use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
@@ -20,17 +20,17 @@ final class AuxConfigBuilderTest extends TestCase
         $configBuilder = $this->getTesteeInstance();
 
         $runMethodMode = RunMethodMode::SYNCHRONOUS;
-        $normalizerMethodMode = NormalizerMethodMode::STILL;
+        $normalizerMode = NormalizerMode::STILL;
 
         $config = $configBuilder
             ->withRunMethodMode($runMethodMode)
-            ->withNormalizerMethodMode($normalizerMethodMode)
+            ->withNormalizerMode($normalizerMode)
             ->build()
         ;
 
         self::assertInstanceOf(AuxConfig::class, $config);
         self::assertSame($runMethodMode, $config->getRunMethodMode());
-        self::assertSame($normalizerMethodMode, $config->getNormalizerMethodMode());
+        self::assertSame($normalizerMode, $config->getNormalizerMode());
     }
 
     protected function getTesteeInstance(): IAuxConfigBuilder

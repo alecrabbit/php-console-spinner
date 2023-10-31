@@ -77,13 +77,13 @@ classDiagram
     IDriverFactory ..> ITimerFactory
     IDriverFactory ..> IDriverSetup
     IDriverFactory ..> IDriverSettings
-    IDriverFactory ..> ISignalHandlersSetupFactory
+    IDriverFactory ..> ISignalHandlingSetupFactory
     
     IDriverBuilder ..> IIntervalFactory
     
-    ISignalHandlersSetupFactory ..> ISettingsProvider
-    ISignalHandlersSetupFactory ..> ILoopFactory
-    ISignalHandlersSetupFactory ..> ISignalHandlersSetupBuilder
+    ISignalHandlingSetupFactory ..> ISettingsProvider
+    ISignalHandlingSetupFactory ..> ILoopFactory
+    ISignalHandlingSetupFactory ..> ISignalHandlingSetupBuilder
     
     IDriverOutputFactory ..> IDriverOutputBuilder
     IDriverOutputFactory ..> IBufferedOutputSingletonFactory

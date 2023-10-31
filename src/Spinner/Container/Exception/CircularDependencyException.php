@@ -20,6 +20,7 @@ final class CircularDependencyException extends ContainerException
 
     private function formatStack(ArrayObject $stack): string
     {
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         return PHP_EOL . implode(' ➜ ', $stack->getArrayCopy());
     }
 }

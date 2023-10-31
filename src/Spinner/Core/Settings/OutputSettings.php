@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 
@@ -13,6 +14,8 @@ final class OutputSettings implements IOutputSettings
     public function __construct(
         protected StylingMethodOption $stylingMethodOption = StylingMethodOption::AUTO,
         protected CursorVisibilityOption $cursorVisibilityOption = CursorVisibilityOption::AUTO,
+        protected InitializationOption $initializationOption = InitializationOption::AUTO,
+        protected mixed $stream = null,
     ) {
     }
 
@@ -21,19 +24,19 @@ final class OutputSettings implements IOutputSettings
         return $this->stylingMethodOption;
     }
 
-    public function setStylingMethodOption(StylingMethodOption $stylingMethodOption): void
-    {
-        $this->stylingMethodOption = $stylingMethodOption;
-    }
-
     public function getCursorVisibilityOption(): CursorVisibilityOption
     {
         return $this->cursorVisibilityOption;
     }
 
-    public function setCursorVisibilityOption(CursorVisibilityOption $cursorVisibilityOption): void
+    public function getInitializationOption(): InitializationOption
     {
-        $this->cursorVisibilityOption = $cursorVisibilityOption;
+        return $this->initializationOption;
+    }
+
+    public function getStream(): mixed
+    {
+        return $this->stream;
     }
 
     public function getIdentifier(): string

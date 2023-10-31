@@ -26,10 +26,11 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IBufferedOutput $output = null,
         ?IConsoleCursor $cursor = null,
     ): IDriverOutput {
-        return new DriverOutput(
-            output: $output ?? $this->getBufferedOutputMock(),
-            cursor: $cursor ?? $this->getCursorMock(),
-        );
+        return
+            new DriverOutput(
+                output: $output ?? $this->getBufferedOutputMock(),
+                cursor: $cursor ?? $this->getCursorMock(),
+            );
     }
 
     #[Test]
@@ -43,7 +44,8 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $message = 'final message';
 
-        $output->expects(self::once())->method('write')->with($message);
+        $output->expects(self::once())->method('append')->with($message);
+        $output->expects(self::exactly(2))->method('flush');
 
         $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
 
@@ -64,7 +66,8 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $message = null;
 
-        $output->expects(self::never())->method('write')->with($message);
+        $output->expects(self::never())->method('append')->with($message);
+        $output->expects(self::exactly(2))->method('flush');
 
         $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
 
@@ -78,7 +81,6 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $cursor = $this->getCursorMock();
         $cursor->expects(self::once())->method('erase')->willReturnSelf();
-        $cursor->expects(self::once())->method('flush');
 
         $driverOutput = $this->getTesteeInstance(cursor: $cursor);
 
@@ -90,8 +92,11 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canNotEraseIfUninitialized(): void
     {
         $cursor = $this->getCursorMock();
-        $cursor->expects(self::never())->method('erase')->willReturnSelf();
-        $cursor->expects(self::never())->method('flush');
+        $cursor
+            ->expects(self::never())
+            ->method('erase')
+            ->willReturnSelf()
+        ;
 
         $driverOutput = $this->getTesteeInstance(cursor: $cursor);
 
@@ -109,7 +114,8 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $message = 'final message';
 
-        $output->expects(self::never())->method('write')->with($message);
+        $output->expects(self::never())->method('append')->with($message);
+        $output->expects(self::never())->method('flush');
 
         $driverOutput = $this->getTesteeInstance($output, $cursor);
 
@@ -125,7 +131,7 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $output = $this->getBufferedOutputMock();
 
-        $output->expects(self::never())->method('bufferedWrite');
+        $output->expects(self::never())->method('append');
         $output->expects(self::never())->method('flush');
 
         $driverOutput = $this->getTesteeInstance($output, $cursor);
@@ -147,8 +153,8 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $output = $this->getBufferedOutputMock();
 
-        $output->expects(self::once())->method('bufferedWrite');
-        $output->expects(self::once())->method('flush');
+        $output->expects(self::once())->method('append');
+        $output->expects(self::exactly(2))->method('flush');
 
         $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
 

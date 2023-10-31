@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Container\Contract;
 
 interface IContainerFactory
 {
-    public function getContainer(): IContainer;
+    public function create(): IContainer;
 }

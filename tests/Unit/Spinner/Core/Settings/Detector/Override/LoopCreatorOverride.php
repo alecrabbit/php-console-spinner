@@ -10,7 +10,7 @@ use RuntimeException;
 
 class LoopCreatorOverride implements ILoopCreator
 {
-    public static function create(): ILoop
+    public function create(): ILoop
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

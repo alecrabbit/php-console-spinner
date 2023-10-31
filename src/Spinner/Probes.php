@@ -36,7 +36,8 @@ final class Probes
     }
 
     /**
-     * @param class-string<IStaticProbe> $class
+     * @psalm-template T as IStaticProbe
+     * @psalm-param class-string<T> $class
      * @throws InvalidArgumentException
      */
     private static function assertClass(string $class): void
@@ -53,7 +54,9 @@ final class Probes
     }
 
     /**
-     * @param class-string<IStaticProbe> $class
+     * @psalm-template T as IStaticProbe
+     *
+     * @psalm-param class-string<T> $class
      */
     private static function isSubclass(string $class): bool
     {
@@ -61,18 +64,23 @@ final class Probes
     }
 
     /**
-     * @template T as IStaticProbe
-     * @param class-string<T>|null $filterClass
-     * @return Traversable<class-string<T>>
+     * @psalm-template T as IStaticProbe
+     *
+     * @psalm-param class-string<T>|null $filterClass
+     *
+     * @psalm-return Traversable<T>|Traversable<IStaticProbe>
+     *
      * @throws InvalidArgumentException
      */
     public static function load(string $filterClass = null): Traversable
     {
         $probes = array_reverse(self::$probes, true);
+
         if ($filterClass === null) {
             yield from $probes;
         } else {
             self::assertClass($filterClass);
+            /** @var T $probe */
             foreach ($probes as $probe) {
                 if (is_subclass_of($probe, $filterClass)) {
                     yield $probe;

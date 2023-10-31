@@ -7,12 +7,12 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings\Factory;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
@@ -42,7 +42,7 @@ final class DetectedSettingsFactoryTest extends TestCase
     protected function getTesteeInstance(
         ?ILoopSupportDetector $loopAvailabilityDetector = null,
         ?IColorSupportDetector $colorSupportDetector = null,
-        ?ISignalProcessingSupportDetector $signalHandlingDetector = null,
+        ?ISignalHandlingSupportDetector $signalHandlingDetector = null,
     ): IDetectedSettingsFactory {
         return
             new DetectedSettingsFactory(
@@ -69,12 +69,12 @@ final class DetectedSettingsFactoryTest extends TestCase
     }
 
     private function getSignalProcessingSupportDetectorMock(
-        ?SignalHandlersOption $signalHandlersOption = null,
-    ): MockObject&ISignalProcessingSupportDetector {
+        ?SignalHandlingOption $signalHandlersOption = null,
+    ): MockObject&ISignalHandlingSupportDetector {
         return $this->createConfiguredMock(
-            ISignalProcessingSupportDetector::class,
+            ISignalHandlingSupportDetector::class,
             [
-                'getSupportValue' => $signalHandlersOption ?? SignalHandlersOption::DISABLED,
+                'getSupportValue' => $signalHandlersOption ?? SignalHandlingOption::DISABLED,
             ]
         );
     }
@@ -89,7 +89,7 @@ final class DetectedSettingsFactoryTest extends TestCase
             ->willReturn(true)
         ;
 
-        $signalHandlersOption = SignalHandlersOption::ENABLED;
+        $signalHandlersOption = SignalHandlingOption::ENABLED;
         $stylingMethodOption = StylingMethodOption::ANSI24;
 
         $colorSupportDetector =
@@ -125,7 +125,7 @@ final class DetectedSettingsFactoryTest extends TestCase
         self::assertSame(LinkerOption::ENABLED, $driverSettings->getLinkerOption());
         self::assertSame(AutoStartOption::ENABLED, $loopSettings->getAutoStartOption());
 
-        self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlersOption());
+        self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlingOption());
         self::assertSame($stylingMethodOption, $outputSettings->getStylingMethodOption());
     }
 }

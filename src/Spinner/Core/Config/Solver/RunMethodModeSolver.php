@@ -139,6 +139,16 @@ final readonly class RunMethodModeSolver extends ASolver implements IRunMethodMo
                     RunMethodOption::SYNCHRONOUS,
                     null,
                     RunMethodOption::ASYNC,
+                ],
+                [
+                    null,
+                    RunMethodOption::SYNCHRONOUS,
+                    RunMethodOption::ASYNC,
+                ],
+                [
+                    RunMethodOption::SYNCHRONOUS,
+                    RunMethodOption::SYNCHRONOUS,
+                    RunMethodOption::ASYNC,
                 ]
                 => RunMethodMode::SYNCHRONOUS,
                 default // DEFAULT BRANCH

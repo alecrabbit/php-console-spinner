@@ -9,10 +9,6 @@ use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 
 interface IAuxSettings extends ISettingsElement
 {
-    public function setRunMethodOption(RunMethodOption $runMethodOption): void;
-
-    public function setNormalizerOption(NormalizerOption $normalizerOption): void;
-
     public function getNormalizerOption(): NormalizerOption;
 
     public function getRunMethodOption(): RunMethodOption;

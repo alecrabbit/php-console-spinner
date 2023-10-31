@@ -10,7 +10,7 @@ use React\EventLoop\Loop;
 
 final class ReactLoopCreator implements ILoopCreator
 {
-    public static function create(): ILoop
+    public function create(): ILoop
     {
         return
             new ReactLoopAdapter(Loop::get());

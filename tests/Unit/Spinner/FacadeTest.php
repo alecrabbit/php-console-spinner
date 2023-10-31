@@ -80,9 +80,15 @@ final class FacadeTest extends FacadeAwareTestCase
         $loopProvider = $this->getLoopProviderMock();
         $loopProvider
             ->expects(self::once())
+            ->method('hasLoop')
+            ->willReturn(true)
+        ;
+        $loopProvider
+            ->expects(self::once())
             ->method('getLoop')
             ->willReturn($loop)
         ;
+
 
         $container
             ->expects(self::once())

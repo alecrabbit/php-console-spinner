@@ -18,7 +18,7 @@ final class RevoltLoopCreatorTest extends TestCase
         if (RevoltLoopProbe::isSupported()) {
             self::assertInstanceOf(
                 RevoltLoopAdapter::class,
-                RevoltLoopCreator::create(),
+                (new RevoltLoopCreator)->create(),
             );
         } else {
             self::markTestSkipped('RevoltLoop is not supported');

@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
-use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
+use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
+use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -28,15 +30,24 @@ final class LoopConfigFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IAutoStartModeSolver $autoStartModeSolver = null,
-        ?ISignalHandlersModeSolver $signalHandlersModeSolver = null,
+        ?ISignalHandlingModeSolver $signalHandlersModeSolver = null,
+        ?ISignalHandlersContainerSolver $signalHandlersContainerSolver = null,
         ?ILoopConfigBuilder $loopConfigBuilder = null,
     ): ILoopConfigFactory {
+        $signalHandlersContainerSolver ??= $this->getSignalHandlersContainerSolverMock();
+
         return
             new LoopConfigFactory(
                 autoStartModeSolver: $autoStartModeSolver ?? $this->getAutoStartModeSolverMock(),
-                signalHandlersModeSolver: $signalHandlersModeSolver ?? $this->getSignalHandlersModeSolverMock(),
+                signalHandlersModeSolver: $signalHandlersModeSolver ?? $this->getSignalHandlingModeSolverMock(),
+                signalHandlersContainerSolver: $signalHandlersContainerSolver,
                 loopConfigBuilder: $loopConfigBuilder ?? $this->getLoopConfigBuilderMock(),
             );
+    }
+
+    protected function getSignalHandlersContainerSolverMock(): MockObject&ISignalHandlersContainerSolver
+    {
+        return $this->createMock(ISignalHandlersContainerSolver::class);
     }
 
     protected function getAutoStartModeSolverMock(
@@ -51,14 +62,14 @@ final class LoopConfigFactoryTest extends TestCase
             );
     }
 
-    protected function getSignalHandlersModeSolverMock(
-        ?SignalHandlersMode $signalHandlersMode = null,
-    ): MockObject&ISignalHandlersModeSolver {
+    protected function getSignalHandlingModeSolverMock(
+        ?SignalHandlingMode $signalHandlersMode = null,
+    ): MockObject&ISignalHandlingModeSolver {
         return
             $this->createConfiguredMock(
-                ISignalHandlersModeSolver::class,
+                ISignalHandlingModeSolver::class,
                 [
-                    'solve' => $signalHandlersMode ?? SignalHandlersMode::DISABLED,
+                    'solve' => $signalHandlersMode ?? SignalHandlingMode::DISABLED,
                 ]
             );
     }
@@ -72,13 +83,21 @@ final class LoopConfigFactoryTest extends TestCase
     public function canCreate(): void
     {
         $autoStartMode = AutoStartMode::ENABLED;
-        $signalHandlersMode = SignalHandlersMode::ENABLED;
+        $signalHandlersMode = SignalHandlingMode::ENABLED;
+        $signalHandlersContainer = $this->getSignalHandlersContainerMock();
 
         $loopConfig =
             $this->getLoopConfigMock(
                 $autoStartMode,
                 $signalHandlersMode
             );
+
+        $signalHandlersContainerSolver = $this->getSignalHandlersContainerSolverMock();
+        $signalHandlersContainerSolver
+            ->expects(self::once())
+            ->method('solve')
+            ->willReturn($signalHandlersContainer)
+        ;
 
         $loopConfigBuilder = $this->getLoopConfigBuilderMock();
         $loopConfigBuilder
@@ -89,8 +108,14 @@ final class LoopConfigFactoryTest extends TestCase
         ;
         $loopConfigBuilder
             ->expects(self::once())
-            ->method('withSignalHandlersMode')
+            ->method('withSignalHandlingMode')
             ->with($signalHandlersMode)
+            ->willReturnSelf()
+        ;
+        $loopConfigBuilder
+            ->expects(self::once())
+            ->method('withSignalHandlersContainer')
+            ->with($signalHandlersContainer)
             ->willReturnSelf()
         ;
         $loopConfigBuilder
@@ -102,7 +127,8 @@ final class LoopConfigFactoryTest extends TestCase
         $factory =
             $this->getTesteeInstance(
                 autoStartModeSolver: $this->getAutoStartModeSolverMock($autoStartMode),
-                signalHandlersModeSolver: $this->getSignalHandlersModeSolverMock($signalHandlersMode),
+                signalHandlersModeSolver: $this->getSignalHandlingModeSolverMock($signalHandlersMode),
+                signalHandlersContainerSolver: $signalHandlersContainerSolver,
                 loopConfigBuilder: $loopConfigBuilder,
             );
 
@@ -111,20 +137,25 @@ final class LoopConfigFactoryTest extends TestCase
         self::assertSame($loopConfig, $config);
 
         self::assertSame($autoStartMode, $config->getAutoStartMode());
-        self::assertSame($signalHandlersMode, $config->getSignalHandlersMode());
+        self::assertSame($signalHandlersMode, $config->getSignalHandlingMode());
     }
 
     protected function getLoopConfigMock(
         AutoStartMode $autoStartMode,
-        SignalHandlersMode $signalHandlersMode,
+        SignalHandlingMode $signalHandlersMode,
     ): MockObject&ILoopConfig {
         return
             $this->createConfiguredMock(
                 ILoopConfig::class,
                 [
                     'getAutoStartMode' => $autoStartMode ?? AutoStartMode::DISABLED,
-                    'getSignalHandlersMode' => $signalHandlersMode ?? SignalHandlersMode::DISABLED,
+                    'getSignalHandlingMode' => $signalHandlersMode ?? SignalHandlingMode::DISABLED,
                 ]
             );
+    }
+
+    private function getSignalHandlersContainerMock(): MockObject&ISignalHandlersContainer
+    {
+        return $this->createMock(ISignalHandlersContainer::class);
     }
 }

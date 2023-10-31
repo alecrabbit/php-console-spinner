@@ -8,14 +8,12 @@ use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
-Facade::getSettings()
-    ->set(
-        new OutputSettings(
-            stylingMethodOption: StylingMethodOption::NONE,
-        ),
-    )
-;
+$outputSettings =
+    new OutputSettings(
+        stylingMethodOption: StylingMethodOption::NONE,
+    );
 
+Facade::getSettings()->set($outputSettings);
 
 $spinner = Facade::createSpinner();
 

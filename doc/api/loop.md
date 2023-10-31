@@ -1,10 +1,10 @@
-# Event Loop
+# Event loop
 
 The event loop availability is detected using loop probes. Loops are probed in the reverse order in which the probes were added (registered) to the `Probes` class. The first probe that returns `true` from the `isSupported()` method is used to get event loop creator class.
 
 > See [`Asynchronous/bootstrap.php`](../../src/Spinner/Asynchronous/bootstrap.php) for details.
 
-## Synchronous Mode
+## Synchronous mode
 
 If no loop is detected, the synchronous mode is used. In this mode, the spinner is displayed only when the `render()` method is called.
 
@@ -17,7 +17,7 @@ $driver = Facade::getDriver();
 $driver->render();
 ```
 
-## How to Disable a Specific Event Loop Probe
+## How to disable a specific event loop probe
 
 To disable a specific event loop probe, you can use the following code:
 
@@ -25,7 +25,7 @@ To disable a specific event loop probe, you can use the following code:
 Probes::unregister(ReactLoopProbe::class);
 ``` 
 
-## How to Add a Custom Event Loop Probe
+## How to add a custom event loop probe
 
 To add a custom event loop probe, you need to create a loop adapter by extending the `ALoopAdapter` class, which implements the `ILoop` interface.
 
@@ -86,7 +86,7 @@ At last, you need to create a loop creator by implementing the `ILoopCreator` in
 ```php
 class CustomLoopCreator implements ILoopCreator
 {
-    public static function create(): ILoop
+    public function create(): ILoop
     {
         return
             new CustomLoopAdapter();
@@ -95,7 +95,7 @@ class CustomLoopCreator implements ILoopCreator
 ```
 > See implemented `RevoltLoopCreator` and `ReactLoopCreator` classes as examples.
 
-## Registering Loop Probe
+## Registering loop probe
 
 To register the custom loop probe, use the following code:
 

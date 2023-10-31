@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
-use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
+use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
+use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class LoopConfigBuilderTest extends TestCase
 {
@@ -36,11 +38,17 @@ final class LoopConfigBuilderTest extends TestCase
 
         $config = $configBuilder
             ->withAutoStartMode(AutoStartMode::DISABLED)
-            ->withSignalHandlersMode(SignalHandlersMode::DISABLED)
+            ->withSignalHandlingMode(SignalHandlingMode::DISABLED)
+            ->withSignalHandlersContainer($this->getSignalHandlersContainerMock())
             ->build()
         ;
 
         self::assertInstanceOf(LoopConfig::class, $config);
+    }
+
+    private function getSignalHandlersContainerMock(): MockObject&ISignalHandlersContainer
+    {
+        return $this->createMock(ISignalHandlersContainer::class);
     }
 
     #[Test]
@@ -58,13 +66,13 @@ final class LoopConfigBuilderTest extends TestCase
     }
 
     #[Test]
-    public function withSignalHandlersModeReturnsOtherInstanceOfBuilder(): void
+    public function withSignalHandlingModeReturnsOtherInstanceOfBuilder(): void
     {
         $configBuilder = $this->getTesteeInstance();
 
         $builder =
             $configBuilder
-                ->withSignalHandlersMode(SignalHandlersMode::DISABLED)
+                ->withSignalHandlingMode(SignalHandlingMode::DISABLED)
         ;
 
         self::assertInstanceOf(LoopConfigBuilder::class, $builder);
@@ -81,7 +89,7 @@ final class LoopConfigBuilderTest extends TestCase
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withSignalHandlersMode(SignalHandlersMode::DISABLED)
+                ->withSignalHandlingMode(SignalHandlingMode::DISABLED)
                 ->build()
             ;
         };
@@ -94,10 +102,33 @@ final class LoopConfigBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfSignalHandlersModeIsNotSet(): void
+    public function throwsIfSignalHandlersContainerIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'SignalHandlersMode is not set.';
+        $exceptionMessage = 'Signal handlers container is not set.';
+
+        $test = function (): void {
+            $configBuilder = $this->getTesteeInstance();
+
+            $configBuilder
+                ->withAutoStartMode(AutoStartMode::DISABLED)
+                ->withSignalHandlingMode(SignalHandlingMode::DISABLED)
+                ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+
+    #[Test]
+    public function throwsIfSignalHandlingModeIsNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'SignalHandlingMode is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();

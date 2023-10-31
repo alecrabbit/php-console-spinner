@@ -41,7 +41,7 @@ final class ContainerFactoryTest extends TestCase
     {
         $containerFactory = $this->getTesteeInstance();
 
-        $container = $containerFactory->getContainer();
+        $container = $containerFactory->create();
 
         self::assertInstanceOf(Container::class, $container);
     }

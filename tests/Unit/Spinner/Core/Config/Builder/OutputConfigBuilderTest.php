@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
@@ -37,6 +38,8 @@ final class OutputConfigBuilderTest extends TestCase
         $config = $configBuilder
             ->withCursorVisibilityMode(CursorVisibilityMode::VISIBLE)
             ->withStylingMethodMode(StylingMethodMode::ANSI4)
+            ->withInitializationMode(InitializationMode::DISABLED)
+            ->withStream(STDOUT)
             ->build()
         ;
 
@@ -82,6 +85,8 @@ final class OutputConfigBuilderTest extends TestCase
 
             $configBuilder
                 ->withStylingMethodMode(StylingMethodMode::ANSI4)
+                ->withInitializationMode(InitializationMode::DISABLED)
+                ->withStream(STDOUT)
                 ->build()
             ;
         };
@@ -104,6 +109,31 @@ final class OutputConfigBuilderTest extends TestCase
 
             $configBuilder
                 ->withCursorVisibilityMode(CursorVisibilityMode::VISIBLE)
+                ->withInitializationMode(InitializationMode::DISABLED)
+                ->withStream(STDOUT)
+                ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+    #[Test]
+    public function throwsIfInitializationModeIsNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'InitializationMode is not set.';
+
+        $test = function (): void {
+            $configBuilder = $this->getTesteeInstance();
+
+            $configBuilder
+                ->withStylingMethodMode(StylingMethodMode::ANSI4)
+                ->withCursorVisibilityMode(CursorVisibilityMode::VISIBLE)
+                ->withStream(STDOUT)
                 ->build()
             ;
         };

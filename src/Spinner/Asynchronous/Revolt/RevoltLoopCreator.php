@@ -10,7 +10,7 @@ use Revolt\EventLoop;
 
 final class RevoltLoopCreator implements ILoopCreator
 {
-    public static function create(): ILoop
+    public function create(): ILoop
     {
         return
             new RevoltLoopAdapter(EventLoop::getDriver());

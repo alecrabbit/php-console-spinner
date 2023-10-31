@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\AuxConfig;
 use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
@@ -36,7 +36,7 @@ final class AuxConfigBuilderTest extends TestCase
 
         $config = $configBuilder
             ->withRunMethodMode(RunMethodMode::SYNCHRONOUS)
-            ->withNormalizerMethodMode(NormalizerMethodMode::STILL)
+            ->withNormalizerMode(NormalizerMode::STILL)
             ->build()
         ;
 
@@ -58,13 +58,13 @@ final class AuxConfigBuilderTest extends TestCase
 
 
     #[Test]
-    public function withNormalizerMethodModeReturnsOtherInstanceOfBuilder(): void
+    public function withNormalizerModeReturnsOtherInstanceOfBuilder(): void
     {
         $configBuilder = $this->getTesteeInstance();
 
         $builder =
             $configBuilder
-                ->withNormalizerMethodMode(NormalizerMethodMode::STILL)
+                ->withNormalizerMode(NormalizerMode::STILL)
         ;
 
         self::assertNotSame($builder, $configBuilder);
@@ -80,7 +80,7 @@ final class AuxConfigBuilderTest extends TestCase
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withNormalizerMethodMode(NormalizerMethodMode::STILL)
+                ->withNormalizerMode(NormalizerMode::STILL)
                 ->build()
             ;
         };
@@ -93,10 +93,10 @@ final class AuxConfigBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfNormalizerMethodModeIsNotSet(): void
+    public function throwsIfNormalizerModeIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'NormalizerMethodMode is not set.';
+        $exceptionMessage = 'NormalizerMode is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();

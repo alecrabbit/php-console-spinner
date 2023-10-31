@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Output\ConsoleCursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -19,26 +20,28 @@ final class ConsoleCursorTest extends TestCase
     {
         $cursorMode = CursorVisibilityMode::VISIBLE;
 
-        $cursor = $this->getTesteeInstance(output: null, cursorMode: $cursorMode);
+        $cursor = $this->getTesteeInstance(
+            cursorMode: $cursorMode
+        );
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
         self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $cursor));
     }
 
     public function getTesteeInstance(
-        (MockObject & IBufferedOutput)|null $output,
+        ?IBuffer $buffer = null,
         CursorVisibilityMode $cursorMode = CursorVisibilityMode::HIDDEN,
     ): IConsoleCursor {
         return
             new ConsoleCursor(
-                output: $output ?? $this->getOutputMock(),
+                buffer: $buffer ?? $this->getBufferMock(),
                 cursorVisibilityMode: $cursorMode,
             );
     }
 
-    protected function getOutputMock(): MockObject&IBufferedOutput
+    protected function getBufferMock(): MockObject&IBuffer
     {
-        return $this->createMock(IBufferedOutput::class);
+        return $this->createMock(IBuffer::class);
     }
 
     #[Test]
@@ -46,12 +49,17 @@ final class ConsoleCursorTest extends TestCase
     {
         $cursorMode = CursorVisibilityMode::HIDDEN;
 
-        $output = $this->getOutputMock();
+        $buffer = $this->getBufferMock();
 
         $hideSequence = "\x1b[?25l";
-        $output->expects(self::once())->method('write')->with($hideSequence);
+        $buffer
+            ->expects(self::once())
+            ->method('append')
+            ->with($hideSequence)
+            ->willReturnSelf()
+        ;
 
-        $cursor = $this->getTesteeInstance(output: $output, cursorMode: $cursorMode);
+        $cursor = $this->getTesteeInstance(buffer: $buffer, cursorMode: $cursorMode);
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
         self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $cursor));
@@ -64,11 +72,13 @@ final class ConsoleCursorTest extends TestCase
     {
         $cursorMode = CursorVisibilityMode::VISIBLE;
 
-        $output = $this->getOutputMock();
+        $buffer = $this->getBufferMock();
+        $buffer
+            ->expects(self::never())
+            ->method('append')
+        ;
 
-        $output->expects(self::never())->method('write');
-
-        $cursor = $this->getTesteeInstance(output: $output, cursorMode: $cursorMode);
+        $cursor = $this->getTesteeInstance(buffer: $buffer, cursorMode: $cursorMode);
 
         self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $cursor));
 
@@ -81,12 +91,17 @@ final class ConsoleCursorTest extends TestCase
     {
         $cursorMode = CursorVisibilityMode::HIDDEN;
 
-        $output = $this->getOutputMock();
+        $buffer = $this->getBufferMock();
 
         $showSequence = "\x1b[?25h\x1b[?0c";
-        $output->expects(self::once())->method('write')->with($showSequence);
+        $buffer
+            ->expects(self::once())
+            ->method('append')
+            ->with($showSequence)
+            ->willReturnSelf()
+        ;
 
-        $cursor = $this->getTesteeInstance(output: $output, cursorMode: $cursorMode);
+        $cursor = $this->getTesteeInstance(buffer: $buffer, cursorMode: $cursorMode);
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
         self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $cursor));
@@ -97,34 +112,39 @@ final class ConsoleCursorTest extends TestCase
     #[Test]
     public function writesToBufferWhenMoveLeftAndFlushCalled(): void
     {
-        $output = $this->getOutputMock();
+        $buffer = $this->getBufferMock();
 
         $moveLeftSequence = "\x1b[2D";
 
-        $output->expects(self::once())->method('bufferedWrite')->with($moveLeftSequence);
-        $output->expects(self::once())->method('flush');
+        $buffer->expects(self::once())->method('append')->with($moveLeftSequence);
+        $buffer->expects(self::never())->method('flush');
 
-        $cursor = $this->getTesteeInstance(output: $output);
+        $cursor = $this->getTesteeInstance(buffer: $buffer);
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
 
-        $cursor->moveLeft(2)->flush();
+        $cursor->moveLeft(2);
     }
 
     #[Test]
     public function writesToBufferWhenEraseAndFlushCalled(): void
     {
-        $output = $this->getOutputMock();
+        $buffer = $this->getBufferMock();
 
         $eraseSequence = "\x1b[2X";
 
-        $output->expects(self::once())->method('bufferedWrite')->with($eraseSequence);
-        $output->expects(self::once())->method('flush');
+        $buffer->expects(self::once())->method('append')->with($eraseSequence);
+        $buffer->expects(self::never())->method('flush');
 
-        $cursor = $this->getTesteeInstance(output: $output);
+        $cursor = $this->getTesteeInstance(buffer: $buffer);
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
 
-        $cursor->erase(2)->flush();
+        $cursor->erase(2);
+    }
+
+    protected function getOutputMock(): MockObject&IBufferedOutput
+    {
+        return $this->createMock(IBufferedOutput::class);
     }
 }

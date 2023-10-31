@@ -11,6 +11,9 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class WidgetCompositeBuilder extends AWidgetBuilder implements IWidgetCompositeBuilder
 {
     public function build(): IWidgetComposite

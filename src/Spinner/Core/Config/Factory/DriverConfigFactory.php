@@ -14,7 +14,6 @@ final readonly class DriverConfigFactory implements IDriverConfigFactory
 {
     public function __construct(
         protected ILinkerModeSolver $linkerModeSolver,
-        protected IInitializationModeSolver $initializationModeSolver,
         protected IDriverConfigBuilder $driverConfigBuilder,
     ) {
     }
@@ -26,9 +25,6 @@ final readonly class DriverConfigFactory implements IDriverConfigFactory
             $this->driverConfigBuilder
                 ->withLinkerMode(
                     $this->linkerModeSolver->solve(),
-                )
-                ->withInitializationMode(
-                    $this->initializationModeSolver->solve(),
                 )
                 ->build()
         ;

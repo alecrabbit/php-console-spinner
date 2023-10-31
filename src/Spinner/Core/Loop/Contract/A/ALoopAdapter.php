@@ -13,8 +13,9 @@ abstract class ALoopAdapter implements ILoop
 {
     protected static function error(): bool
     {
+        // [889ad594-ca28-4770-bb38-fd5bd8cb1777]:
         // will be `null` if error handler set by `set_error_handler()` successfully handled the error
-        $error = error_get_last(); // [889ad594-ca28-4770-bb38-fd5bd8cb1777]
+        $error = error_get_last();
 
         return (bool)(($error['type'] ?? 0)
             &

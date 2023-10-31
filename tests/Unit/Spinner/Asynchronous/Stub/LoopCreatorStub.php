@@ -10,7 +10,7 @@ use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
 
 final class LoopCreatorStub implements ILoopCreator
 {
-    public static function create(): ILoop
+    public function create(): ILoop
     {
         return new ALoopAdapterOverride();
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\AuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
@@ -17,7 +17,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
 final class AuxConfigBuilder implements IAuxConfigBuilder
 {
     private ?RunMethodMode $runMethodMode = null;
-    private ?NormalizerMethodMode $normalizerMethodMode = null;
+    private ?NormalizerMode $normalizerMode = null;
 
     /**
      * @inheritDoc
@@ -29,7 +29,7 @@ final class AuxConfigBuilder implements IAuxConfigBuilder
         return
             new AuxConfig(
                 runMethodMode: $this->runMethodMode,
-                normalizerMethodMode: $this->normalizerMethodMode,
+                normalizerMode: $this->normalizerMode,
             );
     }
 
@@ -37,7 +37,7 @@ final class AuxConfigBuilder implements IAuxConfigBuilder
     {
         match (true) {
             $this->runMethodMode === null => throw new LogicException('RunMethodMode is not set.'),
-            $this->normalizerMethodMode === null => throw new LogicException('NormalizerMethodMode is not set.'),
+            $this->normalizerMode === null => throw new LogicException('NormalizerMode is not set.'),
             default => null,
         };
     }
@@ -49,10 +49,10 @@ final class AuxConfigBuilder implements IAuxConfigBuilder
         return $clone;
     }
 
-    public function withNormalizerMethodMode(NormalizerMethodMode $normalizerMethodMode): IAuxConfigBuilder
+    public function withNormalizerMode(NormalizerMode $normalizerMode): IAuxConfigBuilder
     {
         $clone = clone $this;
-        $clone->normalizerMethodMode = $normalizerMethodMode;
+        $clone->normalizerMode = $normalizerMode;
         return $clone;
     }
 }

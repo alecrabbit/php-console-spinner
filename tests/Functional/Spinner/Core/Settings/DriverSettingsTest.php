@@ -23,17 +23,15 @@ final class DriverSettingsTest extends TestCase
 
     public function getTesteeInstance(
         ?LinkerOption $linkerOption = null,
-        ?InitializationOption $initializationOption = null,
     ): IDriverSettings {
         return
             new DriverSettings(
                 linkerOption: $linkerOption ?? LinkerOption::AUTO,
-                initializationOption: $initializationOption ?? InitializationOption::AUTO,
             );
     }
 
     #[Test]
-    public function canGetInterface(): void
+    public function canGetIdentifier(): void
     {
         $settings = $this->getTesteeInstance();
 
@@ -50,53 +48,5 @@ final class DriverSettingsTest extends TestCase
         );
 
         self::assertEquals($linkerOption, $settings->getLinkerOption());
-    }
-
-    #[Test]
-    public function canSetLinkerOption(): void
-    {
-        $linkerOptionInitial = LinkerOption::ENABLED;
-
-        $settings = $this->getTesteeInstance(
-            linkerOption: $linkerOptionInitial,
-        );
-
-        $linkerOption = LinkerOption::DISABLED;
-
-        self::assertNotEquals($linkerOption, $settings->getLinkerOption());
-
-        $settings->setLinkerOption($linkerOption);
-
-        self::assertEquals($linkerOption, $settings->getLinkerOption());
-    }
-
-    #[Test]
-    public function canGetInitializationOption(): void
-    {
-        $initializationOption = InitializationOption::ENABLED;
-
-        $settings = $this->getTesteeInstance(
-            initializationOption: $initializationOption,
-        );
-
-        self::assertEquals($initializationOption, $settings->getInitializationOption());
-    }
-
-    #[Test]
-    public function canSetInitializationOption(): void
-    {
-        $initializationOptionInitial = InitializationOption::ENABLED;
-
-        $settings = $this->getTesteeInstance(
-            initializationOption: $initializationOptionInitial,
-        );
-
-        $initializationOption = InitializationOption::DISABLED;
-
-        self::assertNotEquals($initializationOption, $settings->getInitializationOption());
-
-        $settings->setInitializationOption($initializationOption);
-
-        self::assertEquals($initializationOption, $settings->getInitializationOption());
     }
 }
