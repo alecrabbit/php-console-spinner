@@ -2,24 +2,17 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Output;
+namespace AlecRabbit\Spinner\Core\Output\A;
 
-use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
+use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
 use Generator;
 use Traversable;
 
-use function is_iterable;
-use function is_string;
-
-use const PHP_EOL;
-
-final readonly class StreamBufferedOutput implements IBufferedOutput
+abstract class AOutput implements IOutput
 {
     public function __construct(
-        private IResourceStream $stream,
-        private IStringBuffer $buffer = new StringBuffer()
+        protected readonly IResourceStream $stream,
     ) {
     }
 
@@ -33,7 +26,10 @@ final readonly class StreamBufferedOutput implements IBufferedOutput
         $this->doWrite($this->homogenize($messages, $newline));
     }
 
-    private function doWrite(Traversable $data): void
+    /**
+     * @param Traversable<string> $data
+     */
+    protected function doWrite(Traversable $data): void
     {
         $this->stream->write($data);
     }
@@ -43,14 +39,13 @@ final readonly class StreamBufferedOutput implements IBufferedOutput
      *
      * @return Generator<string>
      */
-    private function homogenize(iterable|string $messages, bool $newline = false): Generator
+    protected function homogenize(iterable|string $messages, bool $newline = false): Generator
     {
         if (!is_iterable($messages)) {
             $messages = [$messages];
         }
-        /** @var string $message */
+        /** @var mixed $message */
         foreach ($messages as $message) {
-            /** @psalm-suppress RedundantConditionGivenDocblockType */
             if (is_string($message)) {
                 if ($newline) {
                     $message .= PHP_EOL;
@@ -58,17 +53,5 @@ final readonly class StreamBufferedOutput implements IBufferedOutput
                 yield $message;
             }
         }
-    }
-
-    public function flush(): void
-    {
-        $this->doWrite($this->buffer->flush());
-    }
-
-    public function bufferedWrite(iterable|string $messages, bool $newline = false): IBufferedOutput
-    {
-        $this->buffer->write($this->homogenize($messages, $newline));
-
-        return $this;
     }
 }

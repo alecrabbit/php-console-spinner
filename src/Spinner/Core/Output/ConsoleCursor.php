@@ -7,11 +7,12 @@ namespace AlecRabbit\Spinner\Core\Output;
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 
 final readonly class ConsoleCursor implements IConsoleCursor
 {
     public function __construct(
-        protected IBufferedOutput $output,
+        protected IBuffer $buffer,
         protected CursorVisibilityMode $cursorVisibilityMode,
     ) {
     }
@@ -19,7 +20,7 @@ final readonly class ConsoleCursor implements IConsoleCursor
     public function hide(): IConsoleCursor
     {
         if ($this->isHideCursorEnabled()) {
-            $this->output->write("\x1b[?25l");
+            $this->buffer->append("\x1b[?25l");
         }
 
         return $this;
@@ -33,7 +34,7 @@ final readonly class ConsoleCursor implements IConsoleCursor
     public function show(): IConsoleCursor
     {
         if ($this->isHideCursorEnabled()) {
-            $this->output->write("\x1b[?25h\x1b[?0c");
+            $this->buffer->append("\x1b[?25h\x1b[?0c");
         }
 
         return $this;
@@ -41,21 +42,14 @@ final readonly class ConsoleCursor implements IConsoleCursor
 
     public function moveLeft(int $columns = 1): IConsoleCursor
     {
-        $this->output->bufferedWrite("\x1b[{$columns}D");
+        $this->buffer->append("\x1b[{$columns}D");
 
         return $this;
     }
 
     public function erase(int $width = 1): IConsoleCursor
     {
-        $this->output->bufferedWrite("\x1b[{$width}X");
-
-        return $this;
-    }
-
-    public function flush(): IConsoleCursor
-    {
-        $this->output->flush();
+        $this->buffer->append("\x1b[{$width}X");
 
         return $this;
     }
