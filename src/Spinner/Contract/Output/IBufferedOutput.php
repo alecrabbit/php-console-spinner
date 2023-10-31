@@ -12,7 +12,7 @@ interface IBufferedOutput
     public function flush(): void;
 
     /**
-     * Appends message to buffer.
+     * Appends message to output buffer.
      *
      * @psalm-param iterable<string>|string $messages
      */
