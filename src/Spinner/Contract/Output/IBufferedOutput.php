@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Output;
 
-interface IBufferedOutput extends IOutput
+interface IBufferedOutput
 {
     /**
      * Flushes the output buffer.

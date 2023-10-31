@@ -66,7 +66,8 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $message = null;
 
-        $output->expects(self::never())->method('write')->with($message);
+        $output->expects(self::never())->method('append')->with($message);
+        $output->expects(self::exactly(2))->method('flush');
 
         $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
 
@@ -113,7 +114,8 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $message = 'final message';
 
-        $output->expects(self::never())->method('write')->with($message);
+        $output->expects(self::never())->method('append')->with($message);
+        $output->expects(self::never())->method('flush');
 
         $driverOutput = $this->getTesteeInstance($output, $cursor);
 
