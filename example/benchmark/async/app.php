@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Probes;
 const RUNTIME = 600;
 const MEMORY_REPORT_INTERVAL = 60;
 
-$container = require __DIR__ . '/../../benchmark/bootstrap.php';
+$container = require __DIR__ . '/../bootstrap.php';
 
 // Pick ONE of the following event loops:
 Probes::unregister(\AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe::class);

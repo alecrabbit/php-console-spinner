@@ -38,7 +38,6 @@ use AlecRabbit\Benchmark\Stopwatch\MicrosecondTimer;
 use AlecRabbit\Benchmark\Stopwatch\ResultFormatter;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Core\Output\Output;

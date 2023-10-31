@@ -16,7 +16,7 @@ use AlecRabbit\Spinner\Probes;
 const CYCLES = 200000;
 const PROGRESS_EVERY_CYCLES = CYCLES / 10;
 
-require_once __DIR__ . '/../../benchmark/bootstrap.php';
+require_once __DIR__ . '/../bootstrap.php';
 
 // unregister all loop probes
 Probes::unregister(\AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe::class);
