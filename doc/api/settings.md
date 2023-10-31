@@ -1,63 +1,92 @@
 # Settings
 
-Settings are used to configure the package. Here is the list of available methods with default settings:
+Settings are used to configure the package. Here is the list of available settings with defaults:
 
 ```php
-use \AlecRabbit\Spinner\Core\Settings\AuxSettings;
-use \AlecRabbit\Spinner\Core\Settings\LoopSettings;
-use \AlecRabbit\Spinner\Core\Settings\OutputSettings;
-use \AlecRabbit\Spinner\Core\Settings\DriverSettings;
-use \AlecRabbit\Spinner\Core\Settings\WidgetSettings;
-use \AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
-use \AlecRabbit\Spinner\Core\Palette\Snake;
-use \AlecRabbit\Spinner\Core\Palette\Rainbow;
+use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\LoopSettings;
+use AlecRabbit\Spinner\Core\Settings\OutputSettings;
+use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
+
+//...
 
 // Aux settings
-$auxSettings = new AuxSettings();
-
-$auxSettings->setRunMethodOption(RunMethodOption::AUTO);
-$auxSettings->setNormalizerOption(NormalizerOption::AUTO);
+$auxSettings = 
+    new AuxSettings(
+        runMethodOption: RunMethodOption::AUTO, 
+        normalizerOption: NormalizerOption::AUTO, 
+    );
 
 // Loop settings
-$loopSettings = new LoopSettings();
+$loopSettings = 
+    new LoopSettings(
+        autoStartOption: AutoStartOption::AUTO,
+        signalHandlingOption: SignalHandlingOption::AUTO,
+    );
 
-$loopSettings->setAutoStartOption(AutoStartOption::AUTO);
-$loopSettings->setSignalHandlersOption(SignalHandlersOption::AUTO);
-# NEW FEATURE? // $loopSettings->setLoopCreatorClass(RevoltLoopCreator::class);
-# NEW FEATURE? // $loopSettings->setSignalHandler(/* TBD */);
+// Signal handling settings
+$onInterrupt = 
+    new SignalHandlerCreator(
+        signal: SIGINT, // requires pcntl-ext
+        handlerCreator: new class implements IHandlerCreator {
+            public function createHandler(IDriver $driver, ILoop $loop): \Closure
+            {
+                return 
+                    static function () use ($driver, $loop) {
+                        $driver->interrupt();
+                        $loop->stop();
+                    }
+            }
+        }
+    );
+    
+$signalHandlerSettings = 
+    new SignalHandlerSettings(
+        $onInterrupt,
+    );
 
 // Output settings
-$outputSettings = new OutputSettings();
+$outputSettings = 
+    new OutputSettings(
+        stylingMethodOption: StylingMethodOption::AUTO, 
+        cursorVisibilityOption: CursorVisibilityOption::AUTO, 
+        initializationOption: InitializationOption::AUTO,
+        stream: null, // defaults to: STDERR
+    );
 
-$outputSettings->setStylingMethodOption(StylingMethodOption::AUTO);
-$outputSettings->setCursorVisibilityOption(CursorVisibilityOption::AUTO); 
-# NEW FEATURE? // $outputSettings->setClearScreenOption(ClearScreenOption::AUTO);
+// # NEW FEATURE: $outputSettings? ClearScreenOption(ClearScreenOption::AUTO);
 
 // Driver settings
-$driverSettings = new DriverSettings();
+$driverSettings = 
+    new DriverSettings(
+        linkerOption: LinkerOption::AUTO, // todo: check semantics
+    );
 
-$driverSettings->setLinkerOption(LinkerOption::AUTO);
-$driverSettings->setInitializationOption(InitializationOption::AUTO);
-# NEW FEATURE? // $driverSettings->setTerminationOption(TerminationOption::AUTO);
-# NEW FEATURE? // $driverSettings->setFinalMessage('');
-# NEW FEATURE? // $driverSettings->setInterruptMessage('');
+// # NEW FEATURE: $driverSettings? FinalMessage(''); // todo: where to put it?
+// # NEW FEATURE: $driverSettings? InterruptMessage(''); // todo: where to put it?
 
 // Widget settings
-$widgetSettings = new WidgetSettings();
-
-$widgetSettings->setCharPattern(null); // default: none
-$widgetSettings->setStylePattern(null); // default: none
-$widgetSettings->setLeadingSpacer(null); // default: CharFrame('', 0) 
-$widgetSettings->setTrailingSpacer(null); // default: CharFrame('', 0)
+$widgetSettings = 
+    new WidgetSettings(
+        leadingSpacer: null, // defaults to: CharFrame('', 0)
+        trailingSpacer: null, // defaults to: CharFrame('', 0)
+        stylePalette: null, // defaults to: none
+        charPalette: null, // defaults to: none
+    );
 
 // Root Widget settings
-$rootWidgetSettings = new RootWidgetSettings();
-
-$rootWidgetSettings->setCharPattern(new Snake()); // default: Snake::class
-$rootWidgetSettings->setStylePattern(new Rainbow()); // default: Rainbow::class
-$rootWidgetSettings->setLeadingSpacer(null); // default: CharFrame('', 0) 
-$rootWidgetSettings->setTrailingSpacer(null); // default: CharFrame(' ', 1)
+$rootWidgetSettings = 
+    new RootWidgetSettings(
+        leadingSpacer: null, // defaults to: WidgetConfig.leadingSpacer
+        trailingSpacer: null, // defaults to: WidgetConfig.trailingSpacer
+        stylePalette: null, // defaults to: new Rainbow() 
+        charPalette: null, // defaults to: new Snake() 
+    );
 ```
 
 ```php
@@ -71,8 +100,11 @@ $settings->set(
     $driverSettings,
     $widgetSettings,
     $rootWidgetSettings,
+    $signalHandlerSettings,
 );
+``` 
 
+```php
 // to get settings
 $settings->get(IAuxSettings::class); // returns AuxSettings object or null
 ```

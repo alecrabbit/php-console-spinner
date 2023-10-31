@@ -41,7 +41,6 @@ abstract class ADriver extends ASubject implements IDriver
 
     abstract protected function erase(): void;
 
-    /** @inheritDoc */
     public function getInterval(): IInterval
     {
         return $this->interval;

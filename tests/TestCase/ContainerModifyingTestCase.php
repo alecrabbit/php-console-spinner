@@ -55,7 +55,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                 }
             };
 
-        return (new ContainerFactory($registry))->getContainer();
+        return (new ContainerFactory($registry))->create();
     }
 
     protected static function modifyDefinitions(ArrayObject $definitions, array $substitutes = []): ArrayObject

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -149,7 +149,7 @@ final class InitializationModeSolverTest extends TestCase
         $userSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IDriverSettings::class))
+            ->with(self::identicalTo(IOutputSettings::class))
             ->willReturn($userDriverSettings)
         ;
 
@@ -157,7 +157,7 @@ final class InitializationModeSolverTest extends TestCase
         $detectedSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IDriverSettings::class))
+            ->with(self::identicalTo(IOutputSettings::class))
             ->willReturn($detectedDriverSettings)
         ;
 
@@ -165,7 +165,7 @@ final class InitializationModeSolverTest extends TestCase
         $defaultSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IDriverSettings::class))
+            ->with(self::identicalTo(IOutputSettings::class))
             ->willReturn($defaultDriverSettings)
         ;
 
@@ -199,12 +199,12 @@ final class InitializationModeSolverTest extends TestCase
     }
 
     protected function getDriverSettingsMock(?InitializationOption $initializationOption = null
-    ): (MockObject&IDriverSettings)|null {
+    ): (MockObject&IOutputSettings)|null {
         return
             $initializationOption === null
                 ? null :
                 $this->createConfiguredMock(
-                    IDriverSettings::class,
+                    IOutputSettings::class,
                     [
                         'getInitializationOption' => $initializationOption,
                     ]

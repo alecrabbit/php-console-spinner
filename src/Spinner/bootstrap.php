@@ -7,13 +7,13 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Probe\ColorSupportProbe;
-use AlecRabbit\Spinner\Core\Probe\SignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Probe\SignalHandlingProbe;
 
 // @codeCoverageIgnoreStart
 require_once __DIR__ . '/definitions.php';
 
 Probes::register(
-    SignalProcessingProbe::class,
+    SignalHandlingProbe::class,
     ColorSupportProbe::class,
 );
 
@@ -27,7 +27,7 @@ foreach (getDefinitions() as $id => $definition) {
     $registry->bind($id, $definition);
 }
 
-$container = (new ContainerFactory($registry))->getContainer();
+$container = (new ContainerFactory($registry))->create();
 
-Facade::setContainer($container);
+Facade::useContainer($container);
 // @codeCoverageIgnoreEnd

@@ -20,17 +20,19 @@ final readonly class ColorSupportDetector implements IColorSupportDetector
 
     public function getSupportValue(): StylingMethodOption
     {
+        /** @var class-string<IColorSupportProbe> $probe */
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);
             if ($probe::isSupported()) {
-                return $probe::getCreatorClass()::create();
+                $class = $probe::getCreatorClass();
+                return (new $class)->create();
             }
         }
 
         return StylingMethodOption::NONE;
     }
 
-    protected static function assertProbe($probe): void
+    protected static function assertProbe(mixed $probe): void
     {
         if (!is_a($probe, IColorSupportProbe::class, true)) {
             throw new InvalidArgumentException(

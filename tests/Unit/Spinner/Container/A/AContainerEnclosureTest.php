@@ -21,7 +21,7 @@ final class AContainerEnclosureTest extends TestCase
     public function canSetContainer(): void
     {
         $container = $this->getContainerMock();
-        AContainerEnclosure::setContainer($container);
+        AContainerEnclosure::useContainer($container);
 
         $this->assertSame($container, self::extractContainer());
     }
@@ -29,11 +29,6 @@ final class AContainerEnclosureTest extends TestCase
     private function getContainerMock(): MockObject&ContainerInterface
     {
         return $this->createMock(ContainerInterface::class);
-    }
-
-    protected static function setContainer(?ContainerInterface $container): void
-    {
-        AContainerEnclosure::setContainer($container);
     }
 
     protected static function extractContainer(): mixed
@@ -55,6 +50,11 @@ final class AContainerEnclosureTest extends TestCase
         self::$container = self::extractContainer();
         self::setContainer(null);
         parent::setUp();
+    }
+
+    protected static function setContainer(?ContainerInterface $container): void
+    {
+        AContainerEnclosure::useContainer($container);
     }
 
     protected function tearDown(): void

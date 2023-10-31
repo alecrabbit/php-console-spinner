@@ -8,13 +8,15 @@ use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
 
 final class LoopConfigFactory implements ILoopConfigFactory
 {
     public function __construct(
         protected IAutoStartModeSolver $autoStartModeSolver,
-        protected ISignalHandlersModeSolver $signalHandlersModeSolver,
+        protected ISignalHandlingModeSolver $signalHandlersModeSolver,
+        protected ISignalHandlersContainerSolver $signalHandlersContainerSolver,
         protected ILoopConfigBuilder $loopConfigBuilder,
     ) {
     }
@@ -26,8 +28,11 @@ final class LoopConfigFactory implements ILoopConfigFactory
                 ->withAutoStartMode(
                     $this->autoStartModeSolver->solve()
                 )
-                ->withSignalHandlersMode(
+                ->withSignalHandlingMode(
                     $this->signalHandlersModeSolver->solve()
+                )
+                ->withSignalHandlersContainer(
+                    $this->signalHandlersContainerSolver->solve()
                 )
                 ->build()
         ;

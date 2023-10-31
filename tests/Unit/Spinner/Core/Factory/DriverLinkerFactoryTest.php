@@ -63,7 +63,6 @@ final class DriverLinkerFactoryTest extends TestCase
 
         $driverConfig = $this->getDriverConfigMock(LinkerMode::ENABLED);
 
-
         $factory =
             $this->getTesteeInstance(
                 loopProvider: $loopProvider,

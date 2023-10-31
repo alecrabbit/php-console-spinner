@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
-use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
+use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
+use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 /**
@@ -17,7 +18,8 @@ use AlecRabbit\Spinner\Exception\LogicException;
 final class LoopConfigBuilder implements ILoopConfigBuilder
 {
     private ?AutoStartMode $autoStartMode = null;
-    private ?SignalHandlersMode $signalHandlersMode = null;
+    private ?SignalHandlingMode $signalHandlersMode = null;
+    private ?ISignalHandlersContainer $signalHandlersContainer = null;
 
     /**
      * @inheritDoc
@@ -30,6 +32,7 @@ final class LoopConfigBuilder implements ILoopConfigBuilder
             new LoopConfig(
                 autoStartMode: $this->autoStartMode,
                 signalHandlersMode: $this->signalHandlersMode,
+                signalHandlersContainer: $this->signalHandlersContainer,
             );
     }
 
@@ -40,7 +43,10 @@ final class LoopConfigBuilder implements ILoopConfigBuilder
     {
         match (true) {
             $this->autoStartMode === null => throw new LogicException('AutoStartMode is not set.'),
-            $this->signalHandlersMode === null => throw new LogicException('SignalHandlersMode is not set.'),
+            $this->signalHandlersMode === null => throw new LogicException('SignalHandlingMode is not set.'),
+            $this->signalHandlersContainer === null => throw new LogicException(
+                'Signal handlers container is not set.'
+            ),
             default => null,
         };
     }
@@ -52,10 +58,17 @@ final class LoopConfigBuilder implements ILoopConfigBuilder
         return $clone;
     }
 
-    public function withSignalHandlersMode(SignalHandlersMode $signalHandlersMode): ILoopConfigBuilder
+    public function withSignalHandlingMode(SignalHandlingMode $signalHandlersMode): ILoopConfigBuilder
     {
         $clone = clone $this;
         $clone->signalHandlersMode = $signalHandlersMode;
+        return $clone;
+    }
+
+    public function withSignalHandlersContainer(ISignalHandlersContainer $signalHandlersContainer): ILoopConfigBuilder
+    {
+        $clone = clone $this;
+        $clone->signalHandlersContainer = $signalHandlersContainer;
         return $clone;
     }
 }

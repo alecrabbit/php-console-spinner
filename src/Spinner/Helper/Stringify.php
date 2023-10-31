@@ -34,7 +34,7 @@ final class Stringify
         if (is_bool($value)) {
             $value = $value ? 'true' : 'false';
         }
-        return sprintf(self::FORMAT, $type, $value);
+        return sprintf(self::FORMAT, $type, (string)$value);
     }
 
     private static function unwrapObject(object $value, string $type): string

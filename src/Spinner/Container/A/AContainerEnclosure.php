@@ -19,14 +19,14 @@ abstract class AContainerEnclosure
         // No instances allowed.
     }
 
+    public static function useContainer(?ContainerInterface $container): void
+    {
+        self::$container = $container;
+    }
+
     final protected static function getContainer(): ContainerInterface
     {
         return
             self::$container ?? throw new ContainerException('Container is not set.');
-    }
-
-    public static function setContainer(?ContainerInterface $container): void
-    {
-        self::$container = $container;
     }
 }

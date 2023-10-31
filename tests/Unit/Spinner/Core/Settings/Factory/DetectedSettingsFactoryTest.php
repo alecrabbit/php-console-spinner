@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Factory;
 
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Settings;
@@ -29,7 +29,7 @@ final class DetectedSettingsFactoryTest extends TestCase
     protected function getTesteeInstance(
         ?ILoopSupportDetector $loopAvailabilityDetector = null,
         ?IColorSupportDetector $colorSupportDetector = null,
-        ?ISignalProcessingSupportDetector $signalHandlingDetector = null,
+        ?ISignalHandlingSupportDetector $signalHandlingDetector = null,
     ): IDetectedSettingsFactory {
         return
             new DetectedSettingsFactory(
@@ -57,12 +57,12 @@ final class DetectedSettingsFactoryTest extends TestCase
     }
 
     private function getSignalProcessingSupportDetectorMock(
-        ?SignalHandlersOption $signalHandlersOption = null,
-    ): MockObject&ISignalProcessingSupportDetector {
+        ?SignalHandlingOption $signalHandlersOption = null,
+    ): MockObject&ISignalHandlingSupportDetector {
         return $this->createConfiguredMock(
-            ISignalProcessingSupportDetector::class,
+            ISignalHandlingSupportDetector::class,
             [
-                'getSupportValue' => $signalHandlersOption ?? SignalHandlersOption::DISABLED,
+                'getSupportValue' => $signalHandlersOption ?? SignalHandlingOption::DISABLED,
             ]
         );
     }

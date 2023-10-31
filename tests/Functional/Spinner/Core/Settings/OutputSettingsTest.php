@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
@@ -24,20 +25,48 @@ final class OutputSettingsTest extends TestCase
     public function getTesteeInstance(
         ?StylingMethodOption $stylingMethodOption = null,
         ?CursorVisibilityOption $cursorVisibilityOption = null,
+        ?InitializationOption $initializationOption = null,
+        mixed $stream = null,
     ): IOutputSettings {
         return
             new OutputSettings(
                 stylingMethodOption: $stylingMethodOption ?? StylingMethodOption::AUTO,
                 cursorVisibilityOption: $cursorVisibilityOption ?? CursorVisibilityOption::AUTO,
+                initializationOption: $initializationOption ?? InitializationOption::AUTO,
+                stream: $stream,
             );
     }
 
     #[Test]
-    public function canGetInterface(): void
+    public function canGetInitializationOption(): void
+    {
+        $initializationOption = InitializationOption::ENABLED;
+
+        $settings = $this->getTesteeInstance(
+            initializationOption: $initializationOption,
+        );
+
+        self::assertEquals($initializationOption, $settings->getInitializationOption());
+    }
+
+    #[Test]
+    public function canGetIdentifier(): void
     {
         $settings = $this->getTesteeInstance();
 
         self::assertEquals(IOutputSettings::class, $settings->getIdentifier());
+    }
+
+    #[Test]
+    public function canGetStream(): void
+    {
+        $stream = STDOUT;
+
+        $settings = $this->getTesteeInstance(
+            stream: $stream,
+        );
+
+        self::assertSame($stream, $settings->getStream());
     }
 
     #[Test]
@@ -53,24 +82,6 @@ final class OutputSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canSetStylingMethodOption(): void
-    {
-        $stylingMethodOptionInitial = StylingMethodOption::ANSI4;
-
-        $settings = $this->getTesteeInstance(
-            stylingMethodOption: $stylingMethodOptionInitial,
-        );
-
-        $stylingMethodOption = StylingMethodOption::ANSI24;
-
-        self::assertNotEquals($stylingMethodOption, $settings->getStylingMethodOption());
-
-        $settings->setStylingMethodOption($stylingMethodOption);
-
-        self::assertEquals($stylingMethodOption, $settings->getStylingMethodOption());
-    }
-
-    #[Test]
     public function canGetCursorVisibilityOption(): void
     {
         $cursorVisibilityOption = CursorVisibilityOption::VISIBLE;
@@ -78,24 +89,6 @@ final class OutputSettingsTest extends TestCase
         $settings = $this->getTesteeInstance(
             cursorVisibilityOption: $cursorVisibilityOption,
         );
-
-        self::assertEquals($cursorVisibilityOption, $settings->getCursorVisibilityOption());
-    }
-
-    #[Test]
-    public function canSetCursorVisibilityOption(): void
-    {
-        $cursorVisibilityOptionInitial = CursorVisibilityOption::HIDDEN;
-
-        $settings = $this->getTesteeInstance(
-            cursorVisibilityOption: $cursorVisibilityOptionInitial,
-        );
-
-        $cursorVisibilityOption = CursorVisibilityOption::VISIBLE;
-
-        self::assertNotEquals($cursorVisibilityOption, $settings->getCursorVisibilityOption());
-
-        $settings->setCursorVisibilityOption($cursorVisibilityOption);
 
         self::assertEquals($cursorVisibilityOption, $settings->getCursorVisibilityOption());
     }

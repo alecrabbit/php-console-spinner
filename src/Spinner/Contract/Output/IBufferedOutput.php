@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Output;
 
-interface IBufferedOutput extends IOutput
+interface IBufferedOutput
 {
     /**
      * Flushes the output buffer.
      */
     public function flush(): void;
 
-    public function bufferedWrite(iterable|string $messages, bool $newline = false): IBufferedOutput;
+    /**
+     * Appends message to output buffer.
+     *
+     * @psalm-param iterable<string>|string $messages
+     */
+    public function append(iterable|string $messages): IBufferedOutput;
 }

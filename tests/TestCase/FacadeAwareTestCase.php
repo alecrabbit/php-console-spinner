@@ -35,7 +35,7 @@ abstract class FacadeAwareTestCase extends TestCase
 
     protected static function setContainer(?ContainerInterface $container): void
     {
-        Facade::setContainer($container);
+        Facade::useContainer($container);
     }
 
     protected static function extractConfigurationCreated(): mixed

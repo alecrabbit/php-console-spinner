@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
@@ -76,10 +76,9 @@ final class DefaultSettingsFactoryTest extends TestCase
         self::assertEquals(NormalizerOption::BALANCED, $auxSettings->getNormalizerOption());
 
         self::assertEquals(LinkerOption::ENABLED, $driverSettings->getLinkerOption());
-        self::assertEquals(InitializationOption::ENABLED, $driverSettings->getInitializationOption());
 
         self::assertEquals(AutoStartOption::ENABLED, $loopSettings->getAutoStartOption());
-        self::assertEquals(SignalHandlersOption::ENABLED, $loopSettings->getSignalHandlersOption());
+        self::assertEquals(SignalHandlingOption::ENABLED, $loopSettings->getSignalHandlingOption());
 
         self::assertEquals(StylingMethodOption::ANSI8, $outputSettings->getStylingMethodOption());
         self::assertEquals(CursorVisibilityOption::HIDDEN, $outputSettings->getCursorVisibilityOption());

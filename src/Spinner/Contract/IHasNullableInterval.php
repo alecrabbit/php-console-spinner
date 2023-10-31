@@ -6,8 +6,5 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IHasNullableInterval
 {
-    /**
-     * @return null|IInterval
-     */
     public function getInterval(): ?IInterval;
 }
