@@ -62,8 +62,8 @@ $registry->bind(IReportPrinterFactory::class, static function (ContainerInterfac
         new class implements IResourceStream {
             public function write(Traversable $data): void
             {
-                foreach ($data as $line) {
-                    echo $line;
+                foreach ($data as $el) {
+                    echo $el;
                 }
             }
         };
