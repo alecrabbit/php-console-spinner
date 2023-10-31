@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
+use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
 use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
@@ -88,10 +89,8 @@ use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
 use AlecRabbit\Spinner\Core\DriverSetup;
-use AlecRabbit\Spinner\Core\Factory\BufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
@@ -128,9 +127,11 @@ use AlecRabbit\Spinner\Core\Loop\Factory\LoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
+use AlecRabbit\Spinner\Core\Output\BufferedOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\Factory\IResourceStreamFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Spinner\Core\Output\Factory\ResourceStreamFactory;
+use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
@@ -179,11 +180,9 @@ use Traversable;
 function getDefinitions(): Traversable
 {
     yield from [
+        IOutput::class => Output::class,
         IBuffer::class => StringBuffer::class,
-        IBufferedOutput::class => static function (IContainer $container): IBufferedOutput {
-            return
-                $container->get(IBufferedOutputFactory::class)->create();
-        },
+        IBufferedOutput::class => BufferedOutput::class,
         IResourceStream::class => static function (IContainer $container): IResourceStream {
             return
                 $container->get(IResourceStreamFactory::class)->create();
@@ -317,7 +316,6 @@ function factories(): Traversable
         ILoopProviderFactory::class => LoopProviderFactory::class,
         IDriverProviderFactory::class => DriverProviderFactory::class,
         IResourceStreamFactory::class => ResourceStreamFactory::class,
-        IBufferedOutputFactory::class => BufferedOutputFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConfigFactory::class => ConfigFactory::class,
         IConfigProviderFactory::class => ConfigProviderFactory::class,

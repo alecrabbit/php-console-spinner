@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
+use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Output\BufferedOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -17,25 +17,25 @@ final class BufferedOutputTest extends TestCase
     #[Test]
     public function canBeInstantiated(): void
     {
-        $streamBufferedOutput = $this->getTesteeInstance(stream: null);
+        $outputBufferedOutput = $this->getTesteeInstance();
 
-        self::assertInstanceOf(BufferedOutput::class, $streamBufferedOutput);
+        self::assertInstanceOf(BufferedOutput::class, $outputBufferedOutput);
     }
 
     public function getTesteeInstance(
-        ?IResourceStream $stream = null,
+        ?IOutput $output = null,
         ?IBuffer $buffer = null,
     ): IBufferedOutput {
         return
             new BufferedOutput(
-            stream: $stream ?? $this->getStreamMock(),
-            buffer: $buffer ?? $this->getBufferMock(),
-        );
+                output: $output ?? $this->getOutputMock(),
+                buffer: $buffer ?? $this->getBufferMock(),
+            );
     }
 
-    private function getStreamMock(): MockObject&IResourceStream
+    private function getOutputMock(): MockObject&IOutput
     {
-        return $this->createMock(IResourceStream::class);
+        return $this->createMock(IOutput::class);
     }
 
     private function getBufferMock(): MockObject&IBuffer
@@ -44,58 +44,49 @@ final class BufferedOutputTest extends TestCase
     }
 
     #[Test]
-    public function callingWriteInvokesStreamWrite(): void
+    public function canAppend(): void
     {
-        $stream = $this->getStreamMock();
-        $stream
+        $msg = 'test';
+        $buffer = $this->getBufferMock();
+        $buffer
             ->expects(self::once())
-            ->method('write')
+            ->method('append')
+            ->with($msg)
         ;
 
-        $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
+        $bufferedOutput = $this->getTesteeInstance(buffer: $buffer);
 
-        $streamBufferedOutput->write('test');
+        self::assertSame($bufferedOutput, $bufferedOutput->append($msg));
     }
 
     #[Test]
-    public function callingWritelnInvokesStreamWrite(): void
+    public function canWrite(): void
     {
-        $stream = $this->getStreamMock();
-        $stream
+        $traversable = $this->getTraversableMock();
+        $buffer = $this->getBufferMock();
+        $buffer
+            ->expects(self::once())
+            ->method('flush')
+            ->willReturn($traversable)
+        ;;
+        $output = $this->getOutputMock();
+        $output
             ->expects(self::once())
             ->method('write')
+            ->with($traversable)
         ;
 
-        $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
+        $bufferedOutput =
+            $this->getTesteeInstance(
+                output: $output,
+                buffer: $buffer,
+            );
 
-        $streamBufferedOutput->writeln('test');
+        $bufferedOutput->flush();
     }
 
-    #[Test]
-    public function canWriteTraversable(): void
+    private function getTraversableMock(): MockObject&\Traversable
     {
-        $stream = $this->getStreamMock();
-        $stream
-            ->expects(self::once())
-            ->method('write')
-        ;
-
-        $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
-
-        $streamBufferedOutput->writeln(['test', 'test2']);
-    }
-
-    #[Test]
-    public function canDoIterableBufferedWrite(): void
-    {
-        $stream = $this->getStreamMock();
-        $stream
-            ->expects(self::once())
-            ->method('write')
-        ;
-
-        $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
-
-        $streamBufferedOutput->append(['test', 'test2'])->flush();
+        return $this->createMock(\Traversable::class);
     }
 }

@@ -11,5 +11,10 @@ interface IBufferedOutput
      */
     public function flush(): void;
 
-    public function append(iterable|string $messages, bool $newline = false): IBufferedOutput;
+    /**
+     * Appends message to buffer.
+     *
+     * @psalm-param iterable<string>|string $messages
+     */
+    public function append(iterable|string $messages): IBufferedOutput;
 }

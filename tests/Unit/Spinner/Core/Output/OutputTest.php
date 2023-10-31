@@ -53,4 +53,20 @@ final class OutputTest extends TestCase
 
         $output->write('test');
     }
+    #[Test]
+    public function canWriteln(): void
+    {
+        $stream = $this->getStreamMock();
+        $stream
+            ->expects(self::once())
+            ->method('write')
+            ->with(self::isInstanceOf(\Traversable::class))
+        ;
+
+        $output = $this->getTesteeInstance(
+            stream: $stream
+        );
+
+        $output->writeln('test');
+    }
 }
