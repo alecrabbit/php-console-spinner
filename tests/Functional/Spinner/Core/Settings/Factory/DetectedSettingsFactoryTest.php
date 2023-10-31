@@ -89,7 +89,11 @@ final class DetectedSettingsFactoryTest extends TestCase
             ->willReturn(true)
         ;
 
-        $signalHandlersOption = SignalHandlingOption::ENABLED;
+        $signalHandlersOption =
+            extension_loaded('pcntl')
+                ? SignalHandlingOption::ENABLED
+                : SignalHandlingOption::DISABLED;
+
         $stylingMethodOption = StylingMethodOption::ANSI24;
 
         $colorSupportDetector =
@@ -124,6 +128,7 @@ final class DetectedSettingsFactoryTest extends TestCase
         self::assertSame(RunMethodOption::ASYNC, $auxSettings->getRunMethodOption());
         self::assertSame(LinkerOption::ENABLED, $driverSettings->getLinkerOption());
         self::assertSame(AutoStartOption::ENABLED, $loopSettings->getAutoStartOption());
+        self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlingOption());
 
         self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlingOption());
         self::assertSame($stylingMethodOption, $outputSettings->getStylingMethodOption());
