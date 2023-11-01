@@ -44,7 +44,6 @@ use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Facade;
 use Psr\Container\ContainerInterface;
 
-// Replace default container:
 $registry = DefinitionRegistry::getInstance();
 
 $registry->bind(ITimer::class, new MicrosecondTimer());
@@ -57,37 +56,45 @@ $registry->bind(IBenchmarkFactory::class, BenchmarkFactory::class);
 $registry->bind(IMeasurementFactory::class, MeasurementFactory::class);
 $registry->bind(IStopwatchBuilder::class, StopwatchBuilder::class);
 $registry->bind(IStopwatchFactory::class, StopwatchFactory::class);
-$registry->bind(IReportPrinterFactory::class, static function (ContainerInterface $container): IReportPrinterFactory {
-    $stream =
-        new class implements IResourceStream {
-            public function write(Traversable $data): void
-            {
-                foreach ($data as $el) {
-                    echo $el;
-                }
-            }
-        };
-
-    $output =
-        new Output(
-            $stream
-        );
-
-    return
-        new ReportPrinterFactory(
-            $container->get(IReportPrinterBuilder::class),
-            $output,
-            $container->get(IReportFormatter::class),
-        );
-});
 $registry->bind(IReportPrinterBuilder::class, ReportPrinterBuilder::class);
 $registry->bind(IReportFormatter::class, ReportFormatter::class);
 $registry->bind(IDatetimeFormatter::class, DatetimeFormatter::class);
 $registry->bind(IResultFormatter::class, ResultFormatter::class);
 $registry->bind(IKeyFormatter::class, KeyFormatter::class);
-$registry->bind(IReportPrinter::class, static function (ContainerInterface $container): IReportPrinter {
-    return $container->get(IReportPrinterFactory::class)->create();
-});
+
+$registry->bind(
+    IReportPrinter::class,
+    static function (ContainerInterface $container): IReportPrinter {
+        return $container->get(IReportPrinterFactory::class)->create();
+    }
+);
+
+$registry->bind(
+    IReportPrinterFactory::class,
+    static function (ContainerInterface $container): IReportPrinterFactory {
+        $stream =
+            new class implements IResourceStream {
+                public function write(Traversable $data): void
+                {
+                    foreach ($data as $el) {
+                        echo $el;
+                    }
+                }
+            };
+
+        $output =
+            new Output(
+                $stream
+            );
+
+        return
+            new ReportPrinterFactory(
+                $container->get(IReportPrinterBuilder::class),
+                $output,
+                $container->get(IReportFormatter::class),
+            );
+    }
+);
 
 $container = (new ContainerFactory($registry))->create();
 

@@ -6,6 +6,7 @@ use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkResultsFactory;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\Factory\ReportFactory;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
+use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
 use AlecRabbit\Spinner\Probes;
@@ -14,16 +15,16 @@ use AlecRabbit\Spinner\Probes;
 const RUNTIME = 600;
 const MEMORY_REPORT_INTERVAL = 60;
 
-$container = require __DIR__ . '/../bootstrap.php';
+$container = require __DIR__ . '/../container.php';
 
 // Pick ONE of the following event loops:
-Probes::unregister(\AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe::class);
+Probes::unregister(ReactLoopProbe::class);
 //Probes::unregister(\AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe::class);
 
 $driver = Facade::getDriver();
 
 if (!$driver instanceof IBenchmarkingDriver) {
-    throw new \LogicException(
+    throw new LogicException(
         sprintf(
             'Driver must implement "%s".',
             IBenchmarkingDriver::class

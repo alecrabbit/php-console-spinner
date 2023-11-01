@@ -28,7 +28,6 @@ if (class_exists(Symfony\Component\VarDumper\VarDumper::class)) {
     VarDumper::setHandler(static function ($var) use ($cloner, $dumper): void {
         $dumper->dump($cloner->cloneVar($var)); // intentional dump
     });
-
 }
 
 function getFallbackDumper(): HtmlDumper|CliDumper

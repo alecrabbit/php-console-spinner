@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Helper\MemoryUsage;
 
 require_once __DIR__ . '/../bootstrap.php'; // <-- except this line - it is required 🙂
 
-$memoryReportInterval = 60; // seconds
+const MEMORY_REPORT_INTERVAL = 60; // seconds
 
 $driver = Facade::getDriver();
 
@@ -41,7 +41,7 @@ $loop = Facade::getLoop();
 // Execute memory report function every $reportInterval seconds
 $loop
     ->repeat(
-        $memoryReportInterval,
+        MEMORY_REPORT_INTERVAL,
         $memoryReport
     )
 ;

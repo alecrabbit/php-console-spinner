@@ -6,56 +6,24 @@ use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkResultsFactory;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\Factory\ReportFactory;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
-use AlecRabbit\Spinner\Container\DefinitionRegistry;
-use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Probes;
 
 const CYCLES = 200000;
 const PROGRESS_EVERY_CYCLES = CYCLES / 10;
 
-require_once __DIR__ . '/../bootstrap.php';
+$container = require __DIR__ . '/container.sync.php';
 
 // unregister all loop probes
-Probes::unregister(\AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe::class);
-Probes::unregister(\AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe::class);
-
-// Replace container:
-{
-    $registry = DefinitionRegistry::getInstance();
-
-    $registry->bind(
-        IResourceStream::class,
-        new class implements IResourceStream {
-            public function write(Traversable $data): void
-            {
-                // unwrap data
-                iterator_to_array($data);
-            }
-        }
-    );
-    $registry->bind(
-        ITimer::class,
-        new class implements ITimer {
-            public function getDelta(): float
-            {
-                // simulate unequal time intervals
-                return (float)random_int(1000, 500000);
-            }
-        }
-    );
-
-    $container = (new ContainerFactory($registry))->create();
-
-    Facade::useContainer($container);
-}
+Probes::unregister(ReactLoopProbe::class);
+Probes::unregister(RevoltLoopProbe::class);
 
 $driver = Facade::getDriver();
 
 if (!$driver instanceof IBenchmarkingDriver) {
-    throw new \LogicException(
+    throw new LogicException(
         sprintf(
             'Driver must implement "%s".',
             IBenchmarkingDriver::class
