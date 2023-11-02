@@ -85,18 +85,22 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
             $frameCollection
                 ->expects($matcher)
                 ->method('get')
-                ->willReturnCallback(function (int $offset) use ($matcher, $frame0, $frame1, $frame2) {
-                    match ($matcher->numberOfInvocations()) {
-                        1 => self::assertEquals(1, $offset),
-                        2 => self::assertEquals(2, $offset),
-                        3, 4 => self::assertEquals(0, $offset),
-                    };
-                    return match ($offset) {
-                        0 => $frame0,
-                        1 => $frame1,
-                        2 => $frame2,
-                    };
-                })
+                ->willReturnCallback(
+                    function (int $offset) use ($matcher, $frame0, $frame1, $frame2) {
+                        match ($matcher->numberOfInvocations()) {
+                            1 => self::assertEquals(1, $offset),
+                            2 => self::assertEquals(2, $offset),
+                            3, 4 => self::assertEquals(0, $offset),
+                        };
+
+                        return
+                            match ($offset) {
+                                0 => $frame0,
+                                1 => $frame1,
+                                2 => $frame2,
+                            };
+                    }
+                )
             ;
         }
 
