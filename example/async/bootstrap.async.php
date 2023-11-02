@@ -46,6 +46,7 @@ $loop
     )
 ;
 
+$echo(sprintf('Render interval, ms: %s', $driver->getInterval()->toMilliseconds()));
 $echo(PHP_EOL . sprintf('Using loop: "%s"', get_debug_type($loop)));
 $echo();
 

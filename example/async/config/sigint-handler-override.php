@@ -5,6 +5,8 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Contract\IHandlerCreator;
+use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Messages;
 use AlecRabbit\Spinner\Core\Settings\SignalHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\SignalHandlerSettings;
 use AlecRabbit\Spinner\Facade;
@@ -52,6 +54,11 @@ Facade::getSettings()
     ->set(
         new SignalHandlerSettings(
             $creator
+        ),
+        new DriverSettings(
+            messages: new Messages(
+                interruptionMessage: PHP_EOL . 'Custom interruption message.' . PHP_EOL, // note: will not be used
+            )
         ),
     )
 ;
