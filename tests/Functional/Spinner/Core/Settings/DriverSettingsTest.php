@@ -19,11 +19,10 @@ final class DriverSettingsTest extends TestCase
         self::assertInstanceOf(DriverSettings::class, $settings);
     }
 
-    public function getTesteeInstance(
-    ): IDriverSettings {
+    public function getTesteeInstance(): IDriverSettings
+    {
         return
-            new DriverSettings(
-            );
+            new DriverSettings();
     }
 
     #[Test]

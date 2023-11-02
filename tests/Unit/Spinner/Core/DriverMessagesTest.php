@@ -22,8 +22,7 @@ final class DriverMessagesTest extends TestCase
     protected function getTesteeInstance(
         string $finalMessage = '',
         string $interruptionMessage = '',
-    ): IDriverMessages
-    {
+    ): IDriverMessages {
         return new DriverMessages(
             finalMessage: $finalMessage,
             interruptionMessage: $interruptionMessage,

@@ -68,6 +68,11 @@ final class DriverFactoryTest extends TestCase
         return $this->createMock(ITimerFactory::class);
     }
 
+    private function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
+    }
+
     #[Test]
     public function canCreate(): void
     {
@@ -163,10 +168,5 @@ final class DriverFactoryTest extends TestCase
     protected function getLinkerConfigMock(): MockObject&ILinkerConfig
     {
         return $this->createMock(ILinkerConfig::class);
-    }
-
-    private function getDriverConfigMock(): MockObject&IDriverConfig
-    {
-        return $this->createMock(IDriverConfig::class);
     }
 }

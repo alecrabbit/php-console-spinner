@@ -50,6 +50,11 @@ class TestCaseForDriver extends TestCase
         return $this->createMock(IInterval::class);
     }
 
+    protected function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
+    }
+
     protected function getLinkerConfigMock(): MockObject&ILinkerConfig
     {
         return $this->createMock(ILinkerConfig::class);
@@ -68,10 +73,5 @@ class TestCaseForDriver extends TestCase
     protected function getSpinnerStub(): Stub&ISpinner
     {
         return $this->createStub(ISpinner::class);
-    }
-
-    protected function getDriverConfigMock(): MockObject&IDriverConfig
-    {
-        return $this->createMock(IDriverConfig::class);
     }
 }
