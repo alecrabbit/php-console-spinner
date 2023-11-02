@@ -34,7 +34,7 @@ Execute `make install_dam_tool` to install `DAM` tool.
 ### 3. Initialize the project
 
 ```bash
-$ make init
+make init
 ```
 
 This command will:

@@ -13,13 +13,16 @@ output through its `render()` method. If no spinner is registered with the drive
 the output.
 
 ```php
-$spinner = Facade::createSpinner(attach: false);
+$spinnerSettings = new SpinnerSettings(autoAttach: false);
+
+$spinner = Facade::createSpinner($spinnerSettings);
+
 $driver = Facade::getDriver();
 
 $driver->add($spinner);
 ```
 
-If an event-loop is available, the driver will be linked to the loop using `IDriverLinker`. Thus, `render()` method will 
+If an event-loop is available, the driver will be linked to the loop using `IDriverLinker` implementation. Thus, `render()` method will 
 be called automatically.  
 
 ```php
