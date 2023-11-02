@@ -431,12 +431,6 @@ function substitutes(): Traversable
                     }
                 };
         },
-//        IDriverConfig::class => new DriverConfig(
-//            new DriverMessages(
-//                'stub: final', // FIXME (2023-11-02 15:0) [Alec Rabbit]: stub!
-//                'stub: interruption', // FIXME (2023-11-02 15:0) [Alec Rabbit]: stub!
-//            ),
-//        ),
     ];
 }
 // @codeCoverageIgnoreEnd
