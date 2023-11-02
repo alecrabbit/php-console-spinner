@@ -8,11 +8,11 @@ use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
-final class FrameCollectionFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class FrameCollectionFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

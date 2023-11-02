@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -24,7 +24,7 @@ final class OutputTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IResourceStream $stream = null,
+        ?IWritableStream $stream = null,
     ): IOutput {
         return
             new Output(
@@ -32,9 +32,9 @@ final class OutputTest extends TestCase
             );
     }
 
-    private function getStreamMock(): MockObject&IResourceStream
+    private function getStreamMock(): MockObject&IWritableStream
     {
-        return $this->createMock(IResourceStream::class);
+        return $this->createMock(IWritableStream::class);
     }
 
     #[Test]

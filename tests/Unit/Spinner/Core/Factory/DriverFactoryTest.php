@@ -14,12 +14,13 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
-final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -42,6 +43,26 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
                 driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
                 timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
             );
+    }
+
+    protected function getDriverBuilderMock(): MockObject&IDriverBuilder
+    {
+        return $this->createMock(IDriverBuilder::class);
+    }
+
+    protected function getIntervalFactoryMock(): MockObject&IIntervalFactory
+    {
+        return $this->createMock(IIntervalFactory::class);
+    }
+
+    protected function getDriverOutputFactoryMock(): MockObject&IDriverOutputFactory
+    {
+        return $this->createMock(IDriverOutputFactory::class);
+    }
+
+    protected function getTimerFactoryMock(): MockObject&ITimerFactory
+    {
+        return $this->createMock(ITimerFactory::class);
     }
 
     #[Test]
@@ -103,6 +124,26 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             );
 
         self::assertSame($driver, $driverFactory->create());
+    }
+
+    protected function getDriverMock(): MockObject&IDriver
+    {
+        return $this->createMock(IDriver::class);
+    }
+
+    protected function getTimerMock(): MockObject&ITimer
+    {
+        return $this->createMock(ITimer::class);
+    }
+
+    protected function getDriverOutputMock(): MockObject&IDriverOutput
+    {
+        return $this->createMock(IDriverOutput::class);
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 
     protected function getDriverStub(): Stub&IDriver

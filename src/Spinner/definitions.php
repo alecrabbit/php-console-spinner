@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
 use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
@@ -183,7 +183,7 @@ function getDefinitions(): Traversable
         IOutput::class => Output::class,
         IBuffer::class => StringBuffer::class,
         IBufferedOutput::class => BufferedOutput::class,
-        IResourceStream::class => static function (IContainer $container): IResourceStream {
+        IWritableStream::class => static function (IContainer $container): IWritableStream {
             return
                 $container->get(IResourceStreamFactory::class)->create();
         },

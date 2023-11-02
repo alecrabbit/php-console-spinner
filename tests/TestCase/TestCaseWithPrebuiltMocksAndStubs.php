@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
@@ -220,9 +220,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ISpinnerState::class);
     }
 
-    protected function getResourceStreamMock(): MockObject&IResourceStream
+    protected function getResourceStreamMock(): MockObject&IWritableStream
     {
-        return $this->createMock(IResourceStream::class);
+        return $this->createMock(IWritableStream::class);
     }
 
     protected function getBufferedOutputBuilderMock(): MockObject&IBufferedOutputBuilder

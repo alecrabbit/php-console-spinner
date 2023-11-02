@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\DriverOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverOutputBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -39,6 +42,16 @@ final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         self::assertInstanceOf(DriverOutput::class, $output);
+    }
+
+    protected function getBufferedOutputMock(): MockObject&IBufferedOutput
+    {
+        return $this->createMock(IBufferedOutput::class);
+    }
+
+    protected function getCursorMock(): MockObject&IConsoleCursor
+    {
+        return $this->createMock(IConsoleCursor::class);
     }
 
     #[Test]

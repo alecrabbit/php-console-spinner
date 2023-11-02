@@ -7,14 +7,14 @@ require_once __DIR__ . '/../container.php';
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Facade;
 
 $registry = DefinitionRegistry::getInstance();
 
 $registry->bind(
-    IResourceStream::class,
-    new class implements IResourceStream {
+    IWritableStream::class,
+    new class implements IWritableStream {
         public function write(Traversable $data): void
         {
             // unwrap $data

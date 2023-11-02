@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -47,6 +51,21 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($interval, $driver->getInterval());
     }
 
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
+
+    protected function getDriverOutputMock(): MockObject&IDriverOutput
+    {
+        return $this->createMock(IDriverOutput::class);
+    }
+
+    protected function getTimerMock(): MockObject&ITimer
+    {
+        return $this->createMock(ITimer::class);
+    }
+
     #[Test]
     public function canBuildWithObserver(): void
     {
@@ -61,6 +80,11 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         self::assertInstanceOf(Driver::class, $driver);
+    }
+
+    protected function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
     }
 
     #[Test]

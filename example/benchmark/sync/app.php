@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Probes;
 
-const CYCLES = 200000;
+const CYCLES = 2_000_000;
 const PROGRESS_EVERY_CYCLES = CYCLES / 10;
 
 $container = require __DIR__ . '/container.sync.php';
@@ -38,7 +38,7 @@ $spinner = Facade::createSpinner();
 for ($i = 0; $i < CYCLES; $i++) {
     if ($i % PROGRESS_EVERY_CYCLES === 0) {
         echo sprintf(
-                '%s%%, cycle: %d/%d',
+                '%s%% [%d/%d]',
                 (int)ceil(100 * $i / CYCLES),
                 $i,
                 CYCLES

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
@@ -34,10 +34,10 @@ final class OutputTest extends TestCase
         return new StringBuffer();
     }
 
-    protected function getStreamStub(IBuffer $buffer): IResourceStream
+    protected function getStreamStub(IBuffer $buffer): IWritableStream
     {
         return
-            new class($buffer) implements IResourceStream {
+            new class($buffer) implements IWritableStream {
                 public function __construct(
                     protected IBuffer $buffer,
                 ) {

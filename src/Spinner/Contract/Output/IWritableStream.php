@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Contract\Output;
 
 use Traversable;
 
-interface IResourceStream
+interface IWritableStream
 {
     /**
      * @param Traversable<string> $data

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use Traversable;
 
-final class ResourceStream implements IResourceStream
+final class WritableStream implements IWritableStream
 {
     /**
      * @var resource
@@ -37,6 +37,8 @@ final class ResourceStream implements IResourceStream
 
     /**
      * @codeCoverageIgnore
+     *
+     * @inheritDoc
      */
     public function write(Traversable $data): void
     {
@@ -46,6 +48,6 @@ final class ResourceStream implements IResourceStream
                 throw new RuntimeException('Was unable to write to a stream.');
             }
         }
-        fflush($this->stream);
+        // fflush($this->stream);
     }
 }

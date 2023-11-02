@@ -7,10 +7,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
 use AlecRabbit\Spinner\Core\Timer;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class TimerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class TimerBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

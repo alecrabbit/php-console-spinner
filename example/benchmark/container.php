@@ -38,7 +38,7 @@ use AlecRabbit\Benchmark\Stopwatch\MicrosecondTimer;
 use AlecRabbit\Benchmark\Stopwatch\ResultFormatter;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Facade;
@@ -73,7 +73,7 @@ $registry->bind(
     IReportPrinterFactory::class,
     static function (ContainerInterface $container): IReportPrinterFactory {
         $stream =
-            new class implements IResourceStream {
+            new class implements IWritableStream {
                 public function write(Traversable $data): void
                 {
                     foreach ($data as $el) {

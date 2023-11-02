@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Output\Factory;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Output\Contract\Factory\IResourceStreamFactory;
 use AlecRabbit\Spinner\Core\Output\Factory\ResourceStreamFactory;
-use AlecRabbit\Spinner\Core\Output\ResourceStream;
+use AlecRabbit\Spinner\Core\Output\WritableStream;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -50,7 +50,7 @@ final class ResourceStreamFactoryTest extends TestCase
 
         $result = $factory->create();
 
-        self::assertInstanceOf(ResourceStream::class, $result);
+        self::assertInstanceOf(WritableStream::class, $result);
     }
 
 }
