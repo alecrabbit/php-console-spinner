@@ -30,6 +30,27 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     }
 
     #[Test]
+    public function canFinalizeInitializedWithEmptyFinalMessage(): void
+    {
+        $finalMessage = '';
+
+        $driverOutput = $this->getDriverOutputMock();
+        $driverOutput
+            ->expects(self::once())
+            ->method('finalize')
+            ->with(self::equalTo($finalMessage))
+        ;
+
+        $driver =
+            $this->getTesteeInstance(
+                output: $driverOutput
+            );
+
+        $driver->initialize();
+        $driver->finalize($finalMessage);
+    }
+
+    #[Test]
     public function canFinalizeInitializedWithNoMessage(): void
     {
         $driverOutput = $this->getDriverOutputMock();

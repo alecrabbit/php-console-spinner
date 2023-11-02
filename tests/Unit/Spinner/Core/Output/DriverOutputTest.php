@@ -67,6 +67,27 @@ final class DriverOutputTest extends TestCase
 
         self::assertFalse(self::getPropertyValue('initialized', $driverOutput));
     }
+    #[Test]
+    public function canBeFinalizedIfInitializedWithEmptyMessage(): void
+    {
+        $cursor = $this->getCursorMock();
+        $cursor->expects(self::once())->method('hide');
+        $cursor->expects(self::once())->method('show');
+
+        $output = $this->getBufferedOutputMock();
+
+        $message = '';
+
+        $output->expects(self::never())->method('append')->with($message);
+        $output->expects(self::exactly(2))->method('flush');
+
+        $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
+
+        $driverOutput->initialize();
+        $driverOutput->finalize($message);
+
+        self::assertFalse(self::getPropertyValue('initialized', $driverOutput));
+    }
 
     #[Test]
     public function canBeFinalizedIfInitializedWithNoMessage(): void
