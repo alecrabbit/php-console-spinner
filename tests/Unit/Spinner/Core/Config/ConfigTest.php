@@ -15,12 +15,12 @@ use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 
-final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ConfigTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
