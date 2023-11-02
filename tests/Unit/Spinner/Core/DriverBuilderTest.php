@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Driver;
@@ -44,6 +45,7 @@ final class DriverBuilderTest extends TestCase
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
             ->withInitialInterval($interval)
+            ->withDriverConfig($this->getDriverConfigMock())
             ->build()
         ;
 
@@ -76,6 +78,7 @@ final class DriverBuilderTest extends TestCase
             ->withTimer($this->getTimerMock())
             ->withObserver($this->getObserverMock())
             ->withInitialInterval($this->getIntervalMock())
+            ->withDriverConfig($this->getDriverConfigMock())
             ->build()
         ;
 
@@ -159,5 +162,10 @@ final class DriverBuilderTest extends TestCase
     protected function getLinkerConfigMock(): MockObject&ILinkerConfig
     {
         return $this->createMock(ILinkerConfig::class);
+    }
+
+    private function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 }

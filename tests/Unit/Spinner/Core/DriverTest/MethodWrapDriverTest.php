@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\A\ADriver;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
@@ -59,12 +60,14 @@ final class MethodWrapDriverTest extends TestCaseForDriver
         ?ITimer $timer = null,
         ?IDriverOutput $output = null,
         ?IInterval $initialInterval = null,
+        ?IDriverConfig $driverConfig = null,
         ?IObserver $observer = null,
     ): IDriver {
         return new class(
             output: $output ?? $this->getDriverOutputMock(),
             timer: $timer ?? $this->getTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
+            driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
             observer: $observer,
         ) extends ADriver {
             protected function erase(): void

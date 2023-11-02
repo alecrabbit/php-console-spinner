@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
@@ -35,6 +36,7 @@ final class DriverFactoryTest extends TestCase
         ?IIntervalFactory $intervalFactory = null,
         ?IDriverOutputFactory $driverOutputFactory = null,
         ?ITimerFactory $timerFactory = null,
+        ?IDriverConfig $driverConfig = null,
     ): IDriverFactory {
         return
             new DriverFactory(
@@ -42,6 +44,7 @@ final class DriverFactoryTest extends TestCase
                 intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
                 driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
                 timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
+                driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
             );
     }
 
@@ -86,6 +89,12 @@ final class DriverFactoryTest extends TestCase
             ->expects(self::once())
             ->method('withInitialInterval')
             ->with(self::isInstanceOf(IInterval::class))
+            ->willReturnSelf()
+        ;
+        $driverBuilder
+            ->expects(self::once())
+            ->method('withDriverConfig')
+            ->with(self::isInstanceOf(IDriverConfig::class))
             ->willReturnSelf()
         ;
         $driverBuilder
@@ -154,5 +163,10 @@ final class DriverFactoryTest extends TestCase
     protected function getLinkerConfigMock(): MockObject&ILinkerConfig
     {
         return $this->createMock(ILinkerConfig::class);
+    }
+
+    private function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 }

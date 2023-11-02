@@ -44,6 +44,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
@@ -415,6 +416,12 @@ function substitutes(): Traversable
                             );
                     }
                 };
+        },
+        IDriverConfig::class => new class implements IDriverConfig {
+            public function getIdentifier(): string
+            {
+                return IDriverConfig::class;
+            }
         },
     ];
 }
