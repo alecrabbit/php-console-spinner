@@ -90,6 +90,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
+use AlecRabbit\Spinner\Core\DriverMessages;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
@@ -418,7 +419,12 @@ function substitutes(): Traversable
                     }
                 };
         },
-        IDriverConfig::class => new DriverConfig(),
+        IDriverConfig::class => new DriverConfig(
+            new DriverMessages(
+                'stub: final', // FIXME (2023-11-02 15:0) [Alec Rabbit]: stub!
+                'stub: interruption', // FIXME (2023-11-02 15:0) [Alec Rabbit]: stub!
+            ),
+        ),
     ];
 }
 // @codeCoverageIgnoreEnd

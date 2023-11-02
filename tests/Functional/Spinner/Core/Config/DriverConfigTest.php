@@ -7,8 +7,10 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Config;
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class DriverConfigTest extends TestCase
 {
@@ -21,9 +23,11 @@ final class DriverConfigTest extends TestCase
     }
 
     protected function getTesteeInstance(
+        ?IDriverMessages $driverMessages = null,
     ): IDriverConfig {
         return
             new DriverConfig(
+                driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
             );
     }
 
@@ -33,6 +37,11 @@ final class DriverConfigTest extends TestCase
         $config = $this->getTesteeInstance();
 
         self::assertEquals(IDriverConfig::class, $config->getIdentifier());
+    }
+
+    private function getDriverMessagesMock(): MockObject&IDriverMessages
+    {
+        return $this->createMock(IDriverMessages::class);
     }
 
 }
