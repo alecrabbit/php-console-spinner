@@ -6,4 +6,5 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
 interface IDriverSettings extends ISettingsElement
 {
+    public function getMessages(): ?IMessages;
 }

@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 
-final class LinkerSettings implements ILinkerSettings
+final readonly class LinkerSettings implements ILinkerSettings
 {
     public function __construct(
         protected LinkerOption $linkerOption = LinkerOption::AUTO,

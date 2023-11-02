@@ -4,24 +4,199 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
-use AlecRabbit\Spinner\Contract\Option\LinkerOption;
+use AlecRabbit\Spinner\Contract\Option\DriverOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\DriverMessagesSolver;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
+use AlecRabbit\Spinner\Core\DriverMessages;
+use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IMessages;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Core\Settings\Messages;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-use function sprintf;
-
 final class DriverMessagesSolverTest extends TestCase
 {
-   
+    public static function canSolveDataProvider(): iterable
+    {
+        yield from [
+            // [result], [$user, $detected, $default]
+            [ // #0
+                [
+                    new DriverMessages(
+                        '',
+                        '',
+                    ),
+                ],
+                [
+                    new Messages(),
+                    new Messages(),
+                    new Messages(),
+                ],
+            ],
+            [ // #1
+                [
+                    new DriverMessages(
+                        '',
+                        '',
+                    ),
+                ],
+                [
+                    null,
+                    null,
+                    null,
+                ],
+            ],
+            [ // #2
+                [
+                    new DriverMessages(
+                        finalMessage: 'final',
+                        interruptionMessage: 'interruption',
+                    ),
+                ],
+                [
+                    new Messages(
+                        finalMessage: 'final',
+                        interruptionMessage: 'interruption',
+                    ),
+                    null,
+                    null,
+                ],
+            ],
+            [ // #3
+                [
+                    new DriverMessages(
+                        finalMessage: 'final',
+                        interruptionMessage: 'interruption',
+                    ),
+                ],
+                [
+                    null,
+                    new Messages(
+                        finalMessage: 'final',
+                        interruptionMessage: 'interruption',
+                    ),
+                    null,
+                ],
+            ],
+            [ // #4
+                [
+                    new DriverMessages(
+                        finalMessage: 'final',
+                        interruptionMessage: 'interruption',
+                    ),
+                ],
+                [
+                    null,
+                    null,
+                    new Messages(
+                        finalMessage: 'final',
+                        interruptionMessage: 'interruption',
+                    ),
+                ],
+            ],
+            [ // #5
+                [
+                    new DriverMessages(
+                        finalMessage: 'final',
+                        interruptionMessage: 'interruption',
+                    ),
+                ],
+                [
+                    new Messages(
+                        finalMessage: 'final',
+                        interruptionMessage: 'interruption',
+                    ),
+                    null,
+                    new Messages(
+                        finalMessage: 'final0',
+                        interruptionMessage: 'interruption0',
+                    ),
+                ],
+            ],
+            [ // #6
+                [
+                    new DriverMessages(
+                        finalMessage: 'final',
+                        interruptionMessage: 'interruption',
+                    ),
+                ],
+                [
+                    new Messages(
+                        finalMessage: 'final',
+                        interruptionMessage: 'interruption',
+                    ),
+                    new Messages(
+                        finalMessage: 'final1',
+                        interruptionMessage: 'interruption1',
+                    ),
+                    new Messages(
+                        finalMessage: 'final0',
+                        interruptionMessage: 'interruption0',
+                    ),
+                ],
+            ],
+            [ // #7
+                [
+                    new DriverMessages(
+                        finalMessage: 'final',
+                        interruptionMessage: '',
+                    ),
+                ],
+                [
+                    new Messages(
+                        finalMessage: 'final',
+                    ),
+                    new Messages(
+                        finalMessage: 'final1',
+                    ),
+                    new Messages(
+                        finalMessage: 'final0',
+                    ),
+                ],
+            ],
+            [ // #8
+                [
+                    new DriverMessages(
+                        finalMessage: '',
+                        interruptionMessage: 'interruption',
+                    ),
+                ],
+                [
+                    new Messages(
+                        interruptionMessage: 'interruption',
+                    ),
+                    new Messages(
+                        interruptionMessage: 'interruption1',
+                    ),
+                    new Messages(
+                        interruptionMessage: 'interruption0',
+                    ),
+                ],
+            ],
+            [ // #9
+                [
+                    new DriverMessages(
+                        finalMessage: 'final',
+                        interruptionMessage: 'interruption',
+                    ),
+                ],
+                [
+                    new Messages(
+                        interruptionMessage: 'interruption',
+                    ),
+                    new Messages(
+                        finalMessage: 'final',
+                    ),
+                    null
+                ],
+            ],
+        ];
+    }
+
     #[Test]
     public function canBeInstantiated(): void
     {
@@ -44,87 +219,90 @@ final class DriverMessagesSolverTest extends TestCase
     {
         return $this->createMock(ISettingsProvider::class);
     }
-//
-//    #[Test]
-//    #[DataProvider('canSolveDataProvider')]
-//    public function canSolve(array $expected, array $args): void
-//    {
-//        $expectedException = $this->expectsException($expected);
-//
-//        $result = $expected[0] ?? null;
-//
-//        [
-//            $userLinkerOption,
-//            $detectedLinkerOption,
-//            $defaultLinkerOption
-//        ] = $args;
-//
-//        $userLinkerSettings = $this->getLinkerSettingsMock($userLinkerOption);
-//        $detectedLinkerSettings = $this->getLinkerSettingsMock($detectedLinkerOption);
-//        $defaultLinkerSettings = $this->getLinkerSettingsMock($defaultLinkerOption);
-//
-//        $userSettings = $this->getSettingsMock();
-//        $userSettings
-//            ->expects(self::once())
-//            ->method('get')
-//            ->with(self::identicalTo(ILinkerSettings::class))
-//            ->willReturn($userLinkerSettings)
-//        ;
-//
-//        $detectedSettings = $this->getSettingsMock();
-//        $detectedSettings
-//            ->expects(self::once())
-//            ->method('get')
-//            ->with(self::identicalTo(ILinkerSettings::class))
-//            ->willReturn($detectedLinkerSettings)
-//        ;
-//
-//        $defaultSettings = $this->getSettingsMock();
-//        $defaultSettings
-//            ->expects(self::once())
-//            ->method('get')
-//            ->with(self::identicalTo(ILinkerSettings::class))
-//            ->willReturn($defaultLinkerSettings)
-//        ;
-//
-//        $settingsProvider = $this->getSettingsProviderMock();
-//
-//        $settingsProvider
-//            ->expects(self::once())
-//            ->method('getUserSettings')
-//            ->willReturn($userSettings)
-//        ;
-//        $settingsProvider
-//            ->expects(self::once())
-//            ->method('getDetectedSettings')
-//            ->willReturn($detectedSettings)
-//        ;
-//        $settingsProvider
-//            ->expects(self::once())
-//            ->method('getDefaultSettings')
-//            ->willReturn($defaultSettings)
-//        ;
-//
-//        $solver = $this->getTesteeInstance(
-//            settingsProvider: $settingsProvider,
-//        );
-//
-//        self::assertSame($result, $solver->solve());
-//
-//        if ($expectedException) {
-//            self::failTest($expectedException);
-//        }
-//    }
 
-    protected function getLinkerSettingsMock(?LinkerOption $linkerOption = null): (MockObject&ILinkerSettings)|null
+    #[Test]
+    #[DataProvider('canSolveDataProvider')]
+    public function canSolve(array $expected, array $args): void
+    {
+        $expectedException = $this->expectsException($expected);
+
+        $result = $expected[0] ?? null;
+
+        [
+            $userMessages,
+            $detectedMessages,
+            $defaultMessages
+        ] = $args;
+
+        $userDriverSettings = $this->getDriverSettingsMock($userMessages);
+        $detectedDriverSettings = $this->getDriverSettingsMock($detectedMessages);
+        $defaultDriverSettings = $this->getDriverSettingsMock($defaultMessages);
+
+        $userSettings = $this->getSettingsMock();
+        $userSettings
+            ->expects(self::once())
+            ->method('get')
+            ->with(self::identicalTo(IDriverSettings::class))
+            ->willReturn($userDriverSettings)
+        ;
+
+        $detectedSettings = $this->getSettingsMock();
+        $detectedSettings
+            ->expects(self::once())
+            ->method('get')
+            ->with(self::identicalTo(IDriverSettings::class))
+            ->willReturn($detectedDriverSettings)
+        ;
+
+        $defaultSettings = $this->getSettingsMock();
+        $defaultSettings
+            ->expects(self::once())
+            ->method('get')
+            ->with(self::identicalTo(IDriverSettings::class))
+            ->willReturn($defaultDriverSettings)
+        ;
+
+        $settingsProvider = $this->getSettingsProviderMock();
+
+        $settingsProvider
+            ->expects(self::once())
+            ->method('getUserSettings')
+            ->willReturn($userSettings)
+        ;
+        $settingsProvider
+            ->expects(self::once())
+            ->method('getDetectedSettings')
+            ->willReturn($detectedSettings)
+        ;
+        $settingsProvider
+            ->expects(self::once())
+            ->method('getDefaultSettings')
+            ->willReturn($defaultSettings)
+        ;
+
+        $solver = $this->getTesteeInstance(
+            settingsProvider: $settingsProvider,
+        );
+
+        $actual = $solver->solve();
+
+        self::assertSame($result->getFinalMessage(), $actual->getFinalMessage());
+        self::assertSame($result->getInterruptionMessage(), $actual->getInterruptionMessage());
+
+        if ($expectedException) {
+            self::failTest($expectedException);
+        }
+    }
+
+    protected function getDriverSettingsMock(?IMessages $messages = null): (MockObject&IDriverSettings)|null
     {
         return
-            $linkerOption === null
+            $messages === null
                 ? null :
                 $this->createConfiguredMock(
-                    ILinkerSettings::class,
+                    IDriverSettings::class,
                     [
-                        'getLinkerOption' => $linkerOption,
+                        'getMessages' => $messages,
                     ]
                 );
     }
