@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
-use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 
 final readonly class ConsoleCursor implements IConsoleCursor
 {

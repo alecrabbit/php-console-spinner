@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
-use Generator;
 use Traversable;
 
 final readonly class Output implements IOutput

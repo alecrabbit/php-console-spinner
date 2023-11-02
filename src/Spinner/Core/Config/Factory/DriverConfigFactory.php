@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Config\Factory;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 
 final readonly class DriverConfigFactory implements IDriverConfigFactory

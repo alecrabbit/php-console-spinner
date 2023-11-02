@@ -39,6 +39,21 @@ final class StyleRevolverFactoryTest extends TestCase
             );
     }
 
+    protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
+    {
+        return $this->createMock(IFrameRevolverBuilder::class);
+    }
+
+    protected function getFrameCollectionFactoryMock(): MockObject&IFrameCollectionFactory
+    {
+        return $this->createMock(IFrameCollectionFactory::class);
+    }
+
+    protected function getIntervalFactoryMock(): MockObject&IIntervalFactory
+    {
+        return $this->createMock(IIntervalFactory::class);
+    }
+
     #[Test]
     public function canCreate(): void
     {
@@ -49,23 +64,8 @@ final class StyleRevolverFactoryTest extends TestCase
         $styleRevolverFactory->create($this->getTemplateMock());
     }
 
-    protected function getIntervalFactoryMock(): MockObject&IIntervalFactory
-    {
-        return $this->createMock(IIntervalFactory::class);
-    }
-    
     private function getTemplateMock(): MockObject&IPattern
     {
         return $this->createMock(IPattern::class);
-    }
-
-    protected function getFrameCollectionFactoryMock(): MockObject&IFrameCollectionFactory
-    {
-        return $this->createMock(IFrameCollectionFactory::class);
-    }
-    
-    protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
-    {
-        return $this->createMock(IFrameRevolverBuilder::class);
     }
 }

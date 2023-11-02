@@ -61,7 +61,8 @@ final class ConsoleCursorBuilderTest extends TestCase
 
         $consoleCursorBuilder
             ->withCursorVisibilityMode(CursorVisibilityMode::VISIBLE)
-            ->build();
+            ->build()
+        ;
     }
 
     #[Test]
@@ -74,6 +75,7 @@ final class ConsoleCursorBuilderTest extends TestCase
 
         $consoleCursorBuilder
             ->withBuffer($this->getBufferMock())
-            ->build();
+            ->build()
+        ;
     }
 }

@@ -19,7 +19,7 @@ final class StreamSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {
-        $sOn = fopen('php://memory', 'rb+') AND fclose($sOn);
+        $sOn = fopen('php://memory', 'rb+') and fclose($sOn);
 
         $sTw = STDOUT;
         $sTh = STDERR;
@@ -42,7 +42,6 @@ final class StreamSolverTest extends TestCase
             [[$sTw], [$sTw, $sTh, $sOn],], // #4
             [[$sTh], [null, $sTh, $sOn],], // #5
         ];
-
     }
 
     #[Test]

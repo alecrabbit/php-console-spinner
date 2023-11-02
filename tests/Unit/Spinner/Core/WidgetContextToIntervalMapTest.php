@@ -79,6 +79,7 @@ final class WidgetContextToIntervalMapTest extends TestCase
     {
         return $this->createMock(IWidgetContext::class);
     }
+
     #[Test]
     public function nullValueReplacedWithFalseOnOffsetSet(): void
     {
@@ -147,11 +148,12 @@ final class WidgetContextToIntervalMapTest extends TestCase
             self::assertNull($item);
         }
     }
-    
+
     protected function getIntervalMock(): MockObject&IInterval
     {
         return $this->createMock(IInterval::class);
     }
+
     #[Test]
     public function canGetValueByOffset(): void
     {

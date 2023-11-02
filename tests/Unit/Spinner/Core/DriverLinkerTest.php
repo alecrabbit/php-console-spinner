@@ -72,14 +72,17 @@ final class DriverLinkerTest extends TestCase
 
         $driverLinker->link($driver);
     }
-    protected function getDriverMock(): MockObject&IDriver
-    {
-        return $this->createMock(IDriver::class);
-    }
+
     protected function getIntervalMock(): MockObject&IInterval
     {
         return $this->createMock(IInterval::class);
     }
+
+    protected function getDriverMock(): MockObject&IDriver
+    {
+        return $this->createMock(IDriver::class);
+    }
+
     #[Test]
     public function canBeUpdated(): void
     {

@@ -13,13 +13,16 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerSettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
+use Closure;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class SignalHandlersContainerSolverTest extends TestCase
 {
-    public static function canSolveDataProvider(): \Traversable
+    public static function canSolveDataProvider(): Traversable
     {
         // fn() => [[result/Exception], [$user, $detected, $default]]
         // #0
@@ -46,7 +49,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
         ];
     }
 
-    protected static function dataSet001(): \Closure
+    protected static function dataSet001(): Closure
     {
         return
             static function (self $test) {
@@ -93,7 +96,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
         return $this->createMock(ISignalHandlerCreator::class);
     }
 
-    protected static function dataSet002(): \Closure
+    protected static function dataSet002(): Closure
     {
         return static function (self $test) {
             $signal = 2;
@@ -129,7 +132,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
         };
     }
 
-    protected static function dataSet003(): \Closure
+    protected static function dataSet003(): Closure
     {
         return static function (self $test) {
             $signal = 2;
@@ -165,7 +168,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
         };
     }
 
-    protected static function dataSet004(): \Closure
+    protected static function dataSet004(): Closure
     {
         return static function (self $test) {
             $signal = 2;
@@ -215,7 +218,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
         };
     }
 
-    protected static function dataSet005(): \Closure
+    protected static function dataSet005(): Closure
     {
         return static function (self $test) {
             // [Exception], [$user, $detected, $default]
@@ -239,7 +242,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
         };
     }
 
-    protected static function dataSet006(): \Closure
+    protected static function dataSet006(): Closure
     {
         return static function (self $test) {
             $signal = 2;
@@ -305,7 +308,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
         };
     }
 
-    protected static function dataSet007(): \Closure
+    protected static function dataSet007(): Closure
     {
         return static function (self $test) {
             $signal = 2;
@@ -357,7 +360,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
         };
     }
 
-    protected static function dataSet008(): \Closure
+    protected static function dataSet008(): Closure
     {
         return static function (self $test) {
             $signal = 2;
@@ -410,7 +413,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
         };
     }
 
-    protected static function dataSet009(): \Closure
+    protected static function dataSet009(): Closure
     {
         return static function (self $test) {
             $signal = 2;
@@ -447,7 +450,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
         };
     }
 
-    protected static function dataSet010(): \Closure
+    protected static function dataSet010(): Closure
     {
         return static function (self $test) {
             $sigint = 2;
@@ -502,7 +505,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
         };
     }
 
-    protected static function dataSet011(): \Closure
+    protected static function dataSet011(): Closure
     {
         return static function (self $test) {
             $sigint = 2;
@@ -611,9 +614,9 @@ final class SignalHandlersContainerSolverTest extends TestCase
             $default
         ] = $args;
 
-        $userCreators = new \ArrayObject($user);
-        $detectedCreators = new \ArrayObject($detected);
-        $defaultCreators = new \ArrayObject($default);
+        $userCreators = new ArrayObject($user);
+        $detectedCreators = new ArrayObject($detected);
+        $defaultCreators = new ArrayObject($default);
 
         $userSignalHandlerSettings = $this->getSignalHandlerSettingsMock();
         $userSignalHandlerSettings

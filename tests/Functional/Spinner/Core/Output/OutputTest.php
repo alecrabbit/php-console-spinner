@@ -52,7 +52,7 @@ final class OutputTest extends TestCase
             };
     }
 
-    private function unwrapToStr(\Traversable $iterator): string
+    private function unwrapToStr(Traversable $iterator): string
     {
         return implode('', iterator_to_array($iterator));
     }

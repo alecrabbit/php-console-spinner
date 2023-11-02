@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
-use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;

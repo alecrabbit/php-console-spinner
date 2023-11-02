@@ -36,6 +36,11 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         );
     }
 
+    private function getBufferMock(): MockObject&IBuffer
+    {
+        return $this->createMock(IBuffer::class);
+    }
+
     private function getOutputConfigMock(?CursorVisibilityMode $cursorVisibilityMode = null): MockObject&IOutputConfig
     {
         return $this->createConfiguredMock(
@@ -85,10 +90,5 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $cursor = $cursorFactory->create();
 
         self::assertSame($cursorStub, $cursor);
-    }
-
-    private function getBufferMock(): MockObject&IBuffer
-    {
-        return $this->createMock(IBuffer::class);
     }
 }

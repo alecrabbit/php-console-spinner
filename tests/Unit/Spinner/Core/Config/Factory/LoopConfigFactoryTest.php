@@ -140,6 +140,11 @@ final class LoopConfigFactoryTest extends TestCase
         self::assertSame($signalHandlersMode, $config->getSignalHandlingMode());
     }
 
+    private function getSignalHandlersContainerMock(): MockObject&ISignalHandlersContainer
+    {
+        return $this->createMock(ISignalHandlersContainer::class);
+    }
+
     protected function getLoopConfigMock(
         AutoStartMode $autoStartMode,
         SignalHandlingMode $signalHandlersMode,
@@ -152,10 +157,5 @@ final class LoopConfigFactoryTest extends TestCase
                     'getSignalHandlingMode' => $signalHandlersMode ?? SignalHandlingMode::DISABLED,
                 ]
             );
-    }
-
-    private function getSignalHandlersContainerMock(): MockObject&ISignalHandlersContainer
-    {
-        return $this->createMock(ISignalHandlersContainer::class);
     }
 }

@@ -33,6 +33,11 @@ final class SignalHandlerCreatorTest extends TestCase
             );
     }
 
+    private function getHandlerCreatorMock(): MockObject&IHandlerCreator
+    {
+        return $this->createMock(IHandlerCreator::class);
+    }
+
     #[Test]
     public function canGetSignal(): void
     {
@@ -43,7 +48,9 @@ final class SignalHandlerCreatorTest extends TestCase
         );
 
         self::assertSame($signal, $settings->getSignal());
-    }    #[Test]
+    }
+
+    #[Test]
     public function canGetHandlerCreator(): void
     {
         $handlerCreator = $this->getHandlerCreatorMock();
@@ -58,10 +65,5 @@ final class SignalHandlerCreatorTest extends TestCase
     protected function getFrameMock(): MockObject&IFrame
     {
         return $this->createMock(IFrame::class);
-    }
-
-    private function getHandlerCreatorMock(): MockObject&IHandlerCreator
-    {
-        return $this->createMock(IHandlerCreator::class);
     }
 }
