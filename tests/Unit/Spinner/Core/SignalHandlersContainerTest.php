@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersContainer;
 use AlecRabbit\Spinner\Core\SignalHandlersContainer;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
