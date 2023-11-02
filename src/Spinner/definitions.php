@@ -50,6 +50,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
@@ -417,12 +418,7 @@ function substitutes(): Traversable
                     }
                 };
         },
-        IDriverConfig::class => new class implements IDriverConfig {
-            public function getIdentifier(): string
-            {
-                return IDriverConfig::class;
-            }
-        },
+        IDriverConfig::class => new DriverConfig(),
     ];
 }
 // @codeCoverageIgnoreEnd
