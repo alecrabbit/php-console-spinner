@@ -7,12 +7,14 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
@@ -35,6 +37,7 @@ final class ConfigFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IAuxConfigFactory $auxConfigFactory = null,
+        ?IDriverConfigFactory $driverConfigFactory = null,
         ?ILoopConfigFactory $loopConfigFactory = null,
         ?IOutputConfigFactory $outputConfigFactory = null,
         ?ILinkerConfigFactory $linkerConfigFactory = null,
@@ -44,6 +47,7 @@ final class ConfigFactoryTest extends TestCase
         return
             new ConfigFactory(
                 auxConfigFactory: $auxConfigFactory ?? $this->getAuxConfigFactoryMock(),
+                driverConfigFactory: $driverConfigFactory ?? $this->getDriverConfigFactoryMock(),
                 loopConfigFactory: $loopConfigFactory ?? $this->getLoopConfigFactoryMock(),
                 outputConfigFactory: $outputConfigFactory ?? $this->getOutputConfigFactoryMock(),
                 linkerConfigFactory: $linkerConfigFactory ?? $this->getLinkerConfigFactoryMock(),
@@ -55,6 +59,11 @@ final class ConfigFactoryTest extends TestCase
     protected function getAuxConfigFactoryMock(): MockObject&IAuxConfigFactory
     {
         return $this->createMock(IAuxConfigFactory::class);
+    }
+
+    private function getDriverConfigFactoryMock(): MockObject&IDriverConfigFactory
+    {
+        return $this->createMock(IDriverConfigFactory::class);
     }
 
     protected function getLoopConfigFactoryMock(): MockObject&ILoopConfigFactory
@@ -90,6 +99,13 @@ final class ConfigFactoryTest extends TestCase
             ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IAuxConfig::class)
+        ;
+
+        $driverConfig = $this->getDriverConfigMock();
+        $driverConfig
+            ->expects(self::once())
+            ->method('getIdentifier')
+            ->willReturn(IDriverConfig::class)
         ;
 
         $loopConfig = $this->getLoopConfigMock();
@@ -128,6 +144,7 @@ final class ConfigFactoryTest extends TestCase
         ;
 
         $auxConfigFactory = $this->getAuxConfigFactoryMock();
+        $driverConfigFactory = $this->getDriverConfigFactoryMock();
         $loopConfigFactory = $this->getLoopConfigFactoryMock();
         $outputConfigFactory = $this->getOutputConfigFactoryMock();
         $linkerConfigFactory = $this->getLinkerConfigFactoryMock();
@@ -138,6 +155,12 @@ final class ConfigFactoryTest extends TestCase
             ->expects(self::once())
             ->method('create')
             ->willReturn($auxConfig)
+        ;
+
+        $driverConfigFactory
+            ->expects(self::once())
+            ->method('create')
+            ->willReturn($driverConfig)
         ;
 
         $loopConfigFactory
@@ -178,6 +201,7 @@ final class ConfigFactoryTest extends TestCase
 
         $factory = $this->getTesteeInstance(
             auxConfigFactory: $auxConfigFactory,
+            driverConfigFactory: $driverConfigFactory,
             loopConfigFactory: $loopConfigFactory,
             outputConfigFactory: $outputConfigFactory,
             linkerConfigFactory: $linkerConfigFactory,
@@ -193,6 +217,11 @@ final class ConfigFactoryTest extends TestCase
     protected function getAuxConfigMock(): MockObject&IAuxConfig
     {
         return $this->createMock(IAuxConfig::class);
+    }
+
+    private function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 
     protected function getLoopConfigMock(): MockObject&ILoopConfig

@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use Closure;
@@ -16,6 +17,7 @@ use Closure;
 abstract class ADriver extends ASubject implements IDriver
 {
     protected IInterval $interval;
+    protected IDriverMessages $messages;
 
     public function __construct(
         protected readonly IDriverOutput $output,
@@ -26,19 +28,20 @@ abstract class ADriver extends ASubject implements IDriver
     ) {
         parent::__construct($observer);
         $this->interval = $this->initialInterval;
+        $this->messages = $this->driverConfig->getDriverMessages();
     }
 
     /** @inheritDoc */
     public function interrupt(?string $interruptMessage = null): void
     {
-        $this->finalize($interruptMessage);
+        $this->finalize($interruptMessage ?? $this->messages->getInterruptionMessage());
     }
 
     /** @inheritDoc */
     public function finalize(?string $finalMessage = null): void
     {
         $this->erase();
-        $this->output->finalize($finalMessage);
+        $this->output->finalize($finalMessage ?? $this->messages->getFinalMessage());
     }
 
     abstract protected function erase(): void;

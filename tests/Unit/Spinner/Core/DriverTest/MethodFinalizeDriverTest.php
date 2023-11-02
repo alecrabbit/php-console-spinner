@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\DriverTest;
 
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class MethodFinalizeDriverTest extends TestCaseForDriver
 {
@@ -49,20 +51,39 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
         $driver->initialize();
         $driver->finalize($finalMessage);
     }
-
+    private function getDriverMessagesMock(): MockObject&IDriverMessages
+    {
+        return $this->createMock(IDriverMessages::class);
+    }
     #[Test]
     public function canFinalizeInitializedWithNoMessage(): void
     {
+        $message = '';
+        $driverMessages = $this->getDriverMessagesMock();
+        $driverMessages
+            ->expects(self::once())
+            ->method('getFinalMessage')
+            ->willReturn($message)
+        ;
+
+        $driverConfig = $this->getDriverConfigMock();
+        $driverConfig
+            ->expects(self::once())
+            ->method('getDriverMessages')
+            ->willReturn($driverMessages)
+        ;
+
         $driverOutput = $this->getDriverOutputMock();
         $driverOutput
             ->expects(self::once())
             ->method('finalize')
-            ->with(self::equalTo(null))
+            ->with(self::identicalTo($message))
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $driverOutput
+                output: $driverOutput,
+                driverConfig: $driverConfig,
             );
 
         $driver->initialize();

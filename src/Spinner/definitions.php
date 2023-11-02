@@ -23,11 +23,13 @@ use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LinkerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILinkerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
@@ -35,6 +37,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigProviderFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
@@ -54,6 +57,7 @@ use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
@@ -64,6 +68,7 @@ use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
@@ -74,6 +79,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\DriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\NormalizerModeSolver;
@@ -250,6 +256,9 @@ function configs(): Traversable
         IConfig::class => static function (IContainer $container): IConfig {
             return $container->get(IConfigProvider::class)->getConfig();
         },
+        IDriverConfig::class => static function (IContainer $container): IDriverConfig {
+            return $container->get(IConfig::class)->get(IDriverConfig::class);
+        },
         ILinkerConfig::class => static function (IContainer $container): ILinkerConfig {
             return $container->get(IConfig::class)->get(ILinkerConfig::class);
         },
@@ -289,6 +298,7 @@ function builders(): Traversable
         ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
 
         IAuxConfigBuilder::class => AuxConfigBuilder::class,
+        IDriverConfigBuilder::class => DriverConfigBuilder::class,
         ILoopConfigBuilder::class => LoopConfigBuilder::class,
         IOutputConfigBuilder::class => OutputConfigBuilder::class,
         ILinkerConfigBuilder::class => LinkerConfigBuilder::class,
@@ -309,6 +319,7 @@ function solvers(): Traversable
         ILinkerModeSolver::class => LinkerModeSolver::class,
         IInitializationModeSolver::class => InitializationModeSolver::class,
         IStreamSolver::class => StreamSolver::class,
+        IDriverMessagesSolver::class => DriverMessagesSolver::class,
     ];
 }
 
@@ -316,6 +327,7 @@ function factories(): Traversable
 {
     yield from [
         IDriverFactory::class => DriverFactory::class,
+        IDriverConfigFactory::class => DriverConfigFactory::class,
         ILoopProviderFactory::class => LoopProviderFactory::class,
         IDriverProviderFactory::class => DriverProviderFactory::class,
         IResourceStreamFactory::class => ResourceStreamFactory::class,
@@ -419,12 +431,12 @@ function substitutes(): Traversable
                     }
                 };
         },
-        IDriverConfig::class => new DriverConfig(
-            new DriverMessages(
-                'stub: final', // FIXME (2023-11-02 15:0) [Alec Rabbit]: stub!
-                'stub: interruption', // FIXME (2023-11-02 15:0) [Alec Rabbit]: stub!
-            ),
-        ),
+//        IDriverConfig::class => new DriverConfig(
+//            new DriverMessages(
+//                'stub: final', // FIXME (2023-11-02 15:0) [Alec Rabbit]: stub!
+//                'stub: interruption', // FIXME (2023-11-02 15:0) [Alec Rabbit]: stub!
+//            ),
+//        ),
     ];
 }
 // @codeCoverageIgnoreEnd
