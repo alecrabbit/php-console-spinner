@@ -5,27 +5,27 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Config\DriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILinkerConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
+use AlecRabbit\Spinner\Core\Config\LinkerConfig;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 /**
  * @psalm-suppress PossiblyNullArgument
  */
-final class DriverConfigBuilder implements IDriverConfigBuilder
+final class LinkerConfigBuilder implements ILinkerConfigBuilder
 {
     private ?LinkerMode $linkerMode = null;
 
     /**
      * @inheritDoc
      */
-    public function build(): IDriverConfig
+    public function build(): ILinkerConfig
     {
         $this->validate();
 
         return
-            new DriverConfig(
+            new LinkerConfig(
                 linkerMode: $this->linkerMode,
             );
     }
@@ -41,7 +41,7 @@ final class DriverConfigBuilder implements IDriverConfigBuilder
         };
     }
 
-    public function withLinkerMode(LinkerMode $linkerMode): IDriverConfigBuilder
+    public function withLinkerMode(LinkerMode $linkerMode): ILinkerConfigBuilder
     {
         $clone = clone $this;
         $clone->linkerMode = $linkerMode;

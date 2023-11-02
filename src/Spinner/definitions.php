@@ -23,19 +23,19 @@ use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\LinkerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILinkerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigProviderFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
@@ -44,7 +44,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
@@ -52,7 +52,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
-use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\LinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeRootWidgetConfigFactory;
@@ -247,8 +247,8 @@ function configs(): Traversable
         IConfig::class => static function (IContainer $container): IConfig {
             return $container->get(IConfigProvider::class)->getConfig();
         },
-        IDriverConfig::class => static function (IContainer $container): IDriverConfig {
-            return $container->get(IConfig::class)->get(IDriverConfig::class);
+        ILinkerConfig::class => static function (IContainer $container): ILinkerConfig {
+            return $container->get(IConfig::class)->get(ILinkerConfig::class);
         },
         IOutputConfig::class => static function (IContainer $container): IOutputConfig {
             return $container->get(IConfig::class)->get(IOutputConfig::class);
@@ -288,7 +288,7 @@ function builders(): Traversable
         IAuxConfigBuilder::class => AuxConfigBuilder::class,
         ILoopConfigBuilder::class => LoopConfigBuilder::class,
         IOutputConfigBuilder::class => OutputConfigBuilder::class,
-        IDriverConfigBuilder::class => DriverConfigBuilder::class,
+        ILinkerConfigBuilder::class => LinkerConfigBuilder::class,
         IWidgetConfigBuilder::class => WidgetConfigBuilder::class,
     ];
 }
@@ -345,7 +345,7 @@ function factories(): Traversable
 
 
         IOutputConfigFactory::class => OutputConfigFactory::class,
-        IDriverConfigFactory::class => DriverConfigFactory::class,
+        ILinkerConfigFactory::class => LinkerConfigFactory::class,
         ILoopFactory::class => LoopFactory::class,
 
         IWidgetConfigFactory::class => WidgetConfigFactory::class,

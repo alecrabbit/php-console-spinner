@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Config\Solver;
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
@@ -153,6 +153,6 @@ final readonly class LinkerModeSolver extends ASolver implements Contract\ILinke
 
     protected function extractOption(ISettings $settings): ?LinkerOption
     {
-        return $this->extractSettingsElement($settings, IDriverSettings::class)?->getLinkerOption();
+        return $this->extractSettingsElement($settings, ILinkerSettings::class)?->getLinkerOption();
     }
 }

@@ -5,26 +5,26 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Config\DriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
+use AlecRabbit\Spinner\Core\Config\LinkerConfig;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DriverConfigTest extends TestCase
+final class LinkerConfigTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $config = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverConfig::class, $config);
+        self::assertInstanceOf(LinkerConfig::class, $config);
     }
 
     protected function getTesteeInstance(
         ?LinkerMode $linkerMode = null,
-    ): IDriverConfig {
+    ): ILinkerConfig {
         return
-            new DriverConfig(
+            new LinkerConfig(
                 linkerMode: $linkerMode ?? LinkerMode::DISABLED,
             );
     }
@@ -46,7 +46,7 @@ final class DriverConfigTest extends TestCase
     {
         $config = $this->getTesteeInstance();
 
-        self::assertEquals(IDriverConfig::class, $config->getIdentifier());
+        self::assertEquals(ILinkerConfig::class, $config->getIdentifier());
     }
 
 }

@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILinkerConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILinkerConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 
-final readonly class DriverConfigFactory implements IDriverConfigFactory
+final readonly class LinkerConfigFactory implements ILinkerConfigFactory
 {
     public function __construct(
         protected ILinkerModeSolver $linkerModeSolver,
-        protected IDriverConfigBuilder $driverConfigBuilder,
+        protected ILinkerConfigBuilder $linkerConfigBuilder,
     ) {
     }
 
 
-    public function create(): IDriverConfig
+    public function create(): ILinkerConfig
     {
         return
-            $this->driverConfigBuilder
+            $this->linkerConfigBuilder
                 ->withLinkerMode(
                     $this->linkerModeSolver->solve(),
                 )

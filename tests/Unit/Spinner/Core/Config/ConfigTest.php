@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
@@ -59,25 +59,25 @@ final class ConfigTest extends TestCase
     }
 
     #[Test]
-    public function canSetAndGetDriverConfig(): void
+    public function canSetAndGetLinkerConfig(): void
     {
         $config = $this->getTesteeInstance();
 
-        $driverConfig = $this->getDriverConfigMock();
-        $driverConfig
+        $linkerConfig = $this->getLinkerConfigMock();
+        $linkerConfig
             ->expects(self::once())
             ->method('getIdentifier')
-            ->willReturn(IDriverConfig::class)
+            ->willReturn(ILinkerConfig::class)
         ;
 
-        $config->set($driverConfig);
+        $config->set($linkerConfig);
 
-        self::assertSame($driverConfig, $config->get(IDriverConfig::class));
+        self::assertSame($linkerConfig, $config->get(ILinkerConfig::class));
     }
 
-    protected function getDriverConfigMock(): MockObject&IDriverConfig
+    protected function getLinkerConfigMock(): MockObject&ILinkerConfig
     {
-        return $this->createMock(IDriverConfig::class);
+        return $this->createMock(ILinkerConfig::class);
     }
 
 

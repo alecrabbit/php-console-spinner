@@ -6,13 +6,13 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
@@ -50,15 +50,15 @@ final class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function canSetAndGetDriverSettings(): void
+    public function canSetAndGetLinkerSettings(): void
     {
         $settings = $this->getTesteeInstance();
 
-        $driverSettings = new DriverSettings();
+        $linkerSettings = new LinkerSettings();
 
-        $settings->set($driverSettings);
+        $settings->set($linkerSettings);
 
-        self::assertSame($driverSettings, $settings->get(IDriverSettings::class));
+        self::assertSame($linkerSettings, $settings->get(ILinkerSettings::class));
     }
 
     #[Test]
@@ -115,7 +115,7 @@ final class SettingsTest extends TestCase
         $settings = $this->getTesteeInstance();
 
         $auxSettings = new AuxSettings();
-        $driverSettings = new DriverSettings();
+        $linkerSettings = new LinkerSettings();
         $loopSettings = new LoopSettings();
         $outputSettings = new OutputSettings();
         $widgetSettings = new WidgetSettings();
@@ -123,7 +123,7 @@ final class SettingsTest extends TestCase
 
         $settings->set(
             $auxSettings,
-            $driverSettings,
+            $linkerSettings,
             $loopSettings,
             $outputSettings,
             $widgetSettings,
@@ -131,7 +131,7 @@ final class SettingsTest extends TestCase
         );
 
         self::assertSame($auxSettings, $settings->get(IAuxSettings::class));
-        self::assertSame($driverSettings, $settings->get(IDriverSettings::class));
+        self::assertSame($linkerSettings, $settings->get(ILinkerSettings::class));
         self::assertSame($loopSettings, $settings->get(ILoopSettings::class));
         self::assertSame($outputSettings, $settings->get(IOutputSettings::class));
         self::assertSame($widgetSettings, $settings->get(IWidgetSettings::class));

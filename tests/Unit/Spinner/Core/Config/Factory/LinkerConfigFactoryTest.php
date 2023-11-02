@@ -5,33 +5,33 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILinkerConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILinkerConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
+use AlecRabbit\Spinner\Core\Config\Factory\LinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverConfigFactoryTest extends TestCase
+final class LinkerConfigFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $factory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverConfigFactory::class, $factory);
+        self::assertInstanceOf(LinkerConfigFactory::class, $factory);
     }
 
     public function getTesteeInstance(
         ?ILinkerModeSolver $linkerModeSolver = null,
-        ?IDriverConfigBuilder $driverConfigBuilder = null,
-    ): IDriverConfigFactory {
+        ?ILinkerConfigBuilder $linkerConfigBuilder = null,
+    ): ILinkerConfigFactory {
         return
-            new DriverConfigFactory(
+            new LinkerConfigFactory(
                 linkerModeSolver: $linkerModeSolver ?? $this->getLinkerModeSolverMock(),
-                driverConfigBuilder: $driverConfigBuilder ?? $this->getDriverConfigBuilderMock(),
+                linkerConfigBuilder: $linkerConfigBuilder ?? $this->getLinkerConfigBuilderMock(),
             );
     }
 
@@ -48,9 +48,9 @@ final class DriverConfigFactoryTest extends TestCase
     }
 
 
-    protected function getDriverConfigBuilderMock(): MockObject&IDriverConfigBuilder
+    protected function getLinkerConfigBuilderMock(): MockObject&ILinkerConfigBuilder
     {
-        return $this->createMock(IDriverConfigBuilder::class);
+        return $this->createMock(ILinkerConfigBuilder::class);
     }
 
     #[Test]
@@ -58,43 +58,43 @@ final class DriverConfigFactoryTest extends TestCase
     {
         $linkerMode = LinkerMode::ENABLED;
 
-        $driverConfig =
-            $this->getDriverConfigMock(
+        $linkerConfig =
+            $this->getLinkerConfigMock(
                 $linkerMode,
             );
 
-        $driverConfigBuilder = $this->getDriverConfigBuilderMock();
-        $driverConfigBuilder
+        $linkerConfigBuilder = $this->getLinkerConfigBuilderMock();
+        $linkerConfigBuilder
             ->expects(self::once())
             ->method('withLinkerMode')
             ->with($linkerMode)
             ->willReturnSelf()
         ;
-        $driverConfigBuilder
+        $linkerConfigBuilder
             ->expects(self::once())
             ->method('build')
-            ->willReturn($driverConfig)
+            ->willReturn($linkerConfig)
         ;
 
         $factory =
             $this->getTesteeInstance(
                 linkerModeSolver: $this->getLinkerModeSolverMock($linkerMode),
-                driverConfigBuilder: $driverConfigBuilder,
+                linkerConfigBuilder: $linkerConfigBuilder,
             );
 
         $config = $factory->create();
 
-        self::assertSame($driverConfig, $config);
+        self::assertSame($linkerConfig, $config);
 
         self::assertSame($linkerMode, $config->getLinkerMode());
     }
 
-    protected function getDriverConfigMock(
+    protected function getLinkerConfigMock(
         ?LinkerMode $linkerMode = null,
-    ): MockObject&IDriverConfig {
+    ): MockObject&ILinkerConfig {
         return
             $this->createConfiguredMock(
-                IDriverConfig::class,
+                ILinkerConfig::class,
                 [
                     'getLinkerMode' => $linkerMode ?? LinkerMode::DISABLED,
                 ]

@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\Contract;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 
-interface IDriverConfig extends IConfigElement
+interface ILinkerConfig extends IConfigElement
 {
     public function getLinkerMode(): LinkerMode;
 }

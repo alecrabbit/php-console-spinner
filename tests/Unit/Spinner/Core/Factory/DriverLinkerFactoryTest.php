@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
@@ -27,12 +27,12 @@ final class DriverLinkerFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?ILoopProvider $loopProvider = null,
-        ?IDriverConfig $driverConfig = null,
+        ?ILinkerConfig $linkerConfig = null,
     ): IDriverLinkerFactory {
         return
             new DriverLinkerFactory(
                 loopProvider: $loopProvider ?? $this->getLoopProviderMock(),
-                driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
+                linkerConfig: $linkerConfig ?? $this->getLinkerConfigMock(),
             );
     }
 
@@ -41,10 +41,10 @@ final class DriverLinkerFactoryTest extends TestCase
         return $this->createMock(ILoopProvider::class);
     }
 
-    private function getDriverConfigMock(?LinkerMode $linkerMode = null): MockObject&IDriverConfig
+    private function getLinkerConfigMock(?LinkerMode $linkerMode = null): MockObject&ILinkerConfig
     {
         return $this->createConfiguredMock(
-            IDriverConfig::class,
+            ILinkerConfig::class,
             [
                 'getLinkerMode' => $linkerMode ?? LinkerMode::DISABLED,
             ]
@@ -61,12 +61,12 @@ final class DriverLinkerFactoryTest extends TestCase
             ->willReturn(true)
         ;
 
-        $driverConfig = $this->getDriverConfigMock(LinkerMode::ENABLED);
+        $linkerConfig = $this->getLinkerConfigMock(LinkerMode::ENABLED);
 
         $factory =
             $this->getTesteeInstance(
                 loopProvider: $loopProvider,
-                driverConfig: $driverConfig
+                linkerConfig: $linkerConfig
             );
 
         self::assertInstanceOf(DriverLinkerFactory::class, $factory);
@@ -83,8 +83,8 @@ final class DriverLinkerFactoryTest extends TestCase
             ->willReturn(false)
         ;
 
-        $driverConfig = $this->getDriverConfigMock();
-        $driverConfig
+        $linkerConfig = $this->getLinkerConfigMock();
+        $linkerConfig
             ->expects(self::never())
             ->method('getLinkerMode')
             ->willReturn(LinkerMode::ENABLED)
@@ -93,7 +93,7 @@ final class DriverLinkerFactoryTest extends TestCase
         $factory =
             $this->getTesteeInstance(
                 loopProvider: $loopProvider,
-                driverConfig: $driverConfig
+                linkerConfig: $linkerConfig
             );
 
         self::assertInstanceOf(DriverLinkerFactory::class, $factory);
@@ -124,8 +124,8 @@ final class DriverLinkerFactoryTest extends TestCase
             ->willReturn(true)
         ;
 
-        $driverConfig = $this->getDriverConfigMock();
-        $driverConfig
+        $linkerConfig = $this->getLinkerConfigMock();
+        $linkerConfig
             ->expects(self::once())
             ->method('getLinkerMode')
             ->willReturn(LinkerMode::ENABLED)
@@ -134,7 +134,7 @@ final class DriverLinkerFactoryTest extends TestCase
         $factory =
             $this->getTesteeInstance(
                 loopProvider: $loopProvider,
-                driverConfig: $driverConfig
+                linkerConfig: $linkerConfig
             );
 
         self::assertInstanceOf(DriverLinkerFactory::class, $factory);

@@ -26,11 +26,11 @@ $outputConfig->getStream(); // STDERR
 
 # NEW FEATURE // $outputConfig->getClearScreenMode(); // ClearScreenMode::DISABLED
 
-// Driver config
-$driverConfig = $config->get(IDriverConfig::class);
+// Linker config
+$linkerConfig = $config->get(ILinkerConfig::class);
 
-$driverConfig->getLinkerMode(); // LinkerMode::ENABLED
-$driverConfig->getInitializationMode(); // InitializationMode::ENABLED
+$linkerConfig->getLinkerMode(); // LinkerMode::ENABLED
+$linkerConfig->getInitializationMode(); // InitializationMode::ENABLED
 
 // Widget config
 $widgetConfig = $config->get(IWidgetConfig::class);

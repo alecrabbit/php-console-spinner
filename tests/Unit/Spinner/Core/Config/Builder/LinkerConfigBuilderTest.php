@@ -5,27 +5,27 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
-use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\DriverConfig;
+use AlecRabbit\Spinner\Core\Config\Builder\LinkerConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILinkerConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\LinkerConfig;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DriverConfigBuilderTest extends TestCase
+final class LinkerConfigBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $configBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverConfigBuilder::class, $configBuilder);
+        self::assertInstanceOf(LinkerConfigBuilder::class, $configBuilder);
     }
 
-    protected function getTesteeInstance(): IDriverConfigBuilder
+    protected function getTesteeInstance(): ILinkerConfigBuilder
     {
         return
-            new DriverConfigBuilder();
+            new LinkerConfigBuilder();
     }
 
     #[Test]
@@ -38,7 +38,7 @@ final class DriverConfigBuilderTest extends TestCase
             ->build()
         ;
 
-        self::assertInstanceOf(DriverConfig::class, $config);
+        self::assertInstanceOf(LinkerConfig::class, $config);
     }
 
     #[Test]
@@ -51,7 +51,7 @@ final class DriverConfigBuilderTest extends TestCase
                 ->withLinkerMode(LinkerMode::DISABLED)
         ;
 
-        self::assertInstanceOf(DriverConfigBuilder::class, $builder);
+        self::assertInstanceOf(LinkerConfigBuilder::class, $builder);
         self::assertNotSame($builder, $configBuilder);
     }
 

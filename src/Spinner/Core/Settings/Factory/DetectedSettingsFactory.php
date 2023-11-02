@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDet
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
@@ -50,7 +50,7 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
             new AuxSettings(
                 runMethodOption: $this->getRunMethodOption(),
             ),
-            new DriverSettings(
+            new LinkerSettings(
                 linkerOption: $this->getLinkerOption(),
             ),
             new LoopSettings(

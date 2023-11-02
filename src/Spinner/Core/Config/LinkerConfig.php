@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 
-final readonly class DriverConfig implements IDriverConfig
+final readonly class LinkerConfig implements ILinkerConfig
 {
     public function __construct(
         protected LinkerMode $linkerMode,
@@ -20,10 +20,10 @@ final readonly class DriverConfig implements IDriverConfig
     }
 
     /**
-     * @return class-string<IDriverConfig>
+     * @return class-string<ILinkerConfig>
      */
     public function getIdentifier(): string
     {
-        return IDriverConfig::class;
+        return ILinkerConfig::class;
     }
 }

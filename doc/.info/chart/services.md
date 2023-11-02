@@ -76,7 +76,7 @@ classDiagram
     IDriverFactory ..> IDriverOutputFactory
     IDriverFactory ..> ITimerFactory
     IDriverFactory ..> IDriverSetup
-    IDriverFactory ..> IDriverSettings
+    IDriverFactory ..> ILinkerSettings
     IDriverFactory ..> ISignalHandlingSetupFactory
     
     IDriverBuilder ..> IIntervalFactory

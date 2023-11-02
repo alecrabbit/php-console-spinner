@@ -7,7 +7,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
@@ -61,14 +61,14 @@ $outputSettings =
 
 // # NEW FEATURE: $outputSettings? ClearScreenOption(ClearScreenOption::AUTO);
 
-// Driver settings
-$driverSettings = 
-    new DriverSettings(
+// Linker settings
+$linkerSettings = 
+    new LinkerSettings(
         linkerOption: LinkerOption::AUTO, // todo: check semantics
     );
 
-// # NEW FEATURE: $driverSettings? FinalMessage(''); // todo: where to put it?
-// # NEW FEATURE: $driverSettings? InterruptMessage(''); // todo: where to put it?
+// # NEW FEATURE: $linkerSettings? FinalMessage(''); // todo: where to put it?
+// # NEW FEATURE: $linkerSettings? InterruptMessage(''); // todo: where to put it?
 
 // Widget settings
 $widgetSettings = 
@@ -97,7 +97,7 @@ $settings->set(
     $auxSettings,
     $loopSettings,
     $outputSettings,
-    $driverSettings,
+    $linkerSettings,
     $widgetSettings,
     $rootWidgetSettings,
     $signalHandlerSettings,

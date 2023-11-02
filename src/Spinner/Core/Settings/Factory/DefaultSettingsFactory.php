@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
@@ -44,7 +44,7 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
                 runMethodOption: RunMethodOption::ASYNC,
                 normalizerOption: NormalizerOption::BALANCED,
             ),
-            new DriverSettings(
+            new LinkerSettings(
                 linkerOption: LinkerOption::ENABLED,
             ),
             new LoopSettings(

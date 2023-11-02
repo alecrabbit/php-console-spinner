@@ -116,6 +116,7 @@ $loop
 
 // Begin benchmarking
 $echo(sprintf('Runtime: %ss', RUNTIME));
+$echo(sprintf('Render interval, ms: %s', $driver->getInterval()->toMilliseconds()));
 $echo();
 $echo(sprintf('Using loop: "%s"', get_debug_type($loop)));
 $echo();
