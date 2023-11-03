@@ -16,21 +16,21 @@ final readonly class WidgetSettingsSolver extends ASolver implements Contract\IW
 {
     public function solve(): IWidgetSettings
     {
-            return
-                $this->doSolve(
-                    $this->extractSettings($this->settingsProvider->getUserSettings()),
-                    $this->extractSettings($this->settingsProvider->getDetectedSettings()),
-                    $this->extractSettings($this->settingsProvider->getDefaultSettings()),
-                );
+        return
+            $this->doSolve(
+                $this->extractSettings($this->settingsProvider->getUserSettings()),
+                $this->extractSettings($this->settingsProvider->getDetectedSettings()),
+                $this->extractSettings($this->settingsProvider->getDefaultSettings()),
+            );
     }
 
     /**
      * @throws LogicException
      */
     private function doSolve(
-        ?WidgetSettings $userSettings,
-        ?WidgetSettings $detectedSettings,
-        ?WidgetSettings $defaultSettings,
+        ?IWidgetSettings $userSettings,
+        ?IWidgetSettings $detectedSettings,
+        ?IWidgetSettings $defaultSettings,
     ): IWidgetSettings {
         $leadingSpacer =
             $this->getLeadingSpacer($userSettings, $detectedSettings, $defaultSettings);
@@ -113,7 +113,7 @@ final readonly class WidgetSettingsSolver extends ASolver implements Contract\IW
             throw new LogicException('Char palette expected to be set.');
     }
 
-    protected function extractSettings(ISettings $settings): ?WidgetSettings
+    protected function extractSettings(ISettings $settings): ?IWidgetSettings
     {
         return $this->extractSettingsElement($settings, IWidgetSettings::class);
     }
