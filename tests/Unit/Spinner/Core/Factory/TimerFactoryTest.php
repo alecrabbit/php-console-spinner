@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 
-final class TimerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class TimerFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -24,6 +27,11 @@ final class TimerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?ITimerBuilder $timerBuilder = null,
     ): ITimerFactory {
         return new TimerFactory(timerBuilder: $timerBuilder ?? $this->getTimerBuilderMock());
+    }
+
+    protected function getTimerBuilderMock(): MockObject&ITimerBuilder
+    {
+        return $this->createMock(ITimerBuilder::class);
     }
 
     #[Test]
@@ -54,5 +62,10 @@ final class TimerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(TimerFactory::class, $timerFactory);
         self::assertSame($timerStub, $timerFactory->create());
+    }
+
+    protected function getTimerStub(): Stub&ITimer
+    {
+        return $this->createStub(ITimer::class);
     }
 }

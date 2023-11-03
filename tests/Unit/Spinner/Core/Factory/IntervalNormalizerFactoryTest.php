@@ -9,10 +9,11 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class IntervalNormalizerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class IntervalNormalizerFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -30,6 +31,11 @@ final class IntervalNormalizerFactoryTest extends TestCaseWithPrebuiltMocksAndSt
             integerNormalizerBuilder: $integerNormalizerBuilder ?? $this->getIntegerNormalizerBuilderMock(),
             normalizerMode: $normalizerMode ?? NormalizerMode::BALANCED,
         );
+    }
+
+    protected function getIntegerNormalizerBuilderMock(): MockObject&IIntegerNormalizerBuilder
+    {
+        return $this->createMock(IIntegerNormalizerBuilder::class);
     }
 
     #[Test]

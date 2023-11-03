@@ -9,11 +9,11 @@ use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\SettingsProvider;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class SettingsProviderBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Revolver;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStubs
+final class FrameCollectionRevolverTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -35,6 +36,13 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
                 interval: $interval ?? $this->getIntervalMock(),
                 tolerance: $tolerance ?? $this->getToleranceMock(),
             );
+    }
+
+    protected function getOneElementFrameCollectionMock(): MockObject&IFrameCollection
+    {
+        $mockObject = $this->createMock(IFrameCollection::class);
+        $mockObject->method('count')->willReturn(1);
+        return $mockObject;
     }
 
     private function getToleranceMock(): MockObject&ITolerance
@@ -116,6 +124,16 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
         self::assertSame($frame0, $frameCollectionRevolver->getFrame(1));
     }
 
+    protected function getFrameCollectionMock(): MockObject&IFrameCollection
+    {
+        return $this->createMock(IFrameCollection::class);
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
     #[Test]
     public function canGetInterval(): void
     {
@@ -146,6 +164,10 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
         self::callMethod($frameCollectionRevolver, 'current');
     }
 
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
     #[Test]
     public function throwsIfFrameCollectionIsEmpty(): void
     {

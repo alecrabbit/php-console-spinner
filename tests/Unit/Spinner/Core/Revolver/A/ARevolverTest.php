@@ -8,12 +8,12 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\Revolver\Override\ARevolverOverride;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ARevolverTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -34,6 +34,11 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
                 interval: $interval ?? $this->getIntervalMock(),
                 tolerance: $tolerance ?? $this->getToleranceMock(),
             );
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
     }
 
     private function getToleranceMock(): MockObject&ITolerance
@@ -140,6 +145,11 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertSame($frame, $revolver->getFrame(90.0)); // calls `next()`
         self::assertSame($frame, $revolver->getFrame(80.0)); // does not call `next()`
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 
     #[Test]

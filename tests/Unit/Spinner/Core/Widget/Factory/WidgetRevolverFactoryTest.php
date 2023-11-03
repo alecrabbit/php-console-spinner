@@ -11,11 +11,11 @@ use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetRevolverFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -37,6 +37,21 @@ final class WidgetRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             charRevolverFactory: $charRevolverFactory ?? $this->getCharFrameRevolverFactoryMock(),
             patternFactory: $patternFactory ?? $this->getPatternFactoryMock(),
         );
+    }
+
+    protected function getWidgetRevolverBuilderMock(): MockObject&IWidgetRevolverBuilder
+    {
+        return $this->createMock(IWidgetRevolverBuilder::class);
+    }
+
+    protected function getStyleFrameRevolverFactoryMock(): MockObject&IStyleFrameRevolverFactory
+    {
+        return $this->createMock(IStyleFrameRevolverFactory::class);
+    }
+
+    protected function getCharFrameRevolverFactoryMock(): MockObject&ICharFrameRevolverFactory
+    {
+        return $this->createMock(ICharFrameRevolverFactory::class);
     }
 
     private function getPatternFactoryMock(): MockObject&IPatternFactory

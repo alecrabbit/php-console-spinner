@@ -10,11 +10,13 @@ use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 
-final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ConsoleCursorFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -39,6 +41,11 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     private function getBufferMock(): MockObject&IBuffer
     {
         return $this->createMock(IBuffer::class);
+    }
+
+    protected function getCursorBuilderMock(): MockObject&IConsoleCursorBuilder
+    {
+        return $this->createMock(IConsoleCursorBuilder::class);
     }
 
     private function getOutputConfigMock(?CursorVisibilityMode $cursorVisibilityMode = null): MockObject&IOutputConfig
@@ -90,5 +97,10 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $cursor = $cursorFactory->create();
 
         self::assertSame($cursorStub, $cursor);
+    }
+
+    protected function getCursorStub(): Stub&IConsoleCursor
+    {
+        return $this->createStub(IConsoleCursor::class);
     }
 }

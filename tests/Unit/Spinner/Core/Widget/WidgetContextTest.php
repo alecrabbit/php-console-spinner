@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\WidgetContext;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetContextTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -43,6 +46,11 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($widgetComposite, $widgetContext->getWidget());
     }
 
+    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
+    {
+        return $this->createMock(IWidgetComposite::class);
+    }
+
     #[Test]
     public function canGetWidget(): void
     {
@@ -55,6 +63,15 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($widget, $widgetContext->getWidget());
     }
 
+    protected function getWidgetMock(): MockObject&IWidget
+    {
+        return $this->createMock(IWidget::class);
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
     #[Test]
     public function canGetIntervalFromUnderlyingWidget(): void
     {
@@ -183,6 +200,11 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetContext->setWidget($widget);
 
         self::assertNull($widgetContext->getWidget());
+    }
+
+    protected function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
     }
 
     #[Test]

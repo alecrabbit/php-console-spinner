@@ -67,6 +67,7 @@ final class DriverOutputTest extends TestCase
 
         self::assertFalse(self::getPropertyValue('initialized', $driverOutput));
     }
+
     #[Test]
     public function canBeFinalizedIfInitializedWithEmptyMessage(): void
     {

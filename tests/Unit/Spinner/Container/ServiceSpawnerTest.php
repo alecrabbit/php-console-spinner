@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
+use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailedException;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawner;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawnerWithParameters;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawnerWithParametersNoType;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\NonInstantiableClass;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Container\ContainerInterface;
 
-final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ServiceSpawnerTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -30,6 +32,11 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocksAndStubs
         return new ServiceSpawner(
             container: $container ?? $this->getContainerMock(),
         );
+    }
+
+    protected function getContainerMock(): MockObject&IContainer
+    {
+        return $this->createMock(IContainer::class);
     }
 
     #[Test]

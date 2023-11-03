@@ -51,10 +51,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
         $driver->initialize();
         $driver->finalize($finalMessage);
     }
-    private function getDriverMessagesMock(): MockObject&IDriverMessages
-    {
-        return $this->createMock(IDriverMessages::class);
-    }
+
     #[Test]
     public function canFinalizeInitializedWithNoMessage(): void
     {
@@ -88,6 +85,11 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driver->initialize();
         $driver->finalize();
+    }
+
+    private function getDriverMessagesMock(): MockObject&IDriverMessages
+    {
+        return $this->createMock(IDriverMessages::class);
     }
 
     #[Test]

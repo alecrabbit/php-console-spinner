@@ -4,19 +4,23 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
+use AlecRabbit\Spinner\Core\Contract\IWeakMap;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use WeakMap;
 
-final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetCompositeChildrenContainerTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -34,6 +38,11 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
             map: $map ?? $this->getWeakMapMock(),
             observer: $observer,
         );
+    }
+
+    protected function getWeakMapMock(): MockObject&IWeakMap
+    {
+        return $this->createMock(IWeakMap::class);
     }
 
     #[Test]
@@ -68,6 +77,15 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 
         $container->add($context);
         self::assertSame($interval, $container->getInterval());
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
+    protected function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
     }
 
     #[Test]
@@ -334,7 +352,10 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 
         $container->add($context);
     }
-
+    protected function getWidgetContextMock(): MockObject&IWidgetContext
+    {
+        return $this->createMock(IWidgetContext::class);
+    }
     #[Test]
     public function throwsIfUpdateInvokedForSelf(): void
     {

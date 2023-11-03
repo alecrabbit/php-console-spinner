@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetRevolverTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetRevolverTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -35,11 +37,20 @@ final class WidgetRevolverTest extends TestCaseWithPrebuiltMocksAndStubs
             );
     }
 
+    protected function getRevolverMock(): MockObject&IRevolver
+    {
+        return $this->createMock(IRevolver::class);
+    }
+
     private function getToleranceMock(): MockObject&ITolerance
     {
         return $this->createMock(ITolerance::class);
     }
 
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
     #[Test]
     public function canGetInterval(): void
     {
@@ -124,5 +135,10 @@ final class WidgetRevolverTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertEquals('-c-', $result->sequence());
         self::assertEquals(3, $result->width());
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
     }
 }
