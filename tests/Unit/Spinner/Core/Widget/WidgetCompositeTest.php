@@ -75,10 +75,6 @@ final class WidgetCompositeTest extends TestCase
         self::assertInstanceOf(WidgetComposite::class, $widgetComposite);
     }
 
-    protected function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
-    }
     #[Test]
     public function canBeUpdated(): void
     {
@@ -127,6 +123,11 @@ final class WidgetCompositeTest extends TestCase
         $widgetComposite->update($children);
 
         self::assertSame($initialInterval, $widgetComposite->getInterval());
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 
 //
@@ -264,10 +265,7 @@ final class WidgetCompositeTest extends TestCase
     {
         return $this->createMock(IObserver::class);
     }
-    protected function getWidgetContextMock(): MockObject&IWidgetContext
-    {
-        return $this->createMock(IWidgetContext::class);
-    }
+
     #[Test]
     public function removingNonExistentWidgetDoesNothing(): void
     {
@@ -294,6 +292,11 @@ final class WidgetCompositeTest extends TestCase
         ;
 
         $composite->remove($nonExistentContext);
+    }
+
+    protected function getWidgetContextMock(): MockObject&IWidgetContext
+    {
+        return $this->createMock(IWidgetContext::class);
     }
 
     #[Test]

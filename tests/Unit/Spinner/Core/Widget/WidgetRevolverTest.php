@@ -47,10 +47,6 @@ final class WidgetRevolverTest extends TestCase
         return $this->createMock(ITolerance::class);
     }
 
-    protected function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
-    }
     #[Test]
     public function canGetInterval(): void
     {
@@ -81,6 +77,11 @@ final class WidgetRevolverTest extends TestCase
             character: $character,
         );
         self::assertSame($interval, $revolver->getInterval());
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 
     #[Test]

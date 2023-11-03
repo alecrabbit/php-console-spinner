@@ -45,6 +45,11 @@ final class FrameCollectionRevolverTest extends TestCase
         return $mockObject;
     }
 
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
+
     private function getToleranceMock(): MockObject&ITolerance
     {
         return $this->createMock(ITolerance::class);
@@ -62,7 +67,6 @@ final class FrameCollectionRevolverTest extends TestCase
         self::callMethod($frameCollectionRevolver, 'next');
         self::assertEquals(0, self::getPropertyValue('offset', $frameCollectionRevolver));
     }
-
 
     #[Test]
     public function canUpdate(): void
@@ -164,10 +168,6 @@ final class FrameCollectionRevolverTest extends TestCase
         self::callMethod($frameCollectionRevolver, 'current');
     }
 
-    protected function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
-    }
     #[Test]
     public function throwsIfFrameCollectionIsEmpty(): void
     {

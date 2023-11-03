@@ -79,13 +79,19 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
         self::assertSame($interval, $container->getInterval());
     }
 
+    protected function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
+    }
+
     protected function getIntervalMock(): MockObject&IInterval
     {
         return $this->createMock(IInterval::class);
     }
-    protected function getObserverMock(): MockObject&IObserver
+
+    protected function getWidgetContextMock(): MockObject&IWidgetContext
     {
-        return $this->createMock(IObserver::class);
+        return $this->createMock(IWidgetContext::class);
     }
 
     #[Test]
@@ -352,10 +358,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
 
         $container->add($context);
     }
-    protected function getWidgetContextMock(): MockObject&IWidgetContext
-    {
-        return $this->createMock(IWidgetContext::class);
-    }
+
     #[Test]
     public function throwsIfUpdateInvokedForSelf(): void
     {

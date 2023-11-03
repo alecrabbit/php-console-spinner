@@ -53,13 +53,14 @@ final class FrameRevolverBuilderTest extends TestCase
         self::assertInstanceOf(FrameCollectionRevolver::class, $revolver);
     }
 
-    protected function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
-    }
     protected function getFrameCollectionMock(): MockObject&IFrameCollection
     {
         return $this->createMock(IFrameCollection::class);
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 
     private function getToleranceMock(): MockObject&ITolerance

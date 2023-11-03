@@ -68,10 +68,6 @@ final class WidgetContextTest extends TestCase
         return $this->createMock(IWidget::class);
     }
 
-    protected function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
-    }
     #[Test]
     public function canGetIntervalFromUnderlyingWidget(): void
     {
@@ -89,6 +85,11 @@ final class WidgetContextTest extends TestCase
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
         self::assertSame($interval, $widgetContext->getInterval());
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 
     #[Test]
