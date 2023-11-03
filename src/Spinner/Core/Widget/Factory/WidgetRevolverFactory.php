@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
@@ -21,10 +22,11 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
         protected IStyleFrameRevolverFactory $styleRevolverFactory,
         protected ICharFrameRevolverFactory $charRevolverFactory,
         protected IPatternFactory $patternFactory,
+        protected IRevolverConfig $revolverConfig,
     ) {
     }
 
-    public function create(IWidgetRevolverConfig $revolverConfig): IRevolver
+    public function create(IWidgetRevolverConfig $widgetRevolverConfig): IRevolver
     {
         return
             $this->widgetRevolverBuilder
@@ -32,7 +34,7 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
                     $this->styleRevolverFactory
                         ->create(
                             $this->patternFactory->create(
-                                $revolverConfig->getStylePalette()
+                                $widgetRevolverConfig->getStylePalette()
                             )
                         )
                 )
@@ -40,20 +42,14 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
                     $this->charRevolverFactory
                         ->create(
                             $this->patternFactory->create(
-                                $revolverConfig->getCharPalette()
+                                $widgetRevolverConfig->getCharPalette()
                             )
                         )
                 )
                 ->withTolerance(
-                    $this->getTolerance()
+                    $this->revolverConfig->getTolerance()
                 )
                 ->build()
         ;
-    }
-
-    private function getTolerance(): ITolerance
-    {
-        // TODO (2023-04-26 14:21) [Alec Rabbit]: make it configurable [fd86d318-9069-47e2-b60d-a68f537be4a3]
-        return new Tolerance();
     }
 }

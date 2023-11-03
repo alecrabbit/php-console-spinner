@@ -51,6 +51,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
@@ -63,6 +64,7 @@ use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\RevolverConfig;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
@@ -279,6 +281,10 @@ function configs(): Traversable
         RunMethodMode::class => static function (IContainer $container): RunMethodMode {
             return $container->get(IAuxConfig::class)->getRunMethodMode();
         },
+        IRevolverConfig::class => static function (IContainer $container): IRevolverConfig {
+            // TODO (2023-04-26 14:21) [Alec Rabbit]: make it configurable [fd86d318-9069-47e2-b60d-a68f537be4a3]
+            return new RevolverConfig();
+        },
     ];
 }
 
@@ -399,20 +405,6 @@ function detectors(): Traversable
 function substitutes(): Traversable
 {
     yield from [
-//        IWidgetSettingsSolver::class => static function (): IWidgetSettingsSolver {
-//            return new class implements IWidgetSettingsSolver {
-//                public function solve(): IWidgetSettings
-//                {
-//                    return
-//                        new WidgetSettings(
-//                            leadingSpacer: new CharFrame('', 0),
-//                            trailingSpacer: new CharFrame(' ', 1),
-//                            stylePalette: new NoStylePalette(),
-//                            charPalette: new NoCharPalette(),
-//                        );
-//                }
-//            };
-//        },
         IRootWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
             return
                 new class implements IRootWidgetConfigFactory {
