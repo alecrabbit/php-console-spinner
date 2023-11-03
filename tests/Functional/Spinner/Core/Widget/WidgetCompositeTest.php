@@ -193,8 +193,10 @@ final class WidgetCompositeTest extends TestCase
 
         self::assertSame('lsrfstso1o2', $result->sequence());
         self::assertSame(11, $result->width());
-    }    protected function getWidgetContextMock(): MockObject&IWidgetContext
-{
-    return $this->createMock(IWidgetContext::class);
-}
+    }
+
+    protected function getWidgetContextMock(): MockObject&IWidgetContext
+    {
+        return $this->createMock(IWidgetContext::class);
+    }
 }
