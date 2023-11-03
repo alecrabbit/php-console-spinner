@@ -1,14 +1,14 @@
 phploc 7.0.2 by Sebastian Bergmann.
 
 Directories                                         68
-Files                                              250
+Files                                              249
 
 Size
-  Lines of Code (LOC)                            28610
-  Comment Lines of Code (CLOC)                     391 (1.37%)
-  Non-Comment Lines of Code (NCLOC)              28219 (98.63%)
-  Logical Lines of Code (LLOC)                    6542 (22.87%)
-    Classes                                       6535 (99.89%)
+  Lines of Code (LOC)                            28633
+  Comment Lines of Code (CLOC)                     388 (1.36%)
+  Non-Comment Lines of Code (NCLOC)              28245 (98.64%)
+  Logical Lines of Code (LLOC)                    6549 (22.87%)
+    Classes                                       6542 (99.89%)
       Average Class Length                          26
         Minimum Class Length                         0
         Maximum Class Length                       871
@@ -17,14 +17,14 @@ Size
         Maximum Method Length                      374
       Average Methods Per Class                      6
         Minimum Methods Per Class                    0
-        Maximum Methods Per Class                   48
+        Maximum Methods Per Class                   23
     Functions                                        4 (0.06%)
       Average Function Length                        0
     Not in classes or functions                      3 (0.05%)
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.06
-  Average Complexity per Class                    2.59
+  Average Complexity per Class                    2.60
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     14.00
   Average Complexity per Method                   1.25
@@ -39,27 +39,27 @@ Dependencies
   Attribute Accesses                                23
     Non-Static                                      16 (69.57%)
     Static                                           7 (30.43%)
-  Method Calls                                    8705
-    Non-Static                                    5738 (65.92%)
-    Static                                        2967 (34.08%)
+  Method Calls                                    8712
+    Non-Static                                    5745 (65.94%)
+    Static                                        2967 (34.06%)
 
 Structure
   Namespaces                                        68
   Interfaces                                         0
   Traits                                             1
-  Classes                                          248
-    Abstract Classes                                 5 (2.02%)
-    Concrete Classes                               243 (97.98%)
+  Classes                                          247
+    Abstract Classes                                 4 (1.62%)
+    Concrete Classes                               243 (98.38%)
       Final Classes                                226 (93.00%)
       Non-Final Classes                             17 (7.00%)
-  Methods                                         1637
+  Methods                                         1644
     Scope
-      Non-Static Methods                          1536 (93.83%)
-      Static Methods                               101 (6.17%)
+      Non-Static Methods                          1543 (93.86%)
+      Static Methods                               101 (6.14%)
     Visibility
-      Public Methods                              1022 (62.43%)
-      Protected Methods                            359 (21.93%)
-      Private Methods                              256 (15.64%)
+      Public Methods                              1022 (62.17%)
+      Protected Methods                            366 (22.26%)
+      Private Methods                              256 (15.57%)
   Functions                                         97
     Named Functions                                  3 (3.09%)
     Anonymous Functions                             94 (96.91%)
