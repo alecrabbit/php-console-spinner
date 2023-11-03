@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
@@ -18,9 +19,10 @@ final readonly class ConfigFactory implements IConfigFactory
 {
     public function __construct(
         protected IAuxConfigFactory $auxConfigFactory,
+        protected IDriverConfigFactory $driverConfigFactory,
         protected ILoopConfigFactory $loopConfigFactory,
         protected IOutputConfigFactory $outputConfigFactory,
-        protected IDriverConfigFactory $driverConfigFactory,
+        protected ILinkerConfigFactory $linkerConfigFactory,
         protected IWidgetConfigFactory $widgetConfigFactory,
         protected IRootWidgetConfigFactory $rootWidgetConfigFactory,
     ) {
@@ -40,9 +42,10 @@ final readonly class ConfigFactory implements IConfigFactory
     {
         $config->set(
             $this->auxConfigFactory->create(),
+            $this->driverConfigFactory->create(),
             $this->loopConfigFactory->create(),
             $this->outputConfigFactory->create(),
-            $this->driverConfigFactory->create(),
+            $this->linkerConfigFactory->create(),
             $this->widgetConfigFactory->create(),
             $this->rootWidgetConfigFactory->create(),
         );

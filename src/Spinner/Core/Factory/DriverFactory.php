@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
@@ -18,6 +19,7 @@ final class DriverFactory implements IDriverFactory
         protected IIntervalFactory $intervalFactory,
         protected IDriverOutputFactory $driverOutputFactory,
         protected ITimerFactory $timerFactory,
+        protected IDriverConfig $driverConfig,
     ) {
     }
 
@@ -34,6 +36,7 @@ final class DriverFactory implements IDriverFactory
                 ->withInitialInterval(
                     $this->intervalFactory->createStill()
                 )
+                ->withDriverConfig($this->driverConfig)
                 ->build()
         ;
     }

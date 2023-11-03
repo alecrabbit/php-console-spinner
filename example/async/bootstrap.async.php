@@ -35,6 +35,13 @@ $memoryReport =
             )
         );
     };
+// Create render interval report function
+$renderIntervalReport =
+    static function () use ($echo, $driver): void {
+        $echo(
+            sprintf('Render interval, ms: %s', $driver->getInterval()->toMilliseconds())
+        );
+    };
 
 $loop = Facade::getLoop();
 
@@ -45,6 +52,11 @@ $loop
         $memoryReport
     )
 ;
+
+$loop->delay(
+    1,
+    $renderIntervalReport
+);
 
 $echo(PHP_EOL . sprintf('Using loop: "%s"', get_debug_type($loop)));
 $echo();

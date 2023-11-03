@@ -5,20 +5,18 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Contract\ITolerance;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
-use AlecRabbit\Spinner\Core\Revolver\Tolerance;
 
 final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
 {
     public function __construct(
         protected IFrameRevolverBuilder $frameRevolverBuilder,
         protected IFrameCollectionFactory $frameCollectionFactory,
-        protected IIntervalFactory $intervalFactory,
+        protected IRevolverConfig $revolverConfig,
     ) {
     }
 
@@ -27,23 +25,18 @@ final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
         return
             $this->frameRevolverBuilder
                 ->withFrameCollection(
-                    $this->frameCollectionFactory->create(
-                        $pattern->getFrames()
-                    )
+                    $this->frameCollectionFactory
+                        ->create(
+                            $pattern->getFrames()
+                        )
                 )
                 ->withInterval(
                     $pattern->getInterval()
                 )
                 ->withTolerance(
-                    $this->getTolerance()
+                    $this->revolverConfig->getTolerance()
                 )
                 ->build()
         ;
-    }
-
-    private function getTolerance(): ITolerance
-    {
-        // TODO (2023-04-26 14:21) [Alec Rabbit]: make it configurable [fd86d318-9069-47e2-b60d-a68f537be4a3]
-        return new Tolerance();
     }
 }

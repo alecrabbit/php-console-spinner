@@ -9,5 +9,5 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 
 interface IWidgetRevolverFactory
 {
-    public function create(IWidgetRevolverConfig $revolverConfig): IRevolver;
+    public function create(IWidgetRevolverConfig $widgetRevolverConfig): IRevolver;
 }

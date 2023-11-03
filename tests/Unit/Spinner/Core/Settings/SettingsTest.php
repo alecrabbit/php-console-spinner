@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
@@ -14,12 +14,12 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 
-final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
+final class SettingsTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -197,9 +197,9 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         return $this->createMock(IOutputSettings::class);
     }
 
-    protected function getDriverSettingsMock(): MockObject&IDriverSettings
+    protected function getLinkerSettingsMock(): MockObject&ILinkerSettings
     {
-        return $this->createMock(IDriverSettings::class);
+        return $this->createMock(ILinkerSettings::class);
     }
 
     protected function getWidgetSettingsMock(): MockObject&IWidgetSettings

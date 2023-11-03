@@ -141,16 +141,16 @@ final class InitializationModeSolverTest extends TestCase
             $defaultInitializationOption
         ] = $args;
 
-        $userDriverSettings = $this->getDriverSettingsMock($userInitializationOption);
-        $detectedDriverSettings = $this->getDriverSettingsMock($detectedInitializationOption);
-        $defaultDriverSettings = $this->getDriverSettingsMock($defaultInitializationOption);
+        $userLinkerSettings = $this->getLinkerSettingsMock($userInitializationOption);
+        $detectedLinkerSettings = $this->getLinkerSettingsMock($detectedInitializationOption);
+        $defaultLinkerSettings = $this->getLinkerSettingsMock($defaultInitializationOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(IOutputSettings::class))
-            ->willReturn($userDriverSettings)
+            ->willReturn($userLinkerSettings)
         ;
 
         $detectedSettings = $this->getSettingsMock();
@@ -158,7 +158,7 @@ final class InitializationModeSolverTest extends TestCase
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(IOutputSettings::class))
-            ->willReturn($detectedDriverSettings)
+            ->willReturn($detectedLinkerSettings)
         ;
 
         $defaultSettings = $this->getSettingsMock();
@@ -166,7 +166,7 @@ final class InitializationModeSolverTest extends TestCase
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(IOutputSettings::class))
-            ->willReturn($defaultDriverSettings)
+            ->willReturn($defaultLinkerSettings)
         ;
 
         $settingsProvider = $this->getSettingsProviderMock();
@@ -198,7 +198,7 @@ final class InitializationModeSolverTest extends TestCase
         }
     }
 
-    protected function getDriverSettingsMock(?InitializationOption $initializationOption = null
+    protected function getLinkerSettingsMock(?InitializationOption $initializationOption = null
     ): (MockObject&IOutputSettings)|null {
         return
             $initializationOption === null

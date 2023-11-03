@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverMessagesSolver;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -25,25 +25,13 @@ final class DriverConfigFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?ILinkerModeSolver $linkerModeSolver = null,
         ?IDriverConfigBuilder $driverConfigBuilder = null,
+        ?IDriverMessagesSolver $driverMessagesSolver = null,
     ): IDriverConfigFactory {
         return
             new DriverConfigFactory(
-                linkerModeSolver: $linkerModeSolver ?? $this->getLinkerModeSolverMock(),
                 driverConfigBuilder: $driverConfigBuilder ?? $this->getDriverConfigBuilderMock(),
-            );
-    }
-
-    protected function getLinkerModeSolverMock(
-        ?LinkerMode $linkerMode = null,
-    ): MockObject&ILinkerModeSolver {
-        return
-            $this->createConfiguredMock(
-                ILinkerModeSolver::class,
-                [
-                    'solve' => $linkerMode ?? LinkerMode::DISABLED,
-                ]
+                driverMessagesSolver: $driverMessagesSolver ?? $this->getDriverMessagesSolverMock(),
             );
     }
 
@@ -53,21 +41,26 @@ final class DriverConfigFactoryTest extends TestCase
         return $this->createMock(IDriverConfigBuilder::class);
     }
 
+    private function getDriverMessagesSolverMock(): MockObject&IDriverMessagesSolver
+    {
+        return $this->createMock(IDriverMessagesSolver::class);
+    }
+
     #[Test]
     public function canCreate(): void
     {
-        $linkerMode = LinkerMode::ENABLED;
-
-        $driverConfig =
-            $this->getDriverConfigMock(
-                $linkerMode,
-            );
-
+        $driverMessages = $this->getDriverMessagesMock();
+        $driverConfig = $this->geyDriverConfigMock();
+        $driverMessagesSolver = $this->getDriverMessagesSolverMock();
+        $driverMessagesSolver
+            ->expects(self::once())
+            ->method('solve')
+            ->willReturn($driverMessages)
+        ;
         $driverConfigBuilder = $this->getDriverConfigBuilderMock();
         $driverConfigBuilder
             ->expects(self::once())
-            ->method('withLinkerMode')
-            ->with($linkerMode)
+            ->method('withDriverMessages')
             ->willReturnSelf()
         ;
         $driverConfigBuilder
@@ -76,28 +69,22 @@ final class DriverConfigFactoryTest extends TestCase
             ->willReturn($driverConfig)
         ;
 
-        $factory =
-            $this->getTesteeInstance(
-                linkerModeSolver: $this->getLinkerModeSolverMock($linkerMode),
-                driverConfigBuilder: $driverConfigBuilder,
-            );
+        $factory = $this->getTesteeInstance(
+            driverConfigBuilder: $driverConfigBuilder,
+            driverMessagesSolver: $driverMessagesSolver,
+        );
 
-        $config = $factory->create();
-
-        self::assertSame($driverConfig, $config);
-
-        self::assertSame($linkerMode, $config->getLinkerMode());
+        self::assertSame($driverConfig, $factory->create());
     }
 
-    protected function getDriverConfigMock(
-        ?LinkerMode $linkerMode = null,
-    ): MockObject&IDriverConfig {
-        return
-            $this->createConfiguredMock(
-                IDriverConfig::class,
-                [
-                    'getLinkerMode' => $linkerMode ?? LinkerMode::DISABLED,
-                ]
-            );
+    private function getDriverMessagesMock(): MockObject&IDriverMessages
+    {
+        return $this->createMock(IDriverMessages::class);
     }
+
+    private function geyDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
+    }
+
 }

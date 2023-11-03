@@ -9,15 +9,19 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetContext;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetCompositeTest extends TestCase
 {
     #[Test]
     public function intervalIsUpdatedOnContextAdd(): void
@@ -71,6 +75,11 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($interval2, $widgetComposite->getInterval());
     }
 
+    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
+    {
+        return $this->createMock(IWidgetRevolver::class);
+    }
+
     public function getTesteeInstance(
         ?IRevolver $revolver = null,
         ?IFrame $leadingSpacer = null,
@@ -80,12 +89,22 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     ): IWidgetComposite {
         return
             new WidgetComposite(
-                revolver: $revolver ?? $this->getRevolverMock(),
+                revolver: $revolver ?? $this->getWidgetRevolverMock(),
                 leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
                 trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
                 children: $children ?? $this->getWidgetCompositeChildrenContainerMock(),
                 observer: $observer,
             );
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
+    protected function getWidgetMock(): MockObject&IWidget
+    {
+        return $this->createMock(IWidget::class);
     }
 
     #[Test]
@@ -174,5 +193,15 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertSame('lsrfstso1o2', $result->sequence());
         self::assertSame(11, $result->width());
+    }
+
+    protected function getWidgetContextMock(): MockObject&IWidgetContext
+    {
+        return $this->createMock(IWidgetContext::class);
+    }
+
+    private function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer
+    {
+        return $this->createMock(IWidgetCompositeChildrenContainer::class);
     }
 }

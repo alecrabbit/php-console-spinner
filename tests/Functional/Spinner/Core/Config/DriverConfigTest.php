@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class DriverConfigTest extends TestCase
 {
@@ -21,24 +22,17 @@ final class DriverConfigTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?LinkerMode $linkerMode = null,
+        ?IDriverMessages $driverMessages = null,
     ): IDriverConfig {
         return
             new DriverConfig(
-                linkerMode: $linkerMode ?? LinkerMode::DISABLED,
+                driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
             );
     }
 
-    #[Test]
-    public function canGetLinkerMode(): void
+    private function getDriverMessagesMock(): MockObject&IDriverMessages
     {
-        $linkerMode = LinkerMode::ENABLED;
-
-        $config = $this->getTesteeInstance(
-            linkerMode: $linkerMode,
-        );
-
-        self::assertSame($linkerMode, $config->getLinkerMode());
+        return $this->createMock(IDriverMessages::class);
     }
 
     #[Test]

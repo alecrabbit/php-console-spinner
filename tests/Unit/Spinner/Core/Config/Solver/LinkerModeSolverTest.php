@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -140,32 +140,32 @@ final class LinkerModeSolverTest extends TestCase
             $defaultLinkerOption
         ] = $args;
 
-        $userDriverSettings = $this->getDriverSettingsMock($userLinkerOption);
-        $detectedDriverSettings = $this->getDriverSettingsMock($detectedLinkerOption);
-        $defaultDriverSettings = $this->getDriverSettingsMock($defaultLinkerOption);
+        $userLinkerSettings = $this->getLinkerSettingsMock($userLinkerOption);
+        $detectedLinkerSettings = $this->getLinkerSettingsMock($detectedLinkerOption);
+        $defaultLinkerSettings = $this->getLinkerSettingsMock($defaultLinkerOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IDriverSettings::class))
-            ->willReturn($userDriverSettings)
+            ->with(self::identicalTo(ILinkerSettings::class))
+            ->willReturn($userLinkerSettings)
         ;
 
         $detectedSettings = $this->getSettingsMock();
         $detectedSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IDriverSettings::class))
-            ->willReturn($detectedDriverSettings)
+            ->with(self::identicalTo(ILinkerSettings::class))
+            ->willReturn($detectedLinkerSettings)
         ;
 
         $defaultSettings = $this->getSettingsMock();
         $defaultSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IDriverSettings::class))
-            ->willReturn($defaultDriverSettings)
+            ->with(self::identicalTo(ILinkerSettings::class))
+            ->willReturn($defaultLinkerSettings)
         ;
 
         $settingsProvider = $this->getSettingsProviderMock();
@@ -197,13 +197,13 @@ final class LinkerModeSolverTest extends TestCase
         }
     }
 
-    protected function getDriverSettingsMock(?LinkerOption $linkerOption = null): (MockObject&IDriverSettings)|null
+    protected function getLinkerSettingsMock(?LinkerOption $linkerOption = null): (MockObject&ILinkerSettings)|null
     {
         return
             $linkerOption === null
                 ? null :
                 $this->createConfiguredMock(
-                    IDriverSettings::class,
+                    ILinkerSettings::class,
                     [
                         'getLinkerOption' => $linkerOption,
                     ]

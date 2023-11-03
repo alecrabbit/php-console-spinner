@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class DriverConfigBuilderTest extends TestCase
 {
@@ -33,33 +34,28 @@ final class DriverConfigBuilderTest extends TestCase
     {
         $configBuilder = $this->getTesteeInstance();
 
+        $driverMessages = $this->getDriverMessagesMock();
+
         $config = $configBuilder
-            ->withLinkerMode(LinkerMode::DISABLED)
+            ->withDriverMessages($driverMessages)
             ->build()
         ;
 
         self::assertInstanceOf(DriverConfig::class, $config);
+
+        self::assertSame($driverMessages, $config->getDriverMessages());
     }
 
-    #[Test]
-    public function withLinkerModeReturnsOtherInstanceOfBuilder(): void
+    private function getDriverMessagesMock(): MockObject&IDriverMessages
     {
-        $configBuilder = $this->getTesteeInstance();
-
-        $builder =
-            $configBuilder
-                ->withLinkerMode(LinkerMode::DISABLED)
-        ;
-
-        self::assertInstanceOf(DriverConfigBuilder::class, $builder);
-        self::assertNotSame($builder, $configBuilder);
+        return $this->createMock(IDriverMessages::class);
     }
 
     #[Test]
     public function throwsIfLinkerModeModeIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'LinkerMode is not set.';
+        $exceptionMessage = 'DriverMessages is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();
