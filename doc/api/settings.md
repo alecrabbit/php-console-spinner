@@ -7,8 +7,10 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Messages;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
@@ -67,8 +69,14 @@ $linkerSettings =
         linkerOption: LinkerOption::AUTO, // todo: check semantics
     );
 
-// # NEW FEATURE: $linkerSettings? FinalMessage(''); // todo: where to put it?
-// # NEW FEATURE: $linkerSettings? InterruptMessage(''); // todo: where to put it?
+// Driver settings
+$driverSettings = 
+    new DriverSettings(
+        messages: new Messages(
+            finalMessage: null, // defaults to: ''
+            interruptionMessage: null, // defaults to: ''
+        )
+    );
 
 // Widget settings
 $widgetSettings = 
@@ -95,6 +103,7 @@ $settings = Facade::getSettings();
 
 $settings->set(
     $auxSettings,
+    $driverSettings,
     $loopSettings,
     $outputSettings,
     $linkerSettings,
