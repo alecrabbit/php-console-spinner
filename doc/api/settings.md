@@ -83,8 +83,8 @@ $widgetSettings =
     new WidgetSettings(
         leadingSpacer: null, // defaults to: CharFrame('', 0)
         trailingSpacer: null, // defaults to: CharFrame('', 0)
-        stylePalette: null, // defaults to: none
-        charPalette: null, // defaults to: none
+        stylePalette: null, // defaults to: NoStylePalette()
+        charPalette: null, // defaults to: NoCharPalette()
     );
 
 // Root Widget settings
