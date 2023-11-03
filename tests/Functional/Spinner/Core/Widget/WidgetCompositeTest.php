@@ -89,7 +89,7 @@ final class WidgetCompositeTest extends TestCase
     ): IWidgetComposite {
         return
             new WidgetComposite(
-                revolver: $revolver ?? $this->getRevolverMock(),
+                revolver: $revolver ?? $this->getWidgetRevolverMock(),
                 leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
                 trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
                 children: $children ?? $this->getWidgetCompositeChildrenContainerMock(),
@@ -198,5 +198,10 @@ final class WidgetCompositeTest extends TestCase
     protected function getWidgetContextMock(): MockObject&IWidgetContext
     {
         return $this->createMock(IWidgetContext::class);
+    }
+
+    private function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer
+    {
+        return $this->createMock(IWidgetCompositeChildrenContainer::class);
     }
 }

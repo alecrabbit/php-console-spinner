@@ -13,6 +13,8 @@ use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
+use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
@@ -60,8 +62,8 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
             new WidgetSettings(
                 leadingSpacer: new CharFrame('', 0),
                 trailingSpacer: new CharFrame(' ', 1),
-                stylePalette: null,
-                charPalette: null,
+                stylePalette: new NoStylePalette(),
+                charPalette: new NoCharPalette(),
             ),
             new RootWidgetSettings(
                 leadingSpacer: null,

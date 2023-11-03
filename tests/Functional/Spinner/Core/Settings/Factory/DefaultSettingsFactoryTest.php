@@ -12,6 +12,8 @@ use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
+use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
@@ -84,8 +86,8 @@ final class DefaultSettingsFactoryTest extends TestCase
 
         self::assertEquals(new CharFrame('', 0), $widgetSettings->getLeadingSpacer());
         self::assertEquals(new CharFrame(' ', 1), $widgetSettings->getTrailingSpacer());
-        self::assertNull($widgetSettings->getStylePalette());
-        self::assertNull($widgetSettings->getCharPalette());
+        self::assertEquals(new NoStylePalette(),$widgetSettings->getStylePalette());
+        self::assertEquals(new NoCharPalette(),$widgetSettings->getCharPalette());
 
         self::assertNull($rootWidgetSettings->getLeadingSpacer());
         self::assertNull($rootWidgetSettings->getTrailingSpacer());

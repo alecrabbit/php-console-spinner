@@ -26,7 +26,7 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
     {
         self::assertWidgetSettings($widgetSettings);
 
-        $widgetSettings = $this->widgetSettingsSolver->solve();
+        $widgetSettings ??= $this->widgetSettingsSolver->solve();
 
         return
             new WidgetConfig(

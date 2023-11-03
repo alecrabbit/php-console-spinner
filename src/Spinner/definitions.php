@@ -87,6 +87,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
@@ -318,6 +319,7 @@ function solvers(): Traversable
         IInitializationModeSolver::class => InitializationModeSolver::class,
         IStreamSolver::class => StreamSolver::class,
         IDriverMessagesSolver::class => DriverMessagesSolver::class,
+        IWidgetSettingsSolver::class => WidgetSettingsSolver::class,
     ];
 }
 
@@ -397,20 +399,20 @@ function detectors(): Traversable
 function substitutes(): Traversable
 {
     yield from [
-        IWidgetSettingsSolver::class => static function (): IWidgetSettingsSolver {
-            return new class implements IWidgetSettingsSolver {
-                public function solve(): IWidgetSettings
-                {
-                    return
-                        new WidgetSettings(
-                            leadingSpacer: new CharFrame('', 0),
-                            trailingSpacer: new CharFrame(' ', 1),
-                            stylePalette: new NoStylePalette(),
-                            charPalette: new NoCharPalette(),
-                        );
-                }
-            };
-        },
+//        IWidgetSettingsSolver::class => static function (): IWidgetSettingsSolver {
+//            return new class implements IWidgetSettingsSolver {
+//                public function solve(): IWidgetSettings
+//                {
+//                    return
+//                        new WidgetSettings(
+//                            leadingSpacer: new CharFrame('', 0),
+//                            trailingSpacer: new CharFrame(' ', 1),
+//                            stylePalette: new NoStylePalette(),
+//                            charPalette: new NoCharPalette(),
+//                        );
+//                }
+//            };
+//        },
         IRootWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
             return
                 new class implements IRootWidgetConfigFactory {
