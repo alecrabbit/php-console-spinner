@@ -16,14 +16,17 @@ final readonly class WidgetSettingsSolver extends ASolver implements Contract\IW
 {
     public function solve(): IWidgetSettings
     {
-        return
-            $this->doSolve(
-                $this->extractSettings($this->settingsProvider->getUserSettings()),
-                $this->extractSettings($this->settingsProvider->getDetectedSettings()),
-                $this->extractSettings($this->settingsProvider->getDefaultSettings()),
-            );
+            return
+                $this->doSolve(
+                    $this->extractSettings($this->settingsProvider->getUserSettings()),
+                    $this->extractSettings($this->settingsProvider->getDetectedSettings()),
+                    $this->extractSettings($this->settingsProvider->getDefaultSettings()),
+                );
     }
 
+    /**
+     * @throws LogicException
+     */
     private function doSolve(
         ?WidgetSettings $userSettings,
         ?WidgetSettings $detectedSettings,
@@ -51,9 +54,9 @@ final readonly class WidgetSettingsSolver extends ASolver implements Contract\IW
     }
 
     private function getLeadingSpacer(
-        ?WidgetSettings $userSettings,
-        ?WidgetSettings $detectedSettings,
-        ?WidgetSettings $defaultSettings
+        ?IWidgetSettings $userSettings,
+        ?IWidgetSettings $detectedSettings,
+        ?IWidgetSettings $defaultSettings
     ): IFrame {
         return
             $userSettings?->getLeadingSpacer()
@@ -66,9 +69,9 @@ final readonly class WidgetSettingsSolver extends ASolver implements Contract\IW
     }
 
     private function getTrailingSpacer(
-        ?WidgetSettings $userSettings,
-        ?WidgetSettings $detectedSettings,
-        ?WidgetSettings $defaultSettings
+        ?IWidgetSettings $userSettings,
+        ?IWidgetSettings $detectedSettings,
+        ?IWidgetSettings $defaultSettings
     ): IFrame {
         return
             $userSettings?->getTrailingSpacer()
@@ -81,9 +84,9 @@ final readonly class WidgetSettingsSolver extends ASolver implements Contract\IW
     }
 
     private function getStylePalette(
-        ?WidgetSettings $userSettings,
-        ?WidgetSettings $detectedSettings,
-        ?WidgetSettings $defaultSettings
+        ?IWidgetSettings $userSettings,
+        ?IWidgetSettings $detectedSettings,
+        ?IWidgetSettings $defaultSettings
     ): IPalette {
         return
             $userSettings?->getStylePalette()
@@ -96,9 +99,9 @@ final readonly class WidgetSettingsSolver extends ASolver implements Contract\IW
     }
 
     private function getCharPalette(
-        ?WidgetSettings $userSettings,
-        ?WidgetSettings $detectedSettings,
-        ?WidgetSettings $defaultSettings
+        ?IWidgetSettings $userSettings,
+        ?IWidgetSettings $detectedSettings,
+        ?IWidgetSettings $defaultSettings
     ): IPalette {
         return
             $userSettings?->getCharPalette()
