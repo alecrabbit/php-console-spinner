@@ -100,6 +100,9 @@ final class LinkerModeSolverTest extends TestCase
             [[$mD], [null, null, $oDi],],
 
             [[$mE], [$oAu, $oEn, $oEn],],
+
+            [[$mD], [$oDi, $oEn, $oEn],], // #25
+            [[$mE], [$oEn, $oEn, $oEn],], // #26
         ];
     }
 
