@@ -29,7 +29,8 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
 
         $widgetSettings = new WidgetSettings(stylePalette: $stylePalette);
 
-        $test = static function (IWidgetConfig $config) use ($stylePalette): void {
+        $test = static function (IWidgetConfig|IWidgetSettings|null $config) use ($stylePalette): void {
+            self::assertInstanceOf(IWidgetConfig::class, $config);
             self::assertSame($config->getWidgetRevolverConfig()->getStylePalette(), $stylePalette);
             self::assertNotSame($config->getWidgetRevolverConfig()->getCharPalette(), $stylePalette);
         };
@@ -55,7 +56,7 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
         return $this->createMock(IWidget::class);
     }
 
-    protected function createWidgetFactory(MockObject&IWidget $widget, \Closure $test)
+    protected function createWidgetFactory(MockObject&IWidget $widget, \Closure $test):IWidgetFactory
     {
         return new class($widget, $test) implements IWidgetFactory {
 
@@ -65,10 +66,6 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
 
             public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidget
             {
-                if (!$widgetSettings instanceof IWidgetConfig) {
-                    throw new \RuntimeException('Value expected to be instance of ' . IWidgetConfig::class);
-                }
-
                 ($this->test)($widgetSettings);
 
                 return $this->widget;
@@ -95,7 +92,8 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
 
         $widgetSettings = new WidgetSettings(stylePalette: $stylePalette);
 
-        $test = static function (IWidgetConfig $config) use ($stylePalette): void {
+        $test = static function (IWidgetConfig|IWidgetSettings|null $config) use ($stylePalette): void {
+            self::assertInstanceOf(IWidgetConfig::class, $config);
             self::assertSame($config->getWidgetRevolverConfig()->getStylePalette(), $stylePalette);
             self::assertNotSame($config->getWidgetRevolverConfig()->getCharPalette(), $stylePalette);
         };
@@ -128,7 +126,8 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
 
         $widgetSettings = new WidgetSettings(charPalette: $charPalette);
 
-        $test = static function (IWidgetConfig $config) use ($charPalette): void {
+        $test = static function (IWidgetConfig|IWidgetSettings|null $config) use ($charPalette): void {
+            self::assertInstanceOf(IWidgetConfig::class, $config);
             self::assertSame($config->getWidgetRevolverConfig()->getCharPalette(), $charPalette);
             self::assertNotSame($config->getWidgetRevolverConfig()->getStylePalette(), $charPalette);
         };
@@ -156,7 +155,8 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
 
         $widgetSettings = new WidgetSettings(charPalette: $charPalette);
 
-        $test = static function (IWidgetConfig $config) use ($charPalette): void {
+        $test = static function (IWidgetConfig|IWidgetSettings|null $config) use ($charPalette): void {
+            self::assertInstanceOf(IWidgetConfig::class, $config);
             self::assertSame($config->getWidgetRevolverConfig()->getCharPalette(), $charPalette);
             self::assertNotSame($config->getWidgetRevolverConfig()->getStylePalette(), $charPalette);
         };
@@ -184,7 +184,8 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
 
         $widgetSettings = new WidgetSettings(leadingSpacer: $leadingSpacer);
 
-        $test = static function (IWidgetConfig $config) use ($leadingSpacer): void {
+        $test = static function (IWidgetConfig|IWidgetSettings|null $config) use ($leadingSpacer): void {
+            self::assertInstanceOf(IWidgetConfig::class, $config);
             self::assertSame($config->getLeadingSpacer(), $leadingSpacer);
             self::assertNotSame($config->getTrailingSpacer(), $leadingSpacer);
         };
@@ -211,7 +212,8 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
 
         $widgetSettings = new WidgetSettings(trailingSpacer: $trailingSpacer);
 
-        $test = static function (IWidgetConfig $config) use ($trailingSpacer): void {
+        $test = static function (IWidgetConfig|IWidgetSettings|null $config) use ($trailingSpacer): void {
+            self::assertInstanceOf(IWidgetConfig::class, $config);
             self::assertSame($config->getTrailingSpacer(), $trailingSpacer);
             self::assertNotSame($config->getLeadingSpacer(), $trailingSpacer);
         };
