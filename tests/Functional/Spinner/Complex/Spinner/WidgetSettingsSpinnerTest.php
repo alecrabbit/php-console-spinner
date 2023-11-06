@@ -56,21 +56,25 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
         return $this->createMock(IWidget::class);
     }
 
-    protected function createWidgetFactory(MockObject&IWidget $widget, \Closure $test):IWidgetFactory
+    protected function createWidgetFactory(MockObject&IWidget $widget, \Closure $test): IWidgetFactory
     {
-        return new class($widget, $test) implements IWidgetFactory {
+        return
+            new class($widget, $test) implements IWidgetFactory {
 
-            public function __construct(private IWidget $widget, private \Closure $test)
-            {
-            }
+                public function __construct(
+                    private readonly IWidget $widget,
+                    private readonly \Closure $test,
+                ) {
+                }
 
-            public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidget
-            {
-                ($this->test)($widgetSettings);
+                public function create(
+                    IWidgetConfig|IWidgetSettings|null $widgetSettings = null,
+                ): IWidget {
+                    ($this->test)($widgetSettings);
 
-                return $this->widget;
-            }
-        };
+                    return $this->widget;
+                }
+            };
     }
 
     private static function replaceService(string $id, object|callable|string $definition): void
@@ -205,6 +209,12 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
 
         self::assertTrue($driver->has($spinner));
     }
+
+    private function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
     #[Test]
     public function spinnerCanBeCreatedWithAnyTrailingSpacer(): void
     {
@@ -232,10 +242,5 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
         $driver = Facade::getDriver();
 
         self::assertTrue($driver->has($spinner));
-    }
-
-    private function getFrameMock(): MockObject&IFrame
-    {
-        return $this->createMock(IFrame::class);
     }
 }
