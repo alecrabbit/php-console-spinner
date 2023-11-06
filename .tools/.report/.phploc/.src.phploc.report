@@ -4,10 +4,10 @@ Directories                                         69
 Files                                              374
 
 Size
-  Lines of Code (LOC)                            12820
-  Comment Lines of Code (CLOC)                     759 (5.92%)
-  Non-Comment Lines of Code (NCLOC)              12061 (94.08%)
-  Logical Lines of Code (LLOC)                    1380 (10.76%)
+  Lines of Code (LOC)                            12806
+  Comment Lines of Code (CLOC)                     759 (5.93%)
+  Non-Comment Lines of Code (NCLOC)              12047 (94.07%)
+  Logical Lines of Code (LLOC)                    1380 (10.78%)
     Classes                                       1281 (92.83%)
       Average Class Length                           3
         Minimum Class Length                         0
