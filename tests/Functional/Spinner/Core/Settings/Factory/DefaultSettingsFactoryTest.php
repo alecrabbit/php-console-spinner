@@ -86,8 +86,8 @@ final class DefaultSettingsFactoryTest extends TestCase
 
         self::assertEquals(new CharFrame('', 0), $widgetSettings->getLeadingSpacer());
         self::assertEquals(new CharFrame(' ', 1), $widgetSettings->getTrailingSpacer());
-        self::assertEquals(new NoStylePalette(),$widgetSettings->getStylePalette());
-        self::assertEquals(new NoCharPalette(),$widgetSettings->getCharPalette());
+        self::assertEquals(new NoStylePalette(), $widgetSettings->getStylePalette());
+        self::assertEquals(new NoCharPalette(), $widgetSettings->getCharPalette());
 
         self::assertNull($rootWidgetSettings->getLeadingSpacer());
         self::assertNull($rootWidgetSettings->getTrailingSpacer());

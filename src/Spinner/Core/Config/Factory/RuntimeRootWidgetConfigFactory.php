@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
-final class RuntimeRootWidgetConfigFactory implements IRuntimeRootWidgetConfigFactory
+final readonly class RuntimeRootWidgetConfigFactory implements IRuntimeRootWidgetConfigFactory
 {
     public function __construct(
         protected IRootWidgetConfig $widgetConfig,

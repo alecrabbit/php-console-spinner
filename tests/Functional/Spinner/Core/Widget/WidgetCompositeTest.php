@@ -102,6 +102,11 @@ final class WidgetCompositeTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
+    private function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer
+    {
+        return $this->createMock(IWidgetCompositeChildrenContainer::class);
+    }
+
     protected function getWidgetMock(): MockObject&IWidget
     {
         return $this->createMock(IWidget::class);
@@ -198,10 +203,5 @@ final class WidgetCompositeTest extends TestCase
     protected function getWidgetContextMock(): MockObject&IWidgetContext
     {
         return $this->createMock(IWidgetContext::class);
-    }
-
-    private function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer
-    {
-        return $this->createMock(IWidgetCompositeChildrenContainer::class);
     }
 }

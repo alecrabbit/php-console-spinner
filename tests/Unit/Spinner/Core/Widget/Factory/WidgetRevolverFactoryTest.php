@@ -174,6 +174,11 @@ final class WidgetRevolverFactoryTest extends TestCase
         return $this->createMock(IPattern::class);
     }
 
+    private function getPaletteMock(): MockObject&IPalette
+    {
+        return $this->createMock(IPalette::class);
+    }
+
     private function getFrameRevolverMock(): MockObject&IFrameRevolver
     {
         return $this->createMock(IFrameRevolver::class);
@@ -192,10 +197,5 @@ final class WidgetRevolverFactoryTest extends TestCase
     private function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
         return $this->createMock(IWidgetRevolverConfig::class);
-    }
-
-    private function getPaletteMock(): MockObject&IPalette
-    {
-        return $this->createMock(IPalette::class);
     }
 }

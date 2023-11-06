@@ -8,7 +8,6 @@ use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
 use AlecRabbit\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Contract\ITimer;
-use AlecRabbit\Benchmark\Contract\TimeUnit;
 use RuntimeException;
 use Traversable;
 

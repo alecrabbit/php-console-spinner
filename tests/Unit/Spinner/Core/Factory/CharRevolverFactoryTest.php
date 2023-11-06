@@ -18,6 +18,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class CharRevolverFactoryTest extends TestCase
 {
@@ -138,9 +139,9 @@ final class CharRevolverFactoryTest extends TestCase
         return $this->createMock(IInterval::class);
     }
 
-    private function getTraversableMock(): MockObject&\Traversable
+    private function getTraversableMock(): MockObject&Traversable
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(Traversable::class);
     }
 
     private function getToleranceMock(): MockObject&ITolerance
