@@ -87,6 +87,11 @@ final class WidgetConfigTest extends ConfigurationTestCase
         self::assertNotSame($charPalette, $revolverConfig->getStylePalette());
     }
 
+    private function getCharPaletteMock(): MockObject&ICharPalette
+    {
+        return $this->createMock(ICharPalette::class);
+    }
+
     #[Test]
     public function canSetLeadingSpacer(): void
     {
@@ -107,6 +112,11 @@ final class WidgetConfigTest extends ConfigurationTestCase
         self::assertNotSame($leadingSpacer, $widgetConfig->getTrailingSpacer());
     }
 
+    private function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
     #[Test]
     public function canSetTrailingSpacer(): void
     {
@@ -125,14 +135,5 @@ final class WidgetConfigTest extends ConfigurationTestCase
 
         self::assertSame($trailingSpacer, $widgetConfig->getTrailingSpacer());
         self::assertNotSame($trailingSpacer, $widgetConfig->getLeadingSpacer());
-    }
-
-    private function getCharPaletteMock(): MockObject&ICharPalette
-    {
-        return $this->createMock(ICharPalette::class);
-    }
-    private function getFrameMock(): MockObject&IFrame
-    {
-        return $this->createMock(IFrame::class);
     }
 }

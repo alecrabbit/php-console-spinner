@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Functional\Spinner\Complex;
+namespace AlecRabbit\Tests\Functional\Spinner\Complex\Spinner;
 
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Spinner;
@@ -26,6 +26,7 @@ final class AttachingSpinnerTest extends ContainerModifyingTestCase
         self::assertFalse($driver->has($spinner));
     }
 
+    #[Test]
     public function byDefaultSpinnerIsAttachedToDriver(): void
     {
         $spinner = Facade::createSpinner();
@@ -34,6 +35,6 @@ final class AttachingSpinnerTest extends ContainerModifyingTestCase
 
         $driver = Facade::getDriver();
 
-        self::assertFalse($driver->has($spinner));
+        self::assertTrue($driver->has($spinner));
     }
 }
