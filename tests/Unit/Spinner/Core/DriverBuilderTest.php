@@ -43,7 +43,7 @@ final class DriverBuilderTest extends TestCase
 
         $driver = $driverBuilder
             ->withDriverOutput($this->getDriverOutputMock())
-            ->withTimer($this->getTimerMock())
+            ->withDeltaTimer($this->getTimerMock())
             ->withInitialInterval($interval)
             ->withDriverConfig($this->getDriverConfigMock())
             ->build()
@@ -80,7 +80,7 @@ final class DriverBuilderTest extends TestCase
 
         $driver = $driverBuilder
             ->withDriverOutput($this->getDriverOutputMock())
-            ->withTimer($this->getTimerMock())
+            ->withDeltaTimer($this->getTimerMock())
             ->withObserver($this->getObserverMock())
             ->withInitialInterval($this->getIntervalMock())
             ->withDriverConfig($this->getDriverConfigMock())
@@ -105,7 +105,7 @@ final class DriverBuilderTest extends TestCase
             $driverBuilder = $this->getTesteeInstance();
 
             $driverBuilder
-                ->withTimer($this->getTimerMock())
+                ->withDeltaTimer($this->getTimerMock())
                 ->withInitialInterval($this->getIntervalMock())
                 ->build()
             ;
@@ -152,7 +152,7 @@ final class DriverBuilderTest extends TestCase
 
             $driverBuilder
                 ->withDriverOutput($this->getDriverOutputMock())
-                ->withTimer($this->getTimerMock())
+                ->withDeltaTimer($this->getTimerMock())
                 ->build()
             ;
         };

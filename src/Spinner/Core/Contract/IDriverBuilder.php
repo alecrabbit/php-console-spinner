@@ -20,7 +20,7 @@ interface IDriverBuilder
 
     public function withInitialInterval(IInterval $interval): IDriverBuilder;
 
-    public function withTimer(IDeltaTimer $timer): IDriverBuilder;
+    public function withDeltaTimer(IDeltaTimer $timer): IDriverBuilder;
 
     public function withDriverOutput(IDriverOutput $driverOutput): IDriverBuilder;
 

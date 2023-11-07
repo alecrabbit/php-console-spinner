@@ -30,7 +30,7 @@ final class DriverFactory implements IDriverFactory
                 ->withDriverOutput(
                     $this->driverOutputFactory->create()
                 )
-                ->withTimer(
+                ->withDeltaTimer(
                     $this->timerFactory->create()
                 )
                 ->withInitialInterval(

@@ -86,7 +86,7 @@ final class DriverFactoryTest extends TestCase
         ;
         $driverBuilder
             ->expects(self::once())
-            ->method('withTimer')
+            ->method('withDeltaTimer')
             ->with(self::isInstanceOf(IDeltaTimer::class))
             ->willReturnSelf()
         ;

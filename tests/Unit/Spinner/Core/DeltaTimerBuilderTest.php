@@ -58,7 +58,6 @@ final class DeltaTimerBuilderTest extends TestCase
         $this->expectExceptionMessage('Now is not set');
 
         $timerBuilder
-            ->withTimeFunction(static fn(): float => 0.0)
             ->withStartTime(0.0)
             ->build()
         ;

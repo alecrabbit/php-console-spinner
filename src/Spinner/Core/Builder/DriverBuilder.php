@@ -32,7 +32,7 @@ final class DriverBuilder implements IDriverBuilder
         return $clone;
     }
 
-    public function withTimer(IDeltaTimer $timer): IDriverBuilder
+    public function withDeltaTimer(IDeltaTimer $timer): IDriverBuilder
     {
         $clone = clone $this;
         $clone->timer = $timer;
