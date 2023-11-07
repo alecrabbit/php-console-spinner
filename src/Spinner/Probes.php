@@ -16,7 +16,7 @@ use function is_subclass_of;
 final class Probes
 {
     /**
-     * @var Array<class-string<IStaticProbe>>
+     * @var array<class-string<IStaticProbe>>
      */
     private static array $probes = [];
 
@@ -32,6 +32,7 @@ final class Probes
      * @template TV of T
      *
      * @param array<class-string<TV>> $classes
+     *
      * @throws InvalidArgumentException
      */
     public static function register(string ...$classes): void
@@ -46,11 +47,12 @@ final class Probes
      * @template TV of T
      *
      * @psalm-param class-string<TV> $class
+     *
      * @throws InvalidArgumentException
      */
     private static function assertClass(string $class): void
     {
-        if (!self::isSubclass($class)) {
+        if (!self::isProbeSubclass($class)) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Class "%s" must be a subclass of "%s" interface.',
@@ -66,7 +68,7 @@ final class Probes
      *
      * @psalm-param class-string<TV> $class
      */
-    private static function isSubclass(string $class): bool
+    private static function isProbeSubclass(string $class): bool
     {
         return is_subclass_of($class, IStaticProbe::class);
     }
@@ -101,6 +103,7 @@ final class Probes
      * @template TV of T
      *
      * @param array<class-string<TV>> $classes
+     *
      * @throws InvalidArgumentException
      */
     public static function unregister(string ...$classes): void
