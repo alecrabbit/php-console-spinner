@@ -77,7 +77,6 @@ final class Probes
      * @psalm-param class-string<TV>|null $filterClass
      *
      * @psalm-return ($filterClass is string ? Traversable<TV> : Traversable<T>)
-     //* @psalm-return Traversable<T>
      *
      * @throws InvalidArgumentException
      */
