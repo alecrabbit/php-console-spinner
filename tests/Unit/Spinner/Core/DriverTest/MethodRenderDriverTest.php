@@ -49,8 +49,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
         $spinner = $this->getSpinnerMock();
         $spinner
             ->expects(self::exactly(2))
-            ->method('getFrame')
-//            ->with(self::equalTo($delta))
+            ->method('getFrame')//            ->with(self::equalTo($delta))
         ;
 
         $driverOutput = $this->getDriverOutputMock();

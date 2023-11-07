@@ -6,7 +6,7 @@ require_once __DIR__ . '/../container.php';
 
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Facade;
 
@@ -23,8 +23,8 @@ $registry->bind(
     }
 );
 $registry->bind(
-    ITimer::class,
-    new class implements ITimer {
+    IDeltaTimer::class,
+    new class implements IDeltaTimer {
         public function getDelta(): float
         {
             // simulate unequal time intervals

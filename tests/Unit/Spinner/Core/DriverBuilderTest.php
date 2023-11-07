@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
-use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
@@ -63,9 +63,9 @@ final class DriverBuilderTest extends TestCase
         return $this->createMock(IDriverOutput::class);
     }
 
-    protected function getTimerMock(): MockObject&ITimer
+    protected function getTimerMock(): MockObject&IDeltaTimer
     {
-        return $this->createMock(ITimer::class);
+        return $this->createMock(IDeltaTimer::class);
     }
 
     private function getDriverConfigMock(): MockObject&IDriverConfig

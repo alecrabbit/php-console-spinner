@@ -90,7 +90,7 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
 
     private function assertValue(mixed $value): void
     {
-        if (null === $value) {
+        if ($value === null) {
             return;
         }
         if (!$value instanceof IInterval) {

@@ -33,7 +33,7 @@ final readonly class LoopFactory implements ILoopFactory
      */
     private static function assertClass(?string $loopCreator): void
     {
-        if (null === $loopCreator) {
+        if ($loopCreator === null) {
             throw new LoopException('Loop creator class is not provided.');
         }
 

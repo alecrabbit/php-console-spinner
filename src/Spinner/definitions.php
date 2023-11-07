@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Contract\INow;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
@@ -16,11 +17,11 @@ use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IDeltaTimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
+use AlecRabbit\Spinner\Core\Builder\DeltaTimerBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LinkerConfigBuilder;
@@ -115,7 +116,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
@@ -126,7 +127,7 @@ use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\TimerFactory;
+use AlecRabbit\Spinner\Core\Factory\DeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
@@ -184,6 +185,14 @@ use Traversable;
 function getDefinitions(): Traversable
 {
     yield from [
+        INow::class => new class implements INow {
+            public function now(): float
+            {
+                return
+                    hrtime(true) * 1e-6; // returns milliseconds
+            }
+        },
+
         IOutput::class => Output::class,
         IBuffer::class => StringBuffer::class,
         IBufferedOutput::class => BufferedOutput::class,
@@ -286,7 +295,7 @@ function builders(): Traversable
         IDriverOutputBuilder::class => DriverOutputBuilder::class,
         IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
-        ITimerBuilder::class => TimerBuilder::class,
+        IDeltaTimerBuilder::class => DeltaTimerBuilder::class,
         IWidgetBuilder::class => WidgetBuilder::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
         IWidgetCompositeBuilder::class => WidgetCompositeBuilder::class,
@@ -344,7 +353,7 @@ function factories(): Traversable
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
         ISpinnerFactory::class => SpinnerFactory::class,
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
-        ITimerFactory::class => TimerFactory::class,
+        IDeltaTimerFactory::class => DeltaTimerFactory::class,
         IUserSettingsFactory::class => UserSettingsFactory::class,
         IWidgetCompositeFactory::class => WidgetCompositeFactory::class,
         IWidgetFactory::class => WidgetFactory::class,

@@ -6,11 +6,11 @@ namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\Exception\CircularDependencyException;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
 use ArrayObject;
-use Closure;
 use Throwable;
 use Traversable;
 
@@ -26,9 +26,9 @@ final class Container implements IContainer
 
     private ArrayObject $dependencyStack;
 
-    public function __construct(Closure $spawnerCreatorCb, ?Traversable $definitions = null)
+    public function __construct(IServiceSpawnerBuilder $spawnerBuilder, ?Traversable $definitions = null)
     {
-        $this->serviceSpawner = $this->createSpawner($spawnerCreatorCb);
+        $this->serviceSpawner = $spawnerBuilder->withContainer($this)->build();
 
         /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->definitions = new ArrayObject();
@@ -45,15 +45,6 @@ final class Container implements IContainer
                 $this->register($id, $definition);
             }
         }
-    }
-
-    /**
-     * @psalm-suppress MixedInferredReturnType
-     * @psalm-suppress MixedReturnStatement
-     */
-    protected function createSpawner(Closure $spawnerCreatorCb): IServiceSpawner
-    {
-        return $spawnerCreatorCb($this);
     }
 
     private function register(string $id, mixed $definition): void

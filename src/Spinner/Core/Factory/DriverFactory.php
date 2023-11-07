@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 
 final class DriverFactory implements IDriverFactory
 {
@@ -18,7 +18,7 @@ final class DriverFactory implements IDriverFactory
         protected IDriverBuilder $driverBuilder,
         protected IIntervalFactory $intervalFactory,
         protected IDriverOutputFactory $driverOutputFactory,
-        protected ITimerFactory $timerFactory,
+        protected IDeltaTimerFactory $timerFactory,
         protected IDriverConfig $driverConfig,
     ) {
     }

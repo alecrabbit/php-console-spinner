@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
-use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -20,7 +20,7 @@ interface IDriverBuilder
 
     public function withInitialInterval(IInterval $interval): IDriverBuilder;
 
-    public function withTimer(ITimer $timer): IDriverBuilder;
+    public function withTimer(IDeltaTimer $timer): IDriverBuilder;
 
     public function withDriverOutput(IDriverOutput $driverOutput): IDriverBuilder;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
-interface ITimer
+interface IDeltaTimer
 {
     public function getDelta(): float;
 }

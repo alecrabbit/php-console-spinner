@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
-use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
@@ -20,7 +20,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
 final class DriverBuilder implements IDriverBuilder
 {
     private ?IDriverOutput $driverOutput = null;
-    private ?ITimer $timer = null;
+    private ?IDeltaTimer $timer = null;
     private ?IInterval $initialInterval = null;
     private ?IObserver $observer = null;
     private ?IDriverConfig $driverConfig = null;
@@ -32,7 +32,7 @@ final class DriverBuilder implements IDriverBuilder
         return $clone;
     }
 
-    public function withTimer(ITimer $timer): IDriverBuilder
+    public function withTimer(IDeltaTimer $timer): IDriverBuilder
     {
         $clone = clone $this;
         $clone->timer = $timer;

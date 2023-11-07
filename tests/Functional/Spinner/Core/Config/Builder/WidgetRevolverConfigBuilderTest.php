@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
-use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -51,13 +50,13 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
         return $this->createMock(IPalette::class);
     }
 
-    protected function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
-    {
-        return $this->createMock(IWidgetRevolverConfig::class);
-    }
-
     protected function getRevolverConfigMock(): MockObject&IRevolverConfig
     {
         return $this->createMock(IRevolverConfig::class);
+    }
+
+    protected function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
+    {
+        return $this->createMock(IWidgetRevolverConfig::class);
     }
 }

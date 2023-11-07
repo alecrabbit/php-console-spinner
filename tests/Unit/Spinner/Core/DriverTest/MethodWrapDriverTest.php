@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\DriverTest;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
-use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -57,7 +57,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
      * Get testee instance derived from abstract class ADriver.
      */
     public function getTesteeInstance(
-        ?ITimer $timer = null,
+        ?IDeltaTimer $timer = null,
         ?IDriverOutput $output = null,
         ?IInterval $initialInterval = null,
         ?IDriverConfig $driverConfig = null,
