@@ -28,7 +28,7 @@ final class DeltaTimerTest extends TestCase
     ): IDeltaTimer {
         return new DeltaTimer(
             now: $now ?? $this->getNowMock(),
-            time: $startTime ?? 0.0,
+            startTime: $startTime ?? 0.0,
         );
     }
 

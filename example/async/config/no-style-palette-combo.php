@@ -11,6 +11,14 @@ use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
+Facade::getSettings()
+    ->set(
+        new RootWidgetSettings(
+            trailingSpacer: new CharFrame(' 💨', 3),
+        )
+    )
+;
+
 $widgetSettings =
     new WidgetSettings(
         stylePalette: new NoStylePalette(),
@@ -20,14 +28,6 @@ $spinnerSettings =
     new SpinnerSettings(
         widgetSettings: $widgetSettings,
     );
-
-Facade::getSettings()
-    ->set(
-        new RootWidgetSettings(
-            trailingSpacer: new CharFrame(' 💨', 3),
-        )
-    )
-;
 
 $spinner = Facade::createSpinner();
 

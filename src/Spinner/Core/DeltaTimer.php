@@ -6,23 +6,22 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\INow;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use Closure;
-use ReflectionFunction;
-use Throwable;
 
 final class DeltaTimer implements IDeltaTimer
 {
+    protected float $current;
+
     public function __construct(
         protected INow $now,
-        protected float $time = 0.0,
+        float $startTime = 0.0,
     ) {
+        $this->current = $startTime;
     }
 
     public function getDelta(): float
     {
-        $last = $this->time;
-        $this->time = $this->now->now();
-        return $this->time - $last;
+        $last = $this->current;
+        $this->current = $this->now->now();
+        return $this->current - $last;
     }
 }

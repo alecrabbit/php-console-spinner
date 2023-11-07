@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\DeltaTimer;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class DeltaTimerBuilderTest extends TestCase
 {
@@ -61,5 +62,23 @@ final class DeltaTimerBuilderTest extends TestCase
             ->withStartTime(0.0)
             ->build()
         ;
+    }
+    #[Test]
+    public function throwsIfStartTimeIsNotSet(): void
+    {
+        $timerBuilder = $this->getTesteeInstance();
+
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('Start time is not set.');
+
+        $timerBuilder
+            ->withNow($this->getNowMock())
+            ->build()
+        ;
+    }
+
+    private function getNowMock(): MockObject&INow
+    {
+        return $this->createMock(INow::class);
     }
 }

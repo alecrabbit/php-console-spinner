@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Builder\Contract;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\INow;
-use Closure;
 
 interface IDeltaTimerBuilder
 {
