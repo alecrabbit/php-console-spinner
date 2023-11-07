@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 
@@ -24,7 +25,7 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
     ) {
     }
 
-    public function create(IWidgetRevolverConfig $widgetRevolverConfig): IRevolver
+    public function create(IWidgetRevolverConfig $widgetRevolverConfig): IWidgetRevolver
     {
         return
             $this->widgetRevolverBuilder

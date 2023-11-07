@@ -4,11 +4,11 @@ Directories                                         69
 Files                                              377
 
 Size
-  Lines of Code (LOC)                            13162
-  Comment Lines of Code (CLOC)                     850 (6.46%)
-  Non-Comment Lines of Code (NCLOC)              12312 (93.54%)
-  Logical Lines of Code (LLOC)                    1409 (10.71%)
-    Classes                                       1312 (93.12%)
+  Lines of Code (LOC)                            13184
+  Comment Lines of Code (CLOC)                     875 (6.64%)
+  Non-Comment Lines of Code (NCLOC)              12309 (93.36%)
+  Logical Lines of Code (LLOC)                    1412 (10.71%)
+    Classes                                       1315 (93.13%)
       Average Class Length                           3
         Minimum Class Length                         0
         Maximum Class Length                        30
@@ -18,9 +18,9 @@ Size
       Average Methods Per Class                      2
         Minimum Methods Per Class                    0
         Maximum Methods Per Class                   13
-    Functions                                       40 (2.84%)
+    Functions                                       40 (2.83%)
       Average Function Length                        1
-    Not in classes or functions                     57 (4.05%)
+    Not in classes or functions                     57 (4.04%)
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.35
@@ -63,8 +63,8 @@ Structure
   Functions                                         37
     Named Functions                                  8 (21.62%)
     Anonymous Functions                             29 (78.38%)
-  Constants                                         13
+  Constants                                         14
     Global Constants                                 0 (0.00%)
-    Class Constants                                 13 (100.00%)
-      Public Constants                               4 (30.77%)
-      Non-Public Constants                           9 (69.23%)
+    Class Constants                                 14 (100.00%)
+      Public Constants                               4 (28.57%)
+      Non-Public Constants                          10 (71.43%)

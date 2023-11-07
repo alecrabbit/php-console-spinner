@@ -8,6 +8,13 @@ use ArrayAccess;
 use Countable;
 use IteratorAggregate;
 
+/**
+ * @template TKey
+ * @template TValue
+ *
+ * @extends ArrayAccess<TKey, TValue>
+ * @extends IteratorAggregate<TKey, TValue>
+ */
 interface IWeakMap extends ArrayAccess, Countable, IteratorAggregate
 {
 

@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Builder\A\AWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 
 /**
@@ -28,7 +29,7 @@ final class WidgetCompositeBuilder extends AWidgetBuilder implements IWidgetComp
             );
     }
 
-    public function withWidgetRevolver(IRevolver $revolver): IWidgetCompositeBuilder
+    public function withWidgetRevolver(IWidgetRevolver $revolver): IWidgetCompositeBuilder
     {
         $this->revolver = $revolver;
         return $this;

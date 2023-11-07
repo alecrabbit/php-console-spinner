@@ -13,6 +13,9 @@ use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 final class Driver extends ADriver
 {
     protected ?ISpinner $spinner = null;
+    /**
+     * @psalm-suppress PropertyNotSetInConstructor
+     */
     protected ISpinnerState $state;
 
     /** @inheritDoc */

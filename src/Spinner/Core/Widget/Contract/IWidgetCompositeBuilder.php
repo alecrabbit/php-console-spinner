@@ -17,7 +17,7 @@ interface IWidgetCompositeBuilder extends IWidgetBuilder
      */
     public function build(): IWidgetComposite;
 
-    public function withWidgetRevolver(IRevolver $revolver): IWidgetCompositeBuilder;
+    public function withWidgetRevolver(IWidgetRevolver $revolver): IWidgetCompositeBuilder;
 
     public function withLeadingSpacer(IFrame $frame): IWidgetCompositeBuilder;
 
