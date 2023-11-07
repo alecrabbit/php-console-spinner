@@ -10,9 +10,14 @@ use Traversable;
 
 use function is_subclass_of;
 
+/**
+ * @template-covariant T of IStaticProbe
+ */
 final class Probes
 {
-    /** @var Array<class-string<IStaticProbe>> */
+    /**
+     * @var Array<class-string<IStaticProbe>>
+     */
     private static array $probes = [];
 
     /**
@@ -24,7 +29,9 @@ final class Probes
     }
 
     /**
-     * @param Array<class-string<IStaticProbe>> $classes
+     * @template TV of T
+     *
+     * @param array<class-string<TV>> $classes
      * @throws InvalidArgumentException
      */
     public static function register(string ...$classes): void
@@ -36,8 +43,9 @@ final class Probes
     }
 
     /**
-     * @psalm-template T as IStaticProbe
-     * @psalm-param class-string<T> $class
+     * @template TV of T
+     *
+     * @psalm-param class-string<TV> $class
      * @throws InvalidArgumentException
      */
     private static function assertClass(string $class): void
@@ -54,9 +62,9 @@ final class Probes
     }
 
     /**
-     * @psalm-template T as IStaticProbe
+     * @template TV of T
      *
-     * @psalm-param class-string<T> $class
+     * @psalm-param class-string<TV> $class
      */
     private static function isSubclass(string $class): bool
     {
@@ -64,11 +72,12 @@ final class Probes
     }
 
     /**
-     * @psalm-template T as IStaticProbe
+     * @template TV of T
      *
-     * @psalm-param class-string<T>|null $filterClass
+     * @psalm-param class-string<TV>|null $filterClass
      *
-     * @psalm-return Traversable<T>|Traversable<IStaticProbe>
+     * @psalm-return ($filterClass is string ? Traversable<TV> : Traversable<T>)
+     //* @psalm-return Traversable<T>
      *
      * @throws InvalidArgumentException
      */
@@ -80,7 +89,7 @@ final class Probes
             yield from $probes;
         } else {
             self::assertClass($filterClass);
-            /** @var T $probe */
+            /** @var TV $probe */
             foreach ($probes as $probe) {
                 if (is_subclass_of($probe, $filterClass)) {
                     yield $probe;
@@ -90,7 +99,9 @@ final class Probes
     }
 
     /**
-     * @param Array<class-string<IStaticProbe>> $classes
+     * @template TV of T
+     *
+     * @param array<class-string<TV>> $classes
      * @throws InvalidArgumentException
      */
     public static function unregister(string ...$classes): void
