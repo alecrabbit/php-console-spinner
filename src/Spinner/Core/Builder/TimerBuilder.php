@@ -10,6 +10,9 @@ use AlecRabbit\Spinner\Core\Timer;
 use AlecRabbit\Spinner\Exception\LogicException;
 use Closure;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class TimerBuilder implements ITimerBuilder
 {
     private ?float $startingTime = null;

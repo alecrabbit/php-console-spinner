@@ -9,6 +9,9 @@ use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Exception\LogicException;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class IntegerNormalizerBuilder implements IIntegerNormalizerBuilder
 {
     private ?int $divisor = null;

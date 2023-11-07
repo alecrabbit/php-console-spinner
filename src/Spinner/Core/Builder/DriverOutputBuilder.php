@@ -11,6 +11,9 @@ use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Output\DriverOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class DriverOutputBuilder implements IDriverOutputBuilder
 {
     private ?IBufferedOutput $bufferedOutput = null;

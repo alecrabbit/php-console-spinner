@@ -14,16 +14,26 @@ use IteratorAggregate;
 use Traversable;
 use WeakMap;
 
+/**
+ * @template TKey of IWIdgetContext
+ * @template TValue of IInterval|null
+ *
+ * @implements IWidgetContextToIntervalMap<TKey, TValue>
+ */
 final readonly class WidgetContextToIntervalMap implements IWidgetContextToIntervalMap
 {
-
     public function __construct(
         protected ArrayAccess&Countable&IteratorAggregate $map = new WeakMap(),
     ) {
     }
 
+    /** @inheritDoc */
     public function getIterator(): Traversable
     {
+        /**
+         * @var IWidgetContext $key
+         * @var IInterval|null|false $value
+         */
         foreach ($this->map as $key => $value) {
             if ($value === false) {
                 $value = null;
@@ -32,6 +42,7 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         }
     }
 
+    /** @inheritDoc */
     public function offsetExists(mixed $offset): bool
     {
         if (!$offset instanceof IWidgetContext) {
@@ -40,15 +51,22 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         return $this->map->offsetExists($offset);
     }
 
+    /**
+     * @psalm-param TKey $offset
+     * @psalm-return TValue
+     */
     public function offsetGet(mixed $offset): ?IInterval
     {
         $this->assertOffset($offset);
 
-        if ($this->map->offsetGet($offset) === false) {
+        /** @var IInterval|null|false $value */
+        $value = $this->map->offsetGet($offset);
+
+        if ($value === false) {
             return null;
         }
 
-        return $this->map->offsetGet($offset);
+        return $value;
     }
 
     private function assertOffset(mixed $offset): void
@@ -58,6 +76,7 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         }
     }
 
+    /** @inheritDoc */
     public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->assertOffset($offset);
@@ -79,6 +98,7 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         }
     }
 
+    /** @inheritDoc */
     public function offsetUnset(mixed $offset): void
     {
         $this->assertOffset($offset);

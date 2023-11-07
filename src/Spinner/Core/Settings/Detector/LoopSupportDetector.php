@@ -16,6 +16,9 @@ final readonly class LoopSupportDetector implements ILoopSupportDetector
 
     public function getSupportValue(): bool
     {
+        if (null === $this->creatorClass) {
+            return false;
+        }
         return is_subclass_of($this->creatorClass, ILoopCreator::class);
     }
 }
