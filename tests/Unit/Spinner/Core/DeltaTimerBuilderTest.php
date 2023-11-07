@@ -55,7 +55,7 @@ final class DeltaTimerBuilderTest extends TestCase
         $timerBuilder = $this->getTesteeInstance();
 
         $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('Now is not set');
+        $this->expectExceptionMessage('Now is not set.');
 
         $timerBuilder
             ->withStartTime(0.0)
