@@ -17,6 +17,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ContainerModifyingTestCase;
+use Closure;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -56,14 +57,14 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
         return $this->createMock(IWidget::class);
     }
 
-    protected function createWidgetFactory(MockObject&IWidget $widget, \Closure $test): IWidgetFactory
+    protected function createWidgetFactory(MockObject&IWidget $widget, Closure $test): IWidgetFactory
     {
         return
             new class($widget, $test) implements IWidgetFactory {
 
                 public function __construct(
                     private readonly IWidget $widget,
-                    private readonly \Closure $test,
+                    private readonly Closure $test,
                 ) {
                 }
 

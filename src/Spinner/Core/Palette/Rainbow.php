@@ -142,13 +142,7 @@ final class Rainbow extends APalette implements IStylePalette
         $sequence = $this->ansi24Sequence();
 
         if ($this->options->getReversed()) {
-            /** @var string[] $s */
-            $s = [];
-            /** @var string $item */
-            foreach ($sequence as $item) {
-                $s[] = $item;
-            }
-            $sequence = array_reverse($s);
+            $sequence = $this->reverseSequence($sequence);
         }
 
         /** @var string $item */
@@ -552,5 +546,16 @@ final class Rainbow extends APalette implements IStylePalette
             '255;0;8',
             '255;0;4',
         ];
+    }
+
+    private function reverseSequence(Traversable $sequence): iterable
+    {
+        /** @var string[] $s */
+        $s = [];
+        /** @var string $item */
+        foreach ($sequence as $item) {
+            $s[] = $item;
+        }
+        return array_reverse($s);
     }
 }
