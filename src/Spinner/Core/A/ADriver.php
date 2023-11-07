@@ -21,7 +21,7 @@ abstract class ADriver extends ASubject implements IDriver
 
     public function __construct(
         protected readonly IDriverOutput $output,
-        protected readonly IDeltaTimer $timer,
+        protected readonly IDeltaTimer $deltaTimer,
         protected readonly IInterval $initialInterval,
         IDriverConfig $driverConfig,
         ?IObserver $observer = null,

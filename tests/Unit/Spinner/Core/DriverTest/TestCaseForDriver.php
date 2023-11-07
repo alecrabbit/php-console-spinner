@@ -20,7 +20,7 @@ use PHPUnit\Framework\MockObject\Stub;
 class TestCaseForDriver extends TestCase
 {
     public function getTesteeInstance(
-        ?IDeltaTimer $timer = null,
+        ?IDeltaTimer $deltaTimer = null,
         ?IDriverOutput $output = null,
         ?IInterval $initialInterval = null,
         ?IDriverConfig $driverConfig = null,
@@ -28,7 +28,7 @@ class TestCaseForDriver extends TestCase
     ): IDriver {
         return new Driver(
             output: $output ?? $this->getDriverOutputMock(),
-            timer: $timer ?? $this->getTimerMock(),
+            deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
             driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
             observer: $observer,
@@ -40,7 +40,7 @@ class TestCaseForDriver extends TestCase
         return $this->createMock(IDriverOutput::class);
     }
 
-    protected function getTimerMock(): MockObject&IDeltaTimer
+    protected function getDeltaTimerMock(): MockObject&IDeltaTimer
     {
         return $this->createMock(IDeltaTimer::class);
     }

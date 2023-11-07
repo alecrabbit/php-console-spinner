@@ -21,12 +21,12 @@ final class Driver extends ADriver
 
     public function __construct(
         IDriverOutput $output,
-        IDeltaTimer $timer,
+        IDeltaTimer $deltaTimer,
         IInterval $initialInterval,
         IDriverConfig $driverConfig,
         ?IObserver $observer = null
     ) {
-        parent::__construct($output, $timer, $initialInterval, $driverConfig, $observer);
+        parent::__construct($output, $deltaTimer, $initialInterval, $driverConfig, $observer);
 
         $this->state = new SpinnerState();
     }
@@ -93,7 +93,7 @@ final class Driver extends ADriver
     public function render(?float $dt = null): void
     {
         if ($this->spinner) {
-            $dt ??= $this->timer->getDelta();
+            $dt ??= $this->deltaTimer->getDelta();
             $frame = $this->spinner->getFrame($dt);
             $this->state =
                 new SpinnerState(

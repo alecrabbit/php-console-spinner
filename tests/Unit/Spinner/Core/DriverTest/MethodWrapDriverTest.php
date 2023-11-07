@@ -57,7 +57,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
      * Get testee instance derived from abstract class ADriver.
      */
     public function getTesteeInstance(
-        ?IDeltaTimer $timer = null,
+        ?IDeltaTimer $deltaTimer = null,
         ?IDriverOutput $output = null,
         ?IInterval $initialInterval = null,
         ?IDriverConfig $driverConfig = null,
@@ -65,7 +65,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
     ): IDriver {
         return new class(
             output: $output ?? $this->getDriverOutputMock(),
-            timer: $timer ?? $this->getTimerMock(),
+            deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
             driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
             observer: $observer,

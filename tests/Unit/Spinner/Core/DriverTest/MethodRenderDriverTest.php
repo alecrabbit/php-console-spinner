@@ -39,7 +39,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
     public function canRenderUsingTimer(): void
     {
         $delta = 0.1;
-        $timer = $this->getTimerMock();
+        $timer = $this->getDeltaTimerMock();
         $timer
             ->expects(self::once())
             ->method('getDelta')
@@ -60,7 +60,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                timer: $timer,
+                deltaTimer: $timer,
                 output: $driverOutput
             );
         $driver->initialize();

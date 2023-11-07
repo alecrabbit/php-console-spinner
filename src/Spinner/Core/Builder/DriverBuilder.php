@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Builder;
 
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
-use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
@@ -20,7 +20,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
 final class DriverBuilder implements IDriverBuilder
 {
     private ?IDriverOutput $driverOutput = null;
-    private ?IDeltaTimer $timer = null;
+    private ?IDeltaTimer $deltaTimer = null;
     private ?IInterval $initialInterval = null;
     private ?IObserver $observer = null;
     private ?IDriverConfig $driverConfig = null;
@@ -35,7 +35,7 @@ final class DriverBuilder implements IDriverBuilder
     public function withDeltaTimer(IDeltaTimer $timer): IDriverBuilder
     {
         $clone = clone $this;
-        $clone->timer = $timer;
+        $clone->deltaTimer = $timer;
         return $clone;
     }
 
@@ -61,7 +61,7 @@ final class DriverBuilder implements IDriverBuilder
         return
             new Driver(
                 output: $this->driverOutput,
-                timer: $this->timer,
+                deltaTimer: $this->deltaTimer,
                 initialInterval: $this->initialInterval,
                 driverConfig: $this->driverConfig,
                 observer: $this->observer,
@@ -75,7 +75,7 @@ final class DriverBuilder implements IDriverBuilder
     {
         match (true) {
             $this->driverOutput === null => throw new LogicException('DriverOutput is not set.'),
-            $this->timer === null => throw new LogicException('Timer is not set.'),
+            $this->deltaTimer === null => throw new LogicException('Timer is not set.'),
             $this->initialInterval === null => throw new LogicException('InitialInterval is not set.'),
             $this->driverConfig === null => throw new LogicException('DriverConfig is not set.'),
             default => null,
