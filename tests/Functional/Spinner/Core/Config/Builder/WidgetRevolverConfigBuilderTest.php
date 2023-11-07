@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetRevolverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetRevolverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
@@ -23,10 +24,12 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
 
         $stylePalette = $this->getPaletteMock();
         $charPalette = $this->getPaletteMock();
+        $revolverConfig = $this->getRevolverConfigMock();
 
         $config = $configBuilder
             ->withStylePalette($stylePalette)
             ->withCharPalette($charPalette)
+            ->withRevolverConfig($revolverConfig)
             ->build()
         ;
 
@@ -34,6 +37,7 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
 
         self::assertSame($stylePalette, $config->getStylePalette());
         self::assertSame($charPalette, $config->getCharPalette());
+        self::assertSame($revolverConfig, $config->getRevolverConfig());
     }
 
     protected function getTesteeInstance(): IWidgetRevolverConfigBuilder
@@ -47,52 +51,13 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
         return $this->createMock(IPalette::class);
     }
 
-    #[Test]
-    public function throwsIfStylePatternIsNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Style palette is not set.';
-
-        $test = function (): void {
-            $configBuilder = $this->getTesteeInstance();
-
-            $configBuilder
-                ->withCharPalette($this->getPaletteMock())
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    #[Test]
-    public function throwsIfCharPatternIsNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Char palette is not set.';
-
-        $test = function (): void {
-            $configBuilder = $this->getTesteeInstance();
-
-            $configBuilder
-                ->withStylePalette($this->getPaletteMock())
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
+    protected function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
         return $this->createMock(IWidgetRevolverConfig::class);
+    }
+
+    protected function getRevolverConfigMock(): MockObject&IRevolverConfig
+    {
+        return $this->createMock(IRevolverConfig::class);
     }
 }

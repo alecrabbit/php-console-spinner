@@ -239,9 +239,6 @@ function getDefinitions(): Traversable
     yield from solvers();
     yield from factories();
     yield from detectors();
-
-    // to be removed:
-    yield from substitutes();
 }
 
 // parts of definitions:
@@ -392,33 +389,6 @@ function detectors(): Traversable
                     Probes::load(IColorSupportProbe::class)
                 );
         },
-    ];
-}
-
-/*
- * FUNCTIONS TO BE REMOVED:
- */
-function substitutes(): Traversable
-{
-    yield from [
-//        IRootWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
-//            return
-//                new class implements IRootWidgetConfigFactory {
-//                    public function create(
-//                        IWidgetConfig|IWidgetSettings|null $widgetSettings = null
-//                    ): IRootWidgetConfig {
-//                        return
-//                            new RootWidgetConfig(
-//                                leadingSpacer: new CharFrame('', 0),
-//                                trailingSpacer: new CharFrame(' ', 1),
-//                                revolverConfig: new WidgetRevolverConfig(
-//                                    stylePalette: new Rainbow(),
-//                                    charPalette: new Snake(),
-//                                )
-//                            );
-//                    }
-//                };
-//        },
     ];
 }
 // @codeCoverageIgnoreEnd
