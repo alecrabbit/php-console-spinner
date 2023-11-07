@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
+use Traversable;
 
 /**
  * @template TKey of IWIdgetContext
@@ -20,9 +21,9 @@ use IteratorAggregate;
 interface IWidgetContextToIntervalMap extends ArrayAccess, Countable, IteratorAggregate
 {
     /**
-     * @psalm-return \Traversable<TKey, TValue>
+     * @psalm-return Traversable<TKey, TValue>
      */
-    public function getIterator(): \Traversable;
+    public function getIterator(): Traversable;
 
     /**
      * @psalm-param TKey $offset

@@ -6,16 +6,16 @@ namespace AlecRabbit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRootWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
-use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 
-final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSettingsSolver
+final readonly class RootWidgetSettingsSolver extends ASolver implements IRootWidgetSettingsSolver
 {
-    public function solve(): IWidgetSettings
+    public function solve(): IRootWidgetSettings
     {
         return
             $this->doSolve(
@@ -25,14 +25,11 @@ final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSett
             );
     }
 
-    /**
-     * @throws LogicException
-     */
     private function doSolve(
         ?IWidgetSettings $userSettings,
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings,
-    ): IWidgetSettings {
+    ): IRootWidgetSettings {
         $leadingSpacer =
             $this->getLeadingSpacer($userSettings, $detectedSettings, $defaultSettings);
 
@@ -46,7 +43,7 @@ final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSett
             $this->getCharPalette($userSettings, $detectedSettings, $defaultSettings);
 
         return
-            new WidgetSettings(
+            new RootWidgetSettings(
                 leadingSpacer: $leadingSpacer,
                 trailingSpacer: $trailingSpacer,
                 stylePalette: $stylePalette,
@@ -58,64 +55,56 @@ final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSett
         ?IWidgetSettings $userSettings,
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
-    ): IFrame {
+    ): ?IFrame {
         return
             $userSettings?->getLeadingSpacer()
             ??
             $detectedSettings?->getLeadingSpacer()
             ??
-            $defaultSettings?->getLeadingSpacer()
-            ??
-            throw new LogicException('Leading spacer expected to be set.');
+            $defaultSettings?->getLeadingSpacer();
     }
 
     private function getTrailingSpacer(
         ?IWidgetSettings $userSettings,
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
-    ): IFrame {
+    ): ?IFrame {
         return
             $userSettings?->getTrailingSpacer()
             ??
             $detectedSettings?->getTrailingSpacer()
             ??
-            $defaultSettings?->getTrailingSpacer()
-            ??
-            throw new LogicException('Trailing spacer expected to be set.');
+            $defaultSettings?->getTrailingSpacer();
     }
 
     private function getStylePalette(
         ?IWidgetSettings $userSettings,
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
-    ): IPalette {
+    ): ?IPalette {
         return
             $userSettings?->getStylePalette()
             ??
             $detectedSettings?->getStylePalette()
             ??
-            $defaultSettings?->getStylePalette()
-            ??
-            throw new LogicException('Style palette expected to be set.');
+            $defaultSettings?->getStylePalette();
     }
 
     private function getCharPalette(
         ?IWidgetSettings $userSettings,
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
-    ): IPalette {
+    ): ?IPalette {
         return
             $userSettings?->getCharPalette()
             ??
             $detectedSettings?->getCharPalette()
             ??
-            $defaultSettings?->getCharPalette()
-            ??
-            throw new LogicException('Char palette expected to be set.');
+            $defaultSettings?->getCharPalette();
     }
 
-    protected function extractSettings(ISettings $settings): ?IWidgetSettings
+    protected function extractSettings(ISettings $settings): ?IRootWidgetSettings
     {
-        return $this->extractSettingsElement($settings, IWidgetSettings::class);
+        return $this->extractSettingsElement($settings, IRootWidgetSettings::class);
     }
 }

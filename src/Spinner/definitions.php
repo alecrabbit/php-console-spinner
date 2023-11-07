@@ -21,7 +21,6 @@ use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
-use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LinkerConfigBuilder;
@@ -61,11 +60,11 @@ use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\RootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RevolverConfig;
-use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
@@ -73,6 +72,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRootWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
@@ -84,13 +84,13 @@ use AlecRabbit\Spinner\Core\Config\Solver\DriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\NormalizerModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\RootWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
-use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -145,8 +145,6 @@ use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
-use AlecRabbit\Spinner\Core\Palette\Rainbow;
-use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\PatternFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -161,7 +159,6 @@ use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Detector\ColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\SignalHandlingSupportDetector;
@@ -323,6 +320,7 @@ function solvers(): Traversable
         IStreamSolver::class => StreamSolver::class,
         IDriverMessagesSolver::class => DriverMessagesSolver::class,
         IWidgetSettingsSolver::class => WidgetSettingsSolver::class,
+        IRootWidgetSettingsSolver::class => RootWidgetSettingsSolver::class,
     ];
 }
 
@@ -367,6 +365,7 @@ function factories(): Traversable
         ILoopFactory::class => LoopFactory::class,
 
         IWidgetConfigFactory::class => WidgetConfigFactory::class,
+        IRootWidgetConfigFactory::class => RootWidgetConfigFactory::class,
         IRuntimeWidgetConfigFactory::class => RuntimeWidgetConfigFactory::class,
         IRuntimeRootWidgetConfigFactory::class => RuntimeRootWidgetConfigFactory::class,
     ];
@@ -402,24 +401,24 @@ function detectors(): Traversable
 function substitutes(): Traversable
 {
     yield from [
-        IRootWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
-            return
-                new class implements IRootWidgetConfigFactory {
-                    public function create(
-                        IWidgetConfig|IWidgetSettings|null $widgetSettings = null
-                    ): IRootWidgetConfig {
-                        return
-                            new RootWidgetConfig(
-                                leadingSpacer: new CharFrame('', 0),
-                                trailingSpacer: new CharFrame(' ', 1),
-                                revolverConfig: new WidgetRevolverConfig(
-                                    stylePalette: new Rainbow(),
-                                    charPalette: new Snake(),
-                                )
-                            );
-                    }
-                };
-        },
+//        IRootWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
+//            return
+//                new class implements IRootWidgetConfigFactory {
+//                    public function create(
+//                        IWidgetConfig|IWidgetSettings|null $widgetSettings = null
+//                    ): IRootWidgetConfig {
+//                        return
+//                            new RootWidgetConfig(
+//                                leadingSpacer: new CharFrame('', 0),
+//                                trailingSpacer: new CharFrame(' ', 1),
+//                                revolverConfig: new WidgetRevolverConfig(
+//                                    stylePalette: new Rainbow(),
+//                                    charPalette: new Snake(),
+//                                )
+//                            );
+//                    }
+//                };
+//        },
     ];
 }
 // @codeCoverageIgnoreEnd
