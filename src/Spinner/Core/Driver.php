@@ -5,25 +5,46 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
+use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\A\ADriver;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
+use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 
 final class Driver extends ADriver
 {
     protected ?ISpinner $spinner = null;
-    /**
-     * @psalm-suppress PropertyNotSetInConstructor
-     */
     protected ISpinnerState $state;
+
+    public function __construct(
+        IDriverOutput $output,
+        ITimer $timer,
+        IInterval $initialInterval,
+        IDriverConfig $driverConfig,
+        ?IObserver $observer = null
+    ) {
+        parent::__construct($output, $timer, $initialInterval, $driverConfig, $observer);
+
+        $this->state = new SpinnerState();
+    }
+
 
     /** @inheritDoc */
     public function add(ISpinner $spinner): void
     {
         $this->erase();
 
-        $this->state = new SpinnerState();
+        $frame = $spinner->getFrame();
+
+        $this->state =
+            new SpinnerState(
+                sequence: $frame->sequence(),
+                width: $frame->width(),
+                previousWidth: 0
+            );
 
         $this->spinner = $spinner;
         $spinner->attach($this);

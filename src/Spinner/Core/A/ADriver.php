@@ -17,18 +17,18 @@ use Closure;
 abstract class ADriver extends ASubject implements IDriver
 {
     protected IInterval $interval;
-    protected IDriverMessages $messages;
+    protected readonly IDriverMessages $messages;
 
     public function __construct(
         protected readonly IDriverOutput $output,
         protected readonly ITimer $timer,
         protected readonly IInterval $initialInterval,
-        protected readonly IDriverConfig $driverConfig,
+        IDriverConfig $driverConfig,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
         $this->interval = $this->initialInterval;
-        $this->messages = $this->driverConfig->getDriverMessages();
+        $this->messages = $driverConfig->getDriverMessages();
     }
 
     /** @inheritDoc */
