@@ -20,8 +20,3 @@ $spinner = Facade::createSpinner();
 
 // perform example unrelated actions:
 require_once __DIR__ . '/../bootstrap.async.php';
-
-echo sprintf(
-    'Actual interval: %sms' . PHP_EOL,
-    $spinner->getInterval()->toMilliseconds()
-);

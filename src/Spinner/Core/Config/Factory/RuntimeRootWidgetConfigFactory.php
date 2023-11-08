@@ -13,17 +13,17 @@ use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
-final class RuntimeRootWidgetConfigFactory implements IRuntimeRootWidgetConfigFactory
+final readonly class RuntimeRootWidgetConfigFactory implements IRuntimeRootWidgetConfigFactory
 {
     public function __construct(
-        protected IRootWidgetConfig $widgetConfig,
+        protected IRootWidgetConfig $rootWidgetConfig,
     ) {
     }
 
     public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IRootWidgetConfig
     {
         if ($widgetSettings === null) {
-            return $this->widgetConfig;
+            return $this->rootWidgetConfig;
         }
 
         if ($widgetSettings instanceof IWidgetConfig) {
@@ -49,7 +49,7 @@ final class RuntimeRootWidgetConfigFactory implements IRuntimeRootWidgetConfigFa
         return
             $widgetSettings->getLeadingSpacer()
             ??
-            $this->widgetConfig->getLeadingSpacer();
+            $this->rootWidgetConfig->getLeadingSpacer();
     }
 
     protected function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
@@ -57,18 +57,18 @@ final class RuntimeRootWidgetConfigFactory implements IRuntimeRootWidgetConfigFa
         return
             $widgetSettings->getTrailingSpacer()
             ??
-            $this->widgetConfig->getTrailingSpacer();
+            $this->rootWidgetConfig->getTrailingSpacer();
     }
 
     private function getWidgetRevolverConfig(IWidgetSettings $widgetSettings): IWidgetRevolverConfig
     {
-        $config = $this->widgetConfig->getWidgetRevolverConfig();
+        $wRConfig = $this->rootWidgetConfig->getWidgetRevolverConfig();
 
         return
             new WidgetRevolverConfig(
-                stylePalette: $widgetSettings->getStylePalette() ?? $config->getStylePalette(),
-                charPalette: $widgetSettings->getCharPalette() ?? $config->getCharPalette(),
-                revolverConfig: $config->getRevolverConfig(),
+                stylePalette: $widgetSettings->getStylePalette() ?? $wRConfig->getStylePalette(),
+                charPalette: $widgetSettings->getCharPalette() ?? $wRConfig->getCharPalette(),
+                revolverConfig: $wRConfig->getRevolverConfig(),
             );
     }
 }

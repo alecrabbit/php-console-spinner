@@ -9,19 +9,19 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\A\AWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 
 final class WidgetComposite extends AWidget implements IWidgetComposite
 {
     protected IInterval $interval;
 
     public function __construct(
-        IRevolver $revolver,
+        IWidgetRevolver $revolver,
         IFrame $leadingSpacer,
         IFrame $trailingSpacer,
         protected readonly IWidgetCompositeChildrenContainer $children = new WidgetCompositeChildrenContainer(),

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
-use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
@@ -17,18 +17,18 @@ use Closure;
 abstract class ADriver extends ASubject implements IDriver
 {
     protected IInterval $interval;
-    protected IDriverMessages $messages;
+    protected readonly IDriverMessages $messages;
 
     public function __construct(
         protected readonly IDriverOutput $output,
-        protected readonly ITimer $timer,
+        protected readonly IDeltaTimer $deltaTimer,
         protected readonly IInterval $initialInterval,
-        protected readonly IDriverConfig $driverConfig,
+        IDriverConfig $driverConfig,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
         $this->interval = $this->initialInterval;
-        $this->messages = $this->driverConfig->getDriverMessages();
+        $this->messages = $driverConfig->getDriverMessages();
     }
 
     /** @inheritDoc */

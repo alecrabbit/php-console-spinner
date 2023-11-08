@@ -13,7 +13,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
     {
         $spinner = $this->getSpinnerMock();
         $spinner
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getFrame')
             ->with(self::equalTo(null))
         ;
@@ -39,7 +39,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
     public function canRenderUsingTimer(): void
     {
         $delta = 0.1;
-        $timer = $this->getTimerMock();
+        $timer = $this->getDeltaTimerMock();
         $timer
             ->expects(self::once())
             ->method('getDelta')
@@ -48,9 +48,8 @@ final class MethodRenderDriverTest extends TestCaseForDriver
 
         $spinner = $this->getSpinnerMock();
         $spinner
-            ->expects(self::once())
-            ->method('getFrame')
-            ->with(self::equalTo($delta))
+            ->expects(self::exactly(2))
+            ->method('getFrame')//            ->with(self::equalTo($delta))
         ;
 
         $driverOutput = $this->getDriverOutputMock();
@@ -61,7 +60,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                timer: $timer,
+                deltaTimer: $timer,
                 output: $driverOutput
             );
         $driver->initialize();

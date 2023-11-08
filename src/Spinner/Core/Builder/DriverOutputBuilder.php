@@ -11,6 +11,9 @@ use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Output\DriverOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class DriverOutputBuilder implements IDriverOutputBuilder
 {
     private ?IBufferedOutput $bufferedOutput = null;
@@ -29,7 +32,7 @@ final class DriverOutputBuilder implements IDriverOutputBuilder
     private function validate(): void
     {
         match (true) {
-            null === $this->bufferedOutput => throw new LogicException('Output is not set.'),
+            $this->bufferedOutput === null => throw new LogicException('Output is not set.'),
             $this->cursor === null => throw new LogicException('Cursor is not set.'),
             default => null,
         };

@@ -19,6 +19,9 @@ final readonly class Config implements IConfig
     public function __construct(
         ArrayObject $configElements = new ArrayObject(),
     ) {
+        /**
+         * @var ArrayObject<class-string<IConfigElement>, IConfigElement> $configElements
+         */
         $this->configElements = $configElements;
     }
 

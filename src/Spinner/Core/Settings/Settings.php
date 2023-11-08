@@ -14,11 +14,12 @@ final readonly class Settings implements ISettings
     /** @var ArrayObject<class-string<ISettingsElement>, ISettingsElement> */
     protected ArrayObject $settingsElements;
 
-    /**
-     * @param ArrayObject<class-string<ISettingsElement>, ISettingsElement> $settingElements
-     */
+
     public function __construct(ArrayObject $settingElements = new ArrayObject())
     {
+        /**
+         * @var ArrayObject<class-string<ISettingsElement>, ISettingsElement> $settingElements
+         */
         $this->settingsElements = $settingElements;
     }
 

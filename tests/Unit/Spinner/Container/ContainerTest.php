@@ -7,19 +7,18 @@ namespace AlecRabbit\Tests\Unit\Spinner\Container;
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailedException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\NonInstantiableClass;
 use ArrayObject;
-use Closure;
 use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 use Traversable;
-use TypeError;
 
 final class ContainerTest extends TestCase
 {
@@ -32,21 +31,19 @@ final class ContainerTest extends TestCase
         self::assertCount(0, self::getPropertyValue('definitions', $container));
     }
 
-    protected function getTesteeInstance(?Traversable $definitions = null, ?Closure $spawnerCb = null): IContainer
-    {
-        $spawnerCb = $spawnerCb ?? function (): IServiceSpawner {
-            return $this->getSpawnerInstanceMock();
-        };
-
+    protected function getTesteeInstance(
+        ?Traversable $definitions = null,
+        ?IServiceSpawnerBuilder $spawnerBuilder = null,
+    ): IContainer {
         return new Container(
-            spawnerCreatorCb: $spawnerCb,
+            spawnerBuilder: $spawnerBuilder ?? $this->getSpawnerBuilderMock(),
             definitions: $definitions,
         );
     }
 
-    protected function getSpawnerInstanceMock(): MockObject&IServiceSpawner
+    private function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
     {
-        return $this->createMock(IServiceSpawner::class);
+        return $this->createMock(IServiceSpawnerBuilder::class);
     }
 
     #[Test]
@@ -122,25 +119,46 @@ final class ContainerTest extends TestCase
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
+
+        $spawner = $this->getServiceSpawnerMock();
+
+        $spawnerBuilder = $this->getSpawnerBuilderMock();
+
+        $spawnerBuilder
+            ->expects(self::once())
+            ->method('withContainer')
+            ->willReturnSelf()
+        ;
+        $spawnerBuilder
+            ->expects(self::once())
+            ->method('build')
+            ->willReturn($spawner)
+        ;
+
+        $spawner
+            ->expects(self::once())
+            ->method('spawn')
+            ->with(self::identicalTo('bar'))
+            ->willThrowException(new SpawnFailedException('Class does not exist: bar'))
+        ;
+
+        $definitions = new ArrayObject([
+            'foo' => 'bar',
+        ]);
+
         $container = $this->getTesteeInstance(
-            new ArrayObject([
-                'foo' => 'bar',
-            ]),
-            function (): IServiceSpawner {
-                $spawner = $this->getSpawnerInstanceMock();
-                $spawner
-                    ->expects(self::once())
-                    ->method('spawn')
-                    ->with(self::identicalTo('bar'))
-                    ->willThrowException(new SpawnFailedException('Class does not exist: bar'))
-                ;
-                return $spawner;
-            }
+            definitions: $definitions,
+            spawnerBuilder: $spawnerBuilder,
         );
 
         $container->get('foo');
 
         self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
+    }
+
+    protected function getServiceSpawnerMock(): MockObject&IServiceSpawner
+    {
+        return $this->createMock(IServiceSpawner::class);
     }
 
     #[Test]
@@ -171,21 +189,37 @@ final class ContainerTest extends TestCase
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
+        $spawner = $this->getServiceSpawnerMock();
+
+        $spawnerBuilder = $this->getSpawnerBuilderMock();
+
+        $spawnerBuilder
+            ->expects(self::once())
+            ->method('withContainer')
+            ->willReturnSelf()
+        ;
+        $spawnerBuilder
+            ->expects(self::once())
+            ->method('build')
+            ->willReturn($spawner)
+        ;
+
         $closure = static fn() => throw new InvalidArgumentException('Intentional exception.');
+
+        $spawner
+            ->expects(self::once())
+            ->method('spawn')
+            ->with(self::identicalTo($closure))
+            ->willThrowException(new ContainerException($exceptionMessage))
+        ;
+
+        $definitions = new ArrayObject([
+            'foo' => $closure,
+        ]);
+
         $container = $this->getTesteeInstance(
-            new ArrayObject([
-                'foo' => $closure,
-            ]),
-            function () use ($closure, $exceptionMessage): IServiceSpawner {
-                $spawner = $this->getSpawnerInstanceMock();
-                $spawner
-                    ->expects(self::once())
-                    ->method('spawn')
-                    ->with(self::identicalTo($closure))
-                    ->willThrowException(new ContainerException($exceptionMessage))
-                ;
-                return $spawner;
-            }
+            definitions: $definitions,
+            spawnerBuilder: $spawnerBuilder,
         );
 
         $container->get('foo');
@@ -200,46 +234,42 @@ final class ContainerTest extends TestCase
 
         $this->expectException($exceptionClass);
 
-        $container = $this->getTesteeInstance(
+        $spawner = $this->getServiceSpawnerMock();
+
+        $spawnerBuilder = $this->getSpawnerBuilderMock();
+
+        $spawnerBuilder
+            ->expects(self::once())
+            ->method('withContainer')
+            ->willReturnSelf()
+        ;
+        $spawnerBuilder
+            ->expects(self::once())
+            ->method('build')
+            ->willReturn($spawner)
+        ;
+
+        $spawner
+            ->expects(self::once())
+            ->method('spawn')
+            ->with(self::identicalTo(NonInstantiableClass::class))
+            ->willThrowException(new ContainerException())
+        ;
+
+        $definitions =
             new ArrayObject([
                 'foo' => NonInstantiableClass::class,
-            ]),
-            function (): IServiceSpawner {
-                $instanceSpawner = $this->getSpawnerInstanceMock();
-                $instanceSpawner
-                    ->expects(self::once())
-                    ->method('spawn')
-                    ->with(self::identicalTo(NonInstantiableClass::class))
-                    ->willThrowException(new ContainerException())
-                ;
-                return $instanceSpawner;
-            }
+            ]);
+
+        $container = $this->getTesteeInstance(
+            definitions: $definitions,
+            spawnerBuilder: $spawnerBuilder,
         );
 
         $container->get('foo');
 
         self::failTest(self::exceptionNotThrownString($exceptionClass));
     }
-//
-//    #[Test]
-//    public function throwsWhenAddedIdIsAlreadyRegistered(): void
-//    {
-//        $exceptionClass = ContainerException::class;
-//        $exceptionMessage = 'Definition with id "foo" already registered in the container.';
-//
-//        $this->expectException($exceptionClass);
-//        $this->expectExceptionMessage($exceptionMessage);
-//
-//        $container = $this->getTesteeInstance(
-//            new ArrayObject([
-//                'foo' => 'bar',
-//            ])
-//        );
-//
-//        $container->add('foo', 'baz');
-//
-//        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
-//    }
 
     #[Test]
     public function throwsWhenOneOfDefinitionsAlreadyRegistered(): void
@@ -257,17 +287,5 @@ final class ContainerTest extends TestCase
         $container = $this->getTesteeInstance($definitions());
 
         self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
-    }
-
-    #[Test]
-    public function throwsWhenSpawnerCbIsInvalid(): void
-    {
-        $exceptionClass = TypeError::class;
-
-        $this->expectException($exceptionClass);
-
-        $container = new Container(static fn() => 1, new ArrayObject([]));
-
-        self::failTest(self::exceptionNotThrownString($exceptionClass));
     }
 }

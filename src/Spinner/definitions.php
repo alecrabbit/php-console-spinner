@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Contract\INow;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
@@ -14,14 +15,13 @@ use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
 use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IDeltaTimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Builder\DeltaTimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
-use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LinkerConfigBuilder;
@@ -61,11 +61,11 @@ use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\RootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RevolverConfig;
-use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
@@ -73,6 +73,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRootWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
@@ -84,13 +85,13 @@ use AlecRabbit\Spinner\Core\Config\Solver\DriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\NormalizerModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\RootWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
-use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -103,6 +104,7 @@ use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
@@ -115,7 +117,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\DeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
@@ -126,7 +128,6 @@ use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\TimerFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
@@ -145,10 +146,6 @@ use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
-use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
-use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
-use AlecRabbit\Spinner\Core\Palette\Rainbow;
-use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\PatternFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -163,7 +160,6 @@ use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Detector\ColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\SignalHandlingSupportDetector;
@@ -171,7 +167,6 @@ use AlecRabbit\Spinner\Core\Settings\Factory\DefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\UserSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
@@ -190,6 +185,14 @@ use Traversable;
 function getDefinitions(): Traversable
 {
     yield from [
+        INow::class => new class implements INow {
+            public function now(): float
+            {
+                return
+                    hrtime(true) * 1e-6; // returns milliseconds
+            }
+        },
+
         IOutput::class => Output::class,
         IBuffer::class => StringBuffer::class,
         IBufferedOutput::class => BufferedOutput::class,
@@ -245,9 +248,6 @@ function getDefinitions(): Traversable
     yield from solvers();
     yield from factories();
     yield from detectors();
-
-    // to be removed:
-    yield from substitutes();
 }
 
 // parts of definitions:
@@ -295,7 +295,7 @@ function builders(): Traversable
         IDriverOutputBuilder::class => DriverOutputBuilder::class,
         IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
-        ITimerBuilder::class => TimerBuilder::class,
+        IDeltaTimerBuilder::class => DeltaTimerBuilder::class,
         IWidgetBuilder::class => WidgetBuilder::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
         IWidgetCompositeBuilder::class => WidgetCompositeBuilder::class,
@@ -326,6 +326,7 @@ function solvers(): Traversable
         IStreamSolver::class => StreamSolver::class,
         IDriverMessagesSolver::class => DriverMessagesSolver::class,
         IWidgetSettingsSolver::class => WidgetSettingsSolver::class,
+        IRootWidgetSettingsSolver::class => RootWidgetSettingsSolver::class,
     ];
 }
 
@@ -352,7 +353,7 @@ function factories(): Traversable
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
         ISpinnerFactory::class => SpinnerFactory::class,
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
-        ITimerFactory::class => TimerFactory::class,
+        IDeltaTimerFactory::class => DeltaTimerFactory::class,
         IUserSettingsFactory::class => UserSettingsFactory::class,
         IWidgetCompositeFactory::class => WidgetCompositeFactory::class,
         IWidgetFactory::class => WidgetFactory::class,
@@ -370,6 +371,7 @@ function factories(): Traversable
         ILoopFactory::class => LoopFactory::class,
 
         IWidgetConfigFactory::class => WidgetConfigFactory::class,
+        IRootWidgetConfigFactory::class => RootWidgetConfigFactory::class,
         IRuntimeWidgetConfigFactory::class => RuntimeWidgetConfigFactory::class,
         IRuntimeRootWidgetConfigFactory::class => RuntimeRootWidgetConfigFactory::class,
     ];
@@ -395,33 +397,6 @@ function detectors(): Traversable
                 new ColorSupportDetector(
                     Probes::load(IColorSupportProbe::class)
                 );
-        },
-    ];
-}
-
-/*
- * FUNCTIONS TO BE REMOVED:
- */
-function substitutes(): Traversable
-{
-    yield from [
-        IRootWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
-            return
-                new class implements IRootWidgetConfigFactory {
-                    public function create(
-                        IWidgetConfig|IWidgetSettings|null $widgetSettings = null
-                    ): IRootWidgetConfig {
-                        return
-                            new RootWidgetConfig(
-                                leadingSpacer: new CharFrame('', 0),
-                                trailingSpacer: new CharFrame(' ', 1),
-                                revolverConfig: new WidgetRevolverConfig(
-                                    stylePalette: new Rainbow(),
-                                    charPalette: new Snake(),
-                                )
-                            );
-                    }
-                };
         },
     ];
 }

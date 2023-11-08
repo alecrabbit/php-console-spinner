@@ -9,10 +9,10 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 interface IConfig
 {
     /**
-     * @param IConfigElement ...$settingsElements
+     * @param IConfigElement ...$configElements
      * @throws InvalidArgumentException
      */
-    public function set(IConfigElement ...$settingsElements): void;
+    public function set(IConfigElement ...$configElements): void;
 
     /**
      * @psalm-template T of IConfigElement

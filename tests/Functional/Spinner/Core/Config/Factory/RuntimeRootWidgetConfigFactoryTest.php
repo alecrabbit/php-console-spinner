@@ -190,7 +190,7 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
     ): IRootWidgetConfigFactory {
         return
             new RuntimeRootWidgetConfigFactory(
-                widgetConfig: $widgetConfig ?? $this->getRootWidgetConfigMock(),
+                rootWidgetConfig: $widgetConfig ?? $this->getRootWidgetConfigMock(),
             );
     }
 

@@ -6,13 +6,14 @@ namespace AlecRabbit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-final readonly class WidgetSettingsSolver extends ASolver implements Contract\IWidgetSettingsSolver
+final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSettingsSolver
 {
     public function solve(): IWidgetSettings
     {

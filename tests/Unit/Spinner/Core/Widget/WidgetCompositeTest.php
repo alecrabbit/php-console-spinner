@@ -65,7 +65,7 @@ final class WidgetCompositeTest extends TestCase
         $children
             ->expects(self::once())
             ->method('attach')
-            ->with($this->isInstanceOf(IWidgetComposite::class))
+            ->with(self::isInstanceOf(IWidgetComposite::class))
         ;
 
         $widgetComposite = $this->getTesteeInstance(

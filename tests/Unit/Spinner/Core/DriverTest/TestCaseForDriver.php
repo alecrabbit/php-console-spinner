@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\DriverTest;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
-use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -20,7 +20,7 @@ use PHPUnit\Framework\MockObject\Stub;
 class TestCaseForDriver extends TestCase
 {
     public function getTesteeInstance(
-        ?ITimer $timer = null,
+        ?IDeltaTimer $deltaTimer = null,
         ?IDriverOutput $output = null,
         ?IInterval $initialInterval = null,
         ?IDriverConfig $driverConfig = null,
@@ -28,7 +28,7 @@ class TestCaseForDriver extends TestCase
     ): IDriver {
         return new Driver(
             output: $output ?? $this->getDriverOutputMock(),
-            timer: $timer ?? $this->getTimerMock(),
+            deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
             driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
             observer: $observer,
@@ -40,9 +40,9 @@ class TestCaseForDriver extends TestCase
         return $this->createMock(IDriverOutput::class);
     }
 
-    protected function getTimerMock(): MockObject&ITimer
+    protected function getDeltaTimerMock(): MockObject&IDeltaTimer
     {
-        return $this->createMock(ITimer::class);
+        return $this->createMock(IDeltaTimer::class);
     }
 
     protected function getIntervalMock(): MockObject&IInterval

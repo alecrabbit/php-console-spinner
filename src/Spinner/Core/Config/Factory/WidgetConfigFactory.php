@@ -17,7 +17,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Exception\DomainException;
 
-final class WidgetConfigFactory implements IWidgetConfigFactory
+final readonly class WidgetConfigFactory implements IWidgetConfigFactory
 {
     public function __construct(
         protected IWidgetSettingsSolver $widgetSettingsSolver,
