@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\LogicException;
 use ArrayObject;
 use Traversable;
@@ -23,7 +23,7 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     private const COLLECTION_IS_EMPTY = 'Collection is empty.';
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     public function __construct(Traversable $frames)
     {
@@ -33,7 +33,7 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private function initialize(Traversable $frames): void
     {
@@ -47,12 +47,12 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private static function assertFrame(mixed $frame): void
     {
         if (!$frame instanceof IFrame) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     '"%s" expected, "%s" given.',
                     IFrame::class,
@@ -65,7 +65,7 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     private static function assertIsNotEmpty(IFrameCollection $collection): void
     {
         if ($collection->count() === 0) {
-            throw new InvalidArgumentException(self::COLLECTION_IS_EMPTY);
+            throw new InvalidArgument(self::COLLECTION_IS_EMPTY);
         }
     }
 

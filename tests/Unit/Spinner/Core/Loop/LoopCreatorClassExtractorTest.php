@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopCreator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassExtractor;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub\LoopProbeStub;
 use ArrayObject;
@@ -24,7 +24,7 @@ final class LoopCreatorClassExtractorTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf(
                             'Probe must be an instance of "%s" interface.',
                             ILoopProbe::class

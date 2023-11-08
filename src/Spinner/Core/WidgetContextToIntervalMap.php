@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IWidgetContextToIntervalMap;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
@@ -72,7 +72,7 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
     private function assertOffset(mixed $offset): void
     {
         if (!$offset instanceof IWidgetContext) {
-            throw new InvalidArgumentException('Invalid offset type.');
+            throw new InvalidArgument('Invalid offset type.');
         }
     }
 
@@ -94,7 +94,7 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
             return;
         }
         if (!$value instanceof IInterval) {
-            throw new InvalidArgumentException('Invalid value type.');
+            throw new InvalidArgument('Invalid value type.');
         }
     }
 

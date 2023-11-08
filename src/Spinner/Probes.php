@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use Traversable;
 
 use function is_subclass_of;
@@ -33,7 +33,7 @@ final class Probes
      *
      * @param array<class-string<TV>> $classes
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     public static function register(string ...$classes): void
     {
@@ -48,12 +48,12 @@ final class Probes
      *
      * @psalm-param class-string<TV> $class
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private static function assertClass(string $class): void
     {
         if (!self::isProbeSubclass($class)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     'Class "%s" must be a subclass of "%s" interface.',
                     $class,
@@ -80,7 +80,7 @@ final class Probes
      *
      * @psalm-return ($filterClass is string ? Traversable<TV> : Traversable<T>)
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     public static function load(string $filterClass = null): Traversable
     {
@@ -104,7 +104,7 @@ final class Probes
      *
      * @param array<class-string<TV>> $classes
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     public static function unregister(string ...$classes): void
     {

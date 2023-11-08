@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Asynchronous\Revolt;
 
 use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopAdapter;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use Closure;
 use Revolt\EventLoop;
 
@@ -24,7 +24,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
     public function cancel(mixed $timer): void
     {
         if (!is_string($timer)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     'Invalid timer type: %s, expected string',
                     gettype($timer)

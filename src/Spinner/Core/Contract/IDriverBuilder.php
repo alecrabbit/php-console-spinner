@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 interface IDriverBuilder
@@ -22,7 +22,7 @@ interface IDriverBuilder
 
     public function withDeltaTimer(IDeltaTimer $timer): IDriverBuilder;
 
-    public function withDriverOutput(IDriverOutput $driverOutput): IDriverBuilder;
+    public function withSequenceStateWriter(ISequenceStateWriter $sequenceStateWriter): IDriverBuilder;
 
     public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder;
 

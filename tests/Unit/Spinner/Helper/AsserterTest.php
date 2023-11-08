@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Helper;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -24,7 +24,7 @@ final class AsserterTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => sprintf(
                         'For %s::ANSI8 style mode value should be in range 0..255, 345 given.',
                         StylingMethodOption::class,
@@ -42,7 +42,7 @@ final class AsserterTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => 'Value should be positive integer, -3 given.',
                 ],
             ],
@@ -57,7 +57,7 @@ final class AsserterTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => sprintf(
                         'For %s::ANSI4 style mode value should be in range 0..15, 22 given.',
                         StylingMethodOption::class,
@@ -92,7 +92,7 @@ final class AsserterTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => 'Value should be in range 0..3, int(5) given.',
                 ],
             ],
@@ -107,7 +107,7 @@ final class AsserterTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => 'Value should be in range 0..3, int(-1) given.',
                 ],
             ],
@@ -128,7 +128,7 @@ final class AsserterTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => 'Value should be a valid hex color code("#rgb", "#rrggbb"), "ffee12" given. No',
                 ],
             ],
@@ -142,7 +142,7 @@ final class AsserterTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => 'Value should be a valid hex color code("#rgb", "#rrggbb"), "#ffe12" given. Length',
                 ],
             ],
@@ -156,7 +156,7 @@ final class AsserterTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => 'Value should not be empty string.',
                 ],
             ],
@@ -170,7 +170,7 @@ final class AsserterTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => 'Value should be a valid hex color code("#rgb", "#rrggbb"), "#f2" given. Length',
                 ],
             ],
@@ -184,7 +184,7 @@ final class AsserterTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => 'Value should be a valid hex color code("#rgb", "#rrggbb"), "#ff" given. Length',
                 ],
             ],
@@ -201,7 +201,7 @@ final class AsserterTest extends TestCase
     {
         $invalidClass = stdClass::class;
         $expectedClass = Throwable::class;
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             sprintf(
                 'Class "%s" must be a subclass of "%s"',
@@ -219,7 +219,7 @@ final class AsserterTest extends TestCase
     {
         $invalidClass = stdClass::class;
         $expectedClass = Throwable::class;
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage(
             sprintf(
@@ -238,7 +238,7 @@ final class AsserterTest extends TestCase
     public function canAssertStream(): void
     {
         $invalidStream = 1;
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             sprintf(
                 'Argument is expected to be a stream(resource), "%s" given.',
@@ -254,7 +254,7 @@ final class AsserterTest extends TestCase
     public function canAssertColorSupportLevelsNotEmpty(): void
     {
         $invalidColorSupportLevels = new ArrayObject([]);
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Color modes must not be empty.');
 
         Asserter::assertColorModes($invalidColorSupportLevels);
@@ -267,7 +267,7 @@ final class AsserterTest extends TestCase
         $invalidMode = 1;
         $invalidColorModes = new ArrayObject([$invalidMode]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Unsupported color mode of type "int".');
 
         Asserter::assertColorModes($invalidColorModes);
@@ -294,7 +294,7 @@ final class AsserterTest extends TestCase
     public function canAssertClassNotExists(): void
     {
         $nonExistentClass = 'invalid_class';
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             sprintf(
                 'Class "%s" does not exist.',

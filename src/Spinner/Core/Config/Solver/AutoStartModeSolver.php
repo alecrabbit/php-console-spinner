@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final readonly class AutoStartModeSolver extends ASolver implements IAutoStartModeSolver
 {
@@ -153,7 +153,7 @@ final readonly class AutoStartModeSolver extends ASolver implements IAutoStartMo
                     null,
                     AutoStartOption::DISABLED,
                 ] => AutoStartMode::DISABLED,
-                default => throw new InvalidArgumentException(
+                default => throw new InvalidArgument(
                     sprintf(
                         'Unable to solve "%s". From values %s.',
                         AutoStartMode::class,

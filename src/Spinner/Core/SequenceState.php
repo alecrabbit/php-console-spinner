@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
+use AlecRabbit\Spinner\Core\Contract\IPoint;
+use AlecRabbit\Spinner\Core\Contract\ISequenceState;
+use AlecRabbit\Spinner\Exception\NotImplemented;
 
-final readonly class SpinnerState implements ISpinnerState
+final readonly class SequenceState implements ISequenceState
 {
     public function __construct(
         protected string $sequence = '',
@@ -28,5 +30,10 @@ final readonly class SpinnerState implements ISpinnerState
     public function getPreviousWidth(): int
     {
         return $this->previousWidth;
+    }
+
+    public function getPosition(): IPoint
+    {
+        throw new NotImplemented('Not implemented in this package.');
     }
 }

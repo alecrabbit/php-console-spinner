@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayObject;
 
 final readonly class Config implements IConfig
@@ -37,17 +37,17 @@ final readonly class Config implements IConfig
 
     /**
      * @param class-string<IConfigElement> $id
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private static function assertIdentifier(string $id): void
     {
         if (!interface_exists($id)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf('Identifier "%s" is not an interface.', $id)
             );
         }
         if (!is_a($id, IConfigElement::class, true)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf('Identifier "%s" is not an instance of "%s".', $id, IConfigElement::class)
             );
         }
@@ -58,7 +58,7 @@ final readonly class Config implements IConfig
     {
         self::assertIdentifier($id);
         if (!$this->configElements->offsetExists($id)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf('Identifier "%s" is not set.', $id)
             );
         }

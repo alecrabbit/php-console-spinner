@@ -4,27 +4,28 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
-use AlecRabbit\Spinner\Core\SpinnerState;
+use AlecRabbit\Spinner\Core\Contract\ISequenceState;
+use AlecRabbit\Spinner\Core\SequenceState;
+use AlecRabbit\Spinner\Exception\NotImplemented;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class SpinnerStateTest extends TestCase
+final class SequenceStateTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $spinnerState = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SpinnerState::class, $spinnerState);
+        self::assertInstanceOf(SequenceState::class, $spinnerState);
     }
 
     public function getTesteeInstance(
         ?string $sequence = null,
         ?int $width = null,
         ?int $previousWidth = null,
-    ): ISpinnerState {
-        return new SpinnerState(
+    ): ISequenceState {
+        return new SequenceState(
             sequence: $sequence ?? 's',
             width: $width ?? 1,
             previousWidth: $previousWidth ?? 0,
@@ -44,9 +45,20 @@ final class SpinnerStateTest extends TestCase
             previousWidth: $previousWidth,
         );
 
-        self::assertInstanceOf(SpinnerState::class, $spinnerState);
+        self::assertInstanceOf(SequenceState::class, $spinnerState);
         self::assertEquals($sequence, $spinnerState->getSequence());
         self::assertEquals($width, $spinnerState->getWidth());
         self::assertEquals($previousWidth, $spinnerState->getPreviousWidth());
+    }
+
+    #[Test]
+    public function throwsIfGetPositionIsCalled(): void
+    {
+        $this->expectException(NotImplemented::class);
+        $this->expectExceptionMessage('Not implemented in this package.');
+
+        $spinnerState = $this->getTesteeInstance();
+
+        $spinnerState->getPosition();
     }
 }

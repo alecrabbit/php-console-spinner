@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Detector;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayObject;
 use Traversable;
 
@@ -35,7 +35,7 @@ final class SignalHandlingSupportDetector implements ISignalHandlingSupportDetec
     protected static function assertProbe(mixed $probe): void
     {
         if (!is_a($probe, ISignalHandlingProbe::class, true)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     'Probe must be an instance of "%s" interface.',
                     ISignalHandlingProbe::class

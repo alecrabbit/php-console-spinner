@@ -15,8 +15,8 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     {
         $finalMessage = 'finalMessage';
 
-        $driverOutput = $this->getDriverOutputMock();
-        $driverOutput
+        $sequenceStateWriter = $this->getSequenceStateWriterMock();
+        $sequenceStateWriter
             ->expects(self::once())
             ->method('finalize')
             ->with(self::equalTo($finalMessage))
@@ -24,7 +24,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                output: $driverOutput
+                stateWriter: $sequenceStateWriter
             );
 
         $driver->initialize();
@@ -36,8 +36,8 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     {
         $finalMessage = '';
 
-        $driverOutput = $this->getDriverOutputMock();
-        $driverOutput
+        $sequenceStateWriter = $this->getSequenceStateWriterMock();
+        $sequenceStateWriter
             ->expects(self::once())
             ->method('finalize')
             ->with(self::equalTo($finalMessage))
@@ -45,7 +45,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                output: $driverOutput
+                stateWriter: $sequenceStateWriter
             );
 
         $driver->initialize();
@@ -70,8 +70,8 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
             ->willReturn($driverMessages)
         ;
 
-        $driverOutput = $this->getDriverOutputMock();
-        $driverOutput
+        $sequenceStateWriter = $this->getSequenceStateWriterMock();
+        $sequenceStateWriter
             ->expects(self::once())
             ->method('finalize')
             ->with(self::identicalTo($message))
@@ -79,7 +79,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                output: $driverOutput,
+                stateWriter: $sequenceStateWriter,
                 driverConfig: $driverConfig,
             );
 
@@ -97,15 +97,15 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     {
         $finalMessage = 'finalMessage';
 
-        $driverOutput = $this->getDriverOutputMock();
-        $driverOutput
+        $sequenceStateWriter = $this->getSequenceStateWriterMock();
+        $sequenceStateWriter
             ->expects(self::once())
             ->method('finalize')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $driverOutput
+                stateWriter: $sequenceStateWriter
             );
 
         $driver->finalize($finalMessage);
@@ -114,14 +114,14 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     #[Test]
     public function canFinalizeUninitializedWithNoMessage(): void
     {
-        $driverOutput = $this->getDriverOutputMock();
-        $driverOutput
+        $sequenceStateWriter = $this->getSequenceStateWriterMock();
+        $sequenceStateWriter
             ->expects(self::once())
             ->method('finalize')
         ;
         $driver =
             $this->getTesteeInstance(
-                output: $driverOutput
+                stateWriter: $sequenceStateWriter
             );
 
         $driver->finalize();
@@ -130,15 +130,15 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     #[Test]
     public function erasesAllAddedSpinners(): void
     {
-        $driverOutput = $this->getDriverOutputMock();
-        $driverOutput
+        $sequenceStateWriter = $this->getSequenceStateWriterMock();
+        $sequenceStateWriter
             ->expects(self::exactly(2))
             ->method('erase')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $driverOutput
+                stateWriter: $sequenceStateWriter
             );
 
         $driver->initialize();

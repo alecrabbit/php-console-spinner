@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final class IntegerNormalizer implements IIntegerNormalizer
 {
@@ -14,7 +14,7 @@ final class IntegerNormalizer implements IIntegerNormalizer
     private const MAX_DIVISOR = 1000000;
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     public function __construct(
         protected int $divisor = self::DEFAULT_DIVISOR,
@@ -25,13 +25,13 @@ final class IntegerNormalizer implements IIntegerNormalizer
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private static function assertDivisor(int $divisor): void
     {
         match (true) {
-            0 >= $divisor => throw new InvalidArgumentException('Divisor should be greater than 0.'),
-            $divisor > self::MAX_DIVISOR => throw new InvalidArgumentException(
+            0 >= $divisor => throw new InvalidArgument('Divisor should be greater than 0.'),
+            $divisor > self::MAX_DIVISOR => throw new InvalidArgument(
                 sprintf('Divisor should be less than %s.', self::MAX_DIVISOR)
             ),
             default => null,
@@ -39,12 +39,12 @@ final class IntegerNormalizer implements IIntegerNormalizer
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private static function assertMin(int $min): void
     {
         if (0 > $min) {
-            throw new InvalidArgumentException('Min should be greater than 0.');
+            throw new InvalidArgument('Min should be greater than 0.');
         }
     }
 

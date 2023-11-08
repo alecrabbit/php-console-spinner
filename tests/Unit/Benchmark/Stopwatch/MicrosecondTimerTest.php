@@ -8,7 +8,7 @@ use AlecRabbit\Benchmark\Contract\ITimer;
 use AlecRabbit\Benchmark\Contract\TimeUnit;
 use AlecRabbit\Benchmark\Stopwatch\MicrosecondTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use Closure;
 use PHPUnit\Framework\Attributes\Test;
@@ -63,7 +63,7 @@ final class MicrosecondTimerTest extends TestCase
     #[Test]
     public function throwsIfTimeFunctionReturnTypeIsValidButActualReturnIsNot(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Invoke of time function throws:';
 
         $test = function (): void {
@@ -84,7 +84,7 @@ final class MicrosecondTimerTest extends TestCase
     #[Test]
     public function throwsIfTimeFunctionReturnTypeAllowsNull(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Time function return type allows null.';
 
         $test = function (): void {
@@ -105,7 +105,7 @@ final class MicrosecondTimerTest extends TestCase
     #[Test]
     public function throwsIfTimeFunctionUnionReturnTypeAllowsNull(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Time function return type allows null.';
 
         $test = function (): void {
@@ -126,7 +126,7 @@ final class MicrosecondTimerTest extends TestCase
     #[Test]
     public function throwsIfTimeFunctionReturnTypeIsIntersection(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Unexpected intersection type.';
 
         $test = function (): void {
@@ -185,7 +185,7 @@ final class MicrosecondTimerTest extends TestCase
     #[Test]
     public function throwsIfTimeFunctionReturnTypeIsNotSpecified(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Return type of time function is not specified.';
 
         $test = function (): void {
@@ -206,7 +206,7 @@ final class MicrosecondTimerTest extends TestCase
     #[Test]
     public function throwsIfTimeFunctionReturnTypeIsInvalid(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage =
             'Time function must return "int|float"(e.g. "fn(): int|float => 0.0"), instead return type is "string".';
 

@@ -5,32 +5,32 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
+use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Output\DriverOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
+use AlecRabbit\Spinner\Core\Output\SequenceStateWriter;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
-final class DriverOutputTest extends TestCase
+final class SequenceStateWriterTest extends TestCase
 {
     #[Test]
     public function createdUninitialized(): void
     {
-        $driverOutput = $this->getTesteeInstance();
+        $sequenceStateWriter = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverOutput::class, $driverOutput);
-        self::assertFalse(self::getPropertyValue('initialized', $driverOutput));
+        self::assertInstanceOf(SequenceStateWriter::class, $sequenceStateWriter);
+        self::assertFalse(self::getPropertyValue('initialized', $sequenceStateWriter));
     }
 
     public function getTesteeInstance(
         ?IBufferedOutput $output = null,
         ?IConsoleCursor $cursor = null,
-    ): IDriverOutput {
+    ): ISequenceStateWriter {
         return
-            new DriverOutput(
+            new SequenceStateWriter(
                 output: $output ?? $this->getBufferedOutputMock(),
                 cursor: $cursor ?? $this->getCursorMock(),
             );
@@ -60,12 +60,12 @@ final class DriverOutputTest extends TestCase
         $output->expects(self::once())->method('append')->with($message);
         $output->expects(self::exactly(2))->method('flush');
 
-        $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance(output: $output, cursor: $cursor);
 
-        $driverOutput->initialize();
-        $driverOutput->finalize($message);
+        $sequenceStateWriter->initialize();
+        $sequenceStateWriter->finalize($message);
 
-        self::assertFalse(self::getPropertyValue('initialized', $driverOutput));
+        self::assertFalse(self::getPropertyValue('initialized', $sequenceStateWriter));
     }
 
     #[Test]
@@ -82,12 +82,12 @@ final class DriverOutputTest extends TestCase
         $output->expects(self::never())->method('append')->with($message);
         $output->expects(self::exactly(2))->method('flush');
 
-        $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance(output: $output, cursor: $cursor);
 
-        $driverOutput->initialize();
-        $driverOutput->finalize($message);
+        $sequenceStateWriter->initialize();
+        $sequenceStateWriter->finalize($message);
 
-        self::assertFalse(self::getPropertyValue('initialized', $driverOutput));
+        self::assertFalse(self::getPropertyValue('initialized', $sequenceStateWriter));
     }
 
     #[Test]
@@ -104,11 +104,11 @@ final class DriverOutputTest extends TestCase
         $output->expects(self::never())->method('append')->with($message);
         $output->expects(self::exactly(2))->method('flush');
 
-        $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance(output: $output, cursor: $cursor);
 
-        $driverOutput->initialize();
-        self::assertTrue(self::getPropertyValue('initialized', $driverOutput));
-        $driverOutput->finalize($message);
+        $sequenceStateWriter->initialize();
+        self::assertTrue(self::getPropertyValue('initialized', $sequenceStateWriter));
+        $sequenceStateWriter->finalize($message);
     }
 
     #[Test]
@@ -117,15 +117,15 @@ final class DriverOutputTest extends TestCase
         $cursor = $this->getCursorMock();
         $cursor->expects(self::once())->method('erase')->willReturnSelf();
 
-        $driverOutput = $this->getTesteeInstance(cursor: $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance(cursor: $cursor);
 
-        $driverOutput->initialize();
-        $driverOutput->erase($this->getSpinnerStateStub());
+        $sequenceStateWriter->initialize();
+        $sequenceStateWriter->erase($this->getSpinnerStateStub());
     }
 
-    protected function getSpinnerStateStub(): Stub&ISpinnerState
+    protected function getSpinnerStateStub(): Stub&ISequenceState
     {
-        return $this->createStub(ISpinnerState::class);
+        return $this->createStub(ISequenceState::class);
     }
 
     #[Test]
@@ -138,9 +138,9 @@ final class DriverOutputTest extends TestCase
             ->willReturnSelf()
         ;
 
-        $driverOutput = $this->getTesteeInstance(cursor: $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance(cursor: $cursor);
 
-        $driverOutput->erase($this->getSpinnerStateStub());
+        $sequenceStateWriter->erase($this->getSpinnerStateStub());
     }
 
     #[Test]
@@ -157,9 +157,9 @@ final class DriverOutputTest extends TestCase
         $output->expects(self::never())->method('append')->with($message);
         $output->expects(self::never())->method('flush');
 
-        $driverOutput = $this->getTesteeInstance($output, $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance($output, $cursor);
 
-        $driverOutput->finalize($message);
+        $sequenceStateWriter->finalize($message);
     }
 
     #[Test]
@@ -174,19 +174,19 @@ final class DriverOutputTest extends TestCase
         $output->expects(self::never())->method('append');
         $output->expects(self::never())->method('flush');
 
-        $driverOutput = $this->getTesteeInstance($output, $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance($output, $cursor);
 
         $spinnerState = $this->getSpinnerStateMock();
         $spinnerState->expects(self::never())->method('getSequence');
         $spinnerState->expects(self::never())->method('getWidth');
         $spinnerState->expects(self::never())->method('getPreviousWidth');
 
-        $driverOutput->write($spinnerState);
+        $sequenceStateWriter->write($spinnerState);
     }
 
-    protected function getSpinnerStateMock(): MockObject&ISpinnerState
+    protected function getSpinnerStateMock(): MockObject&ISequenceState
     {
-        return $this->createMock(ISpinnerState::class);
+        return $this->createMock(ISequenceState::class);
     }
 
     #[Test]
@@ -201,14 +201,14 @@ final class DriverOutputTest extends TestCase
         $output->expects(self::once())->method('append');
         $output->expects(self::exactly(2))->method('flush');
 
-        $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance(output: $output, cursor: $cursor);
 
         $spinnerState = $this->getSpinnerStateMock();
         $spinnerState->expects(self::once())->method('getSequence');
         $spinnerState->expects(self::once())->method('getWidth');
         $spinnerState->expects(self::once())->method('getPreviousWidth');
 
-        $driverOutput->initialize();
-        $driverOutput->write($spinnerState);
+        $sequenceStateWriter->initialize();
+        $sequenceStateWriter->write($spinnerState);
     }
 }

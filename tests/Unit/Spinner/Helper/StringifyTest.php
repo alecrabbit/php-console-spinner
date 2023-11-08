@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Helper;
 
 use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Helper\Stringify;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
@@ -215,18 +216,18 @@ final class StringifyTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::VALUE => new \InvalidArgumentException('-'),
+                    self::VALUE => new InvalidArgumentException('-'),
                 ],
             ],
         ];
         #2
         yield [
             [
-                self::RESULT => 'InvalidArgumentException',
+                self::RESULT => 'InvalidArgument',
             ],
             [
                 self::ARGUMENTS => [
-                    self::VALUE => InvalidArgumentException::class,
+                    self::VALUE => InvalidArgument::class,
                 ],
             ],
         ];

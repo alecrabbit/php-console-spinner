@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Contract\IWeakMap;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayAccess;
 use Countable;
@@ -362,7 +362,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
     #[Test]
     public function throwsIfUpdateInvokedForSelf(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Object can not be self.';
 
         $test = function (): void {

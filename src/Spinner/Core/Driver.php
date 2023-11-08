@@ -10,25 +10,25 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 
 final class Driver extends ADriver
 {
     protected ?ISpinner $spinner = null;
-    protected ISpinnerState $state;
+    protected ISequenceState $state;
 
     public function __construct(
-        IDriverOutput $output,
+        ISequenceStateWriter $output,
         IDeltaTimer $deltaTimer,
         IInterval $initialInterval,
         IDriverConfig $driverConfig,
         ?IObserver $observer = null
     ) {
-        parent::__construct($output, $deltaTimer, $initialInterval, $driverConfig, $observer);
+        parent::__construct($driverConfig, $deltaTimer, $initialInterval, $output, $observer);
 
-        $this->state = new SpinnerState();
+        $this->state = new SequenceState();
     }
 
 
@@ -40,7 +40,7 @@ final class Driver extends ADriver
         $frame = $spinner->getFrame();
 
         $this->state =
-            new SpinnerState(
+            new SequenceState(
                 sequence: $frame->sequence(),
                 width: $frame->width(),
                 previousWidth: 0
@@ -54,7 +54,7 @@ final class Driver extends ADriver
     protected function erase(): void
     {
         if ($this->spinner) {
-            $this->output->erase($this->state);
+            $this->stateWriter->erase($this->state);
         }
     }
 
@@ -96,13 +96,13 @@ final class Driver extends ADriver
             $dt ??= $this->deltaTimer->getDelta();
             $frame = $this->spinner->getFrame($dt);
             $this->state =
-                new SpinnerState(
+                new SequenceState(
                     sequence: $frame->sequence(),
                     width: $frame->width(),
                     previousWidth: $this->state->getWidth()
                 );
 
-            $this->output->write($this->state);
+            $this->stateWriter->write($this->state);
         }
     }
 }

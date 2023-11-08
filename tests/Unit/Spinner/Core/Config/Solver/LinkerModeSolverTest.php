@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -35,7 +35,7 @@ final class LinkerModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', LinkerMode::class),
                     ],
                 ],
@@ -44,7 +44,7 @@ final class LinkerModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', LinkerMode::class),
                     ],
                 ],
@@ -53,7 +53,7 @@ final class LinkerModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', LinkerMode::class),
                     ],
                 ],
@@ -62,7 +62,7 @@ final class LinkerModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', LinkerMode::class),
                     ],
                 ],

@@ -6,7 +6,7 @@ namespace AlecRabbit\Benchmark\Stopwatch\A;
 
 use AlecRabbit\Benchmark\Contract\ITimer;
 use AlecRabbit\Benchmark\Contract\TimeUnit;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use Closure;
 use ReflectionFunction;
 use ReflectionIntersectionType;
@@ -28,7 +28,7 @@ abstract class ATimer implements ITimer
         try {
             $timeFunction();
         } catch (Throwable $e) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 'Invoke of time function throws: ' . $e->getMessage(),
                 previous: $e,
             );
@@ -37,7 +37,7 @@ abstract class ATimer implements ITimer
 
         $returnType = $reflection->getReturnType();
         if ($returnType === null) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 'Return type of time function is not specified.'
             );
         }
@@ -56,7 +56,7 @@ abstract class ATimer implements ITimer
 
     private static function assertIntersectionType(ReflectionIntersectionType $intersectionType): void
     {
-        throw new InvalidArgumentException(
+        throw new InvalidArgument(
             'Unexpected intersection type.',
         );
     }
@@ -72,12 +72,12 @@ abstract class ATimer implements ITimer
     {
         $type = $namedType->getName();
         if ($type === 'null' || $namedType->allowsNull()) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 'Time function return type allows null.',
             );
         }
         if ($type !== 'float' && $type !== 'int') {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     'Time function must return "int|float"(e.g. "%s"), instead return type is "%s".',
                     'fn(): int|float => 0.0',

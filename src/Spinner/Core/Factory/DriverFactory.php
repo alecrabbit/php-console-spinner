@@ -9,17 +9,17 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
 
 final class DriverFactory implements IDriverFactory
 {
     public function __construct(
+        protected IDriverConfig $driverConfig,
         protected IDriverBuilder $driverBuilder,
         protected IIntervalFactory $intervalFactory,
-        protected IDriverOutputFactory $driverOutputFactory,
         protected IDeltaTimerFactory $timerFactory,
-        protected IDriverConfig $driverConfig,
+        protected ISequenceStateWriterFactory $sequenceStateWriterFactory,
     ) {
     }
 
@@ -27,8 +27,8 @@ final class DriverFactory implements IDriverFactory
     {
         return
             $this->driverBuilder
-                ->withDriverOutput(
-                    $this->driverOutputFactory->create()
+                ->withSequenceStateWriter(
+                    $this->sequenceStateWriterFactory->create()
                 )
                 ->withDeltaTimer(
                     $this->timerFactory->create()

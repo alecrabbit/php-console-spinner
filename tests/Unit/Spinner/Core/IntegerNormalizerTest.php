@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -31,7 +31,7 @@ final class IntegerNormalizerTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => 'Divisor should be greater than 0.',
                 ],
             ],
@@ -45,7 +45,7 @@ final class IntegerNormalizerTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => 'Divisor should be less than 1000000.',
                 ],
             ],
@@ -98,7 +98,7 @@ final class IntegerNormalizerTest extends TestCase
     #[Test]
     public function throwOnInvalidSetMin(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Min should be greater than 0.';
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);

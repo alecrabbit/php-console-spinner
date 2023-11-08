@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Helper;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use Traversable;
 
@@ -18,7 +18,7 @@ final class Asserter
      * @param object|class-string $c
      * @param class-string $i
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      * @deprecated
      */
     public static function assertIsSubClass(
@@ -28,7 +28,7 @@ final class Asserter
         bool $allowString = true
     ): void {
         if (!is_subclass_of($c, $i, $allowString)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     'Class "%s" must be a subclass of "%s"%s.',
                     is_object($c) ? $c::class : $c,
@@ -47,31 +47,31 @@ final class Asserter
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      * @deprecated
      */
     public static function assertStream(mixed $stream): void
     {
         if (!is_resource($stream) || get_resource_type($stream) !== 'stream') {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf('Argument is expected to be a stream(resource), "%s" given.', get_debug_type($stream))
             );
         }
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      * @deprecated
      */
     public static function assertColorModes(Traversable $colorModes): void
     {
         if (count(iterator_to_array($colorModes)) === 0) {
-            throw new InvalidArgumentException('Color modes must not be empty.');
+            throw new InvalidArgument('Color modes must not be empty.');
         }
         /** @var StylingMethodOption $colorMode */
         foreach ($colorModes as $colorMode) {
             if (!$colorMode instanceof StylingMethodOption) {
-                throw new InvalidArgumentException(
+                throw new InvalidArgument(
                     sprintf(
                         'Unsupported color mode of type "%s".',
                         get_debug_type($colorMode)
@@ -95,13 +95,13 @@ final class Asserter
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      * @deprecated
      */
     public static function assertClassExists(string $class, ?string $callerMethod = null): void
     {
         if (!class_exists($class)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     'Class "%s" does not exist%s.',
                     $class,
@@ -112,7 +112,7 @@ final class Asserter
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      * @deprecated
      */
     public static function assertHexStringColor(string $entry): void
@@ -120,16 +120,16 @@ final class Asserter
         $strlen = strlen($entry);
         $entry = strtolower($entry);
         match (true) {
-            0 === $strlen => throw new InvalidArgumentException(
+            0 === $strlen => throw new InvalidArgument(
                 'Value should not be empty string.'
             ),
-            !str_starts_with($entry, '#') => throw new InvalidArgumentException(
+            !str_starts_with($entry, '#') => throw new InvalidArgument(
                 sprintf(
                     'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. No "#" found.',
                     $entry
                 )
             ),
-            $strlen !== 4 && $strlen !== 7 => throw new InvalidArgumentException(
+            $strlen !== 4 && $strlen !== 7 => throw new InvalidArgument(
                 sprintf(
                     'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. Length: %d.',
                     $entry,
@@ -141,13 +141,13 @@ final class Asserter
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      * @deprecated
      */
     public static function assertIntInRange(int $value, int $min, int $max, ?string $callerMethod = null): void
     {
         match (true) {
-            $min > $value || $max < $value => throw new InvalidArgumentException(
+            $min > $value || $max < $value => throw new InvalidArgument(
                 sprintf(
                     'Value should be in range %d..%d, int(%d) given%s.',
                     $min,
@@ -161,7 +161,7 @@ final class Asserter
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      * @deprecated
      */
     public static function assertIntColor(
@@ -170,14 +170,14 @@ final class Asserter
         ?string $callerMethod = null
     ): void {
         match (true) {
-            0 > $color => throw new InvalidArgumentException(
+            0 > $color => throw new InvalidArgument(
                 sprintf(
                     'Value should be positive integer, %d given%s.',
                     $color,
                     self::getSeeMethodStr($callerMethod)
                 )
             ),
-            StylingMethodOption::ANSI24->name === $styleMode->name => throw new InvalidArgumentException(
+            StylingMethodOption::ANSI24->name === $styleMode->name => throw new InvalidArgument(
                 sprintf(
                     'For %s::%s style mode rendering from int is not allowed%s.',
                     StylingMethodOption::class,
@@ -185,7 +185,7 @@ final class Asserter
                     self::getSeeMethodStr($callerMethod)
                 )
             ),
-            StylingMethodOption::ANSI8->name === $styleMode->name && 255 < $color => throw new InvalidArgumentException(
+            StylingMethodOption::ANSI8->name === $styleMode->name && 255 < $color => throw new InvalidArgument(
                 sprintf(
                     'For %s::%s style mode value should be in range 0..255, %d given%s.',
                     StylingMethodOption::class,
@@ -194,7 +194,7 @@ final class Asserter
                     self::getSeeMethodStr($callerMethod)
                 )
             ),
-            StylingMethodOption::ANSI4->name === $styleMode->name && 16 < $color => throw new InvalidArgumentException(
+            StylingMethodOption::ANSI4->name === $styleMode->name && 16 < $color => throw new InvalidArgument(
                 sprintf(
                     'For %s::%s style mode value should be in range 0..15, %d given%s.',
                     StylingMethodOption::class,

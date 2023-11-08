@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
 use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Probes;
 use AlecRabbit\Tests\Functional\Spinner\Override\StaticProbeOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -201,7 +201,7 @@ final class ProbesTest extends TestCase
     public function throwsIfProbeClassIsNotAStaticProbeSubClass(): void
     {
         $probe = stdClass::class;
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             'Class "' .
             $probe .
@@ -218,7 +218,7 @@ final class ProbesTest extends TestCase
     {
         $filterClass = stdClass::class;
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             'Class "' .
             $filterClass .
@@ -239,7 +239,7 @@ final class ProbesTest extends TestCase
     {
         $class = stdClass::class;
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             'Class "' .
             $class .
@@ -257,7 +257,7 @@ final class ProbesTest extends TestCase
     public function throwsIfProbeClassIsNotAStaticProbeSubClass2(): void
     {
         $probe = '';
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             'Class "' .
             $probe .

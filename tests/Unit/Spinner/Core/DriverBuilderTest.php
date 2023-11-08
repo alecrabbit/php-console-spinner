@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Driver;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -42,7 +42,7 @@ final class DriverBuilderTest extends TestCase
         $interval = $this->getIntervalMock();
 
         $driver = $driverBuilder
-            ->withDriverOutput($this->getDriverOutputMock())
+            ->withSequenceStateWriter($this->getSequenceStateWriterMock())
             ->withDeltaTimer($this->getTimerMock())
             ->withInitialInterval($interval)
             ->withDriverConfig($this->getDriverConfigMock())
@@ -58,9 +58,9 @@ final class DriverBuilderTest extends TestCase
         return $this->createMock(IInterval::class);
     }
 
-    protected function getDriverOutputMock(): MockObject&IDriverOutput
+    protected function getSequenceStateWriterMock(): MockObject&ISequenceStateWriter
     {
-        return $this->createMock(IDriverOutput::class);
+        return $this->createMock(ISequenceStateWriter::class);
     }
 
     protected function getTimerMock(): MockObject&IDeltaTimer
@@ -79,7 +79,7 @@ final class DriverBuilderTest extends TestCase
         $driverBuilder = $this->getTesteeInstance();
 
         $driver = $driverBuilder
-            ->withDriverOutput($this->getDriverOutputMock())
+            ->withSequenceStateWriter($this->getSequenceStateWriterMock())
             ->withDeltaTimer($this->getTimerMock())
             ->withObserver($this->getObserverMock())
             ->withInitialInterval($this->getIntervalMock())
@@ -96,10 +96,10 @@ final class DriverBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfDriverOutputIsNotSet(): void
+    public function throwsIfSequenceStateWriterIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'DriverOutput is not set.';
+        $exceptionMessage = 'SequenceStateWriter is not set.';
 
         $test = function (): void {
             $driverBuilder = $this->getTesteeInstance();
@@ -128,7 +128,7 @@ final class DriverBuilderTest extends TestCase
             $driverBuilder = $this->getTesteeInstance();
 
             $driverBuilder
-                ->withDriverOutput($this->getDriverOutputMock())
+                ->withSequenceStateWriter($this->getSequenceStateWriterMock())
                 ->withInitialInterval($this->getIntervalMock())
                 ->build()
             ;
@@ -151,7 +151,7 @@ final class DriverBuilderTest extends TestCase
             $driverBuilder = $this->getTesteeInstance();
 
             $driverBuilder
-                ->withDriverOutput($this->getDriverOutputMock())
+                ->withSequenceStateWriter($this->getSequenceStateWriterMock())
                 ->withDeltaTimer($this->getTimerMock())
                 ->build()
             ;

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
+use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 
-final class DriverOutput implements IDriverOutput
+final class SequenceStateWriter implements ISequenceStateWriter
 {
     private bool $initialized = false;
 
@@ -30,14 +30,14 @@ final class DriverOutput implements IDriverOutput
         }
     }
 
-    public function write(ISpinnerState $spinnerState): void
+    public function write(ISequenceState $state): void
     {
         if ($this->initialized) {
-            $this->output->append($spinnerState->getSequence());
+            $this->output->append($state->getSequence());
 
-            $width = $spinnerState->getWidth();
+            $width = $state->getWidth();
             $eraseWidth =
-                max($spinnerState->getPreviousWidth() - $width, 0);
+                max($state->getPreviousWidth() - $width, 0);
 
             $this->cursor
                 ->erase($eraseWidth)
@@ -48,11 +48,11 @@ final class DriverOutput implements IDriverOutput
         }
     }
 
-    public function erase(ISpinnerState $spinnerState): void
+    public function erase(ISequenceState $state): void
     {
         if ($this->initialized) {
             $this->cursor->erase(
-                $spinnerState->getPreviousWidth()
+                $state->getPreviousWidth()
             );
 
             $this->output->flush();

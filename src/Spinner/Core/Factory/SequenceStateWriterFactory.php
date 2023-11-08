@@ -5,25 +5,25 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateWriterBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
+use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 
-final class DriverOutputFactory implements IDriverOutputFactory
+final class SequenceStateWriterFactory implements ISequenceStateWriterFactory
 {
     public function __construct(
-        protected IDriverOutputBuilder $driverOutputBuilder,
+        protected ISequenceStateWriterBuilder $sequenceStateWriterBuilder,
         protected IBufferedOutput $bufferedOutput,
         protected IConsoleCursorFactory $cursorFactory,
     ) {
     }
 
-    public function create(): IDriverOutput
+    public function create(): ISequenceStateWriter
     {
         return
-            $this->driverOutputBuilder
+            $this->sequenceStateWriterBuilder
                 ->withOutput(
                     $this->bufferedOutput
                 )

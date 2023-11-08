@@ -5,25 +5,25 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateWriterBuilder;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Output\DriverOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
+use AlecRabbit\Spinner\Core\Output\SequenceStateWriter;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 /**
  * @psalm-suppress PossiblyNullArgument
  */
-final class DriverOutputBuilder implements IDriverOutputBuilder
+final class SequenceStateWriterBuilder implements ISequenceStateWriterBuilder
 {
     private ?IBufferedOutput $bufferedOutput = null;
     private ?IConsoleCursor $cursor = null;
 
-    public function build(): IDriverOutput
+    public function build(): ISequenceStateWriter
     {
         $this->validate();
 
-        return new DriverOutput(
+        return new SequenceStateWriter(
             output: $this->bufferedOutput,
             cursor: $this->cursor,
         );
@@ -38,14 +38,14 @@ final class DriverOutputBuilder implements IDriverOutputBuilder
         };
     }
 
-    public function withOutput(IBufferedOutput $bufferedOutput): IDriverOutputBuilder
+    public function withOutput(IBufferedOutput $bufferedOutput): ISequenceStateWriterBuilder
     {
         $clone = clone $this;
         $clone->bufferedOutput = $bufferedOutput;
         return $clone;
     }
 
-    public function withCursor(IConsoleCursor $cursor): IDriverOutputBuilder
+    public function withCursor(IConsoleCursor $cursor): ISequenceStateWriterBuilder
     {
         $clone = clone $this;
         $clone->cursor = $cursor;

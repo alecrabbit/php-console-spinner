@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerSettings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use Closure;
@@ -233,7 +233,7 @@ final class SignalHandlersContainerSolverTest extends TestCase
             return [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => $message,
                     ],
                 ],

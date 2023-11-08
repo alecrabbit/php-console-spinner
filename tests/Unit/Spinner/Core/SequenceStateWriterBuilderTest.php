@@ -5,28 +5,28 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
-use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateWriterBuilder;
+use AlecRabbit\Spinner\Core\Builder\SequenceStateWriterBuilder;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
-use AlecRabbit\Spinner\Core\Output\DriverOutput;
+use AlecRabbit\Spinner\Core\Output\SequenceStateWriter;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverOutputBuilderTest extends TestCase
+final class SequenceStateWriterBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $outputBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverOutputBuilder::class, $outputBuilder);
+        self::assertInstanceOf(SequenceStateWriterBuilder::class, $outputBuilder);
     }
 
-    public function getTesteeInstance(): IDriverOutputBuilder
+    public function getTesteeInstance(): ISequenceStateWriterBuilder
     {
-        return new DriverOutputBuilder();
+        return new SequenceStateWriterBuilder();
     }
 
     #[Test]
@@ -41,7 +41,7 @@ final class DriverOutputBuilderTest extends TestCase
                 ->build()
         ;
 
-        self::assertInstanceOf(DriverOutput::class, $output);
+        self::assertInstanceOf(SequenceStateWriter::class, $output);
     }
 
     protected function getBufferedOutputMock(): MockObject&IBufferedOutput

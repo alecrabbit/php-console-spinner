@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\FrameCollection;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
@@ -67,7 +67,7 @@ final class FrameCollectionTest extends TestCase
     #[Test]
     public function throwsIfIsCreatedEmpty(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Collection is empty.';
 
         $test = function (): void {
@@ -85,7 +85,7 @@ final class FrameCollectionTest extends TestCase
     #[Test]
     public function throwsIfIsCreatedWithWrongTypeTraversable(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = '"AlecRabbit\Spinner\Contract\IFrame" expected, "string" given.';
 
         $test = function (): void {
