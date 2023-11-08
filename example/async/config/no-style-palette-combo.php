@@ -14,6 +14,7 @@ require_once __DIR__ . '/../../bootstrap.php';
 Facade::getSettings()
     ->set(
         new RootWidgetSettings(
+            leadingSpacer: new CharFrame('<>', 2), // <-- ignored
             trailingSpacer: new CharFrame(' 💨', 3),
         )
     )
@@ -21,6 +22,7 @@ Facade::getSettings()
 
 $widgetSettings =
     new WidgetSettings(
+        leadingSpacer: new CharFrame('', 0), // use this instead
         stylePalette: new NoStylePalette(),
     );
 
@@ -29,7 +31,7 @@ $spinnerSettings =
         widgetSettings: $widgetSettings,
     );
 
-$spinner = Facade::createSpinner();
+$spinner = Facade::createSpinner($spinnerSettings);
 
 // perform example unrelated actions:
 require_once __DIR__ . '/../bootstrap.async.php';
