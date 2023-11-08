@@ -13,7 +13,8 @@ $outputSettings =
         stylingMethodOption: StylingMethodOption::NONE,
     );
 
-Facade::getSettings()->set($outputSettings);
+Facade::getSettings()
+    ->set($outputSettings);
 
 $spinner = Facade::createSpinner();
 

@@ -17,14 +17,15 @@ $handlerCreator =
     new class implements IHandlerCreator {
         public function createHandler(IDriver $driver, ILoop $loop): Closure
         {
-            return
-                static function () use ($driver, $loop): void {
-                    $delay = 2;
-                    $message = PHP_EOL .
-                        'SIGINT handler overridden.' . PHP_EOL .
-                        'Will exit in ' . $delay . ' seconds.' . PHP_EOL .
-                        'CTRL+C to force exit.' . PHP_EOL;
+            $delay = 2;
 
+            $message = PHP_EOL .
+                'SIGINT handler overridden.' . PHP_EOL .
+                'Will exit in ' . $delay . ' seconds.' . PHP_EOL .
+                'CTRL+C to force exit.' . PHP_EOL;
+
+            return
+                static function () use ($driver, $loop, $delay, $message): void {
                     $driver->interrupt($message);
 
                     $loop->delay(
@@ -35,7 +36,7 @@ $handlerCreator =
                     );
 
                     $loop->onSignal(
-                        SIGINT,
+                        SIGINT, // requires pcntl-ext
                         static function () use ($loop): void {
                             $loop->stop();
                         }

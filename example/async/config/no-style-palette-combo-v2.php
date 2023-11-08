@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
+use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
@@ -13,17 +14,20 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 Facade::getSettings()
     ->set(
+        new WidgetSettings(
+            leadingSpacer: new CharFrame('<>', 2), // <-- ignored spacer
+        ),
         new RootWidgetSettings(
-            leadingSpacer: new CharFrame('<>', 2), // <-- ignored
-            trailingSpacer: new CharFrame(' 💨', 3),
-        )
+            leadingSpacer: new CharFrame('🧲 ', 3), // used this spacer instead
+            stylePalette: new Rainbow(), // <-- ignored palette
+        ),
+
     )
 ;
 
 $widgetSettings =
     new WidgetSettings(
-        leadingSpacer: new CharFrame('', 0), // use this instead
-        stylePalette: new NoStylePalette(),
+        stylePalette: new NoStylePalette(), // <-- used this palette instead
     );
 
 $spinnerSettings =
