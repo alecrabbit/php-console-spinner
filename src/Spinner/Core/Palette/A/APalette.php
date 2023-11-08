@@ -29,13 +29,13 @@ abstract class APalette implements IPalette
             );
     }
 
-    protected function getOptions(?IPaletteMode $mode = null): IPaletteOptions
-    {
-        return $this->options;
-    }
-
     /**
      * @return Traversable<IFrame>
      */
     abstract protected function getEntries(?IPaletteMode $mode = null): Traversable;
+
+    protected function getOptions(?IPaletteMode $mode = null): IPaletteOptions
+    {
+        return $this->options;
+    }
 }
