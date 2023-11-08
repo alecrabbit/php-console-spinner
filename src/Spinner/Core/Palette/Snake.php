@@ -25,9 +25,13 @@ final class Snake extends ACharPalette
         yield from $a;
     }
 
-
     protected function createFrame(string $element): ICharFrame
     {
         return new CharFrame($element, 1);
+    }
+
+    protected function getInterval(): ?int
+    {
+        return 80;
     }
 }

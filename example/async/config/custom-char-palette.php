@@ -2,13 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
-use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
-use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
-use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Spinner\Facade;
@@ -17,9 +13,15 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 $charPalette =
     new class() extends ACharPalette {
+
         protected function createFrame(string $element): ICharFrame
         {
             return new CharFrame($element, 3); // note the width is 3
+        }
+
+        protected function getInterval(): ?int
+        {
+            return 80;
         }
 
         /** @inheritDoc */

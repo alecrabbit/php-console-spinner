@@ -35,10 +35,15 @@ abstract class ACharPalette extends APalette implements ICharPalette
     {
         $this->options =
             new PaletteOptions(
-                interval: $this->options->getInterval() ?? 80,
+                interval: $this->options->getInterval() ?? $this->getInterval(),
                 reversed: $this->options->getReversed(),
             );
 
         return parent::getOptions($mode);
+    }
+
+    protected function getInterval(): ?int
+    {
+        return 100;
     }
 }

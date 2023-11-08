@@ -231,7 +231,7 @@ final class RainbowTest extends TestCase
 
         $mode = $this->getPaletteModeMock();
         $mode
-            ->expects(self::exactly(2))
+            ->expects(self::once())
             ->method('getStylingMode')
             ->willReturn(StylingMethodMode::ANSI8)
         ;
@@ -690,7 +690,7 @@ final class RainbowTest extends TestCase
 
         $mode = $this->getPaletteModeMock();
         $mode
-            ->expects(self::exactly(2))
+            ->expects(self::once())
             ->method('getStylingMode')
             ->willReturn(StylingMethodMode::ANSI24)
         ;

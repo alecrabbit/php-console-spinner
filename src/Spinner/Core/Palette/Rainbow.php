@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette;
 
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
-use AlecRabbit\Spinner\Core\Palette\A\APalette;
+use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\StyleFrame;
 use Traversable;
 
@@ -17,85 +15,39 @@ use function array_reverse;
 use function iterator_to_array;
 use function sprintf;
 
-final class Rainbow extends APalette implements IStylePalette
+final class Rainbow extends AStylePalette
 {
-    protected function getOptions(?IPaletteMode $mode = null): IPaletteOptions
-    {
-        $stylingMode = $this->extractStylingMode($mode);
+    /**
+     * @return Traversable<IStyleFrame>
+     */
 
-        $this->options =
-            match ($stylingMode) {
-                StylingMethodMode::ANSI8 =>
-                new PaletteOptions(
-                    interval: $this->options->getInterval() ?? 1000,
-                    reversed: $this->options->getReversed(),
-                ),
-                StylingMethodMode::ANSI24 =>
-                new PaletteOptions(
-                    interval: $this->options->getInterval() ?? 100,
-                    reversed: $this->options->getReversed(),
-                ),
-                default => $this->options,
-            };
-
-        return parent::getOptions($mode);
-    }
-
-    protected function extractStylingMode(?IPaletteMode $options): StylingMethodMode
-    {
-        return
-            $options?->getStylingMode() ?? StylingMethodMode::NONE;
-    }
 
     /**
      * @return Traversable<IStyleFrame>
      */
-    protected function getEntries(?IPaletteMode $mode = null): Traversable
-    {
-        $stylingMode = $this->extractStylingMode($mode);
-
-        yield from match ($stylingMode) {
-            StylingMethodMode::NONE => $this->noneFrames(),
-            StylingMethodMode::ANSI4 => $this->ansi4Frames(),
-            StylingMethodMode::ANSI8 => $this->ansi8Frames(),
-            StylingMethodMode::ANSI24 => $this->ansi24Frames(),
-        };
-    }
-
-    /**
-     * @return Traversable<IStyleFrame>
-     */
-    protected function noneFrames(): Traversable
+    protected function ansi4StyleFrames(): Traversable
     {
         yield from [
-            new StyleFrame('%s', 0),
+            $this->createFrame("\e[96m%s\e[39m"),
         ];
     }
 
-    /**
-     * @return Traversable<IStyleFrame>
-     */
-    protected function ansi4Frames(): Traversable
-    {
-        yield from [
-            new StyleFrame("\e[96m%s\e[39m", 0),
-        ];
-    }
 
     /**
      * @return Traversable<IStyleFrame>
      */
-    protected function ansi8Frames(): Traversable
+    protected function ansi8StyleFrames(): Traversable
     {
         $sequence = $this->ansi8Sequence();
 
         if ($this->options->getReversed()) {
-            $sequence = array_reverse(iterator_to_array($sequence));
+            $sequence = $this->reverseSequence($sequence);
         }
 
         /** @var string $item */
         foreach ($sequence as $item) {
-            yield new StyleFrame(sprintf("\e[38;5;%sm%%s\e[39m", $item), 0);
+            $element = sprintf("\e[38;5;%sm%%s\e[39m", $item);
+            yield $this->createFrame($element);
         }
     }
 
@@ -137,7 +89,7 @@ final class Rainbow extends APalette implements IStylePalette
     /**
      * @return Traversable<IStyleFrame>
      */
-    protected function ansi24Frames(): Traversable
+    protected function ansi24StyleFrames(): Traversable
     {
         $sequence = $this->ansi24Sequence();
 
@@ -147,7 +99,8 @@ final class Rainbow extends APalette implements IStylePalette
 
         /** @var string $item */
         foreach ($sequence as $item) {
-            yield new StyleFrame(sprintf("\e[38;2;%sm%%s\e[39m", $item), 0);
+            $element = sprintf("\e[38;2;%sm%%s\e[39m", $item);
+            yield $this->createFrame($element);
         }
     }
 
