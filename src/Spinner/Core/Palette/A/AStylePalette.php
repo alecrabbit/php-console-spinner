@@ -15,11 +15,6 @@ use Traversable;
 
 abstract class AStylePalette extends APalette implements IStylePalette
 {
-    protected function createFrame(string $element): IStyleFrame
-    {
-        return new StyleFrame($element, 0);
-    }
-
     protected function getOptions(?IPaletteMode $mode = null): IPaletteOptions
     {
         $this->options =
@@ -29,21 +24,6 @@ abstract class AStylePalette extends APalette implements IStylePalette
             );
 
         return parent::getOptions($mode);
-    }
-
-    /**
-     * @return Traversable<IStyleFrame>
-     */
-    protected function getEntries(?IPaletteMode $mode = null): Traversable
-    {
-        $stylingMode = $this->extractStylingMode($mode);
-
-        yield from match ($stylingMode) {
-            StylingMethodMode::NONE => $this->noStyleFrames(),
-            StylingMethodMode::ANSI4 => $this->ansi4StyleFrames(),
-            StylingMethodMode::ANSI8 => $this->ansi8StyleFrames(),
-            StylingMethodMode::ANSI24 => $this->ansi24StyleFrames(),
-        };
     }
 
     protected function getInterval(StylingMethodMode $stylingMode): ?int
@@ -65,11 +45,31 @@ abstract class AStylePalette extends APalette implements IStylePalette
     /**
      * @return Traversable<IStyleFrame>
      */
+    protected function getEntries(?IPaletteMode $mode = null): Traversable
+    {
+        $stylingMode = $this->extractStylingMode($mode);
+
+        yield from match ($stylingMode) {
+            StylingMethodMode::NONE => $this->noStyleFrames(),
+            StylingMethodMode::ANSI4 => $this->ansi4StyleFrames(),
+            StylingMethodMode::ANSI8 => $this->ansi8StyleFrames(),
+            StylingMethodMode::ANSI24 => $this->ansi24StyleFrames(),
+        };
+    }
+
+    /**
+     * @return Traversable<IStyleFrame>
+     */
     protected function noStyleFrames(): Traversable
     {
         yield from [
             $this->createFrame('%s'),
         ];
+    }
+
+    protected function createFrame(string $element): IStyleFrame
+    {
+        return new StyleFrame($element, 0);
     }
 
     /**

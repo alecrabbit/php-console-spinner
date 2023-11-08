@@ -63,6 +63,7 @@ final class DeltaTimerBuilderTest extends TestCase
             ->build()
         ;
     }
+
     #[Test]
     public function throwsIfStartTimeIsNotSet(): void
     {

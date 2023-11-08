@@ -6,22 +6,13 @@ namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
 use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\StyleFrame;
 use Traversable;
 
 use function array_reverse;
-use function iterator_to_array;
 use function sprintf;
 
 final class Rainbow extends AStylePalette
 {
-    /**
-     * @return Traversable<IStyleFrame>
-     */
-
-
     /**
      * @return Traversable<IStyleFrame>
      */
@@ -31,7 +22,6 @@ final class Rainbow extends AStylePalette
             $this->createFrame("\e[96m%s\e[39m"),
         ];
     }
-
 
     /**
      * @return Traversable<IStyleFrame>
@@ -84,6 +74,17 @@ final class Rainbow extends AStylePalette
             '198',
             '197',
         ];
+    }
+
+    private function reverseSequence(Traversable $sequence): iterable
+    {
+        /** @var string[] $s */
+        $s = [];
+        /** @var string $item */
+        foreach ($sequence as $item) {
+            $s[] = $item;
+        }
+        return array_reverse($s);
     }
 
     /**
@@ -499,16 +500,5 @@ final class Rainbow extends AStylePalette
             '255;0;8',
             '255;0;4',
         ];
-    }
-
-    private function reverseSequence(Traversable $sequence): iterable
-    {
-        /** @var string[] $s */
-        $s = [];
-        /** @var string $item */
-        foreach ($sequence as $item) {
-            $s[] = $item;
-        }
-        return array_reverse($s);
     }
 }

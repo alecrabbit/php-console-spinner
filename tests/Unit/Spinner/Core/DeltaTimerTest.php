@@ -7,7 +7,6 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\INow;
 use AlecRabbit\Spinner\Core\DeltaTimer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

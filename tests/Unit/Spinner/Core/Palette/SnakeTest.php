@@ -74,6 +74,26 @@ final class SnakeTest extends TestCase
         self::assertSame(80, $template->getOptions()->getInterval());
     }
 
+    #[Test]
+    public function canGetEntriesWithoutModeCustomOptions(): void
+    {
+        $options = $this->getPaletteOptionsMock();
+        $options
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn(null)
+        ;
+
+        $palette = $this->getTesteeInstance(
+            options: $options,
+        );
+
+        $template = $palette->getTemplate();
+
+        self::assertInstanceOf(PaletteTemplate::class, $template);
+        self::assertInstanceOf(Generator::class, $template->getEntries());
+        self::assertSame(80, $template->getOptions()->getInterval());
+    }
 
     #[Test]
     public function returnsFrames(): void
