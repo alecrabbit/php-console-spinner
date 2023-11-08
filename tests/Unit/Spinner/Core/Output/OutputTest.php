@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class OutputTest extends TestCase
 {
@@ -24,7 +23,7 @@ final class OutputTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IResourceStream $stream = null,
+        ?IWritableStream $stream = null,
     ): IOutput {
         return
             new Output(
@@ -32,9 +31,9 @@ final class OutputTest extends TestCase
             );
     }
 
-    private function getStreamMock(): MockObject&IResourceStream
+    private function getStreamMock(): MockObject&IWritableStream
     {
-        return $this->createMock(IResourceStream::class);
+        return $this->createMock(IWritableStream::class);
     }
 
     #[Test]
@@ -44,7 +43,7 @@ final class OutputTest extends TestCase
         $stream
             ->expects(self::once())
             ->method('write')
-            ->with(self::isInstanceOf(\Traversable::class))
+            ->with(self::isInstanceOf(Traversable::class))
         ;
 
         $output = $this->getTesteeInstance(
@@ -53,6 +52,7 @@ final class OutputTest extends TestCase
 
         $output->write('test');
     }
+
     #[Test]
     public function canWriteln(): void
     {
@@ -60,7 +60,7 @@ final class OutputTest extends TestCase
         $stream
             ->expects(self::once())
             ->method('write')
-            ->with(self::isInstanceOf(\Traversable::class))
+            ->with(self::isInstanceOf(Traversable::class))
         ;
 
         $output = $this->getTesteeInstance(

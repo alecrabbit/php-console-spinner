@@ -11,6 +11,9 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class FrameRevolverBuilder implements IFrameRevolverBuilder
 {
     private ?IFrameCollection $frames = null;

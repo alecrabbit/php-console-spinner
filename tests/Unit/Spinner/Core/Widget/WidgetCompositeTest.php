@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetCompositeTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -40,6 +43,21 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         );
     }
 
+    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
+    {
+        return $this->createMock(IWidgetRevolver::class);
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
+    protected function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer
+    {
+        return $this->createMock(IWidgetCompositeChildrenContainer::class);
+    }
+
     #[Test]
     public function isAttachedAsObserverToChildrenContainer(): void
     {
@@ -47,7 +65,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $children
             ->expects(self::once())
             ->method('attach')
-            ->with($this->isInstanceOf(IWidgetComposite::class))
+            ->with(self::isInstanceOf(IWidgetComposite::class))
         ;
 
         $widgetComposite = $this->getTesteeInstance(
@@ -106,6 +124,13 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertSame($initialInterval, $widgetComposite->getInterval());
     }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
+
+//
 
     #[Test]
     public function canGetFrameIfHasRevolverOnly(): void
@@ -187,7 +212,6 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($interval, $widgetComposite->getInterval());
     }
 
-//
     #[Test]
     public function shouldNotifyObserverOnIntervalChange(): void
     {
@@ -237,6 +261,11 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetComposite->update($children);
     }
 
+    protected function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
+    }
+
     #[Test]
     public function removingNonExistentWidgetDoesNothing(): void
     {
@@ -263,6 +292,11 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $composite->remove($nonExistentContext);
+    }
+
+    protected function getWidgetContextMock(): MockObject&IWidgetContext
+    {
+        return $this->createMock(IWidgetContext::class);
     }
 
     #[Test]

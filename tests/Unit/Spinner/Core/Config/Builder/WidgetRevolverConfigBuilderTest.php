@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetRevolverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetRevolverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
@@ -39,6 +40,7 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
         $config = $configBuilder
             ->withStylePalette($this->getPaletteMock())
             ->withCharPalette($this->getPaletteMock())
+            ->withRevolverConfig($this->getRevolverConfigMock())
             ->build()
         ;
 
@@ -48,6 +50,11 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
     private function getPaletteMock(): MockObject&IPalette
     {
         return $this->createMock(IPalette::class);
+    }
+
+    protected function getRevolverConfigMock(): MockObject&IRevolverConfig
+    {
+        return $this->createMock(IRevolverConfig::class);
     }
 
     #[Test]
@@ -120,7 +127,30 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
         );
     }
 
-    protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
+    #[Test]
+    public function throwsIfRevolverConfigIsNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'Revolver config is not set.';
+
+        $test = function (): void {
+            $configBuilder = $this->getTesteeInstance();
+
+            $configBuilder
+                ->withStylePalette($this->getPaletteMock())
+                ->withCharPalette($this->getPaletteMock())
+                ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+
+    protected function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
         return $this->createMock(IWidgetRevolverConfig::class);
     }

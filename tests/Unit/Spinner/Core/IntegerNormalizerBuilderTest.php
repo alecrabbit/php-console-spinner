@@ -7,10 +7,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class IntegerNormalizerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class IntegerNormalizerBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

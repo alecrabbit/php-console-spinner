@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IWidgetContextToIntervalMap;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\WidgetContextToIntervalMap;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 use WeakMap;
 
-final class WidgetContextToIntervalMapTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetContextToIntervalMapTest extends TestCase
 {
     public static function invalidOffsets(): iterable
     {
@@ -70,6 +73,11 @@ final class WidgetContextToIntervalMapTest extends TestCaseWithPrebuiltMocksAndS
         $container = $this->getTesteeInstance();
 
         self::assertIsBool($container->offsetExists($this->getWidgetContextMock()));
+    }
+
+    protected function getWidgetContextMock(): MockObject&IWidgetContext
+    {
+        return $this->createMock(IWidgetContext::class);
     }
 
     #[Test]
@@ -139,6 +147,11 @@ final class WidgetContextToIntervalMapTest extends TestCaseWithPrebuiltMocksAndS
             }
             self::assertNull($item);
         }
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 
     #[Test]

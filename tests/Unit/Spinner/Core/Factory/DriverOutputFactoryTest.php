@@ -9,10 +9,13 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 
-final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverOutputFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -32,6 +35,21 @@ final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             bufferedOutput: $bufferedOutput ?? $this->getBufferedOutputMock(),
             cursorFactory: $cursorFactory ?? $this->getCursorFactoryMock(),
         );
+    }
+
+    protected function getDriverOutputBuilderMock(): MockObject&IDriverOutputBuilder
+    {
+        return $this->createMock(IDriverOutputBuilder::class);
+    }
+
+    protected function getBufferedOutputMock(): MockObject&IBufferedOutput
+    {
+        return $this->createMock(IBufferedOutput::class);
+    }
+
+    protected function getCursorFactoryMock(): MockObject&IConsoleCursorFactory
+    {
+        return $this->createMock(IConsoleCursorFactory::class);
     }
 
     #[Test]
@@ -68,5 +86,10 @@ final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         self::assertSame($driverOutputStub, $driverOutputFactory->create());
+    }
+
+    protected function getDriverOutputStub(): Stub&IDriverOutput
+    {
+        return $this->createStub(IDriverOutput::class);
     }
 }

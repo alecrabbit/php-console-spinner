@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Helper\MemoryUsage;
 
 require_once __DIR__ . '/../bootstrap.php'; // <-- except this line - it is required 🙂
 
-$memoryReportInterval = 60; // seconds
+const MEMORY_REPORT_INTERVAL = 60; // seconds
 
 $driver = Facade::getDriver();
 
@@ -35,16 +35,28 @@ $memoryReport =
             )
         );
     };
+// Create render interval report function
+$renderIntervalReport =
+    static function () use ($echo, $driver): void {
+        $echo(
+            sprintf('Render interval, ms: %s', $driver->getInterval()->toMilliseconds())
+        );
+    };
 
 $loop = Facade::getLoop();
 
 // Execute memory report function every $reportInterval seconds
 $loop
     ->repeat(
-        $memoryReportInterval,
+        MEMORY_REPORT_INTERVAL,
         $memoryReport
     )
 ;
+
+$loop->delay(
+    1,
+    $renderIntervalReport
+);
 
 $echo(PHP_EOL . sprintf('Using loop: "%s"', get_debug_type($loop)));
 $echo();

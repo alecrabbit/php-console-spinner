@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
-use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersContainer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -140,6 +140,11 @@ final class LoopConfigFactoryTest extends TestCase
         self::assertSame($signalHandlersMode, $config->getSignalHandlingMode());
     }
 
+    private function getSignalHandlersContainerMock(): MockObject&ISignalHandlersContainer
+    {
+        return $this->createMock(ISignalHandlersContainer::class);
+    }
+
     protected function getLoopConfigMock(
         AutoStartMode $autoStartMode,
         SignalHandlingMode $signalHandlersMode,
@@ -152,10 +157,5 @@ final class LoopConfigFactoryTest extends TestCase
                     'getSignalHandlingMode' => $signalHandlersMode ?? SignalHandlingMode::DISABLED,
                 ]
             );
-    }
-
-    private function getSignalHandlersContainerMock(): MockObject&ISignalHandlersContainer
-    {
-        return $this->createMock(ISignalHandlersContainer::class);
     }
 }

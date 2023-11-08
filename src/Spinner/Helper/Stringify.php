@@ -14,19 +14,21 @@ final class Stringify
     public static function value(mixed $value, bool $unwrap = true): string
     {
         $type = gettype($value);
-        return match ($unwrap) {
-            true => self::unwrapValue($value, $type),
-            false => $type,
-        };
+        return
+            match ($unwrap) {
+                true => self::unwrapValue($value, $type),
+                false => $type,
+            };
     }
 
     private static function unwrapValue(mixed $value, string $type): string
     {
-        return match (true) {
-            is_scalar($value) => self::unwrapScalar($value, $type),
-            is_object($value) => self::unwrapObject($value, $type),
-            default => $type,
-        };
+        return
+            match (true) {
+                is_scalar($value) => self::unwrapScalar($value, $type),
+                is_object($value) => self::unwrapObject($value, $type),
+                default => $type,
+            };
     }
 
     private static function unwrapScalar(mixed $value, string $type): string

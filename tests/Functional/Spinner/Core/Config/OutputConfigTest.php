@@ -76,7 +76,7 @@ final class OutputConfigTest extends TestCase
     #[Test]
     public function canGetStream(): void
     {
-        $stream = fopen('php://memory', 'rb+') AND fclose($stream);
+        $stream = fopen('php://memory', 'rb+') and fclose($stream);
 
         $config = $this->getTesteeInstance(
             stream: $stream,

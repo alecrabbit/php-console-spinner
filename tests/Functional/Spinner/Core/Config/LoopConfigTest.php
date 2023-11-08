@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
-use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersContainer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

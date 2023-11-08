@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class BufferedOutputTest extends TestCase
 {
@@ -68,7 +69,7 @@ final class BufferedOutputTest extends TestCase
             ->expects(self::once())
             ->method('flush')
             ->willReturn($traversable)
-        ;;
+        ;
         $output = $this->getOutputMock();
         $output
             ->expects(self::once())
@@ -85,8 +86,8 @@ final class BufferedOutputTest extends TestCase
         $bufferedOutput->flush();
     }
 
-    private function getTraversableMock(): MockObject&\Traversable
+    private function getTraversableMock(): MockObject&Traversable
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(Traversable::class);
     }
 }

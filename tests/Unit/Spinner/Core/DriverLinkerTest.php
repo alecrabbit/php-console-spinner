@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverLinkerTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -27,6 +30,11 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
         return new DriverLinker(
             loop: $loop ?? $this->getLoopMock(),
         );
+    }
+
+    protected function getLoopMock(): MockObject&ILoop
+    {
+        return $this->createMock(ILoop::class);
     }
 
     #[Test]
@@ -63,6 +71,16 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $driverLinker->link($driver);
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
+
+    protected function getDriverMock(): MockObject&IDriver
+    {
+        return $this->createMock(IDriver::class);
     }
 
     #[Test]

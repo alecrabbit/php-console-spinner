@@ -4,23 +4,47 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ADriver;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
+use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 
 final class Driver extends ADriver
 {
     protected ?ISpinner $spinner = null;
     protected ISpinnerState $state;
 
+    public function __construct(
+        IDriverOutput $output,
+        IDeltaTimer $deltaTimer,
+        IInterval $initialInterval,
+        IDriverConfig $driverConfig,
+        ?IObserver $observer = null
+    ) {
+        parent::__construct($output, $deltaTimer, $initialInterval, $driverConfig, $observer);
+
+        $this->state = new SpinnerState();
+    }
+
+
     /** @inheritDoc */
     public function add(ISpinner $spinner): void
     {
         $this->erase();
 
-        $this->state = new SpinnerState();
+        $frame = $spinner->getFrame();
+
+        $this->state =
+            new SpinnerState(
+                sequence: $frame->sequence(),
+                width: $frame->width(),
+                previousWidth: 0
+            );
 
         $this->spinner = $spinner;
         $spinner->attach($this);
@@ -69,7 +93,7 @@ final class Driver extends ADriver
     public function render(?float $dt = null): void
     {
         if ($this->spinner) {
-            $dt ??= $this->timer->getDelta();
+            $dt ??= $this->deltaTimer->getDelta();
             $frame = $this->spinner->getFrame($dt);
             $this->state =
                 new SpinnerState(

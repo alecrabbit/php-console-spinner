@@ -27,7 +27,7 @@ echo 'Synchronous mode forced' . PHP_EOL;
 
 for ($i = 0; $i < 1000; $i++) {
     $driver->render();
-    \usleep(\random_int(1000, 500000)); // simulates unequal intervals
+    usleep(random_int(1000, 500000)); // simulates unequal intervals
 }
 $driver->finalize();
 

@@ -13,12 +13,14 @@ use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
+use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
@@ -44,7 +46,7 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
                 runMethodOption: RunMethodOption::ASYNC,
                 normalizerOption: NormalizerOption::BALANCED,
             ),
-            new DriverSettings(
+            new LinkerSettings(
                 linkerOption: LinkerOption::ENABLED,
             ),
             new LoopSettings(
@@ -60,8 +62,8 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
             new WidgetSettings(
                 leadingSpacer: new CharFrame('', 0),
                 trailingSpacer: new CharFrame(' ', 1),
-                stylePalette: null,
-                charPalette: null,
+                stylePalette: new NoStylePalette(),
+                charPalette: new NoCharPalette(),
             ),
             new RootWidgetSettings(
                 leadingSpacer: null,

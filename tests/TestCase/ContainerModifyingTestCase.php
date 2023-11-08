@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use ArrayObject;
@@ -64,8 +64,8 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
             array_merge(
                 [
                     // disable output
-                    IResourceStream::class =>
-                        new class implements IResourceStream {
+                    IWritableStream::class =>
+                        new class implements IWritableStream {
                             public function write(Traversable $data): void
                             {
                                 // do nothing

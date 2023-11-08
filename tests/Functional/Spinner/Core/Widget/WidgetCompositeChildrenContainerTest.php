@@ -4,20 +4,23 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetContext;
 use AlecRabbit\Spinner\Core\WidgetContextToIntervalMap;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetCompositeChildrenContainerTest extends TestCase
 {
     #[Test]
     public function canBeUpdatedByAddedContext(): void
@@ -65,6 +68,16 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 
         $context->setWidget($newWidget);
         self::assertSame($newInterval, $container->getInterval());
+    }
+
+    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
+    {
+        return $this->createMock(IWidgetRevolver::class);
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
     }
 
     public function getTesteeInstance(

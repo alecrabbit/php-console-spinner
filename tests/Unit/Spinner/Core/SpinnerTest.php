@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\WidgetIsNotAComposite;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
+final class SpinnerTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -33,6 +38,11 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         );
     }
 
+    protected function getWidgetMock(): MockObject&IWidget
+    {
+        return $this->createMock(IWidget::class);
+    }
+
     #[Test]
     public function canGetFrame(): void
     {
@@ -47,6 +57,16 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($frame, $spinner->getFrame());
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
+    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
+    {
+        return $this->createMock(IWidgetComposite::class);
     }
 
     #[Test]
@@ -66,6 +86,11 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Spinner::class, $spinner);
 
         $spinner->update($rootWidget);
+    }
+
+    protected function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
     }
 
     #[Test]
@@ -120,6 +145,11 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($interval, $spinner->getInterval());
     }
 
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
+
     #[Test]
     public function canAttachObserver(): void
     {
@@ -166,6 +196,11 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($context, $spinner->add($context));
+    }
+
+    protected function getWidgetContextMock(): MockObject&IWidgetContext
+    {
+        return $this->createMock(IWidgetContext::class);
     }
 
     #[Test]

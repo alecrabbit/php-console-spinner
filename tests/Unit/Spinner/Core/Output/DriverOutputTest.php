@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Output\DriverOutput;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 
-final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverOutputTest extends TestCase
 {
     #[Test]
     public function createdUninitialized(): void
@@ -33,6 +36,16 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
             );
     }
 
+    protected function getBufferedOutputMock(): MockObject&IBufferedOutput
+    {
+        return $this->createMock(IBufferedOutput::class);
+    }
+
+    protected function getCursorMock(): MockObject&IConsoleCursor
+    {
+        return $this->createMock(IConsoleCursor::class);
+    }
+
     #[Test]
     public function canBeFinalizedIfInitialized(): void
     {
@@ -45,6 +58,28 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
         $message = 'final message';
 
         $output->expects(self::once())->method('append')->with($message);
+        $output->expects(self::exactly(2))->method('flush');
+
+        $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
+
+        $driverOutput->initialize();
+        $driverOutput->finalize($message);
+
+        self::assertFalse(self::getPropertyValue('initialized', $driverOutput));
+    }
+
+    #[Test]
+    public function canBeFinalizedIfInitializedWithEmptyMessage(): void
+    {
+        $cursor = $this->getCursorMock();
+        $cursor->expects(self::once())->method('hide');
+        $cursor->expects(self::once())->method('show');
+
+        $output = $this->getBufferedOutputMock();
+
+        $message = '';
+
+        $output->expects(self::never())->method('append')->with($message);
         $output->expects(self::exactly(2))->method('flush');
 
         $driverOutput = $this->getTesteeInstance(output: $output, cursor: $cursor);
@@ -86,6 +121,11 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverOutput->initialize();
         $driverOutput->erase($this->getSpinnerStateStub());
+    }
+
+    protected function getSpinnerStateStub(): Stub&ISpinnerState
+    {
+        return $this->createStub(ISpinnerState::class);
     }
 
     #[Test]
@@ -142,6 +182,11 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinnerState->expects(self::never())->method('getPreviousWidth');
 
         $driverOutput->write($spinnerState);
+    }
+
+    protected function getSpinnerStateMock(): MockObject&ISpinnerState
+    {
+        return $this->createMock(ISpinnerState::class);
     }
 
     #[Test]

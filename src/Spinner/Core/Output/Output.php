@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IOutput;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use Generator;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use Traversable;
 
 final readonly class Output implements IOutput
 {
     public function __construct(
-        protected IResourceStream $stream,
+        protected IWritableStream $stream,
     ) {
     }
 

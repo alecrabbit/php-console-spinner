@@ -31,10 +31,11 @@ final class IntervalNormalizerFactory implements IIntervalNormalizerFactory
     {
         $divisor = $this->getDivisor();
 
-        return $this->integerNormalizerBuilder
-            ->withDivisor($divisor)
-            ->withMin($divisor)
-            ->build()
+        return
+            $this->integerNormalizerBuilder
+                ->withDivisor($divisor)
+                ->withMin($divisor)
+                ->build()
         ;
     }
 
@@ -42,9 +43,9 @@ final class IntervalNormalizerFactory implements IIntervalNormalizerFactory
     {
         return
             match ($this->normalizerMode) {
-                NormalizerMode::SMOOTH => 20,
-                NormalizerMode::BALANCED => 50,
-                NormalizerMode::PERFORMANCE => 100,
+                NormalizerMode::SMOOTH => 40,
+                NormalizerMode::BALANCED => 100,
+                NormalizerMode::PERFORMANCE => 200,
                 NormalizerMode::SLOW => 1000,
                 NormalizerMode::STILL => 900000,
             };

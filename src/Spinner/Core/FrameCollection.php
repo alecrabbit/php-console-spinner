@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\LogicException;
 use ArrayObject;
 use Traversable;
 
@@ -19,6 +20,8 @@ use Traversable;
  */
 final class FrameCollection extends ArrayObject implements IFrameCollection
 {
+    private const COLLECTION_IS_EMPTY = 'Collection is empty.';
+
     /**
      * @throws InvalidArgumentException
      */
@@ -62,13 +65,22 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     private static function assertIsNotEmpty(IFrameCollection $collection): void
     {
         if ($collection->count() === 0) {
-            throw new InvalidArgumentException('Collection is empty.');
+            throw new InvalidArgumentException(self::COLLECTION_IS_EMPTY);
         }
     }
 
     public function lastIndex(): int
     {
-        return array_key_last($this->getArrayCopy());
+        $index = array_key_last($this->getArrayCopy());
+
+        // @codeCoverageIgnoreStart
+        if ($index === null) {
+            // should not be thrown
+            throw new LogicException(self::COLLECTION_IS_EMPTY);
+        }
+        // @codeCoverageIgnoreEnd
+
+        return $index;
     }
 
     public function get(int $index): IFrame

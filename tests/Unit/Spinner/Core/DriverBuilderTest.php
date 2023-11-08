@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -38,13 +43,34 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driver = $driverBuilder
             ->withDriverOutput($this->getDriverOutputMock())
-            ->withTimer($this->getTimerMock())
+            ->withDeltaTimer($this->getTimerMock())
             ->withInitialInterval($interval)
+            ->withDriverConfig($this->getDriverConfigMock())
             ->build()
         ;
 
         self::assertInstanceOf(Driver::class, $driver);
         self::assertSame($interval, $driver->getInterval());
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
+
+    protected function getDriverOutputMock(): MockObject&IDriverOutput
+    {
+        return $this->createMock(IDriverOutput::class);
+    }
+
+    protected function getTimerMock(): MockObject&IDeltaTimer
+    {
+        return $this->createMock(IDeltaTimer::class);
+    }
+
+    private function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 
     #[Test]
@@ -54,13 +80,19 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driver = $driverBuilder
             ->withDriverOutput($this->getDriverOutputMock())
-            ->withTimer($this->getTimerMock())
+            ->withDeltaTimer($this->getTimerMock())
             ->withObserver($this->getObserverMock())
             ->withInitialInterval($this->getIntervalMock())
+            ->withDriverConfig($this->getDriverConfigMock())
             ->build()
         ;
 
         self::assertInstanceOf(Driver::class, $driver);
+    }
+
+    protected function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
     }
 
     #[Test]
@@ -73,7 +105,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $driverBuilder = $this->getTesteeInstance();
 
             $driverBuilder
-                ->withTimer($this->getTimerMock())
+                ->withDeltaTimer($this->getTimerMock())
                 ->withInitialInterval($this->getIntervalMock())
                 ->build()
             ;
@@ -120,7 +152,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
             $driverBuilder
                 ->withDriverOutput($this->getDriverOutputMock())
-                ->withTimer($this->getTimerMock())
+                ->withDeltaTimer($this->getTimerMock())
                 ->build()
             ;
         };
@@ -132,8 +164,8 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         );
     }
 
-    protected function getDriverConfigMock(): MockObject&IDriverConfig
+    protected function getLinkerConfigMock(): MockObject&ILinkerConfig
     {
-        return $this->createMock(IDriverConfig::class);
+        return $this->createMock(ILinkerConfig::class);
     }
 }

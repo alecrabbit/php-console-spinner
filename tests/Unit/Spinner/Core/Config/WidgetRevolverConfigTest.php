@@ -33,6 +33,7 @@ final class WidgetRevolverConfigTest extends TestCase
                 new WidgetRevolverConfig(
                     stylePalette: $stylePalette ?? $this->getPaletteMock(),
                     charPalette: $charPalette ?? $this->getPaletteMock(),
+                    revolverConfig: new RevolverConfig(),
                 );
         }
 

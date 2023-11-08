@@ -6,10 +6,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\SpinnerState;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class SpinnerStateTest extends TestCaseWithPrebuiltMocksAndStubs
+final class SpinnerStateTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

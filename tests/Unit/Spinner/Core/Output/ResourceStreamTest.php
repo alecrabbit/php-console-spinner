@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Output\DriverOutput;
-use AlecRabbit\Spinner\Core\Output\ResourceStream;
+use AlecRabbit\Spinner\Core\Output\WritableStream;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -21,7 +17,7 @@ final class ResourceStreamTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument is expected to be a stream(resource), "string" given.');
 
-        $result = new ResourceStream('invalid');
+        $result = new WritableStream('invalid');
     }
 
     #[Test]
@@ -29,9 +25,9 @@ final class ResourceStreamTest extends TestCase
     {
         $stream = fopen('php://memory', 'rb+');
 
-        $result = new ResourceStream($stream);
+        $result = new WritableStream($stream);
 
-        self::assertInstanceOf(ResourceStream::class, $result);
+        self::assertInstanceOf(WritableStream::class, $result);
 
         fclose($stream);
     }

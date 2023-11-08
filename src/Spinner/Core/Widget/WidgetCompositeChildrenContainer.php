@@ -16,6 +16,12 @@ use Countable;
 use IteratorAggregate;
 use Traversable;
 
+/**
+ * @template TKey of IWidgetContext
+ * @template TValue of IWidgetContext|null
+ *
+ * @implements IWidgetCompositeChildrenContainer<TKey, TValue>
+ */
 final class WidgetCompositeChildrenContainer extends ASubject implements IWidgetCompositeChildrenContainer
 {
     protected ?IInterval $interval = null;
@@ -94,7 +100,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
     protected function recalculateInterval(): void
     {
         $this->interval = null;
-        /** @var IInterval $interval */
+        /** @var IInterval|null $interval */
         foreach ($this->map as $interval) {
             if ($this->interval === null) {
                 $this->interval = $interval;

@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use Traversable;
 
-final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
+final class FrameCollectionTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -32,6 +34,11 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
     protected function getTesteeInstance(Traversable $frames): IFrameCollection
     {
         return new FrameCollection($frames);
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
     }
 
     #[Test]

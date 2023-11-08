@@ -29,11 +29,12 @@ final class ServiceSpawner implements IServiceSpawner
     public function spawn(string|callable|object $definition): object
     {
         try {
-            return match (true) {
-                is_callable($definition) => $this->spawnByCallable($definition),
-                is_string($definition) => $this->spawnByClassConstructor($definition),
-                default => $definition, // return object as is
-            };
+            return
+                match (true) {
+                    is_callable($definition) => $this->spawnByCallable($definition),
+                    is_string($definition) => $this->spawnByClassConstructor($definition),
+                    default => $definition, // return object as is
+                };
         } catch (Throwable $e) {
             throw new SpawnFailedException(
                 sprintf(
@@ -67,10 +68,13 @@ final class ServiceSpawner implements IServiceSpawner
      */
     private function spawnByClassConstructor(string $definition): object
     {
-        return match (true) {
-            class_exists($definition) => $this->createInstanceByReflection($definition),
-            default => throw new ClassDoesNotExistException(sprintf('Class does not exist: %s', (string)$definition)),
-        };
+        return
+            match (true) {
+                class_exists($definition) => $this->createInstanceByReflection($definition),
+                default => throw new ClassDoesNotExistException(
+                    sprintf('Class does not exist: %s', (string)$definition)
+                ),
+            };
     }
 
     /**
@@ -112,16 +116,17 @@ final class ServiceSpawner implements IServiceSpawner
      */
     private function needsService(ReflectionIntersectionType|ReflectionNamedType|ReflectionUnionType $type): bool
     {
-        return match (true) {
-            // assumes that all non-builtin types are services
-            $type instanceof ReflectionNamedType => !$type->isBuiltin(),
-            default => throw new UnableToExtractTypeException(
-                sprintf(
-                    'Only %s is supported.',
-                    ReflectionNamedType::class,
-                )
-            ),
-        };
+        return
+            match (true) {
+                // assumes that all non-builtin types are services
+                $type instanceof ReflectionNamedType => !$type->isBuiltin(),
+                default => throw new UnableToExtractTypeException(
+                    sprintf(
+                        'Only %s is supported.',
+                        ReflectionNamedType::class,
+                    )
+                ),
+            };
     }
 
     /**

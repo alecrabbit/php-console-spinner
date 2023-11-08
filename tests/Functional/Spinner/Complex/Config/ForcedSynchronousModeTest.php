@@ -73,7 +73,8 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
 
         self::getFacadeContainer()
             ->get(ILoopProvider::class)
-            ->getLoop();
+            ->getLoop()
+        ;
 
         self::fail('Exception was not thrown.');
     }
@@ -102,7 +103,8 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
 
         self::getFacadeContainer()
             ->get(ILoopProvider::class)
-            ->getLoop();
+            ->getLoop()
+        ;
 
         self::fail('Exception was not thrown.');
     }
@@ -123,7 +125,8 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
 
         self::getFacadeContainer()
             ->get(ILoopProvider::class)
-            ->getLoop();
+            ->getLoop()
+        ;
 
         self::fail('Exception was not thrown.');
     }

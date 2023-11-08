@@ -11,6 +11,12 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use Countable;
 use IteratorAggregate;
 
+/**
+ * @template TKey of IWidgetContext
+ * @template TValue of IWidgetContext|null
+ *
+ * @extends IteratorAggregate<TKey, TValue>
+ */
 interface IWidgetCompositeChildrenContainer extends ISubject,
                                                     IObserver,
                                                     ICanBeEmpty,

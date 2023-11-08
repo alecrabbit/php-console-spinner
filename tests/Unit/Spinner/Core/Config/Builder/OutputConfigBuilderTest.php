@@ -121,6 +121,7 @@ final class OutputConfigBuilderTest extends TestCase
             message: $exceptionMessage,
         );
     }
+
     #[Test]
     public function throwsIfInitializationModeIsNotSet(): void
     {

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\InitializationOption;
-use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IMessages;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class DriverSettingsTest extends TestCase
 {
@@ -22,11 +22,11 @@ final class DriverSettingsTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?LinkerOption $linkerOption = null,
+        ?IMessages $messages = null,
     ): IDriverSettings {
         return
             new DriverSettings(
-                linkerOption: $linkerOption ?? LinkerOption::AUTO,
+                messages: $messages,
             );
     }
 
@@ -39,14 +39,17 @@ final class DriverSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canGetLinkerOption(): void
+    public function canGetMessages(): void
     {
-        $linkerOption = LinkerOption::DISABLED;
+        $messages = $this->getMessagesMock();
 
-        $settings = $this->getTesteeInstance(
-            linkerOption: $linkerOption,
-        );
+        $settings = $this->getTesteeInstance(messages: $messages);
 
-        self::assertEquals($linkerOption, $settings->getLinkerOption());
+        self::assertSame($messages, $settings->getMessages());
+    }
+
+    protected function getMessagesMock(): MockObject&IMessages
+    {
+        return $this->createMock(IMessages::class);
     }
 }

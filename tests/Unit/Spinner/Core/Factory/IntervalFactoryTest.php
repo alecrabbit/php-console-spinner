@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class IntervalFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -28,6 +30,11 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         return new IntervalFactory(
             intervalNormalizer: $intervalNormalizer ?? $this->getIntervalNormalizerMock(),
         );
+    }
+
+    protected function getIntervalNormalizerMock(): MockObject&IIntervalNormalizer
+    {
+        return $this->createMock(IIntervalNormalizer::class);
     }
 
     #[Test]
@@ -110,6 +117,11 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($interval, $result);
         self::assertSame($interval, $intervalFactory->createNormalized(null));
         self::assertSame($interval, $intervalFactory->createNormalized(null));
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 
     protected function setUp(): void

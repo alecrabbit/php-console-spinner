@@ -8,11 +8,12 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\A\Override\ASubjectOverride;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class ASubjectTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ASubjectTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -43,6 +44,11 @@ final class ASubjectTest extends TestCaseWithPrebuiltMocksAndStubs
             observer: $observer,
         );
         $subject->notify();
+    }
+
+    protected function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
     }
 
     #[Test]

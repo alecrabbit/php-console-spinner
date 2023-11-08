@@ -15,11 +15,11 @@ use function extension_loaded;
 final class Asserter
 {
     /**
-     * @deprecated
      * @param object|class-string $c
      * @param class-string $i
      *
      * @throws InvalidArgumentException
+     * @deprecated
      */
     public static function assertIsSubClass(
         object|string $c,
@@ -47,8 +47,8 @@ final class Asserter
     }
 
     /**
-     * @deprecated
      * @throws InvalidArgumentException
+     * @deprecated
      */
     public static function assertStream(mixed $stream): void
     {
@@ -60,8 +60,8 @@ final class Asserter
     }
 
     /**
-     * @deprecated
      * @throws InvalidArgumentException
+     * @deprecated
      */
     public static function assertColorModes(Traversable $colorModes): void
     {
@@ -82,8 +82,8 @@ final class Asserter
     }
 
     /**
-     * @deprecated
      * @throws RuntimeException
+     * @deprecated
      */
     public static function assertExtensionLoaded(string $extensionName, ?string $message = null): void
     {
@@ -95,8 +95,8 @@ final class Asserter
     }
 
     /**
-     * @deprecated
      * @throws InvalidArgumentException
+     * @deprecated
      */
     public static function assertClassExists(string $class, ?string $callerMethod = null): void
     {
@@ -112,8 +112,8 @@ final class Asserter
     }
 
     /**
-     * @deprecated
      * @throws InvalidArgumentException
+     * @deprecated
      */
     public static function assertHexStringColor(string $entry): void
     {
@@ -141,8 +141,8 @@ final class Asserter
     }
 
     /**
-     * @deprecated
      * @throws InvalidArgumentException
+     * @deprecated
      */
     public static function assertIntInRange(int $value, int $min, int $max, ?string $callerMethod = null): void
     {
@@ -161,8 +161,8 @@ final class Asserter
     }
 
     /**
-     * @deprecated
      * @throws InvalidArgumentException
+     * @deprecated
      */
     public static function assertIntColor(
         int $color,

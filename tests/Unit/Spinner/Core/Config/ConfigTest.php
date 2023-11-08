@@ -4,24 +4,23 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 
-final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ConfigTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -60,25 +59,25 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canSetAndGetDriverConfig(): void
+    public function canSetAndGetLinkerConfig(): void
     {
         $config = $this->getTesteeInstance();
 
-        $driverConfig = $this->getDriverConfigMock();
-        $driverConfig
+        $linkerConfig = $this->getLinkerConfigMock();
+        $linkerConfig
             ->expects(self::once())
             ->method('getIdentifier')
-            ->willReturn(IDriverConfig::class)
+            ->willReturn(ILinkerConfig::class)
         ;
 
-        $config->set($driverConfig);
+        $config->set($linkerConfig);
 
-        self::assertSame($driverConfig, $config->get(IDriverConfig::class));
+        self::assertSame($linkerConfig, $config->get(ILinkerConfig::class));
     }
 
-    protected function getDriverConfigMock(): MockObject&IDriverConfig
+    protected function getLinkerConfigMock(): MockObject&ILinkerConfig
     {
-        return $this->createMock(IDriverConfig::class);
+        return $this->createMock(ILinkerConfig::class);
     }
 
 

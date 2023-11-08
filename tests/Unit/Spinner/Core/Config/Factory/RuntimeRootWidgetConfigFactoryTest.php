@@ -34,7 +34,7 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
     ): IRuntimeRootWidgetConfigFactory {
         return
             new RuntimeRootWidgetConfigFactory(
-                widgetConfig: $widgetConfig ?? $this->getRootWidgetConfigMock(),
+                rootWidgetConfig: $widgetConfig ?? $this->getRootWidgetConfigMock(),
             );
     }
 

@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Builder;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Widget;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -42,6 +45,16 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         self::assertInstanceOf(Widget::class, $widgetComposite);
+    }
+
+    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
+    {
+        return $this->createMock(IWidgetRevolver::class);
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
     }
 
     #[Test]

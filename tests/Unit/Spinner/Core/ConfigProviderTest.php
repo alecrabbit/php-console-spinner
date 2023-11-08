@@ -7,11 +7,11 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\ConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ConfigProviderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ConfigProviderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

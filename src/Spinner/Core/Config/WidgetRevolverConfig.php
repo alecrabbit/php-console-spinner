@@ -13,7 +13,7 @@ final readonly class WidgetRevolverConfig implements IWidgetRevolverConfig
     public function __construct(
         protected IPalette $stylePalette,
         protected IPalette $charPalette,
-        protected IRevolverConfig $revolverConfig = new RevolverConfig(),
+        protected IRevolverConfig $revolverConfig,
     ) {
     }
 

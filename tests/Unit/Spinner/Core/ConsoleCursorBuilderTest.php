@@ -10,11 +10,11 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Output\ConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ConsoleCursorBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ConsoleCursorBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -61,7 +61,8 @@ final class ConsoleCursorBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $consoleCursorBuilder
             ->withCursorVisibilityMode(CursorVisibilityMode::VISIBLE)
-            ->build();
+            ->build()
+        ;
     }
 
     #[Test]
@@ -74,6 +75,7 @@ final class ConsoleCursorBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $consoleCursorBuilder
             ->withBuffer($this->getBufferMock())
-            ->build();
+            ->build()
+        ;
     }
 }

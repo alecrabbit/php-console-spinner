@@ -15,6 +15,7 @@ use AlecRabbit\Spinner\Core\Settings\SignalHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\SignalHandlerSettings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
+use Closure;
 use PHPUnit\Framework\Attributes\Test;
 
 final class SignalHandlersContainerConfigTest extends ConfigurationTestCase
@@ -46,7 +47,7 @@ final class SignalHandlersContainerConfigTest extends ConfigurationTestCase
         $signal = 2;
         $handlerCreator =
             new class implements IHandlerCreator {
-                public function createHandler(IDriver $driver, ILoop $loop): \Closure
+                public function createHandler(IDriver $driver, ILoop $loop): Closure
                 {
                     return
                         static function (): void {

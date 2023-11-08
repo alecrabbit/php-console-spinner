@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
-use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersContainer;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

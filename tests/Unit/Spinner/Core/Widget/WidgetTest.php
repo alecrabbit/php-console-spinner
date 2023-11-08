@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Widget;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -37,6 +39,21 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
             );
     }
 
+    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
+    {
+        return $this->createMock(IWidgetRevolver::class);
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
+    protected function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
+    }
+
     #[Test]
     public function canGetInterval(): void
     {
@@ -56,6 +73,11 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertSame($interval, $widget->getInterval());
     }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
 //    #[Test]
 //    public function canBeEnvelopedWithAnotherContext():void
 //    {
@@ -70,7 +92,6 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
 //
 //        $widget->envelopWithContext($context);
 //    }
-
 
     #[Test]
     public function canGetFrameIfHasRevolverOnly(): void

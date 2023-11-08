@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\ISignalHandlersContainer;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersContainer;
 use AlecRabbit\Spinner\Core\SignalHandlersContainer;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Traversable;
 
 final class SignalHandlersContainerTest extends TestCase
 {
@@ -21,17 +22,16 @@ final class SignalHandlersContainerTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?\Traversable $handlers = null,
-    ): ISignalHandlersContainer
-    {
+        ?Traversable $handlers = null,
+    ): ISignalHandlersContainer {
         return new SignalHandlersContainer(
             signalHandlers: $handlers ?? $this->getSignalHandlersMock(),
         );
     }
 
-    private function getSignalHandlersMock(): MockObject&\Traversable
+    private function getSignalHandlersMock(): MockObject&Traversable
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(Traversable::class);
     }
 
     #[Test]

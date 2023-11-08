@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Revolver;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStubs
+final class FrameCollectionRevolverTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -37,6 +38,18 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
             );
     }
 
+    protected function getOneElementFrameCollectionMock(): MockObject&IFrameCollection
+    {
+        $mockObject = $this->createMock(IFrameCollection::class);
+        $mockObject->method('count')->willReturn(1);
+        return $mockObject;
+    }
+
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
+
     private function getToleranceMock(): MockObject&ITolerance
     {
         return $this->createMock(ITolerance::class);
@@ -54,7 +67,6 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
         self::callMethod($frameCollectionRevolver, 'next');
         self::assertEquals(0, self::getPropertyValue('offset', $frameCollectionRevolver));
     }
-
 
     #[Test]
     public function canUpdate(): void
@@ -85,18 +97,22 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
             $frameCollection
                 ->expects($matcher)
                 ->method('get')
-                ->willReturnCallback(function (int $offset) use ($matcher, $frame0, $frame1, $frame2) {
-                    match ($matcher->numberOfInvocations()) {
-                        1 => self::assertEquals(1, $offset),
-                        2 => self::assertEquals(2, $offset),
-                        3, 4 => self::assertEquals(0, $offset),
-                    };
-                    return match ($offset) {
-                        0 => $frame0,
-                        1 => $frame1,
-                        2 => $frame2,
-                    };
-                })
+                ->willReturnCallback(
+                    function (int $offset) use ($matcher, $frame0, $frame1, $frame2) {
+                        match ($matcher->numberOfInvocations()) {
+                            1 => self::assertEquals(1, $offset),
+                            2 => self::assertEquals(2, $offset),
+                            3, 4 => self::assertEquals(0, $offset),
+                        };
+
+                        return
+                            match ($offset) {
+                                0 => $frame0,
+                                1 => $frame1,
+                                2 => $frame2,
+                            };
+                    }
+                )
             ;
         }
 
@@ -110,6 +126,16 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
         self::assertSame($frame2, $frameCollectionRevolver->getFrame());
         self::assertSame($frame0, $frameCollectionRevolver->getFrame());
         self::assertSame($frame0, $frameCollectionRevolver->getFrame(1));
+    }
+
+    protected function getFrameCollectionMock(): MockObject&IFrameCollection
+    {
+        return $this->createMock(IFrameCollection::class);
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
     }
 
     #[Test]
