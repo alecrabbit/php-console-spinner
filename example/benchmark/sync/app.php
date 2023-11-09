@@ -8,6 +8,7 @@ use AlecRabbit\Benchmark\Factory\ReportFactory;
 use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Probes;
 
@@ -17,8 +18,7 @@ const PROGRESS_EVERY_CYCLES = CYCLES / 10;
 $container = require __DIR__ . '/container.sync.php';
 
 // unregister all loop probes
-Probes::unregister(ReactLoopProbe::class);
-Probes::unregister(RevoltLoopProbe::class);
+Probes::unregister(ILoopProbe::class);
 
 $driver = Facade::getDriver();
 

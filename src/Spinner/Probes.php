@@ -109,9 +109,23 @@ final class Probes
     public static function unregister(string ...$classes): void
     {
         foreach ($classes as $probeClass) {
+            if(interface_exists($probeClass)) {
+                self::assertClass($probeClass);
+                self::unsetAll($probeClass);
+            }
+
             self::assertClass($probeClass);
             if (isset(self::$probes[$probeClass])) {
                 unset(self::$probes[$probeClass]);
+            }
+        }
+    }
+
+    private static function unsetAll(?string $filter = null): void
+    {
+        foreach (self::$probes as $probe) {
+            if ($filter === null || is_subclass_of($probe, $filter)) {
+                unset(self::$probes[$probe]);
             }
         }
     }
