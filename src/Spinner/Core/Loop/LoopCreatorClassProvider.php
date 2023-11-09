@@ -40,6 +40,7 @@ final class LoopCreatorClassProvider implements ILoopCreatorClassProvider
         }
     }
 
+    /** @inheritDoc */
     public function getCreatorClass(): ?string
     {
         return $this->creatorClass;
