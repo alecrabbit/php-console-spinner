@@ -98,13 +98,16 @@ final class ServiceSpawner implements IServiceSpawner
                     throw new UnableToExtractTypeException('Unable to extract type for parameter name: $' . $name);
                 }
                 if ($this->needsService($type)) {
+                    /** @var ReflectionNamedType $type */
                     $parameters[$name] = $this->getServiceFromContainer($type->getName());
                 }
             }
+            /** @psalm-suppress MixedMethodCall */
             return new $class(...$parameters);
         }
 
         try {
+            /** @psalm-suppress MixedMethodCall */
             return new $class();
         } catch (Throwable $e) {
             throw new UnableToCreateInstanceException('Unable to create instance of ' . $class, previous: $e);
@@ -114,7 +117,7 @@ final class ServiceSpawner implements IServiceSpawner
     /**
      * @throws ContainerExceptionInterface
      */
-    private function needsService(ReflectionIntersectionType|ReflectionNamedType|ReflectionUnionType $type): bool
+    private function needsService(mixed $type): bool
     {
         return
             match (true) {

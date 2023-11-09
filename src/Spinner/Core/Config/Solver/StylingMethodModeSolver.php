@@ -42,6 +42,10 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
             $mode = $detectedMode ?? $defaultMode;
         }
 
+        /**
+         * @psalm-suppress TypeDoesNotContainNull
+         * @psalm-suppress RedundantCondition
+         */
         if ($detectedMode !== null && ($mode?->value > $detectedMode?->value)) {
             $mode = $detectedMode;
         }

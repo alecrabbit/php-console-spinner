@@ -15,8 +15,9 @@ interface IConfig
     public function set(IConfigElement ...$configElements): void;
 
     /**
-     * @psalm-template T of IConfigElement
-     * @psalm-param class-string<T> $id
+     * @template T of IConfigElement
+     * @param class-string<T> $id
+     *
      * @psalm-return T
      *
      * @throws InvalidArgument

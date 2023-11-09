@@ -11,6 +11,8 @@ use AlecRabbit\Spinner\Container\Exception\CircularDependencyException;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
 use ArrayObject;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Throwable;
 use Traversable;
 
@@ -18,7 +20,7 @@ final class Container implements IContainer
 {
     private IServiceSpawner $serviceSpawner;
 
-    /** @var ArrayObject<string, callable|object|string> */
+    /** @var ArrayObject<string, callable|object|class-string> */
     private ArrayObject $definitions;
 
     /** @var ArrayObject<string, mixed> */
@@ -53,7 +55,7 @@ final class Container implements IContainer
 
         $this->assertNotRegistered($id);
 
-        /** @var callable|object|string $definition */
+        /** @var callable|object|class-string $definition */
         $this->definitions[$id] = $definition;
     }
 
@@ -86,10 +88,14 @@ final class Container implements IContainer
         return $this->definitions->offsetExists($id);
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     * @psalm-suppress MixedInferredReturnType
+     */
     public function get(string $id): mixed
     {
         if ($this->hasService($id)) {
+            /** @psalm-suppress MixedReturnStatement */
             return $this->services[$id];
         }
 
@@ -110,6 +116,7 @@ final class Container implements IContainer
 
         $this->removeDependencyFromStack();
 
+        /** @psalm-suppress MixedReturnStatement */
         return $this->services[$id];
     }
 
@@ -134,6 +141,11 @@ final class Container implements IContainer
         }
     }
 
+    /**
+     * @param class-string|object|callable $definition
+     *
+     * @throws ContainerExceptionInterface
+     */
     private function getService(string $id, callable|object|string $definition): object
     {
         try {

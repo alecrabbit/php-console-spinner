@@ -13,14 +13,16 @@ interface IContainer extends ContainerInterface
     /**
      * Finds an entry of the container by its identifier and returns it.
      *
-     * @psalm-template T of object
+     * @template T of object
      *
-     * @psalm-param class-string<T> $id
+     * @param class-string<T> $id
      *
      * @psalm-return T
      *
      * @throws ContainerExceptionInterface Error while retrieving the entry.
      * @throws NotFoundExceptionInterface  No entry was found for **this** identifier.
+     *
+     * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function get(string $id);
 

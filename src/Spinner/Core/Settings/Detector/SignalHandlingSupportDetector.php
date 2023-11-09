@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
+use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingOptionCreator;
 use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
@@ -24,6 +25,7 @@ final class SignalHandlingSupportDetector implements ISignalHandlingSupportDetec
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);
             if ($probe::isSupported()) {
+                /** @var class-string<ISignalHandlingOptionCreator> $class */
                 $class = $probe::getCreatorClass();
                 return (new $class)->create();
             }

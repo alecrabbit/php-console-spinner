@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
+use AlecRabbit\Spinner\Contract\Probe\IStylingMethodOptionCreator;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayObject;
@@ -24,6 +25,7 @@ final readonly class ColorSupportDetector implements IColorSupportDetector
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);
             if ($probe::isSupported()) {
+                /** @var class-string<IStylingMethodOptionCreator> $class */
                 $class = $probe::getCreatorClass();
                 return (new $class)->create();
             }

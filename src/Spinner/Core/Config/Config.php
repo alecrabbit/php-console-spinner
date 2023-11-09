@@ -28,10 +28,10 @@ final readonly class Config implements IConfig
     /** @inheritDoc */
     public function set(IConfigElement ...$configElements): void
     {
-        foreach ($configElements as $configElement) {
-            $identifier = $configElement->getIdentifier();
+        foreach ($configElements as $config) {
+            $identifier = $config->getIdentifier();
             self::assertIdentifier($identifier);
-            $this->configElements->offsetSet($identifier, $configElement);
+            $this->configElements->offsetSet($identifier, $config);
         }
     }
 
