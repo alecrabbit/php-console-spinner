@@ -16,7 +16,7 @@ use function is_subclass_of;
 final class Probes
 {
     /**
-     * @var array<class-string<IStaticProbe>>
+     * @var array<string, class-string<IStaticProbe>>
      */
     private static array $probes = [];
 
@@ -46,12 +46,15 @@ final class Probes
     /**
      * @template TProbe of T
      *
-     * @psalm-param class-string<TProbe> $class
+     * @psalm-param class-string<TProbe>|null $class
      *
      * @throws InvalidArgument
      */
-    private static function assertClass(string $class): void
+    private static function assertClass(?string $class): void
     {
+        if ($class === IStaticProbe::class || $class === null) {
+            return;
+        }
         if (!self::isProbeSubclass($class)) {
             throw new InvalidArgument(
                 sprintf(
@@ -76,27 +79,36 @@ final class Probes
     /**
      * @template TProbe of T
      *
-     * @psalm-param class-string<TProbe>|null $filterClass
+     * @psalm-param class-string<TProbe>|null $filter
      *
-     * @psalm-return ($filterClass is string ? Traversable<TProbe> : Traversable<T>)
+     * @psalm-return ($filter is null ? Traversable<class-string<T>>: Traversable<class-string<TProbe>>)
      *
      * @throws InvalidArgument
      */
-    public static function load(string $filterClass = null): Traversable
+    public static function load(string $filter = null): Traversable
     {
-        $probes = array_reverse(self::$probes, true);
+        self::assertClass($filter);
 
-        if ($filterClass === null) {
-            yield from $probes;
-        } else {
-            self::assertClass($filterClass);
-            /** @var TProbe $probe */
-            foreach ($probes as $probe) {
-                if (is_subclass_of($probe, $filterClass)) {
-                    yield $probe;
-                }
+        /** @var class-string<TProbe> $probe */
+        foreach (self::reversedProbes() as $probe) {
+            if (self::matchesFilter($filter, $probe)) {
+                yield $probe;
             }
         }
+    }
+
+    private static function reversedProbes(): iterable
+    {
+        return array_reverse(self::$probes, true);
+    }
+
+    /**
+     * @psalm-param class-string<IStaticProbe>|null $filter
+     * @psalm-param class-string<IStaticProbe> $probe
+     */
+    private static function matchesFilter(?string $filter, string $probe): bool
+    {
+        return $filter === null || is_subclass_of($probe, $filter);
     }
 
     /**
@@ -109,24 +121,40 @@ final class Probes
     public static function unregister(string ...$classes): void
     {
         foreach ($classes as $probeClass) {
-            if(interface_exists($probeClass)) {
-                self::assertClass($probeClass);
-                self::unsetAll($probeClass);
+            self::assertClass($probeClass);
+
+            if (self::isInterface($probeClass)) {
+                self::unsetAll(filter: $probeClass);
             }
 
-            self::assertClass($probeClass);
-            if (isset(self::$probes[$probeClass])) {
-                unset(self::$probes[$probeClass]);
+            self::unsetOne($probeClass);
+        }
+    }
+
+    private static function isInterface(string $probeClass): bool
+    {
+        return interface_exists($probeClass);
+    }
+
+    /**
+     * @psalm-param class-string<IStaticProbe>|null $filter
+     */
+    private static function unsetAll(?string $filter = null): void
+    {
+        foreach (self::$probes as $probe) {
+            if (self::matchesFilter($filter, $probe)) {
+                self::unsetOne($probe);
             }
         }
     }
 
-    private static function unsetAll(?string $filter = null): void
+    /**
+     * @psalm-param class-string<IStaticProbe> $probe
+     */
+    private static function unsetOne(string $probe): void
     {
-        foreach (self::$probes as $probe) {
-            if ($filter === null || is_subclass_of($probe, $filter)) {
-                unset(self::$probes[$probe]);
-            }
+        if (isset(self::$probes[$probe])) {
+            unset(self::$probes[$probe]);
         }
     }
 }

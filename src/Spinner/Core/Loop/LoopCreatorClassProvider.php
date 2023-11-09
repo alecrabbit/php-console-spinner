@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Loop;
 
+use AlecRabbit\Spinner\Contract\ICreator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
@@ -14,12 +15,13 @@ final class LoopCreatorClassProvider implements ILoopCreatorClassProvider
     protected ?string $creatorClass = null;
 
     /**
-     * @param class-string<ILoopCreator>|null $creatorClass
+     * @param class-string<ICreator>|null $creatorClass
      * @throws InvalidArgument
      */
     public function __construct(?string $creatorClass)
     {
         self::assertClass($creatorClass);
+        /** @var class-string<ILoopCreator>|null $creatorClass */
         $this->creatorClass = $creatorClass;
     }
 
