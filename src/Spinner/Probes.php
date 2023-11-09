@@ -29,9 +29,9 @@ final class Probes
     }
 
     /**
-     * @template TV of T
+     * @template TProbe of T
      *
-     * @param array<class-string<TV>> $classes
+     * @param array<class-string<TProbe>> $classes
      *
      * @throws InvalidArgument
      */
@@ -44,9 +44,9 @@ final class Probes
     }
 
     /**
-     * @template TV of T
+     * @template TProbe of T
      *
-     * @psalm-param class-string<TV> $class
+     * @psalm-param class-string<TProbe> $class
      *
      * @throws InvalidArgument
      */
@@ -64,9 +64,9 @@ final class Probes
     }
 
     /**
-     * @template TV of T
+     * @template TProbe of T
      *
-     * @psalm-param class-string<TV> $class
+     * @psalm-param class-string<TProbe> $class
      */
     private static function isProbeSubclass(string $class): bool
     {
@@ -74,11 +74,11 @@ final class Probes
     }
 
     /**
-     * @template TV of T
+     * @template TProbe of T
      *
-     * @psalm-param class-string<TV>|null $filterClass
+     * @psalm-param class-string<TProbe>|null $filterClass
      *
-     * @psalm-return ($filterClass is string ? Traversable<TV> : Traversable<T>)
+     * @psalm-return ($filterClass is string ? Traversable<TProbe> : Traversable<T>)
      *
      * @throws InvalidArgument
      */
@@ -90,7 +90,7 @@ final class Probes
             yield from $probes;
         } else {
             self::assertClass($filterClass);
-            /** @var TV $probe */
+            /** @var TProbe $probe */
             foreach ($probes as $probe) {
                 if (is_subclass_of($probe, $filterClass)) {
                     yield $probe;
@@ -100,9 +100,9 @@ final class Probes
     }
 
     /**
-     * @template TV of T
+     * @template TProbe of T
      *
-     * @param array<class-string<TV>> $classes
+     * @param array<class-string<TProbe>> $classes
      *
      * @throws InvalidArgument
      */
