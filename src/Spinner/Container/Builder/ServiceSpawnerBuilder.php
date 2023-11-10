@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Container;
+namespace AlecRabbit\Spinner\Container\Builder;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
+use AlecRabbit\Spinner\Container\ServiceSpawner;
 use LogicException;
 
 /**
