@@ -26,14 +26,14 @@ final class ContainerTest extends TestCase
     {
         return self::callMethod(Facade::class, 'getContainer');
     }
-
-    #[Test]
-    public function returnsConfigProvider(): void
-    {
-        $container = $this->getTesteeInstance();
-
-        $result = $container->get(IConfigProvider::class);
-
-        self::assertInstanceOf(ConfigProvider::class, $result);
-    }
+//
+//    #[Test]
+//    public function returnsConfigProvider(): void
+//    {
+//        $container = $this->getTesteeInstance();
+//
+//        $result = $container->get(IConfigProvider::class);
+//
+//        self::assertInstanceOf(ConfigProvider::class, $result);
+//    }
 }

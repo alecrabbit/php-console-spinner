@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Container;
+namespace AlecRabbit\Tests\Unit\Spinner\Container\Builder;
 
+use AlecRabbit\Spinner\Container\Builder\ServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
-use AlecRabbit\Spinner\Container\ServiceSpawnerBuilder;
 use AlecRabbit\Tests\TestCase\TestCase;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;

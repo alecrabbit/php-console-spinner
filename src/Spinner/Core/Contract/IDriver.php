@@ -66,7 +66,7 @@ interface IDriver extends IObserver,
      * Wraps a user callback with erase and render methods calls. Returns wrapped callback.
      *
      * @param Closure $callback
-     * @return Closure
+     * @return Closure(): void
      */
     public function wrap(Closure $callback): Closure;
 }

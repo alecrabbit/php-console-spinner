@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 final class DriverLinker implements IDriverLinker
 {
-    private mixed $timer = null;
+    private mixed $renderTimer = null;
     private ?IDriver $driver = null;
 
     public function __construct(
@@ -28,7 +28,8 @@ final class DriverLinker implements IDriverLinker
         $this->linkTimer($driver);
 
         if ($this->driver === null) {
-            $this->observeDriver($driver);
+            $driver->attach($this);
+            $this->driver = $driver;
         }
     }
 
@@ -47,29 +48,18 @@ final class DriverLinker implements IDriverLinker
 
     private function linkTimer(IDriver $driver): void
     {
-        $this->unlinkTimer();
+        if ($this->renderTimer) {
+            $this->loop->cancel($this->renderTimer);
+            $this->renderTimer = null;
+        }
 
         $interval = $driver->getInterval()->toSeconds();
 
-        $this->timer =
+        $this->renderTimer =
             $this->loop->repeat(
                 $interval,
-                static fn() => $driver->render()
+                static fn() => $driver->render(),
             );
-    }
-
-    private function unlinkTimer(): void
-    {
-        if ($this->timer) {
-            $this->loop->cancel($this->timer);
-            $this->timer = null;
-        }
-    }
-
-    private function observeDriver(IDriver $driver): void
-    {
-        $this->driver = $driver;
-        $driver->attach($this);
     }
 
     public function update(ISubject $subject): void

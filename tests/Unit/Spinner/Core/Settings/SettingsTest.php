@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -134,14 +135,14 @@ final class SettingsTest extends TestCase
 
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Identifier "AlecRabbit\Spinner\Core\Config\Contract\IConfig" is not an instance of '
+            'Identifier "AlecRabbit\Spinner\Core\Widget\Contract\IWidget" is not an instance of '
             . '"AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement".'
         );
 
         $object = new class implements ISettingsElement {
             public function getIdentifier(): string
             {
-                return IConfig::class;
+                return IWidget::class;
             }
         };
 
@@ -183,11 +184,11 @@ final class SettingsTest extends TestCase
 
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Identifier "AlecRabbit\Spinner\Core\Config\Contract\IConfig" is not an instance of '
+            'Identifier "AlecRabbit\Spinner\Core\Widget\Contract\IWidget" is not an instance of '
             . '"AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement".'
         );
 
-        $settings->get(IConfig::class);
+        $settings->get(IWidget::class);
 
         self::fail('Exception was not thrown.');
     }

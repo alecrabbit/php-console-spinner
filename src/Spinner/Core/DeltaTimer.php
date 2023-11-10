@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
-use AlecRabbit\Spinner\Contract\INow;
+use AlecRabbit\Spinner\Contract\INowTimer;
 
 final class DeltaTimer implements IDeltaTimer
 {
     protected float $current;
 
     public function __construct(
-        protected INow $now,
+        protected INowTimer $now,
         float $startTime = 0.0,
     ) {
         $this->current = $startTime;

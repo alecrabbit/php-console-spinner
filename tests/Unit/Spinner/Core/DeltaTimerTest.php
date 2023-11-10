@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
-use AlecRabbit\Spinner\Contract\INow;
+use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Core\DeltaTimer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -22,18 +22,18 @@ final class DeltaTimerTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?INow $now = null,
+        ?INowTimer $nowTimer = null,
         ?float $startTime = null,
     ): IDeltaTimer {
         return new DeltaTimer(
-            now: $now ?? $this->getNowMock(),
+            now: $nowTimer ?? $this->getNowMock(),
             startTime: $startTime ?? 0.0,
         );
     }
 
-    private function getNowMock(): MockObject&INow
+    private function getNowMock(): MockObject&INowTimer
     {
-        return $this->createMock(INow::class);
+        return $this->createMock(INowTimer::class);
     }
 
     #[Test]
@@ -51,7 +51,7 @@ final class DeltaTimerTest extends TestCase
     {
         $step = 1.0;
 
-        $now = new class(0.0, $step) implements INow {
+        $nowTimer = new class(0.0, $step) implements INowTimer {
             public function __construct(
                 private float $current,
                 private float $step,
@@ -72,7 +72,7 @@ final class DeltaTimerTest extends TestCase
         };
 
         $timer = $this->getTesteeInstance(
-            now: $now,
+            nowTimer: $nowTimer,
             startTime: 0.0,
         );
 
@@ -82,7 +82,7 @@ final class DeltaTimerTest extends TestCase
         self::assertSame($step, $timer->getDelta());
         self::assertSame($step, $timer->getDelta());
         self::assertSame($step, $timer->getDelta());
-        self::assertSame($now->getCurrent(), 5.0);
+        self::assertSame($nowTimer->getCurrent(), 5.0);
     }
 
 //    #[Test]
