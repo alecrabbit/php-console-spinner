@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Contract\INow;
+use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
@@ -27,16 +27,12 @@ use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LinkerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILinkerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigProviderFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
@@ -46,7 +42,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeRootWidgetConfigFact
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
@@ -55,8 +50,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
@@ -92,7 +85,6 @@ use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
-use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
@@ -181,11 +173,13 @@ use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use Traversable;
 
+use function hrtime;
+
 // @codeCoverageIgnoreStart
 function getDefinitions(): Traversable
 {
     yield from [
-        INow::class => new class implements INow {
+        INowTimer::class => new class implements INowTimer {
             public function now(): float
             {
                 return
@@ -206,9 +200,6 @@ function getDefinitions(): Traversable
         },
         ISettingsProvider::class => static function (IContainer $container): ISettingsProvider {
             return $container->get(ISettingsProviderFactory::class)->create();
-        },
-        IConfigProvider::class => static function (IContainer $container): IConfigProvider {
-            return $container->get(IConfigProviderFactory::class)->create();
         },
         ILoopProvider::class => static function (IContainer $container): ILoopProvider {
             return $container->get(ILoopProviderFactory::class)->create();
@@ -254,29 +245,26 @@ function getDefinitions(): Traversable
 function configs(): Traversable
 {
     yield from [
-        IConfig::class => static function (IContainer $container): IConfig {
-            return $container->get(IConfigProvider::class)->getConfig();
-        },
         IDriverConfig::class => static function (IContainer $container): IDriverConfig {
-            return $container->get(IConfig::class)->get(IDriverConfig::class);
+            return $container->get(IDriverConfigFactory::class)->create();
         },
         ILinkerConfig::class => static function (IContainer $container): ILinkerConfig {
-            return $container->get(IConfig::class)->get(ILinkerConfig::class);
+            return $container->get(ILinkerConfigFactory::class)->create();
         },
         IOutputConfig::class => static function (IContainer $container): IOutputConfig {
-            return $container->get(IConfig::class)->get(IOutputConfig::class);
+            return $container->get(IOutputConfigFactory::class)->create();
         },
         ILoopConfig::class => static function (IContainer $container): ILoopConfig {
-            return $container->get(IConfig::class)->get(ILoopConfig::class);
+            return $container->get(ILoopConfigFactory::class)->create();
         },
         IAuxConfig::class => static function (IContainer $container): IAuxConfig {
-            return $container->get(IConfig::class)->get(IAuxConfig::class);
+            return $container->get(IAuxConfigFactory::class)->create();
         },
         IWidgetConfig::class => static function (IContainer $container): IWidgetConfig {
-            return $container->get(IConfig::class)->get(IWidgetConfig::class);
+            return $container->get(IWidgetConfigFactory::class)->create();
         },
         IRootWidgetConfig::class => static function (IContainer $container): IRootWidgetConfig {
-            return $container->get(IConfig::class)->get(IRootWidgetConfig::class);
+            return $container->get(IRootWidgetConfigFactory::class)->create();
         },
         RunMethodMode::class => static function (IContainer $container): RunMethodMode {
             return $container->get(IAuxConfig::class)->getRunMethodMode();
@@ -307,7 +295,6 @@ function builders(): Traversable
         ILoopConfigBuilder::class => LoopConfigBuilder::class,
         IOutputConfigBuilder::class => OutputConfigBuilder::class,
         ILinkerConfigBuilder::class => LinkerConfigBuilder::class,
-        IWidgetConfigBuilder::class => WidgetConfigBuilder::class,
     ];
 }
 
@@ -339,8 +326,6 @@ function factories(): Traversable
         IDriverProviderFactory::class => DriverProviderFactory::class,
         IResourceStreamFactory::class => ResourceStreamFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
-        IConfigFactory::class => ConfigFactory::class,
-        IConfigProviderFactory::class => ConfigProviderFactory::class,
         IConsoleCursorFactory::class => ConsoleCursorFactory::class,
         IDefaultSettingsFactory::class => DefaultSettingsFactory::class,
         IDetectedSettingsFactory::class => DetectedSettingsFactory::class,

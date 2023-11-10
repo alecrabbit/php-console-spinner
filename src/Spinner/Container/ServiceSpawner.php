@@ -14,9 +14,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use ReflectionClass;
 use ReflectionException;
-use ReflectionIntersectionType;
 use ReflectionNamedType;
-use ReflectionUnionType;
 use Throwable;
 
 final class ServiceSpawner implements IServiceSpawner

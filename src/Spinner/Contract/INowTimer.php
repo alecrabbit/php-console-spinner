@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
-interface INow
+interface INowTimer
 {
     public function now(): float;
 }

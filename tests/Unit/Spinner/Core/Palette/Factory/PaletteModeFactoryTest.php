@@ -57,9 +57,4 @@ final class PaletteModeFactoryTest extends TestCase
 
         self::assertSame($stylingMode, $paletteMode->getStylingMode());
     }
-
-    private function getConfigMock(): MockObject&IConfig
-    {
-        return $this->createMock(IConfig::class);
-    }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
-use AlecRabbit\Spinner\Contract\INow;
+use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDeltaTimerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\DeltaTimerFactory;
@@ -26,12 +26,12 @@ final class DeltaTimerFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IDeltaTimerBuilder $timerBuilder = null,
-        ?INow $now = null,
+        ?INowTimer $now = null,
     ): IDeltaTimerFactory {
         return
             new DeltaTimerFactory(
                 timerBuilder: $timerBuilder ?? $this->getTimerBuilderMock(),
-                now: $now ?? $this->getNowMock(),
+                nowTimer: $now ?? $this->getNowMock(),
             );
     }
 
@@ -40,9 +40,9 @@ final class DeltaTimerFactoryTest extends TestCase
         return $this->createMock(IDeltaTimerBuilder::class);
     }
 
-    private function getNowMock(): MockObject&INow
+    private function getNowMock(): MockObject&INowTimer
     {
-        return $this->createMock(INow::class);
+        return $this->createMock(INowTimer::class);
     }
 
     #[Test]
@@ -55,7 +55,7 @@ final class DeltaTimerFactoryTest extends TestCase
         $timerBuilder = $this->getTimerBuilderMock();
         $timerBuilder
             ->expects(self::once())
-            ->method('withNow')
+            ->method('withNowTimer')
             ->with(self::identicalTo($now))
             ->willReturnSelf()
         ;
