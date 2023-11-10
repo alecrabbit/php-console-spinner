@@ -27,11 +27,13 @@ final class DeltaTimerFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IDeltaTimerBuilder $timerBuilder = null,
         ?INowTimer $now = null,
+        ?float $startTime = null,
     ): IDeltaTimerFactory {
         return
             new DeltaTimerFactory(
                 timerBuilder: $timerBuilder ?? $this->getTimerBuilderMock(),
                 nowTimer: $now ?? $this->getNowMock(),
+                startTime: $startTime ?? 0.0,
             );
     }
 
@@ -48,6 +50,7 @@ final class DeltaTimerFactoryTest extends TestCase
     #[Test]
     public function canCreateTimer(): void
     {
+        $startTime = 1.0;
         $timerStub = $this->getTimerStub();
 
         $now = $this->getNowMock();
@@ -62,7 +65,7 @@ final class DeltaTimerFactoryTest extends TestCase
         $timerBuilder
             ->expects(self::once())
             ->method('withStartTime')
-            ->with(self::equalTo(0.0))
+            ->with(self::equalTo($startTime))
             ->willReturnSelf()
         ;
         $timerBuilder
@@ -73,7 +76,8 @@ final class DeltaTimerFactoryTest extends TestCase
 
         $timerFactory = $this->getTesteeInstance(
             timerBuilder: $timerBuilder,
-            now: $now
+            now: $now,
+            startTime: $startTime,
         );
 
         self::assertInstanceOf(DeltaTimerFactory::class, $timerFactory);
