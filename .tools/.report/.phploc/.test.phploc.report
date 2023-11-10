@@ -1,6 +1,6 @@
 phploc 7.0.2 by Sebastian Bergmann.
 
-Directories                                         67
+Directories                                         68
 Files                                              253
 
 Size
@@ -44,7 +44,7 @@ Dependencies
     Static                                        3149 (34.46%)
 
 Structure
-  Namespaces                                        67
+  Namespaces                                        68
   Interfaces                                         1
   Traits                                             1
   Classes                                          250
