@@ -67,7 +67,7 @@ final class DefinitionRegistryTest extends TestCase
 
             public function getOptions(): int
             {
-                return 0;
+                return self::SINGLETON;
             }
         };
         $typeId = $definition->getId();

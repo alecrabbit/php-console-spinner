@@ -6,6 +6,9 @@ namespace AlecRabbit\Spinner\Container\Contract;
 
 interface IDefinition
 {
+    final public const SINGLETON = 0; // same instance every time, default
+    final public const TRANSIENT = 1; // new instance every time
+
     public function getId(): string;
 
     public function getDefinition(): object|callable|string;
