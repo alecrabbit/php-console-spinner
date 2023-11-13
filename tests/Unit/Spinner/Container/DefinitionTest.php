@@ -76,12 +76,22 @@ final class DefinitionTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfOptionsAreInvalid(): void
+    public function throwsIfOptionsValueIsBiggerThenMax(): void
     {
         $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage('Invalid options.');
+        $this->expectExceptionMessage('Invalid options. Max value exceeded: [1].');
 
         $definition = $this->getTesteeInstance(options: 100);
+
+        self::assertInstanceOf(Definition::class, $definition);
+    }
+    #[Test]
+    public function throwsIfOptionsValueIsBelowZero(): void
+    {
+        $this->expectException(InvalidArgument::class);
+        $this->expectExceptionMessage('Invalid options. Negative value: [-10].');
+
+        $definition = $this->getTesteeInstance(options: -10);
 
         self::assertInstanceOf(Definition::class, $definition);
     }

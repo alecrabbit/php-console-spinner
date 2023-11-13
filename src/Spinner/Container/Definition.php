@@ -42,14 +42,26 @@ final readonly class Definition implements IDefinition
 
     private static function assertOptions(int $options): void
     {
-        if ($options > self::maxOption()) {
-            throw new InvalidArgument('Invalid options.');
+        if ($options < 0) {
+            throw new InvalidArgument(
+                sprintf('Invalid options. Negative value: [%s].', $options)
+            );
+        }
+
+        $maxValue = self::maxOptionsValue();
+
+        if ($options > $maxValue) {
+            throw new InvalidArgument(
+                sprintf('Invalid options. Max value exceeded: [%s].', $maxValue)
+            );
         }
     }
 
-    private static function maxOption(): int
+    private static function maxOptionsValue(): int
     {
-        return self::TRANSIENT;
+        return
+            self::SINGLETON
+            | self::TRANSIENT;
     }
 
     public function getId(): string
