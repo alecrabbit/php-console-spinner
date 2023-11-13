@@ -4,9 +4,9 @@
   Violation   AlecRabbit\Spinner\Container\Definition must not depend on AlecRabbit\Spinner\Exception\InvalidArgument (Exception)  
               /app/src/Spinner/Container/Definition.php:34                                                                         
   Violation   AlecRabbit\Spinner\Container\Definition must not depend on AlecRabbit\Spinner\Exception\InvalidArgument (Exception)  
-              /app/src/Spinner/Container/Definition.php:46                                                                         
+              /app/src/Spinner/Container/Definition.php:47                                                                         
   Violation   AlecRabbit\Spinner\Container\Definition must not depend on AlecRabbit\Spinner\Exception\InvalidArgument (Exception)  
-              /app/src/Spinner/Container/Definition.php:54                                                                         
+              /app/src/Spinner/Container/Definition.php:55                                                                         
   Violation   AlecRabbit\Spinner\Container\Definition must not depend on AlecRabbit\Spinner\Exception\InvalidArgument (Exception)  
               /app/src/Spinner/Container/Definition.php:8                                                                          
  ----------- --------------------------------------------------------------------------------------------------------------------- 
