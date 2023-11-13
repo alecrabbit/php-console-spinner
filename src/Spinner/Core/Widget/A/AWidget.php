@@ -15,7 +15,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 abstract class AWidget extends ASubject implements IWidget
 {
     public function __construct(
-        protected readonly IWidgetRevolver $revolver,
+        protected readonly IWidgetRevolver $widgetRevolver,
         protected readonly IFrame $leadingSpacer,
         protected readonly IFrame $trailingSpacer,
         protected ?IObserver $observer = null,
@@ -25,17 +25,17 @@ abstract class AWidget extends ASubject implements IWidget
 
     public function getInterval(): IInterval
     {
-        return $this->revolver->getInterval();
+        return $this->widgetRevolver->getInterval();
     }
 
     public function getFrame(?float $dt = null): IFrame
     {
-        $revolverFrame = $this->revolver->getFrame($dt);
+        $widgetRevolverFrame = $this->widgetRevolver->getFrame($dt);
 
         return
             new CharFrame(
-                $this->leadingSpacer->sequence() . $revolverFrame->sequence() . $this->trailingSpacer->sequence(),
-                $this->leadingSpacer->width() + $revolverFrame->width() + $this->trailingSpacer->width()
+                $this->leadingSpacer->sequence() . $widgetRevolverFrame->sequence() . $this->trailingSpacer->sequence(),
+                $this->leadingSpacer->width() + $widgetRevolverFrame->width() + $this->trailingSpacer->width()
             );
     }
 }

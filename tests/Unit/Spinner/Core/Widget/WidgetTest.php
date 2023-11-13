@@ -32,7 +32,7 @@ final class WidgetTest extends TestCase
     ): IWidget {
         return
             new Widget(
-                revolver: $revolver ?? $this->getWidgetRevolverMock(),
+                widgetRevolver: $revolver ?? $this->getWidgetRevolverMock(),
                 leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
                 trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
                 observer: $observer ?? $this->getObserverMock(),

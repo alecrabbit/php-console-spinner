@@ -262,7 +262,7 @@ final class SpinnerTest extends TestCase
     public function throwsOnAddIfRootWidgetIsNotAComposite(): void
     {
         $exceptionClass = WidgetIsNotAComposite::class;
-        $exceptionMessage = 'Widget is not a composite.';
+        $exceptionMessage = 'Root widget is not a composite.';
 
         $test = function (): void {
             $context = $this->getWidgetContextMock();
