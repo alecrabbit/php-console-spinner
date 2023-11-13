@@ -144,26 +144,6 @@ final class ProbesTest extends TestCase
         self::assertNotContains($probe2, $probes);
     }
 
-//    #[Test]
-//    public function canNotUnregisterProbeOfInterfaceSubclass(): void
-//    {
-//        $probe1 = ReactLoopProbe::class;
-//        $probe2 = RevoltLoopProbe::class;
-//        $probe3 = StaticProbeOverride::class;
-//
-//        Probes::register($probe2);
-//        Probes::register($probe1);
-//        Probes::register($probe3);
-//
-//        Probes::unregister(ILoopProbe::class);
-//
-//        $probes = iterator_to_array(Probes::load());
-//
-//        self::assertContains($probe1, $probes);
-//        self::assertContains($probe2, $probes);
-//        self::assertContains($probe3, $probes);
-//    }
-
     #[Test]
     public function canUnregisterProbeOfInterfaceSubclass(): void
     {
