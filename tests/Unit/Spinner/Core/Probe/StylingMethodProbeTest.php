@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Probe;
 
-use AlecRabbit\Spinner\Core\Probe\StylingMethodProbe;
 use AlecRabbit\Spinner\Core\Probe\StylingMethodOptionCreator;
+use AlecRabbit\Spinner\Core\Probe\StylingMethodProbe;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 

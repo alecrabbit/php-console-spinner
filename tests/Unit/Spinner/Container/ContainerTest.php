@@ -18,6 +18,7 @@ use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use RuntimeException;
 use stdClass;
 use Traversable;
 
@@ -193,17 +194,17 @@ final class ContainerTest extends TestCase
                 $definition = new class() implements IDefinition {
                     public function getId(): string
                     {
-                        throw new \RuntimeException('INTENTIONALLY Not implemented.');
+                        throw new RuntimeException('INTENTIONALLY Not implemented.');
                     }
 
                     public function getDefinition(): object|callable|string
                     {
-                        throw new \RuntimeException('INTENTIONALLY Not implemented.');
+                        throw new RuntimeException('INTENTIONALLY Not implemented.');
                     }
 
                     public function getOptions(): int
                     {
-                        throw new \RuntimeException('INTENTIONALLY Not implemented.');
+                        throw new RuntimeException('INTENTIONALLY Not implemented.');
                     }
                 };
 

@@ -46,9 +46,9 @@ final class DriverMessagesSolverTest extends TestCase
                     ),
                 ],
                 [
-                    new Messages('',''),
-                    new Messages('',''),
-                    new Messages('',''),
+                    new Messages('', ''),
+                    new Messages('', ''),
+                    new Messages('', ''),
                 ],
             ],
             // #2

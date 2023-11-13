@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
-use Psr\Container\ContainerInterface;
+use RuntimeException;
 
 abstract class ConfigurationTestCase extends ContainerModifyingTestCase
 {
@@ -16,7 +16,7 @@ abstract class ConfigurationTestCase extends ContainerModifyingTestCase
         if ($config instanceof IConfigElement && is_a($config, $class, true)) {
             return $config;
         }
-        throw new \RuntimeException('Unable to get required config: ' . $class);
+        throw new RuntimeException('Unable to get required config: ' . $class);
     }
 
     protected function setUp(): void

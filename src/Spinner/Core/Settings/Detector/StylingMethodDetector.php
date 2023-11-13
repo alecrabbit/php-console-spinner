@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
 use AlecRabbit\Spinner\Contract\Probe\IStylingMethodOptionCreator;
+use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayObject;

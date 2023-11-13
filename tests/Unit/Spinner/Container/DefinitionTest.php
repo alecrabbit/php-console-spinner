@@ -85,6 +85,7 @@ final class DefinitionTest extends TestCase
 
         self::assertInstanceOf(Definition::class, $definition);
     }
+
     #[Test]
     public function throwsIfOptionsValueIsBelowZero(): void
     {

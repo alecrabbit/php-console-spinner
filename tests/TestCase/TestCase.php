@@ -63,6 +63,7 @@ abstract class TestCase extends PHPUnitTestCase
         }
         return 'Exception not thrown: ' . self::throwable($messageOrException);
     }
+
     protected static function throwable(Throwable $t, bool $unwrap = true): string
     {
         $class = $t::class;

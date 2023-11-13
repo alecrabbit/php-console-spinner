@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRevolverSettings;
 use AlecRabbit\Spinner\Core\Settings\RevolverSettings;
@@ -32,6 +30,11 @@ final class RevolverSettingsTest extends TestCase
             );
     }
 
+    private function getToleranceMock(): MockObject&ITolerance
+    {
+        return $this->createMock(ITolerance::class);
+    }
+
     #[Test]
     public function canGetIdentifier(): void
     {
@@ -50,10 +53,5 @@ final class RevolverSettingsTest extends TestCase
         );
 
         self::assertSame($tolerance, $settings->getTolerance());
-    }
-
-    private function getToleranceMock(): MockObject&ITolerance
-    {
-        return $this->createMock(ITolerance::class);
     }
 }

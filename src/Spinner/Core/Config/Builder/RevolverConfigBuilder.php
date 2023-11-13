@@ -4,14 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
-use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IRevolverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
-use AlecRabbit\Spinner\Core\Config\OutputConfig;
 use AlecRabbit\Spinner\Core\Config\RevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Exception\LogicException;

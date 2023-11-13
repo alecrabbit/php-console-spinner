@@ -43,8 +43,8 @@ final readonly class DriverMessagesSolver extends ASolver implements IDriverMess
             ?? $detectedMessages?->getInterruptionMessage()
             ?? $defaultMessages?->getInterruptionMessage()
             ?? throw new LogicException(
-            sprintf('Unable to solve "%s". (for interrupt message)', IDriverMessages::class)
-        );
+                sprintf('Unable to solve "%s". (for interrupt message)', IDriverMessages::class)
+            );
 
         return
             new DriverMessages(

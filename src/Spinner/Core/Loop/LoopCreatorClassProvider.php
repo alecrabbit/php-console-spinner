@@ -9,6 +9,9 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 
+use function is_a;
+use function sprintf;
+
 final class LoopCreatorClassProvider implements ILoopCreatorClassProvider
 {
     /** @var class-string<ILoopCreator>|null */
@@ -30,9 +33,9 @@ final class LoopCreatorClassProvider implements ILoopCreatorClassProvider
         if ($creatorClass === null) {
             return;
         }
-        if (!\is_a($creatorClass, ILoopCreator::class, true)) {
+        if (!is_a($creatorClass, ILoopCreator::class, true)) {
             throw new InvalidArgument(
-                \sprintf(
+                sprintf(
                     'Creator class must be of "%s" interface.',
                     ILoopCreator::class
                 )
