@@ -17,12 +17,16 @@ use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\Palette\Snake;
+use AlecRabbit\Spinner\Core\Revolver\Tolerance;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
+use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Messages;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
+use AlecRabbit\Spinner\Core\Settings\RevolverSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
@@ -49,6 +53,9 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
             new LinkerSettings(
                 linkerOption: LinkerOption::ENABLED,
             ),
+            new DriverSettings(
+                messages: new Messages('', ''),
+            ),
             new LoopSettings(
                 autoStartOption: AutoStartOption::ENABLED,
                 signalHandlingOption: SignalHandlingOption::ENABLED,
@@ -58,6 +65,9 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
                 cursorVisibilityOption: CursorVisibilityOption::HIDDEN,
                 initializationOption: InitializationOption::ENABLED,
                 stream: STDERR,
+            ),
+            new RevolverSettings(
+                tolerance: new Tolerance(5),
             ),
             new WidgetSettings(
                 leadingSpacer: new CharFrame('', 0),

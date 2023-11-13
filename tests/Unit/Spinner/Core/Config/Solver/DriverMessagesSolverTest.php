@@ -7,12 +7,14 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 use AlecRabbit\Spinner\Contract\Option\DriverOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\DriverMessagesSolver;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\DriverMessages;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IMessages;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Messages;
+use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -23,8 +25,20 @@ final class DriverMessagesSolverTest extends TestCase
     public static function canSolveDataProvider(): iterable
     {
         yield from [
+            // [Exception], [$user, $detected, $default]
+            // #0
+            [
+                [
+                    self::EXCEPTION => [
+                        self::CLASS_ => LogicException::class,
+                        self::MESSAGE => sprintf('Unable to solve "%s".', IDriverMessages::class),
+                    ],
+                ],
+                [null, null, null],
+            ],
             // [result], [$user, $detected, $default]
-            [ // #0
+            // #1
+            [
                 [
                     new DriverMessages(
                         '',
@@ -32,25 +46,13 @@ final class DriverMessagesSolverTest extends TestCase
                     ),
                 ],
                 [
-                    new Messages(),
-                    new Messages(),
-                    new Messages(),
+                    new Messages('',''),
+                    new Messages('',''),
+                    new Messages('',''),
                 ],
             ],
-            [ // #1
-                [
-                    new DriverMessages(
-                        '',
-                        '',
-                    ),
-                ],
-                [
-                    null,
-                    null,
-                    null,
-                ],
-            ],
-            [ // #2
+            // #2
+            [
                 [
                     new DriverMessages(
                         finalMessage: 'final',
@@ -66,7 +68,8 @@ final class DriverMessagesSolverTest extends TestCase
                     null,
                 ],
             ],
-            [ // #3
+            // #3
+            [
                 [
                     new DriverMessages(
                         finalMessage: 'final',
@@ -82,7 +85,8 @@ final class DriverMessagesSolverTest extends TestCase
                     null,
                 ],
             ],
-            [ // #4
+            // #4
+            [
                 [
                     new DriverMessages(
                         finalMessage: 'final',
@@ -98,7 +102,8 @@ final class DriverMessagesSolverTest extends TestCase
                     ),
                 ],
             ],
-            [ // #5
+            // #5
+            [
                 [
                     new DriverMessages(
                         finalMessage: 'final',
@@ -117,7 +122,8 @@ final class DriverMessagesSolverTest extends TestCase
                     ),
                 ],
             ],
-            [ // #6
+            // #6
+            [
                 [
                     new DriverMessages(
                         finalMessage: 'final',
@@ -139,7 +145,8 @@ final class DriverMessagesSolverTest extends TestCase
                     ),
                 ],
             ],
-            [ // #7
+            // #7
+            [
                 [
                     new DriverMessages(
                         finalMessage: 'final',
@@ -155,10 +162,12 @@ final class DriverMessagesSolverTest extends TestCase
                     ),
                     new Messages(
                         finalMessage: 'final0',
+                        interruptionMessage: '',
                     ),
                 ],
             ],
-            [ // #8
+            // #8
+            [
                 [
                     new DriverMessages(
                         finalMessage: '',
@@ -173,11 +182,13 @@ final class DriverMessagesSolverTest extends TestCase
                         interruptionMessage: 'interruption1',
                     ),
                     new Messages(
+                        finalMessage: '',
                         interruptionMessage: 'interruption0',
                     ),
                 ],
             ],
-            [ // #9
+            // #9
+            [
                 [
                     new DriverMessages(
                         finalMessage: 'final',
@@ -194,6 +205,7 @@ final class DriverMessagesSolverTest extends TestCase
                     null
                 ],
             ],
+
         ];
     }
 
