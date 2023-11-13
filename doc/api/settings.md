@@ -66,7 +66,7 @@ $outputSettings =
 // Linker settings
 $linkerSettings = 
     new LinkerSettings(
-        linkerOption: LinkerOption::AUTO, // todo: check semantics
+        linkerOption: LinkerOption::AUTO, 
     );
 
 // Driver settings
@@ -77,7 +77,13 @@ $driverSettings =
             interruptionMessage: null, // defaults to: ''
         )
     );
-
+ 
+// Revolver settings
+$revolverSettings = 
+    new RevolverSettings(
+        tolerance: new Tolerance(5), // defaults to: Tolerance(5)
+    );
+ 
 // Widget settings
 $widgetSettings = 
     new WidgetSettings(
@@ -108,6 +114,7 @@ $settings->set(
     $outputSettings,
     $linkerSettings,
     $widgetSettings,
+    $revolverSettings,
     $rootWidgetSettings,
     $signalHandlerSettings,
 );
