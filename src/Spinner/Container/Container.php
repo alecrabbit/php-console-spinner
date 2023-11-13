@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
-use AlecRabbit\Spinner\Container\Exception\CircularDependencyException;
+use AlecRabbit\Spinner\Container\Exception\CircularDependencyDetected;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
 use ArrayObject;
@@ -26,6 +26,7 @@ final class Container implements IContainer
     /** @var ArrayObject<string, mixed> */
     private ArrayObject $services;
 
+    /** @var ArrayObject<int, string> */
     private ArrayObject $dependencyStack;
 
     public function __construct(IServiceSpawnerBuilder $spawnerBuilder, ?Traversable $definitions = null)
@@ -36,6 +37,7 @@ final class Container implements IContainer
         $this->definitions = new ArrayObject();
         /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->services = new ArrayObject();
+        /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->dependencyStack = new ArrayObject();
 
         if ($definitions) {
@@ -61,7 +63,7 @@ final class Container implements IContainer
 
     private function assertDefinition(mixed $definition): void
     {
-        if($definition instanceof IDefinition) {
+        if ($definition instanceof IDefinition) {
             throw new ContainerException(
                 sprintf(
                     'Unsupported definition, "%s" given.',
@@ -102,7 +104,7 @@ final class Container implements IContainer
      */
     public function get(string $id): mixed
     {
-        if ($this->hasService($id)) {
+        if ($this->hasSpawnedService($id)) {
             /** @psalm-suppress MixedReturnStatement */
             return $this->services[$id];
         }
@@ -116,21 +118,29 @@ final class Container implements IContainer
             );
         }
 
+        /** @psalm-suppress MixedReturnStatement */
+        return $this->getService($id);
+    }
+
+    private function hasSpawnedService(string $id): bool
+    {
+        return $this->services->offsetExists($id);
+    }
+
+    protected function getService(string $id): mixed
+    {
         $this->addDependencyToStack($id);
 
         $definition = $this->definitions[$id];
 
-        $this->services[$id] = $this->getService($id, $definition);
+        $service = $this->spawnService($id, $definition);
 
         $this->removeDependencyFromStack();
 
+        $this->services[$id] = $service;
+
         /** @psalm-suppress MixedReturnStatement */
         return $this->services[$id];
-    }
-
-    private function hasService(string $id): bool
-    {
-        return $this->services->offsetExists($id);
     }
 
     private function addDependencyToStack(string $id): void
@@ -144,7 +154,7 @@ final class Container implements IContainer
     {
         if (in_array($id, $this->dependencyStack->getArrayCopy(), true)) {
             // @codeCoverageIgnoreStart
-            throw new CircularDependencyException($this->dependencyStack);
+            throw new CircularDependencyDetected($this->dependencyStack);
             // @codeCoverageIgnoreEnd
         }
     }
@@ -154,20 +164,23 @@ final class Container implements IContainer
      *
      * @throws ContainerExceptionInterface
      */
-    private function getService(string $id, callable|object|string $definition): object
+    private function spawnService(string $id, callable|object|string $definition): object
     {
         try {
             return $this->serviceSpawner->spawn($definition);
         } catch (Throwable $e) {
+            $detailsMessage =
+                sprintf(
+                    '[%s]: "%s".',
+                    get_debug_type($e),
+                    $e->getMessage(),
+                );
+
             throw new ContainerException(
                 sprintf(
-                    'Could not instantiate service with id "%s".%s',
+                    'Could not instantiate service with id "%s". %s',
                     $id,
-                    sprintf(
-                        ' [%s]: "%s".',
-                        get_debug_type($e),
-                        $e->getMessage(),
-                    ),
+                    $detailsMessage,
                 ),
                 previous: $e,
             );

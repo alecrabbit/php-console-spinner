@@ -10,7 +10,7 @@ use Throwable;
 /**
  * @codeCoverageIgnore
  */
-final class CircularDependencyException extends ContainerException
+final class CircularDependencyDetected extends ContainerException
 {
     public function __construct(ArrayObject $dependencyStack, ?Throwable $previous = null)
     {
