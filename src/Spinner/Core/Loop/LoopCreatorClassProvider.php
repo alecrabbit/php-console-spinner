@@ -30,10 +30,10 @@ final class LoopCreatorClassProvider implements ILoopCreatorClassProvider
         if ($creatorClass === null) {
             return;
         }
-        if (!is_a($creatorClass, ILoopCreator::class, true)) {
+        if (!\is_a($creatorClass, ILoopCreator::class, true)) {
             throw new InvalidArgument(
-                sprintf(
-                    'Creator class must be an instance of "%s" interface.',
+                \sprintf(
+                    'Creator class must be of "%s" interface.',
                     ILoopCreator::class
                 )
             );

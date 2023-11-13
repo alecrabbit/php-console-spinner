@@ -37,10 +37,10 @@ final readonly class LoopFactory implements ILoopFactory
             throw new LoopException('Loop creator class is not provided.');
         }
 
-        if (is_subclass_of($loopCreator, ILoopCreator::class) === false) {
+        if (\is_subclass_of($loopCreator, ILoopCreator::class) === false) {
             throw new LoopException(
                 sprintf(
-                    'Class "%s" must implement "%s" interface.',
+                    'Class "%s" must be a subclass of "%s" interface.',
                     $loopCreator,
                     ILoopCreator::class
                 ),

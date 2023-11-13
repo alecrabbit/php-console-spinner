@@ -58,7 +58,7 @@ final class LoopCreatorClassProviderTest extends TestCase
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Creator class must be an instance of "%s" interface.',
+                'Creator class must be of "%s" interface.',
                 ILoopCreator::class
             )
         );
