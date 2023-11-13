@@ -10,5 +10,10 @@ interface IDefinitionRegistry
 {
     public function load(): Traversable;
 
-    public function bind(string $typeId, object|callable|string $definition, ?int $options = 0): void;
+    /**
+     * @param string $id
+     * @param object|callable|string $definition
+     * @param int|null $options Ignored for now
+     */
+    public function bind(string $id, object|callable|string $definition, ?int $options = 0): void;
 }

@@ -30,8 +30,9 @@ final class DefinitionRegistry implements IDefinitionRegistry
         yield from $this->definitions;
     }
 
-    public function bind(string $typeId, callable|object|string $definition, ?int $options = 0): void
+    /** @inheritDoc */
+    public function bind(string $id, callable|object|string $definition, ?int $options = 0): void
     {
-        $this->definitions[$typeId] = $definition;
+        $this->definitions[$id] = $definition;
     }
 }

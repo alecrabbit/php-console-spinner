@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
@@ -162,7 +163,7 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function throwsWhenBeCreatedWithInvalidDefinitions(): void
+    public function throwsWhenCreatedWithInvalidDefinitions(): void
     {
         $this->wrapExceptionTest(
             function (): void {
@@ -176,6 +177,40 @@ final class ContainerTest extends TestCase
             },
             new ContainerException(
                 'Definition should be callable, object or string, "integer" given.'
+            )
+        );
+    }
+    #[Test]
+    public function throwsWhenCreatedWithInvalidDefinitionsTwo(): void
+    {
+        $this->wrapExceptionTest(
+            function (): void {
+                $definition = new class() implements IDefinition {
+                    public function getId(): string
+                    {
+                        throw new \RuntimeException('Not implemented.');
+                    }
+
+                    public function getDefinition(): object|callable|string
+                    {
+                        throw new \RuntimeException('Not implemented.');
+                    }
+
+                    public function getOptions(): int
+                    {
+                        throw new \RuntimeException('Not implemented.');
+                    }
+                };
+
+                $container = $this->getTesteeInstance(
+                    new ArrayObject([
+                        'foo' => $definition,
+                    ])
+                );
+                self::assertInstanceOf(Container::class, $container);
+            },
+            new ContainerException(
+                'Unsupported definition, "AlecRabbit\Spinner\Container\Contract\IDefinition" given.',
             )
         );
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\Exception\CircularDependencyException;
@@ -60,6 +61,14 @@ final class Container implements IContainer
 
     private function assertDefinition(mixed $definition): void
     {
+        if($definition instanceof IDefinition) {
+            throw new ContainerException(
+                sprintf(
+                    'Unsupported definition, "%s" given.',
+                    IDefinition::class,
+                )
+            );
+        }
         if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
             throw new ContainerException(
                 sprintf(

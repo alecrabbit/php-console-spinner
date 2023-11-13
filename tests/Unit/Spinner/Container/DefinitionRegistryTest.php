@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
+use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -36,12 +37,41 @@ final class DefinitionRegistryTest extends TestCase
     }
 
     #[Test]
-    public function definitionCanBeBound(): void
+    public function definitionCanBeBoundOne(): void
     {
         $registry = $this->getTesteeInstance();
 
         $typeId = 'test';
         $definition = 'test';
+        $registry->bind($typeId, $definition);
+        self::assertCount(1, iterator_to_array($registry->load()));
+        $definitions = self::getPropertyValue('definitions', $registry);
+        self::assertSame($definition, $definitions[$typeId]);
+    }
+
+    #[Test]
+    public function definitionCanBeBoundTwo(): void
+    {
+        $registry = $this->getTesteeInstance();
+
+        $definition = new class() implements IDefinition {
+            public function getId(): string
+            {
+                return 'id';
+            }
+
+            public function getDefinition(): object|callable|string
+            {
+                return 'definition';
+            }
+
+            public function getOptions(): int
+            {
+                return 0;
+            }
+        };
+        $typeId = $definition->getId();
+
         $registry->bind($typeId, $definition);
         self::assertCount(1, iterator_to_array($registry->load()));
         $definitions = self::getPropertyValue('definitions', $registry);
