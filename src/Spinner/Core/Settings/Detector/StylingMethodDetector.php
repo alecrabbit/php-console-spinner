@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
+use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
 use AlecRabbit\Spinner\Contract\Probe\IStylingMethodOptionCreator;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayObject;
 use Traversable;
 
-final readonly class ColorSupportDetector implements IColorSupportDetector
+final readonly class StylingMethodDetector implements IStylingMethodDetector
 {
     public function __construct(
         protected Traversable $probes = new ArrayObject(),
@@ -21,7 +21,7 @@ final readonly class ColorSupportDetector implements IColorSupportDetector
 
     public function getSupportValue(): StylingMethodOption
     {
-        /** @var class-string<IColorSupportProbe> $probe */
+        /** @var class-string<IStylingMethodProbe> $probe */
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);
             if ($probe::isSupported()) {
@@ -36,11 +36,11 @@ final readonly class ColorSupportDetector implements IColorSupportDetector
 
     protected static function assertProbe(mixed $probe): void
     {
-        if (!is_a($probe, IColorSupportProbe::class, true)) {
+        if (!is_a($probe, IStylingMethodProbe::class, true)) {
             throw new InvalidArgument(
                 sprintf(
                     'Probe must be an instance of "%s" interface.',
-                    IColorSupportProbe::class
+                    IStylingMethodProbe::class
                 )
             );
         }

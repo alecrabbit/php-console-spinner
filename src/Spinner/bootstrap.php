@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Core\Probe\ColorSupportProbe;
+use AlecRabbit\Spinner\Core\Probe\StylingMethodProbe;
 use AlecRabbit\Spinner\Core\Probe\SignalHandlingProbe;
 
 // @codeCoverageIgnoreStart
@@ -14,7 +14,7 @@ require_once __DIR__ . '/definitions.php';
 
 Probes::register(
     SignalHandlingProbe::class,
-    ColorSupportProbe::class,
+    StylingMethodProbe::class,
 );
 
 $registry = DefinitionRegistry::getInstance();

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override;
 
-use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
+use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
 use RuntimeException;
 
-class NegativeColorSupportProbeOverride implements IColorSupportProbe
+class NegativeStylingMethodProbeOverride implements IStylingMethodProbe
 {
     public static function isSupported(): bool
     {

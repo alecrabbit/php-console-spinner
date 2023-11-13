@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Detector\ColorSupportDetector;
+use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
+use AlecRabbit\Spinner\Core\Settings\Detector\StylingMethodDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
-use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeColorSupportProbeOverride;
-use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\PositiveColorSupportProbeOverride;
+use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeStylingMethodProbeOverride;
+use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\PositiveStylingMethodProbeOverride;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 use Traversable;
 
-final class ColorSupportDetectorTest extends TestCase
+final class StylingMethodDetectorTest extends TestCase
 {
     public static function canDetectDataProvider(): iterable
     {
@@ -31,20 +31,20 @@ final class ColorSupportDetectorTest extends TestCase
             [
                 StylingMethodOption::ANSI24,
                 [
-                    PositiveColorSupportProbeOverride::class,
+                    PositiveStylingMethodProbeOverride::class,
                 ],
             ],
             [
                 StylingMethodOption::ANSI24,
                 [
-                    NegativeColorSupportProbeOverride::class,
-                    PositiveColorSupportProbeOverride::class,
+                    NegativeStylingMethodProbeOverride::class,
+                    PositiveStylingMethodProbeOverride::class,
                 ],
             ],
             [
                 StylingMethodOption::NONE,
                 [
-                    NegativeColorSupportProbeOverride::class,
+                    NegativeStylingMethodProbeOverride::class,
                 ],
             ],
         ];
@@ -55,14 +55,14 @@ final class ColorSupportDetectorTest extends TestCase
     {
         $detector = $this->getTesteeInstance();
 
-        self::assertInstanceOf(ColorSupportDetector::class, $detector);
+        self::assertInstanceOf(StylingMethodDetector::class, $detector);
     }
 
     protected function getTesteeInstance(
         ?Traversable $probes = null
-    ): IColorSupportDetector {
+    ): IStylingMethodDetector {
         return
-            new ColorSupportDetector(
+            new StylingMethodDetector(
                 probes: $probes ?? new ArrayObject(),
             );
     }
@@ -85,7 +85,7 @@ final class ColorSupportDetectorTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 'Probe must be an instance of "%s" interface.',
-                IColorSupportProbe::class
+                IStylingMethodProbe::class
             )
         );
         $detector = $this->getTesteeInstance(

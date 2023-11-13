@@ -10,5 +10,5 @@ interface IDefinitionRegistry
 {
     public function load(): Traversable;
 
-    public function bind(string $typeId, object|callable|string $definition): void;
+    public function bind(string $typeId, object|callable|string $definition, ?int $options = 0): void;
 }

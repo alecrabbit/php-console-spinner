@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
@@ -28,13 +28,13 @@ final class DetectedSettingsFactoryTest extends TestCase
 
     protected function getTesteeInstance(
         ?ILoopSupportDetector $loopAvailabilityDetector = null,
-        ?IColorSupportDetector $colorSupportDetector = null,
+        ?IStylingMethodDetector $colorSupportDetector = null,
         ?ISignalHandlingSupportDetector $signalHandlingDetector = null,
     ): IDetectedSettingsFactory {
         return
             new DetectedSettingsFactory(
                 loopSupportDetector: $loopAvailabilityDetector ?? $this->getLoopAvailabilityDetectorMock(),
-                colorSupportDetector: $colorSupportDetector ?? $this->getColorSupportDetectorMock(),
+                colorSupportDetector: $colorSupportDetector ?? $this->getStylingMethodDetectorMock(),
                 signalProcessingSupportDetector: $signalHandlingDetector ?? $this->getSignalProcessingSupportDetectorMock(
             ),
             );
@@ -45,11 +45,11 @@ final class DetectedSettingsFactoryTest extends TestCase
         return $this->createMock(ILoopSupportDetector::class);
     }
 
-    private function getColorSupportDetectorMock(
+    private function getStylingMethodDetectorMock(
         ?StylingMethodOption $stylingMethodOption = null,
-    ): MockObject&IColorSupportDetector {
+    ): MockObject&IStylingMethodDetector {
         return $this->createConfiguredMock(
-            IColorSupportDetector::class,
+            IStylingMethodDetector::class,
             [
                 'getSupportValue' => $stylingMethodOption ?? StylingMethodOption::ANSI8,
             ]

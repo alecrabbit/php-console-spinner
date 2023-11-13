@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Probe;
 
-use AlecRabbit\Spinner\Core\Probe\ColorSupportProbe;
+use AlecRabbit\Spinner\Core\Probe\StylingMethodProbe;
 use AlecRabbit\Spinner\Core\Probe\StylingMethodOptionCreator;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class ColorSupportProbeTest extends TestCase
+final class StylingMethodProbeTest extends TestCase
 {
     #[Test]
     public function returnsTrueOnIsSupported(): void
     {
-        self::assertTrue(ColorSupportProbe::isSupported());
+        self::assertTrue(StylingMethodProbe::isSupported());
     }
 
     #[Test]
     public function returnsCreatorClass(): void
     {
-        self::assertSame(StylingMethodOptionCreator::class, ColorSupportProbe::getCreatorClass());
+        self::assertSame(StylingMethodOptionCreator::class, StylingMethodProbe::getCreatorClass());
     }
 }
