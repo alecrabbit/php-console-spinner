@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\Exception\CircularDependencyDetected;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
-use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
+use AlecRabbit\Spinner\Container\Exception\NotFoundInContainer;
 use ArrayObject;
 use Psr\Container\ContainerExceptionInterface;
 use Throwable;
@@ -110,7 +110,7 @@ final class Container implements IContainer
         }
 
         if (!$this->has($id)) {
-            throw new NotInContainerException(
+            throw new NotFoundInContainer(
                 sprintf(
                     'There is no service with id "%s" in the container.',
                     $id,

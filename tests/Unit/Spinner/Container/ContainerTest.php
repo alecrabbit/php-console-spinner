@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
-use AlecRabbit\Spinner\Container\Exception\SpawnFailedException;
+use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\NonInstantiableClass;
 use ArrayObject;
@@ -33,13 +33,14 @@ final class ContainerTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?Traversable $definitions = null,
         ?IServiceSpawnerBuilder $spawnerBuilder = null,
+        ?Traversable $definitions = null,
     ): IContainer {
-        return new Container(
-            spawnerBuilder: $spawnerBuilder ?? $this->getSpawnerBuilderMock(),
-            definitions: $definitions,
-        );
+        return
+            new Container(
+                spawnerBuilder: $spawnerBuilder ?? $this->getSpawnerBuilderMock(),
+                definitions: $definitions,
+            );
     }
 
     private function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
@@ -50,7 +51,7 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canBeInstantiatedWithEmptyDefinitions(): void
     {
-        $container = $this->getTesteeInstance(new ArrayObject([]));
+        $container = $this->getTesteeInstance(definitions: new ArrayObject([]));
 
         self::assertFalse($container->has('foo'));
         self::assertCount(0, self::getPropertyValue('definitions', $container));
@@ -60,6 +61,7 @@ final class ContainerTest extends TestCase
     public function canBeInstantiatedWithDefinitions(): void
     {
         $container = $this->getTesteeInstance(
+            null,
             new ArrayObject([
                 'foo' => 'bar',
                 'bar' => 'baz',
@@ -75,6 +77,7 @@ final class ContainerTest extends TestCase
     public function canGetServiceAndItIsSameServiceEveryTime(): void
     {
         $container = $this->getTesteeInstance(
+            null,
             new ArrayObject([
                 stdClass::class => stdClass::class,
                 'foo' => static fn() => new stdClass(),
@@ -104,7 +107,7 @@ final class ContainerTest extends TestCase
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = $this->getTesteeInstance(new ArrayObject([]));
+        $container = $this->getTesteeInstance(definitions: new ArrayObject([]));
 
         $container->get('foo');
 
@@ -140,7 +143,7 @@ final class ContainerTest extends TestCase
             ->expects(self::once())
             ->method('spawn')
             ->with(self::identicalTo('bar'))
-            ->willThrowException(new SpawnFailedException('Class does not exist: bar'))
+            ->willThrowException(new SpawnFailed('Class does not exist: bar'))
         ;
 
         $definitions = new ArrayObject([
@@ -148,8 +151,8 @@ final class ContainerTest extends TestCase
         ]);
 
         $container = $this->getTesteeInstance(
-            definitions: $definitions,
             spawnerBuilder: $spawnerBuilder,
+            definitions: $definitions,
         );
 
         $container->get('foo');
@@ -168,6 +171,7 @@ final class ContainerTest extends TestCase
         $this->wrapExceptionTest(
             function (): void {
                 $container = $this->getTesteeInstance(
+                    null,
                     new ArrayObject([
                         'foo' => 'bar',
                         'baz' => 1,
@@ -180,6 +184,7 @@ final class ContainerTest extends TestCase
             )
         );
     }
+
     #[Test]
     public function throwsWhenCreatedWithInvalidDefinitionsTwo(): void
     {
@@ -203,6 +208,7 @@ final class ContainerTest extends TestCase
                 };
 
                 $container = $this->getTesteeInstance(
+                    null,
                     new ArrayObject([
                         'foo' => $definition,
                     ])
@@ -253,8 +259,8 @@ final class ContainerTest extends TestCase
         ]);
 
         $container = $this->getTesteeInstance(
-            definitions: $definitions,
             spawnerBuilder: $spawnerBuilder,
+            definitions: $definitions,
         );
 
         $container->get('foo');
@@ -297,8 +303,8 @@ final class ContainerTest extends TestCase
             ]);
 
         $container = $this->getTesteeInstance(
-            definitions: $definitions,
             spawnerBuilder: $spawnerBuilder,
+            definitions: $definitions,
         );
 
         $container->get('foo');
@@ -319,7 +325,8 @@ final class ContainerTest extends TestCase
             yield 'foo' => 'bar';
             yield 'foo' => 'bar';
         };
-        $container = $this->getTesteeInstance($definitions());
+
+        $container = $this->getTesteeInstance(definitions: $definitions());
 
         self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }

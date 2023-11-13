@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
-use AlecRabbit\Spinner\Container\Exception\SpawnFailedException;
+use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawner;
@@ -95,7 +95,7 @@ final class ServiceSpawnerTest extends TestCase
     #[Test]
     public function throwsSpawnWithClassStringIfClassDoesNotExist(): void
     {
-        $exceptionClass = SpawnFailedException::class;
+        $exceptionClass = SpawnFailed::class;
         $exceptionMessage = 'Class does not exist: NonExistentClassForSpawner';
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
@@ -116,7 +116,7 @@ final class ServiceSpawnerTest extends TestCase
     #[Test]
     public function throwsWhenConstructorParameterTypeCanNotBeExtracted(): void
     {
-        $exceptionClass = SpawnFailedException::class;
+        $exceptionClass = SpawnFailed::class;
         $exceptionMessage = 'Unable to extract type for parameter name:';
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
@@ -137,7 +137,7 @@ final class ServiceSpawnerTest extends TestCase
     #[Test]
     public function throwsWhenUnableToSpawn(): void
     {
-        $exceptionClass = SpawnFailedException::class;
+        $exceptionClass = SpawnFailed::class;
         $exceptionMessage = 'Unable to create instance of';
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);

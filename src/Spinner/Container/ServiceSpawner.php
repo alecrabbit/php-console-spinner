@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
-use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExistException;
-use AlecRabbit\Spinner\Container\Exception\SpawnFailedException;
-use AlecRabbit\Spinner\Container\Exception\UnableToCreateInstanceException;
-use AlecRabbit\Spinner\Container\Exception\UnableToExtractTypeException;
+use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExist;
+use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
+use AlecRabbit\Spinner\Container\Exception\UnableToCreateInstance;
+use AlecRabbit\Spinner\Container\Exception\UnableToExtractType;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -17,7 +17,7 @@ use ReflectionException;
 use ReflectionNamedType;
 use Throwable;
 
-final class ServiceSpawner implements IServiceSpawner
+final readonly class ServiceSpawner implements IServiceSpawner
 {
     public function __construct(
         protected ContainerInterface $container,
@@ -34,7 +34,7 @@ final class ServiceSpawner implements IServiceSpawner
                     default => $definition, // return object as is
                 };
         } catch (Throwable $e) {
-            throw new SpawnFailedException(
+            throw new SpawnFailed(
                 sprintf(
                     'Could not spawn object with callable.%s',
                     sprintf(
@@ -69,7 +69,7 @@ final class ServiceSpawner implements IServiceSpawner
         return
             match (true) {
                 class_exists($definition) => $this->createInstanceByReflection($definition),
-                default => throw new ClassDoesNotExistException(
+                default => throw new ClassDoesNotExist(
                     sprintf('Class does not exist: %s', (string)$definition)
                 ),
             };
@@ -93,7 +93,7 @@ final class ServiceSpawner implements IServiceSpawner
                 $name = $parameter->getName();
                 $type = $parameter->getType();
                 if ($type === null) {
-                    throw new UnableToExtractTypeException('Unable to extract type for parameter name: $' . $name);
+                    throw new UnableToExtractType('Unable to extract type for parameter name: $' . $name);
                 }
                 if ($this->needsService($type)) {
                     /** @var ReflectionNamedType $type */
@@ -108,7 +108,7 @@ final class ServiceSpawner implements IServiceSpawner
             /** @psalm-suppress MixedMethodCall */
             return new $class();
         } catch (Throwable $e) {
-            throw new UnableToCreateInstanceException('Unable to create instance of ' . $class, previous: $e);
+            throw new UnableToCreateInstance('Unable to create instance of ' . $class, previous: $e);
         }
     }
 
@@ -121,7 +121,7 @@ final class ServiceSpawner implements IServiceSpawner
             match (true) {
                 // assumes that all non-builtin types are services
                 $type instanceof ReflectionNamedType => !$type->isBuiltin(),
-                default => throw new UnableToExtractTypeException(
+                default => throw new UnableToExtractType(
                     sprintf(
                         'Only %s is supported.',
                         ReflectionNamedType::class,
