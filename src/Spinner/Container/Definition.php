@@ -42,6 +42,7 @@ final readonly class Definition implements IDefinition
 
     private static function assertOptions(int $options): void
     {
+        // FIXME (2023-11-13 17:59) [Alec Rabbit]: should NOT depend on InvalidArgument from other context
         if ($options < 0) {
             throw new InvalidArgument(
                 sprintf('Invalid options. Negative value: [%s].', $options)
