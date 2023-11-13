@@ -27,16 +27,19 @@ use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LinkerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\RevolverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILinkerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IRevolverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRevolverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
@@ -54,6 +57,7 @@ use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\RevolverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeWidgetConfigFactory;
@@ -72,6 +76,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolve
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IToleranceSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\DriverMessagesSolver;
@@ -84,6 +89,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\ToleranceSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -270,8 +276,8 @@ function configs(): Traversable
             return $container->get(IAuxConfig::class)->getRunMethodMode();
         },
         IRevolverConfig::class => static function (IContainer $container): IRevolverConfig {
-            // TODO (2023-04-26 14:21) [Alec Rabbit]: make it configurable [fd86d318-9069-47e2-b60d-a68f537be4a3]
-            return new RevolverConfig();
+            return $container->get(IRevolverConfigFactory::class)->create();
+
         },
     ];
 }
@@ -295,6 +301,8 @@ function builders(): Traversable
         ILoopConfigBuilder::class => LoopConfigBuilder::class,
         IOutputConfigBuilder::class => OutputConfigBuilder::class,
         ILinkerConfigBuilder::class => LinkerConfigBuilder::class,
+
+        IRevolverConfigBuilder::class => RevolverConfigBuilder::class,
     ];
 }
 
@@ -314,6 +322,7 @@ function solvers(): Traversable
         IDriverMessagesSolver::class => DriverMessagesSolver::class,
         IWidgetSettingsSolver::class => WidgetSettingsSolver::class,
         IRootWidgetSettingsSolver::class => RootWidgetSettingsSolver::class,
+        IToleranceSolver::class => ToleranceSolver::class,
     ];
 }
 
@@ -349,10 +358,10 @@ function factories(): Traversable
 
         IAuxConfigFactory::class => AuxConfigFactory::class,
         ILoopConfigFactory::class => LoopConfigFactory::class,
-
-
         IOutputConfigFactory::class => OutputConfigFactory::class,
         ILinkerConfigFactory::class => LinkerConfigFactory::class,
+        IRevolverConfigFactory::class => RevolverConfigFactory::class,
+
         ILoopFactory::class => LoopFactory::class,
 
         IWidgetConfigFactory::class => WidgetConfigFactory::class,
