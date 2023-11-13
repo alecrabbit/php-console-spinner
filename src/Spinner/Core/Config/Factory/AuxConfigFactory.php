@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 
-final class AuxConfigFactory implements IAuxConfigFactory
+final readonly class AuxConfigFactory implements IAuxConfigFactory
 {
     public function __construct(
         protected IRunMethodModeSolver $runMethodModeSolver,

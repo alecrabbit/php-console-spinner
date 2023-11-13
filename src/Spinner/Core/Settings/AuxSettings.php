@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 
-final class AuxSettings implements IAuxSettings
+final readonly class AuxSettings implements IAuxSettings
 {
     public function __construct(
         protected RunMethodOption $runMethodOption = RunMethodOption::AUTO,

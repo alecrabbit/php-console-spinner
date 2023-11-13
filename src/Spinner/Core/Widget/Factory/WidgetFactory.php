@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 
-final class WidgetFactory implements IWidgetFactory
+final readonly class WidgetFactory implements IWidgetFactory
 {
     public function __construct(
         protected IRuntimeWidgetConfigFactory $widgetConfigFactory,

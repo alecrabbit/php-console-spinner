@@ -31,7 +31,7 @@ use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 
-final class DefaultSettingsFactory implements IDefaultSettingsFactory
+final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
 {
     public function create(): ISettings
     {

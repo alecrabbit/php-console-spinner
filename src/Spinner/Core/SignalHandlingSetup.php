@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Contract\IHandlerCreator;
 use Traversable;
 
-final class SignalHandlingSetup implements ISignalHandlingSetup
+final readonly class SignalHandlingSetup implements ISignalHandlingSetup
 {
     public function __construct(
         protected ILoop $loop,

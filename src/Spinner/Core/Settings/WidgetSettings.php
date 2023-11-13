@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
-final class WidgetSettings implements IWidgetSettings
+final readonly class WidgetSettings implements IWidgetSettings
 {
     public function __construct(
         protected ?IFrame $leadingSpacer = null,

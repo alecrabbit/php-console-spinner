@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRevolverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IToleranceSolver;
 
-final class RevolverConfigFactory implements IRevolverConfigFactory
+final readonly class RevolverConfigFactory implements IRevolverConfigFactory
 {
     public function __construct(
         protected IToleranceSolver $toleranceSolver,

@@ -12,7 +12,7 @@ final class DeltaTimer implements IDeltaTimer
     protected float $current;
 
     public function __construct(
-        protected INowTimer $now,
+        protected readonly INowTimer $now,
         float $startTime = 0.0,
     ) {
         $this->current = $startTime;

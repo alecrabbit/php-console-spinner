@@ -16,7 +16,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Throwable;
 use Traversable;
 
-final class Container implements IContainer
+final readonly class Container implements IContainer
 {
     private IServiceSpawner $serviceSpawner;
 
@@ -58,7 +58,7 @@ final class Container implements IContainer
         $this->assertNotRegistered($id);
 
         /** @var callable|object|class-string $definition */
-        $this->definitions[$id] = $definition;
+        $this->definitions->offsetSet($id, $definition);
     }
 
     private function assertDefinition(mixed $definition): void
@@ -106,7 +106,7 @@ final class Container implements IContainer
     {
         if ($this->hasSpawnedService($id)) {
             /** @psalm-suppress MixedReturnStatement */
-            return $this->services[$id];
+            return $this->retrieveService($id);
         }
 
         if (!$this->has($id)) {
@@ -131,16 +131,16 @@ final class Container implements IContainer
     {
         $this->addDependencyToStack($id);
 
-        $definition = $this->definitions[$id];
+        $definition = $this->definitions->offsetGet($id);
 
         $service = $this->spawnService($id, $definition);
 
         $this->removeDependencyFromStack();
 
-        $this->services[$id] = $service;
+        $this->services->offsetSet($id, $service);
 
         /** @psalm-suppress MixedReturnStatement */
-        return $this->services[$id];
+        return $this->retrieveService($id);
     }
 
     private function addDependencyToStack(string $id): void
@@ -190,5 +190,11 @@ final class Container implements IContainer
     private function removeDependencyFromStack(): void
     {
         $this->dependencyStack->offsetUnset($this->dependencyStack->count() - 1);
+    }
+
+    protected function retrieveService(string $id): mixed
+    {
+        /** @psalm-suppress MixedReturnStatement */
+        return $this->services->offsetGet($id);
     }
 }

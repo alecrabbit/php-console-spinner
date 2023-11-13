@@ -17,7 +17,7 @@ final class IntervalFactory implements IIntervalFactory
     private static ?IInterval $normalizedStillInterval = null;
 
     public function __construct(
-        protected IIntervalNormalizer $intervalNormalizer,
+        protected readonly IIntervalNormalizer $intervalNormalizer,
     ) {
     }
 

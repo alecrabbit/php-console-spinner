@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayObject;
 use Traversable;
 
-final class SignalHandlingSupportDetector implements ISignalHandlingSupportDetector
+final readonly class SignalHandlingSupportDetector implements ISignalHandlingSupportDetector
 {
     public function __construct(
         protected Traversable $probes = new ArrayObject(),
