@@ -24,7 +24,7 @@ $registry = DefinitionRegistry::getInstance();
  * @var callable|object|string $definition
  */
 foreach (getDefinitions() as $id => $definition) {
-    $registry->bind($id, $definition);
+    $registry->register($id, $definition);
 }
 
 $container = (new ContainerFactory($registry))->create();

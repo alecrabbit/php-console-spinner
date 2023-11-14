@@ -46,30 +46,30 @@ use Psr\Container\ContainerInterface;
 
 $registry = DefinitionRegistry::getInstance();
 
-$registry->bind(ITimer::class, new MicrosecondTimer());
-$registry->bind(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class);
-$registry->bind(IResultMaker::class, ResultMaker::class);
-$registry->bind(IBenchmarkResultsFactory::class, BenchmarkResultsFactory::class);
-$registry->bind(IBenchmarkingDriverFactory::class, BenchmarkingDriverFactory::class);
-$registry->bind(IBenchmarkingDriverBuilder::class, BenchmarkingDriverBuilder::class);
-$registry->bind(IBenchmarkFactory::class, BenchmarkFactory::class);
-$registry->bind(IMeasurementFactory::class, MeasurementFactory::class);
-$registry->bind(IStopwatchBuilder::class, StopwatchBuilder::class);
-$registry->bind(IStopwatchFactory::class, StopwatchFactory::class);
-$registry->bind(IReportPrinterBuilder::class, ReportPrinterBuilder::class);
-$registry->bind(IReportFormatter::class, ReportFormatter::class);
-$registry->bind(IDatetimeFormatter::class, DatetimeFormatter::class);
-$registry->bind(IResultFormatter::class, ResultFormatter::class);
-$registry->bind(IKeyFormatter::class, KeyFormatter::class);
+$registry->register(ITimer::class, new MicrosecondTimer());
+$registry->register(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class);
+$registry->register(IResultMaker::class, ResultMaker::class);
+$registry->register(IBenchmarkResultsFactory::class, BenchmarkResultsFactory::class);
+$registry->register(IBenchmarkingDriverFactory::class, BenchmarkingDriverFactory::class);
+$registry->register(IBenchmarkingDriverBuilder::class, BenchmarkingDriverBuilder::class);
+$registry->register(IBenchmarkFactory::class, BenchmarkFactory::class);
+$registry->register(IMeasurementFactory::class, MeasurementFactory::class);
+$registry->register(IStopwatchBuilder::class, StopwatchBuilder::class);
+$registry->register(IStopwatchFactory::class, StopwatchFactory::class);
+$registry->register(IReportPrinterBuilder::class, ReportPrinterBuilder::class);
+$registry->register(IReportFormatter::class, ReportFormatter::class);
+$registry->register(IDatetimeFormatter::class, DatetimeFormatter::class);
+$registry->register(IResultFormatter::class, ResultFormatter::class);
+$registry->register(IKeyFormatter::class, KeyFormatter::class);
 
-$registry->bind(
+$registry->register(
     IReportPrinter::class,
     static function (ContainerInterface $container): IReportPrinter {
         return $container->get(IReportPrinterFactory::class)->create();
     }
 );
 
-$registry->bind(
+$registry->register(
     IReportPrinterFactory::class,
     static function (ContainerInterface $container): IReportPrinterFactory {
         $stream =

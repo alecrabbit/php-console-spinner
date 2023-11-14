@@ -79,7 +79,7 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
                                 };
                             }
                         },
-                    )
+                    ),
                 ),
             );
         }

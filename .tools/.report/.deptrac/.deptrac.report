@@ -1,21 +1,8 @@
- ----------- --------------------------------------------------------------------------------------------------------------------- 
-  Reason      Container                                                                                                            
- ----------- --------------------------------------------------------------------------------------------------------------------- 
-  Violation   AlecRabbit\Spinner\Container\Definition must not depend on AlecRabbit\Spinner\Exception\InvalidArgument (Exception)  
-              /app/src/Spinner/Container/Definition.php:34                                                                         
-  Violation   AlecRabbit\Spinner\Container\Definition must not depend on AlecRabbit\Spinner\Exception\InvalidArgument (Exception)  
-              /app/src/Spinner/Container/Definition.php:47                                                                         
-  Violation   AlecRabbit\Spinner\Container\Definition must not depend on AlecRabbit\Spinner\Exception\InvalidArgument (Exception)  
-              /app/src/Spinner/Container/Definition.php:55                                                                         
-  Violation   AlecRabbit\Spinner\Container\Definition must not depend on AlecRabbit\Spinner\Exception\InvalidArgument (Exception)  
-              /app/src/Spinner/Container/Definition.php:8                                                                          
- ----------- --------------------------------------------------------------------------------------------------------------------- 
-
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           4     
+  Violations           0     
   Skipped violations   0     
   Uncovered            177   
   Allowed              2439  

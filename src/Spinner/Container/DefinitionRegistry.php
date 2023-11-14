@@ -10,11 +10,10 @@ use Traversable;
 final class DefinitionRegistry implements IDefinitionRegistry
 {
     private static ?IDefinitionRegistry $instance = null;
-    private array $definitions = [];
 
-    private function __construct()
-    {
-        // Can be instantiated only by getInstance()
+    private function __construct(
+        private readonly \ArrayObject $definitions = new \ArrayObject(),
+    ) {
     }
 
     public static function getInstance(): IDefinitionRegistry
@@ -31,8 +30,9 @@ final class DefinitionRegistry implements IDefinitionRegistry
     }
 
     /** @inheritDoc */
-    public function bind(string $id, callable|object|string $definition, ?int $options = 0): void
+    public function register(string $id, callable|object|string $definition, int $options = 0): void
     {
-        $this->definitions[$id] = $definition;
+        $this->definitions->offsetSet($id, $definition);
+//        $this->definitions->offsetSet($id, new Definition($id, $definition, $options));
     }
 }

@@ -4,11 +4,11 @@ Directories                                         68
 Files                                              256
 
 Size
-  Lines of Code (LOC)                            30006
-  Comment Lines of Code (CLOC)                     449 (1.50%)
-  Non-Comment Lines of Code (NCLOC)              29557 (98.50%)
-  Logical Lines of Code (LLOC)                    6821 (22.73%)
-    Classes                                       6812 (99.87%)
+  Lines of Code (LOC)                            30017
+  Comment Lines of Code (CLOC)                     454 (1.51%)
+  Non-Comment Lines of Code (NCLOC)              29563 (98.49%)
+  Logical Lines of Code (LLOC)                    6822 (22.73%)
+    Classes                                       6813 (99.87%)
       Average Class Length                          26
         Minimum Class Length                         0
         Maximum Class Length                       871
@@ -39,9 +39,9 @@ Dependencies
   Attribute Accesses                                30
     Non-Static                                      23 (76.67%)
     Static                                           7 (23.33%)
-  Method Calls                                    9229
-    Non-Static                                    6080 (65.88%)
-    Static                                        3149 (34.12%)
+  Method Calls                                    9227
+    Non-Static                                    6080 (65.89%)
+    Static                                        3147 (34.11%)
 
 Structure
   Namespaces                                        68
@@ -57,8 +57,8 @@ Structure
       Non-Static Methods                          1591 (93.98%)
       Static Methods                               102 (6.02%)
     Visibility
-      Public Methods                              1041 (61.49%)
-      Protected Methods                            349 (20.61%)
+      Public Methods                              1042 (61.55%)
+      Protected Methods                            348 (20.56%)
       Private Methods                              303 (17.90%)
   Functions                                         96
     Named Functions                                  2 (2.08%)

@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IDefinition;
-use AlecRabbit\Spinner\Exception\InvalidArgument;
+use AlecRabbit\Spinner\Container\Exception\InvalidDefinitionArgument;
+use AlecRabbit\Spinner\Container\Exception\InvalidOptionsArgument;
 
 final readonly class Definition implements IDefinition
 {
     protected string $id;
-    /** @var object|callable|string */
+    /** @var object|callable|class-string */
     protected mixed $definition;
     protected int $options;
 
@@ -23,7 +24,7 @@ final readonly class Definition implements IDefinition
         self::assertOptions($options);
 
         $this->id = $id;
-        /** @var object|callable|string $definition */
+        /** @var object|callable|class-string $definition */
         $this->definition = $definition;
         $this->options = $options;
     }
@@ -31,10 +32,18 @@ final readonly class Definition implements IDefinition
     private static function assertDefinition(mixed $definition): void
     {
         if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
-            throw new InvalidArgument(
+            throw new InvalidDefinitionArgument(
                 sprintf(
                     'Definition should be callable, object or string, "%s" given.',
                     get_debug_type($definition),
+                )
+            );
+        }
+        if (is_string($definition) && !class_exists($definition)) {
+            throw new InvalidDefinitionArgument(
+                sprintf(
+                    'Class "%s" does not exist.',
+                    $definition,
                 )
             );
         }
@@ -42,9 +51,8 @@ final readonly class Definition implements IDefinition
 
     private static function assertOptions(int $options): void
     {
-        // FIXME (2023-11-13 17:59) [Alec Rabbit]: should NOT depend on InvalidArgument from other context
         if ($options < 0) {
-            throw new InvalidArgument(
+            throw new InvalidOptionsArgument(
                 sprintf('Invalid options. Negative value: [%s].', $options)
             );
         }
@@ -52,7 +60,7 @@ final readonly class Definition implements IDefinition
         $maxValue = self::maxOptionsValue();
 
         if ($options > $maxValue) {
-            throw new InvalidArgument(
+            throw new InvalidOptionsArgument(
                 sprintf('Invalid options. Max value exceeded: [%s].', $maxValue)
             );
         }
@@ -70,6 +78,7 @@ final readonly class Definition implements IDefinition
         return $this->id;
     }
 
+    /** @inheritDoc */
     public function getDefinition(): object|callable|string
     {
         return $this->definition;

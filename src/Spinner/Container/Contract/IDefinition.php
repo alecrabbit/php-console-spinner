@@ -11,6 +11,9 @@ interface IDefinition
 
     public function getId(): string;
 
+    /**
+     * @return object|callable|class-string
+     */
     public function getDefinition(): object|callable|string;
 
     public function getOptions(): int;

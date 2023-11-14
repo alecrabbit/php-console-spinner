@@ -46,12 +46,12 @@ final readonly class Container implements IContainer
              * @var callable|object|string $definition
              */
             foreach ($definitions as $id => $definition) {
-                $this->register($id, $definition);
+                $this->bind($id, $definition);
             }
         }
     }
 
-    private function register(string $id, mixed $definition): void
+    private function bind(string $id, mixed $definition): void
     {
         $this->assertDefinition($definition);
 

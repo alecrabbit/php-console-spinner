@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 
-final class Interval implements IInterval
+final readonly class Interval implements IInterval
 {
     private float $milliseconds;
 

@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Facade;
 
 $registry = DefinitionRegistry::getInstance();
 
-$registry->bind(
+$registry->register(
     IWritableStream::class,
     new class implements IWritableStream {
         public function write(Traversable $data): void
@@ -22,7 +22,7 @@ $registry->bind(
         }
     }
 );
-$registry->bind(
+$registry->register(
     IDeltaTimer::class,
     new class implements IDeltaTimer {
         public function getDelta(): float

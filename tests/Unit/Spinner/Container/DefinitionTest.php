@@ -7,9 +7,11 @@ namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Definition;
-use AlecRabbit\Spinner\Exception\InvalidArgument;
+use AlecRabbit\Spinner\Container\Exception\InvalidDefinitionArgument;
+use AlecRabbit\Spinner\Container\Exception\InvalidOptionsArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class DefinitionTest extends TestCase
 {
@@ -29,7 +31,7 @@ final class DefinitionTest extends TestCase
         return
             new Definition(
                 id: $id ?? $this->getFaker()->word(),
-                definition: $definition ?? $this->getFaker()->word(),
+                definition: $definition ?? stdClass::class,
                 options: $options ?? IDefinition::SINGLETON,
             );
     }
@@ -67,7 +69,7 @@ final class DefinitionTest extends TestCase
     #[Test]
     public function throwsIfDefinitionIsInvalid(): void
     {
-        $this->expectException(InvalidArgument::class);
+        $this->expectException(InvalidDefinitionArgument::class);
         $this->expectExceptionMessage('Definition should be callable, object or string, "int" given.');
 
         $definition = $this->getTesteeInstance(definition: 1);
@@ -78,7 +80,7 @@ final class DefinitionTest extends TestCase
     #[Test]
     public function throwsIfOptionsValueIsBiggerThenMax(): void
     {
-        $this->expectException(InvalidArgument::class);
+        $this->expectException(InvalidOptionsArgument::class);
         $this->expectExceptionMessage('Invalid options. Max value exceeded: [1].');
 
         $definition = $this->getTesteeInstance(options: 100);
@@ -87,9 +89,20 @@ final class DefinitionTest extends TestCase
     }
 
     #[Test]
+    public function throwsIfDefinitionStringPointsToNonexistentClass(): void
+    {
+        $this->expectException(InvalidDefinitionArgument::class);
+        $this->expectExceptionMessage('Class "NonExistentClass" does not exist.');
+
+        $definition = $this->getTesteeInstance(definition: 'NonExistentClass');
+
+        self::assertInstanceOf(Definition::class, $definition);
+    }
+
+    #[Test]
     public function throwsIfOptionsValueIsBelowZero(): void
     {
-        $this->expectException(InvalidArgument::class);
+        $this->expectException(InvalidOptionsArgument::class);
         $this->expectExceptionMessage('Invalid options. Negative value: [-10].');
 
         $definition = $this->getTesteeInstance(options: -10);

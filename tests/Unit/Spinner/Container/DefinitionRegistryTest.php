@@ -43,7 +43,7 @@ final class DefinitionRegistryTest extends TestCase
 
         $typeId = 'test';
         $definition = 'test';
-        $registry->bind($typeId, $definition);
+        $registry->register($typeId, $definition);
         self::assertCount(1, iterator_to_array($registry->load()));
         $definitions = self::getPropertyValue('definitions', $registry);
         self::assertSame($definition, $definitions[$typeId]);
@@ -72,7 +72,7 @@ final class DefinitionRegistryTest extends TestCase
         };
         $typeId = $definition->getId();
 
-        $registry->bind($typeId, $definition);
+        $registry->register($typeId, $definition);
         self::assertCount(1, iterator_to_array($registry->load()));
         $definitions = self::getPropertyValue('definitions', $registry);
         self::assertSame($definition, $definitions[$typeId]);
