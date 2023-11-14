@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Container;
-use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
-use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
 use AlecRabbit\Spinner\Container\Definition;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
@@ -158,7 +156,8 @@ final class ContainerTest extends TestCase
         $spawnerFactory
             ->expects(self::once())
             ->method('create')
-            ->willReturn($spawner);
+            ->willReturn($spawner)
+        ;
 
         $spawner
             ->expects(self::once())
@@ -186,11 +185,6 @@ final class ContainerTest extends TestCase
         return $this->createMock(IServiceSpawner::class);
     }
 
-    private function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
-    {
-        return $this->createMock(IServiceSpawnerBuilder::class);
-    }
-
     #[Test]
     public function throwsWhenFailsToInstantiateServiceWithCallable(): void
     {
@@ -206,7 +200,8 @@ final class ContainerTest extends TestCase
         $spawnerFactory
             ->expects(self::once())
             ->method('create')
-            ->willReturn($spawner);
+            ->willReturn($spawner)
+        ;
 
         $closure = static fn() => throw new InvalidArgumentException('Intentional exception.');
 
@@ -244,7 +239,8 @@ final class ContainerTest extends TestCase
         $spawnerFactory
             ->expects(self::once())
             ->method('create')
-            ->willReturn($spawner);
+            ->willReturn($spawner)
+        ;
 
         $spawner
             ->expects(self::once())
@@ -252,7 +248,7 @@ final class ContainerTest extends TestCase
             ->with(self::isInstanceOf(IDefinition::class))
             ->willThrowException(new ContainerException())
         ;
-        
+
         $definitions =
             new ArrayObject([
                 'foo' => new Definition('foo', NonInstantiableClass::class),
@@ -285,10 +281,5 @@ final class ContainerTest extends TestCase
         $container = $this->getTesteeInstance(definitions: $definitions());
 
         self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
-    }
-
-    private function getCircularDependencyDetectorMock(): MockObject&ICircularDependencyDetector
-    {
-        return $this->createMock(ICircularDependencyDetector::class);
     }
 }

@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Exception\CircularDependencyDetected;
-
 use ArrayObject;
 
 use function in_array;

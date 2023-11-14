@@ -50,6 +50,11 @@ final class ServiceSpawnerBuilderTest extends TestCase
         return $this->createMock(IContainer::class);
     }
 
+    private function getCircularDependencyDetectorMock(): MockObject&ICircularDependencyDetector
+    {
+        return $this->createMock(ICircularDependencyDetector::class);
+    }
+
     #[Test]
     public function throwsIfContainerIsNotSet(): void
     {
@@ -59,10 +64,5 @@ final class ServiceSpawnerBuilderTest extends TestCase
         $this->expectExceptionMessage('Container is not set.');
 
         $spawnerBuilder->build();
-    }
-
-    private function getCircularDependencyDetectorMock(): MockObject&ICircularDependencyDetector
-    {
-        return $this->createMock(ICircularDependencyDetector::class);
     }
 }
