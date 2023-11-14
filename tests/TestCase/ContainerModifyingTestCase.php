@@ -51,7 +51,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                     return $this->definitions;
                 }
 
-                public function register(string $id, callable|object|string $definition, ?int $options = 0): void
+                public function bind(string $id, callable|object|string $definition, ?int $options = 0): void
                 {
                     // do nothing
                 }

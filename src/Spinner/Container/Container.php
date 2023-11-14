@@ -48,11 +48,16 @@ final readonly class Container implements IContainer
              * @var IDefinition $definition
              */
             foreach ($definitions as $id => $definition) {
-                $this->assertNotRegistered($id);
-
-                $this->definitions->offsetSet($id, $definition);
+                $this->register($id, $definition);
             }
         }
+    }
+
+    protected function register(string $id, IDefinition $definition): void
+    {
+        $this->assertNotRegistered($id);
+
+        $this->definitions->offsetSet($id, $definition);
     }
 
     private function assertNotRegistered(string $id): void
@@ -114,45 +119,34 @@ final readonly class Container implements IContainer
 
     private function getService(string $id): mixed
     {
-        $this->addDependencyToStack($id);
-
+        /** @var IDefinition $definition */
         $definition = $this->definitions->offsetGet($id);
 
-        $service = $this->spawnService($id, $definition->getDefinition());
+        $service = $this->spawnService($definition);
 
-        $this->removeDependencyFromStack();
-
-        $this->services->offsetSet($id, $service);
+        if ($definition->isSingleton()) {
+            $this->services->offsetSet($id, $service);
+        }
 
         /** @psalm-suppress MixedReturnStatement */
-        return $this->retrieveService($id);
-    }
-
-    private function addDependencyToStack(string $id): void
-    {
-        $this->assertDependencyIsNotInStack($id);
-
-        $this->dependencyStack->append($id);
-    }
-
-    private function assertDependencyIsNotInStack(string $id): void
-    {
-        if (in_array($id, $this->dependencyStack->getArrayCopy(), true)) {
-            // @codeCoverageIgnoreStart
-            throw new CircularDependencyDetected($this->dependencyStack);
-            // @codeCoverageIgnoreEnd
-        }
+        return $service;
     }
 
     /**
-     * @param class-string|object|callable $definition
-     *
      * @throws ContainerExceptionInterface
      */
-    private function spawnService(string $id, callable|object|string $definition): object
+    private function spawnService(IDefinition $definition): object
     {
+        $id = $definition->getId();
+
         try {
-            return $this->serviceSpawner->spawn($definition);
+            $this->addDependencyToStack($id);
+
+            $service = $this->serviceSpawner->spawn($definition->getDefinition());
+
+            $this->removeDependencyFromStack($id);
+
+            return $service;
         } catch (Throwable $e) {
             $detailsMessage =
                 sprintf(
@@ -172,8 +166,29 @@ final readonly class Container implements IContainer
         }
     }
 
-    private function removeDependencyFromStack(): void
+    private function addDependencyToStack(string $id): void
     {
-        $this->dependencyStack->offsetUnset($this->dependencyStack->count() - 1);
+        $this->assertDependencyIsNotInStack($id);
+
+        $this->dependencyStack->append($id);
+    }
+
+    private function assertDependencyIsNotInStack(string $id): void
+    {
+        if (in_array($id, $this->dependencyStack->getArrayCopy(), true)) {
+            // @codeCoverageIgnoreStart
+            throw new CircularDependencyDetected($this->dependencyStack);
+            // @codeCoverageIgnoreEnd
+        }
+    }
+
+    private function removeDependencyFromStack(string $id): void
+    {
+        foreach ($this->dependencyStack as $key => $item) {
+            if ($item === $id) {
+                $this->dependencyStack->offsetUnset($key);
+                break;
+            }
+        }
     }
 }

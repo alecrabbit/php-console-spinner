@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\Definition;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\NonInstantiableClass;
 use ArrayObject;
@@ -98,6 +99,34 @@ final class ContainerTest extends TestCase
         $serviceThree = $container->get('bar');
         self::assertInstanceOf(stdClass::class, $serviceThree);
         self::assertSame($serviceThree, $container->get('bar'));
+    }
+
+    #[Test]
+    public function canGetServiceAndItIsDifferentServiceEveryTime(): void
+    {
+        $foo = 'foo';
+        $bar = 'bar';
+
+        $container = $this->getTesteeInstance(
+            null,
+            new ArrayObject([
+                stdClass::class => new Definition(stdClass::class, \stdClass::class, IDefinition::TRANSIENT),
+                $foo => new Definition($foo, static fn() => new stdClass(), IDefinition::TRANSIENT),
+                $bar => new Definition($bar, new stdClass(), IDefinition::TRANSIENT),
+            ])
+        );
+
+        $serviceOne = $container->get(stdClass::class);
+        self::assertInstanceOf(stdClass::class, $serviceOne);
+        self::assertNotSame($serviceOne, $container->get(stdClass::class));
+
+        $serviceTwo = $container->get($foo);
+        self::assertInstanceOf(stdClass::class, $serviceTwo);
+        self::assertNotSame($serviceTwo, $container->get($foo));
+
+        $serviceThree = $container->get($bar);
+        self::assertInstanceOf(stdClass::class, $serviceThree);
+        self::assertNotSame($serviceThree, $container->get($bar));
     }
 
     #[Test]

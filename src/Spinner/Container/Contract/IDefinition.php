@@ -17,4 +17,6 @@ interface IDefinition
     public function getDefinition(): object|callable|string;
 
     public function getOptions(): int;
+
+    public function isSingleton(): bool;
 }

@@ -80,4 +80,9 @@ final readonly class Definition implements IDefinition
     {
         return $this->options;
     }
+
+    public function isSingleton(): bool
+    {
+        return self::SINGLETON === $this->options;
+    }
 }

@@ -30,7 +30,7 @@ final class DefinitionRegistry implements IDefinitionRegistry
     }
 
     /** @inheritDoc */
-    public function register(string $id, callable|object|string $definition, int $options = 0): void
+    public function bind(string $id, callable|object|string $definition, int $options = 0): void
     {
 //        $this->definitions->offsetSet($id, $definition);
         $this->definitions->offsetSet($id, new Definition($id, $definition, $options));

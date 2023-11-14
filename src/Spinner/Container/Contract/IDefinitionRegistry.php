@@ -15,5 +15,5 @@ interface IDefinitionRegistry
      * @param object|callable|string $definition
      * @param int $options Ignored for now
      */
-    public function register(string $id, object|callable|string $definition, int $options = 0): void;
+    public function bind(string $id, object|callable|string $definition, int $options = 0): void;
 }

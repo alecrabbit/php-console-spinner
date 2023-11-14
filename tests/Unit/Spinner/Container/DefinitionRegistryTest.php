@@ -43,7 +43,7 @@ final class DefinitionRegistryTest extends TestCase
 
         $typeId = 'test';
         $definition = \stdClass::class;
-        $registry->register($typeId, $definition);
+        $registry->bind($typeId, $definition);
         self::assertCount(1, iterator_to_array($registry->load()));
         $definitions = self::getPropertyValue('definitions', $registry);
         self::assertSame($definition, $definitions[$typeId]->getDefinition());
@@ -69,10 +69,15 @@ final class DefinitionRegistryTest extends TestCase
             {
                 return self::SINGLETON;
             }
+
+            public function isSingleton(): bool
+            {
+                throw new \RuntimeException('INTENTIONALLY Not implemented.');
+            }
         };
         $typeId = $definition->getId();
 
-        $registry->register($typeId, $definition);
+        $registry->bind($typeId, $definition);
         self::assertCount(1, iterator_to_array($registry->load()));
         $definitions = self::getPropertyValue('definitions', $registry);
         self::assertSame($definition, $definitions[$typeId]->getDefinition());
