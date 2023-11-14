@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container;
 
+use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
+use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExist;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
@@ -20,13 +22,14 @@ use Throwable;
 final readonly class ServiceSpawner implements IServiceSpawner
 {
     public function __construct(
-        protected ContainerInterface $container,
+        private ContainerInterface $container,
     ) {
     }
 
-    public function spawn(string|callable|object $definition): object
+    public function spawn(IDefinition $serviceDefinition): object
     {
         try {
+            $definition = $serviceDefinition->getDefinition();
             return
                 match (true) {
                     is_callable($definition) => $this->spawnByCallable($definition),
@@ -34,14 +37,18 @@ final readonly class ServiceSpawner implements IServiceSpawner
                     default => $definition, // return object as is
                 };
         } catch (Throwable $e) {
+            $details =
+                sprintf(
+                    '[%s]: "%s".',
+                    get_debug_type($e),
+                    $e->getMessage(),
+                );
+
             throw new SpawnFailed(
                 sprintf(
-                    'Could not spawn service.%s',
-                    sprintf(
-                        ' [%s]: "%s".',
-                        get_debug_type($e),
-                        $e->getMessage(),
-                    ),
+                    'Failed to spawn service with id "%s". %s',
+                    $serviceDefinition->getId(),
+                    $details,
                 ),
                 previous: $e,
             );

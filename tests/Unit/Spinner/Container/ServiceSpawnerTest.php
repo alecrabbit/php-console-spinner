@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
+use AlecRabbit\Spinner\Container\Definition;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -48,7 +49,11 @@ final class ServiceSpawnerTest extends TestCase
 
         $spawner = $this->getTesteeInstance();
 
-        self::assertSame($object, $spawner->spawn($object));
+        $serviceDefinition = new Definition(
+            id: 'id',
+            definition: $object,
+        );
+        self::assertSame($object, $spawner->spawn($serviceDefinition));
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
     }
 
@@ -58,9 +63,12 @@ final class ServiceSpawnerTest extends TestCase
         $classString = ClassForSpawner::class;
 
         $spawner = $this->getTesteeInstance();
-
+        $serviceDefinition = new Definition(
+            id: 'id',
+            definition: $classString,
+        );
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
-        self::assertInstanceOf(ClassForSpawner::class, $spawner->spawn($classString));
+        self::assertInstanceOf(ClassForSpawner::class, $spawner->spawn($serviceDefinition));
     }
 
     #[Test]
@@ -70,8 +78,12 @@ final class ServiceSpawnerTest extends TestCase
 
         $spawner = $this->getTesteeInstance();
 
+        $serviceDefinition = new Definition(
+            id: 'id',
+            definition: $callable,
+        );
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
-        self::assertInstanceOf(ClassForSpawner::class, $spawner->spawn($callable));
+        self::assertInstanceOf(ClassForSpawner::class, $spawner->spawn($serviceDefinition));
     }
 
     #[Test]
@@ -87,10 +99,15 @@ final class ServiceSpawnerTest extends TestCase
 
         $classString = ClassForSpawnerWithParameters::class;
 
+        $serviceDefinition = new Definition(
+            id: 'id',
+            definition: $classString,
+        );
+
         $spawner = $this->getTesteeInstance(container: $container);
 
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
-        self::assertInstanceOf(ClassForSpawnerWithParameters::class, $spawner->spawn($classString));
+        self::assertInstanceOf(ClassForSpawnerWithParameters::class, $spawner->spawn($serviceDefinition));
     }
 
     #[Test]
@@ -107,7 +124,12 @@ final class ServiceSpawnerTest extends TestCase
 
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
 
-        $spawner->spawn($classString);
+        $serviceDefinition = new Definition(
+            id: 'id',
+            definition: $classString,
+        );
+
+        $spawner->spawn($serviceDefinition);
 
         self::fail(
             self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
@@ -128,7 +150,12 @@ final class ServiceSpawnerTest extends TestCase
 
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
 
-        $spawner->spawn($classString);
+        $serviceDefinition = new Definition(
+            id: 'id',
+            definition: $classString,
+        );
+
+        $spawner->spawn($serviceDefinition);
 
         self::fail(
             self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
@@ -149,7 +176,12 @@ final class ServiceSpawnerTest extends TestCase
 
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
 
-        $spawner->spawn($classString);
+        $serviceDefinition = new Definition(
+            id: 'id',
+            definition: $classString,
+        );
+
+        $spawner->spawn($serviceDefinition);
 
         self::fail(
             self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
@@ -160,7 +192,7 @@ final class ServiceSpawnerTest extends TestCase
     public function throwsWhenUnableToSpawnByCallable(): void
     {
         $exceptionClass = SpawnFailed::class;
-        $exceptionMessage = 'Could not spawn service.';
+        $exceptionMessage = 'Failed to spawn service with id "id".';
 
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
@@ -169,7 +201,12 @@ final class ServiceSpawnerTest extends TestCase
 
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
 
-        $spawner->spawn(fn() => throw new Exception('Intentional Error.'));
+        $serviceDefinition = new Definition(
+            id: 'id',
+            definition: fn() => throw new Exception('Intentional Error.'),
+        );
+
+        $spawner->spawn($serviceDefinition);
 
         self::fail(
             self::exceptionNotThrownString($exceptionClass, $exceptionMessage)

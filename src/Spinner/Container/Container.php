@@ -138,13 +138,13 @@ final readonly class Container implements IContainer
         try {
             $this->circularDependencyDetector->push($id);
 
-            $service = $this->serviceSpawner->spawn($definition->getDefinition());
+            $service = $this->serviceSpawner->spawn($definition);
 
             $this->circularDependencyDetector->pop();
 
             return $service;
         } catch (Throwable $e) {
-            $detailsMessage =
+            $details =
                 sprintf(
                     '[%s]: "%s".',
                     get_debug_type($e),
@@ -153,9 +153,8 @@ final readonly class Container implements IContainer
 
             throw new ContainerException(
                 sprintf(
-                    'Could not instantiate service with id "%s". %s',
-                    $id,
-                    $detailsMessage,
+                    'Could not instantiate service. %s',
+                    $details,
                 ),
                 previous: $e,
             );

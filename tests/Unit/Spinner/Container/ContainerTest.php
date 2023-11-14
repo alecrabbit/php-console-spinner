@@ -152,7 +152,7 @@ final class ContainerTest extends TestCase
     public function throwsIfClassIsNotFound(): void
     {
         $exceptionClass = ContainerException::class;
-        $exceptionMessage = 'Could not instantiate service with id "foo".';
+        $exceptionMessage = 'Could not instantiate service.';
 
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
@@ -176,7 +176,7 @@ final class ContainerTest extends TestCase
         $spawner
             ->expects(self::once())
             ->method('spawn')
-            ->with(self::identicalTo('bar'))
+            ->with(self::isInstanceOf(IDefinition::class))
             ->willThrowException(new SpawnFailed('Class does not exist: bar'))
         ;
 
@@ -228,7 +228,7 @@ final class ContainerTest extends TestCase
         $spawner
             ->expects(self::once())
             ->method('spawn')
-            ->with(self::identicalTo($closure))
+            ->with(self::isInstanceOf(IDefinition::class))
             ->willThrowException(new ContainerException($exceptionMessage))
         ;
 
@@ -271,7 +271,7 @@ final class ContainerTest extends TestCase
         $spawner
             ->expects(self::once())
             ->method('spawn')
-            ->with(self::identicalTo(NonInstantiableClass::class))
+            ->with(self::isInstanceOf(IDefinition::class))
             ->willThrowException(new ContainerException())
         ;
 
