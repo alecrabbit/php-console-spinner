@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container;
 
+use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
-use AlecRabbit\Spinner\Container\Exception\CircularDependencyDetected;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\NotFoundInContainer;
 use ArrayObject;
@@ -26,11 +26,9 @@ final readonly class Container implements IContainer
     /** @var ArrayObject<string, mixed> */
     private ArrayObject $services;
 
-    /** @var ArrayObject<int, string> */
-    private ArrayObject $dependencyStack;
-
     public function __construct(
         IServiceSpawnerBuilder $spawnerBuilder,
+        private ICircularDependencyDetector $circularDependencyDetector,
         ?Traversable $definitions = null,
     ) {
         $this->serviceSpawner = $spawnerBuilder->withContainer($this)->build();
@@ -39,8 +37,6 @@ final readonly class Container implements IContainer
         $this->definitions = new ArrayObject();
         /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->services = new ArrayObject();
-        /** @psalm-suppress MixedPropertyTypeCoercion */
-        $this->dependencyStack = new ArrayObject();
 
         if ($definitions) {
             /**
@@ -140,11 +136,11 @@ final readonly class Container implements IContainer
         $id = $definition->getId();
 
         try {
-            $this->addDependencyToStack($id);
+            $this->circularDependencyDetector->push($id);
 
             $service = $this->serviceSpawner->spawn($definition->getDefinition());
 
-            $this->removeDependencyFromStack($id);
+            $this->circularDependencyDetector->pop();
 
             return $service;
         } catch (Throwable $e) {
@@ -163,32 +159,6 @@ final readonly class Container implements IContainer
                 ),
                 previous: $e,
             );
-        }
-    }
-
-    private function addDependencyToStack(string $id): void
-    {
-        $this->assertDependencyIsNotInStack($id);
-
-        $this->dependencyStack->append($id);
-    }
-
-    private function assertDependencyIsNotInStack(string $id): void
-    {
-        if (in_array($id, $this->dependencyStack->getArrayCopy(), true)) {
-            // @codeCoverageIgnoreStart
-            throw new CircularDependencyDetected($this->dependencyStack);
-            // @codeCoverageIgnoreEnd
-        }
-    }
-
-    private function removeDependencyFromStack(string $id): void
-    {
-        foreach ($this->dependencyStack as $key => $item) {
-            if ($item === $id) {
-                $this->dependencyStack->offsetUnset($key);
-                break;
-            }
         }
     }
 }

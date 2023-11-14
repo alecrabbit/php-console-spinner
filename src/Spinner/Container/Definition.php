@@ -29,18 +29,6 @@ final readonly class Definition implements IDefinition
         $this->options = $options;
     }
 
-    private static function assertDefinition(mixed $definition): void
-    {
-        if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
-            throw new InvalidDefinitionArgument(
-                sprintf(
-                    'Definition should be callable, object or string, "%s" given.',
-                    get_debug_type($definition),
-                )
-            );
-        }
-    }
-
     private static function assertOptions(int $options): void
     {
         if ($options < 0) {
@@ -63,6 +51,18 @@ final readonly class Definition implements IDefinition
         return
             self::SINGLETON
             | self::TRANSIENT;
+    }
+
+    private static function assertDefinition(mixed $definition): void
+    {
+        if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
+            throw new InvalidDefinitionArgument(
+                sprintf(
+                    'Definition should be callable, object or string, "%s" given.',
+                    get_debug_type($definition),
+                )
+            );
+        }
     }
 
     public function getId(): string

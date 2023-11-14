@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Container;
+use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
@@ -12,7 +13,6 @@ use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\Definition;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
-use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\NonInstantiableClass;
 use ArrayObject;
@@ -20,7 +20,6 @@ use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
-use RuntimeException;
 use stdClass;
 use Traversable;
 
@@ -37,11 +36,13 @@ final class ContainerTest extends TestCase
 
     protected function getTesteeInstance(
         ?IServiceSpawnerBuilder $spawnerBuilder = null,
+        ?ICircularDependencyDetector $circularDependencyDetector = null,
         ?Traversable $definitions = null,
     ): IContainer {
         return
             new Container(
                 spawnerBuilder: $spawnerBuilder ?? $this->getSpawnerBuilderMock(),
+                circularDependencyDetector: $circularDependencyDetector ?? $this->getCircularDependencyDetectorMock(),
                 definitions: $definitions,
             );
     }
@@ -49,6 +50,11 @@ final class ContainerTest extends TestCase
     private function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
     {
         return $this->createMock(IServiceSpawnerBuilder::class);
+    }
+
+    private function getCircularDependencyDetectorMock(): MockObject&ICircularDependencyDetector
+    {
+        return $this->createMock(ICircularDependencyDetector::class);
     }
 
     #[Test]
@@ -64,10 +70,9 @@ final class ContainerTest extends TestCase
     public function canBeInstantiatedWithDefinitions(): void
     {
         $container = $this->getTesteeInstance(
-            null,
-            new ArrayObject([
-                'foo' => new Definition('foo', \stdClass::class),
-                'bar' => new Definition('bar', \stdClass::class),
+            definitions: new ArrayObject([
+                'foo' => new Definition('foo', stdClass::class),
+                'bar' => new Definition('bar', stdClass::class),
             ])
         );
 
@@ -80,11 +85,10 @@ final class ContainerTest extends TestCase
     public function canGetServiceAndItIsSameServiceEveryTime(): void
     {
         $container = $this->getTesteeInstance(
-            null,
-            new ArrayObject([
+            definitions: new ArrayObject([
                 'foo' => new Definition('foo', static fn() => new stdClass()),
                 'bar' => new Definition('bar', new stdClass()),
-                stdClass::class => new Definition(stdClass::class, \stdClass::class),
+                stdClass::class => new Definition(stdClass::class, stdClass::class),
             ])
         );
 
@@ -108,9 +112,8 @@ final class ContainerTest extends TestCase
         $bar = 'bar';
 
         $container = $this->getTesteeInstance(
-            null,
-            new ArrayObject([
-                stdClass::class => new Definition(stdClass::class, \stdClass::class, IDefinition::TRANSIENT),
+            definitions: new ArrayObject([
+                stdClass::class => new Definition(stdClass::class, stdClass::class, IDefinition::TRANSIENT),
                 $foo => new Definition($foo, static fn() => new stdClass(), IDefinition::TRANSIENT),
                 $bar => new Definition($bar, new stdClass(), IDefinition::TRANSIENT),
             ])

@@ -13,6 +13,7 @@ use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawner;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawnerWithParameters;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawnerWithParametersNoType;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\NonInstantiableClass;
+use Exception;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Container\ContainerInterface;
@@ -160,7 +161,7 @@ final class ServiceSpawnerTest extends TestCase
     {
         $exceptionClass = SpawnFailed::class;
         $exceptionMessage = 'Could not spawn service.';
-        
+
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
@@ -168,7 +169,7 @@ final class ServiceSpawnerTest extends TestCase
 
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
 
-        $spawner->spawn(fn() => throw new \Exception('Intentional Error.'));
+        $spawner->spawn(fn() => throw new Exception('Intentional Error.'));
 
         self::fail(
             self::exceptionNotThrownString($exceptionClass, $exceptionMessage)

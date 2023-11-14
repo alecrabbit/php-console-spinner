@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container\Exception;
 
-class InvalidOptionsArgument extends \InvalidArgumentException
+use InvalidArgumentException;
+
+class InvalidOptionsArgument extends InvalidArgumentException
 {
 
 }

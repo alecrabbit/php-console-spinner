@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
+use ArrayObject;
 use Traversable;
 
 final class DefinitionRegistry implements IDefinitionRegistry
@@ -12,7 +13,7 @@ final class DefinitionRegistry implements IDefinitionRegistry
     private static ?IDefinitionRegistry $instance = null;
 
     private function __construct(
-        private readonly \ArrayObject $definitions = new \ArrayObject(),
+        private readonly ArrayObject $definitions = new ArrayObject(),
     ) {
     }
 

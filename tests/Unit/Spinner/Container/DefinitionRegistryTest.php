@@ -9,6 +9,8 @@ use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use RuntimeException;
+use stdClass;
 
 final class DefinitionRegistryTest extends TestCase
 {
@@ -42,7 +44,7 @@ final class DefinitionRegistryTest extends TestCase
         $registry = $this->getTesteeInstance();
 
         $typeId = 'test';
-        $definition = \stdClass::class;
+        $definition = stdClass::class;
         $registry->bind($typeId, $definition);
         self::assertCount(1, iterator_to_array($registry->load()));
         $definitions = self::getPropertyValue('definitions', $registry);
@@ -72,7 +74,7 @@ final class DefinitionRegistryTest extends TestCase
 
             public function isSingleton(): bool
             {
-                throw new \RuntimeException('INTENTIONALLY Not implemented.');
+                throw new RuntimeException('INTENTIONALLY Not implemented.');
             }
         };
         $typeId = $definition->getId();
