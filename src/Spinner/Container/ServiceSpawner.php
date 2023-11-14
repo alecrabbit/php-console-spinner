@@ -23,19 +23,29 @@ final readonly class ServiceSpawner implements IServiceSpawner
 {
     public function __construct(
         private ContainerInterface $container,
+        private ICircularDependencyDetector $circularDependencyDetector,
     ) {
     }
 
     public function spawn(IDefinition $serviceDefinition): object
     {
+        $id = $serviceDefinition->getId();
+        $definition = $serviceDefinition->getDefinition();
+
         try {
-            $definition = $serviceDefinition->getDefinition();
-            return
+            $this->circularDependencyDetector->push($id);
+
+            $service =
                 match (true) {
                     is_callable($definition) => $this->spawnByCallable($definition),
                     is_string($definition) => $this->spawnByClassConstructor($definition),
                     default => $definition, // return object as is
                 };
+
+            $this->circularDependencyDetector->pop();
+
+            return
+                $service;
         } catch (Throwable $e) {
             $details =
                 sprintf(

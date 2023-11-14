@@ -169,6 +169,11 @@ final class ContainerTest extends TestCase
         ;
         $spawnerBuilder
             ->expects(self::once())
+            ->method('withCircularDependencyDetector')
+            ->willReturnSelf()
+        ;
+        $spawnerBuilder
+            ->expects(self::once())
             ->method('build')
             ->willReturn($spawner)
         ;
@@ -219,6 +224,11 @@ final class ContainerTest extends TestCase
         ;
         $spawnerBuilder
             ->expects(self::once())
+            ->method('withCircularDependencyDetector')
+            ->willReturnSelf()
+        ;
+        $spawnerBuilder
+            ->expects(self::once())
             ->method('build')
             ->willReturn($spawner)
         ;
@@ -260,6 +270,11 @@ final class ContainerTest extends TestCase
         $spawnerBuilder
             ->expects(self::once())
             ->method('withContainer')
+            ->willReturnSelf()
+        ;
+        $spawnerBuilder
+            ->expects(self::once())
+            ->method('withCircularDependencyDetector')
             ->willReturnSelf()
         ;
         $spawnerBuilder

@@ -8,5 +8,7 @@ interface IServiceSpawnerBuilder
 {
     public function withContainer(IContainer $container): IServiceSpawnerBuilder;
 
+    public function withCircularDependencyDetector(ICircularDependencyDetector $detector): IServiceSpawnerBuilder;
+
     public function build(): IServiceSpawner;
 }

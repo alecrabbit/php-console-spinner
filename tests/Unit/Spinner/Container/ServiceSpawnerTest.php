@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
+use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Definition;
@@ -29,16 +30,24 @@ final class ServiceSpawnerTest extends TestCase
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
     }
 
-    protected function getTesteeInstance(?ContainerInterface $container = null): IServiceSpawner
-    {
+    protected function getTesteeInstance(
+        ?ContainerInterface $container = null,
+        ?ICircularDependencyDetector $circularDependencyDetector = null,
+    ): IServiceSpawner {
         return new ServiceSpawner(
             container: $container ?? $this->getContainerMock(),
+            circularDependencyDetector: $circularDependencyDetector ?? $this->getCircularDependencyDetectorMock(),
         );
     }
 
     protected function getContainerMock(): MockObject&IContainer
     {
         return $this->createMock(IContainer::class);
+    }
+
+    private function getCircularDependencyDetectorMock(): MockObject&ICircularDependencyDetector
+    {
+        return $this->createMock(ICircularDependencyDetector::class);
     }
 
     #[Test]

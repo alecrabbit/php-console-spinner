@@ -28,10 +28,14 @@ final readonly class Container implements IContainer
 
     public function __construct(
         IServiceSpawnerBuilder $spawnerBuilder,
-        private ICircularDependencyDetector $circularDependencyDetector,
+        ICircularDependencyDetector $circularDependencyDetector,
         ?Traversable $definitions = null,
     ) {
-        $this->serviceSpawner = $spawnerBuilder->withContainer($this)->build();
+        $this->serviceSpawner =
+            $spawnerBuilder
+                ->withContainer($this)
+                ->withCircularDependencyDetector($circularDependencyDetector)
+                ->build();
 
         /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->definitions = new ArrayObject();
@@ -133,16 +137,8 @@ final readonly class Container implements IContainer
      */
     private function spawnService(IDefinition $definition): object
     {
-        $id = $definition->getId();
-
         try {
-            $this->circularDependencyDetector->push($id);
-
-            $service = $this->serviceSpawner->spawn($definition);
-
-            $this->circularDependencyDetector->pop();
-
-            return $service;
+            return $this->serviceSpawner->spawn($definition);
         } catch (Throwable $e) {
             $details =
                 sprintf(
