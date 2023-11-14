@@ -20,7 +20,7 @@ final readonly class Container implements IContainer
 {
     private IServiceSpawner $serviceSpawner;
 
-    /** @var ArrayObject<string, callable|object|class-string> */
+    /** @var ArrayObject<string, IDefinition> */
     private ArrayObject $definitions;
 
     /** @var ArrayObject<string, mixed> */
@@ -29,8 +29,10 @@ final readonly class Container implements IContainer
     /** @var ArrayObject<int, string> */
     private ArrayObject $dependencyStack;
 
-    public function __construct(IServiceSpawnerBuilder $spawnerBuilder, ?Traversable $definitions = null)
-    {
+    public function __construct(
+        IServiceSpawnerBuilder $spawnerBuilder,
+        ?Traversable $definitions = null,
+    ) {
         $this->serviceSpawner = $spawnerBuilder->withContainer($this)->build();
 
         /** @psalm-suppress MixedPropertyTypeCoercion */
@@ -43,41 +45,13 @@ final readonly class Container implements IContainer
         if ($definitions) {
             /**
              * @var string $id
-             * @var callable|object|string $definition
+             * @var IDefinition $definition
              */
             foreach ($definitions as $id => $definition) {
-                $this->bind($id, $definition);
+                $this->assertNotRegistered($id);
+
+                $this->definitions->offsetSet($id, $definition);
             }
-        }
-    }
-
-    private function bind(string $id, mixed $definition): void
-    {
-        $this->assertDefinition($definition);
-
-        $this->assertNotRegistered($id);
-
-        /** @var callable|object|class-string $definition */
-        $this->definitions->offsetSet($id, $definition);
-    }
-
-    private function assertDefinition(mixed $definition): void
-    {
-        if ($definition instanceof IDefinition) {
-            throw new ContainerException(
-                sprintf(
-                    'Unsupported definition, "%s" given.',
-                    IDefinition::class,
-                )
-            );
-        }
-        if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
-            throw new ContainerException(
-                sprintf(
-                    'Definition should be callable, object or string, "%s" given.',
-                    gettype($definition),
-                )
-            );
         }
     }
 
@@ -95,6 +69,11 @@ final readonly class Container implements IContainer
 
     public function has(string $id): bool
     {
+        return $this->hasDefinition($id);
+    }
+
+    private function hasDefinition(string $id): bool
+    {
         return $this->definitions->offsetExists($id);
     }
 
@@ -104,7 +83,7 @@ final readonly class Container implements IContainer
      */
     public function get(string $id): mixed
     {
-        if ($this->hasSpawnedService($id)) {
+        if ($this->hasService($id)) {
             /** @psalm-suppress MixedReturnStatement */
             return $this->retrieveService($id);
         }
@@ -122,18 +101,24 @@ final readonly class Container implements IContainer
         return $this->getService($id);
     }
 
-    private function hasSpawnedService(string $id): bool
+    private function hasService(string $id): bool
     {
         return $this->services->offsetExists($id);
     }
 
-    protected function getService(string $id): mixed
+    private function retrieveService(string $id): mixed
+    {
+        /** @psalm-suppress MixedReturnStatement */
+        return $this->services->offsetGet($id);
+    }
+
+    private function getService(string $id): mixed
     {
         $this->addDependencyToStack($id);
 
         $definition = $this->definitions->offsetGet($id);
 
-        $service = $this->spawnService($id, $definition);
+        $service = $this->spawnService($id, $definition->getDefinition());
 
         $this->removeDependencyFromStack();
 
@@ -190,11 +175,5 @@ final readonly class Container implements IContainer
     private function removeDependencyFromStack(): void
     {
         $this->dependencyStack->offsetUnset($this->dependencyStack->count() - 1);
-    }
-
-    protected function retrieveService(string $id): mixed
-    {
-        /** @psalm-suppress MixedReturnStatement */
-        return $this->services->offsetGet($id);
     }
 }

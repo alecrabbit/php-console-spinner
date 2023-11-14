@@ -4,30 +4,30 @@ Directories                                         70
 Files                                              381
 
 Size
-  Lines of Code (LOC)                            13045
-  Comment Lines of Code (CLOC)                     851 (6.52%)
-  Non-Comment Lines of Code (NCLOC)              12194 (93.48%)
-  Logical Lines of Code (LLOC)                    1392 (10.67%)
-    Classes                                       1301 (93.46%)
+  Lines of Code (LOC)                            13016
+  Comment Lines of Code (CLOC)                     850 (6.53%)
+  Non-Comment Lines of Code (NCLOC)              12166 (93.47%)
+  Logical Lines of Code (LLOC)                    1388 (10.66%)
+    Classes                                       1297 (93.44%)
       Average Class Length                           3
         Minimum Class Length                         0
-        Maximum Class Length                        34
+        Maximum Class Length                        31
       Average Method Length                          1
         Minimum Method Length                        0
         Maximum Method Length                       10
       Average Methods Per Class                      2
         Minimum Methods Per Class                    0
-        Maximum Methods Per Class                   13
-    Functions                                       34 (2.44%)
+        Maximum Methods Per Class                   12
+    Functions                                       34 (2.45%)
       Average Function Length                        1
-    Not in classes or functions                     57 (4.09%)
+    Not in classes or functions                     57 (4.11%)
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.34
-  Average Complexity per Class                    2.18
+  Average Complexity per Class                    2.16
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     21.00
-  Average Complexity per Method                   1.55
+  Average Complexity per Method                   1.54
     Minimum Method Complexity                     1.00
     Maximum Method Complexity                    10.00
 
@@ -52,14 +52,14 @@ Structure
     Concrete Classes                               175 (92.59%)
       Final Classes                                 73 (41.71%)
       Non-Final Classes                            102 (58.29%)
-  Methods                                          926
+  Methods                                          925
     Scope
-      Non-Static Methods                           861 (92.98%)
-      Static Methods                                65 (7.02%)
+      Non-Static Methods                           860 (92.97%)
+      Static Methods                                65 (7.03%)
     Visibility
-      Public Methods                               727 (78.51%)
-      Protected Methods                             84 (9.07%)
-      Private Methods                              115 (12.42%)
+      Public Methods                               727 (78.59%)
+      Protected Methods                             82 (8.86%)
+      Private Methods                              116 (12.54%)
   Functions                                         33
     Named Functions                                  7 (21.21%)
     Anonymous Functions                             26 (78.79%)

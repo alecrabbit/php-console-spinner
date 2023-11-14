@@ -89,17 +89,6 @@ final class DefinitionTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfDefinitionStringPointsToNonexistentClass(): void
-    {
-        $this->expectException(InvalidDefinitionArgument::class);
-        $this->expectExceptionMessage('Class "NonExistentClass" does not exist.');
-
-        $definition = $this->getTesteeInstance(definition: 'NonExistentClass');
-
-        self::assertInstanceOf(Definition::class, $definition);
-    }
-
-    #[Test]
     public function throwsIfOptionsValueIsBelowZero(): void
     {
         $this->expectException(InvalidOptionsArgument::class);

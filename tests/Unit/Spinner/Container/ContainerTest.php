@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
+use AlecRabbit\Spinner\Container\Definition;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -64,8 +65,8 @@ final class ContainerTest extends TestCase
         $container = $this->getTesteeInstance(
             null,
             new ArrayObject([
-                'foo' => 'bar',
-                'bar' => 'baz',
+                'foo' => new Definition('foo', \stdClass::class),
+                'bar' => new Definition('bar', \stdClass::class),
             ])
         );
 
@@ -80,9 +81,9 @@ final class ContainerTest extends TestCase
         $container = $this->getTesteeInstance(
             null,
             new ArrayObject([
-                stdClass::class => stdClass::class,
-                'foo' => static fn() => new stdClass(),
-                'bar' => new stdClass(),
+                'foo' => new Definition('foo', static fn() => new stdClass()),
+                'bar' => new Definition('bar', new stdClass()),
+                stdClass::class => new Definition(stdClass::class, \stdClass::class),
             ])
         );
 
@@ -148,7 +149,7 @@ final class ContainerTest extends TestCase
         ;
 
         $definitions = new ArrayObject([
-            'foo' => 'bar',
+            'foo' => new Definition('foo', 'bar'),
         ]);
 
         $container = $this->getTesteeInstance(
@@ -164,62 +165,6 @@ final class ContainerTest extends TestCase
     protected function getServiceSpawnerMock(): MockObject&IServiceSpawner
     {
         return $this->createMock(IServiceSpawner::class);
-    }
-
-    #[Test]
-    public function throwsWhenCreatedWithInvalidDefinitions(): void
-    {
-        $this->wrapExceptionTest(
-            function (): void {
-                $container = $this->getTesteeInstance(
-                    null,
-                    new ArrayObject([
-                        'foo' => 'bar',
-                        'baz' => 1,
-                    ])
-                );
-                self::assertInstanceOf(Container::class, $container);
-            },
-            new ContainerException(
-                'Definition should be callable, object or string, "integer" given.'
-            )
-        );
-    }
-
-    #[Test]
-    public function throwsWhenCreatedWithInvalidDefinitionsTwo(): void
-    {
-        $this->wrapExceptionTest(
-            function (): void {
-                $definition = new class() implements IDefinition {
-                    public function getId(): string
-                    {
-                        throw new RuntimeException('INTENTIONALLY Not implemented.');
-                    }
-
-                    public function getDefinition(): object|callable|string
-                    {
-                        throw new RuntimeException('INTENTIONALLY Not implemented.');
-                    }
-
-                    public function getOptions(): int
-                    {
-                        throw new RuntimeException('INTENTIONALLY Not implemented.');
-                    }
-                };
-
-                $container = $this->getTesteeInstance(
-                    null,
-                    new ArrayObject([
-                        'foo' => $definition,
-                    ])
-                );
-                self::assertInstanceOf(Container::class, $container);
-            },
-            new ContainerException(
-                'Unsupported definition, "AlecRabbit\Spinner\Container\Contract\IDefinition" given.',
-            )
-        );
     }
 
     #[Test]
@@ -256,7 +201,7 @@ final class ContainerTest extends TestCase
         ;
 
         $definitions = new ArrayObject([
-            'foo' => $closure,
+            'foo' => new Definition('foo', $closure),
         ]);
 
         $container = $this->getTesteeInstance(
@@ -300,7 +245,7 @@ final class ContainerTest extends TestCase
 
         $definitions =
             new ArrayObject([
-                'foo' => NonInstantiableClass::class,
+                'foo' => new Definition('foo', NonInstantiableClass::class),
             ]);
 
         $container = $this->getTesteeInstance(
@@ -323,8 +268,8 @@ final class ContainerTest extends TestCase
         $this->expectExceptionMessage($exceptionMessage);
 
         $definitions = static function (): Generator {
-            yield 'foo' => 'bar';
-            yield 'foo' => 'bar';
+            yield 'foo' => new Definition('foo', 'bar');
+            yield 'foo' => new Definition('foo', 'bar');
         };
 
         $container = $this->getTesteeInstance(definitions: $definitions());

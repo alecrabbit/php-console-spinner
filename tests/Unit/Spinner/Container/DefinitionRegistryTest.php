@@ -42,11 +42,11 @@ final class DefinitionRegistryTest extends TestCase
         $registry = $this->getTesteeInstance();
 
         $typeId = 'test';
-        $definition = 'test';
+        $definition = \stdClass::class;
         $registry->register($typeId, $definition);
         self::assertCount(1, iterator_to_array($registry->load()));
         $definitions = self::getPropertyValue('definitions', $registry);
-        self::assertSame($definition, $definitions[$typeId]);
+        self::assertSame($definition, $definitions[$typeId]->getDefinition());
     }
 
     #[Test]
@@ -75,7 +75,7 @@ final class DefinitionRegistryTest extends TestCase
         $registry->register($typeId, $definition);
         self::assertCount(1, iterator_to_array($registry->load()));
         $definitions = self::getPropertyValue('definitions', $registry);
-        self::assertSame($definition, $definitions[$typeId]);
+        self::assertSame($definition, $definitions[$typeId]->getDefinition());
     }
 
     #[Test]

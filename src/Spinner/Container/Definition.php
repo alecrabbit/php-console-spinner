@@ -20,8 +20,8 @@ final readonly class Definition implements IDefinition
         mixed $definition,
         int $options = self::SINGLETON,
     ) {
-        self::assertDefinition($definition);
         self::assertOptions($options);
+        self::assertDefinition($definition);
 
         $this->id = $id;
         /** @var object|callable|class-string $definition */
@@ -36,14 +36,6 @@ final readonly class Definition implements IDefinition
                 sprintf(
                     'Definition should be callable, object or string, "%s" given.',
                     get_debug_type($definition),
-                )
-            );
-        }
-        if (is_string($definition) && !class_exists($definition)) {
-            throw new InvalidDefinitionArgument(
-                sprintf(
-                    'Class "%s" does not exist.',
-                    $definition,
                 )
             );
         }
