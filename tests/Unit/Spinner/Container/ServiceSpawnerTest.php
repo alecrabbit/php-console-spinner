@@ -135,7 +135,7 @@ final class ServiceSpawnerTest extends TestCase
     }
 
     #[Test]
-    public function throwsWhenUnableToSpawn(): void
+    public function throwsWhenUnableToSpawnByConstructor(): void
     {
         $exceptionClass = SpawnFailed::class;
         $exceptionMessage = 'Unable to create instance of';
@@ -149,6 +149,26 @@ final class ServiceSpawnerTest extends TestCase
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
 
         $spawner->spawn($classString);
+
+        self::fail(
+            self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
+        );
+    }
+
+    #[Test]
+    public function throwsWhenUnableToSpawnByCallable(): void
+    {
+        $exceptionClass = SpawnFailed::class;
+        $exceptionMessage = 'Could not spawn service.';
+        
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $spawner = $this->getTesteeInstance();
+
+        self::assertInstanceOf(ServiceSpawner::class, $spawner);
+
+        $spawner->spawn(fn() => throw new \Exception('Intentional Error.'));
 
         self::fail(
             self::exceptionNotThrownString($exceptionClass, $exceptionMessage)

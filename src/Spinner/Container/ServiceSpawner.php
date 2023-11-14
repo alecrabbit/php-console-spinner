@@ -36,7 +36,7 @@ final readonly class ServiceSpawner implements IServiceSpawner
         } catch (Throwable $e) {
             throw new SpawnFailed(
                 sprintf(
-                    'Could not spawn object with callable.%s',
+                    'Could not spawn service.%s',
                     sprintf(
                         ' [%s]: "%s".',
                         get_debug_type($e),
