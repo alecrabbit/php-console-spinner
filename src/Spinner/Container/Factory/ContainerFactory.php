@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 final readonly class ContainerFactory implements IContainerFactory
 {
     public function __construct(
-        private IDefinitionRegistry $registry,
+        private IDefinitionRegistry $definitionRegistry,
         private IServiceSpawnerBuilder $spawnerBuilder = new ServiceSpawnerBuilder(),
     ) {
     }
@@ -24,7 +24,7 @@ final readonly class ContainerFactory implements IContainerFactory
         return
             new Container(
                 spawnerBuilder: $this->spawnerBuilder,
-                definitions: $this->registry->load(),
+                definitions: $this->definitionRegistry->load(),
             );
     }
 }

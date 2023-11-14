@@ -29,7 +29,7 @@ final class ContainerFactoryTest extends TestCase
     ): IContainerFactory {
         return
             new ContainerFactory(
-                registry: $registry ?? $this->getDefinitionRegistryMock(),
+                definitionRegistry: $registry ?? $this->getDefinitionRegistryMock(),
                 spawnerBuilder: $spawnerBuilder ?? $this->getSpawnerBuilderMock(),
             );
     }
