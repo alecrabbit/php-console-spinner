@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
 use AlecRabbit\Spinner\Container\Definition;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
@@ -35,26 +36,19 @@ final class ContainerTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?IServiceSpawnerBuilder $spawnerBuilder = null,
-        ?ICircularDependencyDetector $circularDependencyDetector = null,
+        ?IServiceSpawnerFactory $spawnerFactory = null,
         ?Traversable $definitions = null,
     ): IContainer {
         return
             new Container(
-                spawnerBuilder: $spawnerBuilder ?? $this->getSpawnerBuilderMock(),
-                circularDependencyDetector: $circularDependencyDetector ?? $this->getCircularDependencyDetectorMock(),
+                spawnerFactory: $spawnerFactory ?? $this->getSpawnerFactoryMock(),
                 definitions: $definitions,
             );
     }
 
-    private function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
+    private function getSpawnerFactoryMock(): MockObject&IServiceSpawnerFactory
     {
-        return $this->createMock(IServiceSpawnerBuilder::class);
-    }
-
-    private function getCircularDependencyDetectorMock(): MockObject&ICircularDependencyDetector
-    {
-        return $this->createMock(ICircularDependencyDetector::class);
+        return $this->createMock(IServiceSpawnerFactory::class);
     }
 
     #[Test]
@@ -160,23 +154,11 @@ final class ContainerTest extends TestCase
 
         $spawner = $this->getServiceSpawnerMock();
 
-        $spawnerBuilder = $this->getSpawnerBuilderMock();
-
-        $spawnerBuilder
+        $spawnerFactory = $this->getSpawnerFactoryMock();
+        $spawnerFactory
             ->expects(self::once())
-            ->method('withContainer')
-            ->willReturnSelf()
-        ;
-        $spawnerBuilder
-            ->expects(self::once())
-            ->method('withCircularDependencyDetector')
-            ->willReturnSelf()
-        ;
-        $spawnerBuilder
-            ->expects(self::once())
-            ->method('build')
-            ->willReturn($spawner)
-        ;
+            ->method('create')
+            ->willReturn($spawner);
 
         $spawner
             ->expects(self::once())
@@ -190,7 +172,7 @@ final class ContainerTest extends TestCase
         ]);
 
         $container = $this->getTesteeInstance(
-            spawnerBuilder: $spawnerBuilder,
+            spawnerFactory: $spawnerFactory,
             definitions: $definitions,
         );
 
@@ -204,6 +186,11 @@ final class ContainerTest extends TestCase
         return $this->createMock(IServiceSpawner::class);
     }
 
+    private function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
+    {
+        return $this->createMock(IServiceSpawnerBuilder::class);
+    }
+
     #[Test]
     public function throwsWhenFailsToInstantiateServiceWithCallable(): void
     {
@@ -215,23 +202,11 @@ final class ContainerTest extends TestCase
 
         $spawner = $this->getServiceSpawnerMock();
 
-        $spawnerBuilder = $this->getSpawnerBuilderMock();
-
-        $spawnerBuilder
+        $spawnerFactory = $this->getSpawnerFactoryMock();
+        $spawnerFactory
             ->expects(self::once())
-            ->method('withContainer')
-            ->willReturnSelf()
-        ;
-        $spawnerBuilder
-            ->expects(self::once())
-            ->method('withCircularDependencyDetector')
-            ->willReturnSelf()
-        ;
-        $spawnerBuilder
-            ->expects(self::once())
-            ->method('build')
-            ->willReturn($spawner)
-        ;
+            ->method('create')
+            ->willReturn($spawner);
 
         $closure = static fn() => throw new InvalidArgumentException('Intentional exception.');
 
@@ -247,7 +222,7 @@ final class ContainerTest extends TestCase
         ]);
 
         $container = $this->getTesteeInstance(
-            spawnerBuilder: $spawnerBuilder,
+            spawnerFactory: $spawnerFactory,
             definitions: $definitions,
         );
 
@@ -265,23 +240,11 @@ final class ContainerTest extends TestCase
 
         $spawner = $this->getServiceSpawnerMock();
 
-        $spawnerBuilder = $this->getSpawnerBuilderMock();
-
-        $spawnerBuilder
+        $spawnerFactory = $this->getSpawnerFactoryMock();
+        $spawnerFactory
             ->expects(self::once())
-            ->method('withContainer')
-            ->willReturnSelf()
-        ;
-        $spawnerBuilder
-            ->expects(self::once())
-            ->method('withCircularDependencyDetector')
-            ->willReturnSelf()
-        ;
-        $spawnerBuilder
-            ->expects(self::once())
-            ->method('build')
-            ->willReturn($spawner)
-        ;
+            ->method('create')
+            ->willReturn($spawner);
 
         $spawner
             ->expects(self::once())
@@ -289,14 +252,14 @@ final class ContainerTest extends TestCase
             ->with(self::isInstanceOf(IDefinition::class))
             ->willThrowException(new ContainerException())
         ;
-
+        
         $definitions =
             new ArrayObject([
                 'foo' => new Definition('foo', NonInstantiableClass::class),
             ]);
 
         $container = $this->getTesteeInstance(
-            spawnerBuilder: $spawnerBuilder,
+            spawnerFactory: $spawnerFactory,
             definitions: $definitions,
         );
 
@@ -322,5 +285,10 @@ final class ContainerTest extends TestCase
         $container = $this->getTesteeInstance(definitions: $definitions());
 
         self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
+    }
+
+    private function getCircularDependencyDetectorMock(): MockObject&ICircularDependencyDetector
+    {
+        return $this->createMock(ICircularDependencyDetector::class);
     }
 }

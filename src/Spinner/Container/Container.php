@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
-use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\NotFoundInContainer;
 use ArrayObject;
@@ -27,15 +27,10 @@ final readonly class Container implements IContainer
     private ArrayObject $services;
 
     public function __construct(
-        IServiceSpawnerBuilder $spawnerBuilder,
-        ICircularDependencyDetector $circularDependencyDetector,
+        IServiceSpawnerFactory $spawnerFactory,
         ?Traversable $definitions = null,
     ) {
-        $this->serviceSpawner =
-            $spawnerBuilder
-                ->withContainer($this)
-                ->withCircularDependencyDetector($circularDependencyDetector)
-                ->build();
+        $this->serviceSpawner = $spawnerFactory->create($this);
 
         /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->definitions = new ArrayObject();

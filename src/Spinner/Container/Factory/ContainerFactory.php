@@ -12,13 +12,13 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
 
 final readonly class ContainerFactory implements IContainerFactory
 {
     public function __construct(
         private IDefinitionRegistry $definitionRegistry,
-        private IServiceSpawnerBuilder $spawnerBuilder = new ServiceSpawnerBuilder(),
-        private ICircularDependencyDetector $circularDependencyDetector = new CircularDependencyDetector(),
+        private IServiceSpawnerFactory $spawnerFactory = new ServiceSpawnerFactory(),
     ) {
     }
 
@@ -26,8 +26,7 @@ final readonly class ContainerFactory implements IContainerFactory
     {
         return
             new Container(
-                spawnerBuilder: $this->spawnerBuilder,
-                circularDependencyDetector: $this->circularDependencyDetector,
+                spawnerFactory: $this->spawnerFactory,
                 definitions: $this->definitionRegistry->load(),
             );
     }
