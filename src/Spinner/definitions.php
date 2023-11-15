@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
@@ -269,12 +270,27 @@ function configs(): Traversable
         IAuxConfig::class => static function (IContainer $container): IAuxConfig {
             return $container->get(IAuxConfigFactory::class)->create();
         },
-        IWidgetConfig::class => static function (IContainer $container): IWidgetConfig {
-            return $container->get(IWidgetConfigFactory::class)->create();
-        },
-        IRootWidgetConfig::class => static function (IContainer $container): IRootWidgetConfig {
-            return $container->get(IRootWidgetConfigFactory::class)->create();
-        },
+//        IWidgetConfig::class => static function (IContainer $container): IWidgetConfig {
+//            return $container->get(IWidgetConfigFactory::class)->create();
+//        },
+        new ServiceDefinition(
+            IWidgetConfig::class,
+            static function (IContainer $container): IWidgetConfig {
+                return $container->get(IWidgetConfigFactory::class)->create();
+            },
+            IServiceDefinition::TRANSIENT,
+        ),
+        new ServiceDefinition(
+            IRootWidgetConfig::class,
+            static function (IContainer $container): IWidgetConfig {
+                return $container->get(IRootWidgetConfigFactory::class)->create();
+            },
+            IServiceDefinition::TRANSIENT,
+        ),
+
+//        IRootWidgetConfig::class => static function (IContainer $container): IRootWidgetConfig {
+//            return $container->get(IRootWidgetConfigFactory::class)->create();
+//        },
         RunMethodMode::class => static function (IContainer $container): RunMethodMode {
             return $container->get(IAuxConfig::class)->getRunMethodMode();
         },
@@ -347,7 +363,11 @@ function factories(): Traversable
         IIntervalFactory::class => IntervalFactory::class,
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
-        ISpinnerFactory::class => SpinnerFactory::class,
+        new ServiceDefinition(
+            ISpinnerFactory::class,
+            SpinnerFactory::class,
+            IServiceDefinition::TRANSIENT,
+        ),
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         IDeltaTimerFactory::class => DeltaTimerFactory::class,
         IUserSettingsFactory::class => UserSettingsFactory::class,
@@ -367,9 +387,17 @@ function factories(): Traversable
         ILoopFactory::class => LoopFactory::class,
 
         IWidgetConfigFactory::class => WidgetConfigFactory::class,
-        IRootWidgetConfigFactory::class => RootWidgetConfigFactory::class,
         IRuntimeWidgetConfigFactory::class => RuntimeWidgetConfigFactory::class,
-        IRuntimeRootWidgetConfigFactory::class => RuntimeRootWidgetConfigFactory::class,
+        new ServiceDefinition(
+            IRootWidgetConfigFactory::class,
+            RootWidgetConfigFactory::class,
+            IServiceDefinition::TRANSIENT,
+        ),
+        new ServiceDefinition(
+            IRuntimeRootWidgetConfigFactory::class,
+            RuntimeRootWidgetConfigFactory::class,
+            IServiceDefinition::TRANSIENT,
+        ),
     ];
 }
 

@@ -38,7 +38,7 @@ final class Facade extends AFacade
         self::initialize();
 
         $spinner =
-            self::getSpinnerFactory()
+            dump(self::getSpinnerFactory())
                 ->create($spinnerSettings)
         ;
 
@@ -64,7 +64,7 @@ final class Facade extends AFacade
     /** @inheritDoc */
     public static function getSettings(): ISettings
     {
-        self::assertNotInitialized();
+//        self::assertNotInitialized();
 
         return
             self::getSettingsProvider()
