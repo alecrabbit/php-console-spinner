@@ -6,9 +6,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IDefinition;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
-use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -18,7 +19,6 @@ use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
-use RuntimeException;
 use stdClass;
 use Traversable;
 
@@ -34,19 +34,19 @@ final class ContainerTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?IServiceSpawnerBuilder $spawnerBuilder = null,
+        ?IServiceSpawnerFactory $spawnerFactory = null,
         ?Traversable $definitions = null,
     ): IContainer {
         return
             new Container(
-                spawnerBuilder: $spawnerBuilder ?? $this->getSpawnerBuilderMock(),
+                spawnerFactory: $spawnerFactory ?? $this->getSpawnerFactoryMock(),
                 definitions: $definitions,
             );
     }
 
-    private function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
+    private function getSpawnerFactoryMock(): MockObject&IServiceSpawnerFactory
     {
-        return $this->createMock(IServiceSpawnerBuilder::class);
+        return $this->createMock(IServiceSpawnerFactory::class);
     }
 
     #[Test]
@@ -62,10 +62,9 @@ final class ContainerTest extends TestCase
     public function canBeInstantiatedWithDefinitions(): void
     {
         $container = $this->getTesteeInstance(
-            null,
-            new ArrayObject([
-                'foo' => 'bar',
-                'bar' => 'baz',
+            definitions: new ArrayObject([
+                'foo' => new ServiceDefinition('foo', stdClass::class),
+                'bar' => new ServiceDefinition('bar', stdClass::class),
             ])
         );
 
@@ -75,29 +74,72 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function canGetServiceAndItIsSameServiceEveryTime(): void
+    public function canBeInstantiatedWithDefinitionsWithoutIds(): void
     {
         $container = $this->getTesteeInstance(
-            null,
-            new ArrayObject([
-                stdClass::class => stdClass::class,
-                'foo' => static fn() => new stdClass(),
-                'bar' => new stdClass(),
+            definitions: new ArrayObject([
+                new ServiceDefinition('foo', stdClass::class),
+                new ServiceDefinition('bar', stdClass::class),
             ])
         );
 
-        $serviceOne = $container->get(stdClass::class);
-        self::assertInstanceOf(stdClass::class, $serviceOne);
-        self::assertSame($serviceOne, $container->get(stdClass::class));
-
-        $serviceTwo = $container->get('foo');
-        self::assertInstanceOf(stdClass::class, $serviceTwo);
-        self::assertSame($serviceTwo, $container->get('foo'));
-
-        $serviceThree = $container->get('bar');
-        self::assertInstanceOf(stdClass::class, $serviceThree);
-        self::assertSame($serviceThree, $container->get('bar'));
+        self::assertTrue($container->has('foo'));
+        self::assertTrue($container->has('bar'));
+        self::assertCount(2, self::getPropertyValue('definitions', $container));
     }
+
+//    #[Test]
+// // FIXME (2023-11-15 17:9) [Alec Rabbit]: move to functional tests
+//    public function canGetServiceAndItIsSameServiceEveryTime(): void
+//    {
+//        $container = $this->getTesteeInstance(
+//            definitions: new ArrayObject([
+//                'foo' => new ServiceDefinition('foo', static fn() => new stdClass()),
+//                'bar' => new ServiceDefinition('bar', new stdClass()),
+//                stdClass::class => new ServiceDefinition(stdClass::class, stdClass::class),
+//            ])
+//        );
+//
+//        $serviceOne = $container->get(stdClass::class);
+//        self::assertInstanceOf(stdClass::class, $serviceOne);
+//        self::assertSame($serviceOne, $container->get(stdClass::class));
+//
+//        $serviceTwo = $container->get('foo');
+//        self::assertInstanceOf(stdClass::class, $serviceTwo);
+//        self::assertSame($serviceTwo, $container->get('foo'));
+//
+//        $serviceThree = $container->get('bar');
+//        self::assertInstanceOf(stdClass::class, $serviceThree);
+//        self::assertSame($serviceThree, $container->get('bar'));
+//    }
+//
+//    #[Test]
+// // FIXME (2023-11-15 17:9) [Alec Rabbit]: move to functional tests
+//    public function canGetServiceAndItIsDifferentServiceEveryTime(): void
+//    {
+//        $foo = 'foo';
+//        $bar = 'bar';
+//
+//        $container = $this->getTesteeInstance(
+//            definitions: new ArrayObject([
+//                stdClass::class => new ServiceDefinition(stdClass::class, stdClass::class, IServiceDefinition::TRANSIENT),
+//                $foo => new ServiceDefinition($foo, static fn() => new stdClass(), IServiceDefinition::TRANSIENT),
+//                $bar => new ServiceDefinition($bar, new stdClass(), IServiceDefinition::TRANSIENT),
+//            ])
+//        );
+//
+//        $serviceOne = $container->get(stdClass::class);
+//        self::assertInstanceOf(stdClass::class, $serviceOne);
+//        self::assertNotSame($serviceOne, $container->get(stdClass::class));
+//
+//        $serviceTwo = $container->get($foo);
+//        self::assertInstanceOf(stdClass::class, $serviceTwo);
+//        self::assertNotSame($serviceTwo, $container->get($foo));
+//
+//        $serviceThree = $container->get($bar);
+//        self::assertInstanceOf(stdClass::class, $serviceThree);
+//        self::assertNotSame($serviceThree, $container->get($bar));
+//    }
 
     #[Test]
     public function throwsIfNoServiceFoundById(): void
@@ -119,7 +161,7 @@ final class ContainerTest extends TestCase
     public function throwsIfClassIsNotFound(): void
     {
         $exceptionClass = ContainerException::class;
-        $exceptionMessage = 'Could not instantiate service with id "foo".';
+        $exceptionMessage = 'Could not instantiate service.';
 
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
@@ -127,32 +169,26 @@ final class ContainerTest extends TestCase
 
         $spawner = $this->getServiceSpawnerMock();
 
-        $spawnerBuilder = $this->getSpawnerBuilderMock();
-
-        $spawnerBuilder
+        $spawnerFactory = $this->getSpawnerFactoryMock();
+        $spawnerFactory
             ->expects(self::once())
-            ->method('withContainer')
-            ->willReturnSelf()
-        ;
-        $spawnerBuilder
-            ->expects(self::once())
-            ->method('build')
+            ->method('create')
             ->willReturn($spawner)
         ;
 
         $spawner
             ->expects(self::once())
             ->method('spawn')
-            ->with(self::identicalTo('bar'))
+            ->with(self::isInstanceOf(IServiceDefinition::class))
             ->willThrowException(new SpawnFailed('Class does not exist: bar'))
         ;
 
         $definitions = new ArrayObject([
-            'foo' => 'bar',
+            'foo' => new ServiceDefinition('foo', 'bar'),
         ]);
 
         $container = $this->getTesteeInstance(
-            spawnerBuilder: $spawnerBuilder,
+            spawnerFactory: $spawnerFactory,
             definitions: $definitions,
         );
 
@@ -167,62 +203,6 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function throwsWhenCreatedWithInvalidDefinitions(): void
-    {
-        $this->wrapExceptionTest(
-            function (): void {
-                $container = $this->getTesteeInstance(
-                    null,
-                    new ArrayObject([
-                        'foo' => 'bar',
-                        'baz' => 1,
-                    ])
-                );
-                self::assertInstanceOf(Container::class, $container);
-            },
-            new ContainerException(
-                'Definition should be callable, object or string, "integer" given.'
-            )
-        );
-    }
-
-    #[Test]
-    public function throwsWhenCreatedWithInvalidDefinitionsTwo(): void
-    {
-        $this->wrapExceptionTest(
-            function (): void {
-                $definition = new class() implements IDefinition {
-                    public function getId(): string
-                    {
-                        throw new RuntimeException('INTENTIONALLY Not implemented.');
-                    }
-
-                    public function getDefinition(): object|callable|string
-                    {
-                        throw new RuntimeException('INTENTIONALLY Not implemented.');
-                    }
-
-                    public function getOptions(): int
-                    {
-                        throw new RuntimeException('INTENTIONALLY Not implemented.');
-                    }
-                };
-
-                $container = $this->getTesteeInstance(
-                    null,
-                    new ArrayObject([
-                        'foo' => $definition,
-                    ])
-                );
-                self::assertInstanceOf(Container::class, $container);
-            },
-            new ContainerException(
-                'Unsupported definition, "AlecRabbit\Spinner\Container\Contract\IDefinition" given.',
-            )
-        );
-    }
-
-    #[Test]
     public function throwsWhenFailsToInstantiateServiceWithCallable(): void
     {
         $exceptionClass = ContainerException::class;
@@ -233,16 +213,10 @@ final class ContainerTest extends TestCase
 
         $spawner = $this->getServiceSpawnerMock();
 
-        $spawnerBuilder = $this->getSpawnerBuilderMock();
-
-        $spawnerBuilder
+        $spawnerFactory = $this->getSpawnerFactoryMock();
+        $spawnerFactory
             ->expects(self::once())
-            ->method('withContainer')
-            ->willReturnSelf()
-        ;
-        $spawnerBuilder
-            ->expects(self::once())
-            ->method('build')
+            ->method('create')
             ->willReturn($spawner)
         ;
 
@@ -251,16 +225,16 @@ final class ContainerTest extends TestCase
         $spawner
             ->expects(self::once())
             ->method('spawn')
-            ->with(self::identicalTo($closure))
+            ->with(self::isInstanceOf(IServiceDefinition::class))
             ->willThrowException(new ContainerException($exceptionMessage))
         ;
 
         $definitions = new ArrayObject([
-            'foo' => $closure,
+            'foo' => new ServiceDefinition('foo', $closure),
         ]);
 
         $container = $this->getTesteeInstance(
-            spawnerBuilder: $spawnerBuilder,
+            spawnerFactory: $spawnerFactory,
             definitions: $definitions,
         );
 
@@ -278,33 +252,27 @@ final class ContainerTest extends TestCase
 
         $spawner = $this->getServiceSpawnerMock();
 
-        $spawnerBuilder = $this->getSpawnerBuilderMock();
-
-        $spawnerBuilder
+        $spawnerFactory = $this->getSpawnerFactoryMock();
+        $spawnerFactory
             ->expects(self::once())
-            ->method('withContainer')
-            ->willReturnSelf()
-        ;
-        $spawnerBuilder
-            ->expects(self::once())
-            ->method('build')
+            ->method('create')
             ->willReturn($spawner)
         ;
 
         $spawner
             ->expects(self::once())
             ->method('spawn')
-            ->with(self::identicalTo(NonInstantiableClass::class))
+            ->with(self::isInstanceOf(IServiceDefinition::class))
             ->willThrowException(new ContainerException())
         ;
 
         $definitions =
             new ArrayObject([
-                'foo' => NonInstantiableClass::class,
+                'foo' => new ServiceDefinition('foo', NonInstantiableClass::class),
             ]);
 
         $container = $this->getTesteeInstance(
-            spawnerBuilder: $spawnerBuilder,
+            spawnerFactory: $spawnerFactory,
             definitions: $definitions,
         );
 
@@ -323,8 +291,8 @@ final class ContainerTest extends TestCase
         $this->expectExceptionMessage($exceptionMessage);
 
         $definitions = static function (): Generator {
-            yield 'foo' => 'bar';
-            yield 'foo' => 'bar';
+            yield 'foo' => new ServiceDefinition('foo', 'bar');
+            yield 'foo' => new ServiceDefinition('foo', 'bar');
         };
 
         $container = $this->getTesteeInstance(definitions: $definitions());

@@ -5,15 +5,22 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
+use ArrayObject;
 use Traversable;
 
 final class DefinitionRegistry implements IDefinitionRegistry
 {
     private static ?IDefinitionRegistry $instance = null;
 
+    /** @var ArrayObject<string, IServiceDefinition> */
+    private readonly ArrayObject $definitions;
+
     private function __construct(
-        private readonly \ArrayObject $definitions = new \ArrayObject(),
+        ArrayObject $definitions = new ArrayObject(),
     ) {
+        /** @var ArrayObject<string, IServiceDefinition> $definitions */
+        $this->definitions = $definitions;
     }
 
     public static function getInstance(): IDefinitionRegistry
@@ -24,15 +31,15 @@ final class DefinitionRegistry implements IDefinitionRegistry
         return self::$instance;
     }
 
+    /** @inheritDoc */
     public function load(): Traversable
     {
         yield from $this->definitions;
     }
 
-    /** @inheritDoc */
-    public function register(string $id, callable|object|string $definition, int $options = 0): void
+
+    public function bind(IServiceDefinition $serviceDefinition): void
     {
-        $this->definitions->offsetSet($id, $definition);
-//        $this->definitions->offsetSet($id, new Definition($id, $definition, $options));
+        $this->definitions->offsetSet($serviceDefinition->getId(), $serviceDefinition);
     }
 }

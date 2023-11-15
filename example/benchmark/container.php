@@ -28,16 +28,17 @@ use AlecRabbit\Benchmark\Factory\ResultMaker;
 use AlecRabbit\Benchmark\Factory\StopwatchFactory;
 use AlecRabbit\Benchmark\KeyFormatter;
 use AlecRabbit\Benchmark\ReportFormatter;
-use AlecRabbit\Benchmark\Spinner\Builder\BenchmarkingDriverBuilder;
-use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
-use AlecRabbit\Benchmark\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
-use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverFactory;
-use AlecRabbit\Benchmark\Spinner\Factory\BenchmarkingDriverProviderFactory;
 use AlecRabbit\Benchmark\Stopwatch\Builder\StopwatchBuilder;
 use AlecRabbit\Benchmark\Stopwatch\MicrosecondTimer;
 use AlecRabbit\Benchmark\Stopwatch\ResultFormatter;
+use AlecRabbit\Lib\Spinner\Builder\BenchmarkingDriverBuilder;
+use AlecRabbit\Lib\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
+use AlecRabbit\Lib\Spinner\Factory\BenchmarkingDriverFactory;
+use AlecRabbit\Lib\Spinner\Factory\BenchmarkingDriverProviderFactory;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Core\Output\Output;
@@ -46,54 +47,59 @@ use Psr\Container\ContainerInterface;
 
 $registry = DefinitionRegistry::getInstance();
 
-$registry->register(ITimer::class, new MicrosecondTimer());
-$registry->register(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class);
-$registry->register(IResultMaker::class, ResultMaker::class);
-$registry->register(IBenchmarkResultsFactory::class, BenchmarkResultsFactory::class);
-$registry->register(IBenchmarkingDriverFactory::class, BenchmarkingDriverFactory::class);
-$registry->register(IBenchmarkingDriverBuilder::class, BenchmarkingDriverBuilder::class);
-$registry->register(IBenchmarkFactory::class, BenchmarkFactory::class);
-$registry->register(IMeasurementFactory::class, MeasurementFactory::class);
-$registry->register(IStopwatchBuilder::class, StopwatchBuilder::class);
-$registry->register(IStopwatchFactory::class, StopwatchFactory::class);
-$registry->register(IReportPrinterBuilder::class, ReportPrinterBuilder::class);
-$registry->register(IReportFormatter::class, ReportFormatter::class);
-$registry->register(IDatetimeFormatter::class, DatetimeFormatter::class);
-$registry->register(IResultFormatter::class, ResultFormatter::class);
-$registry->register(IKeyFormatter::class, KeyFormatter::class);
+$registry->bind(new ServiceDefinition(ITimer::class, new MicrosecondTimer()));
+$registry->bind(new ServiceDefinition(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class));
+$registry->bind(new ServiceDefinition(IResultMaker::class, ResultMaker::class));
+$registry->bind(new ServiceDefinition(IBenchmarkResultsFactory::class, BenchmarkResultsFactory::class));
+$registry->bind(new ServiceDefinition(IBenchmarkingDriverFactory::class, BenchmarkingDriverFactory::class));
+$registry->bind(new ServiceDefinition(IBenchmarkingDriverBuilder::class, BenchmarkingDriverBuilder::class));
+$registry->bind(new ServiceDefinition(IBenchmarkFactory::class, BenchmarkFactory::class));
+$registry->bind(new ServiceDefinition(IMeasurementFactory::class, MeasurementFactory::class));
+$registry->bind(new ServiceDefinition(IStopwatchBuilder::class, StopwatchBuilder::class));
+$registry->bind(new ServiceDefinition(IStopwatchFactory::class, StopwatchFactory::class));
+$registry->bind(new ServiceDefinition(IReportPrinterBuilder::class, ReportPrinterBuilder::class));
+$registry->bind(new ServiceDefinition(IReportFormatter::class, ReportFormatter::class));
+$registry->bind(new ServiceDefinition(IDatetimeFormatter::class, DatetimeFormatter::class));
+$registry->bind(new ServiceDefinition(IResultFormatter::class, ResultFormatter::class));
+$registry->bind(new ServiceDefinition(IKeyFormatter::class, KeyFormatter::class));
 
-$registry->register(
-    IReportPrinter::class,
-    static function (ContainerInterface $container): IReportPrinter {
-        return $container->get(IReportPrinterFactory::class)->create();
-    }
+$registry->bind(
+    new ServiceDefinition(
+
+        IReportPrinter::class,
+        static function (ContainerInterface $container): IReportPrinter {
+            return $container->get(IReportPrinterFactory::class)->create();
+        }
+    ),
 );
 
-$registry->register(
-    IReportPrinterFactory::class,
-    static function (ContainerInterface $container): IReportPrinterFactory {
-        $stream =
-            new class implements IWritableStream {
-                public function write(Traversable $data): void
-                {
-                    foreach ($data as $el) {
-                        echo $el;
+$registry->bind(
+    new ServiceDefinition(
+        IReportPrinterFactory::class,
+        static function (ContainerInterface $container): IReportPrinterFactory {
+            $stream =
+                new class implements IWritableStream {
+                    public function write(Traversable $data): void
+                    {
+                        foreach ($data as $el) {
+                            echo $el;
+                        }
                     }
-                }
-            };
+                };
 
-        $output =
-            new Output(
-                $stream
-            );
+            $output =
+                new Output(
+                    $stream
+                );
 
-        return
-            new ReportPrinterFactory(
-                $container->get(IReportPrinterBuilder::class),
-                $output,
-                $container->get(IReportFormatter::class),
-            );
-    }
+            return
+                new ReportPrinterFactory(
+                    $container->get(IReportPrinterBuilder::class),
+                    $output,
+                    $container->get(IReportFormatter::class),
+                );
+        }
+    )
 );
 
 $container = (new ContainerFactory($registry))->create();

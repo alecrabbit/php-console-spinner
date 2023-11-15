@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
-use AlecRabbit\Spinner\Container\Contract\IDefinition;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class DefinitionRegistryTest extends TestCase
 {
@@ -37,45 +38,82 @@ final class DefinitionRegistryTest extends TestCase
     }
 
     #[Test]
-    public function definitionCanBeBoundOne(): void
+    public function definitionCanBeBound(): void
     {
         $registry = $this->getTesteeInstance();
 
-        $typeId = 'test';
-        $definition = 'test';
-        $registry->register($typeId, $definition);
-        self::assertCount(1, iterator_to_array($registry->load()));
-        $definitions = self::getPropertyValue('definitions', $registry);
-        self::assertSame($definition, $definitions[$typeId]);
+        $serviceDefinition1 = $this->getServiceDefinitionMock();
+        $serviceDefinition1
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service1')
+        ;
+        $serviceDefinition2 = $this->getServiceDefinitionMock();
+        $serviceDefinition2
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service2')
+        ;
+        $serviceDefinition3 = $this->getServiceDefinitionMock();
+        $serviceDefinition3
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service3')
+        ;
+
+        $registry->bind($serviceDefinition1);
+        $registry->bind($serviceDefinition2);
+        $registry->bind($serviceDefinition3);
+
+        $definitions = iterator_to_array($registry->load());
+
+        self::assertCount(3, $definitions);
+
+        self::assertSame($serviceDefinition1, $definitions['service1']);
+        self::assertSame($serviceDefinition2, $definitions['service2']);
+        self::assertSame($serviceDefinition3, $definitions['service3']);
+    }
+
+    private function getServiceDefinitionMock(): MockObject&IServiceDefinition
+    {
+        return $this->createMock(IServiceDefinition::class);
     }
 
     #[Test]
-    public function definitionCanBeBoundTwo(): void
+    public function definitionCanBeOverridden(): void
     {
         $registry = $this->getTesteeInstance();
 
-        $definition = new class() implements IDefinition {
-            public function getId(): string
-            {
-                return 'id';
-            }
+        $serviceDefinition1 = $this->getServiceDefinitionMock();
+        $serviceDefinition1
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service1')
+        ;
+        $serviceDefinition2 = $this->getServiceDefinitionMock();
+        $serviceDefinition2
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service2')
+        ;
+        $serviceDefinition3 = $this->getServiceDefinitionMock();
+        $serviceDefinition3
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service2')
+        ;
 
-            public function getDefinition(): object|callable|string
-            {
-                return 'definition';
-            }
+        $registry->bind($serviceDefinition1);
+        $registry->bind($serviceDefinition2);
+        $registry->bind($serviceDefinition3);
 
-            public function getOptions(): int
-            {
-                return self::SINGLETON;
-            }
-        };
-        $typeId = $definition->getId();
+        $definitions = iterator_to_array($registry->load());
 
-        $registry->register($typeId, $definition);
-        self::assertCount(1, iterator_to_array($registry->load()));
-        $definitions = self::getPropertyValue('definitions', $registry);
-        self::assertSame($definition, $definitions[$typeId]);
+        self::assertCount(2, $definitions);
+
+        self::assertSame($serviceDefinition1, $definitions['service1']);
+        self::assertSame($serviceDefinition3, $definitions['service2']);
+        self::assertNotSame($serviceDefinition2, $definitions['service2']);
     }
 
     #[Test]

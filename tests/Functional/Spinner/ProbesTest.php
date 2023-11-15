@@ -219,6 +219,21 @@ final class ProbesTest extends TestCase
     }
 
     #[Test]
+    public function loadsAllProbesIfFilterClassIsProbeInterface(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe3 = StaticProbeOverride::class;
+
+        Probes::register($probe3);
+        Probes::register($probe1);
+
+        $probes = iterator_to_array(Probes::load(IStaticProbe::class));
+
+        self::assertContains($probe1, $probes);
+        self::assertContains($probe3, $probes);
+    }
+
+    #[Test]
     public function throwsIfProbeClassIsNotAStaticProbeSubClass(): void
     {
         $probe = stdClass::class;

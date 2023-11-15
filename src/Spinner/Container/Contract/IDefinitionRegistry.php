@@ -8,12 +8,10 @@ use Traversable;
 
 interface IDefinitionRegistry
 {
+    /**
+     * @return Traversable<string, IServiceDefinition>
+     */
     public function load(): Traversable;
 
-    /**
-     * @param string $id
-     * @param object|callable|string $definition
-     * @param int $options Ignored for now
-     */
-    public function register(string $id, object|callable|string $definition, int $options = 0): void;
+    public function bind(IServiceDefinition $serviceDefinition): void;
 }
