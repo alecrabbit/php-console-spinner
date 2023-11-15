@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
-use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use RuntimeException;
 use stdClass;
 
@@ -83,6 +84,33 @@ final class DefinitionRegistryTest extends TestCase
         self::assertCount(1, iterator_to_array($registry->load()));
         $definitions = self::getPropertyValue('definitions', $registry);
         self::assertSame($definition, $definitions[$typeId]->getDefinition());
+    }
+
+    #[Test]
+    public function definitionCanBeBoundThree(): void
+    {
+        $registry = $this->getTesteeInstance();
+
+        $serviceDefinition1 = $this->getServiceDefinitionMock();
+        $serviceDefinition2 = $this->getServiceDefinitionMock();
+        $serviceDefinition3 = $this->getServiceDefinitionMock();
+
+        $registry->bind($serviceDefinition1);
+        $registry->bind($serviceDefinition2);
+        $registry->bind($serviceDefinition3);
+
+        $definitions = iterator_to_array($registry->load());
+
+        self::assertCount(3, $definitions);
+
+        self::assertSame($serviceDefinition1, $definitions[0]);
+        self::assertSame($serviceDefinition2, $definitions[1]);
+        self::assertSame($serviceDefinition3, $definitions[2]);
+    }
+
+    private function getServiceDefinitionMock(): MockObject&IServiceDefinition
+    {
+        return $this->createMock(IServiceDefinition::class);
     }
 
     #[Test]

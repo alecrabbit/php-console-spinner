@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
@@ -181,6 +182,9 @@ use Traversable;
 use function hrtime;
 
 // @codeCoverageIgnoreStart
+/**
+ * @return Traversable<string|int, callable|object|string|IServiceDefinition>
+ */
 function getDefinitions(): Traversable
 {
     yield from [

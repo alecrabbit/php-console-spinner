@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
-use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
-use AlecRabbit\Spinner\Container\ServiceDefinition;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
@@ -51,7 +51,11 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                     return $this->definitions;
                 }
 
-                public function bind(string $id, callable|object|string $definition, ?int $options = 0): void
+                public function bind(
+                    string|IServiceDefinition $id,
+                    callable|object|string $definition = null,
+                    int $options = 0
+                ): void
                 {
                     // do nothing
                 }
@@ -66,34 +70,32 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
             array_merge(
                 [
                     // disable output
-                    IWritableStream::class =>
-                        new ServiceDefinition(
-                            IWritableStream::class,
-                            new class implements IWritableStream {
-                                public function write(Traversable $data): void
-                                {
-                                    // do nothing
-                                }
-                            },
-                        ),
+                    new ServiceDefinition(
+                        IWritableStream::class,
+                        new class implements IWritableStream {
+                            public function write(Traversable $data): void
+                            {
+                                // do nothing
+                            }
+                        },
+                    ),
                     // disable auto start
-                    ILoopSetup::class =>
-                        new ServiceDefinition(
-                            ILoopSetup::class,
-                            new class implements ILoopSetup {
-                                public function setup(ILoop $loop): void
-                                {
-                                    // do nothing
-                                }
-                            },
-                        ),
+                    new ServiceDefinition(
+                        ILoopSetup::class,
+                        new class implements ILoopSetup {
+                            public function setup(ILoop $loop): void
+                            {
+                                // do nothing
+                            }
+                        },
+                    ),
                 ],
                 $substitutes
             );
 
         foreach ($substitutes as $id => $substitute) {
             if ($substitute instanceof IServiceDefinition) {
-                $definitions->offsetSet($id, $substitute);
+                $definitions->offsetSet($substitute->getId(), $substitute);
                 continue;
             }
             $definitions->offsetSet($id, new ServiceDefinition($id, $substitute));
