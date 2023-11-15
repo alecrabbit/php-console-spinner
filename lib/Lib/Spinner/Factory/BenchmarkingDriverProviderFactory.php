@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark\Spinner\Factory;
+namespace AlecRabbit\Lib\Spinner\Factory;
 
-use AlecRabbit\Benchmark\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Factory\A\ADriverProviderFactory;
 

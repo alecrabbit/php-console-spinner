@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Helper;
+namespace AlecRabbit\Lib\Helper;
 
-use AlecRabbit\Spinner\Helper\Contract\IBytesFormatter;
+use AlecRabbit\Lib\Helper\Contract\IBytesFormatter;
 
 final class BytesFormatter implements IBytesFormatter
 {

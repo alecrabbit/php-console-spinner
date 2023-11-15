@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Benchmark\Spinner;
+namespace Unit\Lib\Spinner;
 
 use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
-use AlecRabbit\Benchmark\Spinner\BenchmarkingDriver;
-use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
+use AlecRabbit\Lib\Spinner\BenchmarkingDriver;
+use AlecRabbit\Lib\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Helper\Contract;
+namespace AlecRabbit\Lib\Helper\Contract;
 
 interface IBytesFormatter
 {

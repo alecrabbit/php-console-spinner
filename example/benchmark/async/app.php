@@ -5,10 +5,10 @@ declare(strict_types=1);
 use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkResultsFactory;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\Factory\ReportFactory;
-use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
+use AlecRabbit\Lib\Helper\MemoryUsage;
+use AlecRabbit\Lib\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Spinner\Helper\MemoryUsage;
 use AlecRabbit\Spinner\Probes;
 
 // in seconds

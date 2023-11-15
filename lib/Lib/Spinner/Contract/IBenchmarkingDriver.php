@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark\Spinner\Contract;
+namespace AlecRabbit\Lib\Spinner\Contract;
 
 use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Spinner\Core\Contract\IDriver;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Helper;
+namespace Unit\Lib\Helper;
 
-use AlecRabbit\Spinner\Helper\BytesFormatter;
+use AlecRabbit\Lib\Helper\BytesFormatter;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

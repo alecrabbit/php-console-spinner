@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark\Spinner\Builder;
+namespace AlecRabbit\Lib\Spinner\Builder;
 
 use AlecRabbit\Benchmark\Contract\IBenchmark;
-use AlecRabbit\Benchmark\Spinner\BenchmarkingDriver;
-use AlecRabbit\Benchmark\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
-use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
+use AlecRabbit\Lib\Spinner\BenchmarkingDriver;
+use AlecRabbit\Lib\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Lib\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Exception\LogicException;
 
