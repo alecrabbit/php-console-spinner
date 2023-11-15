@@ -57,6 +57,12 @@ $loop->delay(
         $driver->add($spinnerTwo);
     }
 );
+$loop->delay(
+    15, // add spinner at
+    static function () use ($driver, $spinnerOne): void {
+        $driver->add($spinnerOne);
+    }
+);
 
 // perform example unrelated actions:
 require_once __DIR__ . '/../bootstrap.async.php';

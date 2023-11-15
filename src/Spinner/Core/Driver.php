@@ -37,6 +37,10 @@ final class Driver extends ADriver
     {
         $this->erase();
 
+        if ($this->spinner) {
+            $this->remove($this->spinner);
+        }
+
         $frame = $spinner->getFrame();
 
         $this->state =
@@ -58,25 +62,6 @@ final class Driver extends ADriver
         }
     }
 
-    public function update(ISubject $subject): void
-    {
-        if ($this->spinner === $subject) {
-            $this->interval = $this->recalculateInterval();
-            $this->notify();
-        }
-    }
-
-    protected function recalculateInterval(): IInterval
-    {
-        return $this->initialInterval->smallest($this->spinner?->getInterval());
-    }
-
-    /** @inheritDoc */
-    public function has(ISpinner $spinner): bool
-    {
-        return $this->spinner === $spinner;
-    }
-
     /** @inheritDoc */
     public function remove(ISpinner $spinner): void
     {
@@ -87,6 +72,25 @@ final class Driver extends ADriver
             $this->interval = $this->recalculateInterval();
             $this->notify();
         }
+    }
+
+    protected function recalculateInterval(): IInterval
+    {
+        return $this->initialInterval->smallest($this->spinner?->getInterval());
+    }
+
+    public function update(ISubject $subject): void
+    {
+        if ($this->spinner === $subject) {
+            $this->interval = $this->recalculateInterval();
+            $this->notify();
+        }
+    }
+
+    /** @inheritDoc */
+    public function has(ISpinner $spinner): bool
+    {
+        return $this->spinner === $spinner;
     }
 
     /** @inheritDoc */
