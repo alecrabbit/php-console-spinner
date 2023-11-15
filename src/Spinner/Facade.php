@@ -38,7 +38,7 @@ final class Facade extends AFacade
         self::initialize();
 
         $spinner =
-            dump(self::getSpinnerFactory())
+            self::getSpinnerFactory()
                 ->create($spinnerSettings)
         ;
 
