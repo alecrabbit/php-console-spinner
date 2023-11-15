@@ -10,8 +10,6 @@ use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
-use RuntimeException;
-use stdClass;
 
 final class DefinitionRegistryTest extends TestCase
 {
@@ -40,60 +38,28 @@ final class DefinitionRegistryTest extends TestCase
     }
 
     #[Test]
-    public function definitionCanBeBoundOne(): void
-    {
-        $registry = $this->getTesteeInstance();
-
-        $typeId = 'test';
-        $definition = stdClass::class;
-        $registry->bind($typeId, $definition);
-        self::assertCount(1, iterator_to_array($registry->load()));
-        $definitions = self::getPropertyValue('definitions', $registry);
-        self::assertSame($definition, $definitions[$typeId]->getDefinition());
-    }
-
-    #[Test]
-    public function definitionCanBeBoundTwo(): void
-    {
-        $registry = $this->getTesteeInstance();
-
-        $definition = new class() implements IServiceDefinition {
-            public function getId(): string
-            {
-                return 'id';
-            }
-
-            public function getDefinition(): object|callable|string
-            {
-                return 'definition';
-            }
-
-            public function getOptions(): int
-            {
-                return self::SINGLETON;
-            }
-
-            public function isStorable(): bool
-            {
-                throw new RuntimeException('INTENTIONALLY Not implemented.');
-            }
-        };
-        $typeId = $definition->getId();
-
-        $registry->bind($typeId, $definition);
-        self::assertCount(1, iterator_to_array($registry->load()));
-        $definitions = self::getPropertyValue('definitions', $registry);
-        self::assertSame($definition, $definitions[$typeId]->getDefinition());
-    }
-
-    #[Test]
-    public function definitionCanBeBoundThree(): void
+    public function definitionCanBeBound(): void
     {
         $registry = $this->getTesteeInstance();
 
         $serviceDefinition1 = $this->getServiceDefinitionMock();
+        $serviceDefinition1
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service1')
+        ;
         $serviceDefinition2 = $this->getServiceDefinitionMock();
+        $serviceDefinition2
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service2')
+        ;
         $serviceDefinition3 = $this->getServiceDefinitionMock();
+        $serviceDefinition3
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service3')
+        ;
 
         $registry->bind($serviceDefinition1);
         $registry->bind($serviceDefinition2);
@@ -103,14 +69,51 @@ final class DefinitionRegistryTest extends TestCase
 
         self::assertCount(3, $definitions);
 
-        self::assertSame($serviceDefinition1, $definitions[0]);
-        self::assertSame($serviceDefinition2, $definitions[1]);
-        self::assertSame($serviceDefinition3, $definitions[2]);
+        self::assertSame($serviceDefinition1, $definitions['service1']);
+        self::assertSame($serviceDefinition2, $definitions['service2']);
+        self::assertSame($serviceDefinition3, $definitions['service3']);
     }
 
     private function getServiceDefinitionMock(): MockObject&IServiceDefinition
     {
         return $this->createMock(IServiceDefinition::class);
+    }
+
+    #[Test]
+    public function definitionCanBeOverridden(): void
+    {
+        $registry = $this->getTesteeInstance();
+
+        $serviceDefinition1 = $this->getServiceDefinitionMock();
+        $serviceDefinition1
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service1')
+        ;
+        $serviceDefinition2 = $this->getServiceDefinitionMock();
+        $serviceDefinition2
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service2')
+        ;
+        $serviceDefinition3 = $this->getServiceDefinitionMock();
+        $serviceDefinition3
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service2')
+        ;
+
+        $registry->bind($serviceDefinition1);
+        $registry->bind($serviceDefinition2);
+        $registry->bind($serviceDefinition3);
+
+        $definitions = iterator_to_array($registry->load());
+
+        self::assertCount(2, $definitions);
+
+        self::assertSame($serviceDefinition1, $definitions['service1']);
+        self::assertSame($serviceDefinition3, $definitions['service2']);
+        self::assertNotSame($serviceDefinition2, $definitions['service2']);
     }
 
     #[Test]

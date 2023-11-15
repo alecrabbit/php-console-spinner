@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Core\Probe\SignalHandlingProbe;
 use AlecRabbit\Spinner\Core\Probe\StylingMethodProbe;
 
@@ -33,7 +34,7 @@ foreach (getDefinitions() as $id => $definition) {
      * @var string $id
      * @var callable|object|class-string $definition
      */
-    $registry->bind($id, $definition);
+    $registry->bind(new ServiceDefinition($id, $definition));
 }
 
 $container = (new ContainerFactory($registry))->create();

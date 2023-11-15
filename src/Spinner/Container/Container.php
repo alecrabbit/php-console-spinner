@@ -28,7 +28,7 @@ final readonly class Container implements IContainer
 
     /**
      * @param IServiceSpawnerFactory $spawnerFactory
-     * @param Traversable<string|int,IServiceDefinition>|null $definitions
+     * @param Traversable<string|int, IServiceDefinition>|null $definitions
      */
     public function __construct(
         IServiceSpawnerFactory $spawnerFactory,

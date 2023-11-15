@@ -4,9 +4,9 @@ Directories                                         68
 Files                                              261
 
 Size
-  Lines of Code (LOC)                            30657
-  Comment Lines of Code (CLOC)                     507 (1.65%)
-  Non-Comment Lines of Code (NCLOC)              30150 (98.35%)
+  Lines of Code (LOC)                            30655
+  Comment Lines of Code (CLOC)                     506 (1.65%)
+  Non-Comment Lines of Code (NCLOC)              30149 (98.35%)
   Logical Lines of Code (LLOC)                    6946 (22.66%)
     Classes                                       6938 (99.88%)
       Average Class Length                          26
@@ -39,9 +39,9 @@ Dependencies
   Attribute Accesses                                30
     Non-Static                                      23 (76.67%)
     Static                                           7 (23.33%)
-  Method Calls                                    9412
-    Non-Static                                    6223 (66.12%)
-    Static                                        3189 (33.88%)
+  Method Calls                                    9433
+    Non-Static                                    6240 (66.15%)
+    Static                                        3193 (33.85%)
 
 Structure
   Namespaces                                        68
@@ -52,14 +52,14 @@ Structure
     Concrete Classes                               254 (98.45%)
       Final Classes                                236 (92.91%)
       Non-Final Classes                             18 (7.09%)
-  Methods                                         1729
+  Methods                                         1723
     Scope
-      Non-Static Methods                          1627 (94.10%)
-      Static Methods                               102 (5.90%)
+      Non-Static Methods                          1621 (94.08%)
+      Static Methods                               102 (5.92%)
     Visibility
-      Public Methods                              1058 (61.19%)
-      Protected Methods                            351 (20.30%)
-      Private Methods                              320 (18.51%)
+      Public Methods                              1052 (61.06%)
+      Protected Methods                            351 (20.37%)
+      Private Methods                              320 (18.57%)
   Functions                                         94
     Named Functions                                  2 (2.13%)
     Anonymous Functions                             92 (97.87%)

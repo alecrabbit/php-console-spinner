@@ -13,13 +13,13 @@ final class DefinitionRegistry implements IDefinitionRegistry
 {
     private static ?IDefinitionRegistry $instance = null;
 
-    /** @var ArrayObject<string|int, IServiceDefinition> */
+    /** @var ArrayObject<string, IServiceDefinition> */
     private readonly ArrayObject $definitions;
 
     private function __construct(
         ArrayObject $definitions = new ArrayObject(),
     ) {
-        /** @var ArrayObject<string|int, IServiceDefinition> $definitions */
+        /** @var ArrayObject<string, IServiceDefinition> $definitions */
         $this->definitions = $definitions;
     }
 
@@ -37,16 +37,9 @@ final class DefinitionRegistry implements IDefinitionRegistry
         yield from $this->definitions;
     }
 
-    /** @inheritDoc */
-    public function bind(
-        string|IServiceDefinition $id,
-        callable|object|string $definition = null,
-        int $options = 0
-    ): void {
-        if ($id instanceof IServiceDefinition) {
-            $this->definitions->append($id);
-            return;
-        }
-        $this->definitions->offsetSet($id, new ServiceDefinition($id, $definition, $options));
+
+    public function bind(IServiceDefinition $serviceDefinition): void
+    {
+        $this->definitions->offsetSet($serviceDefinition->getId(), $serviceDefinition);
     }
 }
