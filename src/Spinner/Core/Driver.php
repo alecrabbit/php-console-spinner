@@ -38,7 +38,7 @@ final class Driver extends ADriver
         $this->erase();
 
         if ($this->spinner) {
-            $this->remove($this->spinner);
+            $this->doRemove($this->spinner);
         }
 
         $frame = $spinner->getFrame();
@@ -67,9 +67,7 @@ final class Driver extends ADriver
     {
         if ($this->spinner === $spinner) {
             $this->erase();
-            $spinner->detach($this);
-            $this->spinner = null;
-            $this->interval = $this->recalculateInterval();
+            $this->doRemove($spinner);
             $this->notify();
         }
     }
@@ -108,5 +106,12 @@ final class Driver extends ADriver
 
             $this->stateWriter->write($this->state);
         }
+    }
+
+    protected function doRemove(?ISpinner $spinner): void
+    {
+        $spinner->detach($this);
+        $this->spinner = null;
+        $this->interval = $this->recalculateInterval();
     }
 }
