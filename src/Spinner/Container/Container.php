@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IDefinition;
+use AlecRabbit\Spinner\Container\Contract\IService;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
@@ -19,10 +20,10 @@ final readonly class Container implements IContainer
 {
     private IServiceSpawner $serviceSpawner;
 
-    /** @var ArrayObject<string, IDefinition> */
+    /** @var ArrayObject<string, IServiceDefinition> */
     private ArrayObject $definitions;
 
-    /** @var ArrayObject<string, mixed> */
+    /** @var ArrayObject<string, IService> */
     private ArrayObject $services;
 
     public function __construct(
@@ -38,8 +39,8 @@ final readonly class Container implements IContainer
 
         if ($definitions) {
             /**
-             * @var string $id
-             * @var IDefinition $definition
+             * @var int|string $id
+             * @var IServiceDefinition $definition
              */
             foreach ($definitions as $id => $definition) {
                 $this->register($id, $definition);
@@ -47,10 +48,18 @@ final readonly class Container implements IContainer
         }
     }
 
-    protected function register(string $id, IDefinition $definition): void
+    private function register(int|string $id, IServiceDefinition $definition): void
+    {
+        if (is_int($id)) {
+            $id = $definition->getId();
+        }
+
+        $this->registerDefinition($id, $definition);
+    }
+
+    private function registerDefinition(string $id, IServiceDefinition $definition): void
     {
         $this->assertNotRegistered($id);
-
         $this->definitions->offsetSet($id, $definition);
     }
 
@@ -82,11 +91,6 @@ final readonly class Container implements IContainer
      */
     public function get(string $id): mixed
     {
-        if ($this->hasService($id)) {
-            /** @psalm-suppress MixedReturnStatement */
-            return $this->retrieveService($id);
-        }
-
         if (!$this->has($id)) {
             throw new NotFoundInContainer(
                 sprintf(
@@ -96,8 +100,13 @@ final readonly class Container implements IContainer
             );
         }
 
+        if ($this->hasService($id)) {
+            /** @psalm-suppress MixedReturnStatement */
+            return $this->retrieveService($id)->getValue();
+        }
+
         /** @psalm-suppress MixedReturnStatement */
-        return $this->getService($id);
+        return $this->getService($id)->getValue();
     }
 
     private function hasService(string $id): bool
@@ -105,20 +114,22 @@ final readonly class Container implements IContainer
         return $this->services->offsetExists($id);
     }
 
-    private function retrieveService(string $id): mixed
+    private function retrieveService(string $id): IService
     {
         /** @psalm-suppress MixedReturnStatement */
         return $this->services->offsetGet($id);
     }
 
-    private function getService(string $id): mixed
+    /**
+     * @throws ContainerExceptionInterface
+     */
+    private function getService(string $id): IService
     {
-        /** @var IDefinition $definition */
-        $definition = $this->definitions->offsetGet($id);
+        $definition = $this->getDefinition($id);
 
-        $service = $this->spawnService($definition);
+        $service = $this->spawn($definition);
 
-        if ($definition->isSingleton()) {
+        if ($definition->isStorable()) {
             $this->services->offsetSet($id, $service);
         }
 
@@ -126,10 +137,15 @@ final readonly class Container implements IContainer
         return $service;
     }
 
+    private function getDefinition(string $id): IServiceDefinition
+    {
+        return $this->definitions->offsetGet($id);
+    }
+
     /**
      * @throws ContainerExceptionInterface
      */
-    private function spawnService(IDefinition $definition): object
+    private function spawn(IServiceDefinition $definition): IService
     {
         try {
             return $this->serviceSpawner->spawn($definition);

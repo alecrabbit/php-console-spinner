@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
-use AlecRabbit\Spinner\Container\Contract\IDefinition;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
-use AlecRabbit\Spinner\Container\Definition;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
@@ -67,7 +67,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                 [
                     // disable output
                     IWritableStream::class =>
-                        new Definition(
+                        new ServiceDefinition(
                             IWritableStream::class,
                             new class implements IWritableStream {
                                 public function write(Traversable $data): void
@@ -78,7 +78,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                         ),
                     // disable auto start
                     ILoopSetup::class =>
-                        new Definition(
+                        new ServiceDefinition(
                             ILoopSetup::class,
                             new class implements ILoopSetup {
                                 public function setup(ILoop $loop): void
@@ -92,11 +92,11 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
             );
 
         foreach ($substitutes as $id => $substitute) {
-            if ($substitute instanceof IDefinition) {
+            if ($substitute instanceof IServiceDefinition) {
                 $definitions->offsetSet($id, $substitute);
                 continue;
             }
-            $definitions->offsetSet($id, new Definition($id, $substitute));
+            $definitions->offsetSet($id, new ServiceDefinition($id, $substitute));
         }
 
         return $definitions;

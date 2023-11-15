@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
-use AlecRabbit\Spinner\Container\Contract\IDefinition;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -56,7 +56,7 @@ final class DefinitionRegistryTest extends TestCase
     {
         $registry = $this->getTesteeInstance();
 
-        $definition = new class() implements IDefinition {
+        $definition = new class() implements IServiceDefinition {
             public function getId(): string
             {
                 return 'id';
@@ -72,7 +72,7 @@ final class DefinitionRegistryTest extends TestCase
                 return self::SINGLETON;
             }
 
-            public function isSingleton(): bool
+            public function isStorable(): bool
             {
                 throw new RuntimeException('INTENTIONALLY Not implemented.');
             }

@@ -5,34 +5,34 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 
-use AlecRabbit\Spinner\Container\Contract\IDefinition;
-use AlecRabbit\Spinner\Container\Definition;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Container\Exception\InvalidDefinitionArgument;
 use AlecRabbit\Spinner\Container\Exception\InvalidOptionsArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-final class DefinitionTest extends TestCase
+final class ServiceDefinitionTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
-        $definition = $this->getTesteeInstance();
+        $serviceDefinition = $this->getTesteeInstance();
 
-        self::assertInstanceOf(Definition::class, $definition);
+        self::assertInstanceOf(ServiceDefinition::class, $serviceDefinition);
     }
 
     private function getTesteeInstance(
         ?string $id = null,
         mixed $definition = null,
         ?int $options = null,
-    ): IDefinition {
+    ): IServiceDefinition {
         return
-            new Definition(
+            new ServiceDefinition(
                 id: $id ?? $this->getFaker()->word(),
                 definition: $definition ?? stdClass::class,
-                options: $options ?? IDefinition::SINGLETON,
+                options: $options ?? IServiceDefinition::SINGLETON,
             );
     }
 
@@ -41,9 +41,9 @@ final class DefinitionTest extends TestCase
     {
         $id = $this->getFaker()->word();
 
-        $definition = $this->getTesteeInstance(id: $id);
+        $serviceDefinition = $this->getTesteeInstance(id: $id);
 
-        self::assertSame($id, $definition->getId());
+        self::assertSame($id, $serviceDefinition->getId());
     }
 
     #[Test]
@@ -51,19 +51,19 @@ final class DefinitionTest extends TestCase
     {
         $def = fn() => 1;
 
-        $definition = $this->getTesteeInstance(definition: $def);
+        $serviceDefinition = $this->getTesteeInstance(definition: $def);
 
-        self::assertSame($def, $definition->getDefinition());
+        self::assertSame($def, $serviceDefinition->getDefinition());
     }
 
     #[Test]
     public function canGetOptions(): void
     {
-        $options = IDefinition::TRANSIENT;
+        $options = IServiceDefinition::TRANSIENT;
 
-        $definition = $this->getTesteeInstance(options: $options);
+        $serviceDefinition = $this->getTesteeInstance(options: $options);
 
-        self::assertSame($options, $definition->getOptions());
+        self::assertSame($options, $serviceDefinition->getOptions());
     }
 
     #[Test]
@@ -72,9 +72,9 @@ final class DefinitionTest extends TestCase
         $this->expectException(InvalidDefinitionArgument::class);
         $this->expectExceptionMessage('Definition should be callable, object or string, "int" given.');
 
-        $definition = $this->getTesteeInstance(definition: 1);
+        $serviceDefinition = $this->getTesteeInstance(definition: 1);
 
-        self::assertInstanceOf(Definition::class, $definition);
+        self::assertInstanceOf(ServiceDefinition::class, $serviceDefinition);
     }
 
     #[Test]
@@ -83,9 +83,9 @@ final class DefinitionTest extends TestCase
         $this->expectException(InvalidOptionsArgument::class);
         $this->expectExceptionMessage('Invalid options. Max value exceeded: [1].');
 
-        $definition = $this->getTesteeInstance(options: 100);
+        $serviceDefinition = $this->getTesteeInstance(options: 100);
 
-        self::assertInstanceOf(Definition::class, $definition);
+        self::assertInstanceOf(ServiceDefinition::class, $serviceDefinition);
     }
 
     #[Test]
@@ -94,8 +94,8 @@ final class DefinitionTest extends TestCase
         $this->expectException(InvalidOptionsArgument::class);
         $this->expectExceptionMessage('Invalid options. Negative value: [-10].');
 
-        $definition = $this->getTesteeInstance(options: -10);
+        $serviceDefinition = $this->getTesteeInstance(options: -10);
 
-        self::assertInstanceOf(Definition::class, $definition);
+        self::assertInstanceOf(ServiceDefinition::class, $serviceDefinition);
     }
 }

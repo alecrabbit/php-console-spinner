@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
-use AlecRabbit\Spinner\Container\Contract\IDefinition;
+use AlecRabbit\Spinner\Container\Contract\IService;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
+use AlecRabbit\Spinner\Container\Contract\IServiceObjectFactory;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExist;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
@@ -24,28 +26,15 @@ final readonly class ServiceSpawner implements IServiceSpawner
     public function __construct(
         private ContainerInterface $container,
         private ICircularDependencyDetector $circularDependencyDetector,
+        private IServiceObjectFactory $serviceObjectFactory,
     ) {
     }
 
-    public function spawn(IDefinition $serviceDefinition): object
+    public function spawn(IServiceDefinition $serviceDefinition): IService
     {
-        $id = $serviceDefinition->getId();
-        $definition = $serviceDefinition->getDefinition();
-
         try {
-            $this->circularDependencyDetector->push($id);
-
-            $service =
-                match (true) {
-                    is_callable($definition) => $this->spawnByCallable($definition),
-                    is_string($definition) => $this->spawnByClassConstructor($definition),
-                    default => $definition, // return object as is
-                };
-
-            $this->circularDependencyDetector->pop();
-
             return
-                $service;
+                $this->spawnService($serviceDefinition);
         } catch (Throwable $e) {
             $details =
                 sprintf(
@@ -63,6 +52,33 @@ final readonly class ServiceSpawner implements IServiceSpawner
                 previous: $e,
             );
         }
+    }
+
+    /**
+     * @throws ReflectionException
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    private function spawnService(IServiceDefinition $serviceDefinition): IService
+    {
+        $this->circularDependencyDetector->push($serviceDefinition->getId());
+
+        $definition = $serviceDefinition->getDefinition();
+
+        $value =
+            match (true) {
+                is_callable($definition) => $this->spawnByCallable($definition),
+                is_string($definition) => $this->spawnByClassConstructor($definition),
+                default => $definition, // return object as is
+            };
+
+        $this->circularDependencyDetector->pop();
+
+        return
+            $this->serviceObjectFactory->create(
+                value: $value,
+                serviceDefinition: $serviceDefinition,
+            );
     }
 
     /**

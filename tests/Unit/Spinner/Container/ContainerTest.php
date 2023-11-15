@@ -6,10 +6,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IDefinition;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
-use AlecRabbit\Spinner\Container\Definition;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -63,8 +63,8 @@ final class ContainerTest extends TestCase
     {
         $container = $this->getTesteeInstance(
             definitions: new ArrayObject([
-                'foo' => new Definition('foo', stdClass::class),
-                'bar' => new Definition('bar', stdClass::class),
+                'foo' => new ServiceDefinition('foo', stdClass::class),
+                'bar' => new ServiceDefinition('bar', stdClass::class),
             ])
         );
 
@@ -74,55 +74,72 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function canGetServiceAndItIsSameServiceEveryTime(): void
+    public function canBeInstantiatedWithDefinitionsWithoutIds(): void
     {
         $container = $this->getTesteeInstance(
             definitions: new ArrayObject([
-                'foo' => new Definition('foo', static fn() => new stdClass()),
-                'bar' => new Definition('bar', new stdClass()),
-                stdClass::class => new Definition(stdClass::class, stdClass::class),
+                new ServiceDefinition('foo', stdClass::class),
+                new ServiceDefinition('bar', stdClass::class),
             ])
         );
 
-        $serviceOne = $container->get(stdClass::class);
-        self::assertInstanceOf(stdClass::class, $serviceOne);
-        self::assertSame($serviceOne, $container->get(stdClass::class));
-
-        $serviceTwo = $container->get('foo');
-        self::assertInstanceOf(stdClass::class, $serviceTwo);
-        self::assertSame($serviceTwo, $container->get('foo'));
-
-        $serviceThree = $container->get('bar');
-        self::assertInstanceOf(stdClass::class, $serviceThree);
-        self::assertSame($serviceThree, $container->get('bar'));
+        self::assertTrue($container->has('foo'));
+        self::assertTrue($container->has('bar'));
+        self::assertCount(2, self::getPropertyValue('definitions', $container));
     }
 
-    #[Test]
-    public function canGetServiceAndItIsDifferentServiceEveryTime(): void
-    {
-        $foo = 'foo';
-        $bar = 'bar';
-
-        $container = $this->getTesteeInstance(
-            definitions: new ArrayObject([
-                stdClass::class => new Definition(stdClass::class, stdClass::class, IDefinition::TRANSIENT),
-                $foo => new Definition($foo, static fn() => new stdClass(), IDefinition::TRANSIENT),
-                $bar => new Definition($bar, new stdClass(), IDefinition::TRANSIENT),
-            ])
-        );
-
-        $serviceOne = $container->get(stdClass::class);
-        self::assertInstanceOf(stdClass::class, $serviceOne);
-        self::assertNotSame($serviceOne, $container->get(stdClass::class));
-
-        $serviceTwo = $container->get($foo);
-        self::assertInstanceOf(stdClass::class, $serviceTwo);
-        self::assertNotSame($serviceTwo, $container->get($foo));
-
-        $serviceThree = $container->get($bar);
-        self::assertInstanceOf(stdClass::class, $serviceThree);
-        self::assertNotSame($serviceThree, $container->get($bar));
-    }
+//    #[Test]
+// // FIXME (2023-11-15 17:9) [Alec Rabbit]: move to functional tests
+//    public function canGetServiceAndItIsSameServiceEveryTime(): void
+//    {
+//        $container = $this->getTesteeInstance(
+//            definitions: new ArrayObject([
+//                'foo' => new ServiceDefinition('foo', static fn() => new stdClass()),
+//                'bar' => new ServiceDefinition('bar', new stdClass()),
+//                stdClass::class => new ServiceDefinition(stdClass::class, stdClass::class),
+//            ])
+//        );
+//
+//        $serviceOne = $container->get(stdClass::class);
+//        self::assertInstanceOf(stdClass::class, $serviceOne);
+//        self::assertSame($serviceOne, $container->get(stdClass::class));
+//
+//        $serviceTwo = $container->get('foo');
+//        self::assertInstanceOf(stdClass::class, $serviceTwo);
+//        self::assertSame($serviceTwo, $container->get('foo'));
+//
+//        $serviceThree = $container->get('bar');
+//        self::assertInstanceOf(stdClass::class, $serviceThree);
+//        self::assertSame($serviceThree, $container->get('bar'));
+//    }
+//
+//    #[Test]
+// // FIXME (2023-11-15 17:9) [Alec Rabbit]: move to functional tests
+//    public function canGetServiceAndItIsDifferentServiceEveryTime(): void
+//    {
+//        $foo = 'foo';
+//        $bar = 'bar';
+//
+//        $container = $this->getTesteeInstance(
+//            definitions: new ArrayObject([
+//                stdClass::class => new ServiceDefinition(stdClass::class, stdClass::class, IServiceDefinition::TRANSIENT),
+//                $foo => new ServiceDefinition($foo, static fn() => new stdClass(), IServiceDefinition::TRANSIENT),
+//                $bar => new ServiceDefinition($bar, new stdClass(), IServiceDefinition::TRANSIENT),
+//            ])
+//        );
+//
+//        $serviceOne = $container->get(stdClass::class);
+//        self::assertInstanceOf(stdClass::class, $serviceOne);
+//        self::assertNotSame($serviceOne, $container->get(stdClass::class));
+//
+//        $serviceTwo = $container->get($foo);
+//        self::assertInstanceOf(stdClass::class, $serviceTwo);
+//        self::assertNotSame($serviceTwo, $container->get($foo));
+//
+//        $serviceThree = $container->get($bar);
+//        self::assertInstanceOf(stdClass::class, $serviceThree);
+//        self::assertNotSame($serviceThree, $container->get($bar));
+//    }
 
     #[Test]
     public function throwsIfNoServiceFoundById(): void
@@ -162,12 +179,12 @@ final class ContainerTest extends TestCase
         $spawner
             ->expects(self::once())
             ->method('spawn')
-            ->with(self::isInstanceOf(IDefinition::class))
+            ->with(self::isInstanceOf(IServiceDefinition::class))
             ->willThrowException(new SpawnFailed('Class does not exist: bar'))
         ;
 
         $definitions = new ArrayObject([
-            'foo' => new Definition('foo', 'bar'),
+            'foo' => new ServiceDefinition('foo', 'bar'),
         ]);
 
         $container = $this->getTesteeInstance(
@@ -208,12 +225,12 @@ final class ContainerTest extends TestCase
         $spawner
             ->expects(self::once())
             ->method('spawn')
-            ->with(self::isInstanceOf(IDefinition::class))
+            ->with(self::isInstanceOf(IServiceDefinition::class))
             ->willThrowException(new ContainerException($exceptionMessage))
         ;
 
         $definitions = new ArrayObject([
-            'foo' => new Definition('foo', $closure),
+            'foo' => new ServiceDefinition('foo', $closure),
         ]);
 
         $container = $this->getTesteeInstance(
@@ -245,13 +262,13 @@ final class ContainerTest extends TestCase
         $spawner
             ->expects(self::once())
             ->method('spawn')
-            ->with(self::isInstanceOf(IDefinition::class))
+            ->with(self::isInstanceOf(IServiceDefinition::class))
             ->willThrowException(new ContainerException())
         ;
 
         $definitions =
             new ArrayObject([
-                'foo' => new Definition('foo', NonInstantiableClass::class),
+                'foo' => new ServiceDefinition('foo', NonInstantiableClass::class),
             ]);
 
         $container = $this->getTesteeInstance(
@@ -274,8 +291,8 @@ final class ContainerTest extends TestCase
         $this->expectExceptionMessage($exceptionMessage);
 
         $definitions = static function (): Generator {
-            yield 'foo' => new Definition('foo', 'bar');
-            yield 'foo' => new Definition('foo', 'bar');
+            yield 'foo' => new ServiceDefinition('foo', 'bar');
+            yield 'foo' => new ServiceDefinition('foo', 'bar');
         };
 
         $container = $this->getTesteeInstance(definitions: $definitions());

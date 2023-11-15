@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Container\Factory;
 
 use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IServiceObjectFactory;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
@@ -27,11 +28,13 @@ final class ServiceSpawnerFactoryTest extends TestCase
     private function getTesteeInstance(
         ?IServiceSpawnerBuilder $spawnerBuilder = null,
         ?ICircularDependencyDetector $circularDependencyDetector = null,
+        ?IServiceObjectFactory $serviceObjectFactory = null,
     ): IServiceSpawnerFactory {
         return
             new ServiceSpawnerFactory(
                 spawnerBuilder: $spawnerBuilder ?? $this->getSpawnerBuilderMock(),
                 circularDependencyDetector: $circularDependencyDetector ?? $this->getCircularDependencyDetectorMock(),
+                serviceObjectFactory: $serviceObjectFactory ?? $this->getServiceObjectFactoryMock(),
             );
     }
 
@@ -50,6 +53,7 @@ final class ServiceSpawnerFactoryTest extends TestCase
     {
         $container = $this->getContainerMock();
         $dependencyDetector = $this->getCircularDependencyDetectorMock();
+        $serviceObjectFactory = $this->getServiceObjectFactoryMock();
         $serviceSpawner = $this->createMock(IServiceSpawner::class);
 
         $builder = $this->getSpawnerBuilderMock();
@@ -67,6 +71,12 @@ final class ServiceSpawnerFactoryTest extends TestCase
         ;
         $builder
             ->expects(self::once())
+            ->method('withServiceObjectFactory')
+            ->with($serviceObjectFactory)
+            ->willReturnSelf()
+        ;
+        $builder
+            ->expects(self::once())
             ->method('build')
             ->willReturn($serviceSpawner)
         ;
@@ -74,6 +84,7 @@ final class ServiceSpawnerFactoryTest extends TestCase
         $factory = $this->getTesteeInstance(
             spawnerBuilder: $builder,
             circularDependencyDetector: $dependencyDetector,
+            serviceObjectFactory: $serviceObjectFactory,
         );
         self::assertSame($serviceSpawner, $factory->create($container));
     }
@@ -81,5 +92,10 @@ final class ServiceSpawnerFactoryTest extends TestCase
     private function getContainerMock(): MockObject&IContainer
     {
         return $this->createMock(IContainer::class);
+    }
+
+    private function getServiceObjectFactoryMock(): MockObject&IServiceObjectFactory
+    {
+        return $this->createMock(IServiceObjectFactory::class);
     }
 }

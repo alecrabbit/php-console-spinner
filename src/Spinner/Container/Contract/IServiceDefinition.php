@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container\Contract;
 
-interface IDefinition
+interface IServiceDefinition
 {
     final public const SINGLETON = 0; // same instance every time, default
     final public const TRANSIENT = 1; // new instance every time
@@ -18,5 +18,5 @@ interface IDefinition
 
     public function getOptions(): int;
 
-    public function isSingleton(): bool;
+    public function isStorable(): bool;
 }

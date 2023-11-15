@@ -11,11 +11,11 @@ use ReflectionException;
 interface IServiceSpawner
 {
     /**
-     * @param IDefinition $serviceDefinition
+     * @param IServiceDefinition $serviceDefinition
      *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws ReflectionException
      */
-    public function spawn(IDefinition $serviceDefinition): object;
+    public function spawn(IServiceDefinition $serviceDefinition): IService;
 }

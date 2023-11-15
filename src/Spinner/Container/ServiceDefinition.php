@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container;
 
-use AlecRabbit\Spinner\Container\Contract\IDefinition;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Exception\InvalidDefinitionArgument;
 use AlecRabbit\Spinner\Container\Exception\InvalidOptionsArgument;
 
-final readonly class Definition implements IDefinition
+final readonly class ServiceDefinition implements IServiceDefinition
 {
     protected string $id;
     /** @var object|callable|class-string */
@@ -81,7 +81,7 @@ final readonly class Definition implements IDefinition
         return $this->options;
     }
 
-    public function isSingleton(): bool
+    public function isStorable(): bool
     {
         return self::SINGLETON === $this->options;
     }
