@@ -108,7 +108,7 @@ final class Driver extends ADriver
         }
     }
 
-    protected function doRemove(?ISpinner $spinner): void
+    protected function doRemove(ISpinner $spinner): void
     {
         $spinner->detach($this);
         $this->spinner = null;
