@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Config\Contract\Builder;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\INormalizerConfig;
 use AlecRabbit\Spinner\Exception\LogicException;
 

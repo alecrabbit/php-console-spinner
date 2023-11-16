@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
 Facade::getSettings()
     ->set(
-        new AuxSettings(
+        new GeneralSettings(
             runMethodOption: RunMethodOption::SYNCHRONOUS,
         ),
     )
