@@ -15,15 +15,6 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class FacadeTest extends ContainerModifyingTestCase
 {
-
-//    #[Test]
-//    public function canNotBeInstantiated(): void
-//    {
-//        $this->expectException(\Error::class);
-//        $this->expectExceptionMessage('Call to private AlecRabbit\Spinner\Facade::__construct()');
-//        $facade = new Facade();
-//    }
-
     #[Test]
     public function canGetSettings(): void
     {

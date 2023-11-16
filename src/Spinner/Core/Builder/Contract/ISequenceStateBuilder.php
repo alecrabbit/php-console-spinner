@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
+use AlecRabbit\Spinner\Exception\LogicException;
 
-// TODO (2023-11-16 12:53) [Alec Rabbit]: add implementation and use in Driver
 interface ISequenceStateBuilder
 {
     public function withSequence(string $sequence): ISequenceStateBuilder;
@@ -15,5 +15,8 @@ interface ISequenceStateBuilder
 
     public function withPreviousWidth(int $previousWidth): ISequenceStateBuilder;
 
+    /**
+     * @throws LogicException
+     */
     public function build(): ISequenceState;
 }
