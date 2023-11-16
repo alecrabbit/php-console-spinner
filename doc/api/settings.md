@@ -46,21 +46,23 @@ $rootWidgetSettings =
         stylePalette: null, // defaults to: new Rainbow() 
         charPalette: null, // defaults to: new Snake() 
     );
-    
-// General settings (Changes have no effect after configuration creation)
+        
+// Changes have no effect after configuration is created:
+
+// General settings 
 $generalSettings = 
     new GeneralSettings(
         runMethodOption: RunMethodOption::AUTO, 
     );
 
-// Loop settings (Changes have no effect after configuration creation)
+// Loop settings 
 $loopSettings = 
     new LoopSettings(
         autoStartOption: AutoStartOption::AUTO,
         signalHandlingOption: SignalHandlingOption::AUTO,
     );
 
-// Signal handling settings (Changes have no effect after configuration creation)
+// Signal handling settings 
 $onInterrupt = 
     new SignalHandlerCreator(
         signal: SIGINT, // requires pcntl-ext
@@ -81,7 +83,7 @@ $signalHandlerSettings =
         $onInterrupt,
     );
 
-// Output settings (Changes have no effect after configuration creation)
+// Output settings 
 $outputSettings = 
     new OutputSettings(
         stylingMethodOption: StylingMethodOption::AUTO, 
@@ -90,15 +92,13 @@ $outputSettings =
         stream: null, // defaults to: STDERR
     );
 
-// # NEW FEATURE: $outputSettings? ClearScreenOption(ClearScreenOption::AUTO);
-
-// Linker settings (Changes have no effect after configuration creation)
+// Linker settings 
 $linkerSettings = 
     new LinkerSettings(
         linkerOption: LinkerOption::AUTO, 
     );
 
-// Driver settings (Changes have no effect after configuration creation)
+// Driver settings 
 $driverSettings = 
     new DriverSettings(
         messages: new Messages(
