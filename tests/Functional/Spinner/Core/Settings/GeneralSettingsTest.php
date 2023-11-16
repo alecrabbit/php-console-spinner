@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
-use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 

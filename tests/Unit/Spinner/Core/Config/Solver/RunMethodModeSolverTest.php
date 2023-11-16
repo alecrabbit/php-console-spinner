@@ -198,8 +198,8 @@ final class RunMethodModeSolverTest extends TestCase
         }
     }
 
-    protected function getGeneralSettingsMock(?RunMethodOption $runMethodOption = null): (MockObject&IGeneralSettings)|null
-    {
+    protected function getGeneralSettingsMock(?RunMethodOption $runMethodOption = null
+    ): (MockObject&IGeneralSettings)|null {
         return
             $runMethodOption === null
                 ? null :

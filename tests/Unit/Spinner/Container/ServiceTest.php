@@ -4,25 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
-use AlecRabbit\Spinner\Container\Container;
-use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IService;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
-use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
-use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
-use AlecRabbit\Spinner\Container\Exception\ContainerException;
-use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Spinner\Container\Service;
-use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Tests\TestCase\TestCase;
-use AlecRabbit\Tests\Unit\Spinner\Container\Override\NonInstantiableClass;
-use ArrayObject;
-use Generator;
-use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
-use Traversable;
 
 final class ServiceTest extends TestCase
 {

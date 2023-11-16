@@ -6,9 +6,9 @@ namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
-use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Container\Exception\InvalidDefinitionArgument;
 use AlecRabbit\Spinner\Container\Exception\InvalidOptionsArgument;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;

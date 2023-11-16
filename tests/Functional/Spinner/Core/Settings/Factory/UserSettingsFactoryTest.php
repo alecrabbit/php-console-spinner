@@ -41,14 +41,14 @@ final class UserSettingsFactoryTest extends TestCase
 
         self::assertInstanceOf(Settings::class, $settings);
 
-        $auxSettings = $settings->get(IGeneralSettings::class);
+        $generalSettings = $settings->get(IGeneralSettings::class);
         $linkerSettings = $settings->get(ILinkerSettings::class);
         $loopSettings = $settings->get(ILoopSettings::class);
         $outputSettings = $settings->get(IOutputSettings::class);
         $widgetSettings = $settings->get(IWidgetSettings::class);
         $rootWidgetSettings = $settings->get(IRootWidgetSettings::class);
 
-        self::assertNull($auxSettings);
+        self::assertNull($generalSettings);
         self::assertNull($linkerSettings);
         self::assertNull($loopSettings);
         self::assertNull($outputSettings);

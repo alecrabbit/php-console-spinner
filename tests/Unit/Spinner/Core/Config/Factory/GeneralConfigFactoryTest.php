@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IGeneralConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IGeneralConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\GeneralConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

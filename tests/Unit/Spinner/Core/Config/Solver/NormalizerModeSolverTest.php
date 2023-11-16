@@ -232,8 +232,8 @@ final class NormalizerModeSolverTest extends TestCase
         }
     }
 
-    protected function getNormalizerSettingsMock(?NormalizerOption $normalizerOption = null): (MockObject&INormalizerSettings)|null
-    {
+    protected function getNormalizerSettingsMock(?NormalizerOption $normalizerOption = null
+    ): (MockObject&INormalizerSettings)|null {
         return
             $normalizerOption === null
                 ? null :

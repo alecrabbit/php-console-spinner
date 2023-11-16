@@ -41,16 +41,16 @@ final class SettingsTest extends TestCase
     {
         $settings = $this->getTesteeInstance();
 
-        $auxSettings = $this->getGeneralSettingsMock();
-        $auxSettings
+        $generalSettings = $this->getGeneralSettingsMock();
+        $generalSettings
             ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IGeneralSettings::class)
         ;
 
-        $settings->set($auxSettings);
+        $settings->set($generalSettings);
 
-        self::assertSame($auxSettings, $settings->get(IGeneralSettings::class));
+        self::assertSame($generalSettings, $settings->get(IGeneralSettings::class));
     }
 
     protected function getGeneralSettingsMock(): MockObject&IGeneralSettings

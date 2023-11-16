@@ -37,17 +37,6 @@ final class NormalizerConfigFactoryTest extends TestCase
             );
     }
 
-    protected function getRunMethodModeSolverMock(?RunMethodMode $runMethodMode = null
-    ): MockObject&IRunMethodModeSolver {
-        return
-            $this->createConfiguredMock(
-                IRunMethodModeSolver::class,
-                [
-                    'solve' => $runMethodMode ?? RunMethodMode::SYNCHRONOUS,
-                ]
-            );
-    }
-
     protected function getNormalizerModeSolverMock(?NormalizerMode $normalizerMode = null
     ): MockObject&INormalizerModeSolver {
         return
@@ -108,6 +97,17 @@ final class NormalizerConfigFactoryTest extends TestCase
                 INormalizerConfig::class,
                 [
                     'getNormalizerMode' => $normalizerMode,
+                ]
+            );
+    }
+
+    protected function getRunMethodModeSolverMock(?RunMethodMode $runMethodMode = null
+    ): MockObject&IRunMethodModeSolver {
+        return
+            $this->createConfiguredMock(
+                IRunMethodModeSolver::class,
+                [
+                    'solve' => $runMethodMode ?? RunMethodMode::SYNCHRONOUS,
                 ]
             );
     }

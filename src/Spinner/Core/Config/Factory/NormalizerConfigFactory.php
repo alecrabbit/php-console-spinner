@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\Builder\INormalizerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\INormalizerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\INormalizerConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 
 final readonly class NormalizerConfigFactory implements INormalizerConfigFactory
 {

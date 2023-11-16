@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ContainerModifyingTestCase;
 use PHPUnit\Framework\Attributes\Test;

@@ -48,6 +48,11 @@ final class ServiceSpawnerFactoryTest extends TestCase
         return $this->createMock(ICircularDependencyDetector::class);
     }
 
+    private function getServiceObjectFactoryMock(): MockObject&IServiceObjectFactory
+    {
+        return $this->createMock(IServiceObjectFactory::class);
+    }
+
     #[Test]
     public function canCreate(): void
     {
@@ -92,10 +97,5 @@ final class ServiceSpawnerFactoryTest extends TestCase
     private function getContainerMock(): MockObject&IContainer
     {
         return $this->createMock(IContainer::class);
-    }
-
-    private function getServiceObjectFactoryMock(): MockObject&IServiceObjectFactory
-    {
-        return $this->createMock(IServiceObjectFactory::class);
     }
 }
