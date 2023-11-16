@@ -29,7 +29,7 @@ class TestCaseForDriver extends TestCase
         ?IObserver $observer = null,
     ): IDriver {
         return new Driver(
-            output: $stateWriter ?? $this->getSequenceStateWriterMock(),
+            stateWriter: $stateWriter ?? $this->getSequenceStateWriterMock(),
             stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
             deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),

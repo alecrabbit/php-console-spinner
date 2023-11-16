@@ -62,7 +62,7 @@ final class DriverBuilder implements IDriverBuilder
 
         return
             new Driver(
-                output: $this->sequenceStateWriter,
+                stateWriter: $this->sequenceStateWriter,
                 stateBuilder: $this->sequenceStateBuilder,
                 deltaTimer: $this->deltaTimer,
                 initialInterval: $this->initialInterval,

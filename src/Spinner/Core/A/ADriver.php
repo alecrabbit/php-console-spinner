@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\A;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
@@ -24,6 +25,7 @@ abstract class ADriver extends ASubject implements IDriver
         protected readonly IDeltaTimer $deltaTimer,
         protected readonly IInterval $initialInterval,
         protected readonly ISequenceStateWriter $stateWriter,
+        protected readonly ISequenceStateBuilder $stateBuilder,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);

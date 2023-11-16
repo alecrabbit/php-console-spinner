@@ -11,9 +11,9 @@ use AlecRabbit\Spinner\Exception\NotImplemented;
 final readonly class SequenceState implements ISequenceState
 {
     public function __construct(
-        protected string $sequence = '',
-        protected int $width = 0,
-        protected int $previousWidth = 0,
+        protected string $sequence,
+        protected int $width,
+        protected int $previousWidth,
     ) {
     }
 
@@ -30,10 +30,5 @@ final readonly class SequenceState implements ISequenceState
     public function getPreviousWidth(): int
     {
         return $this->previousWidth;
-    }
-
-    public function getPosition(): IPoint
-    {
-        throw new NotImplemented('Not implemented in this package.');
     }
 }

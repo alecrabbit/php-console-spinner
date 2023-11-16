@@ -94,9 +94,15 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                     private readonly ISequenceState $state,
                     ?IObserver $observer = null,
                 ) {
-                    parent::__construct($driverConfig, $deltaTimer, $initialInterval, $stateWriter, $observer);
+                    parent::__construct(
+                        $driverConfig,
+                        $deltaTimer,
+                        $initialInterval,
+                        $stateWriter,
+                        $stateBuilder,
+                        $observer
+                    );
                 }
-
 
                 protected function erase(): void
                 {
@@ -129,7 +135,4 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                 }
             };
     }
-
-
-
 }

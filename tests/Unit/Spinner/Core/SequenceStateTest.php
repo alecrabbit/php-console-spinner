@@ -50,15 +50,4 @@ final class SequenceStateTest extends TestCase
         self::assertEquals($width, $spinnerState->getWidth());
         self::assertEquals($previousWidth, $spinnerState->getPreviousWidth());
     }
-
-    #[Test]
-    public function throwsIfGetPositionIsCalled(): void
-    {
-        $this->expectException(NotImplemented::class);
-        $this->expectExceptionMessage('Not implemented in this package.');
-
-        $spinnerState = $this->getTesteeInstance();
-
-        $spinnerState->getPosition();
-    }
 }

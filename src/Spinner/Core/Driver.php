@@ -21,7 +21,7 @@ final class Driver extends ADriver
     protected ISequenceState $state;
 
     public function __construct(
-        ISequenceStateWriter $output,
+        ISequenceStateWriter $stateWriter,
         ISequenceStateBuilder $stateBuilder,
         IDeltaTimer $deltaTimer,
         IInterval $initialInterval,
@@ -29,20 +29,26 @@ final class Driver extends ADriver
         ?IObserver $observer = null
     ) {
         parent::__construct(
-            $driverConfig,
-            $deltaTimer,
-            $initialInterval,
-            $output,
-            $observer
+            driverConfig: $driverConfig,
+            deltaTimer: $deltaTimer,
+            initialInterval: $initialInterval,
+            stateWriter: $stateWriter,
+            stateBuilder: $stateBuilder,
+            observer: $observer,
         );
 
         $this->state = $this->initialState();
     }
 
-    protected function initialState(): SequenceState
+    protected function initialState(): ISequenceState
     {
         return
-            new SequenceState();
+            $this->stateBuilder
+                ->withSequence('')
+                ->withWidth(0)
+                ->withPreviousWidth(0)
+                ->build()
+        ;
     }
 
     /** @inheritDoc */
@@ -57,11 +63,12 @@ final class Driver extends ADriver
         $frame = $spinner->getFrame();
 
         $this->state =
-            new SequenceState(
-                sequence: $frame->sequence(),
-                width: $frame->width(),
-                previousWidth: 0
-            );
+            $this->stateBuilder
+                ->withSequence($frame->sequence())
+                ->withWidth($frame->width())
+                ->withPreviousWidth(0)
+                ->build()
+        ;
 
         $this->spinner = $spinner;
         $spinner->attach($this);
@@ -116,14 +123,17 @@ final class Driver extends ADriver
     {
         if ($this->spinner) {
             $frame =
-                $this->spinner->getFrame($dt ?? $this->deltaTimer->getDelta());
+                $this->spinner->getFrame(
+                    $dt ?? $this->deltaTimer->getDelta()
+                );
 
             $this->state =
-                new SequenceState(
-                    sequence: $frame->sequence(),
-                    width: $frame->width(),
-                    previousWidth: $this->state->getWidth()
-                );
+                $this->stateBuilder
+                    ->withSequence($frame->sequence())
+                    ->withWidth($frame->width())
+                    ->withPreviousWidth($this->state->getWidth())
+                    ->build()
+            ;
 
             $this->stateWriter->write($this->state);
         }
