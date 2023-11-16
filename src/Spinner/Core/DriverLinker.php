@@ -50,14 +50,11 @@ final class DriverLinker implements IDriverLinker
     {
         if ($this->renderTimer) {
             $this->loop->cancel($this->renderTimer);
-            $this->renderTimer = null;
         }
-
-        $interval = $driver->getInterval()->toSeconds();
 
         $this->renderTimer =
             $this->loop->repeat(
-                $interval,
+                $driver->getInterval()->toSeconds(),
                 static fn() => $driver->render(),
             );
     }

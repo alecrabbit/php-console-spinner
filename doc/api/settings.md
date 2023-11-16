@@ -6,7 +6,8 @@ Settings are used to configure the package. Here is the list of available settin
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
+use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
@@ -17,21 +18,26 @@ use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 
 //...
 
-// Aux settings
-$auxSettings = 
-    new AuxSettings(
+// General settings (Changes have no effect after configuration creation)
+$generalSettings = 
+    new GeneralSettings(
         runMethodOption: RunMethodOption::AUTO, 
+    );
+    
+// Normalizer settings
+$normalizerSettings = 
+    new NormalizerSettings(
         normalizerOption: NormalizerOption::AUTO, 
     );
 
-// Loop settings
+// Loop settings (Changes have no effect after configuration creation)
 $loopSettings = 
     new LoopSettings(
         autoStartOption: AutoStartOption::AUTO,
         signalHandlingOption: SignalHandlingOption::AUTO,
     );
 
-// Signal handling settings
+// Signal handling settings (Changes have no effect after configuration creation)
 $onInterrupt = 
     new SignalHandlerCreator(
         signal: SIGINT, // requires pcntl-ext
@@ -52,7 +58,7 @@ $signalHandlerSettings =
         $onInterrupt,
     );
 
-// Output settings
+// Output settings (Changes have no effect after configuration creation)
 $outputSettings = 
     new OutputSettings(
         stylingMethodOption: StylingMethodOption::AUTO, 
@@ -63,13 +69,13 @@ $outputSettings =
 
 // # NEW FEATURE: $outputSettings? ClearScreenOption(ClearScreenOption::AUTO);
 
-// Linker settings
+// Linker settings (Changes have no effect after configuration creation)
 $linkerSettings = 
     new LinkerSettings(
         linkerOption: LinkerOption::AUTO, 
     );
 
-// Driver settings
+// Driver settings (Changes have no effect after configuration creation)
 $driverSettings = 
     new DriverSettings(
         messages: new Messages(
@@ -108,7 +114,8 @@ $rootWidgetSettings =
 $settings = Facade::getSettings();
 
 $settings->set(
-    $auxSettings,
+    $generalSettings,
+    $normalizerSettings,
     $driverSettings,
     $loopSettings,
     $outputSettings,
@@ -122,5 +129,5 @@ $settings->set(
 
 ```php
 // to get settings
-$settings->get(IAuxSettings::class); // returns AuxSettings object or null
+$settings->get(IGeneralSettings::class); // returns GeneralSettings object or null
 ```
