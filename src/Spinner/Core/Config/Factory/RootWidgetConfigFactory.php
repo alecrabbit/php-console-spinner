@@ -6,116 +6,69 @@ namespace AlecRabbit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Config\RevolverConfig;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRootWidgetSettingsSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
-use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Exception\DomainException;
 
 final readonly class RootWidgetConfigFactory implements IRootWidgetConfigFactory
 {
     public function __construct(
-        protected IRootWidgetSettingsSolver $rootWidgetSettingsSolver,
-        protected IWidgetSettingsSolver $widgetSettingsSolver,
+        protected IRootWidgetConfig $rootWidgetConfig,
     ) {
     }
 
     public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IRootWidgetConfig
     {
-        if ($widgetSettings !== null) {
-            self::throwException($widgetSettings);
+        if ($widgetSettings === null) {
+            return $this->rootWidgetConfig;
         }
 
-        $rootWidgetSettings = $this->rootWidgetSettingsSolver->solve();
-        $widgetSettings = $this->widgetSettingsSolver->solve();
+        if ($widgetSettings instanceof IWidgetConfig) {
+            return
+                new RootWidgetConfig(
+                    leadingSpacer: $widgetSettings->getLeadingSpacer(),
+                    trailingSpacer: $widgetSettings->getTrailingSpacer(),
+                    revolverConfig: $widgetSettings->getWidgetRevolverConfig(),
+                );
+        }
 
         return
             new RootWidgetConfig(
-                leadingSpacer: $this->getLeadingSpacer($rootWidgetSettings, $widgetSettings),
-                trailingSpacer: $this->getTrailingSpacer($rootWidgetSettings, $widgetSettings),
-                revolverConfig: $this->getWidgetRevolverConfig($rootWidgetSettings, $widgetSettings),
+                leadingSpacer: $this->getLeadingSpacer($widgetSettings),
+                trailingSpacer: $this->getTrailingSpacer($widgetSettings),
+                revolverConfig: $this->getWidgetRevolverConfig($widgetSettings),
             );
     }
 
-    private static function throwException(IWidgetConfig|IWidgetSettings|null $widgetSettings): void
-    {
-        match (true) {
-            $widgetSettings instanceof IWidgetSettings => throw new DomainException('Widget settings is not expected.'),
-            $widgetSettings instanceof IWidgetConfig => throw new DomainException('Widget config is not expected.'),
-            default => null,
-        };
-    }
 
-    protected function getLeadingSpacer(
-        IRootWidgetSettings $rootWidgetSettings,
-        IWidgetSettings $widgetSettings
-    ): IFrame {
+    protected function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
+    {
         return
-            $rootWidgetSettings->getLeadingSpacer()
-            ??
             $widgetSettings->getLeadingSpacer()
             ??
-            throw new DomainException('Leading spacer expected to be set.');
+            $this->rootWidgetConfig->getLeadingSpacer();
     }
 
-    protected function getTrailingSpacer(
-        IRootWidgetSettings $rootWidgetSettings,
-        IWidgetSettings $widgetSettings
-    ): IFrame {
+    protected function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
+    {
         return
-            $rootWidgetSettings->getTrailingSpacer()
-            ??
             $widgetSettings->getTrailingSpacer()
             ??
-            throw new DomainException('Trailing spacer expected to be set.');
+            $this->rootWidgetConfig->getTrailingSpacer();
     }
 
-    private function getWidgetRevolverConfig(
-        IRootWidgetSettings $rootWidgetSettings,
-        IWidgetSettings $widgetSettings
-    ): IWidgetRevolverConfig {
+    private function getWidgetRevolverConfig(IWidgetSettings $widgetSettings): IWidgetRevolverConfig
+    {
+        $wRConfig = $this->rootWidgetConfig->getWidgetRevolverConfig();
+
         return
             new WidgetRevolverConfig(
-                stylePalette: $this->getStylePalette($rootWidgetSettings, $widgetSettings),
-                charPalette: $this->getCharPalette($rootWidgetSettings, $widgetSettings),
-                revolverConfig: $this->getRevolverConfig(),
+                stylePalette: $widgetSettings->getStylePalette() ?? $wRConfig->getStylePalette(),
+                charPalette: $widgetSettings->getCharPalette() ?? $wRConfig->getCharPalette(),
+                revolverConfig: $wRConfig->getRevolverConfig(),
             );
-    }
-
-    protected function getStylePalette(
-        IRootWidgetSettings $rootWidgetSettings,
-        IWidgetSettings $widgetSettings
-    ): IPalette {
-        return
-            $rootWidgetSettings->getStylePalette()
-            ??
-            $widgetSettings->getStylePalette()
-            ??
-            throw new DomainException('Style palette expected to be set.');
-    }
-
-    protected function getCharPalette(
-        IRootWidgetSettings $rootWidgetSettings,
-        IWidgetSettings $widgetSettings
-    ): IPalette {
-        return
-            $rootWidgetSettings->getCharPalette()
-            ??
-            $widgetSettings->getCharPalette()
-            ??
-            throw new DomainException('Char palette expected to be set.');
-    }
-
-    protected function getRevolverConfig(): IRevolverConfig
-    {
-        return new RevolverConfig();
     }
 }

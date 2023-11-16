@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
-interface IRootWidgetConfigFactory extends IInitialRootWidgetConfigFactory
+interface IInitialRootWidgetConfigFactory extends IInitialWidgetConfigFactory
 {
-    public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IRootWidgetConfig;
+    public function create(): IRootWidgetConfig;
 }

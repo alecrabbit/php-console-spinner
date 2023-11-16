@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
@@ -31,7 +31,7 @@ final class SpinnerFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IWidgetFactory $widgetFactory = null,
-        ?IRuntimeRootWidgetConfigFactory $widgetConfigFactory = null,
+        ?IRootWidgetConfigFactory $widgetConfigFactory = null,
     ): ISpinnerFactory {
         return
             new SpinnerFactory(
@@ -45,9 +45,9 @@ final class SpinnerFactoryTest extends TestCase
         return $this->createMock(IWidgetFactory::class);
     }
 
-    protected function getWidgetConfigFactoryMock(): MockObject&IRuntimeRootWidgetConfigFactory
+    protected function getWidgetConfigFactoryMock(): MockObject&IRootWidgetConfigFactory
     {
-        return $this->createMock(IRuntimeRootWidgetConfigFactory::class);
+        return $this->createMock(IRootWidgetConfigFactory::class);
     }
 
     #[Test]

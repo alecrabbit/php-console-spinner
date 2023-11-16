@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Config\Factory\RuntimeWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
@@ -25,14 +25,14 @@ final class RuntimeWidgetConfigFactoryTest extends TestCase
     {
         $factory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(RuntimeWidgetConfigFactory::class, $factory);
+        self::assertInstanceOf(WidgetConfigFactory::class, $factory);
     }
 
     public function getTesteeInstance(
         ?IWidgetConfig $widgetConfig = null,
-    ): IWidgetConfigFactory {
+    ): IInitialWidgetConfigFactory {
         return
-            new RuntimeWidgetConfigFactory(
+            new WidgetConfigFactory(
                 widgetConfig: $widgetConfig ?? $this->getWidgetConfigMock(),
             );
     }

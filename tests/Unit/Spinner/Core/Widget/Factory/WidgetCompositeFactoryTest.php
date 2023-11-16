@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
@@ -30,7 +30,7 @@ final class WidgetCompositeFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IRuntimeWidgetConfigFactory $widgetConfigFactory = null,
+        ?IWidgetConfigFactory $widgetConfigFactory = null,
         ?IWidgetCompositeBuilder $widgetBuilder = null,
         ?IWidgetRevolverFactory $widgetRevolverFactory = null,
     ): IWidgetCompositeFactory {
@@ -42,9 +42,9 @@ final class WidgetCompositeFactoryTest extends TestCase
             );
     }
 
-    protected function getWidgetConfigFactoryMock(): MockObject&IRuntimeWidgetConfigFactory
+    protected function getWidgetConfigFactoryMock(): MockObject&IWidgetConfigFactory
     {
-        return $this->createMock(IRuntimeWidgetConfigFactory::class);
+        return $this->createMock(IWidgetConfigFactory::class);
     }
 
     protected function getWidgetCompositeBuilderMock(): MockObject&IWidgetCompositeBuilder
