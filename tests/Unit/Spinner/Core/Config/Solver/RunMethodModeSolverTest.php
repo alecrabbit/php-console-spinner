@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
@@ -141,32 +141,32 @@ final class RunMethodModeSolverTest extends TestCase
             $defaultRunMethodOption
         ] = $args;
 
-        $userAuxSettings = $this->getAuxSettingsMock($userRunMethodOption);
-        $detectedAuxSettings = $this->getAuxSettingsMock($detectedRunMethodOption);
-        $defaultAuxSettings = $this->getAuxSettingsMock($defaultRunMethodOption);
+        $userGeneralSettings = $this->getGeneralSettingsMock($userRunMethodOption);
+        $detectedGeneralSettings = $this->getGeneralSettingsMock($detectedRunMethodOption);
+        $defaultGeneralSettings = $this->getGeneralSettingsMock($defaultRunMethodOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IAuxSettings::class))
-            ->willReturn($userAuxSettings)
+            ->with(self::identicalTo(IGeneralSettings::class))
+            ->willReturn($userGeneralSettings)
         ;
 
         $detectedSettings = $this->getSettingsMock();
         $detectedSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IAuxSettings::class))
-            ->willReturn($detectedAuxSettings)
+            ->with(self::identicalTo(IGeneralSettings::class))
+            ->willReturn($detectedGeneralSettings)
         ;
 
         $defaultSettings = $this->getSettingsMock();
         $defaultSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IAuxSettings::class))
-            ->willReturn($defaultAuxSettings)
+            ->with(self::identicalTo(IGeneralSettings::class))
+            ->willReturn($defaultGeneralSettings)
         ;
 
         $settingsProvider = $this->getSettingsProviderMock();
@@ -198,13 +198,13 @@ final class RunMethodModeSolverTest extends TestCase
         }
     }
 
-    protected function getAuxSettingsMock(?RunMethodOption $runMethodOption = null): (MockObject&IAuxSettings)|null
+    protected function getGeneralSettingsMock(?RunMethodOption $runMethodOption = null): (MockObject&IGeneralSettings)|null
     {
         return
             $runMethodOption === null
                 ? null :
                 $this->createConfiguredMock(
-                    IAuxSettings::class,
+                    IGeneralSettings::class,
                     [
                         'getRunMethodOption' => $runMethodOption,
                     ]

@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 /**
+ * @deprecated
  * @psalm-suppress PossiblyNullArgument
  */
 final class AuxConfigBuilder implements IAuxConfigBuilder

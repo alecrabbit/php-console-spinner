@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Functional\Spinner\Complex\Config;
 
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
@@ -33,7 +33,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
                             {
                                 return new Settings(
                                     new ArrayObject([
-                                        new AuxSettings(
+                                        new GeneralSettings(
                                             runMethodOption: RunMethodOption::ASYNC,
                                         )
                                     ])
@@ -50,7 +50,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
     {
         Facade::getSettings()
             ->set(
-                new AuxSettings(
+                new GeneralSettings(
                     runMethodOption: RunMethodOption::SYNCHRONOUS,
                 ),
             )
@@ -84,7 +84,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
     {
         Facade::getSettings()
             ->set(
-                new AuxSettings(
+                new GeneralSettings(
                     runMethodOption: RunMethodOption::SYNCHRONOUS,
                 ),
             )
@@ -114,7 +114,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
     {
         Facade::getSettings()
             ->set(
-                new AuxSettings(
+                new GeneralSettings(
                     runMethodOption: RunMethodOption::SYNCHRONOUS,
                 ),
             )

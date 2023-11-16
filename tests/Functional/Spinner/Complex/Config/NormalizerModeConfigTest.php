@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Functional\Spinner\Complex\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Config\Contract\INormalizerConfig;
+use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
@@ -43,16 +43,16 @@ final class NormalizerModeConfigTest extends ConfigurationTestCase
     {
         Facade::getSettings()
             ->set(
-                new AuxSettings(
+                new NormalizerSettings(
                     normalizerOption: NormalizerOption::STILL,
                 ),
             )
         ;
 
-        /** @var IAuxConfig $auxConfig */
-        $auxConfig = self::getRequiredConfig(IAuxConfig::class);
+        /** @var INormalizerConfig $normalizerConfig */
+        $normalizerConfig = self::getRequiredConfig(INormalizerConfig::class);
 
-        self::assertSame(NormalizerMode::STILL, $auxConfig->getNormalizerMode());
+        self::assertSame(NormalizerMode::STILL, $normalizerConfig->getNormalizerMode());
     }
 
     #[Test]
@@ -60,16 +60,16 @@ final class NormalizerModeConfigTest extends ConfigurationTestCase
     {
         Facade::getSettings()
             ->set(
-                new AuxSettings(
+                new NormalizerSettings(
                     normalizerOption: NormalizerOption::SMOOTH,
                 ),
             )
         ;
 
-        /** @var IAuxConfig $auxConfig */
-        $auxConfig = self::getRequiredConfig(IAuxConfig::class);
+        /** @var INormalizerConfig $normalizerConfig */
+        $normalizerConfig = self::getRequiredConfig(INormalizerConfig::class);
 
-        self::assertSame(NormalizerMode::SMOOTH, $auxConfig->getNormalizerMode());
+        self::assertSame(NormalizerMode::SMOOTH, $normalizerConfig->getNormalizerMode());
     }
 
     #[Test]
@@ -77,16 +77,16 @@ final class NormalizerModeConfigTest extends ConfigurationTestCase
     {
         Facade::getSettings()
             ->set(
-                new AuxSettings(
+                new NormalizerSettings(
                     normalizerOption: NormalizerOption::BALANCED,
                 ),
             )
         ;
 
-        /** @var IAuxConfig $auxConfig */
-        $auxConfig = self::getRequiredConfig(IAuxConfig::class);
+        /** @var INormalizerConfig $normalizerConfig */
+        $normalizerConfig = self::getRequiredConfig(INormalizerConfig::class);
 
-        self::assertSame(NormalizerMode::BALANCED, $auxConfig->getNormalizerMode());
+        self::assertSame(NormalizerMode::BALANCED, $normalizerConfig->getNormalizerMode());
     }
 
     #[Test]
@@ -94,15 +94,15 @@ final class NormalizerModeConfigTest extends ConfigurationTestCase
     {
         Facade::getSettings()
             ->set(
-                new AuxSettings(
+                new NormalizerSettings(
                     normalizerOption: NormalizerOption::PERFORMANCE,
                 ),
             )
         ;
 
-        /** @var IAuxConfig $auxConfig */
-        $auxConfig = self::getRequiredConfig(IAuxConfig::class);
+        /** @var INormalizerConfig $normalizerConfig */
+        $normalizerConfig = self::getRequiredConfig(INormalizerConfig::class);
 
-        self::assertSame(NormalizerMode::PERFORMANCE, $auxConfig->getNormalizerMode());
+        self::assertSame(NormalizerMode::PERFORMANCE, $normalizerConfig->getNormalizerMode());
     }
 }
