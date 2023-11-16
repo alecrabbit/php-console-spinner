@@ -34,7 +34,13 @@ foreach (getDefinitions() as $id => $definition) {
      * @var string $id
      * @var callable|object|class-string $definition
      */
-    $registry->bind(new ServiceDefinition($id, $definition));
+    $registry->bind(
+        new ServiceDefinition(
+            $id,
+            $definition,
+            IServiceDefinition::TRANSIENT
+        )
+    );
 }
 
 $container = (new ContainerFactory($registry))->create();

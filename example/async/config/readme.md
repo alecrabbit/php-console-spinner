@@ -1,6 +1,6 @@
 !!! ATTENTION !!!
 
-You can change settings BEFORE creating a configuration.
+after configuration is created NOT all settings changes take effect  
 
 Configuration is created once with first call
 of:

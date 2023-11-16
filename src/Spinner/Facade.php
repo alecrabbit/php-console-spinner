@@ -13,13 +13,9 @@ use AlecRabbit\Spinner\Exception\DomainException;
 
 final class Facade extends AFacade
 {
-    private static bool $configurationCreated = false;
-
     /** @inheritDoc */
     public static function getLoop(): ILoop
     {
-        self::initialize();
-
         $loopProvider = self::getLoopProvider();
 
         return
@@ -28,15 +24,8 @@ final class Facade extends AFacade
                 : throw new DomainException('Loop is unavailable.');
     }
 
-    private static function initialize(): void
-    {
-        self::$configurationCreated = true;
-    }
-
     public static function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner
     {
-        self::initialize();
-
         $spinner =
             self::getSpinnerFactory()
                 ->create($spinnerSettings)
@@ -53,8 +42,6 @@ final class Facade extends AFacade
 
     public static function getDriver(): IDriver
     {
-        self::initialize();
-
         return
             self::getDriverProvider()
                 ->getDriver()
@@ -64,24 +51,9 @@ final class Facade extends AFacade
     /** @inheritDoc */
     public static function getSettings(): ISettings
     {
-//        self::assertNotInitialized();
-
         return
             self::getSettingsProvider()
                 ->getUserSettings()
         ;
     }
-
-    /**
-     * @throws DomainException
-     */
-    protected static function assertNotInitialized(): void
-    {
-        if (self::$configurationCreated) {
-            throw new DomainException(
-                'Settings can not be changed. Configuration is already created.'
-            );
-        }
-    }
-
 }

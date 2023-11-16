@@ -189,6 +189,57 @@ use function hrtime;
 function getDefinitions(): Traversable
 {
     yield from [
+        new ServiceDefinition(
+            IBuffer::class,
+            StringBuffer::class,
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            IBufferedOutput::class,
+            BufferedOutput::class,
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            IWritableStream::class,
+            static function (IContainer $container): IWritableStream {
+                return
+                    $container->get(IResourceStreamFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            ISettingsProvider::class,
+            static function (IContainer $container): ISettingsProvider {
+                return $container->get(ISettingsProviderFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            ILoopProvider::class,
+            static function (IContainer $container): ILoopProvider {
+                return $container->get(ILoopProviderFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            IDriverProvider::class,
+            static function (IContainer $container): IDriverProvider {
+                return $container->get(IDriverProviderFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            IDriverLinker::class,
+            static function (IContainer $container): IDriverLinker {
+                return $container->get(IDriverLinkerFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
+
+        NormalizerMode::class => static function (IContainer $container): NormalizerMode {
+            return
+                $container->get(IAuxConfig::class)->getNormalizerMode();
+        },
         INowTimer::class => new class implements INowTimer {
             public function now(): float
             {
@@ -198,33 +249,11 @@ function getDefinitions(): Traversable
         },
 
         IOutput::class => Output::class,
-        IBuffer::class => StringBuffer::class,
-        IBufferedOutput::class => BufferedOutput::class,
-        IWritableStream::class => static function (IContainer $container): IWritableStream {
-            return
-                $container->get(IResourceStreamFactory::class)->create();
-        },
-        NormalizerMode::class => static function (IContainer $container): NormalizerMode {
-            return
-                $container->get(IAuxConfig::class)->getNormalizerMode();
-        },
-        ISettingsProvider::class => static function (IContainer $container): ISettingsProvider {
-            return $container->get(ISettingsProviderFactory::class)->create();
-        },
-        ILoopProvider::class => static function (IContainer $container): ILoopProvider {
-            return $container->get(ILoopProviderFactory::class)->create();
-        },
-        IDriverProvider::class => static function (IContainer $container): IDriverProvider {
-            return $container->get(IDriverProviderFactory::class)->create();
-        },
-
         IDriverSetup::class => DriverSetup::class,
         ISignalHandlingSetup::class => static function (IContainer $container): ISignalHandlingSetup {
             return $container->get(ISignalHandlingSetupFactory::class)->create();
         },
-        IDriverLinker::class => static function (IContainer $container): IDriverLinker {
-            return $container->get(IDriverLinkerFactory::class)->create();
-        },
+
         IIntervalNormalizer::class => static function (IContainer $container): IIntervalNormalizer {
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },
@@ -270,27 +299,12 @@ function configs(): Traversable
         IAuxConfig::class => static function (IContainer $container): IAuxConfig {
             return $container->get(IAuxConfigFactory::class)->create();
         },
-//        IWidgetConfig::class => static function (IContainer $container): IWidgetConfig {
-//            return $container->get(IWidgetConfigFactory::class)->create();
-//        },
-        new ServiceDefinition(
-            IWidgetConfig::class,
-            static function (IContainer $container): IWidgetConfig {
-                return $container->get(IWidgetConfigFactory::class)->create();
-            },
-            IServiceDefinition::TRANSIENT,
-        ),
-        new ServiceDefinition(
-            IRootWidgetConfig::class,
-            static function (IContainer $container): IWidgetConfig {
-                return $container->get(IRootWidgetConfigFactory::class)->create();
-            },
-            IServiceDefinition::TRANSIENT,
-        ),
-
-//        IRootWidgetConfig::class => static function (IContainer $container): IRootWidgetConfig {
-//            return $container->get(IRootWidgetConfigFactory::class)->create();
-//        },
+        IWidgetConfig::class => static function (IContainer $container): IWidgetConfig {
+            return $container->get(IWidgetConfigFactory::class)->create();
+        },
+        IRootWidgetConfig::class => static function (IContainer $container): IRootWidgetConfig {
+            return $container->get(IRootWidgetConfigFactory::class)->create();
+        },
         RunMethodMode::class => static function (IContainer $container): RunMethodMode {
             return $container->get(IAuxConfig::class)->getRunMethodMode();
         },
@@ -363,11 +377,7 @@ function factories(): Traversable
         IIntervalFactory::class => IntervalFactory::class,
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
-        new ServiceDefinition(
-            ISpinnerFactory::class,
-            SpinnerFactory::class,
-            IServiceDefinition::TRANSIENT,
-        ),
+        ISpinnerFactory::class => SpinnerFactory::class,
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         IDeltaTimerFactory::class => DeltaTimerFactory::class,
         IUserSettingsFactory::class => UserSettingsFactory::class,
@@ -388,16 +398,8 @@ function factories(): Traversable
 
         IWidgetConfigFactory::class => WidgetConfigFactory::class,
         IRuntimeWidgetConfigFactory::class => RuntimeWidgetConfigFactory::class,
-        new ServiceDefinition(
-            IRootWidgetConfigFactory::class,
-            RootWidgetConfigFactory::class,
-            IServiceDefinition::TRANSIENT,
-        ),
-        new ServiceDefinition(
-            IRuntimeRootWidgetConfigFactory::class,
-            RuntimeRootWidgetConfigFactory::class,
-            IServiceDefinition::TRANSIENT,
-        ),
+        IRootWidgetConfigFactory::class => RootWidgetConfigFactory::class,
+        IRuntimeRootWidgetConfigFactory::class => RuntimeRootWidgetConfigFactory::class,
     ];
 }
 
