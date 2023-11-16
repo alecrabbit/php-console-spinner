@@ -5,9 +5,9 @@ declare(strict_types=1);
 use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkResultsFactory;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\Factory\ReportFactory;
-use AlecRabbit\Benchmark\Spinner\Contract\IBenchmarkingDriver;
-use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
-use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
+use AlecRabbit\Lib\Helper\MemoryUsage;
+use AlecRabbit\Lib\Spinner\Contract\IBenchmarkingDriver;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Probes;
 
@@ -17,8 +17,7 @@ const PROGRESS_EVERY_CYCLES = CYCLES / 10;
 $container = require __DIR__ . '/container.sync.php';
 
 // unregister all loop probes
-Probes::unregister(ReactLoopProbe::class);
-Probes::unregister(RevoltLoopProbe::class);
+Probes::unregister(ILoopProbe::class);
 
 $driver = Facade::getDriver();
 
@@ -31,12 +30,20 @@ if (!$driver instanceof IBenchmarkingDriver) {
     );
 }
 
-$spinner = Facade::createSpinner();
+$memoryUsage = new MemoryUsage();
 
+$spinner = Facade::createSpinner();
 
 // Do benchmarking:
 for ($i = 0; $i < CYCLES; $i++) {
     if ($i % PROGRESS_EVERY_CYCLES === 0) {
+
+        echo sprintf(
+            '%s %s',
+            (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
+            $memoryUsage->report(),
+        );
+        echo '  ';
         echo sprintf(
                 '%s%% [%d/%d]',
                 (int)ceil(100 * $i / CYCLES),

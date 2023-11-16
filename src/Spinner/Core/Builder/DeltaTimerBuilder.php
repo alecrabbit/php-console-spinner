@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
-use AlecRabbit\Spinner\Contract\INow;
+use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDeltaTimerBuilder;
 use AlecRabbit\Spinner\Core\DeltaTimer;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -16,7 +16,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
 final class DeltaTimerBuilder implements IDeltaTimerBuilder
 {
     private ?float $startTime = null;
-    private ?INow $now = null;
+    private ?INowTimer $nowTimer = null;
 
     public function build(): IDeltaTimer
     {
@@ -24,7 +24,7 @@ final class DeltaTimerBuilder implements IDeltaTimerBuilder
 
         return
             new DeltaTimer(
-                now: $this->now,
+                now: $this->nowTimer,
                 startTime: $this->startTime,
             );
     }
@@ -33,7 +33,7 @@ final class DeltaTimerBuilder implements IDeltaTimerBuilder
     {
         match (true) {
             $this->startTime === null => throw new LogicException('Start time is not set.'),
-            $this->now === null => throw new LogicException('Now is not set.'),
+            $this->nowTimer === null => throw new LogicException('NowTimer is not set.'),
             default => null,
         };
     }
@@ -45,10 +45,10 @@ final class DeltaTimerBuilder implements IDeltaTimerBuilder
         return $clone;
     }
 
-    public function withNow(INow $now): IDeltaTimerBuilder
+    public function withNowTimer(INowTimer $now): IDeltaTimerBuilder
     {
         $clone = clone $this;
-        $clone->now = $now;
+        $clone->nowTimer = $now;
         return $clone;
     }
 }

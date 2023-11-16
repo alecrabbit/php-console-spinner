@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Lib\Helper\MemoryUsage;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Spinner\Helper\MemoryUsage;
 
 // Code in this file is NOT REQUIRED
 // and is used only for demonstration convenience.

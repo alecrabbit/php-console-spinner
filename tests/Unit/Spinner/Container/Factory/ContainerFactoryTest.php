@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -25,12 +26,12 @@ final class ContainerFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IDefinitionRegistry $registry = null,
-        ?IServiceSpawnerBuilder $spawnerBuilder = null
+        ?IServiceSpawnerFactory $spawnerFactory = null
     ): IContainerFactory {
         return
             new ContainerFactory(
-                registry: $registry ?? $this->getDefinitionRegistryMock(),
-                spawnerBuilder: $spawnerBuilder ?? $this->getSpawnerBuilderMock(),
+                definitionRegistry: $registry ?? $this->getDefinitionRegistryMock(),
+                spawnerFactory: $spawnerFactory ?? $this->getSpawnerFactoryMock(),
             );
     }
 
@@ -39,9 +40,9 @@ final class ContainerFactoryTest extends TestCase
         return $this->createMock(IDefinitionRegistry::class);
     }
 
-    protected function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
+    private function getSpawnerFactoryMock(): MockObject&IServiceSpawnerFactory
     {
-        return $this->createMock(IServiceSpawnerBuilder::class);
+        return $this->createMock(IServiceSpawnerFactory::class);
     }
 
     #[Test]
@@ -52,5 +53,10 @@ final class ContainerFactoryTest extends TestCase
         $container = $containerFactory->create();
 
         self::assertInstanceOf(Container::class, $container);
+    }
+
+    protected function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
+    {
+        return $this->createMock(IServiceSpawnerBuilder::class);
     }
 }

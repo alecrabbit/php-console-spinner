@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\WidgetIsNotAComposite;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -222,7 +222,7 @@ final class SpinnerTest extends TestCase
     #[Test]
     public function throwsIfObserverAlreadyAttached(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Observer is already attached.';
 
         $test = function (): void {
@@ -243,7 +243,7 @@ final class SpinnerTest extends TestCase
     #[Test]
     public function throwsIfObserverAttachedIsSelf(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Object can not be self.';
 
         $test = function (): void {
@@ -262,7 +262,7 @@ final class SpinnerTest extends TestCase
     public function throwsOnAddIfRootWidgetIsNotAComposite(): void
     {
         $exceptionClass = WidgetIsNotAComposite::class;
-        $exceptionMessage = 'Widget is not a composite.';
+        $exceptionMessage = 'Root widget is not a composite.';
 
         $test = function (): void {
             $context = $this->getWidgetContextMock();

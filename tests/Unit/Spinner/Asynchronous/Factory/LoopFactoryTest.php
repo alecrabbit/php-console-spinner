@@ -63,7 +63,7 @@ final class LoopFactoryTest extends TestCase
         $this->expectException(LoopException::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Class "%s" must implement "%s" interface.',
+                'Class "%s" must be a subclass of "%s" interface.',
                 $loopCreator,
                 ILoopCreator::class
             )

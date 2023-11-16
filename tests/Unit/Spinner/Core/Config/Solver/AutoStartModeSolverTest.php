@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -34,7 +34,7 @@ final class AutoStartModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', AutoStartMode::class),
                     ],
                 ],
@@ -43,7 +43,7 @@ final class AutoStartModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', AutoStartMode::class),
                     ],
                 ],
@@ -52,7 +52,7 @@ final class AutoStartModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', AutoStartMode::class),
                     ],
                 ],
@@ -61,7 +61,7 @@ final class AutoStartModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', AutoStartMode::class),
                     ],
                 ],
@@ -144,16 +144,16 @@ final class AutoStartModeSolverTest extends TestCase
             $defaultAutoStartOption
         ] = $args;
 
-        $userAuxSettings = $this->getLoopSettingsMock($userAutoStartOption);
-        $detectedAuxSettings = $this->getLoopSettingsMock($detectedAutoStartOption);
-        $defaultAuxSettings = $this->getLoopSettingsMock($defaultAutoStartOption);
+        $userLoopSettings = $this->getLoopSettingsMock($userAutoStartOption);
+        $detectedLoopSettings = $this->getLoopSettingsMock($detectedAutoStartOption);
+        $defaultLoopSettings = $this->getLoopSettingsMock($defaultAutoStartOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($userAuxSettings)
+            ->willReturn($userLoopSettings)
         ;
 
         $detectedSettings = $this->getSettingsMock();
@@ -161,7 +161,7 @@ final class AutoStartModeSolverTest extends TestCase
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($detectedAuxSettings)
+            ->willReturn($detectedLoopSettings)
         ;
 
         $defaultSettings = $this->getSettingsMock();
@@ -169,7 +169,7 @@ final class AutoStartModeSolverTest extends TestCase
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($defaultAuxSettings)
+            ->willReturn($defaultLoopSettings)
         ;
 
         $settingsProvider = $this->getSettingsProviderMock();

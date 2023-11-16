@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 
 
-final class RootWidgetSettings implements IRootWidgetSettings
+final readonly class RootWidgetSettings implements IRootWidgetSettings
 {
     public function __construct(
         protected ?IFrame $leadingSpacer = null,

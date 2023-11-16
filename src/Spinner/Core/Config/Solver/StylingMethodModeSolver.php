@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final readonly class StylingMethodModeSolver extends ASolver implements IStylingMethodModeSolver
 {
@@ -42,6 +42,10 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
             $mode = $detectedMode ?? $defaultMode;
         }
 
+        /**
+         * @psalm-suppress TypeDoesNotContainNull
+         * @psalm-suppress RedundantCondition
+         */
         if ($detectedMode !== null && ($mode?->value > $detectedMode?->value)) {
             $mode = $detectedMode;
         }
@@ -50,7 +54,7 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
             return $mode;
         }
 
-        throw new InvalidArgumentException(
+        throw new InvalidArgument(
             sprintf(
                 'Unable to solve "%s". From values %s.',
                 StylingMethodMode::class,

@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\DummyDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 
-final class DriverLinkerFactory implements IDriverLinkerFactory
+final readonly class DriverLinkerFactory implements IDriverLinkerFactory
 {
     public function __construct(
         protected ILoopProvider $loopProvider,

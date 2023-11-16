@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
@@ -13,7 +13,8 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -36,25 +37,25 @@ final class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function canSetAndGetAuxSettings(): void
+    public function canSetAndGetGeneralSettings(): void
     {
         $settings = $this->getTesteeInstance();
 
-        $auxSettings = $this->getAuxSettingsMock();
-        $auxSettings
+        $generalSettings = $this->getGeneralSettingsMock();
+        $generalSettings
             ->expects(self::once())
             ->method('getIdentifier')
-            ->willReturn(IAuxSettings::class)
+            ->willReturn(IGeneralSettings::class)
         ;
 
-        $settings->set($auxSettings);
+        $settings->set($generalSettings);
 
-        self::assertSame($auxSettings, $settings->get(IAuxSettings::class));
+        self::assertSame($generalSettings, $settings->get(IGeneralSettings::class));
     }
 
-    protected function getAuxSettingsMock(): MockObject&IAuxSettings
+    protected function getGeneralSettingsMock(): MockObject&IGeneralSettings
     {
-        return $this->createMock(IAuxSettings::class);
+        return $this->createMock(IGeneralSettings::class);
     }
 
     #[Test]
@@ -92,7 +93,7 @@ final class SettingsTest extends TestCase
     {
         $settings = $this->getTesteeInstance();
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Identifier "invalid" is not an interface.');
 
         $object = new class implements ISettingsElement {
@@ -112,7 +113,7 @@ final class SettingsTest extends TestCase
     {
         $settings = $this->getTesteeInstance();
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Identifier "stdClass" is not an interface.');
 
         $object = new class implements ISettingsElement {
@@ -132,16 +133,16 @@ final class SettingsTest extends TestCase
     {
         $settings = $this->getTesteeInstance();
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Identifier "AlecRabbit\Spinner\Core\Config\Contract\IConfig" is not an instance of '
+            'Identifier "AlecRabbit\Spinner\Core\Widget\Contract\IWidget" is not an instance of '
             . '"AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement".'
         );
 
         $object = new class implements ISettingsElement {
             public function getIdentifier(): string
             {
-                return IConfig::class;
+                return IWidget::class;
             }
         };
 
@@ -155,7 +156,7 @@ final class SettingsTest extends TestCase
     {
         $settings = $this->getTesteeInstance();
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Identifier "invalid" is not an interface.');
 
         $settings->get('invalid');
@@ -168,7 +169,7 @@ final class SettingsTest extends TestCase
     {
         $settings = $this->getTesteeInstance();
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Identifier "stdClass" is not an interface.');
 
         $settings->get(stdClass::class);
@@ -181,13 +182,13 @@ final class SettingsTest extends TestCase
     {
         $settings = $this->getTesteeInstance();
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Identifier "AlecRabbit\Spinner\Core\Config\Contract\IConfig" is not an instance of '
+            'Identifier "AlecRabbit\Spinner\Core\Widget\Contract\IWidget" is not an instance of '
             . '"AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement".'
         );
 
-        $settings->get(IConfig::class);
+        $settings->get(IWidget::class);
 
         self::fail('Exception was not thrown.');
     }

@@ -73,7 +73,7 @@ classDiagram
 classDiagram
     direction TB
     IDriverFactory ..> IDriverBuilder
-    IDriverFactory ..> IDriverOutputFactory
+    IDriverFactory ..> ISequenceStateWriterFactory
     IDriverFactory ..> ITimerFactory
     IDriverFactory ..> IDriverSetup
     IDriverFactory ..> ILinkerSettings
@@ -85,9 +85,9 @@ classDiagram
     ISignalHandlingSetupFactory ..> ILoopFactory
     ISignalHandlingSetupFactory ..> ISignalHandlingSetupBuilder
     
-    IDriverOutputFactory ..> IDriverOutputBuilder
-    IDriverOutputFactory ..> IBufferedOutputSingletonFactory
-    IDriverOutputFactory ..> IConsoleCursorFactory
+    ISequenceStateWriterFactory ..> ISequenceStateWriterBuilder
+    ISequenceStateWriterFactory ..> IBufferedOutputSingletonFactory
+    ISequenceStateWriterFactory ..> IConsoleCursorFactory
 
     ITimerFactory ..> ITimerBuilder
     

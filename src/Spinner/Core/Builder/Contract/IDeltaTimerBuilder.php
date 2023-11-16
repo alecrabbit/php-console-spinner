@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder\Contract;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
-use AlecRabbit\Spinner\Contract\INow;
+use AlecRabbit\Spinner\Contract\INowTimer;
 
 interface IDeltaTimerBuilder
 {
@@ -13,5 +13,5 @@ interface IDeltaTimerBuilder
 
     public function withStartTime(float $time): IDeltaTimerBuilder;
 
-    public function withNow(INow $now): IDeltaTimerBuilder;
+    public function withNowTimer(INowTimer $now): IDeltaTimerBuilder;
 }

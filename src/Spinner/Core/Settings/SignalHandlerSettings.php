@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerSettings;
 use ArrayObject;
 use Traversable;
 
-final class SignalHandlerSettings implements ISignalHandlerSettings
+final readonly class SignalHandlerSettings implements ISignalHandlerSettings
 {
     protected Traversable $creators;
 

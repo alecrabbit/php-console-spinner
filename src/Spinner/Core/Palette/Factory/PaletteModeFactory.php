@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\PaletteMode;
 
-final class PaletteModeFactory implements IPaletteModeFactory
+final readonly class PaletteModeFactory implements IPaletteModeFactory
 {
     public function __construct(
         protected IOutputConfig $outputConfig,

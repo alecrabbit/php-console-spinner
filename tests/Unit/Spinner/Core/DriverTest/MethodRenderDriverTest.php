@@ -18,15 +18,15 @@ final class MethodRenderDriverTest extends TestCaseForDriver
             ->with(self::equalTo(null))
         ;
 
-        $driverOutput = $this->getDriverOutputMock();
-        $driverOutput
+        $sequenceStateWriter = $this->getSequenceStateWriterMock();
+        $sequenceStateWriter
             ->expects(self::once())
             ->method('write')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $driverOutput
+                stateWriter: $sequenceStateWriter
             );
         $driver->initialize();
 
@@ -52,8 +52,8 @@ final class MethodRenderDriverTest extends TestCaseForDriver
             ->method('getFrame')//            ->with(self::equalTo($delta))
         ;
 
-        $driverOutput = $this->getDriverOutputMock();
-        $driverOutput
+        $sequenceStateWriter = $this->getSequenceStateWriterMock();
+        $sequenceStateWriter
             ->expects(self::once())
             ->method('write')
         ;
@@ -61,7 +61,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
         $driver =
             $this->getTesteeInstance(
                 deltaTimer: $timer,
-                output: $driverOutput
+                stateWriter: $sequenceStateWriter
             );
         $driver->initialize();
 

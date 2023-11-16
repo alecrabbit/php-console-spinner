@@ -26,7 +26,6 @@ final class IntervalFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IIntervalNormalizer $intervalNormalizer = null,
     ): IIntervalFactory {
-        self::setPropertyValue(IntervalFactory::class, 'normalizedDefaultInterval', null);
         return new IntervalFactory(
             intervalNormalizer: $intervalNormalizer ?? $this->getIntervalNormalizerMock(),
         );
@@ -43,7 +42,7 @@ final class IntervalFactoryTest extends TestCase
         $intervalNormalizer = $this->getIntervalNormalizerMock();
         $interval = new Interval();
         $intervalNormalizer
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('normalize')
             ->willReturn($interval)
         ;
@@ -65,9 +64,8 @@ final class IntervalFactoryTest extends TestCase
         $interval = new Interval();
         $intervalNormalizer = $this->getIntervalNormalizerMock();
         $intervalNormalizer
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('normalize')
-            ->with($interval)
             ->willReturn($interval)
         ;
 
@@ -104,7 +102,7 @@ final class IntervalFactoryTest extends TestCase
         $intervalNormalizer = $this->getIntervalNormalizerMock();
         $interval = $this->getIntervalMock();
         $intervalNormalizer
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('normalize')
             ->with(self::isInstanceOf(Interval::class))
             ->willReturn($interval)
@@ -124,9 +122,9 @@ final class IntervalFactoryTest extends TestCase
         return $this->createMock(IInterval::class);
     }
 
-    protected function setUp(): void
-    {
-        self::setPropertyValue(IntervalFactory::class, 'normalizedDefaultInterval', null);
-        self::setPropertyValue(IntervalFactory::class, 'normalizedStillInterval', null);
-    }
+//    protected function setUp(): void
+//    {
+//        self::setPropertyValue(IntervalFactory::class, 'normalizedDefaultInterval', null);
+//        self::setPropertyValue(IntervalFactory::class, 'normalizedStillInterval', null);
+//    }
 }

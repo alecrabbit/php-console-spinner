@@ -7,11 +7,12 @@ namespace AlecRabbit\Spinner\Core\A;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use Closure;
 
 abstract class ADriver extends ASubject implements IDriver
@@ -20,10 +21,11 @@ abstract class ADriver extends ASubject implements IDriver
     protected readonly IDriverMessages $messages;
 
     public function __construct(
-        protected readonly IDriverOutput $output,
+        IDriverConfig $driverConfig,
         protected readonly IDeltaTimer $deltaTimer,
         protected readonly IInterval $initialInterval,
-        IDriverConfig $driverConfig,
+        protected readonly ISequenceStateWriter $stateWriter,
+        protected readonly ISequenceStateBuilder $stateBuilder,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
@@ -41,7 +43,7 @@ abstract class ADriver extends ASubject implements IDriver
     public function finalize(?string $finalMessage = null): void
     {
         $this->erase();
-        $this->output->finalize($finalMessage ?? $this->messages->getFinalMessage());
+        $this->stateWriter->finalize($finalMessage ?? $this->messages->getFinalMessage());
     }
 
     abstract protected function erase(): void;
@@ -67,7 +69,7 @@ abstract class ADriver extends ASubject implements IDriver
     /** @inheritDoc */
     public function initialize(): void
     {
-        $this->output->initialize();
+        $this->stateWriter->initialize();
     }
 
     /** @inheritDoc */

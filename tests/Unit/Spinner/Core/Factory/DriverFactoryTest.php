@@ -6,16 +6,17 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -34,18 +35,25 @@ final class DriverFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IDriverBuilder $driverBuilder = null,
         ?IIntervalFactory $intervalFactory = null,
-        ?IDriverOutputFactory $driverOutputFactory = null,
+        ?ISequenceStateWriterFactory $sequenceStateWriterFactory = null,
         ?IDeltaTimerFactory $timerFactory = null,
         ?IDriverConfig $driverConfig = null,
+        ?ISequenceStateBuilder $sequenceStateBuilder = null,
     ): IDriverFactory {
         return
             new DriverFactory(
+                driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
                 driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
                 intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
-                driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
                 timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
-                driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
+                sequenceStateWriterFactory: $sequenceStateWriterFactory ?? $this->getSequenceStateWriterFactoryMock(),
+                sequenceStateBuilder: $sequenceStateBuilder ?? $this->getSequenceStateBuilderMock(),
             );
+    }
+
+    private function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 
     protected function getDriverBuilderMock(): MockObject&IDriverBuilder
@@ -58,36 +66,44 @@ final class DriverFactoryTest extends TestCase
         return $this->createMock(IIntervalFactory::class);
     }
 
-    protected function getDriverOutputFactoryMock(): MockObject&IDriverOutputFactory
-    {
-        return $this->createMock(IDriverOutputFactory::class);
-    }
-
     protected function getTimerFactoryMock(): MockObject&IDeltaTimerFactory
     {
         return $this->createMock(IDeltaTimerFactory::class);
     }
 
-    private function getDriverConfigMock(): MockObject&IDriverConfig
+    protected function getSequenceStateWriterFactoryMock(): MockObject&ISequenceStateWriterFactory
     {
-        return $this->createMock(IDriverConfig::class);
+        return $this->createMock(ISequenceStateWriterFactory::class);
+    }
+
+    private function getSequenceStateBuilderMock(): MockObject&ISequenceStateBuilder
+    {
+        return $this->createMock(ISequenceStateBuilder::class);
     }
 
     #[Test]
     public function canCreate(): void
     {
+        $sequenceStateBuilder = $this->getSequenceStateBuilderMock();
+
         $driver = $this->getDriverMock();
 
         $driverBuilder = $this->getDriverBuilderMock();
         $driverBuilder
             ->expects(self::once())
-            ->method('withDriverOutput')
+            ->method('withSequenceStateWriter')
             ->willReturnSelf()
         ;
         $driverBuilder
             ->expects(self::once())
             ->method('withDeltaTimer')
             ->with(self::isInstanceOf(IDeltaTimer::class))
+            ->willReturnSelf()
+        ;
+        $driverBuilder
+            ->expects(self::once())
+            ->method('withSequenceStateBuilder')
+            ->with(self::identicalTo($sequenceStateBuilder))
             ->willReturnSelf()
         ;
         $driverBuilder
@@ -115,11 +131,11 @@ final class DriverFactoryTest extends TestCase
             ->willReturn($this->getTimerMock())
         ;
 
-        $driverOutputFactory = $this->getDriverOutputFactoryMock();
-        $driverOutputFactory
+        $sequenceStateWriterFactory = $this->getSequenceStateWriterFactoryMock();
+        $sequenceStateWriterFactory
             ->expects(self::once())
             ->method('create')
-            ->willReturn($this->getDriverOutputMock())
+            ->willReturn($this->getSequenceStateWriterMock())
         ;
 
         $intervalFactory = $this->getIntervalFactoryMock();
@@ -133,8 +149,9 @@ final class DriverFactoryTest extends TestCase
             $this->getTesteeInstance(
                 driverBuilder: $driverBuilder,
                 intervalFactory: $intervalFactory,
-                driverOutputFactory: $driverOutputFactory,
+                sequenceStateWriterFactory: $sequenceStateWriterFactory,
                 timerFactory: $timerFactory,
+                sequenceStateBuilder: $sequenceStateBuilder,
             );
 
         self::assertSame($driver, $driverFactory->create());
@@ -150,9 +167,9 @@ final class DriverFactoryTest extends TestCase
         return $this->createMock(IDeltaTimer::class);
     }
 
-    protected function getDriverOutputMock(): MockObject&IDriverOutput
+    protected function getSequenceStateWriterMock(): MockObject&ISequenceStateWriter
     {
-        return $this->createMock(IDriverOutput::class);
+        return $this->createMock(ISequenceStateWriter::class);
     }
 
     protected function getIntervalMock(): MockObject&IInterval

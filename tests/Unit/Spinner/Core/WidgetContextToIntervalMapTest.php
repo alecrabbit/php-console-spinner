@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IWidgetContextToIntervalMap;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\WidgetContextToIntervalMap;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayAccess;
 use Countable;
@@ -237,7 +237,7 @@ final class WidgetContextToIntervalMapTest extends TestCase
     {
         $container = $this->getTesteeInstance();
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Invalid value type.');
 
         $context = $this->getWidgetContextMock();
@@ -252,7 +252,7 @@ final class WidgetContextToIntervalMapTest extends TestCase
     {
         $container = $this->getTesteeInstance();
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Invalid offset type.');
 
         $interval = $this->getIntervalMock();
@@ -267,7 +267,7 @@ final class WidgetContextToIntervalMapTest extends TestCase
     {
         $container = $this->getTesteeInstance();
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Invalid offset type.');
 
         $container->offsetGet('invalid');
@@ -280,7 +280,7 @@ final class WidgetContextToIntervalMapTest extends TestCase
     {
         $container = $this->getTesteeInstance();
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Invalid offset type.');
 
         $container->offsetUnset('invalid');

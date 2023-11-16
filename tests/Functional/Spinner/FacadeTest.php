@@ -8,22 +8,12 @@ use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ContainerModifyingTestCase;
 use PHPUnit\Framework\Attributes\Test;
 
 final class FacadeTest extends ContainerModifyingTestCase
 {
-
-//    #[Test]
-//    public function canNotBeInstantiated(): void
-//    {
-//        $this->expectException(\Error::class);
-//        $this->expectExceptionMessage('Call to private AlecRabbit\Spinner\Facade::__construct()');
-//        $facade = new Facade();
-//    }
-
     #[Test]
     public function canGetSettings(): void
     {
@@ -84,44 +74,5 @@ final class FacadeTest extends ContainerModifyingTestCase
         self::assertSame($driver, Facade::getDriver());
         self::assertSame($driver, Facade::getDriver());
         self::assertSame($driver, Facade::getDriver());
-    }
-
-    #[Test]
-    public function throwsIfConfigurationIsAlreadyCreatedAfterGetDriver(): void
-    {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage('Settings can not be changed. Configuration is already created.');
-
-        Facade::getDriver();
-
-        Facade::getSettings();
-
-        self::fail('Exception was not thrown.');
-    }
-
-    #[Test]
-    public function throwsIfConfigurationIsAlreadyCreatedAfterGetLoop(): void
-    {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage('Settings can not be changed. Configuration is already created.');
-
-        Facade::getLoop();
-
-        Facade::getSettings();
-
-        self::fail('Exception was not thrown.');
-    }
-
-    #[Test]
-    public function throwsIfConfigurationIsAlreadyCreatedAfterCreateSpinner(): void
-    {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage('Settings can not be changed. Configuration is already created.');
-
-        Facade::createSpinner();
-
-        Facade::getSettings();
-
-        self::fail('Exception was not thrown.');
     }
 }

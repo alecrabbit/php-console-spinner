@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final readonly class SignalHandlingModeSolver extends ASolver implements Contract\ISignalHandlingModeSolver
 {
@@ -181,7 +181,7 @@ final readonly class SignalHandlingModeSolver extends ASolver implements Contrac
                     null,
                     SignalHandlingOption::DISABLED,
                 ] => SignalHandlingMode::DISABLED,
-                default => throw new InvalidArgumentException(
+                default => throw new InvalidArgument(
                     sprintf(
                         'Unable to solve "%s". From values %s.',
                         SignalHandlingMode::class,

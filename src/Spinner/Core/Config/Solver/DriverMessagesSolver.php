@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\DriverMessages;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IMessages;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
+use AlecRabbit\Spinner\Exception\LogicException;
 
 final readonly class DriverMessagesSolver extends ASolver implements IDriverMessagesSolver
 {
@@ -23,10 +24,6 @@ final readonly class DriverMessagesSolver extends ASolver implements IDriverMess
                 $this->extractMessages($this->settingsProvider->getDefaultSettings()),
             );
     }
-//    public function solve(): IDriverMessages
-//    {
-
-//    }
 
     private function doSolve(
         ?IMessages $userMessages,
@@ -37,14 +34,17 @@ final readonly class DriverMessagesSolver extends ASolver implements IDriverMess
             $userMessages?->getFinalMessage()
             ?? $detectedMessages?->getFinalMessage()
             ?? $defaultMessages?->getFinalMessage()
-            ?? '';
-
+            ?? throw new LogicException(
+                sprintf('Unable to solve "%s". (for final message)', IDriverMessages::class)
+            );
 
         $interruptionMessage =
             $userMessages?->getInterruptionMessage()
             ?? $detectedMessages?->getInterruptionMessage()
             ?? $defaultMessages?->getInterruptionMessage()
-            ?? '';
+            ?? throw new LogicException(
+                sprintf('Unable to solve "%s". (for interrupt message)', IDriverMessages::class)
+            );
 
         return
             new DriverMessages(

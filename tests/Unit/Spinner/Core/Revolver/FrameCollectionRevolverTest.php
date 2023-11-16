@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -171,7 +171,7 @@ final class FrameCollectionRevolverTest extends TestCase
     #[Test]
     public function throwsIfFrameCollectionIsEmpty(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Frame collection is empty.';
 
         $test = function (): void {

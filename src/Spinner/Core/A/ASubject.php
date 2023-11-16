@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 use function sprintf;
 
@@ -36,14 +36,14 @@ abstract class ASubject implements ISubject
     protected function assertObserverIsNotAttached(): void
     {
         if ($this->observer !== null) {
-            throw new InvalidArgumentException('Observer is already attached.');
+            throw new InvalidArgument('Observer is already attached.');
         }
     }
 
     protected function assertNotSelf(object $obj): void
     {
         if ($obj === $this) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     'Object can not be self. %s #%s.',
                     get_debug_type($obj),

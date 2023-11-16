@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Revolver;
 
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 
-final class Tolerance implements ITolerance
+final readonly class Tolerance implements ITolerance
 {
     public function __construct(
         protected int $value = self::DEFAULT_VALUE

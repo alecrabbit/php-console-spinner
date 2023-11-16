@@ -8,9 +8,9 @@ use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 use function sprintf;
 
@@ -28,7 +28,7 @@ final readonly class RunMethodModeSolver extends ASolver implements IRunMethodMo
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private function doSolve(
         ?RunMethodOption $userOption,
@@ -152,7 +152,7 @@ final readonly class RunMethodModeSolver extends ASolver implements IRunMethodMo
                 ]
                 => RunMethodMode::SYNCHRONOUS,
                 default // DEFAULT BRANCH
-                => throw new InvalidArgumentException(
+                => throw new InvalidArgument(
                     sprintf(
                         'Unable to solve "%s". From values %s.',
                         RunMethodMode::class,
@@ -169,7 +169,7 @@ final readonly class RunMethodModeSolver extends ASolver implements IRunMethodMo
 
     protected function extractOption(ISettings $settings): ?RunMethodOption
     {
-        return $this->extractSettingsElement($settings, IAuxSettings::class)?->getRunMethodOption();
+        return $this->extractSettingsElement($settings, IGeneralSettings::class)?->getRunMethodOption();
     }
 
 }

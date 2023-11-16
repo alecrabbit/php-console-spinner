@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Config\Factory\RootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\InitialRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRootWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
@@ -28,15 +27,15 @@ final class RootWidgetConfigFactoryTest extends TestCase
     {
         $factory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(RootWidgetConfigFactory::class, $factory);
+        self::assertInstanceOf(InitialRootWidgetConfigFactory::class, $factory);
     }
 
     public function getTesteeInstance(
         ?IRootWidgetSettingsSolver $rootWidgetSettingsSolver = null,
         ?IWidgetSettingsSolver $widgetSettingsSolver = null,
-    ): IRootWidgetConfigFactory {
+    ): IInitialRootWidgetConfigFactory {
         return
-            new RootWidgetConfigFactory(
+            new InitialRootWidgetConfigFactory(
                 rootWidgetSettingsSolver: $rootWidgetSettingsSolver ?? $this->getRootWidgetSettingsSolverMock(),
                 widgetSettingsSolver: $widgetSettingsSolver ?? $this->getWidgetSettingsSolverMock(),
             );
@@ -135,37 +134,6 @@ final class RootWidgetConfigFactoryTest extends TestCase
     private function getRootWidgetSettingsMock(): MockObject&IRootWidgetSettings
     {
         return $this->createMock(IRootWidgetSettings::class);
-    }
-
-    #[Test]
-    public function throwsIfCreateArgumentIsWidgetSettings(): void
-    {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage('Widget settings is not expected.');
-
-        $factory = $this->getTesteeInstance();
-
-        $result = $factory->create($this->getWidgetSettingsMock());
-
-        self::assertInstanceOf(WidgetConfig::class, $result);
-    }
-
-    #[Test]
-    public function throwsIfCreateArgumentIsWidgetConfig(): void
-    {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage('Widget config is not expected.');
-
-        $factory = $this->getTesteeInstance();
-
-        $result = $factory->create($this->getWidgetConfigMock());
-
-        self::assertInstanceOf(WidgetConfig::class, $result);
-    }
-
-    private function getWidgetConfigMock(): MockObject&IWidgetConfig
-    {
-        return $this->createMock(IWidgetConfig::class);
     }
 
     #[Test]

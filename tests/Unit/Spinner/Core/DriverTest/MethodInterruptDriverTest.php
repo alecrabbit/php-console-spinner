@@ -15,8 +15,8 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
     {
         $interruptMessage = 'interruptMessage';
 
-        $driverOutput = $this->getDriverOutputMock();
-        $driverOutput
+        $sequenceStateWriter = $this->getSequenceStateWriterMock();
+        $sequenceStateWriter
             ->expects(self::once())
             ->method('finalize')
             ->with(self::equalTo($interruptMessage))
@@ -24,7 +24,7 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                output: $driverOutput
+                stateWriter: $sequenceStateWriter
             );
 
         $driver->initialize();
@@ -49,8 +49,8 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
             ->willReturn($driverMessages)
         ;
 
-        $driverOutput = $this->getDriverOutputMock();
-        $driverOutput
+        $sequenceStateWriter = $this->getSequenceStateWriterMock();
+        $sequenceStateWriter
             ->expects(self::once())
             ->method('finalize')
             ->with(self::identicalTo($message))
@@ -58,7 +58,7 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                output: $driverOutput,
+                stateWriter: $sequenceStateWriter,
                 driverConfig: $driverConfig,
             );
 
@@ -76,15 +76,15 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
     {
         $interruptMessage = 'interruptMessage';
 
-        $driverOutput = $this->getDriverOutputMock();
-        $driverOutput
+        $sequenceStateWriter = $this->getSequenceStateWriterMock();
+        $sequenceStateWriter
             ->expects(self::once())
             ->method('finalize')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $driverOutput
+                stateWriter: $sequenceStateWriter
             );
 
         $driver->interrupt($interruptMessage);

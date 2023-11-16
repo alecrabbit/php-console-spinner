@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
-use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Spinner;
@@ -33,7 +31,7 @@ final class SpinnerFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IWidgetFactory $widgetFactory = null,
-        ?IRuntimeRootWidgetConfigFactory $widgetConfigFactory = null,
+        ?IRootWidgetConfigFactory $widgetConfigFactory = null,
     ): ISpinnerFactory {
         return
             new SpinnerFactory(
@@ -47,9 +45,9 @@ final class SpinnerFactoryTest extends TestCase
         return $this->createMock(IWidgetFactory::class);
     }
 
-    protected function getWidgetConfigFactoryMock(): MockObject&IRuntimeRootWidgetConfigFactory
+    protected function getWidgetConfigFactoryMock(): MockObject&IRootWidgetConfigFactory
     {
-        return $this->createMock(IRuntimeRootWidgetConfigFactory::class);
+        return $this->createMock(IRootWidgetConfigFactory::class);
     }
 
     #[Test]
@@ -172,24 +170,8 @@ final class SpinnerFactoryTest extends TestCase
         return $this->createMock(IWidgetCompositeFactory::class);
     }
 
-    protected function getSettingsProviderMock(): MockObject&ISettingsProvider
-    {
-        return $this->createMock(ISettingsProvider::class);
-    }
-
-    protected function getRootWidgetSettingsMock(): MockObject&IRootWidgetSettings
-    {
-        return $this->createMock(IRootWidgetSettings::class);
-    }
-
     protected function getSettingsMock(): MockObject&ISettings
     {
         return $this->createMock(ISettings::class);
     }
-
-    protected function getConfigProviderMock(): MockObject&IConfigProvider
-    {
-        return $this->createMock(IConfigProvider::class);
-    }
-
 }

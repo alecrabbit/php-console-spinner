@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\A;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\A\Override\ObserverASubjectOverride;
 use PHPUnit\Framework\Attributes\Test;
@@ -33,7 +33,7 @@ final class ObserverASubjectTest extends TestCase
     #[Test]
     public function throwsIfObserverAttachedIsSelf(): void
     {
-        $exceptionClass = InvalidArgumentException::class;
+        $exceptionClass = InvalidArgument::class;
         $exceptionMessage = 'Object can not be self.';
 
         $test = function (): void {

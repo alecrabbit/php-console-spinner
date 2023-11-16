@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -34,7 +34,7 @@ final class SignalHandlingModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlingMode::class),
                     ],
                 ],
@@ -43,7 +43,7 @@ final class SignalHandlingModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlingMode::class),
                     ],
                 ],
@@ -52,7 +52,7 @@ final class SignalHandlingModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlingMode::class),
                     ],
                 ],
@@ -61,7 +61,7 @@ final class SignalHandlingModeSolverTest extends TestCase
             [
                 [
                     self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgumentException::class,
+                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlingMode::class),
                     ],
                 ],
@@ -151,16 +151,16 @@ final class SignalHandlingModeSolverTest extends TestCase
             $defaultSignalHandlingOption
         ] = $args;
 
-        $userAuxSettings = $this->getLoopSettingsMock($userSignalHandlingOption);
-        $detectedAuxSettings = $this->getLoopSettingsMock($detectedSignalHandlingOption);
-        $defaultAuxSettings = $this->getLoopSettingsMock($defaultSignalHandlingOption);
+        $userLoopSettings = $this->getLoopSettingsMock($userSignalHandlingOption);
+        $detectedLoopSettings = $this->getLoopSettingsMock($detectedSignalHandlingOption);
+        $defaultLoopSettings = $this->getLoopSettingsMock($defaultSignalHandlingOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($userAuxSettings)
+            ->willReturn($userLoopSettings)
         ;
 
         $detectedSettings = $this->getSettingsMock();
@@ -168,7 +168,7 @@ final class SignalHandlingModeSolverTest extends TestCase
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($detectedAuxSettings)
+            ->willReturn($detectedLoopSettings)
         ;
 
         $defaultSettings = $this->getSettingsMock();
@@ -176,7 +176,7 @@ final class SignalHandlingModeSolverTest extends TestCase
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($defaultAuxSettings)
+            ->willReturn($defaultLoopSettings)
         ;
 
         $settingsProvider = $this->getSettingsProviderMock();

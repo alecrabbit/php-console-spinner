@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use Traversable;
 
@@ -19,12 +19,12 @@ final class WritableStream implements IWritableStream
     /**
      * @param mixed $stream
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     public function __construct(mixed $stream)
     {
         if (!is_resource($stream) || get_resource_type($stream) !== 'stream') {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     'Argument is expected to be a stream(resource), "%s" given.',
                     get_debug_type($stream)

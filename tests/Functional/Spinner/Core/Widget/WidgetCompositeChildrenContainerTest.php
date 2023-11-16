@@ -41,13 +41,13 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
         ;
 
         $widget = new Widget(
-            revolver: $revolver,
+            widgetRevolver: $revolver,
             leadingSpacer: $this->getFrameMock(),
             trailingSpacer: $this->getFrameMock(),
         );
 
         $newWidget = new Widget(
-            revolver: $newRevolver,
+            widgetRevolver: $newRevolver,
             leadingSpacer: $this->getFrameMock(),
             trailingSpacer: $this->getFrameMock(),
         );
@@ -115,19 +115,19 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
         ;
 
         $widget1 = new Widget(
-            revolver: $revolver1,
+            widgetRevolver: $revolver1,
             leadingSpacer: $this->getFrameMock(),
             trailingSpacer: $this->getFrameMock(),
         );
 
         $widget2 = new Widget(
-            revolver: $revolver2,
+            widgetRevolver: $revolver2,
             leadingSpacer: $this->getFrameMock(),
             trailingSpacer: $this->getFrameMock(),
         );
 
         $widget3 = new Widget(
-            revolver: $revolver3,
+            widgetRevolver: $revolver3,
             leadingSpacer: $this->getFrameMock(),
             trailingSpacer: $this->getFrameMock(),
         );
@@ -169,7 +169,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
 
 
         $widget = new Widget(
-            revolver: $revolver,
+            widgetRevolver: $revolver,
             leadingSpacer: $this->getFrameMock(),
             trailingSpacer: $this->getFrameMock(),
         );
@@ -208,7 +208,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
 
 
         $widget = new Widget(
-            revolver: $revolver,
+            widgetRevolver: $revolver,
             leadingSpacer: $this->getFrameMock(),
             trailingSpacer: $this->getFrameMock(),
         );
@@ -258,19 +258,19 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
         ;
 
         $widget1 = new Widget(
-            revolver: $revolver1,
+            widgetRevolver: $revolver1,
             leadingSpacer: $this->getFrameMock(),
             trailingSpacer: $this->getFrameMock(),
         );
 
         $widget2 = new Widget(
-            revolver: $revolver2,
+            widgetRevolver: $revolver2,
             leadingSpacer: $this->getFrameMock(),
             trailingSpacer: $this->getFrameMock(),
         );
 
         $widget3 = new Widget(
-            revolver: $revolver3,
+            widgetRevolver: $revolver3,
             leadingSpacer: $this->getFrameMock(),
             trailingSpacer: $this->getFrameMock(),
         );

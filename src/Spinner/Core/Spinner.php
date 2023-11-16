@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Exception\WidgetIsNotAComposite;
 final class Spinner extends ASubject implements ISpinner
 {
     public function __construct(
-        protected IWidget $widget,
+        protected readonly IWidget $widget,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
@@ -40,7 +40,7 @@ final class Spinner extends ASubject implements ISpinner
         if ($this->widget instanceof IWidgetComposite) {
             return $this->widget->add($element);
         }
-        throw new WidgetIsNotAComposite('Widget is not a composite.');
+        throw new WidgetIsNotAComposite('Root widget is not a composite.');
     }
 
     public function remove(IWidgetContext $element): void

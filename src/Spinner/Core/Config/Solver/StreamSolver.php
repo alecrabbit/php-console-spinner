@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Config\Solver;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final readonly class StreamSolver extends ASolver implements Contract\IStreamSolver
 {
@@ -30,7 +30,7 @@ final readonly class StreamSolver extends ASolver implements Contract\IStreamSol
             $userStream
             ?? $detectedStream
             ?? $defaultStream
-            ?? throw new InvalidArgumentException(
+            ?? throw new InvalidArgument(
                 'Unable to solve "stream".'
             );
     }

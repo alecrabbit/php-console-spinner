@@ -10,6 +10,8 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Exception\LoopException;
 
+use function is_subclass_of;
+
 final readonly class LoopFactory implements ILoopFactory
 {
     public function __construct(
@@ -40,7 +42,7 @@ final readonly class LoopFactory implements ILoopFactory
         if (is_subclass_of($loopCreator, ILoopCreator::class) === false) {
             throw new LoopException(
                 sprintf(
-                    'Class "%s" must implement "%s" interface.',
+                    'Class "%s" must be a subclass of "%s" interface.',
                     $loopCreator,
                     ILoopCreator::class
                 ),

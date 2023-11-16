@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Palette;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 
-final class PaletteMode implements IPaletteMode
+final readonly class PaletteMode implements IPaletteMode
 {
     public function __construct(
         protected StylingMethodMode $stylingMode,

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopCreator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
@@ -55,10 +55,10 @@ final class LoopCreatorClassProviderTest extends TestCase
     #[Test]
     public function throwsIfCreatorClassIsInvalid(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Creator class must be an instance of "%s" interface.',
+                'Creator class must be of "%s" interface.',
                 ILoopCreator::class
             )
         );

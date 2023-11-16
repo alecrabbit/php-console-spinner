@@ -8,9 +8,9 @@ use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\INormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final readonly class NormalizerModeSolver extends ASolver implements INormalizerModeSolver
 {
@@ -39,7 +39,7 @@ final readonly class NormalizerModeSolver extends ASolver implements INormalizer
             return $mode;
         }
 
-        throw new InvalidArgumentException(
+        throw new InvalidArgument(
             sprintf(
                 'Unable to solve "%s". From values %s.',
                 NormalizerMode::class,
@@ -68,6 +68,6 @@ final readonly class NormalizerModeSolver extends ASolver implements INormalizer
 
     protected function extractOption(ISettings $settings): ?NormalizerOption
     {
-        return $this->extractSettingsElement($settings, IAuxSettings::class)?->getNormalizerOption();
+        return $this->extractSettingsElement($settings, INormalizerSettings::class)?->getNormalizerOption();
     }
 }

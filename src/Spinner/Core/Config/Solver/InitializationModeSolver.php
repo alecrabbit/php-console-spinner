@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final readonly class InitializationModeSolver extends ASolver implements Contract\IInitializationModeSolver
 {
@@ -136,7 +136,7 @@ final readonly class InitializationModeSolver extends ASolver implements Contrac
                     null,
                     InitializationOption::DISABLED,
                 ] => InitializationMode::DISABLED,
-                default => throw new InvalidArgumentException(
+                default => throw new InvalidArgument(
                     sprintf(
                         'Unable to solve "%s". From values %s.',
                         InitializationMode::class,

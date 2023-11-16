@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 
-final class WidgetRevolverFactory implements IWidgetRevolverFactory
+final readonly class WidgetRevolverFactory implements IWidgetRevolverFactory
 {
     public function __construct(
         protected IWidgetRevolverBuilder $widgetRevolverBuilder,

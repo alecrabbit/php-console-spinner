@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 
 final class IntervalTest extends TestCase
@@ -91,7 +91,7 @@ final class IntervalTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => sprintf(
                         'Interval should be greater than or equal to %s.',
                         IInterval::MIN_INTERVAL_MILLISECONDS
@@ -108,7 +108,7 @@ final class IntervalTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgument::class,
                     self::MESSAGE => sprintf(
                         'Interval should be less than or equal to %s.',
                         IInterval::MAX_INTERVAL_MILLISECONDS

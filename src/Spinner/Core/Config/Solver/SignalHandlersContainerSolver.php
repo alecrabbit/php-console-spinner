@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerSettings;
 use AlecRabbit\Spinner\Core\SignalHandlersContainer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayObject;
 use Traversable;
 
@@ -46,7 +46,7 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
     /**
      * @return Traversable<int, IHandlerCreator>
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private function mergeSignalHandlerCreators(
         ?Traversable $userCreators,
@@ -65,7 +65,7 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
     /**
      * @return Traversable<int, IHandlerCreator>
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private function unwrap(Traversable $creators): Traversable
     {
@@ -79,7 +79,7 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
     private static function assertCreator(mixed $creator): void
     {
         if (!($creator instanceof ISignalHandlerCreator)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     'Creator must be instance of "%s", "%s" given.',
                     ISignalHandlerCreator::class,

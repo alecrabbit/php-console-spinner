@@ -5,29 +5,26 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
-use AlecRabbit\Spinner\Contract\INow;
+use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDeltaTimerBuilder;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 
-final class DeltaTimerFactory implements Contract\IDeltaTimerFactory
+final readonly class DeltaTimerFactory implements IDeltaTimerFactory
 {
-    private const COEFFICIENT = 1e-6; // for milliseconds
-
     public function __construct(
-        protected IDeltaTimerBuilder $timerBuilder,
-        protected INow $now,
+        private IDeltaTimerBuilder $timerBuilder,
+        private INowTimer $nowTimer,
+        private float $startTime = 0.0,
     ) {
     }
 
     public function create(): IDeltaTimer
     {
-        return $this->timerBuilder
-            ->withStartTime(0.0)
-            ->withNow($this->now)
-//            ->withTimeFunction(
-//                static fn(): float => hrtime(true) * self::COEFFICIENT // returns milliseconds
-//                static fn(): float => hrtime(true) * 1e-6 // returns milliseconds
-//            )
-            ->build()
+        return
+            $this->timerBuilder
+                ->withStartTime($this->startTime)
+                ->withNowTimer($this->nowTimer)
+                ->build()
         ;
     }
 }

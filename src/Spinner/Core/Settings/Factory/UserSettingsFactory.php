@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 
-final class UserSettingsFactory implements IUserSettingsFactory
+final readonly class UserSettingsFactory implements IUserSettingsFactory
 {
     public function create(): ISettings
     {

@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final readonly class LinkerModeSolver extends ASolver implements Contract\ILinkerModeSolver
 {
@@ -146,7 +146,7 @@ final readonly class LinkerModeSolver extends ASolver implements Contract\ILinke
                     null,
                     LinkerOption::DISABLED,
                 ] => LinkerMode::DISABLED,
-                default => throw new InvalidArgumentException(
+                default => throw new InvalidArgument(
                     sprintf(
                         'Unable to solve "%s". From values %s.',
                         LinkerMode::class,

@@ -8,8 +8,9 @@ use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
 use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Probes;
+use AlecRabbit\Tests\Functional\Spinner\Override\DummyInterface;
 use AlecRabbit\Tests\Functional\Spinner\Override\StaticProbeOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -144,7 +145,7 @@ final class ProbesTest extends TestCase
     }
 
     #[Test]
-    public function canNotUnregisterProbeOfInterfaceSubclass(): void
+    public function canUnregisterProbeOfInterfaceSubclass(): void
     {
         $probe1 = ReactLoopProbe::class;
         $probe2 = RevoltLoopProbe::class;
@@ -158,9 +159,29 @@ final class ProbesTest extends TestCase
 
         $probes = iterator_to_array(Probes::load());
 
-        self::assertContains($probe1, $probes);
-        self::assertContains($probe2, $probes);
+        self::assertNotContains($probe1, $probes);
+        self::assertNotContains($probe2, $probes);
         self::assertContains($probe3, $probes);
+    }
+
+    #[Test]
+    public function canUnregisterProbeOfGeneralInterfaceSubclass(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe2 = RevoltLoopProbe::class;
+        $probe3 = StaticProbeOverride::class;
+
+        Probes::register($probe2);
+        Probes::register($probe1);
+        Probes::register($probe3);
+
+        Probes::unregister(IStaticProbe::class);
+
+        $probes = iterator_to_array(Probes::load());
+
+        self::assertNotContains($probe1, $probes);
+        self::assertNotContains($probe2, $probes);
+        self::assertNotContains($probe3, $probes);
     }
 
     #[Test]
@@ -198,10 +219,25 @@ final class ProbesTest extends TestCase
     }
 
     #[Test]
+    public function loadsAllProbesIfFilterClassIsProbeInterface(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe3 = StaticProbeOverride::class;
+
+        Probes::register($probe3);
+        Probes::register($probe1);
+
+        $probes = iterator_to_array(Probes::load(IStaticProbe::class));
+
+        self::assertContains($probe1, $probes);
+        self::assertContains($probe3, $probes);
+    }
+
+    #[Test]
     public function throwsIfProbeClassIsNotAStaticProbeSubClass(): void
     {
         $probe = stdClass::class;
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             'Class "' .
             $probe .
@@ -218,7 +254,7 @@ final class ProbesTest extends TestCase
     {
         $filterClass = stdClass::class;
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             'Class "' .
             $filterClass .
@@ -239,7 +275,26 @@ final class ProbesTest extends TestCase
     {
         $class = stdClass::class;
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
+        $this->expectExceptionMessage(
+            'Class "' .
+            $class .
+            '" must be a subclass of "' .
+            IStaticProbe::class .
+            '" interface.'
+        );
+
+        Probes::unregister($class);
+
+        self::fail('Exception was not thrown.');
+    }
+
+    #[Test]
+    public function throwsIfInterfaceToUnregisterIsNotAStaticProbeSubClass(): void
+    {
+        $class = DummyInterface::class;
+
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             'Class "' .
             $class .
@@ -257,7 +312,7 @@ final class ProbesTest extends TestCase
     public function throwsIfProbeClassIsNotAStaticProbeSubClass2(): void
     {
         $probe = '';
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             'Class "' .
             $probe .

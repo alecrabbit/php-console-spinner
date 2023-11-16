@@ -4,27 +4,43 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Core\Probe\ColorSupportProbe;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Core\Probe\SignalHandlingProbe;
+use AlecRabbit\Spinner\Core\Probe\StylingMethodProbe;
 
 // @codeCoverageIgnoreStart
 require_once __DIR__ . '/definitions.php';
 
 Probes::register(
     SignalHandlingProbe::class,
-    ColorSupportProbe::class,
+    StylingMethodProbe::class,
 );
 
 $registry = DefinitionRegistry::getInstance();
 
 /**
- * @var string $id
- * @var callable|object|string $definition
+ * @var string|int $id
+ * @var callable|object|class-string|IServiceDefinition $definition
  */
 foreach (getDefinitions() as $id => $definition) {
-    $registry->bind($id, $definition);
+    if ($definition instanceof IServiceDefinition) {
+        $registry->bind($definition);
+        continue;
+    }
+    /**
+     * @var string $id
+     * @var callable|object|class-string $definition
+     */
+    $registry->bind(
+        new ServiceDefinition(
+            $id,
+            $definition,
+            IServiceDefinition::TRANSIENT
+        )
+    );
 }
 
 $container = (new ContainerFactory($registry))->create();
