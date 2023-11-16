@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
@@ -18,10 +19,12 @@ use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDeltaTimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateWriterBuilder;
 use AlecRabbit\Spinner\Core\Builder\DeltaTimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
+use AlecRabbit\Spinner\Core\Builder\SequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Builder\SequenceStateWriterBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
@@ -188,6 +191,57 @@ use function hrtime;
 function getDefinitions(): Traversable
 {
     yield from [
+        new ServiceDefinition(
+            IBuffer::class,
+            StringBuffer::class,
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            IBufferedOutput::class,
+            BufferedOutput::class,
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            IWritableStream::class,
+            static function (IContainer $container): IWritableStream {
+                return
+                    $container->get(IResourceStreamFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            ISettingsProvider::class,
+            static function (IContainer $container): ISettingsProvider {
+                return $container->get(ISettingsProviderFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            ILoopProvider::class,
+            static function (IContainer $container): ILoopProvider {
+                return $container->get(ILoopProviderFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            IDriverProvider::class,
+            static function (IContainer $container): IDriverProvider {
+                return $container->get(IDriverProviderFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            IDriverLinker::class,
+            static function (IContainer $container): IDriverLinker {
+                return $container->get(IDriverLinkerFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
+
+        NormalizerMode::class => static function (IContainer $container): NormalizerMode {
+            return
+                $container->get(IAuxConfig::class)->getNormalizerMode();
+        },
         INowTimer::class => new class implements INowTimer {
             public function now(): float
             {
@@ -197,33 +251,11 @@ function getDefinitions(): Traversable
         },
 
         IOutput::class => Output::class,
-        IBuffer::class => StringBuffer::class,
-        IBufferedOutput::class => BufferedOutput::class,
-        IWritableStream::class => static function (IContainer $container): IWritableStream {
-            return
-                $container->get(IResourceStreamFactory::class)->create();
-        },
-        NormalizerMode::class => static function (IContainer $container): NormalizerMode {
-            return
-                $container->get(IAuxConfig::class)->getNormalizerMode();
-        },
-        ISettingsProvider::class => static function (IContainer $container): ISettingsProvider {
-            return $container->get(ISettingsProviderFactory::class)->create();
-        },
-        ILoopProvider::class => static function (IContainer $container): ILoopProvider {
-            return $container->get(ILoopProviderFactory::class)->create();
-        },
-        IDriverProvider::class => static function (IContainer $container): IDriverProvider {
-            return $container->get(IDriverProviderFactory::class)->create();
-        },
-
         IDriverSetup::class => DriverSetup::class,
         ISignalHandlingSetup::class => static function (IContainer $container): ISignalHandlingSetup {
             return $container->get(ISignalHandlingSetupFactory::class)->create();
         },
-        IDriverLinker::class => static function (IContainer $container): IDriverLinker {
-            return $container->get(IDriverLinkerFactory::class)->create();
-        },
+
         IIntervalNormalizer::class => static function (IContainer $container): IIntervalNormalizer {
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },
@@ -289,6 +321,7 @@ function builders(): Traversable
     yield from [
         IDriverBuilder::class => DriverBuilder::class,
         ISequenceStateWriterBuilder::class => SequenceStateWriterBuilder::class,
+        ISequenceStateBuilder::class => SequenceStateBuilder::class,
         IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
         IDeltaTimerBuilder::class => DeltaTimerBuilder::class,
@@ -367,8 +400,8 @@ function factories(): Traversable
         ILoopFactory::class => LoopFactory::class,
 
         IWidgetConfigFactory::class => WidgetConfigFactory::class,
-        IRootWidgetConfigFactory::class => RootWidgetConfigFactory::class,
         IRuntimeWidgetConfigFactory::class => RuntimeWidgetConfigFactory::class,
+        IRootWidgetConfigFactory::class => RootWidgetConfigFactory::class,
         IRuntimeRootWidgetConfigFactory::class => RuntimeRootWidgetConfigFactory::class,
     ];
 }

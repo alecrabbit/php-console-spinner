@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Builder;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
@@ -24,6 +25,7 @@ final class DriverBuilder implements IDriverBuilder
     private ?IInterval $initialInterval = null;
     private ?IObserver $observer = null;
     private ?IDriverConfig $driverConfig = null;
+    private ?ISequenceStateBuilder $sequenceStateBuilder = null;
 
     public function withSequenceStateWriter(ISequenceStateWriter $sequenceStateWriter): IDriverBuilder
     {
@@ -60,7 +62,8 @@ final class DriverBuilder implements IDriverBuilder
 
         return
             new Driver(
-                output: $this->sequenceStateWriter,
+                stateWriter: $this->sequenceStateWriter,
+                stateBuilder: $this->sequenceStateBuilder,
                 deltaTimer: $this->deltaTimer,
                 initialInterval: $this->initialInterval,
                 driverConfig: $this->driverConfig,
@@ -75,6 +78,7 @@ final class DriverBuilder implements IDriverBuilder
     {
         match (true) {
             $this->sequenceStateWriter === null => throw new LogicException('SequenceStateWriter is not set.'),
+            $this->sequenceStateBuilder === null => throw new LogicException('SequenceStateBuilder is not set.'),
             $this->deltaTimer === null => throw new LogicException('Timer is not set.'),
             $this->initialInterval === null => throw new LogicException('InitialInterval is not set.'),
             $this->driverConfig === null => throw new LogicException('DriverConfig is not set.'),
@@ -86,6 +90,13 @@ final class DriverBuilder implements IDriverBuilder
     {
         $clone = clone $this;
         $clone->driverConfig = $driverConfig;
+        return $clone;
+    }
+
+    public function withSequenceStateBuilder(ISequenceStateBuilder $sequenceStateBuilder): IDriverBuilder
+    {
+        $clone = clone $this;
+        $clone->sequenceStateBuilder = $sequenceStateBuilder;
         return $clone;
     }
 }

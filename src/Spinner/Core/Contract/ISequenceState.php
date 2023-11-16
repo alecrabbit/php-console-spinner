@@ -11,6 +11,4 @@ interface ISequenceState
     public function getSequence(): string;
 
     public function getWidth(): int;
-
-    public function getPosition(): IPoint;
 }

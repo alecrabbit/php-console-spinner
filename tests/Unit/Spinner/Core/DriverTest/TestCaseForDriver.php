@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\DriverTest;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -22,12 +23,14 @@ class TestCaseForDriver extends TestCase
     public function getTesteeInstance(
         ?IDeltaTimer $deltaTimer = null,
         ?ISequenceStateWriter $stateWriter = null,
+        ?ISequenceStateBuilder $stateBuilder = null,
         ?IInterval $initialInterval = null,
         ?IDriverConfig $driverConfig = null,
         ?IObserver $observer = null,
     ): IDriver {
         return new Driver(
-            output: $stateWriter ?? $this->getSequenceStateWriterMock(),
+            stateWriter: $stateWriter ?? $this->getSequenceStateWriterMock(),
+            stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
             deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
             driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
@@ -38,6 +41,11 @@ class TestCaseForDriver extends TestCase
     protected function getSequenceStateWriterMock(): MockObject&ISequenceStateWriter
     {
         return $this->createMock(ISequenceStateWriter::class);
+    }
+
+    protected function getSequenceStateBuilderMock(): MockObject&ISequenceStateBuilder
+    {
+        return $this->createMock(ISequenceStateBuilder::class);
     }
 
     protected function getDeltaTimerMock(): MockObject&IDeltaTimer

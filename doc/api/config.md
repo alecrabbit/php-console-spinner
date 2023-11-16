@@ -1,51 +1,36 @@
 ### Config
 
-Config object is created using `Settings` object values combined with values retrieved from autodetection and defaults.
-
  ```php
+// # ( TODO (2023-11-16 12:57) [Alec Rabbit]: enhance(add to) this description )
+  
 // Aux config
-$auxConfig = $config->get(IAuxConfig::class); // returns AuxConfig object
-
 $auxConfig->getNormalizerMode(); // NormalizerMode::BALANCED
 $auxConfig->getRunMethodMode(); // RunMethodMode::ASYNC
 
 // Loop config
-$loopConfig = $config->get(ILoopConfig::class);
-
 $loopConfig->getAutoStartMode(); // AutoStartMode::ENABLED
 $loopConfig->getSignalHandlingMode(); // SignalHandlingMode::ENABLED
-# NEW FEATURE // $outputConfig->getSignalHandling(); // iterable <- signal handler(s)
 
 // Output config
-$outputConfig = $config->get(IOutputConfig::class); 
-
 $outputConfig->getStylingMethodMode(); // StylingMethodMode::ANSI8
 $outputConfig->getCursorVisibilityMode(); // CursorVisibilityMode::HIDDEN
 $outputConfig->getInitializationMode(); // InitializationMode::ENABLED
 $outputConfig->getStream(); // STDERR
 
-# NEW FEATURE // $outputConfig->getClearScreenMode(); // ClearScreenMode::DISABLED
-
 // Linker config
-$linkerConfig = $config->get(ILinkerConfig::class);
-
 $linkerConfig->getLinkerMode(); // LinkerMode::ENABLED
 $linkerConfig->getInitializationMode(); // InitializationMode::ENABLED
 
 // Widget config
-$widgetConfig = $config->get(IWidgetConfig::class);
-
-$widgetConfig->getCharPattern(); // IBakedPattern  // default: NoStylePattern
-$widgetConfig->getStylePattern(); // IBakedPattern // default: NoCharPattern
-$widgetConfig->getLeadingSpacer(); // IFrame // default: new CharFrame('', 0) 
-$widgetConfig->getTrailingSpacer(); // IFrame // default: new CharFrame(' ', 1)
+$widgetConfig->getCharPalette(); // default: NoStylePalette
+$widgetConfig->getStylePalette(); // default: NoCharPalette
+$widgetConfig->getLeadingSpacer(); // default: new CharFrame('', 0) 
+$widgetConfig->getTrailingSpacer(); // default: new CharFrame(' ', 1)
 
 // Root Widget config
-$rootWidgetConfig = $config->get(IRootWidgetConfig::class);
-
-$rootWidgetConfig->getCharPattern(); // IBakedPattern // default: baked Snake
-$rootWidgetConfig->getStylePattern(); // IBakedPattern // default: baked Rainbow
-$rootWidgetConfig->getLeadingSpacer(); // IFrame // default: new CharFrame('', 0) 
-$rootWidgetConfig->getTrailingSpacer(); // IFrame // default: new CharFrame(' ', 1)
+$rootWidgetConfig->getCharPalette(); // default: Snake
+$rootWidgetConfig->getStylePalette(); // default: Rainbow
+$rootWidgetConfig->getLeadingSpacer(); // default: new CharFrame('', 0) 
+$rootWidgetConfig->getTrailingSpacer(); // default: new CharFrame(' ', 1)
 
 ```
