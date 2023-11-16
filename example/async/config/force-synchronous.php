@@ -8,6 +8,10 @@ use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
+$cycles = 100;
+$min = 1000;
+$max = 500000;
+
 Facade::getSettings()
     ->set(
         new GeneralSettings(
@@ -20,15 +24,14 @@ $spinner = Facade::createSpinner();
 
 $driver = Facade::getDriver();
 
-echo 'Synchronous mode forced' . PHP_EOL;
+echo 'Synchronous mode forced.' . PHP_EOL;
+echo 'Runtime: '. ($cycles * $min / 1e6) . '..'. ($cycles * $max / 1e6) . 's'. PHP_EOL;
 
 // Will throw:
 //Facade::getLoop()->run();
 
-for ($i = 0; $i < 1000; $i++) {
+for ($i = 0; $i < $cycles; $i++) {
     $driver->render();
-    usleep(random_int(1000, 500000)); // simulates unequal intervals
+    usleep(random_int($min, $max)); // simulates unequal intervals
 }
-$driver->finalize();
-
-echo 'Finished' . PHP_EOL;
+$driver->finalize('Finished.'. PHP_EOL);

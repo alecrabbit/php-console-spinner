@@ -37,6 +37,7 @@ $charPalette =
         }
     };
 
+// Let's change default settings
 Facade::getSettings()
     ->set(
         new RootWidgetSettings(
@@ -59,6 +60,7 @@ $loop->delay(
     5, // add spinner at
     static function () use ($driver, $spinnerTwo): void {
         $driver->add($spinnerTwo);
+        $driver->render(); // optional
     }
 );
 
