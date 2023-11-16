@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
@@ -37,25 +37,25 @@ final class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function canSetAndGetAuxSettings(): void
+    public function canSetAndGetGeneralSettings(): void
     {
         $settings = $this->getTesteeInstance();
 
-        $auxSettings = $this->getAuxSettingsMock();
+        $auxSettings = $this->getGeneralSettingsMock();
         $auxSettings
             ->expects(self::once())
             ->method('getIdentifier')
-            ->willReturn(IAuxSettings::class)
+            ->willReturn(IGeneralSettings::class)
         ;
 
         $settings->set($auxSettings);
 
-        self::assertSame($auxSettings, $settings->get(IAuxSettings::class));
+        self::assertSame($auxSettings, $settings->get(IGeneralSettings::class));
     }
 
-    protected function getAuxSettingsMock(): MockObject&IAuxSettings
+    protected function getGeneralSettingsMock(): MockObject&IGeneralSettings
     {
-        return $this->createMock(IAuxSettings::class);
+        return $this->createMock(IGeneralSettings::class);
     }
 
     #[Test]

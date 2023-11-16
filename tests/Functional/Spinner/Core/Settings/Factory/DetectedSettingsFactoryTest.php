@@ -9,12 +9,12 @@ use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
@@ -115,12 +115,12 @@ final class DetectedSettingsFactoryTest extends TestCase
         self::assertNull($settings->get(IWidgetSettings::class));
         self::assertNull($settings->get(IRootWidgetSettings::class));
 
-        $auxSettings = $settings->get(IAuxSettings::class);
+        $auxSettings = $settings->get(IGeneralSettings::class);
         $linkerSettings = $settings->get(ILinkerSettings::class);
         $loopSettings = $settings->get(ILoopSettings::class);
         $outputSettings = $settings->get(IOutputSettings::class);
 
-        self::assertInstanceOf(AuxSettings::class, $auxSettings);
+        self::assertInstanceOf(GeneralSettings::class, $auxSettings);
         self::assertInstanceOf(LinkerSettings::class, $linkerSettings);
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
         self::assertInstanceOf(OutputSettings::class, $outputSettings);

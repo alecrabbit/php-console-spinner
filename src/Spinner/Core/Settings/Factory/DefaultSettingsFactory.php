@@ -18,7 +18,6 @@ use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
@@ -48,10 +47,6 @@ final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
     {
         // ATTENTION! MUST be filled with all required values
         $settings->set(
-            new AuxSettings(
-                runMethodOption: RunMethodOption::ASYNC,
-                normalizerOption: NormalizerOption::BALANCED,
-            ),
             new GeneralSettings(
                 runMethodOption: RunMethodOption::ASYNC,
             ),

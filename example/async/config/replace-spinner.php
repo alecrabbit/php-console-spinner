@@ -7,7 +7,7 @@ use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Facade;
@@ -44,16 +44,16 @@ Facade::getSettings()
             stylePalette: new NoStylePalette(),
             charPalette: $charPalette,
         ),
-        new AuxSettings(
+        new NormalizerSettings(
             normalizerOption: NormalizerOption::SLOW,
         )
     )
 ;
 
+$spinnerTwo = Facade::createSpinner(new SpinnerSettings(autoAttach: false));
+
 $driver = Facade::getDriver();
 $loop = Facade::getLoop();
-
-$spinnerTwo = Facade::createSpinner(new SpinnerSettings(autoAttach: false));
 
 $loop->delay(
     5, // add spinner at

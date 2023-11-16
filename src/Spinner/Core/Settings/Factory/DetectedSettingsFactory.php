@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
@@ -47,7 +47,7 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
     private function fill(ISettings $settings): void
     {
         $settings->set(
-            new AuxSettings(
+            new GeneralSettings(
                 runMethodOption: $this->getRunMethodOption(),
             ),
             new LinkerSettings(
