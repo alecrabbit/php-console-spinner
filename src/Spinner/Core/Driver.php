@@ -40,7 +40,7 @@ final class Driver extends ADriver
         $this->state = $this->initialState();
     }
 
-    protected function initialState(): ISequenceState
+    private function initialState(): ISequenceState
     {
         return
             $this->stateBuilder
