@@ -14,7 +14,6 @@ use AlecRabbit\Spinner\Exception\LogicException;
  */
 final class SequenceStateBuilder implements ISequenceStateBuilder
 {
-
     private ?string $sequence = null;
     private ?int $width = null;
     private ?int $previousWidth = null;
