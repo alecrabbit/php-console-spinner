@@ -7,10 +7,7 @@ namespace AlecRabbit\Spinner\Core\Config\Contract;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 
-/** @deprecated */
-interface IAuxConfig extends IConfigElement
+interface INormalizerConfig extends IConfigElement
 {
-    public function getRunMethodMode(): RunMethodMode;
-
     public function getNormalizerMode(): NormalizerMode;
 }

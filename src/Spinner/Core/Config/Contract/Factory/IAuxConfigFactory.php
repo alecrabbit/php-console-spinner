@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\Contract\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 
+/** @deprecated */
 interface IAuxConfigFactory
 {
     public function create(): IAuxConfig;

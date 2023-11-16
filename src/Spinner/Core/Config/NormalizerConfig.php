@@ -6,20 +6,13 @@ namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\INormalizerConfig;
 
-/** @deprecated */
-final readonly class AuxConfig implements IAuxConfig
+final readonly class NormalizerConfig implements INormalizerConfig
 {
     public function __construct(
-        protected RunMethodMode $runMethodMode,
         protected NormalizerMode $normalizerMode,
     ) {
-    }
-
-    public function getRunMethodMode(): RunMethodMode
-    {
-        return $this->runMethodMode;
     }
 
     public function getNormalizerMode(): NormalizerMode
@@ -28,10 +21,10 @@ final readonly class AuxConfig implements IAuxConfig
     }
 
     /**
-     * @return class-string<IAuxConfig>
+     * @return class-string<INormalizerConfig>
      */
     public function getIdentifier(): string
     {
-        return IAuxConfig::class;
+        return INormalizerConfig::class;
     }
 }

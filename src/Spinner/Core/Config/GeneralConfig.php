@@ -7,13 +7,12 @@ namespace AlecRabbit\Spinner\Core\Config;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 
-/** @deprecated */
-final readonly class AuxConfig implements IAuxConfig
+final readonly class GeneralConfig implements IGeneralConfig
 {
     public function __construct(
         protected RunMethodMode $runMethodMode,
-        protected NormalizerMode $normalizerMode,
     ) {
     }
 
@@ -22,16 +21,11 @@ final readonly class AuxConfig implements IAuxConfig
         return $this->runMethodMode;
     }
 
-    public function getNormalizerMode(): NormalizerMode
-    {
-        return $this->normalizerMode;
-    }
-
     /**
-     * @return class-string<IAuxConfig>
+     * @return class-string<IGeneralConfig>
      */
     public function getIdentifier(): string
     {
-        return IAuxConfig::class;
+        return IGeneralConfig::class;
     }
 }

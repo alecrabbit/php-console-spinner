@@ -22,9 +22,11 @@ use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Messages;
+use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\RevolverSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
@@ -48,6 +50,12 @@ final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
         $settings->set(
             new AuxSettings(
                 runMethodOption: RunMethodOption::ASYNC,
+                normalizerOption: NormalizerOption::BALANCED,
+            ),
+            new GeneralSettings(
+                runMethodOption: RunMethodOption::ASYNC,
+            ),
+            new NormalizerSettings(
                 normalizerOption: NormalizerOption::BALANCED,
             ),
             new LinkerSettings(
