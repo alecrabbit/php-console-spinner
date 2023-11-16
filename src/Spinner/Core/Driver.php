@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ADriver;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -21,16 +22,28 @@ final class Driver extends ADriver
 
     public function __construct(
         ISequenceStateWriter $output,
+        ISequenceStateBuilder $stateBuilder,
         IDeltaTimer $deltaTimer,
         IInterval $initialInterval,
         IDriverConfig $driverConfig,
         ?IObserver $observer = null
     ) {
-        parent::__construct($driverConfig, $deltaTimer, $initialInterval, $output, $observer);
+        parent::__construct(
+            $driverConfig,
+            $deltaTimer,
+            $initialInterval,
+            $output,
+            $observer
+        );
 
-        $this->state = new SequenceState();
+        $this->state = $this->initialState();
     }
 
+    protected function initialState(): SequenceState
+    {
+        return
+            new SequenceState();
+    }
 
     /** @inheritDoc */
     public function add(ISpinner $spinner): void
@@ -62,14 +75,11 @@ final class Driver extends ADriver
         }
     }
 
-    /** @inheritDoc */
-    public function remove(ISpinner $spinner): void
+    protected function doRemove(ISpinner $spinner): void
     {
-        if ($this->spinner === $spinner) {
-            $this->erase();
-            $this->doRemove($spinner);
-            $this->notify();
-        }
+        $spinner->detach($this);
+        $this->spinner = null;
+        $this->interval = $this->recalculateInterval();
     }
 
     protected function recalculateInterval(): IInterval
@@ -86,6 +96,16 @@ final class Driver extends ADriver
     }
 
     /** @inheritDoc */
+    public function remove(ISpinner $spinner): void
+    {
+        if ($this->spinner === $spinner) {
+            $this->erase();
+            $this->doRemove($spinner);
+            $this->notify();
+        }
+    }
+
+    /** @inheritDoc */
     public function has(ISpinner $spinner): bool
     {
         return $this->spinner === $spinner;
@@ -95,8 +115,9 @@ final class Driver extends ADriver
     public function render(?float $dt = null): void
     {
         if ($this->spinner) {
-            $dt ??= $this->deltaTimer->getDelta();
-            $frame = $this->spinner->getFrame($dt);
+            $frame =
+                $this->spinner->getFrame($dt ?? $this->deltaTimer->getDelta());
+
             $this->state =
                 new SequenceState(
                     sequence: $frame->sequence(),
@@ -106,12 +127,5 @@ final class Driver extends ADriver
 
             $this->stateWriter->write($this->state);
         }
-    }
-
-    protected function doRemove(ISpinner $spinner): void
-    {
-        $spinner->detach($this);
-        $this->spinner = null;
-        $this->interval = $this->recalculateInterval();
     }
 }

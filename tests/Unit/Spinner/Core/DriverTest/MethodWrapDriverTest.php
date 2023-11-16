@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ADriver;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
@@ -68,6 +69,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
     public function getTesteeInstance(
         ?IDeltaTimer $deltaTimer = null,
         ?ISequenceStateWriter $stateWriter = null,
+        ?ISequenceStateBuilder $stateBuilder = null,
         ?IInterval $initialInterval = null,
         ?IDriverConfig $driverConfig = null,
         ?IObserver $observer = null,
@@ -79,6 +81,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                 deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
                 initialInterval: $initialInterval ?? $this->getIntervalMock(),
                 stateWriter: $stateWriter ?? $this->getSequenceStateWriterMock(),
+                stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
                 state: $state ?? $this->getSequenceStateMock(),
                 observer: $observer,
             ) extends ADriver {
@@ -87,6 +90,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                     IDeltaTimer $deltaTimer,
                     IInterval $initialInterval,
                     ISequenceStateWriter $stateWriter,
+                    ISequenceStateBuilder $stateBuilder,
                     private readonly ISequenceState $state,
                     ?IObserver $observer = null,
                 ) {
@@ -125,4 +129,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                 }
             };
     }
+
+
+
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
@@ -20,6 +21,7 @@ final class DriverFactory implements IDriverFactory
         protected IIntervalFactory $intervalFactory,
         protected IDeltaTimerFactory $timerFactory,
         protected ISequenceStateWriterFactory $sequenceStateWriterFactory,
+        protected ISequenceStateBuilder $sequenceStateBuilder,
     ) {
     }
 
@@ -29,6 +31,9 @@ final class DriverFactory implements IDriverFactory
             $this->driverBuilder
                 ->withSequenceStateWriter(
                     $this->sequenceStateWriterFactory->create()
+                )
+                ->withSequenceStateBuilder(
+                    $this->sequenceStateBuilder
                 )
                 ->withDeltaTimer(
                     $this->timerFactory->create()
