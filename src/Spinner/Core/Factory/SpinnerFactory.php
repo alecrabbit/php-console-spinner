@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
@@ -17,7 +17,7 @@ final readonly class SpinnerFactory implements ISpinnerFactory
 {
     public function __construct(
         protected IWidgetFactory $widgetFactory,
-        protected IRuntimeRootWidgetConfigFactory $widgetConfigFactory,
+        protected IRootWidgetConfigFactory $widgetConfigFactory,
     ) {
     }
 

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
-use AlecRabbit\Spinner\Core\Settings\OutputSettings;
+use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Facade;
 
-require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../bootstrap.async.php';
 
 $spinnerOne = Facade::createSpinner();
 
@@ -40,8 +40,12 @@ $charPalette =
 Facade::getSettings()
     ->set(
         new RootWidgetSettings(
+            leadingSpacer: new CharFrame('⏳ ', 3),
             stylePalette: new NoStylePalette(),
             charPalette: $charPalette,
+        ),
+        new AuxSettings(
+            normalizerOption: NormalizerOption::SLOW,
         )
     )
 ;
@@ -49,7 +53,7 @@ Facade::getSettings()
 $driver = Facade::getDriver();
 $loop = Facade::getLoop();
 
-$spinnerTwo = Facade::createSpinner( new SpinnerSettings(autoAttach: false));
+$spinnerTwo = Facade::createSpinner(new SpinnerSettings(autoAttach: false));
 
 $loop->delay(
     5, // add spinner at
@@ -57,12 +61,10 @@ $loop->delay(
         $driver->add($spinnerTwo);
     }
 );
+
 $loop->delay(
     15, // add spinner at
     static function () use ($driver, $spinnerOne): void {
         $driver->add($spinnerOne);
     }
 );
-
-// perform example unrelated actions:
-require_once __DIR__ . '/../bootstrap.async.php';

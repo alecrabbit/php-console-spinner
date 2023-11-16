@@ -44,10 +44,10 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRevolverConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeRootWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
@@ -62,10 +62,10 @@ use AlecRabbit\Spinner\Core\Config\Factory\LinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RevolverConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\InitialRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RootWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Factory\RuntimeRootWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Factory\RuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\InitialWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
@@ -302,10 +302,10 @@ function configs(): Traversable
             return $container->get(IAuxConfigFactory::class)->create();
         },
         IWidgetConfig::class => static function (IContainer $container): IWidgetConfig {
-            return $container->get(IWidgetConfigFactory::class)->create();
+            return $container->get(IInitialWidgetConfigFactory::class)->create();
         },
         IRootWidgetConfig::class => static function (IContainer $container): IRootWidgetConfig {
-            return $container->get(IRootWidgetConfigFactory::class)->create();
+            return $container->get(IInitialRootWidgetConfigFactory::class)->create();
         },
         RunMethodMode::class => static function (IContainer $container): RunMethodMode {
             return $container->get(IAuxConfig::class)->getRunMethodMode();
@@ -399,10 +399,10 @@ function factories(): Traversable
 
         ILoopFactory::class => LoopFactory::class,
 
+        IInitialWidgetConfigFactory::class => InitialWidgetConfigFactory::class,
         IWidgetConfigFactory::class => WidgetConfigFactory::class,
-        IRuntimeWidgetConfigFactory::class => RuntimeWidgetConfigFactory::class,
+        IInitialRootWidgetConfigFactory::class => InitialRootWidgetConfigFactory::class,
         IRootWidgetConfigFactory::class => RootWidgetConfigFactory::class,
-        IRuntimeRootWidgetConfigFactory::class => RuntimeRootWidgetConfigFactory::class,
     ];
 }
 

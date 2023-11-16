@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
-use AlecRabbit\Spinner\Core\Config\Factory\RuntimeRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\RootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RevolverConfig;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
@@ -182,14 +182,14 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
     {
         $factory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(RuntimeRootWidgetConfigFactory::class, $factory);
+        self::assertInstanceOf(RootWidgetConfigFactory::class, $factory);
     }
 
     public function getTesteeInstance(
         ?IRootWidgetConfig $widgetConfig = null,
-    ): IRootWidgetConfigFactory {
+    ): IInitialRootWidgetConfigFactory {
         return
-            new RuntimeRootWidgetConfigFactory(
+            new RootWidgetConfigFactory(
                 rootWidgetConfig: $widgetConfig ?? $this->getRootWidgetConfigMock(),
             );
     }
