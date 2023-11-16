@@ -18,13 +18,14 @@ use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Messages;
+use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\RevolverSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
@@ -46,8 +47,10 @@ final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
     {
         // ATTENTION! MUST be filled with all required values
         $settings->set(
-            new AuxSettings(
+            new GeneralSettings(
                 runMethodOption: RunMethodOption::ASYNC,
+            ),
+            new NormalizerSettings(
                 normalizerOption: NormalizerOption::BALANCED,
             ),
             new LinkerSettings(

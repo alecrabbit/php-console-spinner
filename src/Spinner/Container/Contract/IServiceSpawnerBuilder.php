@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container\Contract;
 
-use AlecRabbit\Spinner\Container\Builder\ServiceSpawnerBuilder;
-
 interface IServiceSpawnerBuilder
 {
     public function withContainer(IContainer $container): IServiceSpawnerBuilder;

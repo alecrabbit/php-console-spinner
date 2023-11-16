@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\NormalizerModeSolver;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\INormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
@@ -175,32 +175,32 @@ final class NormalizerModeSolverTest extends TestCase
             $defaultNormalizerOption
         ] = $args;
 
-        $userAuxSettings = $this->getAuxSettingsMock($userNormalizerOption);
-        $detectedAuxSettings = $this->getAuxSettingsMock($detectedNormalizerOption);
-        $defaultAuxSettings = $this->getAuxSettingsMock($defaultNormalizerOption);
+        $userNormalizerSettings = $this->getNormalizerSettingsMock($userNormalizerOption);
+        $detectedNormalizerSettings = $this->getNormalizerSettingsMock($detectedNormalizerOption);
+        $defaultNormalizerSettings = $this->getNormalizerSettingsMock($defaultNormalizerOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IAuxSettings::class))
-            ->willReturn($userAuxSettings)
+            ->with(self::identicalTo(INormalizerSettings::class))
+            ->willReturn($userNormalizerSettings)
         ;
 
         $detectedSettings = $this->getSettingsMock();
         $detectedSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IAuxSettings::class))
-            ->willReturn($detectedAuxSettings)
+            ->with(self::identicalTo(INormalizerSettings::class))
+            ->willReturn($detectedNormalizerSettings)
         ;
 
         $defaultSettings = $this->getSettingsMock();
         $defaultSettings
             ->expects(self::once())
             ->method('get')
-            ->with(self::identicalTo(IAuxSettings::class))
-            ->willReturn($defaultAuxSettings)
+            ->with(self::identicalTo(INormalizerSettings::class))
+            ->willReturn($defaultNormalizerSettings)
         ;
 
         $settingsProvider = $this->getSettingsProviderMock();
@@ -232,13 +232,13 @@ final class NormalizerModeSolverTest extends TestCase
         }
     }
 
-    protected function getAuxSettingsMock(?NormalizerOption $normalizerOption = null): (MockObject&IAuxSettings)|null
-    {
+    protected function getNormalizerSettingsMock(?NormalizerOption $normalizerOption = null
+    ): (MockObject&INormalizerSettings)|null {
         return
             $normalizerOption === null
                 ? null :
                 $this->createConfiguredMock(
-                    IAuxSettings::class,
+                    INormalizerSettings::class,
                     [
                         'getNormalizerOption' => $normalizerOption,
                     ]

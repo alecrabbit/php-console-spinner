@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
@@ -41,14 +41,14 @@ final class UserSettingsFactoryTest extends TestCase
 
         self::assertInstanceOf(Settings::class, $settings);
 
-        $auxSettings = $settings->get(IAuxSettings::class);
+        $generalSettings = $settings->get(IGeneralSettings::class);
         $linkerSettings = $settings->get(ILinkerSettings::class);
         $loopSettings = $settings->get(ILoopSettings::class);
         $outputSettings = $settings->get(IOutputSettings::class);
         $widgetSettings = $settings->get(IWidgetSettings::class);
         $rootWidgetSettings = $settings->get(IRootWidgetSettings::class);
 
-        self::assertNull($auxSettings);
+        self::assertNull($generalSettings);
         self::assertNull($linkerSettings);
         self::assertNull($loopSettings);
         self::assertNull($outputSettings);

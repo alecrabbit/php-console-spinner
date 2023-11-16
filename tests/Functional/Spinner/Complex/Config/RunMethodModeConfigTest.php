@@ -6,10 +6,10 @@ namespace AlecRabbit\Tests\Functional\Spinner\Complex\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
@@ -41,16 +41,16 @@ final class RunMethodModeConfigTest extends ConfigurationTestCase
     {
         Facade::getSettings()
             ->set(
-                new AuxSettings(
+                new GeneralSettings(
                     runMethodOption: RunMethodOption::AUTO,
                 ),
             )
         ;
 
-        /** @var IAuxConfig $auxConfig */
-        $auxConfig = self::getRequiredConfig(IAuxConfig::class);
+        /** @var IGeneralConfig $generalConfig */
+        $generalConfig = self::getRequiredConfig(IGeneralConfig::class);
 
-        self::assertSame(RunMethodMode::ASYNC, $auxConfig->getRunMethodMode());
+        self::assertSame(RunMethodMode::ASYNC, $generalConfig->getRunMethodMode());
     }
 
     #[Test]
@@ -58,16 +58,16 @@ final class RunMethodModeConfigTest extends ConfigurationTestCase
     {
         Facade::getSettings()
             ->set(
-                new AuxSettings(
+                new GeneralSettings(
                     runMethodOption: RunMethodOption::ASYNC,
                 ),
             )
         ;
 
-        /** @var IAuxConfig $auxConfig */
-        $auxConfig = self::getRequiredConfig(IAuxConfig::class);
+        /** @var IGeneralConfig $generalConfig */
+        $generalConfig = self::getRequiredConfig(IGeneralConfig::class);
 
-        self::assertSame(RunMethodMode::ASYNC, $auxConfig->getRunMethodMode());
+        self::assertSame(RunMethodMode::ASYNC, $generalConfig->getRunMethodMode());
     }
 
     #[Test]
@@ -75,15 +75,15 @@ final class RunMethodModeConfigTest extends ConfigurationTestCase
     {
         Facade::getSettings()
             ->set(
-                new AuxSettings(
+                new GeneralSettings(
                     runMethodOption: RunMethodOption::SYNCHRONOUS,
                 ),
             )
         ;
 
-        /** @var IAuxConfig $auxConfig */
-        $auxConfig = self::getRequiredConfig(IAuxConfig::class);
+        /** @var IGeneralConfig $generalConfig */
+        $generalConfig = self::getRequiredConfig(IGeneralConfig::class);
 
-        self::assertSame(RunMethodMode::SYNCHRONOUS, $auxConfig->getRunMethodMode());
+        self::assertSame(RunMethodMode::SYNCHRONOUS, $generalConfig->getRunMethodMode());
     }
 }

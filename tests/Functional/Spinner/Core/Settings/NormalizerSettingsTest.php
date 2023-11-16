@@ -5,29 +5,26 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
-use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\INormalizerSettings;
+use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class AuxSettingsTest extends TestCase
+final class NormalizerSettingsTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $settings = $this->getTesteeInstance();
 
-        self::assertInstanceOf(AuxSettings::class, $settings);
+        self::assertInstanceOf(NormalizerSettings::class, $settings);
     }
 
     public function getTesteeInstance(
-        ?RunMethodOption $runMethodOption = null,
         ?NormalizerOption $normalizerOption = null,
-    ): IAuxSettings {
+    ): INormalizerSettings {
         return
-            new AuxSettings(
-                runMethodOption: $runMethodOption ?? RunMethodOption::AUTO,
+            new NormalizerSettings(
                 normalizerOption: $normalizerOption ?? NormalizerOption::AUTO,
             );
     }
@@ -37,19 +34,7 @@ final class AuxSettingsTest extends TestCase
     {
         $settings = $this->getTesteeInstance();
 
-        self::assertEquals(IAuxSettings::class, $settings->getIdentifier());
-    }
-
-    #[Test]
-    public function canGetRunMethodOption(): void
-    {
-        $runMethodOption = RunMethodOption::ASYNC;
-
-        $settings = $this->getTesteeInstance(
-            runMethodOption: $runMethodOption,
-        );
-
-        self::assertEquals($runMethodOption, $settings->getRunMethodOption());
+        self::assertEquals(INormalizerSettings::class, $settings->getIdentifier());
     }
 
     #[Test]

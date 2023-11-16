@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
@@ -38,15 +38,15 @@ final class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function canSetAndGetAuxSettings(): void
+    public function canSetAndGetGeneralSettings(): void
     {
         $settings = $this->getTesteeInstance();
 
-        $auxSettings = new AuxSettings();
+        $generalSettings = new GeneralSettings();
 
-        $settings->set($auxSettings);
+        $settings->set($generalSettings);
 
-        self::assertSame($auxSettings, $settings->get(IAuxSettings::class));
+        self::assertSame($generalSettings, $settings->get(IGeneralSettings::class));
     }
 
     #[Test]
@@ -114,7 +114,7 @@ final class SettingsTest extends TestCase
     {
         $settings = $this->getTesteeInstance();
 
-        $auxSettings = new AuxSettings();
+        $generalSettings = new GeneralSettings();
         $linkerSettings = new LinkerSettings();
         $loopSettings = new LoopSettings();
         $outputSettings = new OutputSettings();
@@ -122,7 +122,7 @@ final class SettingsTest extends TestCase
         $rootWidgetSettings = new RootWidgetSettings();
 
         $settings->set(
-            $auxSettings,
+            $generalSettings,
             $linkerSettings,
             $loopSettings,
             $outputSettings,
@@ -130,7 +130,7 @@ final class SettingsTest extends TestCase
             $rootWidgetSettings,
         );
 
-        self::assertSame($auxSettings, $settings->get(IAuxSettings::class));
+        self::assertSame($generalSettings, $settings->get(IGeneralSettings::class));
         self::assertSame($linkerSettings, $settings->get(ILinkerSettings::class));
         self::assertSame($loopSettings, $settings->get(ILoopSettings::class));
         self::assertSame($outputSettings, $settings->get(IOutputSettings::class));

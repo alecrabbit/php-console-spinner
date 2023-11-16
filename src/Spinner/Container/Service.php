@@ -13,8 +13,7 @@ final readonly class Service implements IService
         private mixed $value,
         private IServiceDefinition $serviceDefinition,
         private bool $storable,
-    )
-    {
+    ) {
     }
 
     public function getValue(): mixed

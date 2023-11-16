@@ -3,9 +3,11 @@
  ```php
 // # ( TODO (2023-11-16 12:57) [Alec Rabbit]: enhance(add to) this description )
   
-// Aux config
-$auxConfig->getNormalizerMode(); // NormalizerMode::BALANCED
-$auxConfig->getRunMethodMode(); // RunMethodMode::ASYNC
+// General config
+$generalConfig->getRunMethodMode(); // RunMethodMode::ASYNC
+
+// Normalizer config
+$normalizerConfig->getNormalizerMode(); // NormalizerMode::BALANCED
 
 // Loop config
 $loopConfig->getAutoStartMode(); // AutoStartMode::ENABLED

@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Container\Factory\ServiceObjectFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use stdClass;
 
 final class ServiceObjectFactoryTest extends TestCase
 {
@@ -51,7 +52,7 @@ final class ServiceObjectFactoryTest extends TestCase
             isStorableSolver: $solver,
         );
 
-        $value = new \stdClass();
+        $value = new stdClass();
         $serviceDefinition = $this->getServiceDefinitionMock();
 
         $service = $factory->create($value, $serviceDefinition);

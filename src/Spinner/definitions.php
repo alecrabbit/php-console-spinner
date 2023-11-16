@@ -26,46 +26,51 @@ use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\SequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Builder\SequenceStateWriterBuilder;
-use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\GeneralConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LinkerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\NormalizerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\RevolverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IGeneralConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILinkerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\INormalizerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IRevolverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IGeneralConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\INormalizerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRevolverConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\INormalizerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\GeneralConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\InitialRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\InitialWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\NormalizerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RevolverConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Factory\InitialRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Factory\InitialWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
@@ -240,7 +245,7 @@ function getDefinitions(): Traversable
 
         NormalizerMode::class => static function (IContainer $container): NormalizerMode {
             return
-                $container->get(IAuxConfig::class)->getNormalizerMode();
+                $container->get(INormalizerConfig::class)->getNormalizerMode();
         },
         INowTimer::class => new class implements INowTimer {
             public function now(): float
@@ -298,8 +303,11 @@ function configs(): Traversable
         ILoopConfig::class => static function (IContainer $container): ILoopConfig {
             return $container->get(ILoopConfigFactory::class)->create();
         },
-        IAuxConfig::class => static function (IContainer $container): IAuxConfig {
-            return $container->get(IAuxConfigFactory::class)->create();
+        INormalizerConfig::class => static function (IContainer $container): INormalizerConfig {
+            return $container->get(INormalizerConfigFactory::class)->create();
+        },
+        IGeneralConfig::class => static function (IContainer $container): IGeneralConfig {
+            return $container->get(IGeneralConfigFactory::class)->create();
         },
         IWidgetConfig::class => static function (IContainer $container): IWidgetConfig {
             return $container->get(IInitialWidgetConfigFactory::class)->create();
@@ -308,7 +316,7 @@ function configs(): Traversable
             return $container->get(IInitialRootWidgetConfigFactory::class)->create();
         },
         RunMethodMode::class => static function (IContainer $container): RunMethodMode {
-            return $container->get(IAuxConfig::class)->getRunMethodMode();
+            return $container->get(IGeneralConfig::class)->getRunMethodMode();
         },
         IRevolverConfig::class => static function (IContainer $container): IRevolverConfig {
             return $container->get(IRevolverConfigFactory::class)->create();
@@ -331,13 +339,14 @@ function builders(): Traversable
         IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
         ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
 
-        IAuxConfigBuilder::class => AuxConfigBuilder::class,
         IDriverConfigBuilder::class => DriverConfigBuilder::class,
         ILoopConfigBuilder::class => LoopConfigBuilder::class,
         IOutputConfigBuilder::class => OutputConfigBuilder::class,
         ILinkerConfigBuilder::class => LinkerConfigBuilder::class,
 
         IRevolverConfigBuilder::class => RevolverConfigBuilder::class,
+        IGeneralConfigBuilder::class => GeneralConfigBuilder::class,
+        INormalizerConfigBuilder::class => NormalizerConfigBuilder::class,
     ];
 }
 
@@ -391,7 +400,8 @@ function factories(): Traversable
         IPatternFactory::class => PatternFactory::class,
         IPaletteModeFactory::class => PaletteModeFactory::class,
 
-        IAuxConfigFactory::class => AuxConfigFactory::class,
+        IGeneralConfigFactory::class => GeneralConfigFactory::class,
+        INormalizerConfigFactory::class => NormalizerConfigFactory::class,
         ILoopConfigFactory::class => LoopConfigFactory::class,
         IOutputConfigFactory::class => OutputConfigFactory::class,
         ILinkerConfigFactory::class => LinkerConfigFactory::class,

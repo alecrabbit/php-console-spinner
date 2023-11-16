@@ -18,16 +18,39 @@ use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 
 //...
 
-// General settings (Changes have no effect after configuration creation)
-$generalSettings = 
-    new GeneralSettings(
-        runMethodOption: RunMethodOption::AUTO, 
-    );
-    
 // Normalizer settings
 $normalizerSettings = 
     new NormalizerSettings(
         normalizerOption: NormalizerOption::AUTO, 
+    );
+// Revolver settings
+$revolverSettings = 
+    new RevolverSettings(
+        tolerance: new Tolerance(5), // defaults to: Tolerance(5)
+    );
+ 
+// Widget settings
+$widgetSettings = 
+    new WidgetSettings(
+        leadingSpacer: null, // defaults to: CharFrame('', 0)
+        trailingSpacer: null, // defaults to: CharFrame('', 0)
+        stylePalette: null, // defaults to: NoStylePalette()
+        charPalette: null, // defaults to: NoCharPalette()
+    );
+
+// Root Widget settings
+$rootWidgetSettings = 
+    new RootWidgetSettings(
+        leadingSpacer: null, // defaults to: WidgetConfig.leadingSpacer
+        trailingSpacer: null, // defaults to: WidgetConfig.trailingSpacer
+        stylePalette: null, // defaults to: new Rainbow() 
+        charPalette: null, // defaults to: new Snake() 
+    );
+    
+// General settings (Changes have no effect after configuration creation)
+$generalSettings = 
+    new GeneralSettings(
+        runMethodOption: RunMethodOption::AUTO, 
     );
 
 // Loop settings (Changes have no effect after configuration creation)
@@ -84,29 +107,7 @@ $driverSettings =
         )
     );
  
-// Revolver settings
-$revolverSettings = 
-    new RevolverSettings(
-        tolerance: new Tolerance(5), // defaults to: Tolerance(5)
-    );
- 
-// Widget settings
-$widgetSettings = 
-    new WidgetSettings(
-        leadingSpacer: null, // defaults to: CharFrame('', 0)
-        trailingSpacer: null, // defaults to: CharFrame('', 0)
-        stylePalette: null, // defaults to: NoStylePalette()
-        charPalette: null, // defaults to: NoCharPalette()
-    );
 
-// Root Widget settings
-$rootWidgetSettings = 
-    new RootWidgetSettings(
-        leadingSpacer: null, // defaults to: WidgetConfig.leadingSpacer
-        trailingSpacer: null, // defaults to: WidgetConfig.trailingSpacer
-        stylePalette: null, // defaults to: new Rainbow() 
-        charPalette: null, // defaults to: new Snake() 
-    );
 ```
 
 ```php

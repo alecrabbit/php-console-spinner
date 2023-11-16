@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
 Facade::getSettings()
     ->set(
-        new AuxSettings(
+        new NormalizerSettings(
             normalizerOption: NormalizerOption::SLOW,
         ),
     )

@@ -144,16 +144,16 @@ final class AutoStartModeSolverTest extends TestCase
             $defaultAutoStartOption
         ] = $args;
 
-        $userAuxSettings = $this->getLoopSettingsMock($userAutoStartOption);
-        $detectedAuxSettings = $this->getLoopSettingsMock($detectedAutoStartOption);
-        $defaultAuxSettings = $this->getLoopSettingsMock($defaultAutoStartOption);
+        $userLoopSettings = $this->getLoopSettingsMock($userAutoStartOption);
+        $detectedLoopSettings = $this->getLoopSettingsMock($detectedAutoStartOption);
+        $defaultLoopSettings = $this->getLoopSettingsMock($defaultAutoStartOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($userAuxSettings)
+            ->willReturn($userLoopSettings)
         ;
 
         $detectedSettings = $this->getSettingsMock();
@@ -161,7 +161,7 @@ final class AutoStartModeSolverTest extends TestCase
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($detectedAuxSettings)
+            ->willReturn($detectedLoopSettings)
         ;
 
         $defaultSettings = $this->getSettingsMock();
@@ -169,7 +169,7 @@ final class AutoStartModeSolverTest extends TestCase
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($defaultAuxSettings)
+            ->willReturn($defaultLoopSettings)
         ;
 
         $settingsProvider = $this->getSettingsProviderMock();

@@ -151,16 +151,16 @@ final class SignalHandlingModeSolverTest extends TestCase
             $defaultSignalHandlingOption
         ] = $args;
 
-        $userAuxSettings = $this->getLoopSettingsMock($userSignalHandlingOption);
-        $detectedAuxSettings = $this->getLoopSettingsMock($detectedSignalHandlingOption);
-        $defaultAuxSettings = $this->getLoopSettingsMock($defaultSignalHandlingOption);
+        $userLoopSettings = $this->getLoopSettingsMock($userSignalHandlingOption);
+        $detectedLoopSettings = $this->getLoopSettingsMock($detectedSignalHandlingOption);
+        $defaultLoopSettings = $this->getLoopSettingsMock($defaultSignalHandlingOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($userAuxSettings)
+            ->willReturn($userLoopSettings)
         ;
 
         $detectedSettings = $this->getSettingsMock();
@@ -168,7 +168,7 @@ final class SignalHandlingModeSolverTest extends TestCase
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($detectedAuxSettings)
+            ->willReturn($detectedLoopSettings)
         ;
 
         $defaultSettings = $this->getSettingsMock();
@@ -176,7 +176,7 @@ final class SignalHandlingModeSolverTest extends TestCase
             ->expects(self::once())
             ->method('get')
             ->with(self::identicalTo(ILoopSettings::class))
-            ->willReturn($defaultAuxSettings)
+            ->willReturn($defaultLoopSettings)
         ;
 
         $settingsProvider = $this->getSettingsProviderMock();

@@ -5,43 +5,28 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
-use AlecRabbit\Spinner\Core\Config\AuxConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\INormalizerConfig;
+use AlecRabbit\Spinner\Core\Config\NormalizerConfig;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class AuxConfigTest extends TestCase
+final class NormalizerConfigTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $config = $this->getTesteeInstance();
 
-        self::assertInstanceOf(AuxConfig::class, $config);
+        self::assertInstanceOf(NormalizerConfig::class, $config);
     }
 
     protected function getTesteeInstance(
-        ?RunMethodMode $runMethodMode = null,
         ?NormalizerMode $normalizerMode = null,
-    ): IAuxConfig {
+    ): INormalizerConfig {
         return
-            new AuxConfig(
-                runMethodMode: $runMethodMode ?? RunMethodMode::ASYNC,
+            new NormalizerConfig(
                 normalizerMode: $normalizerMode ?? NormalizerMode::STILL,
             );
-    }
-
-    #[Test]
-    public function canGetRunMethodMode(): void
-    {
-        $runMethodMode = RunMethodMode::SYNCHRONOUS;
-
-        $config = $this->getTesteeInstance(
-            runMethodMode: $runMethodMode,
-        );
-
-        self::assertSame($runMethodMode, $config->getRunMethodMode());
     }
 
     #[Test]
@@ -61,6 +46,6 @@ final class AuxConfigTest extends TestCase
     {
         $config = $this->getTesteeInstance();
 
-        self::assertEquals(IAuxConfig::class, $config->getIdentifier());
+        self::assertEquals(INormalizerConfig::class, $config->getIdentifier());
     }
 }
