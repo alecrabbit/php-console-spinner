@@ -20,8 +20,8 @@
   </testsuites>
   <coverage>
     <report>
-      <text outputFile=".tools/.report/.build/coverage.txt" showOnlySummary="true"/>
-      <html outputDirectory=".tools/.report/.build/coverage/generic"/>
+      <text outputFile=".tools/.report/.build/coverage.path.txt" showOnlySummary="true"/>
+      <html outputDirectory=".tools/.report/.build/coverage/path"/>
     </report>
   </coverage>
   <source>
