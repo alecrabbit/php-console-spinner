@@ -3,20 +3,18 @@
 
 > **Note** See [limitations](limitations.md)
 
-- [x] Extremely flexible
+- [x] Extremely flexible (a bit complicated because of this)
 - [x] Extensible
-- [x] "Zero" dependencies 
+- [x] "Zero" dependencies (requires `psr/container`)
 - [x] Asynchronous mode
   - [x] Support of `revolt/event-loop` 
   - [x] Support of `react/event-loop`
 - [x] Synchronous mode
-- [ ] Color mode switch:
-  - [ ] no color
-  - [ ] 16 colors
-  - [ ] 256 colors (default)
-  - [ ] true color
-  - [ ] _[Postponed]_ auto-detection
-- [ ] _[Postponed]_ Terminal width auto-detection
+- [x] Styling mode switch:
+  - [x] no color
+  - [x] 16 colors
+  - [x] 256 colors (default)
+  - [x] true color
 - [x] Pipe support
 ```text
 $ app.php | grep "something"
@@ -26,3 +24,4 @@ $ app.php | grep "something"
 $ app.php > output.txt
 ```
 - [x] Auto cursor hide/show (can be disabled)
+- [x] Event loop auto start (can be disabled for `revolt/event-loop`)
