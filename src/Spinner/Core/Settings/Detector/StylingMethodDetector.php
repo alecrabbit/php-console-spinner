@@ -27,14 +27,14 @@ final readonly class StylingMethodDetector implements IStylingMethodDetector
             if ($probe::isSupported()) {
                 /** @var class-string<IStylingMethodOptionCreator> $class */
                 $class = $probe::getCreatorClass();
-                return (new $class)->create();
+                return (new $class())->create();
             }
         }
 
         return StylingMethodOption::NONE;
     }
 
-    protected static function assertProbe(mixed $probe): void
+    private static function assertProbe(mixed $probe): void
     {
         if (!is_a($probe, IStylingMethodProbe::class, true)) {
             throw new InvalidArgument(

@@ -28,8 +28,7 @@ final class SignalHandlersContainerConfigTest extends ConfigurationTestCase
                 [
                     // Detected settings considered as AUTO
                     IDetectedSettingsFactory::class => static function () {
-                        return
-                            new class implements IDetectedSettingsFactory {
+                        return         new class() implements IDetectedSettingsFactory {
                                 public function create(): ISettings
                                 {
                                     return new Settings(); // empty object considered as AUTO
@@ -46,11 +45,10 @@ final class SignalHandlersContainerConfigTest extends ConfigurationTestCase
     {
         $signal = 2;
         $handlerCreator =
-            new class implements IHandlerCreator {
+            new class() implements IHandlerCreator {
                 public function createHandler(IDriver $driver, ILoop $loop): Closure
                 {
-                    return
-                        static function (): void {
+                    return     static function (): void {
                             // dummy
                         };
                 }

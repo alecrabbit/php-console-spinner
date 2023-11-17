@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Facade;
 require_once __DIR__ . '/../../bootstrap.php';
 
 $handlerCreator =
-    new class implements IHandlerCreator {
+    new class() implements IHandlerCreator {
         public function createHandler(IDriver $driver, ILoop $loop): Closure
         {
             $delay = 2;

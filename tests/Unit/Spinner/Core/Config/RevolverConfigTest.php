@@ -25,8 +25,7 @@ final class RevolverConfigTest extends TestCase
     protected function getTesteeInstance(?ITolerance $tolerance = null): IRevolverConfig
     {
         if ($tolerance === null) {
-            return
-                new RevolverConfig();
+            return new RevolverConfig();
         }
 
         return

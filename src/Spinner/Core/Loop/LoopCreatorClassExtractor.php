@@ -25,7 +25,7 @@ final class LoopCreatorClassExtractor implements ILoopCreatorClassExtractor
         return null;
     }
 
-    protected static function assertProbe(mixed $probe): void
+    private static function assertProbe(mixed $probe): void
     {
         if (!is_a($probe, ILoopProbe::class, true)) {
             throw new InvalidArgument(

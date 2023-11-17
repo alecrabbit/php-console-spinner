@@ -33,8 +33,7 @@ final readonly class ServiceSpawner implements IServiceSpawner
     public function spawn(IServiceDefinition $serviceDefinition): IService
     {
         try {
-            return
-                $this->spawnService($serviceDefinition);
+            return $this->spawnService($serviceDefinition);
         } catch (Throwable $e) {
             $details =
                 sprintf(

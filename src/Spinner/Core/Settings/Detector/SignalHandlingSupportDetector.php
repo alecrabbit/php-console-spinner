@@ -27,14 +27,14 @@ final readonly class SignalHandlingSupportDetector implements ISignalHandlingSup
             if ($probe::isSupported()) {
                 /** @var class-string<ISignalHandlingOptionCreator> $class */
                 $class = $probe::getCreatorClass();
-                return (new $class)->create();
+                return (new $class())->create();
             }
         }
 
         return SignalHandlingOption::DISABLED;
     }
 
-    protected static function assertProbe(mixed $probe): void
+    private static function assertProbe(mixed $probe): void
     {
         if (!is_a($probe, ISignalHandlingProbe::class, true)) {
             throw new InvalidArgument(

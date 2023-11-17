@@ -10,10 +10,10 @@ use AlecRabbit\Spinner\Container\Exception\InvalidOptionsArgument;
 
 final readonly class ServiceDefinition implements IServiceDefinition
 {
-    protected string $id;
+    private string $id;
     /** @var object|callable|class-string */
-    protected mixed $definition;
-    protected int $options;
+    private mixed $definition;
+    private int $options;
 
     public function __construct(
         string $id,
@@ -79,10 +79,5 @@ final readonly class ServiceDefinition implements IServiceDefinition
     public function getOptions(): int
     {
         return $this->options;
-    }
-
-    public function isStorable(): bool
-    {
-        return self::SINGLETON === $this->options;
     }
 }

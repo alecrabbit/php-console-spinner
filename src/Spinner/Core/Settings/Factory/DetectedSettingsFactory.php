@@ -67,7 +67,7 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
                 new SignalHandlerSettings(
                     new SignalHandlerCreator(
                         signal: SIGINT, // requires pcntl-ext
-                        handlerCreator: new class implements IHandlerCreator {
+                        handlerCreator: new class() implements IHandlerCreator {
                             /**
                              * @codeCoverageIgnore
                              */

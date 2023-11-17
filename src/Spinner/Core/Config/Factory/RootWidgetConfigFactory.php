@@ -27,12 +27,11 @@ final readonly class RootWidgetConfigFactory implements IRootWidgetConfigFactory
         }
 
         if ($widgetSettings instanceof IWidgetConfig) {
-            return
-                new RootWidgetConfig(
-                    leadingSpacer: $widgetSettings->getLeadingSpacer(),
-                    trailingSpacer: $widgetSettings->getTrailingSpacer(),
-                    revolverConfig: $widgetSettings->getWidgetRevolverConfig(),
-                );
+            return new RootWidgetConfig(
+                leadingSpacer: $widgetSettings->getLeadingSpacer(),
+                trailingSpacer: $widgetSettings->getTrailingSpacer(),
+                revolverConfig: $widgetSettings->getWidgetRevolverConfig(),
+            );
         }
 
         return
@@ -44,7 +43,7 @@ final readonly class RootWidgetConfigFactory implements IRootWidgetConfigFactory
     }
 
 
-    protected function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
         return
             $widgetSettings->getLeadingSpacer()
@@ -52,7 +51,7 @@ final readonly class RootWidgetConfigFactory implements IRootWidgetConfigFactory
             $this->rootWidgetConfig->getLeadingSpacer();
     }
 
-    protected function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
         return
             $widgetSettings->getTrailingSpacer()

@@ -24,8 +24,7 @@ final class RunMethodModeConfigTest extends ConfigurationTestCase
             [
                 // Detected settings considered as AUTO
                 IDetectedSettingsFactory::class => static function () {
-                    return
-                        new class implements IDetectedSettingsFactory {
+                    return     new class() implements IDetectedSettingsFactory {
                             public function create(): ISettings
                             {
                                 return new Settings();

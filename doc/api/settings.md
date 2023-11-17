@@ -66,7 +66,7 @@ $loopSettings =
 $onInterrupt = 
     new SignalHandlerCreator(
         signal: SIGINT, // requires pcntl-ext
-        handlerCreator: new class implements IHandlerCreator {
+        handlerCreator: new class() implements IHandlerCreator {
             public function createHandler(IDriver $driver, ILoop $loop): \Closure
             {
                 return 

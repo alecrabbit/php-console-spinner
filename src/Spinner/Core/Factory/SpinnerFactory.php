@@ -34,7 +34,7 @@ final readonly class SpinnerFactory implements ISpinnerFactory
             );
     }
 
-    protected function createWidget(?IWidgetSettings $widgetSettings): IWidget
+    private function createWidget(?IWidgetSettings $widgetSettings): IWidget
     {
         $widgetConfig = $this->widgetConfigFactory->create($widgetSettings);
 

@@ -88,8 +88,7 @@ final readonly class RunMethodModeSolver extends ASolver implements IRunMethodMo
                     RunMethodOption::ASYNC,
                     null,
                     RunMethodOption::ASYNC,
-                ]
-                => RunMethodMode::ASYNC,
+                ] => RunMethodMode::ASYNC,
                 [
                     RunMethodOption::AUTO,
                     RunMethodOption::SYNCHRONOUS,
@@ -149,8 +148,7 @@ final readonly class RunMethodModeSolver extends ASolver implements IRunMethodMo
                     RunMethodOption::SYNCHRONOUS,
                     RunMethodOption::SYNCHRONOUS,
                     RunMethodOption::ASYNC,
-                ]
-                => RunMethodMode::SYNCHRONOUS,
+                ] => RunMethodMode::SYNCHRONOUS,
                 default // DEFAULT BRANCH
                 => throw new InvalidArgument(
                     sprintf(

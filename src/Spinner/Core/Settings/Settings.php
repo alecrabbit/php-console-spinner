@@ -12,8 +12,7 @@ use ArrayObject;
 final readonly class Settings implements ISettings
 {
     /** @var ArrayObject<class-string<ISettingsElement>, ISettingsElement> */
-    protected ArrayObject $settingsElements;
-
+    private ArrayObject $settingsElements;
 
     public function __construct(ArrayObject $settingElements = new ArrayObject())
     {

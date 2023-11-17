@@ -10,9 +10,12 @@ use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Core\Probe\SignalHandlingProbe;
 use AlecRabbit\Spinner\Core\Probe\StylingMethodProbe;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
+
+use function AlecRabbit\Spinner\Root\getDefinitions;
 
 // @codeCoverageIgnoreStart
-require_once __DIR__ . '/definitions.php';
+require_once __DIR__ . '/Root/definitions.php';
 
 Probes::register(
     SignalHandlingProbe::class,
@@ -30,10 +33,15 @@ foreach (getDefinitions() as $id => $definition) {
         $registry->bind($definition);
         continue;
     }
-    /**
-     * @var string $id
-     * @var callable|object|class-string $definition
-     */
+
+    if (!is_string($id)) {
+        throw new InvalidArgument(
+            sprintf(
+                'Id must be a string, "%s" given.',
+                get_debug_type($id)
+            )
+        );
+    }
     $registry->bind(
         new ServiceDefinition(
             $id,

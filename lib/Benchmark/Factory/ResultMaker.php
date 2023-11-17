@@ -16,16 +16,14 @@ final class ResultMaker implements IResultMaker
     public function make(IMeasurement $measurement): IResult
     {
         try {
-            return
-                new Result(
+            return new Result(
                     $measurement->getAverage(),
                     $measurement->getMin(),
                     $measurement->getMax(),
                     $measurement->getCount(),
                 );
         } catch (MeasurementException $_) {
-            return
-                new Result(
+            return new Result(
                     $measurement->getAny(),
                     $measurement->getMin(),
                     $measurement->getMax(),

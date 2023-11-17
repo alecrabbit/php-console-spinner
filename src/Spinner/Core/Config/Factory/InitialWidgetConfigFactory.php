@@ -36,7 +36,7 @@ final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigF
             );
     }
 
-    protected function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
         return
             $widgetSettings->getLeadingSpacer()
@@ -44,7 +44,7 @@ final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigF
             throw new DomainException('Leading spacer expected to be set.');
     }
 
-    protected function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
         return
             $widgetSettings->getTrailingSpacer()
@@ -62,7 +62,7 @@ final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigF
             );
     }
 
-    protected function getStylePalette(IWidgetSettings $widgetSettings): IPalette
+    private function getStylePalette(IWidgetSettings $widgetSettings): IPalette
     {
         return
             $widgetSettings->getStylePalette()
@@ -70,7 +70,7 @@ final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigF
             throw new DomainException('Style palette expected to be set.');
     }
 
-    protected function getCharPalette(IWidgetSettings $widgetSettings): IPalette
+    private function getCharPalette(IWidgetSettings $widgetSettings): IPalette
     {
         return
             $widgetSettings->getCharPalette()
@@ -78,7 +78,7 @@ final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigF
             throw new DomainException('Char palette expected to be set.');
     }
 
-    protected function getRevolverConfig(): IRevolverConfig
+    private function getRevolverConfig(): IRevolverConfig
     {
         return new RevolverConfig();
     }

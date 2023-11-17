@@ -34,7 +34,7 @@ final class DeltaTimerBuilderTest extends TestCase
         $timerBuilder = $this->getTesteeInstance();
 
         $now =
-            new class implements INowTimer {
+            new class() implements INowTimer {
                 public function now(): float
                 {
                     return 0.0;

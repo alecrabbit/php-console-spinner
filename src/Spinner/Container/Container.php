@@ -133,7 +133,7 @@ final readonly class Container implements IContainer
 
         $service = $this->spawn($definition);
 
-        if ($definition->isStorable()) {
+        if ($service->isStorable()) {
             $this->services->offsetSet($id, $service);
         }
 

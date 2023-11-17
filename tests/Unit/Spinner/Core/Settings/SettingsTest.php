@@ -96,7 +96,7 @@ final class SettingsTest extends TestCase
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Identifier "invalid" is not an interface.');
 
-        $object = new class implements ISettingsElement {
+        $object = new class() implements ISettingsElement {
             public function getIdentifier(): string
             {
                 return 'invalid';
@@ -116,7 +116,7 @@ final class SettingsTest extends TestCase
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Identifier "stdClass" is not an interface.');
 
-        $object = new class implements ISettingsElement {
+        $object = new class() implements ISettingsElement {
             public function getIdentifier(): string
             {
                 return stdClass::class;
@@ -139,7 +139,7 @@ final class SettingsTest extends TestCase
             . '"AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement".'
         );
 
-        $object = new class implements ISettingsElement {
+        $object = new class() implements ISettingsElement {
             public function getIdentifier(): string
             {
                 return IWidget::class;

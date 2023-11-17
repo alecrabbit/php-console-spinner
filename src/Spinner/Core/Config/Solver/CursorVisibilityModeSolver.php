@@ -81,8 +81,7 @@ final readonly class CursorVisibilityModeSolver extends ASolver implements Contr
                     CursorVisibilityOption::VISIBLE,
                     null,
                     null,
-                ]
-                => CursorVisibilityMode::VISIBLE,
+                ] => CursorVisibilityMode::VISIBLE,
                 [
                     CursorVisibilityOption::AUTO,
                     CursorVisibilityOption::HIDDEN,
@@ -132,8 +131,7 @@ final readonly class CursorVisibilityModeSolver extends ASolver implements Contr
                     CursorVisibilityOption::HIDDEN,
                     null,
                     null,
-                ]
-                => CursorVisibilityMode::HIDDEN,
+                ] => CursorVisibilityMode::HIDDEN,
                 default // DEFAULT BRANCH
                 => throw new InvalidArgument(
                     sprintf(

@@ -41,7 +41,7 @@ final readonly class WidgetConfigFactory implements IWidgetConfigFactory
             );
     }
 
-    protected function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
         return
             $widgetSettings->getLeadingSpacer()
@@ -49,7 +49,7 @@ final readonly class WidgetConfigFactory implements IWidgetConfigFactory
             $this->widgetConfig->getLeadingSpacer();
     }
 
-    protected function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
         return
             $widgetSettings->getTrailingSpacer()

@@ -15,7 +15,7 @@ use function sprintf;
 final class LoopCreatorClassProvider implements ILoopCreatorClassProvider
 {
     /** @var class-string<ILoopCreator>|null */
-    protected ?string $creatorClass = null;
+    private ?string $creatorClass = null;
 
     /**
      * @param class-string<ICreator>|null $creatorClass

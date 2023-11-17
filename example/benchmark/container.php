@@ -78,7 +78,7 @@ $registry->bind(
         IReportPrinterFactory::class,
         static function (ContainerInterface $container): IReportPrinterFactory {
             $stream =
-                new class implements IWritableStream {
+                new class() implements IWritableStream {
                     public function write(Traversable $data): void
                     {
                         foreach ($data as $el) {
@@ -92,8 +92,7 @@ $registry->bind(
                     $stream
                 );
 
-            return
-                new ReportPrinterFactory(
+            return new ReportPrinterFactory(
                     $container->get(IReportPrinterBuilder::class),
                     $output,
                     $container->get(IReportFormatter::class),

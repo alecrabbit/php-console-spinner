@@ -8,6 +8,6 @@ final readonly class ServiceIsStorableSolver implements IIsStorableSolver
 {
     public function isStorable(IServiceDefinition $definition): bool
     {
-        return IServiceDefinition::SINGLETON === $definition->getOptions();
+        return $definition->getOptions() === IServiceDefinition::SINGLETON;
     }
 }

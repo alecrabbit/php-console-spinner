@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\INowTimer;
 
 final class DeltaTimer implements IDeltaTimer
 {
-    protected float $current;
+    private float $current;
 
     public function __construct(
         protected readonly INowTimer $now,

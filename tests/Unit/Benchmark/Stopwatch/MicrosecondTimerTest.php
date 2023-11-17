@@ -149,7 +149,7 @@ final class MicrosecondTimerTest extends TestCase
     private function getIntersectionStub(): ITimer&IInterval
     {
         return
-            new class implements ITimer, IInterval {
+            new class() implements ITimer, IInterval {
                 public function getUnit(): TimeUnit
                 {
                     return TimeUnit::SECOND;

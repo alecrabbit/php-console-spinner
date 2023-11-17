@@ -23,17 +23,16 @@ final readonly class DriverLinkerFactory implements IDriverLinkerFactory
     public function create(): IDriverLinker
     {
         if ($this->loopProvider->hasLoop() && $this->isLinkerEnabled()) {
-            return
-                new DriverLinker(
-                    $this->loopProvider->getLoop(),
-                );
+            return new DriverLinker(
+                $this->loopProvider->getLoop(),
+            );
         }
 
         return
             new DummyDriverLinker();
     }
 
-    protected function isLinkerEnabled(): bool
+    private function isLinkerEnabled(): bool
     {
         return
             $this->linkerConfig->getLinkerMode() === LinkerMode::ENABLED;

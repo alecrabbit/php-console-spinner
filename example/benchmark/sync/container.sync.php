@@ -16,7 +16,7 @@ $registry = DefinitionRegistry::getInstance();
 $registry->bind(
     new ServiceDefinition(
         IWritableStream::class,
-        new class implements IWritableStream {
+        new class() implements IWritableStream {
             public function write(Traversable $data): void
             {
                 // unwrap $data
@@ -28,7 +28,7 @@ $registry->bind(
 $registry->bind(
     new ServiceDefinition(
         IDeltaTimer::class,
-        new class implements IDeltaTimer {
+        new class() implements IDeltaTimer {
             public function getDelta(): float
             {
                 // simulate unequal time intervals

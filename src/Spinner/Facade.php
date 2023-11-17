@@ -10,10 +10,10 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Root\AFacade;
 
 final class Facade extends AFacade
 {
-    /** @inheritDoc */
     public static function getLoop(): ILoop
     {
         $loopProvider = self::getLoopProvider();
@@ -48,7 +48,6 @@ final class Facade extends AFacade
         ;
     }
 
-    /** @inheritDoc */
     public static function getSettings(): ISettings
     {
         return

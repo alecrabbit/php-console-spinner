@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner;
+namespace AlecRabbit\Spinner\Root;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -13,7 +13,6 @@ use AlecRabbit\Spinner\Exception\DomainException;
 
 interface IFacade
 {
-
     public static function getDriver(): IDriver;
 
     /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner;
+namespace AlecRabbit\Spinner\Root;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
@@ -185,6 +185,7 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
+use AlecRabbit\Spinner\Probes;
 use Traversable;
 
 use function hrtime;
@@ -209,8 +210,7 @@ function getDefinitions(): Traversable
         new ServiceDefinition(
             IWritableStream::class,
             static function (IContainer $container): IWritableStream {
-                return
-                    $container->get(IResourceStreamFactory::class)->create();
+                return $container->get(IResourceStreamFactory::class)->create();
             },
             IServiceDefinition::SINGLETON,
         ),
@@ -244,14 +244,12 @@ function getDefinitions(): Traversable
         ),
 
         NormalizerMode::class => static function (IContainer $container): NormalizerMode {
-            return
-                $container->get(INormalizerConfig::class)->getNormalizerMode();
+            return $container->get(INormalizerConfig::class)->getNormalizerMode();
         },
-        INowTimer::class => new class implements INowTimer {
+        INowTimer::class => new class() implements INowTimer {
             public function now(): float
             {
-                return
-                    hrtime(true) * 1e-6; // returns milliseconds
+                return hrtime(true) * 1e-6; // returns milliseconds
             }
         },
 
@@ -271,10 +269,9 @@ function getDefinitions(): Traversable
                         Probes::load(ILoopProbe::class)
                     )
             ;
-            return
-                new LoopCreatorClassProvider(
-                    $creatorClass,
-                );
+            return new LoopCreatorClassProvider(
+                $creatorClass,
+            );
         },
         ILoopCreatorClassExtractor::class => LoopCreatorClassExtractor::class,
         ILoopSetup::class => LoopSetup::class,
@@ -420,22 +417,19 @@ function detectors(): Traversable
 {
     yield from [
         ILoopSupportDetector::class => static function (IContainer $container): LoopSupportDetector {
-            return
-                new LoopSupportDetector(
-                    $container->get(ILoopCreatorClassProvider::class)->getCreatorClass(),
-                );
+            return new LoopSupportDetector(
+                $container->get(ILoopCreatorClassProvider::class)->getCreatorClass(),
+            );
         },
         ISignalHandlingSupportDetector::class => static function (): SignalHandlingSupportDetector {
-            return
-                new SignalHandlingSupportDetector(
-                    Probes::load(ISignalHandlingProbe::class)
-                );
+            return new SignalHandlingSupportDetector(
+                Probes::load(ISignalHandlingProbe::class)
+            );
         },
         IStylingMethodDetector::class => static function (): IStylingMethodDetector {
-            return
-                new StylingMethodDetector(
-                    Probes::load(IStylingMethodProbe::class)
-                );
+            return new StylingMethodDetector(
+                Probes::load(IStylingMethodProbe::class)
+            );
         },
     ];
 }

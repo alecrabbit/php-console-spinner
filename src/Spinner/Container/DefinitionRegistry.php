@@ -25,7 +25,7 @@ final class DefinitionRegistry implements IDefinitionRegistry
 
     public static function getInstance(): IDefinitionRegistry
     {
-        if (null === self::$instance) {
+        if (self::$instance === null) {
             self::$instance = new self();
         }
         return self::$instance;
