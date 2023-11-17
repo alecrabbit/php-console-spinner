@@ -1,6 +1,6 @@
 !!! ATTENTION !!!
 
-after configuration is created NOT all settings changes take effect  
+after configuration is created NOT all settings changes take effect
 
 Configuration is created once with first call
 of:

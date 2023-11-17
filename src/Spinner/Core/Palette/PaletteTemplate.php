@@ -16,7 +16,6 @@ final readonly class PaletteTemplate implements IPaletteTemplate
 
     /**
      * @param Traversable<IFrame> $entries
-     * @param IPaletteOptions $options
      */
     public function __construct(
         Traversable $entries,

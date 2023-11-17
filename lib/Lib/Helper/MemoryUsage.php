@@ -11,11 +11,11 @@ use AlecRabbit\Lib\Helper\Contract\IBytesFormatter;
  */
 final class MemoryUsage
 {
-    protected IBytesFormatter $formatter;
+    private IBytesFormatter $formatter;
 
     public function __construct(
         protected string $format = 'Memory usage: %s Peak: %s',
-        IBytesFormatter $formatter = null,
+        ?IBytesFormatter $formatter = null,
     ) {
         $this->formatter = $formatter ?? new BytesFormatter();
     }

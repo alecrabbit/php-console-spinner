@@ -14,7 +14,8 @@ $outputSettings =
     );
 
 Facade::getSettings()
-    ->set($outputSettings);
+    ->set($outputSettings)
+;
 
 $spinner = Facade::createSpinner();
 

@@ -123,12 +123,12 @@ final readonly class ServiceSpawner implements IServiceSpawner
             $parameters = [];
             foreach ($constructorParameters as $parameter) {
                 $name = $parameter->getName();
+                /** @var ReflectionNamedType|null $type */
                 $type = $parameter->getType();
                 if ($type === null) {
                     throw new UnableToExtractType('Unable to extract type for parameter name: $' . $name);
                 }
                 if ($this->needsService($type)) {
-                    /** @var ReflectionNamedType $type */
                     $parameters[$name] = $this->getServiceFromContainer($type->getName());
                 }
             }

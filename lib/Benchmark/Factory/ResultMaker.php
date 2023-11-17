@@ -17,18 +17,18 @@ final class ResultMaker implements IResultMaker
     {
         try {
             return new Result(
-                    $measurement->getAverage(),
-                    $measurement->getMin(),
-                    $measurement->getMax(),
-                    $measurement->getCount(),
-                );
+                $measurement->getAverage(),
+                $measurement->getMin(),
+                $measurement->getMax(),
+                $measurement->getCount(),
+            );
         } catch (MeasurementException $_) {
             return new Result(
-                    $measurement->getAny(),
-                    $measurement->getMin(),
-                    $measurement->getMax(),
-                    $measurement->getCount(),
-                );
+                $measurement->getAny(),
+                $measurement->getMin(),
+                $measurement->getMax(),
+                $measurement->getCount(),
+            );
         }
     }
 }

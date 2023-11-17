@@ -65,7 +65,6 @@ $registry->bind(new ServiceDefinition(IKeyFormatter::class, KeyFormatter::class)
 
 $registry->bind(
     new ServiceDefinition(
-
         IReportPrinter::class,
         static function (ContainerInterface $container): IReportPrinter {
             return $container->get(IReportPrinterFactory::class)->create();
@@ -93,10 +92,10 @@ $registry->bind(
                 );
 
             return new ReportPrinterFactory(
-                    $container->get(IReportPrinterBuilder::class),
-                    $output,
-                    $container->get(IReportFormatter::class),
-                );
+                $container->get(IReportPrinterBuilder::class),
+                $output,
+                $container->get(IReportFormatter::class),
+            );
         }
     )
 );

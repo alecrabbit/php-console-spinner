@@ -37,7 +37,6 @@ $spinner = Facade::createSpinner();
 // Do benchmarking:
 for ($i = 0; $i < CYCLES; $i++) {
     if ($i % PROGRESS_EVERY_CYCLES === 0) {
-
         echo sprintf(
             '%s %s',
             (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
@@ -45,11 +44,12 @@ for ($i = 0; $i < CYCLES; $i++) {
         );
         echo '  ';
         echo sprintf(
-                '%s%% [%d/%d]',
-                (int)ceil(100 * $i / CYCLES),
-                $i,
-                CYCLES
-            ) . PHP_EOL;
+            '%s%% [%d/%d]',
+            (int)ceil(100 * $i / CYCLES),
+            $i,
+            CYCLES
+        );
+        echo PHP_EOL;
     }
 
     $driver->render();

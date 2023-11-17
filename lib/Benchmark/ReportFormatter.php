@@ -12,12 +12,12 @@ use AlecRabbit\Benchmark\Contract\IReportFormatter;
 use AlecRabbit\Benchmark\Contract\IResultFormatter;
 use DateTimeImmutable;
 
-final class ReportFormatter implements IReportFormatter
+final readonly class ReportFormatter implements IReportFormatter
 {
     public function __construct(
-        protected IDatetimeFormatter $datetimeFormatter,
-        protected IResultFormatter $resultFormatter,
-        protected IKeyFormatter $keyFormatter,
+        private IDatetimeFormatter $datetimeFormatter,
+        private IResultFormatter $resultFormatter,
+        private IKeyFormatter $keyFormatter,
     ) {
     }
 
@@ -53,7 +53,7 @@ final class ReportFormatter implements IReportFormatter
             HEADER;
     }
 
-    protected function extractPrefix(IReport $report): string
+    private function extractPrefix(IReport $report): string
     {
         $prefix = $report->getPrefix();
         return $prefix === '' ? '' : PHP_EOL . "Prefix: {$prefix}" . PHP_EOL;

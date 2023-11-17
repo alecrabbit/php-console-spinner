@@ -35,7 +35,8 @@ final readonly class Output implements IOutput
         if (!is_iterable($messages)) {
             $messages = [$messages];
         }
-        /** @var mixed $message */
+
+        /** @psalm-suppress MixedAssignment */
         foreach ($messages as $message) {
             if (is_string($message)) {
                 if ($newline) {

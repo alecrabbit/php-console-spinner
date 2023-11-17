@@ -32,7 +32,7 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
     {
         /**
          * @var IWidgetContext $key
-         * @var IInterval|null|false $value
+         * @var IInterval|false|null $value
          */
         foreach ($this->map as $key => $value) {
             if ($value === false) {
@@ -59,7 +59,7 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
     {
         $this->assertOffset($offset);
 
-        /** @var IInterval|null|false $value */
+        /** @var IInterval|false|null $value */
         $value = $this->map->offsetGet($offset);
 
         if ($value === false) {

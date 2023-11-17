@@ -18,7 +18,6 @@ $spinnerOne = Facade::createSpinner();
 
 $charPalette =
     new class() extends ACharPalette {
-
         protected function createFrame(string $element): ICharFrame
         {
             return new CharFrame($element, 3); // note the width is 3

@@ -7,14 +7,16 @@ namespace AlecRabbit\Benchmark\Stopwatch;
 use AlecRabbit\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Benchmark\Exception\MeasurementException;
 
-class Measurement implements IMeasurement
+final class Measurement implements IMeasurement
 {
-    protected const DEFAULT_THRESHOLD = 2;
-    protected array $data = [];
-    protected int|float $average;
-    protected int|float $min;
-    protected int|float $max;
-    protected int $count = 0;
+    private const DEFAULT_THRESHOLD = 2;
+
+    /** @var array<int|float> */
+    private array $data = [];
+    private int|float $average;
+    private int|float $min;
+    private int|float $max;
+    private int $count = 0;
 
     public function __construct(
         protected readonly int $threshold = self::DEFAULT_THRESHOLD,
@@ -44,7 +46,7 @@ class Measurement implements IMeasurement
         }
     }
 
-    protected function reachedThreshold(): bool
+    private function reachedThreshold(): bool
     {
         return count($this->data) >= $this->threshold;
     }

@@ -11,16 +11,17 @@ use AlecRabbit\Benchmark\Contract\ITimer;
 use RuntimeException;
 use Traversable;
 
-class Stopwatch implements IStopwatch
+final class Stopwatch implements IStopwatch
 {
-    protected const COUNT = 100;
+    /** @var array<string> */
+    private array $current = [];
 
-    protected array $current = [];
-    protected array $measurements = [];
+    /** @var array<IMeasurement> */
+    private array $measurements = [];
 
     public function __construct(
-        protected readonly ITimer $timer,
-        protected readonly IMeasurementFactory $measurementFactory,
+        private readonly ITimer $timer,
+        private readonly IMeasurementFactory $measurementFactory,
     ) {
     }
 
@@ -42,7 +43,7 @@ class Stopwatch implements IStopwatch
         }
     }
 
-    protected function addMeasurement(string $key, mixed $value): void
+    private function addMeasurement(string $key, mixed $value): void
     {
         if (!isset($this->measurements[$key])) {
             $this->measurements[$key] = $this->createMeasurement();
@@ -50,7 +51,7 @@ class Stopwatch implements IStopwatch
         $this->measurements[$key]->add($value);
     }
 
-    protected function createMeasurement(): IMeasurement
+    private function createMeasurement(): IMeasurement
     {
         return
             $this->measurementFactory->create();

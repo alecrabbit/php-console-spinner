@@ -21,7 +21,6 @@ Facade::getSettings()
             leadingSpacer: new CharFrame('🧲 ', 3), // used this spacer instead
             stylePalette: new Rainbow(), // <-- ignored palette
         ),
-
     )
 ;
 

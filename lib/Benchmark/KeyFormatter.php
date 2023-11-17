@@ -16,7 +16,7 @@ final class KeyFormatter implements IKeyFormatter
     public function format(string $key, ?string $prefix = null): string
     {
         return
-            null !== $prefix && str_starts_with($key, $prefix)
+            $prefix !== null && str_starts_with($key, $prefix)
                 ? str_replace($prefix, self::REPLACE, $key)
                 : $key;
     }

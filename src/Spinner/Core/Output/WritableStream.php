@@ -17,8 +17,6 @@ final class WritableStream implements IWritableStream
     private $stream;
 
     /**
-     * @param mixed $stream
-     *
      * @throws InvalidArgument
      */
     public function __construct(mixed $stream)

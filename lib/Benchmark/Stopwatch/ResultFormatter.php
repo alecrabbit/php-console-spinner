@@ -13,7 +13,7 @@ final class ResultFormatter implements IResultFormatter
     private string $format;
 
     public function __construct(
-        string $format = null,
+        ?string $format = null,
         protected string $shortFormat = self::FORMAT,
         string $formatPrototype = '%s [%s/%s]',
         protected string $units = 'μs',
