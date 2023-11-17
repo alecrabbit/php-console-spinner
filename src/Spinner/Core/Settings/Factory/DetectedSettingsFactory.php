@@ -60,7 +60,6 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
             new OutputSettings(
                 stylingMethodOption: $this->detectStylingMethodOption(),
             ),
-
         );
         if ($this->isSignalHandlingEnabled()) {
             $settings->set(

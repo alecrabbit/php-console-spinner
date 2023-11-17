@@ -18,7 +18,6 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
         protected IFrameRevolverBuilder $frameRevolverBuilder,
         protected IFrameCollectionFactory $frameCollectionFactory,
         protected IRevolverConfig $revolverConfig,
-
     ) {
     }
 
