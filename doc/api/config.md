@@ -1,8 +1,6 @@
 ### Config
 
  ```php
-// # ( TODO (2023-11-16 12:57) [Alec Rabbit]: enhance(add to) this description )
-  
 // General config
 $generalConfig->getRunMethodMode(); // RunMethodMode::ASYNC
 
@@ -12,6 +10,7 @@ $normalizerConfig->getNormalizerMode(); // NormalizerMode::BALANCED
 // Loop config
 $loopConfig->getAutoStartMode(); // AutoStartMode::ENABLED
 $loopConfig->getSignalHandlingMode(); // SignalHandlingMode::ENABLED
+$loopConfig->getSignalHandlersContainer(); // ISignalHandlersContainer (SIGINT handler by default)
 
 // Output config
 $outputConfig->getStylingMethodMode(); // StylingMethodMode::ANSI8
@@ -21,7 +20,9 @@ $outputConfig->getStream(); // STDERR
 
 // Linker config
 $linkerConfig->getLinkerMode(); // LinkerMode::ENABLED
-$linkerConfig->getInitializationMode(); // InitializationMode::ENABLED
+
+// Driver config
+$driverConfig->getDriverMessages(); // IDriverMessages(empty strings by default) 
 
 // Widget config
 $widgetConfig->getCharPalette(); // default: NoStylePalette
