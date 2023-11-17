@@ -17,7 +17,6 @@ final readonly class DriverConfigFactory implements IDriverConfigFactory
     ) {
     }
 
-
     public function create(): IDriverConfig
     {
         return
