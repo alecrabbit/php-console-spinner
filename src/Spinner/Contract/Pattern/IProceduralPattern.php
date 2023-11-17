@@ -6,5 +6,4 @@ namespace AlecRabbit\Spinner\Contract\Pattern;
 
 interface IProceduralPattern extends IPattern
 {
-
 }

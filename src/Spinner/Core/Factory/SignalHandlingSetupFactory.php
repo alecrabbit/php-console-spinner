@@ -28,13 +28,11 @@ final class SignalHandlingSetupFactory implements Contract\ISignalHandlingSetupF
             );
         }
 
-        return
-            new DummySignalHandlingSetup();
+        return new DummySignalHandlingSetup();
     }
 
     private function isSignalHandlingEnabled(): bool
     {
-        return
-            $this->loopConfig->getSignalHandlingMode() === SignalHandlingMode::ENABLED;
+        return $this->loopConfig->getSignalHandlingMode() === SignalHandlingMode::ENABLED;
     }
 }

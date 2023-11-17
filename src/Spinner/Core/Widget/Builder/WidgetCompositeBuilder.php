@@ -20,12 +20,11 @@ final class WidgetCompositeBuilder extends AWidgetBuilder implements IWidgetComp
     {
         $this->validate();
 
-        return
-            new WidgetComposite(
-                $this->revolver,
-                $this->leadingSpacer,
-                $this->trailingSpacer,
-            );
+        return new WidgetComposite(
+            $this->revolver,
+            $this->leadingSpacer,
+            $this->trailingSpacer,
+        );
     }
 
     public function withWidgetRevolver(IWidgetRevolver $revolver): IWidgetCompositeBuilder

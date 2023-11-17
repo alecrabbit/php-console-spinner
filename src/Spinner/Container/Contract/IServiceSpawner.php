@@ -11,8 +11,6 @@ use ReflectionException;
 interface IServiceSpawner
 {
     /**
-     * @param IServiceDefinition $serviceDefinition
-     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws ReflectionException

@@ -30,10 +30,9 @@ final readonly class PatternFactory implements IPatternFactory
                 $template->getOptions()->getInterval()
             );
 
-        return
-            new Pattern(
-                interval: $interval,
-                frames: $template->getEntries(),
-            );
+        return new Pattern(
+            interval: $interval,
+            frames: $template->getEntries(),
+        );
     }
 }

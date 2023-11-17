@@ -28,52 +28,46 @@ final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigF
     {
         $widgetSettings = $this->widgetSettingsSolver->solve();
 
-        return
-            new WidgetConfig(
-                leadingSpacer: $this->getLeadingSpacer($widgetSettings),
-                trailingSpacer: $this->getTrailingSpacer($widgetSettings),
-                revolverConfig: $this->getWidgetRevolverConfig($widgetSettings),
-            );
+        return new WidgetConfig(
+            leadingSpacer: $this->getLeadingSpacer($widgetSettings),
+            trailingSpacer: $this->getTrailingSpacer($widgetSettings),
+            revolverConfig: $this->getWidgetRevolverConfig($widgetSettings),
+        );
     }
 
     private function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
-        return
-            $widgetSettings->getLeadingSpacer()
+        return $widgetSettings->getLeadingSpacer()
             ??
             throw new DomainException('Leading spacer expected to be set.');
     }
 
     private function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
-        return
-            $widgetSettings->getTrailingSpacer()
+        return $widgetSettings->getTrailingSpacer()
             ??
             throw new DomainException('Trailing spacer expected to be set.');
     }
 
     private function getWidgetRevolverConfig(IWidgetSettings $widgetSettings): IWidgetRevolverConfig
     {
-        return
-            new WidgetRevolverConfig(
-                stylePalette: $this->getStylePalette($widgetSettings),
-                charPalette: $this->getCharPalette($widgetSettings),
-                revolverConfig: $this->getRevolverConfig(),
-            );
+        return new WidgetRevolverConfig(
+            stylePalette: $this->getStylePalette($widgetSettings),
+            charPalette: $this->getCharPalette($widgetSettings),
+            revolverConfig: $this->getRevolverConfig(),
+        );
     }
 
     private function getStylePalette(IWidgetSettings $widgetSettings): IPalette
     {
-        return
-            $widgetSettings->getStylePalette()
+        return $widgetSettings->getStylePalette()
             ??
             throw new DomainException('Style palette expected to be set.');
     }
 
     private function getCharPalette(IWidgetSettings $widgetSettings): IPalette
     {
-        return
-            $widgetSettings->getCharPalette()
+        return $widgetSettings->getCharPalette()
             ??
             throw new DomainException('Char palette expected to be set.');
     }

@@ -23,5 +23,4 @@ final readonly class LinkerSettings implements ILinkerSettings
     {
         return ILinkerSettings::class;
     }
-
 }

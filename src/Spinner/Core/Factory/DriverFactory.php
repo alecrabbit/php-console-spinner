@@ -27,22 +27,21 @@ final class DriverFactory implements IDriverFactory
 
     public function create(): IDriver
     {
-        return
-            $this->driverBuilder
-                ->withSequenceStateWriter(
-                    $this->sequenceStateWriterFactory->create()
-                )
-                ->withSequenceStateBuilder(
-                    $this->sequenceStateBuilder
-                )
-                ->withDeltaTimer(
-                    $this->timerFactory->create()
-                )
-                ->withInitialInterval(
-                    $this->intervalFactory->createStill()
-                )
-                ->withDriverConfig($this->driverConfig)
-                ->build()
+        return $this->driverBuilder
+            ->withSequenceStateWriter(
+                $this->sequenceStateWriterFactory->create()
+            )
+            ->withSequenceStateBuilder(
+                $this->sequenceStateBuilder
+            )
+            ->withDeltaTimer(
+                $this->timerFactory->create()
+            )
+            ->withInitialInterval(
+                $this->intervalFactory->createStill()
+            )
+            ->withDriverConfig($this->driverConfig)
+            ->build()
         ;
     }
 }

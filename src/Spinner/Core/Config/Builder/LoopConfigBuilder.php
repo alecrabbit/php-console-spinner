@@ -21,19 +21,15 @@ final class LoopConfigBuilder implements ILoopConfigBuilder
     private ?SignalHandlingMode $signalHandlersMode = null;
     private ?ISignalHandlersContainer $signalHandlersContainer = null;
 
-    /**
-     * @inheritDoc
-     */
     public function build(): ILoopConfig
     {
         $this->validate();
 
-        return
-            new LoopConfig(
-                autoStartMode: $this->autoStartMode,
-                signalHandlersMode: $this->signalHandlersMode,
-                signalHandlersContainer: $this->signalHandlersContainer,
-            );
+        return new LoopConfig(
+            autoStartMode: $this->autoStartMode,
+            signalHandlersMode: $this->signalHandlersMode,
+            signalHandlersContainer: $this->signalHandlersContainer,
+        );
     }
 
     /**

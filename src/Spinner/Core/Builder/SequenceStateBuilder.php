@@ -43,12 +43,11 @@ final class SequenceStateBuilder implements ISequenceStateBuilder
     {
         $this->validate();
 
-        return
-            new SequenceState(
-                sequence: $this->sequence,
-                width: $this->width,
-                previousWidth: $this->previousWidth,
-            );
+        return new SequenceState(
+            sequence: $this->sequence,
+            width: $this->width,
+            previousWidth: $this->previousWidth,
+        );
     }
 
     /**

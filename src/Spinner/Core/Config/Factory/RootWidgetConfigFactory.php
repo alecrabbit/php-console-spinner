@@ -34,27 +34,23 @@ final readonly class RootWidgetConfigFactory implements IRootWidgetConfigFactory
             );
         }
 
-        return
-            new RootWidgetConfig(
-                leadingSpacer: $this->getLeadingSpacer($widgetSettings),
-                trailingSpacer: $this->getTrailingSpacer($widgetSettings),
-                revolverConfig: $this->getWidgetRevolverConfig($widgetSettings),
-            );
+        return new RootWidgetConfig(
+            leadingSpacer: $this->getLeadingSpacer($widgetSettings),
+            trailingSpacer: $this->getTrailingSpacer($widgetSettings),
+            revolverConfig: $this->getWidgetRevolverConfig($widgetSettings),
+        );
     }
-
 
     private function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
-        return
-            $widgetSettings->getLeadingSpacer()
+        return $widgetSettings->getLeadingSpacer()
             ??
             $this->rootWidgetConfig->getLeadingSpacer();
     }
 
     private function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
-        return
-            $widgetSettings->getTrailingSpacer()
+        return $widgetSettings->getTrailingSpacer()
             ??
             $this->rootWidgetConfig->getTrailingSpacer();
     }
@@ -63,11 +59,10 @@ final readonly class RootWidgetConfigFactory implements IRootWidgetConfigFactory
     {
         $wRConfig = $this->rootWidgetConfig->getWidgetRevolverConfig();
 
-        return
-            new WidgetRevolverConfig(
-                stylePalette: $widgetSettings->getStylePalette() ?? $wRConfig->getStylePalette(),
-                charPalette: $widgetSettings->getCharPalette() ?? $wRConfig->getCharPalette(),
-                revolverConfig: $wRConfig->getRevolverConfig(),
-            );
+        return new WidgetRevolverConfig(
+            stylePalette: $widgetSettings->getStylePalette() ?? $wRConfig->getStylePalette(),
+            charPalette: $widgetSettings->getCharPalette() ?? $wRConfig->getCharPalette(),
+            revolverConfig: $wRConfig->getRevolverConfig(),
+        );
     }
 }

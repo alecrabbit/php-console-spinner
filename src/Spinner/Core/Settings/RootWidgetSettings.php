@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 
-
 final readonly class RootWidgetSettings implements IRootWidgetSettings
 {
     public function __construct(

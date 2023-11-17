@@ -28,13 +28,11 @@ final readonly class DriverLinkerFactory implements IDriverLinkerFactory
             );
         }
 
-        return
-            new DummyDriverLinker();
+        return new DummyDriverLinker();
     }
 
     private function isLinkerEnabled(): bool
     {
-        return
-            $this->linkerConfig->getLinkerMode() === LinkerMode::ENABLED;
+        return $this->linkerConfig->getLinkerMode() === LinkerMode::ENABLED;
     }
 }

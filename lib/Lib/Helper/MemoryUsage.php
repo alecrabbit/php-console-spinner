@@ -22,12 +22,10 @@ final class MemoryUsage
 
     public function report(?int $peakBytes = null, ?int $bytes = null): string
     {
-        return
-            sprintf(
-                $this->format,
-                $this->formatter->format($peakBytes ?? memory_get_peak_usage(true)),
-                $this->formatter->format($bytes ?? memory_get_usage(true)),
-            );
+        return sprintf(
+            $this->format,
+            $this->formatter->format($peakBytes ?? memory_get_peak_usage(true)),
+            $this->formatter->format($bytes ?? memory_get_usage(true)),
+        );
     }
-
 }

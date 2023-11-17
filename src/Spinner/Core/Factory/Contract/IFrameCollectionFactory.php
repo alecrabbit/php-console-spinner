@@ -9,6 +9,5 @@ use Traversable;
 
 interface IFrameCollectionFactory
 {
-
     public function create(Traversable $frames): IFrameCollection;
 }

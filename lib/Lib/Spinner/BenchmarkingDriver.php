@@ -41,12 +41,11 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function has(ISpinner $spinner): bool
     {
-        return
-            $this->benchmark->run(
-                $this->refineKey(__FUNCTION__),
-                $this->driver->has(...),
-                $spinner
-            );
+        return $this->benchmark->run(
+            $this->refineKey(__FUNCTION__),
+            $this->driver->has(...),
+            $spinner
+        );
     }
 
     public function remove(ISpinner $spinner): void
@@ -86,21 +85,19 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function wrap(Closure $callback): Closure
     {
-        return
-            $this->benchmark->run(
-                $this->refineKey(__FUNCTION__),
-                $this->driver->wrap(...),
-                $callback
-            );
+        return $this->benchmark->run(
+            $this->refineKey(__FUNCTION__),
+            $this->driver->wrap(...),
+            $callback
+        );
     }
 
     public function getInterval(): IInterval
     {
-        return
-            $this->benchmark->run(
-                $this->refineKey(__FUNCTION__),
-                $this->driver->getInterval(...),
-            );
+        return $this->benchmark->run(
+            $this->refineKey(__FUNCTION__),
+            $this->driver->getInterval(...),
+        );
     }
 
     public function update(ISubject $subject): void

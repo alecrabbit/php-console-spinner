@@ -23,7 +23,6 @@ $charPalette =
             return new CharFrame($element, 3); // note the width is 3
         }
 
-        /** @inheritDoc */
         protected function sequence(): Traversable
         {
             $a = ['   ', '.  ', '.. ', '...', ' ..', '  .', '   ']; // note the width of each element

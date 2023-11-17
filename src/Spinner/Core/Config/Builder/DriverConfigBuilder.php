@@ -17,17 +17,13 @@ final class DriverConfigBuilder implements IDriverConfigBuilder
 {
     private ?IDriverMessages $driverMessages = null;
 
-    /**
-     * @inheritDoc
-     */
     public function build(): IDriverConfig
     {
         $this->validate();
 
-        return
-            new DriverConfig(
-                driverMessages: $this->driverMessages,
-            );
+        return new DriverConfig(
+            driverMessages: $this->driverMessages,
+        );
     }
 
     /**

@@ -20,11 +20,10 @@ final readonly class ServiceObjectFactory implements Contract\IServiceObjectFact
 
     public function create(mixed $value, IServiceDefinition $serviceDefinition): IService
     {
-        return
-            new Service(
-                value: $value,
-                serviceDefinition: $serviceDefinition,
-                storable: $this->isStorableSolver->isStorable($serviceDefinition),
-            );
+        return new Service(
+            value: $value,
+            serviceDefinition: $serviceDefinition,
+            storable: $this->isStorableSolver->isStorable($serviceDefinition),
+        );
     }
 }

@@ -27,7 +27,6 @@ final readonly class Container implements IContainer
     private ArrayObject $services;
 
     /**
-     * @param IServiceSpawnerFactory $spawnerFactory
      * @param Traversable<string|int, IServiceDefinition>|null $definitions
      */
     public function __construct(
@@ -91,6 +90,7 @@ final readonly class Container implements IContainer
 
     /**
      * @inheritDoc
+     *
      * @psalm-suppress MixedInferredReturnType
      */
     public function get(string $id): mixed

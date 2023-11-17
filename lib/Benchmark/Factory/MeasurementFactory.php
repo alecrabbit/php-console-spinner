@@ -12,7 +12,6 @@ final class MeasurementFactory implements IMeasurementFactory
 {
     public function create(): IMeasurement
     {
-        return
-            new Measurement();
+        return new Measurement();
     }
 }

@@ -22,20 +22,16 @@ final class OutputConfigBuilder implements IOutputConfigBuilder
     private ?InitializationMode $initializationMode = null;
     private mixed $stream = null;
 
-    /**
-     * @inheritDoc
-     */
     public function build(): IOutputConfig
     {
         $this->validate();
 
-        return
-            new OutputConfig(
-                stylingMethodMode: $this->stylingMethodMode,
-                cursorVisibilityMode: $this->cursorVisibilityMode,
-                initializationMode: $this->initializationMode,
-                stream: $this->stream,
-            );
+        return new OutputConfig(
+            stylingMethodMode: $this->stylingMethodMode,
+            cursorVisibilityMode: $this->cursorVisibilityMode,
+            initializationMode: $this->initializationMode,
+            stream: $this->stream,
+        );
     }
 
     /**

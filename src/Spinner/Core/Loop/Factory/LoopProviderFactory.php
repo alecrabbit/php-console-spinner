@@ -24,10 +24,9 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory
 
     public function create(): ILoopProvider
     {
-        return
-            new LoopProvider(
-                loop: $this->createLoop(),
-            );
+        return new LoopProvider(
+            loop: $this->createLoop(),
+        );
     }
 
     private function createLoop(): ?ILoop
@@ -45,5 +44,4 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory
             return null;
         }
     }
-
 }

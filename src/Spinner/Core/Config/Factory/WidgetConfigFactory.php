@@ -33,26 +33,23 @@ final readonly class WidgetConfigFactory implements IWidgetConfigFactory
         $trailingSpacer = $this->getTrailingSpacer($widgetSettings);
         $revolverConfig = $this->getWidgetRevolverConfig($widgetSettings);
 
-        return
-            new WidgetConfig(
-                leadingSpacer: $leadingSpacer,
-                trailingSpacer: $trailingSpacer,
-                revolverConfig: $revolverConfig,
-            );
+        return new WidgetConfig(
+            leadingSpacer: $leadingSpacer,
+            trailingSpacer: $trailingSpacer,
+            revolverConfig: $revolverConfig,
+        );
     }
 
     private function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
-        return
-            $widgetSettings->getLeadingSpacer()
+        return $widgetSettings->getLeadingSpacer()
             ??
             $this->widgetConfig->getLeadingSpacer();
     }
 
     private function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
-        return
-            $widgetSettings->getTrailingSpacer()
+        return $widgetSettings->getTrailingSpacer()
             ??
             $this->widgetConfig->getTrailingSpacer();
     }
@@ -61,11 +58,10 @@ final readonly class WidgetConfigFactory implements IWidgetConfigFactory
     {
         $config = $this->widgetConfig->getWidgetRevolverConfig();
 
-        return
-            new WidgetRevolverConfig(
-                stylePalette: $widgetSettings->getStylePalette() ?? $config->getStylePalette(),
-                charPalette: $widgetSettings->getCharPalette() ?? $config->getCharPalette(),
-                revolverConfig: $config->getRevolverConfig(),
-            );
+        return new WidgetRevolverConfig(
+            stylePalette: $widgetSettings->getStylePalette() ?? $config->getStylePalette(),
+            charPalette: $widgetSettings->getCharPalette() ?? $config->getCharPalette(),
+            revolverConfig: $config->getRevolverConfig(),
+        );
     }
 }

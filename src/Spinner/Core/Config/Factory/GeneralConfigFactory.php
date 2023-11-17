@@ -19,12 +19,11 @@ final readonly class GeneralConfigFactory implements IGeneralConfigFactory
 
     public function create(): IGeneralConfig
     {
-        return
-            $this->generalConfigBuilder
-                ->withRunMethodMode(
-                    $this->runMethodModeSolver->solve()
-                )
-                ->build()
+        return $this->generalConfigBuilder
+            ->withRunMethodMode(
+                $this->runMethodModeSolver->solve()
+            )
+            ->build()
         ;
     }
 }

@@ -31,12 +31,11 @@ final readonly class WidgetFactory implements IWidgetFactory
                 $widgetConfig->getWidgetRevolverConfig()
             );
 
-        return
-            $this->widgetBuilder
-                ->withLeadingSpacer($widgetConfig->getLeadingSpacer())
-                ->withTrailingSpacer($widgetConfig->getTrailingSpacer())
-                ->withWidgetRevolver($revolver)
-                ->build()
+        return $this->widgetBuilder
+            ->withLeadingSpacer($widgetConfig->getLeadingSpacer())
+            ->withTrailingSpacer($widgetConfig->getTrailingSpacer())
+            ->withWidgetRevolver($revolver)
+            ->build()
         ;
     }
 }

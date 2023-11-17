@@ -21,7 +21,6 @@ final class ServiceSpawnerBuilder implements IServiceSpawnerBuilder
     private ?ICircularDependencyDetector $circularDependencyDetector = null;
     private ?IServiceObjectFactory $serviceObjectFactory = null;
 
-
     public function withContainer(IContainer $container): IServiceSpawnerBuilder
     {
         $clone = clone $this;
@@ -33,12 +32,11 @@ final class ServiceSpawnerBuilder implements IServiceSpawnerBuilder
     {
         $this->validate();
 
-        return
-            new ServiceSpawner(
-                container: $this->container,
-                circularDependencyDetector: $this->circularDependencyDetector,
-                serviceObjectFactory: $this->serviceObjectFactory,
-            );
+        return new ServiceSpawner(
+            container: $this->container,
+            circularDependencyDetector: $this->circularDependencyDetector,
+            serviceObjectFactory: $this->serviceObjectFactory,
+        );
     }
 
     private function validate(): void

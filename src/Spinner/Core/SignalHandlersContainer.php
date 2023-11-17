@@ -17,7 +17,6 @@ final readonly class SignalHandlersContainer implements ISignalHandlersContainer
     {
     }
 
-    /** @inheritDoc */
     public function getHandlerCreators(): Traversable
     {
         return $this->signalHandlers;

@@ -21,33 +21,30 @@ final class IntervalNormalizerFactory implements IIntervalNormalizerFactory
 
     public function create(): IIntervalNormalizer
     {
-        return
-            new IntervalNormalizer(
-                $this->buildIntegerNormalizer(),
-            );
+        return new IntervalNormalizer(
+            $this->buildIntegerNormalizer(),
+        );
     }
 
     private function buildIntegerNormalizer(): IIntegerNormalizer
     {
         $divisor = $this->getDivisor();
 
-        return
-            $this->integerNormalizerBuilder
-                ->withDivisor($divisor)
-                ->withMin($divisor)
-                ->build()
+        return $this->integerNormalizerBuilder
+            ->withDivisor($divisor)
+            ->withMin($divisor)
+            ->build()
         ;
     }
 
     private function getDivisor(): int
     {
-        return
-            match ($this->normalizerMode) {
-                NormalizerMode::SMOOTH => 40,
-                NormalizerMode::BALANCED => 100,
-                NormalizerMode::PERFORMANCE => 200,
-                NormalizerMode::SLOW => 1000,
-                NormalizerMode::STILL => 900000,
-            };
+        return match ($this->normalizerMode) {
+            NormalizerMode::SMOOTH => 40,
+            NormalizerMode::BALANCED => 100,
+            NormalizerMode::PERFORMANCE => 200,
+            NormalizerMode::SLOW => 1000,
+            NormalizerMode::STILL => 900000,
+        };
     }
 }

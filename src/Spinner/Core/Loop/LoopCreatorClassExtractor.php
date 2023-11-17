@@ -12,7 +12,6 @@ use Traversable;
 
 final class LoopCreatorClassExtractor implements ILoopCreatorClassExtractor
 {
-    /** @inheritDoc */
     public function extract(Traversable $probes): ?string
     {
         /** @var IStaticProbe $probe */

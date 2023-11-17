@@ -24,24 +24,23 @@ $handlerCreator =
                 'Will exit in ' . $delay . ' seconds.' . PHP_EOL .
                 'CTRL+C to force exit.' . PHP_EOL;
 
-            return
-                static function () use ($driver, $loop, $delay, $message): void {
-                    $driver->interrupt($message);
+            return static function () use ($driver, $loop, $delay, $message): void {
+                $driver->interrupt($message);
 
-                    $loop->delay(
-                        $delay,
-                        static function () use ($loop): void {
-                            $loop->stop();
-                        }
-                    );
+                $loop->delay(
+                    $delay,
+                    static function () use ($loop): void {
+                        $loop->stop();
+                    }
+                );
 
-                    $loop->onSignal(
-                        SIGINT, // requires pcntl-ext
-                        static function () use ($loop): void {
-                            $loop->stop();
-                        }
-                    );
-                };
+                $loop->onSignal(
+                    SIGINT, // requires pcntl-ext
+                    static function () use ($loop): void {
+                        $loop->stop();
+                    }
+                );
+            };
         }
     };
 

@@ -86,10 +86,9 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
 
     private function getRunMethodOption(): RunMethodOption
     {
-        return
-            $this->loopIsAvailable()
-                ? RunMethodOption::ASYNC
-                : RunMethodOption::SYNCHRONOUS;
+        return $this->loopIsAvailable()
+            ? RunMethodOption::ASYNC
+            : RunMethodOption::SYNCHRONOUS;
     }
 
     private function loopIsAvailable(): bool
@@ -99,30 +98,26 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
 
     private function getLinkerOption(): LinkerOption
     {
-        return
-            $this->loopIsAvailable()
-                ? LinkerOption::ENABLED
-                : LinkerOption::DISABLED;
+        return $this->loopIsAvailable()
+            ? LinkerOption::ENABLED
+            : LinkerOption::DISABLED;
     }
 
     private function getAutoStartOption(): AutoStartOption
     {
-        return
-            $this->loopIsAvailable()
-                ? AutoStartOption::ENABLED
-                : AutoStartOption::DISABLED;
+        return $this->loopIsAvailable()
+            ? AutoStartOption::ENABLED
+            : AutoStartOption::DISABLED;
     }
 
     private function getSignalMethodOption(): SignalHandlingOption
     {
-        return
-            $this->signalProcessingSupportDetector->getSupportValue();
+        return $this->signalProcessingSupportDetector->getSupportValue();
     }
 
     private function detectStylingMethodOption(): StylingMethodOption
     {
-        return
-            $this->colorSupportDetector->getSupportValue();
+        return $this->colorSupportDetector->getSupportValue();
     }
 
     private function isSignalHandlingEnabled(): bool

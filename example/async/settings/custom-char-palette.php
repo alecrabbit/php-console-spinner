@@ -23,13 +23,11 @@ $options =
 
 $charPalette =
     new class($options) extends ACharPalette {
-
         protected function createFrame(string $element): ICharFrame
         {
             return new CharFrame($element, 3); // note the width is 3
         }
 
-        /** @inheritDoc */
         protected function sequence(): Traversable
         {
             $a = ['   ', '.  ', '.. ', '...', ' ..', '  .', '   ']; // note the width of each element

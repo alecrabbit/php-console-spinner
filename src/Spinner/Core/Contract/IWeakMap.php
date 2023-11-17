@@ -17,5 +17,4 @@ use IteratorAggregate;
  */
 interface IWeakMap extends ArrayAccess, Countable, IteratorAggregate
 {
-
 }

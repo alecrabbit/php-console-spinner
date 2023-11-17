@@ -53,8 +53,7 @@ final class Stopwatch implements IStopwatch
 
     private function createMeasurement(): IMeasurement
     {
-        return
-            $this->measurementFactory->create();
+        return $this->measurementFactory->create();
     }
 
     public function getMeasurements(): Traversable

@@ -16,12 +16,11 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
 {
     public function solve(): StylingMethodMode
     {
-        return
-            $this->doSolve(
-                $this->extractOption($this->settingsProvider->getUserSettings()),
-                $this->extractOption($this->settingsProvider->getDetectedSettings()),
-                $this->extractOption($this->settingsProvider->getDefaultSettings()),
-            );
+        return $this->doSolve(
+            $this->extractOption($this->settingsProvider->getUserSettings()),
+            $this->extractOption($this->settingsProvider->getDetectedSettings()),
+            $this->extractOption($this->settingsProvider->getDefaultSettings()),
+        );
     }
 
     private function doSolve(
@@ -70,14 +69,13 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
 
     private function createModeFromOption(?StylingMethodOption $option): ?StylingMethodMode
     {
-        return
-            match ($option) {
-                StylingMethodOption::NONE => StylingMethodMode::NONE,
-                StylingMethodOption::ANSI4 => StylingMethodMode::ANSI4,
-                StylingMethodOption::ANSI8 => StylingMethodMode::ANSI8,
-                StylingMethodOption::ANSI24 => StylingMethodMode::ANSI24,
-                default => null,
-            };
+        return match ($option) {
+            StylingMethodOption::NONE => StylingMethodMode::NONE,
+            StylingMethodOption::ANSI4 => StylingMethodMode::ANSI4,
+            StylingMethodOption::ANSI8 => StylingMethodMode::ANSI8,
+            StylingMethodOption::ANSI24 => StylingMethodMode::ANSI24,
+            default => null,
+        };
     }
 
     protected function extractOption(ISettings $settings): ?StylingMethodOption

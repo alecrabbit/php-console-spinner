@@ -29,7 +29,6 @@ abstract class ADriverProviderFactory implements IDriverProviderFactory
 
         $this->driverSetup->setup($driver);
 
-        return
-            $driverProvider;
+        return $driverProvider;
     }
 }

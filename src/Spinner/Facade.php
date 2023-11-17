@@ -18,10 +18,9 @@ final class Facade extends AFacade
     {
         $loopProvider = self::getLoopProvider();
 
-        return
-            $loopProvider->hasLoop()
-                ? $loopProvider->getLoop()
-                : throw new DomainException('Loop is unavailable.');
+        return $loopProvider->hasLoop()
+            ? $loopProvider->getLoop()
+            : throw new DomainException('Loop is unavailable.');
     }
 
     public static function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner
@@ -42,17 +41,15 @@ final class Facade extends AFacade
 
     public static function getDriver(): IDriver
     {
-        return
-            self::getDriverProvider()
-                ->getDriver()
+        return self::getDriverProvider()
+            ->getDriver()
         ;
     }
 
     public static function getSettings(): ISettings
     {
-        return
-            self::getSettingsProvider()
-                ->getUserSettings()
+        return self::getSettingsProvider()
+            ->getUserSettings()
         ;
     }
 }

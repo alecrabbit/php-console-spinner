@@ -33,13 +33,11 @@ abstract class ADriver extends ASubject implements IDriver
         $this->messages = $driverConfig->getDriverMessages();
     }
 
-    /** @inheritDoc */
     public function interrupt(?string $interruptMessage = null): void
     {
         $this->finalize($interruptMessage ?? $this->messages->getInterruptionMessage());
     }
 
-    /** @inheritDoc */
     public function finalize(?string $finalMessage = null): void
     {
         $this->erase();
@@ -53,25 +51,21 @@ abstract class ADriver extends ASubject implements IDriver
         return $this->interval;
     }
 
-    /** @inheritDoc */
     public function wrap(Closure $callback): Closure
     {
-        return
-            function (mixed ...$args) use ($callback): void {
-                $this->erase();
-                $callback(...$args);
-                $this->render();
-            };
+        return function (mixed ...$args) use ($callback): void {
+            $this->erase();
+            $callback(...$args);
+            $this->render();
+        };
     }
 
     abstract public function render(?float $dt = null): void;
 
-    /** @inheritDoc */
     public function initialize(): void
     {
         $this->stateWriter->initialize();
     }
 
-    /** @inheritDoc */
     abstract public function has(ISpinner $spinner): bool;
 }

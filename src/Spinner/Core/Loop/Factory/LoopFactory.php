@@ -31,6 +31,7 @@ final readonly class LoopFactory implements ILoopFactory
 
     /**
      * @param class-string<ILoopCreator>|null $loopCreator
+     *
      * @throws LoopException
      */
     private static function assertClass(?string $loopCreator): void

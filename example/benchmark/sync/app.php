@@ -21,7 +21,7 @@ Probes::unregister(ILoopProbe::class);
 
 $driver = Facade::getDriver();
 
-if (!$driver instanceof IBenchmarkingDriver) {
+if (! $driver instanceof IBenchmarkingDriver) {
     throw new LogicException(
         sprintf(
             'Driver must implement "%s".',
@@ -45,7 +45,7 @@ for ($i = 0; $i < CYCLES; $i++) {
         echo '  ';
         echo sprintf(
             '%s%% [%d/%d]',
-            (int)ceil(100 * $i / CYCLES),
+            (int) ceil(100 * $i / CYCLES),
             $i,
             CYCLES
         );
@@ -59,7 +59,7 @@ echo PHP_EOL;
 // call other methods:
 $driver->remove($spinner);
 $driver->getInterval();
-$driver->wrap(static fn() => null);
+$driver->wrap(static fn () => null);
 
 // Finalize:
 $driver->finalize();

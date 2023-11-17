@@ -26,7 +26,6 @@ abstract class AContainerEnclosure
 
     final protected static function getContainer(): ContainerInterface
     {
-        return
-            self::$container ?? throw new ContainerException('Container is not set.');
+        return self::$container ?? throw new ContainerException('Container is not set.');
     }
 }

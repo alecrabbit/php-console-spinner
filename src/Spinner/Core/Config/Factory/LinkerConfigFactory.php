@@ -17,15 +17,13 @@ final readonly class LinkerConfigFactory implements ILinkerConfigFactory
     ) {
     }
 
-
     public function create(): ILinkerConfig
     {
-        return
-            $this->linkerConfigBuilder
-                ->withLinkerMode(
-                    $this->linkerModeSolver->solve(),
-                )
-                ->build()
+        return $this->linkerConfigBuilder
+            ->withLinkerMode(
+                $this->linkerModeSolver->solve(),
+            )
+            ->build()
         ;
     }
 }

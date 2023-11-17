@@ -6,5 +6,4 @@ namespace AlecRabbit\Spinner\Exception;
 
 class WidgetIsNotAComposite extends DomainException
 {
-
 }

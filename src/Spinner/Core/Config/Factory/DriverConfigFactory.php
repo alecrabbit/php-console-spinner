@@ -19,12 +19,11 @@ final readonly class DriverConfigFactory implements IDriverConfigFactory
 
     public function create(): IDriverConfig
     {
-        return
-            $this->driverConfigBuilder
-                ->withDriverMessages(
-                    $this->driverMessagesSolver->solve()
-                )
-                ->build()
+        return $this->driverConfigBuilder
+            ->withDriverMessages(
+                $this->driverMessagesSolver->solve()
+            )
+            ->build()
         ;
     }
 }

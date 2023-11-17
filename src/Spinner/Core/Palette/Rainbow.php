@@ -81,6 +81,7 @@ final class Rainbow extends AStylePalette
 
     /**
      * @param Traversable<string> $sequence
+     *
      * @return iterable<string>
      */
     private function reverseSequence(Traversable $sequence): iterable

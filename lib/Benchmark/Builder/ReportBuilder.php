@@ -20,12 +20,11 @@ final class ReportBuilder implements IReportBuilder
     {
         $this->validate();
 
-        return
-            new Report(
-                $this->results,
-                $this->title,
-                $this->prefix,
-            );
+        return new Report(
+            $this->results,
+            $this->title,
+            $this->prefix,
+        );
     }
 
     private function validate(): void

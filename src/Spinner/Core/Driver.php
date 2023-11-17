@@ -42,16 +42,14 @@ final class Driver extends ADriver
 
     private function initialState(): ISequenceState
     {
-        return
-            $this->stateBuilder
-                ->withSequence('')
-                ->withWidth(0)
-                ->withPreviousWidth(0)
-                ->build()
+        return $this->stateBuilder
+            ->withSequence('')
+            ->withWidth(0)
+            ->withPreviousWidth(0)
+            ->build()
         ;
     }
 
-    /** @inheritDoc */
     public function add(ISpinner $spinner): void
     {
         $this->erase();
@@ -102,7 +100,6 @@ final class Driver extends ADriver
         }
     }
 
-    /** @inheritDoc */
     public function remove(ISpinner $spinner): void
     {
         if ($this->spinner === $spinner) {
@@ -112,13 +109,11 @@ final class Driver extends ADriver
         }
     }
 
-    /** @inheritDoc */
     public function has(ISpinner $spinner): bool
     {
         return $this->spinner === $spinner;
     }
 
-    /** @inheritDoc */
     public function render(?float $dt = null): void
     {
         if ($this->spinner) {

@@ -37,9 +37,8 @@ final readonly class SignalHandlingSetup implements ISignalHandlingSetup
 
     private function getHandlers(): Traversable
     {
-        return
-            $this->loopConfig->getSignalHandlersContainer()
-                ->getHandlerCreators()
+        return $this->loopConfig->getSignalHandlersContainer()
+            ->getHandlerCreators()
         ;
     }
 }

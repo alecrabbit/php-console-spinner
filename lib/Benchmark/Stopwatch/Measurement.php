@@ -51,13 +51,11 @@ final class Measurement implements IMeasurement
         return count($this->data) >= $this->threshold;
     }
 
-    /** @inheritDoc */
     public function getAverage(): int|float
     {
         return $this->average ?? throw new MeasurementException('Not enough data.');
     }
 
-    /** @inheritDoc */
     public function getAny(): int|float
     {
         $count = count($this->data);
@@ -74,13 +72,11 @@ final class Measurement implements IMeasurement
         return $this->count;
     }
 
-    /** @inheritDoc */
     public function getMin(): int|float
     {
         return $this->min ?? throw new MeasurementException('Min is not set.');
     }
 
-    /** @inheritDoc */
     public function getMax(): int|float
     {
         return $this->max ?? throw new MeasurementException('Max is not set.');

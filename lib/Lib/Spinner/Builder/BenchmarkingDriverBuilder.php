@@ -13,7 +13,6 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 final class BenchmarkingDriverBuilder implements IBenchmarkingDriverBuilder
 {
-
     private ?IDriver $driver = null;
     private ?IBenchmark $benchmark = null;
 
@@ -21,11 +20,10 @@ final class BenchmarkingDriverBuilder implements IBenchmarkingDriverBuilder
     {
         $this->validate();
 
-        return
-            new BenchmarkingDriver(
-                driver: $this->driver,
-                benchmark: $this->benchmark,
-            );
+        return new BenchmarkingDriver(
+            driver: $this->driver,
+            benchmark: $this->benchmark,
+        );
     }
 
     /**

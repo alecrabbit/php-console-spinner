@@ -12,7 +12,6 @@ use AlecRabbit\Benchmark\Stopwatch\Result;
 
 final class ResultMaker implements IResultMaker
 {
-    /** @inheritDoc */
     public function make(IMeasurement $measurement): IResult
     {
         try {

@@ -17,17 +17,13 @@ final class GeneralConfigBuilder implements IGeneralConfigBuilder
 {
     private ?RunMethodMode $runMethodMode = null;
 
-    /**
-     * @inheritDoc
-     */
     public function build(): IGeneralConfig
     {
         $this->validate();
 
-        return
-            new GeneralConfig(
-                runMethodMode: $this->runMethodMode,
-            );
+        return new GeneralConfig(
+            runMethodMode: $this->runMethodMode,
+        );
     }
 
     private function validate(): void

@@ -17,17 +17,13 @@ final class NormalizerConfigBuilder implements INormalizerConfigBuilder
 {
     private ?NormalizerMode $normalizerMode = null;
 
-    /**
-     * @inheritDoc
-     */
     public function build(): INormalizerConfig
     {
         $this->validate();
 
-        return
-            new NormalizerConfig(
-                normalizerMode: $this->normalizerMode,
-            );
+        return new NormalizerConfig(
+            normalizerMode: $this->normalizerMode,
+        );
     }
 
     private function validate(): void

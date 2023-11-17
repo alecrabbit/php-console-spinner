@@ -19,7 +19,6 @@ final readonly class RevolverSettings implements IRevolverSettings
         return $this->tolerance;
     }
 
-    /** @inheritDoc */
     public function getIdentifier(): string
     {
         return IRevolverSettings::class;

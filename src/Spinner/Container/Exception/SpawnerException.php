@@ -6,5 +6,4 @@ namespace AlecRabbit\Spinner\Container\Exception;
 
 class SpawnerException extends ContainerException
 {
-
 }

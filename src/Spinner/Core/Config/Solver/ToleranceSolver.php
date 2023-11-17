@@ -16,12 +16,11 @@ final readonly class ToleranceSolver extends ASolver implements IToleranceSolver
 {
     public function solve(): ITolerance
     {
-        return
-            $this->doSolve(
-                $this->extractTolerance($this->settingsProvider->getUserSettings()),
-                $this->extractTolerance($this->settingsProvider->getDetectedSettings()),
-                $this->extractTolerance($this->settingsProvider->getDefaultSettings()),
-            );
+        return $this->doSolve(
+            $this->extractTolerance($this->settingsProvider->getUserSettings()),
+            $this->extractTolerance($this->settingsProvider->getDetectedSettings()),
+            $this->extractTolerance($this->settingsProvider->getDefaultSettings()),
+        );
     }
 
     private function doSolve(
@@ -37,10 +36,9 @@ final readonly class ToleranceSolver extends ASolver implements IToleranceSolver
                 sprintf('Unable to solve "%s".', ITolerance::class)
             );
 
-        return
-            new Tolerance(
-                value: $tolerance->toMilliseconds(),
-            );
+        return new Tolerance(
+            value: $tolerance->toMilliseconds(),
+        );
     }
 
     private function extractTolerance(ISettings $settings): ?ITolerance

@@ -27,7 +27,6 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
     ) {
     }
 
-    /** @inheritDoc */
     public function getIterator(): Traversable
     {
         /**
@@ -42,7 +41,6 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         }
     }
 
-    /** @inheritDoc */
     public function offsetExists(mixed $offset): bool
     {
         if (!$offset instanceof IWidgetContext) {
@@ -53,6 +51,7 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
 
     /**
      * @psalm-param TKey $offset
+     *
      * @psalm-return TValue
      */
     public function offsetGet(mixed $offset): ?IInterval
@@ -76,7 +75,6 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         }
     }
 
-    /** @inheritDoc */
     public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->assertOffset($offset);
@@ -98,7 +96,6 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         }
     }
 
-    /** @inheritDoc */
     public function offsetUnset(mixed $offset): void
     {
         $this->assertOffset($offset);

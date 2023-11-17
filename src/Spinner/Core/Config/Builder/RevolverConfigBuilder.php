@@ -17,17 +17,13 @@ final class RevolverConfigBuilder implements IRevolverConfigBuilder
 {
     private ?ITolerance $tolerance = null;
 
-    /**
-     * @inheritDoc
-     */
     public function build(): IRevolverConfig
     {
         $this->validate();
 
-        return
-            new RevolverConfig(
-                tolerance: $this->tolerance,
-            );
+        return new RevolverConfig(
+            tolerance: $this->tolerance,
+        );
     }
 
     /**

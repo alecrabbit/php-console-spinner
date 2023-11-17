@@ -55,20 +55,18 @@ final class DriverBuilder implements IDriverBuilder
         return $clone;
     }
 
-    /** @inheritDoc */
     public function build(): IDriver
     {
         $this->validate();
 
-        return
-            new Driver(
-                stateWriter: $this->sequenceStateWriter,
-                stateBuilder: $this->sequenceStateBuilder,
-                deltaTimer: $this->deltaTimer,
-                initialInterval: $this->initialInterval,
-                driverConfig: $this->driverConfig,
-                observer: $this->observer,
-            );
+        return new Driver(
+            stateWriter: $this->sequenceStateWriter,
+            stateBuilder: $this->sequenceStateBuilder,
+            deltaTimer: $this->deltaTimer,
+            initialInterval: $this->initialInterval,
+            driverConfig: $this->driverConfig,
+            observer: $this->observer,
+        );
     }
 
     /**

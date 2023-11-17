@@ -18,9 +18,8 @@ final readonly class BenchmarkFactory implements IBenchmarkFactory
 
     public function create(): IBenchmark
     {
-        return
-            new Benchmark(
-                $this->stopwatchFactory->create(),
-            );
+        return new Benchmark(
+            $this->stopwatchFactory->create(),
+        );
     }
 }

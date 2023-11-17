@@ -33,6 +33,7 @@ final readonly class Settings implements ISettings
 
     /**
      * @param class-string<ISettingsElement> $id
+     *
      * @throws InvalidArgument
      */
     private static function assertIdentifier(string $id): void
@@ -49,14 +50,12 @@ final readonly class Settings implements ISettings
         }
     }
 
-    /** @inheritDoc */
     public function get(string $id): ?ISettingsElement
     {
         self::assertIdentifier($id);
 
-        return
-            $this->settingsElements->offsetExists($id)
-                ? $this->settingsElements->offsetGet($id)
-                : null;
+        return $this->settingsElements->offsetExists($id)
+            ? $this->settingsElements->offsetGet($id)
+            : null;
     }
 }

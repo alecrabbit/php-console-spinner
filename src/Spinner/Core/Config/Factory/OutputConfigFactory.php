@@ -25,21 +25,20 @@ final readonly class OutputConfigFactory implements IOutputConfigFactory
 
     public function create(): IOutputConfig
     {
-        return
-            $this->outputConfigBuilder
-                ->withStylingMethodMode(
-                    $this->stylingMethodModeSolver->solve(),
-                )
-                ->withCursorVisibilityMode(
-                    $this->cursorVisibilityModeSolver->solve(),
-                )
-                ->withInitializationMode(
-                    $this->initializationModeSolver->solve(),
-                )
-                ->withStream(
-                    $this->streamSolver->solve(),
-                )
-                ->build()
+        return $this->outputConfigBuilder
+            ->withStylingMethodMode(
+                $this->stylingMethodModeSolver->solve(),
+            )
+            ->withCursorVisibilityMode(
+                $this->cursorVisibilityModeSolver->solve(),
+            )
+            ->withInitializationMode(
+                $this->initializationModeSolver->solve(),
+            )
+            ->withStream(
+                $this->streamSolver->solve(),
+            )
+            ->build()
         ;
     }
 }

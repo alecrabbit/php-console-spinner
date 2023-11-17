@@ -23,7 +23,7 @@ Probes::unregister(ReactLoopProbe::class);
 
 $driver = Facade::getDriver();
 
-if (!$driver instanceof IBenchmarkingDriver) {
+if (! $driver instanceof IBenchmarkingDriver) {
     throw new LogicException(
         sprintf(
             'Driver must implement "%s".',
@@ -40,7 +40,6 @@ $echo =
         }
     );
 
-
 /** @var IBenchmarkResultsFactory $benchmarkResultsFactory */
 $benchmarkResultsFactory = $container->get(IBenchmarkResultsFactory::class);
 
@@ -52,7 +51,6 @@ $benchmarkResults =
                 ->getMeasurements()
         )
 ;
-
 
 // Create report function:
 $reportPrinter = $container->get(IReportPrinter::class);

@@ -27,12 +27,11 @@ final readonly class WidgetCompositeFactory implements IWidgetCompositeFactory
 
         $revolver = $this->widgetRevolverFactory->create($widgetConfig->getWidgetRevolverConfig());
 
-        return
-            $this->widgetBuilder
-                ->withLeadingSpacer($widgetConfig->getLeadingSpacer())
-                ->withTrailingSpacer($widgetConfig->getTrailingSpacer())
-                ->withWidgetRevolver($revolver)
-                ->build()
+        return $this->widgetBuilder
+            ->withLeadingSpacer($widgetConfig->getLeadingSpacer())
+            ->withTrailingSpacer($widgetConfig->getTrailingSpacer())
+            ->withWidgetRevolver($revolver)
+            ->build()
         ;
     }
 }

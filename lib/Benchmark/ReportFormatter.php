@@ -44,8 +44,7 @@ final readonly class ReportFormatter implements IReportFormatter
 
     private function initialOutput(IReport $report): string
     {
-        return
-            <<<HEADER
+        return <<<HEADER
             Benchmark Report
             {$report->getTitle()}
             Date: {$this->datetimeFormatter->format(new DateTimeImmutable())}

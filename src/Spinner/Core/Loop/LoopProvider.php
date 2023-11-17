@@ -20,10 +20,8 @@ final readonly class LoopProvider implements ILoopProvider
         return $this->loop instanceof ILoop;
     }
 
-    /** @inheritDoc */
     public function getLoop(): ILoop
     {
-        return
-            $this->loop ?? throw new DomainException('Loop is not set.');
+        return $this->loop ?? throw new DomainException('Loop is not set.');
     }
 }

@@ -48,8 +48,7 @@ final readonly class ServiceDefinition implements IServiceDefinition
 
     private static function maxOptionsValue(): int
     {
-        return
-            self::SINGLETON
+        return self::SINGLETON
             | self::TRANSIENT;
     }
 
@@ -70,7 +69,6 @@ final readonly class ServiceDefinition implements IServiceDefinition
         return $this->id;
     }
 
-    /** @inheritDoc */
     public function getDefinition(): object|callable|string
     {
         return $this->definition;

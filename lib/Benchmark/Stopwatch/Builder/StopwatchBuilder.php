@@ -20,11 +20,10 @@ final class StopwatchBuilder implements IStopwatchBuilder
     {
         $this->validate();
 
-        return
-            new Stopwatch(
-                timer: $this->timer,
-                measurementFactory: $this->measurementFactory,
-            );
+        return new Stopwatch(
+            timer: $this->timer,
+            measurementFactory: $this->measurementFactory,
+        );
     }
 
     private function validate(): void

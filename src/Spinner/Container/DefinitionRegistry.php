@@ -31,12 +31,10 @@ final class DefinitionRegistry implements IDefinitionRegistry
         return self::$instance;
     }
 
-    /** @inheritDoc */
     public function load(): Traversable
     {
         yield from $this->definitions;
     }
-
 
     public function bind(IServiceDefinition $serviceDefinition): void
     {

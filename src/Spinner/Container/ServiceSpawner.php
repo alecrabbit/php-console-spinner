@@ -73,11 +73,10 @@ final readonly class ServiceSpawner implements IServiceSpawner
 
         $this->circularDependencyDetector->pop();
 
-        return
-            $this->serviceObjectFactory->create(
-                value: $value,
-                serviceDefinition: $serviceDefinition,
-            );
+        return $this->serviceObjectFactory->create(
+            value: $value,
+            serviceDefinition: $serviceDefinition,
+        );
     }
 
     /**
@@ -98,13 +97,12 @@ final readonly class ServiceSpawner implements IServiceSpawner
      */
     private function spawnByClassConstructor(string $definition): object
     {
-        return
-            match (true) {
-                class_exists($definition) => $this->createInstanceByReflection($definition),
-                default => throw new ClassDoesNotExist(
-                    sprintf('Class does not exist: %s', (string)$definition)
-                ),
-            };
+        return match (true) {
+            class_exists($definition) => $this->createInstanceByReflection($definition),
+            default => throw new ClassDoesNotExist(
+                sprintf('Class does not exist: %s', (string)$definition)
+            ),
+        };
     }
 
     /**
@@ -149,17 +147,16 @@ final readonly class ServiceSpawner implements IServiceSpawner
      */
     private function needsService(mixed $type): bool
     {
-        return
-            match (true) {
-                // assumes that all non-builtin types are services
-                $type instanceof ReflectionNamedType => !$type->isBuiltin(),
-                default => throw new UnableToExtractType(
-                    sprintf(
-                        'Only %s is supported.',
-                        ReflectionNamedType::class,
-                    )
-                ),
-            };
+        return match (true) {
+            // assumes that all non-builtin types are services
+            $type instanceof ReflectionNamedType => !$type->isBuiltin(),
+            default => throw new UnableToExtractType(
+                sprintf(
+                    'Only %s is supported.',
+                    ReflectionNamedType::class,
+                )
+            ),
+        };
     }
 
     /**
