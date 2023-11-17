@@ -88,59 +88,6 @@ final class ContainerTest extends TestCase
         self::assertCount(2, self::getPropertyValue('definitions', $container));
     }
 
-//    #[Test]
-// // FIXME (2023-11-15 17:9) [Alec Rabbit]: move to functional tests
-//    public function canGetServiceAndItIsSameServiceEveryTime(): void
-//    {
-//        $container = $this->getTesteeInstance(
-//            definitions: new ArrayObject([
-//                'foo' => new ServiceDefinition('foo', static fn() => new stdClass()),
-//                'bar' => new ServiceDefinition('bar', new stdClass()),
-//                stdClass::class => new ServiceDefinition(stdClass::class, stdClass::class),
-//            ])
-//        );
-//
-//        $serviceOne = $container->get(stdClass::class);
-//        self::assertInstanceOf(stdClass::class, $serviceOne);
-//        self::assertSame($serviceOne, $container->get(stdClass::class));
-//
-//        $serviceTwo = $container->get('foo');
-//        self::assertInstanceOf(stdClass::class, $serviceTwo);
-//        self::assertSame($serviceTwo, $container->get('foo'));
-//
-//        $serviceThree = $container->get('bar');
-//        self::assertInstanceOf(stdClass::class, $serviceThree);
-//        self::assertSame($serviceThree, $container->get('bar'));
-//    }
-//
-//    #[Test]
-// // FIXME (2023-11-15 17:9) [Alec Rabbit]: move to functional tests
-//    public function canGetServiceAndItIsDifferentServiceEveryTime(): void
-//    {
-//        $foo = 'foo';
-//        $bar = 'bar';
-//
-//        $container = $this->getTesteeInstance(
-//            definitions: new ArrayObject([
-//                stdClass::class => new ServiceDefinition(stdClass::class, stdClass::class, IServiceDefinition::TRANSIENT),
-//                $foo => new ServiceDefinition($foo, static fn() => new stdClass(), IServiceDefinition::TRANSIENT),
-//                $bar => new ServiceDefinition($bar, new stdClass(), IServiceDefinition::TRANSIENT),
-//            ])
-//        );
-//
-//        $serviceOne = $container->get(stdClass::class);
-//        self::assertInstanceOf(stdClass::class, $serviceOne);
-//        self::assertNotSame($serviceOne, $container->get(stdClass::class));
-//
-//        $serviceTwo = $container->get($foo);
-//        self::assertInstanceOf(stdClass::class, $serviceTwo);
-//        self::assertNotSame($serviceTwo, $container->get($foo));
-//
-//        $serviceThree = $container->get($bar);
-//        self::assertInstanceOf(stdClass::class, $serviceThree);
-//        self::assertNotSame($serviceThree, $container->get($bar));
-//    }
-
     #[Test]
     public function throwsIfNoServiceFoundById(): void
     {

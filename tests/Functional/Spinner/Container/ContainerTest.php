@@ -6,8 +6,19 @@ namespace AlecRabbit\Tests\Functional\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
+use AlecRabbit\Spinner\Contract\Output\IOutput;
+use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\ConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Output\BufferedOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
+use AlecRabbit\Spinner\Core\Output\Output;
+use AlecRabbit\Spinner\Core\Output\StringBuffer;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -26,14 +37,39 @@ final class ContainerTest extends TestCase
     {
         return self::callMethod(Facade::class, 'getContainer');
     }
-//
-//    #[Test]
-//    public function returnsConfigProvider(): void
-//    {
-//        $container = $this->getTesteeInstance();
-//
-//        $result = $container->get(IConfigProvider::class);
-//
-//        self::assertInstanceOf(ConfigProvider::class, $result);
-//    }
+
+    #[Test]
+    public function canGetServiceAndItIsSameInstanceOfServiceEveryTime(): void
+    {
+        $container = $this->getTesteeInstance();
+
+        $serviceOne = $container->get(IBuffer::class);
+        self::assertInstanceOf(StringBuffer::class, $serviceOne);
+        self::assertSame($serviceOne, $container->get(IBuffer::class));
+
+        $serviceTwo = $container->get(IBufferedOutput::class);
+        self::assertInstanceOf(BufferedOutput::class, $serviceTwo);
+        self::assertSame($serviceTwo, $container->get(IBufferedOutput::class));
+
+        $serviceThree = $container->get(ISettingsProvider::class);
+        self::assertSame($serviceThree, $container->get(ISettingsProvider::class));
+    }
+
+    #[Test]
+    public function canGetServiceAndItIsDifferentInstanceOfServiceEveryTime(): void
+    {
+        $container = $this->getTesteeInstance();
+
+        $serviceOne = $container->get(IOutput::class);
+        self::assertInstanceOf(Output::class, $serviceOne);
+        self::assertNotSame($serviceOne, $container->get(IOutput::class));
+
+        $serviceTwo = $container->get(IWidgetConfig::class);
+        self::assertInstanceOf(WidgetConfig::class, $serviceTwo);
+        self::assertNotSame($serviceTwo, $container->get(IWidgetConfig::class));
+
+        $serviceThree = $container->get(IDriverBuilder::class);
+        self::assertInstanceOf(DriverBuilder::class, $serviceThree);
+        self::assertNotSame($serviceThree, $container->get(IDriverBuilder::class));
+    }
 }
