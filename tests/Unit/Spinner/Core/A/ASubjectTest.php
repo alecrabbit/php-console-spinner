@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
+use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\A\Override\ASubjectOverride;
 use PHPUnit\Framework\Attributes\Test;
@@ -101,7 +103,7 @@ final class ASubjectTest extends TestCase
     #[Test]
     public function throwsIfObserverAlreadyAttached(): void
     {
-        $exceptionClass = InvalidArgument::class;
+        $exceptionClass = ObserverCanNotBeOverwritten::class;
         $exceptionMessage = 'Observer is already attached.';
 
         $test = function (): void {

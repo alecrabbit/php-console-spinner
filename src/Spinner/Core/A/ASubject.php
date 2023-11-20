@@ -8,6 +8,10 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 
+use AlecRabbit\Spinner\Exception\LogicException;
+
+use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
+
 use function sprintf;
 
 abstract class ASubject implements ISubject
@@ -24,20 +28,26 @@ abstract class ASubject implements ISubject
 
     public function attach(IObserver $observer): void
     {
-        $this->assertObserverIsNotAttached();
-
         $this->assertNotSelf($observer);
+
+        $this->assertObserverIsNotAttached();
 
         $this->observer = $observer;
     }
 
+    /**
+     * @throws LogicException
+     */
     protected function assertObserverIsNotAttached(): void
     {
-        if ($this->observer !== null) {
-            throw new InvalidArgument('Observer is already attached.');
+        if ($this->observer instanceof IObserver) {
+            throw new ObserverCanNotBeOverwritten('Observer is already attached.');
         }
     }
 
+    /**
+     * @throws InvalidArgument
+     */
     protected function assertNotSelf(object $obj): void
     {
         if ($obj === $this) {

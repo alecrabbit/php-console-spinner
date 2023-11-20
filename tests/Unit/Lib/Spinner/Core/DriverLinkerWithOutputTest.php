@@ -11,6 +11,8 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
+use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -55,20 +57,15 @@ final class DriverLinkerWithOutputTest extends TestCase
             linker: $driverLinker,
         );
 
-        $subject = $this->getSubjectMock();
+        $driver = $this->getDriverMock();
 
         $driverLinker
             ->expects(self::once())
             ->method('update')
-            ->with($subject)
+            ->with($driver)
         ;
 
-        $linker->update($subject);
-    }
-
-    private function getSubjectMock(): MockObject&ISubject
-    {
-        return $this->createMock(ISubject::class);
+        $linker->update($driver);
     }
 
     #[Test]
@@ -101,6 +98,60 @@ final class DriverLinkerWithOutputTest extends TestCase
             ->expects(self::once())
             ->method('toMilliseconds')
             ->willReturn(100.0)
+        ;
+
+        $driver
+            ->expects(self::once())
+            ->method('attach')
+            ->with($linker)
+        ;
+
+        $driver
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
+
+        $linker->link($driver);
+    }
+
+    #[Test]
+    public function canLinkEvenIfThereWasAnException(): void
+    {
+        $driverLinker = $this->getDriverLinkerMock();
+        $output = $this->getOutputMock();
+
+        $linker = $this->getTesteeInstance(
+            linker: $driverLinker,
+            output: $output,
+        );
+
+        $driver = $this->getDriverMock();
+
+        $driverLinker
+            ->expects(self::once())
+            ->method('link')
+            ->with($driver)
+            ->willThrowException(new ObserverCanNotBeOverwritten())
+        ;
+
+        $output
+            ->expects(self::once())
+            ->method('write')
+            ->with('[Driver] Render interval: 100ms' . PHP_EOL)
+        ;
+
+        $interval = $this->getIntervalMock();
+        $interval
+            ->expects(self::once())
+            ->method('toMilliseconds')
+            ->willReturn(100.0)
+        ;
+
+        $driver
+            ->expects(self::once())
+            ->method('attach')
+            ->with($linker)
         ;
 
         $driver

@@ -7,10 +7,10 @@ namespace AlecRabbit\Lib\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
-use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Tests\Helper\PickLock;
+use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 
 final readonly class DriverLinkerWithOutput implements IDriverLinker
 {
@@ -22,20 +22,20 @@ final readonly class DriverLinkerWithOutput implements IDriverLinker
 
     public function link(IDriver $driver): void
     {
-        $this->linker->link($driver);
+        // this depends on the implementation of the DriverLinker::link() method
+        //
+        // Observer can not be overwritten so `attach()` will throw and should be the last line in the method
+        //    #    $driver->attach($this);  // <-- this line
 
-        $this->hackDriver($driver);
+        $driver->attach($this);
+
+        try {
+            $this->linker->link($driver);
+        } catch (ObserverCanNotBeOverwritten $_) {
+            // ignore
+        }
 
         $this->writeInterval($driver);
-    }
-
-    private function hackDriver(IDriver $driver): void
-    {
-        if ($driver instanceof ADriver) {
-            // DON'T DO THIS AT HOME 🙂 (or at work, especially in production)
-            PickLock::setValue($driver, 'observer', null);
-            $driver->attach($this);
-        }
     }
 
     private function writeInterval(IDriver $driver): void

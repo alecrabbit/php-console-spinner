@@ -13,6 +13,8 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
+use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -364,7 +366,7 @@ final class WidgetCompositeTest extends TestCase
     #[Test]
     public function throwsIfObserverAlreadyAttached(): void
     {
-        $exceptionClass = InvalidArgument::class;
+        $exceptionClass = ObserverCanNotBeOverwritten::class;
         $exceptionMessage = 'Observer is already attached.';
 
         $test = function (): void {
