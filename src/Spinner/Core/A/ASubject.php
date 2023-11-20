@@ -7,9 +7,7 @@ namespace AlecRabbit\Spinner\Core\A;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
-
 use AlecRabbit\Spinner\Exception\LogicException;
-
 use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 
 use function sprintf;
@@ -36,16 +34,6 @@ abstract class ASubject implements ISubject
     }
 
     /**
-     * @throws LogicException
-     */
-    protected function assertObserverIsNotAttached(): void
-    {
-        if ($this->observer instanceof IObserver) {
-            throw new ObserverCanNotBeOverwritten('Observer is already attached.');
-        }
-    }
-
-    /**
      * @throws InvalidArgument
      */
     protected function assertNotSelf(object $obj): void
@@ -58,6 +46,16 @@ abstract class ASubject implements ISubject
                     spl_object_id($obj),
                 )
             );
+        }
+    }
+
+    /**
+     * @throws LogicException
+     */
+    protected function assertObserverIsNotAttached(): void
+    {
+        if ($this->observer instanceof IObserver) {
+            throw new ObserverCanNotBeOverwritten('Observer is already attached.');
         }
     }
 

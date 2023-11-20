@@ -105,11 +105,11 @@ final class FrameCollectionRevolverTest extends TestCase
                             3, 4 => self::assertEquals(0, $offset),
                         };
 
-                        return         match ($offset) {
-                                0 => $frame0,
-                                1 => $frame1,
-                                2 => $frame2,
-                            };
+                        return match ($offset) {
+                            0 => $frame0,
+                            1 => $frame1,
+                            2 => $frame2,
+                        };
                     }
                 )
             ;

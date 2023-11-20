@@ -30,10 +30,10 @@ final class WidgetRevolverConfigTest extends TestCase
     ): IWidgetRevolverConfig {
         if ($revolverConfig === null) {
             return new WidgetRevolverConfig(
-                    stylePalette: $stylePalette ?? $this->getPaletteMock(),
-                    charPalette: $charPalette ?? $this->getPaletteMock(),
-                    revolverConfig: new RevolverConfig(),
-                );
+                stylePalette: $stylePalette ?? $this->getPaletteMock(),
+                charPalette: $charPalette ?? $this->getPaletteMock(),
+                revolverConfig: new RevolverConfig(),
+            );
         }
 
         return

@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
-use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ToleranceTest extends TestCase

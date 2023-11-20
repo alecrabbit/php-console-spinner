@@ -7,8 +7,6 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\A;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
-use AlecRabbit\Spinner\Exception\InvalidArgument;
-use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\A\Override\ASubjectOverride;

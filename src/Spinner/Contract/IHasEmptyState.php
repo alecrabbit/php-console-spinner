@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
-interface ICanBeEmpty
+interface IHasEmptyState
 {
     public function isEmpty(): bool;
 }

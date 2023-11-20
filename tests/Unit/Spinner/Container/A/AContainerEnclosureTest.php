@@ -27,22 +27,6 @@ final class AContainerEnclosureTest extends TestCase
 
         self::assertSame($container, self::extractContainer());
     }
-    #[Test]
-    public function canUseContainerAdapter(): void
-    {
-        $container = $this->getContainerInterfaceMock();
-        AContainerEnclosure::useContainer($container);
-
-        $extractedContainer = self::extractContainer();
-        
-        self::assertInstanceOf(ContainerAdapter::class, $extractedContainer);
-        self::assertSame($container, self::getPropertyValue('container', $extractedContainer));
-    }
-
-    private function getContainerInterfaceMock(): MockObject&ContainerInterface
-    {
-        return $this->createMock(ContainerInterface::class);
-    }
 
     private function getContainerMock(): MockObject&IContainer
     {
@@ -52,6 +36,23 @@ final class AContainerEnclosureTest extends TestCase
     protected static function extractContainer(): mixed
     {
         return self::callMethod(AContainerEnclosureOverride::class, self::GET_CONTAINER);
+    }
+
+    #[Test]
+    public function canUseContainerAdapter(): void
+    {
+        $container = $this->getContainerInterfaceMock();
+        AContainerEnclosure::useContainer($container);
+
+        $extractedContainer = self::extractContainer();
+
+        self::assertInstanceOf(ContainerAdapter::class, $extractedContainer);
+        self::assertSame($container, self::getPropertyValue('container', $extractedContainer));
+    }
+
+    private function getContainerInterfaceMock(): MockObject&ContainerInterface
+    {
+        return $this->createMock(ContainerInterface::class);
     }
 
     #[Test]

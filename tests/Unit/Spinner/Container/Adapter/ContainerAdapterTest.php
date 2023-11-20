@@ -11,6 +11,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Container\ContainerInterface;
+use stdClass;
 
 final class ContainerAdapterTest extends TestCase
 {
@@ -39,7 +40,7 @@ final class ContainerAdapterTest extends TestCase
         $id = 'id';
 
         $container = $this->getContainerMock();
-        $service = new \stdClass();
+        $service = new stdClass();
 
         $container
             ->expects(self::once())

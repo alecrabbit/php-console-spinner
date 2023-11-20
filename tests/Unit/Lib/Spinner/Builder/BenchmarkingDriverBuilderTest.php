@@ -6,9 +6,9 @@ namespace Unit\Lib\Spinner\Builder;
 
 use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
-use AlecRabbit\Lib\Spinner\BenchmarkingDriver;
 use AlecRabbit\Lib\Spinner\Builder\BenchmarkingDriverBuilder;
 use AlecRabbit\Lib\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Lib\Spinner\Core\BenchmarkingDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Unit\Lib\Spinner;
+namespace AlecRabbit\Tests\Unit\Lib\Spinner\Core;
 
 use AlecRabbit\Benchmark\Contract\IBenchmark;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
-use AlecRabbit\Lib\Spinner\BenchmarkingDriver;
 use AlecRabbit\Lib\Spinner\Contract\IBenchmarkingDriver;
+use AlecRabbit\Lib\Spinner\Core\BenchmarkingDriver;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
@@ -19,7 +19,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 final class BenchmarkingDriverTest extends TestCase
 {
-
     #[Test]
     public function canBeInstantiated(): void
     {
@@ -30,7 +29,6 @@ final class BenchmarkingDriverTest extends TestCase
 
     private function getTesteeInstance(
         ?IDriver $driver = null,
-        ?IStopwatch $stopwatch = null,
         ?IBenchmark $benchmark = null,
         ?IObserver $observer = null,
     ): IBenchmarkingDriver {

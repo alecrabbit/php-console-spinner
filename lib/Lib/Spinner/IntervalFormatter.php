@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Lib\Spinner\Core;
+namespace AlecRabbit\Lib\Spinner;
 
-use AlecRabbit\Lib\Spinner\Core\Contract\IIntervalFormatter;
+use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Spinner\Contract\IHasInterval;
 
 final readonly class IntervalFormatter implements IIntervalFormatter

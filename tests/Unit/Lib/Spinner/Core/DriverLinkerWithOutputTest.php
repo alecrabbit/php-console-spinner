@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Lib\Spinner\Core;
 
 
-use AlecRabbit\Lib\Spinner\Core\Contract\IIntervalFormatter;
+use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Core\DriverLinkerWithOutput;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
@@ -97,7 +97,8 @@ final class DriverLinkerWithOutputTest extends TestCase
         $formatter
             ->expects(self::once())
             ->method('format')
-            ->with($driver);
+            ->with($driver)
+        ;
 
         $driverLinker
             ->expects(self::once())
@@ -145,7 +146,8 @@ final class DriverLinkerWithOutputTest extends TestCase
         $formatter
             ->expects(self::once())
             ->method('format')
-            ->with($driver);
+            ->with($driver)
+        ;
 
         $driverLinker
             ->expects(self::once())

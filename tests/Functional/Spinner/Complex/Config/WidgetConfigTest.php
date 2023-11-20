@@ -27,12 +27,12 @@ final class WidgetConfigTest extends ConfigurationTestCase
                 [
                     // Detected settings considered as AUTO
                     IDetectedSettingsFactory::class => static function () {
-                        return         new class() implements IDetectedSettingsFactory {
-                                public function create(): ISettings
-                                {
-                                    return new Settings(); // empty object considered as AUTO
-                                }
-                            };
+                        return new class() implements IDetectedSettingsFactory {
+                            public function create(): ISettings
+                            {
+                                return new Settings(); // empty object considered as AUTO
+                            }
+                        };
                     },
                 ]
             )

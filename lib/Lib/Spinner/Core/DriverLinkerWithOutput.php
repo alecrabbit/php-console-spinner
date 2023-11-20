@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Lib\Spinner\Core;
 
-use AlecRabbit\Lib\Spinner\Core\Contract\IIntervalFormatter;
+use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
+use AlecRabbit\Lib\Spinner\IntervalFormatter;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -49,7 +50,7 @@ final readonly class DriverLinkerWithOutput implements IDriverLinker
     public function update(ISubject $subject): void
     {
         $this->linker->update($subject);
-        
+
         if ($subject instanceof IDriver) {
             $this->write($subject);
         }

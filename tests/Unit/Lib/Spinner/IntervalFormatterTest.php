@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Lib\Spinner\Core;
+namespace AlecRabbit\Tests\Unit\Lib\Spinner;
 
 
-use AlecRabbit\Lib\Spinner\Core\Contract\IIntervalFormatter;
-use AlecRabbit\Lib\Spinner\Core\IntervalFormatter;
+use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
+use AlecRabbit\Lib\Spinner\IntervalFormatter;
 use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -36,7 +36,8 @@ final class IntervalFormatterTest extends TestCase
         $interval
             ->expects(self::once())
             ->method('toMilliseconds')
-            ->willReturn(10.0);
+            ->willReturn(10.0)
+        ;
 
         $object = $this->getHasIntervalMock();
         $object

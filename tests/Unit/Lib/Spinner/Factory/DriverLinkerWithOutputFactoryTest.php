@@ -55,7 +55,8 @@ final class DriverLinkerWithOutputFactoryTest extends TestCase
         $driverLinkerFactory
             ->expects(self::once())
             ->method('create')
-            ->willReturn($dummyLinker);
+            ->willReturn($dummyLinker)
+        ;
 
         $factory = $this->getTesteeInstance(
             driverLinkerFactory: $driverLinkerFactory,
@@ -75,7 +76,8 @@ final class DriverLinkerWithOutputFactoryTest extends TestCase
         $driverLinkerFactory
             ->expects(self::once())
             ->method('create')
-            ->willReturn($driverLinker);
+            ->willReturn($driverLinker)
+        ;
 
         $factory = $this->getTesteeInstance(
             driverLinkerFactory: $driverLinkerFactory,
