@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\IHasInterval;
 interface IIntervalFormatter
 {
     /**
-     * Extracts interval from IHasInterval and formats it.
+     * Formats interval contained in object.
      */
     public function format(IHasInterval $object): string;
 }
