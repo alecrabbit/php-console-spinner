@@ -93,18 +93,21 @@ final class DriverLinkerWithOutputTest extends TestCase
         $output
             ->expects(self::once())
             ->method('write')
-            ->with('Render interval: 100ms');
+            ->with('[Driver] Render interval: 100ms' . PHP_EOL)
+        ;
 
         $interval = $this->getIntervalMock();
         $interval
             ->expects(self::once())
             ->method('toMilliseconds')
-            ->willReturn(100.0);
+            ->willReturn(100.0)
+        ;
 
         $driver
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($interval);
+            ->willReturn($interval)
+        ;
 
         $linker->link($driver);
     }

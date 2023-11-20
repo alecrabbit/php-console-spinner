@@ -27,8 +27,8 @@ final class DriverLinker implements IDriverLinker
         $this->linkTimer($driver);
 
         if ($this->driver === null) {
-            $driver->attach($this);
             $this->driver = $driver;
+            $driver->attach($this);
         }
     }
 
