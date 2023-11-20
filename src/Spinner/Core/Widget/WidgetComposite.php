@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Widget\A\AWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -57,7 +57,7 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         }
     }
 
-    public function getFrame(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): ICharFrame
     {
         $frame = parent::getFrame($dt);
 
@@ -67,7 +67,8 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
                 $widget = $childContext->getWidget();
                 if ($widget instanceof IWidget) {
                     $f = $widget->getFrame($dt);
-                    $frame = new CharFrame(
+
+                    $frame = $this->createFrame(
                         $frame->sequence() . $f->sequence(),
                         $frame->width() + $f->width()
                     );
