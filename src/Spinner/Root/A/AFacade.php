@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Root;
+namespace AlecRabbit\Spinner\Root\A;
 
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Root\Contract\IFacade;
 
 abstract class AFacade extends AContainerEnclosure implements IFacade
 {

@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Spinner\Root\AFacade;
+use AlecRabbit\Spinner\Root\A\AFacade;
 
 final class Facade extends AFacade
 {
