@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Lib\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Lib\Spinner\Core\Contract\IIntervalFormatter;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 
 final readonly class DriverLinkerWithOutput implements IDriverLinker
@@ -17,45 +16,42 @@ final readonly class DriverLinkerWithOutput implements IDriverLinker
     public function __construct(
         private IDriverLinker $linker,
         private IOutput $output,
+        private IIntervalFormatter $formatter = new IntervalFormatter(),
     ) {
     }
 
     public function link(IDriver $driver): void
     {
         // this depends on the implementation of the DriverLinker::link() method
-        //
-        // Observer can not be overwritten so `attach()` will throw and should be the last line in the method
-        //    #    $driver->attach($this);  // <-- this line
 
-        $driver->attach($this);
+        $driver->attach($this); // setting $this as an observer
 
         try {
+            // Observer can not be overwritten so `attach()` will throw and should
+            // be the last line in the method:
+            //
+            //    #    $driver->attach($this);  // <-- this line
             $this->linker->link($driver);
         } catch (ObserverCanNotBeOverwritten $_) {
             // ignore
         }
 
-        $this->writeInterval($driver);
+        $this->write($driver);
     }
 
-    private function writeInterval(IDriver $driver): void
+    private function write(IDriver $driver): void
     {
-        $this->output->write($this->format($driver->getInterval()));
-    }
-
-    private function format(IInterval $getInterval): string
-    {
-        return sprintf(
-            '[Driver] Render interval: %sms' . PHP_EOL,
-            $getInterval->toMilliseconds()
+        $this->output->write(
+            $this->formatter->format($driver)
         );
     }
 
     public function update(ISubject $subject): void
     {
         $this->linker->update($subject);
+        
         if ($subject instanceof IDriver) {
-            $this->writeInterval($subject);
+            $this->write($subject);
         }
     }
 }

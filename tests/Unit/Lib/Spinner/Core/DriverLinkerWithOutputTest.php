@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Lib\Spinner\Core;
 
 
+use AlecRabbit\Lib\Spinner\Core\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Core\DriverLinkerWithOutput;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -30,11 +29,13 @@ final class DriverLinkerWithOutputTest extends TestCase
     private function getTesteeInstance(
         ?IDriverLinker $linker = null,
         ?IOutput $output = null,
+        ?IIntervalFormatter $intervalFormatter = null,
     ): IDriverLinker {
         return
             new DriverLinkerWithOutput(
                 linker: $linker ?? $this->getDriverLinkerMock(),
                 output: $output ?? $this->getOutputMock(),
+                formatter: $intervalFormatter ?? $this->getIntervalFormatterMock(),
             );
     }
 
@@ -46,6 +47,11 @@ final class DriverLinkerWithOutputTest extends TestCase
     private function getOutputMock(): MockObject&IOutput
     {
         return $this->createMock(IOutput::class);
+    }
+
+    private function getIntervalFormatterMock(): MockObject&IIntervalFormatter
+    {
+        return $this->createMock(IIntervalFormatter::class);
     }
 
     #[Test]
@@ -68,18 +74,30 @@ final class DriverLinkerWithOutputTest extends TestCase
         $linker->update($driver);
     }
 
+    private function getDriverMock(): MockObject&IDriver
+    {
+        return $this->createMock(IDriver::class);
+    }
+
     #[Test]
     public function canLink(): void
     {
         $driverLinker = $this->getDriverLinkerMock();
         $output = $this->getOutputMock();
+        $formatter = $this->getIntervalFormatterMock();
 
         $linker = $this->getTesteeInstance(
             linker: $driverLinker,
             output: $output,
+            intervalFormatter: $formatter,
         );
 
         $driver = $this->getDriverMock();
+
+        $formatter
+            ->expects(self::once())
+            ->method('format')
+            ->with($driver);
 
         $driverLinker
             ->expects(self::once())
@@ -87,18 +105,13 @@ final class DriverLinkerWithOutputTest extends TestCase
             ->with($driver)
         ;
 
+
         $output
             ->expects(self::once())
             ->method('write')
-            ->with('[Driver] Render interval: 100ms' . PHP_EOL)
         ;
 
         $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('toMilliseconds')
-            ->willReturn(100.0)
-        ;
 
         $driver
             ->expects(self::once())
@@ -106,13 +119,12 @@ final class DriverLinkerWithOutputTest extends TestCase
             ->with($linker)
         ;
 
-        $driver
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
-
         $linker->link($driver);
+    }
+
+    private function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 
     #[Test]
@@ -120,13 +132,20 @@ final class DriverLinkerWithOutputTest extends TestCase
     {
         $driverLinker = $this->getDriverLinkerMock();
         $output = $this->getOutputMock();
+        $formatter = $this->getIntervalFormatterMock();
 
         $linker = $this->getTesteeInstance(
             linker: $driverLinker,
             output: $output,
+            intervalFormatter: $formatter,
         );
 
         $driver = $this->getDriverMock();
+
+        $formatter
+            ->expects(self::once())
+            ->method('format')
+            ->with($driver);
 
         $driverLinker
             ->expects(self::once())
@@ -138,14 +157,6 @@ final class DriverLinkerWithOutputTest extends TestCase
         $output
             ->expects(self::once())
             ->method('write')
-            ->with('[Driver] Render interval: 100ms' . PHP_EOL)
-        ;
-
-        $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('toMilliseconds')
-            ->willReturn(100.0)
         ;
 
         $driver
@@ -154,22 +165,6 @@ final class DriverLinkerWithOutputTest extends TestCase
             ->with($linker)
         ;
 
-        $driver
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
-
         $linker->link($driver);
-    }
-
-    private function getDriverMock(): MockObject&IDriver
-    {
-        return $this->createMock(IDriver::class);
-    }
-
-    private function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
     }
 }
