@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Container\A;
 
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
+use AlecRabbit\Spinner\Container\Adapter\ContainerAdapter;
+use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Container\A\Override\AContainerEnclosureOverride;
@@ -18,17 +20,33 @@ final class AContainerEnclosureTest extends TestCase
     private static ?ContainerInterface $container;
 
     #[Test]
-    public function canSetContainer(): void
+    public function canUseContainer(): void
     {
         $container = $this->getContainerMock();
         AContainerEnclosure::useContainer($container);
 
-        $this->assertSame($container, self::extractContainer());
+        self::assertSame($container, self::extractContainer());
+    }
+    #[Test]
+    public function canUseContainerAdapter(): void
+    {
+        $container = $this->getContainerInterfaceMock();
+        AContainerEnclosure::useContainer($container);
+
+        $extractedContainer = self::extractContainer();
+        
+        self::assertInstanceOf(ContainerAdapter::class, $extractedContainer);
+        self::assertSame($container, self::getPropertyValue('container', $extractedContainer));
     }
 
-    private function getContainerMock(): MockObject&ContainerInterface
+    private function getContainerInterfaceMock(): MockObject&ContainerInterface
     {
         return $this->createMock(ContainerInterface::class);
+    }
+
+    private function getContainerMock(): MockObject&IContainer
+    {
+        return $this->createMock(IContainer::class);
     }
 
     protected static function extractContainer(): mixed
