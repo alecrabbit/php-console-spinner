@@ -50,20 +50,14 @@ final class WidgetRevolverTest extends TestCase
     #[Test]
     public function canGetInterval(): void
     {
+        $styleInterval = $this->getIntervalMock();
         $characterInterval = $this->getIntervalMock();
-        $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('smallest')
-            ->with($characterInterval)
-            ->willReturnSelf()
-        ;
 
         $style = $this->getRevolverMock();
         $style
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($interval)
+            ->willReturn($styleInterval)
         ;
 
         $character = $this->getRevolverMock();
@@ -76,7 +70,7 @@ final class WidgetRevolverTest extends TestCase
             style: $style,
             character: $character,
         );
-        self::assertSame($interval, $revolver->getInterval());
+        self::assertSame($styleInterval, $revolver->getInterval());
     }
 
     protected function getIntervalMock(): MockObject&IInterval
