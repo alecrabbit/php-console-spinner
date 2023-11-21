@@ -17,6 +17,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 
+// FIXME (2023-11-21 18:7) [Alec Rabbit]: move to Extras
 final class WidgetComposite extends AWidget implements IWidgetComposite
 {
     protected IInterval $interval;
