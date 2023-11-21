@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Exception;
 
-class NotImplemented extends RuntimeException
+final class NotImplemented extends RuntimeException
 {
 }

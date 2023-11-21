@@ -14,6 +14,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
+use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\FacadeAwareTestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -204,5 +205,31 @@ final class FacadeTest extends FacadeAwareTestCase
         ;
 
         self::assertSame($driver, Facade::getDriver());
+    }
+
+    #[Test]
+    public function throwsIfLoopIsUnavailable(): void
+    {
+        $container = $this->getContainerMock();
+        self::setContainer($container);
+
+        $loopProvider = $this->getLoopProviderMock();
+        $loopProvider
+            ->expects(self::once())
+            ->method('hasLoop')
+            ->willReturn(false)
+        ;
+
+        $container
+            ->expects(self::once())
+            ->method('get')
+            ->with(self::identicalTo(ILoopProvider::class))
+            ->willReturn($loopProvider)
+        ;
+
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Event loop is unavailable.');
+
+        Facade::getLoop();
     }
 }

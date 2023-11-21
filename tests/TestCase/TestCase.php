@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
-use AlecRabbit\Spinner\Helper\Stringify;
 use AlecRabbit\Tests\Helper\PickLock;
 use AlecRabbit\Tests\Mixin\AppRelatedConstTrait;
 use ArrayAccess;
 use Faker\Factory as FakerFactory;
-use Faker\Generator;
+use Faker\Generator as FakerGenerator;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Throwable;
 
@@ -85,14 +84,6 @@ abstract class TestCase extends PHPUnitTestCase
         return end($parts);
     }
 
-    protected function setUp(): void
-    {
-    }
-
-    protected function tearDown(): void
-    {
-    }
-
     protected function expectsException(mixed $expected): ?Throwable
     {
         if (
@@ -138,7 +129,7 @@ abstract class TestCase extends PHPUnitTestCase
         );
     }
 
-    protected function getFaker(): Generator
+    protected function getFaker(): FakerGenerator
     {
         return FakerFactory::create();
     }
