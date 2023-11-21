@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Lib\Unit\Helper;
+namespace AlecRabbit\Tests\Lib\Functional\Helper;
 
 use AlecRabbit\Lib\Helper\BytesFormatter;
 use AlecRabbit\Tests\TestCase\TestCase;
