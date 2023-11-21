@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
@@ -26,6 +27,7 @@ class TestCaseForDriver extends TestCase
         ?ISequenceStateBuilder $stateBuilder = null,
         ?IInterval $initialInterval = null,
         ?IDriverConfig $driverConfig = null,
+        ?IIntervalComparator $intervalComparator = null,
         ?IObserver $observer = null,
     ): IDriver {
         return new Driver(
@@ -34,6 +36,7 @@ class TestCaseForDriver extends TestCase
             deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
             driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
+            intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
             observer: $observer,
         );
     }
@@ -81,5 +84,10 @@ class TestCaseForDriver extends TestCase
     protected function getSpinnerStub(): Stub&ISpinner
     {
         return $this->createStub(ISpinner::class);
+    }
+
+    protected function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
     }
 }

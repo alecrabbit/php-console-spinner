@@ -9,12 +9,12 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 
 final readonly class IntervalComparator implements IIntervalComparator
 {
-    public function smallest(IInterval $first, IInterval ...$other): IInterval
+    public function smallest(IInterval $first, ?IInterval ...$other): IInterval
     {
         $smallest = $first;
 
         foreach ($other as $interval) {
-            if ($interval->toMicroseconds() < $smallest->toMicroseconds()) {
+            if ($interval instanceof IInterval && $interval->toMicroseconds() < $smallest->toMicroseconds()) {
                 $smallest = $interval;
             }
         }
@@ -22,12 +22,12 @@ final readonly class IntervalComparator implements IIntervalComparator
         return $smallest;
     }
 
-    public function largest(IInterval $first, IInterval ...$other): IInterval
+    public function largest(IInterval $first, ?IInterval ...$other): IInterval
     {
         $largest = $first;
 
         foreach ($other as $interval) {
-            if ($interval->toMicroseconds() > $largest->toMicroseconds()) {
+            if ($interval instanceof IInterval && $interval->toMicroseconds() > $largest->toMicroseconds()) {
                 $largest = $interval;
             }
         }

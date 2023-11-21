@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -25,6 +26,7 @@ final class DriverBuilder implements IDriverBuilder
     private ?IInterval $initialInterval = null;
     private ?IObserver $observer = null;
     private ?IDriverConfig $driverConfig = null;
+    private ?IIntervalComparator $intervalComparator = null;
     private ?ISequenceStateBuilder $sequenceStateBuilder = null;
 
     public function withSequenceStateWriter(ISequenceStateWriter $sequenceStateWriter): IDriverBuilder
@@ -65,6 +67,7 @@ final class DriverBuilder implements IDriverBuilder
             deltaTimer: $this->deltaTimer,
             initialInterval: $this->initialInterval,
             driverConfig: $this->driverConfig,
+            intervalComparator: $this->intervalComparator,
             observer: $this->observer,
         );
     }
@@ -80,6 +83,7 @@ final class DriverBuilder implements IDriverBuilder
             $this->deltaTimer === null => throw new LogicException('Timer is not set.'),
             $this->initialInterval === null => throw new LogicException('InitialInterval is not set.'),
             $this->driverConfig === null => throw new LogicException('DriverConfig is not set.'),
+            $this->intervalComparator === null => throw new LogicException('IntervalComparator is not set.'),
             default => null,
         };
     }
@@ -95,6 +99,13 @@ final class DriverBuilder implements IDriverBuilder
     {
         $clone = clone $this;
         $clone->sequenceStateBuilder = $sequenceStateBuilder;
+        return $clone;
+    }
+
+    public function withIntervalComparator(IIntervalComparator $intervalComparator): IDriverBuilder
+    {
+        $clone = clone $this;
+        $clone->intervalComparator = $intervalComparator;
         return $clone;
     }
 }

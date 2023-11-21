@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
@@ -72,6 +73,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
         ?ISequenceStateBuilder $stateBuilder = null,
         ?IInterval $initialInterval = null,
         ?IDriverConfig $driverConfig = null,
+        ?IIntervalComparator $intervalComparator = null,
         ?IObserver $observer = null,
         ?ISequenceState $state = null,
     ): IDriver {
@@ -83,6 +85,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                 stateWriter: $stateWriter ?? $this->getSequenceStateWriterMock(),
                 stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
                 state: $state ?? $this->getSequenceStateMock(),
+                intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
                 observer: $observer,
             ) extends ADriver {
                 public function __construct(
@@ -91,6 +94,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                     IInterval $initialInterval,
                     ISequenceStateWriter $stateWriter,
                     ISequenceStateBuilder $stateBuilder,
+                    IIntervalComparator $intervalComparator,
                     private readonly ISequenceState $state,
                     ?IObserver $observer = null,
                 ) {

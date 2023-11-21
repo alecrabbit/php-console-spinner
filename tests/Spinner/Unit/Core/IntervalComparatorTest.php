@@ -82,6 +82,16 @@ final class IntervalComparatorTest extends TestCase
                     ],
                 ],
             ],
+            // #6
+            [
+                [new Interval(10)],
+                [new Interval(10), [null]],
+            ],
+            // #7
+            [
+                [new Interval(10)],
+                [new Interval(100), [null, new Interval(10)]],
+            ],
         ];
     }
 
@@ -152,6 +162,16 @@ final class IntervalComparatorTest extends TestCase
                         '2',
                     ],
                 ],
+            ],
+            // #6
+            [
+                [new Interval(10)],
+                [new Interval(10), [null]],
+            ],
+            // #7
+            [
+                [new Interval(100)],
+                [new Interval(10), [null, new Interval(100)]],
             ],
         ];
     }

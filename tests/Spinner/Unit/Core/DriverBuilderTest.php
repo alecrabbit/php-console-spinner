@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -48,6 +49,7 @@ final class DriverBuilderTest extends TestCase
             ->withDeltaTimer($this->getTimerMock())
             ->withInitialInterval($interval)
             ->withDriverConfig($this->getDriverConfigMock())
+            ->withIntervalComparator($this->getIntervalComparatorMock())
             ->build()
         ;
 
@@ -92,6 +94,7 @@ final class DriverBuilderTest extends TestCase
             ->withObserver($this->getObserverMock())
             ->withInitialInterval($this->getIntervalMock())
             ->withDriverConfig($this->getDriverConfigMock())
+            ->withIntervalComparator($this->getIntervalComparatorMock())
             ->build()
         ;
 
@@ -201,5 +204,10 @@ final class DriverBuilderTest extends TestCase
     protected function getLinkerConfigMock(): MockObject&ILinkerConfig
     {
         return $this->createMock(ILinkerConfig::class);
+    }
+
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
     }
 }
