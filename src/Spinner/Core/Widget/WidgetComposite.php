@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Widget\A\AWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -24,7 +25,8 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         IWidgetRevolver $revolver,
         IFrame $leadingSpacer,
         IFrame $trailingSpacer,
-        protected readonly IWidgetCompositeChildrenContainer $children = new WidgetCompositeChildrenContainer(),
+        private readonly IIntervalComparator $intervalComparator,
+        private readonly IWidgetCompositeChildrenContainer $children = new WidgetCompositeChildrenContainer(),
         ?IObserver $observer = null,
     ) {
         parent::__construct(
@@ -49,7 +51,7 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         $this->assertNotSelf($subject);
 
         if ($subject === $this->children) {
-            $interval = $this->interval->smallest($subject->getInterval());
+            $interval = $this->intervalComparator->smallest($this->interval, $subject->getInterval());
             if ($interval !== $this->interval) {
                 $this->interval = $interval;
                 $this->notify();

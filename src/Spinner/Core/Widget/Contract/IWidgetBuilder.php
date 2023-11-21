@@ -18,7 +18,7 @@ interface IWidgetBuilder
 
     public function withWidgetRevolver(IWidgetRevolver $revolver): IWidgetBuilder;
 
-    public function withLeadingSpacer(IFrame $frame): IWidgetBuilder;
+    public function withLeadingSpacer(IFrame $leadingSpacer): IWidgetBuilder;
 
-    public function withTrailingSpacer(IFrame $frame): IWidgetBuilder;
+    public function withTrailingSpacer(IFrame $trailingSpacer): IWidgetBuilder;
 }

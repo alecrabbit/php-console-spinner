@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
+use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
-use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -41,10 +42,16 @@ final class WidgetCompositeBuilderTest extends TestCase
                 ->withWidgetRevolver($this->getWidgetRevolverMock())
                 ->withLeadingSpacer($this->getFrameMock())
                 ->withTrailingSpacer($this->getFrameMock())
+                ->withIntervalComparator($this->getIntervalComparatorMock())
                 ->build()
         ;
 
         self::assertInstanceOf(WidgetComposite::class, $widgetComposite);
+    }
+
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
     }
 
     protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver

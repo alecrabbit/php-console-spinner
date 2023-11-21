@@ -7,7 +7,9 @@ namespace AlecRabbit\Tests\Spinner\Functional\Core\Widget;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Interval;
+use AlecRabbit\Spinner\Core\IntervalComparator;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -26,6 +28,7 @@ final class WidgetCompositeTest extends TestCase
     #[Test]
     public function intervalIsUpdatedOnContextAdd(): void
     {
+        $intervalComparator = new IntervalComparator();
         $children = new WidgetCompositeChildrenContainer();
 
         $interval = new Interval(100);
@@ -41,6 +44,7 @@ final class WidgetCompositeTest extends TestCase
             revolver: $revolver,
             leadingSpacer: $this->getFrameMock(),
             trailingSpacer: $this->getFrameMock(),
+            intervalComparator: $intervalComparator,
             children: $children,
         );
 
@@ -84,6 +88,7 @@ final class WidgetCompositeTest extends TestCase
         ?IRevolver $revolver = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
+        ?IIntervalComparator $intervalComparator = null,
         ?IWidgetCompositeChildrenContainer $children = null,
         ?IObserver $observer = null,
     ): IWidgetComposite {
@@ -92,11 +97,15 @@ final class WidgetCompositeTest extends TestCase
                 revolver: $revolver ?? $this->getWidgetRevolverMock(),
                 leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
                 trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
+                intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
                 children: $children ?? $this->getWidgetCompositeChildrenContainerMock(),
                 observer: $observer,
             );
     }
-
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
+    }
     protected function getFrameMock(): MockObject&IFrame
     {
         return $this->createMock(IFrame::class);

@@ -33,15 +33,15 @@ final class WidgetBuilder extends AWidgetBuilder implements IWidgetBuilder
         return $this;
     }
 
-    public function withLeadingSpacer(IFrame $frame): IWidgetBuilder
+    public function withLeadingSpacer(IFrame $leadingSpacer): IWidgetBuilder
     {
-        $this->leadingSpacer = $frame;
+        $this->leadingSpacer = $leadingSpacer;
         return $this;
     }
 
-    public function withTrailingSpacer(IFrame $frame): IWidgetBuilder
+    public function withTrailingSpacer(IFrame $trailingSpacer): IWidgetBuilder
     {
-        $this->trailingSpacer = $frame;
+        $this->trailingSpacer = $trailingSpacer;
         return $this;
     }
 }
