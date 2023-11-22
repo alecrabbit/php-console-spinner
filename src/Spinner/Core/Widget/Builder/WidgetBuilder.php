@@ -29,19 +29,22 @@ final class WidgetBuilder extends AWidgetBuilder implements IWidgetBuilder
 
     public function withWidgetRevolver(IWidgetRevolver $revolver): IWidgetBuilder
     {
-        $this->revolver = $revolver;
-        return $this;
+        $clone = clone $this;
+        $clone->revolver = $revolver;
+        return $clone;
     }
 
     public function withLeadingSpacer(IFrame $leadingSpacer): IWidgetBuilder
     {
-        $this->leadingSpacer = $leadingSpacer;
-        return $this;
+        $clone = clone $this;
+        $clone->leadingSpacer = $leadingSpacer;
+        return $clone;
     }
 
     public function withTrailingSpacer(IFrame $trailingSpacer): IWidgetBuilder
     {
-        $this->trailingSpacer = $trailingSpacer;
-        return $this;
+        $clone = clone $this;
+        $clone->trailingSpacer = $trailingSpacer;
+        return $clone;
     }
 }

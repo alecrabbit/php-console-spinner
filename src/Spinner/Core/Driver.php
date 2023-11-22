@@ -27,7 +27,7 @@ final class Driver extends ADriver
         IDeltaTimer $deltaTimer,
         IInterval $initialInterval,
         IDriverConfig $driverConfig,
-        private IIntervalComparator $intervalComparator,
+        private readonly IIntervalComparator $intervalComparator,
         ?IObserver $observer = null
     ) {
         parent::__construct(

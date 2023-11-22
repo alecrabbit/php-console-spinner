@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 final readonly class DriverProvider implements IDriverProvider
 {
     public function __construct(
-        protected IDriver $driver,
+        private IDriver $driver,
     ) {
     }
 

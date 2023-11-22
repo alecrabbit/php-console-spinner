@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 
-final class IntegerNormalizer implements IIntegerNormalizer
+final readonly class IntegerNormalizer implements IIntegerNormalizer
 {
     private const DEFAULT_DIVISOR = 1;
     private const DEFAULT_MIN = 0;
@@ -17,8 +17,8 @@ final class IntegerNormalizer implements IIntegerNormalizer
      * @throws InvalidArgument
      */
     public function __construct(
-        protected int $divisor = self::DEFAULT_DIVISOR,
-        protected int $min = self::DEFAULT_MIN,
+        private int $divisor = self::DEFAULT_DIVISOR,
+        private int $min = self::DEFAULT_MIN,
     ) {
         self::assertDivisor($divisor);
         self::assertMin($min);

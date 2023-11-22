@@ -23,7 +23,7 @@ use WeakMap;
 final readonly class WidgetContextToIntervalMap implements IWidgetContextToIntervalMap
 {
     public function __construct(
-        protected ArrayAccess&Countable&IteratorAggregate $map = new WeakMap(),
+        private ArrayAccess&Countable&IteratorAggregate $map = new WeakMap(),
     ) {
     }
 

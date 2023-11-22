@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 final readonly class DriverMessages implements IDriverMessages
 {
     public function __construct(
-        protected string $finalMessage,
-        protected string $interruptionMessage,
+        private string $finalMessage,
+        private string $interruptionMessage,
     ) {
     }
 
