@@ -10,8 +10,8 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerCreator;
 final readonly class SignalHandlerCreator implements ISignalHandlerCreator
 {
     public function __construct(
-        protected int $signal,
-        protected IHandlerCreator $handlerCreator,
+        private int $signal,
+        private IHandlerCreator $handlerCreator,
     ) {
     }
 

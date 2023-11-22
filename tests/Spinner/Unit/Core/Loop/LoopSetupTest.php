@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Loop;
 
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Contract\IDisabledDriverDetector;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
@@ -18,18 +19,24 @@ final class LoopSetupTest extends TestCase
     #[Test]
     public function canBeInstantiated(): void
     {
-        $driverBuilder = $this->getTesteeInstance();
+        $loopSetup = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopSetup::class, $driverBuilder);
+        self::assertInstanceOf(LoopSetup::class, $loopSetup);
     }
 
     public function getTesteeInstance(
-        ?ILoopConfig $loopConfig = null
+        ?ILoopConfig $loopConfig = null,
+        ?IDisabledDriverDetector $disabledDriverDetector = null,
     ): ILoopSetup {
         return
             new LoopSetup(
                 loopConfig: $loopConfig ?? $this->getLoopConfigMock(),
+                disabledDriverDetector: $disabledDriverDetector ?? $this->getDisabledDriverDetectorMock(),
             );
+    }
+    private function getDisabledDriverDetectorMock(): MockObject&IDisabledDriverDetector
+    {
+        return $this->createMock(IDisabledDriverDetector::class);
     }
 
     private function getLoopConfigMock(): MockObject&ILoopConfig
@@ -53,8 +60,15 @@ final class LoopSetupTest extends TestCase
             ->willReturn(AutoStartMode::ENABLED)
         ;
 
+        $disabledDriverDetector = $this->getDisabledDriverDetectorMock();
+        $disabledDriverDetector
+            ->expects(self::once())
+            ->method('isDisabled')
+            ->willReturn(false);
+
         $loopSetup = $this->getTesteeInstance(
             loopConfig: $loopConfig,
+            disabledDriverDetector: $disabledDriverDetector,
         );
 
         $loopSetup->setup($loop);

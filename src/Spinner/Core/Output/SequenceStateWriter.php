@@ -14,8 +14,8 @@ final class SequenceStateWriter implements ISequenceStateWriter
     private bool $initialized = false;
 
     public function __construct(
-        protected readonly IBufferedOutput $output,
-        protected readonly IConsoleCursor $cursor,
+        private readonly IBufferedOutput $output,
+        private readonly IConsoleCursor $cursor,
     ) {
     }
 
@@ -63,6 +63,7 @@ final class SequenceStateWriter implements ISequenceStateWriter
 
     public function initialize(): void
     {
+        // FIXME (2023-11-22 15:11) [Alec Rabbit]: InitializationMode (enabled/disabled) should be applied here
         $this->cursor->hide();
 
         $this->output->flush();

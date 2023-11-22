@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
+use AlecRabbit\Spinner\Core\Contract\IDisabledDriverDetector;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
@@ -28,12 +29,19 @@ final class DriverLinkerFactoryTest extends TestCase
     public function getTesteeInstance(
         ?ILoopProvider $loopProvider = null,
         ?ILinkerConfig $linkerConfig = null,
+        ?IDisabledDriverDetector $disabledDriverDetector = null,
     ): IDriverLinkerFactory {
         return
             new DriverLinkerFactory(
                 loopProvider: $loopProvider ?? $this->getLoopProviderMock(),
                 linkerConfig: $linkerConfig ?? $this->getLinkerConfigMock(),
+                disabledDriverDetector: $disabledDriverDetector ?? $this->getDisabledDriverDetectorMock(),
             );
+    }
+
+    private function getDisabledDriverDetectorMock(): MockObject&IDisabledDriverDetector
+    {
+        return $this->createMock(IDisabledDriverDetector::class);
     }
 
     private function getLoopProviderMock(): MockObject&ILoopProvider

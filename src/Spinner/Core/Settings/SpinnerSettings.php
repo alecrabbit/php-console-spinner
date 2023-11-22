@@ -10,8 +10,8 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 final readonly class SpinnerSettings implements ISpinnerSettings
 {
     public function __construct(
-        protected ?IWidgetSettings $widgetSettings = null,
-        protected bool $autoAttach = true,
+        private ?IWidgetSettings $widgetSettings = null,
+        private bool $autoAttach = true,
     ) {
     }
 

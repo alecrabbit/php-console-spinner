@@ -119,7 +119,7 @@ $settings->set(
     $normalizerSettings,
     $driverSettings,
     $loopSettings,
-    $outputSettings,
+    $driverSettings,
     $linkerSettings,
     $widgetSettings,
     $revolverSettings,
