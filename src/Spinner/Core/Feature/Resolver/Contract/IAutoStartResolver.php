@@ -6,6 +6,6 @@ namespace AlecRabbit\Spinner\Core\Feature\Resolver\Contract;
 
 use AlecRabbit\Spinner\Contract\IHasIsEnabled;
 
-interface IAutoStartEnabledResolver extends IHasIsEnabled
+interface IAutoStartResolver extends IHasIsEnabled
 {
 }

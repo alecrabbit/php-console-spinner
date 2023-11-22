@@ -40,7 +40,9 @@ use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\INormalizerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IRevolverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\IAutoStartModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\IInitializationModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IGeneralConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialRootWidgetConfigFactory;
@@ -61,7 +63,9 @@ use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Detector\AutoStartModeDetector;
 use AlecRabbit\Spinner\Core\Config\Detector\DriverModeDetector;
+use AlecRabbit\Spinner\Core\Config\Detector\InitializationModeDetector;
 use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\GeneralConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\InitialRootWidgetConfigFactory;
@@ -139,6 +143,10 @@ use AlecRabbit\Spinner\Core\Factory\SequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Feature\Resolver\AutoStartResolver;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IAutoStartResolver;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
+use AlecRabbit\Spinner\Core\Feature\Resolver\InitializationResolver;
 use AlecRabbit\Spinner\Core\IntervalComparator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
@@ -248,11 +256,6 @@ function getDefinitions(): Traversable
             },
             IServiceDefinition::SINGLETON,
         ),
-        new ServiceDefinition(
-            IDriverModeDetector::class,
-            DriverModeDetector::class,
-            IServiceDefinition::SINGLETON,
-        ),
 
         NormalizerMode::class => static function (IContainer $container): NormalizerMode {
             return $container->get(INormalizerConfig::class)->getNormalizerMode();
@@ -330,6 +333,11 @@ function configs(): Traversable
         IRevolverConfig::class => static function (IContainer $container): IRevolverConfig {
             return $container->get(IRevolverConfigFactory::class)->create();
         },
+        IInitializationResolver::class => InitializationResolver::class,
+        IAutoStartResolver::class => AutoStartResolver::class,
+        IAutoStartModeDetector::class => AutoStartModeDetector::class,
+        IDriverModeDetector::class => DriverModeDetector::class,
+        IInitializationModeDetector::class => InitializationModeDetector::class,
     ];
 }
 

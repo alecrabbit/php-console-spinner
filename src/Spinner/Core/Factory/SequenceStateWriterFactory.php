@@ -8,14 +8,16 @@ use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateWriterBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 
-final class SequenceStateWriterFactory implements ISequenceStateWriterFactory
+final readonly class SequenceStateWriterFactory implements ISequenceStateWriterFactory
 {
     public function __construct(
-        protected ISequenceStateWriterBuilder $sequenceStateWriterBuilder,
-        protected IBufferedOutput $bufferedOutput,
-        protected IConsoleCursorFactory $cursorFactory,
+        private ISequenceStateWriterBuilder $sequenceStateWriterBuilder,
+        private IBufferedOutput $bufferedOutput,
+        private IConsoleCursorFactory $cursorFactory,
+        private IInitializationResolver $initializationResolver,
     ) {
     }
 
@@ -27,6 +29,9 @@ final class SequenceStateWriterFactory implements ISequenceStateWriterFactory
             )
             ->withCursor(
                 $this->cursorFactory->create()
+            )
+            ->withInitializationResolver(
+                $this->initializationResolver
             )
             ->build()
         ;

@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
-use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\ILinkerEnabledResolver;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\ILinkerResolver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -31,7 +31,7 @@ final class DriverLinkerFactoryTest extends TestCase
         ?ILoopProvider $loopProvider = null,
         ?ILinkerConfig $linkerConfig = null,
         ?IDriverModeDetector $driverModeDetector = null,
-        ?ILinkerEnabledResolver $linkerEnabledResolver = null,
+        ?ILinkerResolver $linkerEnabledResolver = null,
     ): IDriverLinkerFactory {
         return
             new DriverLinkerFactory(

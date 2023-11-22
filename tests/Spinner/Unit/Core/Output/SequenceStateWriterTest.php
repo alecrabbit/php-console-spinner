@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Spinner\Core\Output\SequenceStateWriter;
@@ -28,11 +29,13 @@ final class SequenceStateWriterTest extends TestCase
     public function getTesteeInstance(
         ?IBufferedOutput $output = null,
         ?IConsoleCursor $cursor = null,
+        ?IInitializationResolver $initializationResolver = null,
     ): ISequenceStateWriter {
         return
             new SequenceStateWriter(
                 output: $output ?? $this->getBufferedOutputMock(),
                 cursor: $cursor ?? $this->getCursorMock(),
+                initializationResolver: $initializationResolver ?? $this->getInitializationResolverMock(),
             );
     }
 
@@ -46,9 +49,21 @@ final class SequenceStateWriterTest extends TestCase
         return $this->createMock(IConsoleCursor::class);
     }
 
+    private function getInitializationResolverMock(): MockObject&IInitializationResolver
+    {
+        return $this->createMock(IInitializationResolver::class);
+    }
+
     #[Test]
     public function canBeFinalizedIfInitialized(): void
     {
+        $initializationResolver = $this->getInitializationResolverMock();
+        $initializationResolver
+            ->expects(self::once())
+            ->method('isEnabled')
+            ->willReturn(true)
+        ;
+
         $cursor = $this->getCursorMock();
         $cursor->expects(self::once())->method('hide');
         $cursor->expects(self::once())->method('show');
@@ -60,7 +75,11 @@ final class SequenceStateWriterTest extends TestCase
         $output->expects(self::once())->method('append')->with($message);
         $output->expects(self::exactly(2))->method('flush');
 
-        $sequenceStateWriter = $this->getTesteeInstance(output: $output, cursor: $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance(
+            output: $output,
+            cursor: $cursor,
+            initializationResolver: $initializationResolver,
+        );
 
         $sequenceStateWriter->initialize();
         $sequenceStateWriter->finalize($message);
@@ -71,6 +90,13 @@ final class SequenceStateWriterTest extends TestCase
     #[Test]
     public function canBeFinalizedIfInitializedWithEmptyMessage(): void
     {
+        $initializationResolver = $this->getInitializationResolverMock();
+        $initializationResolver
+            ->expects(self::once())
+            ->method('isEnabled')
+            ->willReturn(true)
+        ;
+
         $cursor = $this->getCursorMock();
         $cursor->expects(self::once())->method('hide');
         $cursor->expects(self::once())->method('show');
@@ -82,7 +108,11 @@ final class SequenceStateWriterTest extends TestCase
         $output->expects(self::never())->method('append')->with($message);
         $output->expects(self::exactly(2))->method('flush');
 
-        $sequenceStateWriter = $this->getTesteeInstance(output: $output, cursor: $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance(
+            output: $output,
+            cursor: $cursor,
+            initializationResolver: $initializationResolver,
+        );
 
         $sequenceStateWriter->initialize();
         $sequenceStateWriter->finalize($message);
@@ -93,6 +123,13 @@ final class SequenceStateWriterTest extends TestCase
     #[Test]
     public function canBeFinalizedIfInitializedWithNoMessage(): void
     {
+        $initializationResolver = $this->getInitializationResolverMock();
+        $initializationResolver
+            ->expects(self::once())
+            ->method('isEnabled')
+            ->willReturn(true)
+        ;
+
         $cursor = $this->getCursorMock();
         $cursor->expects(self::once())->method('hide');
         $cursor->expects(self::once())->method('show');
@@ -104,7 +141,11 @@ final class SequenceStateWriterTest extends TestCase
         $output->expects(self::never())->method('append')->with($message);
         $output->expects(self::exactly(2))->method('flush');
 
-        $sequenceStateWriter = $this->getTesteeInstance(output: $output, cursor: $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance(
+            output: $output,
+            cursor: $cursor,
+            initializationResolver: $initializationResolver,
+        );
 
         $sequenceStateWriter->initialize();
         self::assertTrue(self::getPropertyValue('initialized', $sequenceStateWriter));
@@ -114,10 +155,20 @@ final class SequenceStateWriterTest extends TestCase
     #[Test]
     public function canEraseIfInitialized(): void
     {
+        $initializationResolver = $this->getInitializationResolverMock();
+        $initializationResolver
+            ->expects(self::once())
+            ->method('isEnabled')
+            ->willReturn(true)
+        ;
+
         $cursor = $this->getCursorMock();
         $cursor->expects(self::once())->method('erase')->willReturnSelf();
 
-        $sequenceStateWriter = $this->getTesteeInstance(cursor: $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance(
+            cursor: $cursor,
+            initializationResolver: $initializationResolver,
+        );
 
         $sequenceStateWriter->initialize();
         $sequenceStateWriter->erase($this->getSpinnerStateStub());
@@ -192,6 +243,13 @@ final class SequenceStateWriterTest extends TestCase
     #[Test]
     public function canWriteIfInitialized(): void
     {
+        $initializationResolver = $this->getInitializationResolverMock();
+        $initializationResolver
+            ->expects(self::once())
+            ->method('isEnabled')
+            ->willReturn(true)
+        ;
+
         $cursor = $this->getCursorMock();
         $cursor->expects(self::once())->method('erase')->willReturnSelf();
         $cursor->expects(self::once())->method('moveLeft')->willReturnSelf();
@@ -201,7 +259,11 @@ final class SequenceStateWriterTest extends TestCase
         $output->expects(self::once())->method('append');
         $output->expects(self::exactly(2))->method('flush');
 
-        $sequenceStateWriter = $this->getTesteeInstance(output: $output, cursor: $cursor);
+        $sequenceStateWriter = $this->getTesteeInstance(
+            output: $output,
+            cursor: $cursor,
+            initializationResolver: $initializationResolver,
+        );
 
         $spinnerState = $this->getSpinnerStateMock();
         $spinnerState->expects(self::once())->method('getSequence');

@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 
@@ -16,6 +17,7 @@ final class SequenceStateWriter implements ISequenceStateWriter
     public function __construct(
         private readonly IBufferedOutput $output,
         private readonly IConsoleCursor $cursor,
+        private readonly IInitializationResolver $initializationResolver,
     ) {
     }
 
@@ -63,11 +65,12 @@ final class SequenceStateWriter implements ISequenceStateWriter
 
     public function initialize(): void
     {
-        // FIXME (2023-11-22 15:11) [Alec Rabbit]: InitializationMode (enabled/disabled) should be applied here
-        $this->cursor->hide();
+        if ($this->initializationResolver->isEnabled()) {
+            $this->cursor->hide();
 
-        $this->output->flush();
+            $this->output->flush();
 
-        $this->initialized = true;
+            $this->initialized = true;
+        }
     }
 }

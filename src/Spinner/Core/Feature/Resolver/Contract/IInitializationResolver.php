@@ -6,6 +6,6 @@ namespace AlecRabbit\Spinner\Core\Feature\Resolver\Contract;
 
 use AlecRabbit\Spinner\Contract\IHasIsEnabled;
 
-interface ILinkerEnabledResolver extends IHasIsEnabled
+interface IInitializationResolver extends IHasIsEnabled
 {
 }

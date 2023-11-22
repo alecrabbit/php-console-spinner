@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateWriterBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateWriterFactory;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -29,12 +30,14 @@ final class SequenceStateWriterFactoryTest extends TestCase
         ?ISequenceStateWriterBuilder $sequenceStateWriterBuilder = null,
         ?IBufferedOutput $bufferedOutput = null,
         ?IConsoleCursorFactory $cursorFactory = null,
+        ?IInitializationResolver $initializationResolver = null,
     ): ISequenceStateWriterFactory {
         return
             new SequenceStateWriterFactory(
                 sequenceStateWriterBuilder: $sequenceStateWriterBuilder ?? $this->getSequenceStateWriterBuilderMock(),
                 bufferedOutput: $bufferedOutput ?? $this->getBufferedOutputMock(),
                 cursorFactory: $cursorFactory ?? $this->getCursorFactoryMock(),
+                initializationResolver: $initializationResolver ?? $this->getInitializationResolverMock(),
             );
     }
 
@@ -53,9 +56,16 @@ final class SequenceStateWriterFactoryTest extends TestCase
         return $this->createMock(IConsoleCursorFactory::class);
     }
 
+    private function getInitializationResolverMock(): MockObject&IInitializationResolver
+    {
+        return $this->createMock(IInitializationResolver::class);
+    }
+
     #[Test]
     public function canCreate(): void
     {
+        $initializationResolver = $this->getInitializationResolverMock();
+
         $sequenceStateWriterBuilder = $this->getSequenceStateWriterBuilderMock();
         $sequenceStateWriterBuilder
             ->expects(self::once())
@@ -65,6 +75,12 @@ final class SequenceStateWriterFactoryTest extends TestCase
         $sequenceStateWriterBuilder
             ->expects(self::once())
             ->method('withCursor')
+            ->willReturnSelf()
+        ;
+        $sequenceStateWriterBuilder
+            ->expects(self::once())
+            ->method('withInitializationResolver')
+            ->with($initializationResolver)
             ->willReturnSelf()
         ;
         $sequenceStateWriterStub = $this->getSequenceStateWriterStub();
@@ -84,6 +100,7 @@ final class SequenceStateWriterFactoryTest extends TestCase
         $sequenceStateWriterFactory = $this->getTesteeInstance(
             sequenceStateWriterBuilder: $sequenceStateWriterBuilder,
             cursorFactory: $cursorFactory,
+            initializationResolver: $initializationResolver,
         );
 
         self::assertSame($sequenceStateWriterStub, $sequenceStateWriterFactory->create());

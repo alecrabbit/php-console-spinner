@@ -23,7 +23,7 @@ Probes::unregister(ReactLoopProbe::class);
 
 $driver = Facade::getDriver();
 
-if (! $driver instanceof IBenchmarkingDriver) {
+if (!$driver instanceof IBenchmarkingDriver) {
     throw new LogicException(
         sprintf(
             'Driver must implement "%s".',
