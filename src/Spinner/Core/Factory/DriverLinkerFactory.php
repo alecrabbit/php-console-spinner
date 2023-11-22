@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
-use AlecRabbit\Spinner\Core\Contract\IDisabledDriverDetector;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\DummyDriverLinker;
@@ -18,7 +18,7 @@ final readonly class DriverLinkerFactory implements IDriverLinkerFactory
     public function __construct(
         private ILoopProvider $loopProvider,
         private ILinkerConfig $linkerConfig,
-        private IDisabledDriverDetector $disabledDriverDetector,
+        private IDriverModeDetector $driverModeDetector,
     ) {
     }
 
@@ -45,6 +45,6 @@ final readonly class DriverLinkerFactory implements IDriverLinkerFactory
 
     private function isDriverEnabled(): bool
     {
-        return !$this->disabledDriverDetector->isDisabled();
+        return !$this->driverModeDetector->isDisabled();
     }
 }

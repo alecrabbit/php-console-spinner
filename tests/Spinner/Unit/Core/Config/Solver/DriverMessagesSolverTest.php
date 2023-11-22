@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Option\DriverOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\DriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;

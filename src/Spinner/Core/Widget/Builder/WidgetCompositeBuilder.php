@@ -36,7 +36,7 @@ final class WidgetCompositeBuilder extends AWidgetBuilder implements IWidgetComp
     {
         parent::validate();
 
-        match(true) {
+        match (true) {
             $this->intervalComparator === null => throw new LogicException('Interval comparator is not set.'),
             default => null,
         };

@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Loop;
 
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
-use AlecRabbit\Spinner\Core\Contract\IDisabledDriverDetector;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IAutoStartEnabledResolver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
@@ -26,22 +27,24 @@ final class LoopSetupTest extends TestCase
 
     public function getTesteeInstance(
         ?ILoopConfig $loopConfig = null,
-        ?IDisabledDriverDetector $disabledDriverDetector = null,
+        ?IDriverModeDetector $driverModeDetector = null,
+        ?IAutoStartEnabledResolver $autoStartResolver = null,
     ): ILoopSetup {
         return
             new LoopSetup(
                 loopConfig: $loopConfig ?? $this->getLoopConfigMock(),
-                disabledDriverDetector: $disabledDriverDetector ?? $this->getDisabledDriverDetectorMock(),
+                driverModeDetector: $driverModeDetector ?? $this->getDriverModeDetectorMock(),
             );
-    }
-    private function getDisabledDriverDetectorMock(): MockObject&IDisabledDriverDetector
-    {
-        return $this->createMock(IDisabledDriverDetector::class);
     }
 
     private function getLoopConfigMock(): MockObject&ILoopConfig
     {
         return $this->createMock(ILoopConfig::class);
+    }
+
+    private function getDriverModeDetectorMock(): MockObject&IDriverModeDetector
+    {
+        return $this->createMock(IDriverModeDetector::class);
     }
 
     #[Test]
@@ -60,15 +63,16 @@ final class LoopSetupTest extends TestCase
             ->willReturn(AutoStartMode::ENABLED)
         ;
 
-        $disabledDriverDetector = $this->getDisabledDriverDetectorMock();
-        $disabledDriverDetector
+        $driverModeDetector = $this->getDriverModeDetectorMock();
+        $driverModeDetector
             ->expects(self::once())
-            ->method('isDisabled')
-            ->willReturn(false);
+            ->method('isEnabled')
+            ->willReturn(true)
+        ;
 
         $loopSetup = $this->getTesteeInstance(
             loopConfig: $loopConfig,
-            disabledDriverDetector: $disabledDriverDetector,
+            driverModeDetector: $driverModeDetector,
         );
 
         $loopSetup->setup($loop);

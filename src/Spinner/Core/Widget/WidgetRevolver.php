@@ -21,8 +21,10 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
         private readonly IRevolver $style,
         private readonly IRevolver $character,
         ITolerance $tolerance,
-        IIntervalComparator $intervalComparator = new IntervalComparator(), // FIXME (2023-11-21 17:34) [Alec Rabbit]: pass it as param it or better pass IInterval
-    ) {
+        IIntervalComparator $intervalComparator = new IntervalComparator(
+        ), // FIXME (2023-11-21 17:34) [Alec Rabbit]: pass it as param it or better pass IInterval
+    )
+    {
         parent::__construct(
             $intervalComparator->smallest(
                 $style->getInterval(),

@@ -21,7 +21,8 @@ abstract class ADriver extends ASubject implements IDriver
     protected readonly IDriverMessages $messages;
 
     public function __construct(
-        IDriverConfig $driverConfig, // FIXME (2023-11-22 14:51) [Alec Rabbit]: change to `protected readonly IDriverMessages $messages,`
+        // FIXME (2023-11-22 14:51) [Alec Rabbit]: change to `protected readonly IDriverMessages $messages,`
+        IDriverConfig $driverConfig,
         protected readonly IDeltaTimer $deltaTimer,
         protected readonly IInterval $initialInterval,
         protected readonly ISequenceStateWriter $stateWriter,

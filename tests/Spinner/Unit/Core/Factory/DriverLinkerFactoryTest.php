@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
-use AlecRabbit\Spinner\Core\Contract\IDisabledDriverDetector;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\ILinkerEnabledResolver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -29,19 +30,15 @@ final class DriverLinkerFactoryTest extends TestCase
     public function getTesteeInstance(
         ?ILoopProvider $loopProvider = null,
         ?ILinkerConfig $linkerConfig = null,
-        ?IDisabledDriverDetector $disabledDriverDetector = null,
+        ?IDriverModeDetector $driverModeDetector = null,
+        ?ILinkerEnabledResolver $linkerEnabledResolver = null,
     ): IDriverLinkerFactory {
         return
             new DriverLinkerFactory(
                 loopProvider: $loopProvider ?? $this->getLoopProviderMock(),
                 linkerConfig: $linkerConfig ?? $this->getLinkerConfigMock(),
-                disabledDriverDetector: $disabledDriverDetector ?? $this->getDisabledDriverDetectorMock(),
+                driverModeDetector: $driverModeDetector ?? $this->getDriverModeDetectorMock(),
             );
-    }
-
-    private function getDisabledDriverDetectorMock(): MockObject&IDisabledDriverDetector
-    {
-        return $this->createMock(IDisabledDriverDetector::class);
     }
 
     private function getLoopProviderMock(): MockObject&ILoopProvider
@@ -57,6 +54,11 @@ final class DriverLinkerFactoryTest extends TestCase
                 'getLinkerMode' => $linkerMode ?? LinkerMode::DISABLED,
             ]
         );
+    }
+
+    private function getDriverModeDetectorMock(): MockObject&IDriverModeDetector
+    {
+        return $this->createMock(IDriverModeDetector::class);
     }
 
     #[Test]

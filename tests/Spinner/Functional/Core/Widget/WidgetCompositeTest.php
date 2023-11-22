@@ -102,13 +102,15 @@ final class WidgetCompositeTest extends TestCase
                 observer: $observer,
             );
     }
-    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
-    {
-        return $this->createMock(IIntervalComparator::class);
-    }
+
     protected function getFrameMock(): MockObject&IFrame
     {
         return $this->createMock(IFrame::class);
+    }
+
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
     }
 
     private function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer

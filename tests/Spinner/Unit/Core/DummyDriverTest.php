@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\DummyDriver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use RuntimeException;
 
 final class DummyDriverTest extends TestCase
 {
@@ -69,8 +70,8 @@ final class DummyDriverTest extends TestCase
 
         $wrapped =
             $driver->wrap(
-            callback: static fn() => throw new \RuntimeException('Should not be called'),
-        );
+                callback: static fn() => throw new RuntimeException('Should not be called'),
+            );
 
         self::assertNull($wrapped());
     }

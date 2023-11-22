@@ -40,6 +40,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\INormalizerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IRevolverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IGeneralConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialRootWidgetConfigFactory;
@@ -60,6 +61,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Detector\DriverModeDetector;
 use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\GeneralConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\InitialRootWidgetConfigFactory;
@@ -101,7 +103,6 @@ use AlecRabbit\Spinner\Core\Config\Solver\StreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\ToleranceSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
-use AlecRabbit\Spinner\Core\Contract\IDisabledDriverDetector;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
@@ -109,7 +110,6 @@ use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
-use AlecRabbit\Spinner\Core\DisabledDriverDetector;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
@@ -249,8 +249,8 @@ function getDefinitions(): Traversable
             IServiceDefinition::SINGLETON,
         ),
         new ServiceDefinition(
-            IDisabledDriverDetector::class,
-            DisabledDriverDetector::class,
+            IDriverModeDetector::class,
+            DriverModeDetector::class,
             IServiceDefinition::SINGLETON,
         ),
 
