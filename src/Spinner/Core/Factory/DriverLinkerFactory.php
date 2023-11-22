@@ -11,40 +11,25 @@ use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\DummyDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\ILinkerResolver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 
 final readonly class DriverLinkerFactory implements IDriverLinkerFactory
 {
     public function __construct(
         private ILoopProvider $loopProvider,
-        private ILinkerConfig $linkerConfig,
-        private IDriverModeDetector $driverModeDetector,
+        private ILinkerResolver $linkerResolver,
     ) {
     }
 
     public function create(): IDriverLinker
     {
-        if ($this->isEnabled()) {
+        if ($this->loopProvider->hasLoop() && $this->linkerResolver->isEnabled()) {
             return new DriverLinker(
                 loop: $this->loopProvider->getLoop(),
             );
         }
 
         return new DummyDriverLinker();
-    }
-
-    private function isEnabled(): bool
-    {
-        return $this->loopProvider->hasLoop() && $this->isLinkerEnabled() && $this->isDriverEnabled();
-    }
-
-    private function isLinkerEnabled(): bool
-    {
-        return $this->linkerConfig->getLinkerMode() === LinkerMode::ENABLED;
-    }
-
-    private function isDriverEnabled(): bool
-    {
-        return !$this->driverModeDetector->isDisabled();
     }
 }

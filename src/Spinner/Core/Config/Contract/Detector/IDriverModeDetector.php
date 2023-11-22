@@ -8,8 +8,4 @@ use AlecRabbit\Spinner\Contract\IHasIsEnabled;
 
 interface IDriverModeDetector extends IHasIsEnabled
 {
-    /**
-     * @deprecated Use {@see isEnabled()} instead
-     */
-    public function isDisabled(): bool;
 }

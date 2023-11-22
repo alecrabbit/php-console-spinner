@@ -29,15 +29,12 @@ final class DriverLinkerFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?ILoopProvider $loopProvider = null,
-        ?ILinkerConfig $linkerConfig = null,
-        ?IDriverModeDetector $driverModeDetector = null,
-        ?ILinkerResolver $linkerEnabledResolver = null,
+        ?ILinkerResolver $linkerResolver = null,
     ): IDriverLinkerFactory {
         return
             new DriverLinkerFactory(
                 loopProvider: $loopProvider ?? $this->getLoopProviderMock(),
-                linkerConfig: $linkerConfig ?? $this->getLinkerConfigMock(),
-                driverModeDetector: $driverModeDetector ?? $this->getDriverModeDetectorMock(),
+                linkerResolver: $linkerResolver ?? $this->getLinkerResolverMock(),
             );
     }
 
@@ -46,19 +43,9 @@ final class DriverLinkerFactoryTest extends TestCase
         return $this->createMock(ILoopProvider::class);
     }
 
-    private function getLinkerConfigMock(?LinkerMode $linkerMode = null): MockObject&ILinkerConfig
+    private function getLinkerResolverMock(): MockObject&ILinkerResolver
     {
-        return $this->createConfiguredMock(
-            ILinkerConfig::class,
-            [
-                'getLinkerMode' => $linkerMode ?? LinkerMode::DISABLED,
-            ]
-        );
-    }
-
-    private function getDriverModeDetectorMock(): MockObject&IDriverModeDetector
-    {
-        return $this->createMock(IDriverModeDetector::class);
+        return $this->createMock(ILinkerResolver::class);
     }
 
     #[Test]
@@ -71,12 +58,17 @@ final class DriverLinkerFactoryTest extends TestCase
             ->willReturn(true)
         ;
 
-        $linkerConfig = $this->getLinkerConfigMock(LinkerMode::ENABLED);
+        $linkerResolver = $this->getLinkerResolverMock();
+        $linkerResolver
+            ->expects(self::once())
+            ->method('isEnabled')
+            ->willReturn(true)
+        ;
 
         $factory =
             $this->getTesteeInstance(
                 loopProvider: $loopProvider,
-                linkerConfig: $linkerConfig
+                linkerResolver: $linkerResolver,
             );
 
         self::assertInstanceOf(DriverLinkerFactory::class, $factory);
@@ -93,17 +85,16 @@ final class DriverLinkerFactoryTest extends TestCase
             ->willReturn(false)
         ;
 
-        $linkerConfig = $this->getLinkerConfigMock();
-        $linkerConfig
+        $linkerResolver = $this->getLinkerResolverMock();
+        $linkerResolver
             ->expects(self::never())
-            ->method('getLinkerMode')
-            ->willReturn(LinkerMode::ENABLED)
+            ->method('isEnabled')
         ;
 
         $factory =
             $this->getTesteeInstance(
                 loopProvider: $loopProvider,
-                linkerConfig: $linkerConfig
+                linkerResolver: $linkerResolver,
             );
 
         self::assertInstanceOf(DriverLinkerFactory::class, $factory);
@@ -134,17 +125,17 @@ final class DriverLinkerFactoryTest extends TestCase
             ->willReturn(true)
         ;
 
-        $linkerConfig = $this->getLinkerConfigMock();
-        $linkerConfig
+        $linkerResolver = $this->getLinkerResolverMock();
+        $linkerResolver
             ->expects(self::once())
-            ->method('getLinkerMode')
-            ->willReturn(LinkerMode::ENABLED)
+            ->method('isEnabled')
+            ->willReturn(false)
         ;
 
         $factory =
             $this->getTesteeInstance(
                 loopProvider: $loopProvider,
-                linkerConfig: $linkerConfig
+                linkerResolver: $linkerResolver,
             );
 
         self::assertInstanceOf(DriverLinkerFactory::class, $factory);
@@ -158,5 +149,20 @@ final class DriverLinkerFactoryTest extends TestCase
         ;
 
         $linker->link($driver);
+    }
+
+    private function getLinkerConfigMock(?LinkerMode $linkerMode = null): MockObject&ILinkerConfig
+    {
+        return $this->createConfiguredMock(
+            ILinkerConfig::class,
+            [
+                'getLinkerMode' => $linkerMode ?? LinkerMode::DISABLED,
+            ]
+        );
+    }
+
+    private function getDriverModeDetectorMock(): MockObject&IDriverModeDetector
+    {
+        return $this->createMock(IDriverModeDetector::class);
     }
 }
