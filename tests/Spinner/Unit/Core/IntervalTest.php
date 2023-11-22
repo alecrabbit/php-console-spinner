@@ -123,52 +123,6 @@ final class IntervalTest extends TestCase
         ];
     }
 
-    public static function smallestDataProvider(): iterable
-    {
-        // [$expected, $incoming]
-        yield [
-            [
-                self::INTERVAL => 100,
-            ],
-            [
-                self::FIRST => [
-                    100,
-                ],
-                self::SECOND => [
-                    200,
-                ],
-            ],
-        ];
-
-        yield [
-            [
-                self::INTERVAL => 50,
-            ],
-            [
-                self::FIRST => [
-                    100,
-                ],
-                self::SECOND => [
-                    50,
-                ],
-            ],
-        ];
-
-        yield [
-            [
-                self::INTERVAL => 35,
-            ],
-            [
-                self::FIRST => [
-                    1000,
-                ],
-                self::SECOND => [
-                    35,
-                ],
-            ],
-        ];
-    }
-
     /**
      * @test
      *
@@ -203,18 +157,5 @@ final class IntervalTest extends TestCase
         self::assertEquals($interval->toMilliseconds(), $clone->toMilliseconds());
         self::assertEquals($clone, $interval);
         self::assertNotSame($clone, $interval);
-    }
-
-    /**
-     * @test
-     *
-     * @dataProvider smallestDataProvider
-     */
-    public function canCalculateSmallest(array $expected, array $incoming): void
-    {
-        $interval = self::getTesteeInstance($incoming[self::FIRST] ?? []);
-        $other = self::getTesteeInstance($incoming[self::SECOND] ?? []);
-        self::assertEquals($expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
-        self::assertSame((float)$expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
     }
 }

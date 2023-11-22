@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
@@ -26,6 +27,7 @@ final class Driver extends ADriver
         IDeltaTimer $deltaTimer,
         IInterval $initialInterval,
         IDriverConfig $driverConfig,
+        private readonly IIntervalComparator $intervalComparator,
         ?IObserver $observer = null
     ) {
         parent::__construct(
@@ -89,7 +91,7 @@ final class Driver extends ADriver
 
     protected function recalculateInterval(): IInterval
     {
-        return $this->initialInterval->smallest($this->spinner?->getInterval());
+        return $this->intervalComparator->smallest($this->initialInterval, $this->spinner?->getInterval());
     }
 
     public function update(ISubject $subject): void

@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
@@ -32,6 +33,7 @@ final class WidgetCompositeTest extends TestCase
         ?IWidgetRevolver $revolver = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
+        ?IIntervalComparator $intervalComparator = null,
         ?IWidgetCompositeChildrenContainer $children = null,
         ?IObserver $observer = null,
     ): IWidgetComposite {
@@ -39,6 +41,7 @@ final class WidgetCompositeTest extends TestCase
             revolver: $revolver ?? $this->getWidgetRevolverMock(),
             leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
             trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
+            intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
             children: $children ?? $this->getWidgetCompositeChildrenContainerMock(),
             observer: $observer,
         );
@@ -87,29 +90,25 @@ final class WidgetCompositeTest extends TestCase
             ->method('getInterval')
             ->willReturn($revolverInterval)
         ;
+
         $children = $this->getWidgetCompositeChildrenContainerMock();
         $initialInterval = $this->getIntervalMock();
-        $revolverInterval
-            ->expects(self::once())
-            ->method('smallest')
-            ->with($initialInterval)
-            ->willReturn($initialInterval)
-        ;
+
         $children
             ->expects(self::exactly(2))
             ->method('getInterval')
             ->willReturn($initialInterval)
         ;
 
-        $initialInterval
-            ->expects(self::once())
+        $intervalComparator = $this->getIntervalComparatorMock();
+        $intervalComparator
+            ->expects(self::exactly(2))
             ->method('smallest')
-            ->with($initialInterval)
-            ->willReturnSelf()
-        ;
+            ->willReturn($initialInterval);
 
         $widgetComposite = $this->getTesteeInstance(
             revolver: $revolver,
+            intervalComparator: $intervalComparator,
             children: $children,
         );
 
@@ -194,11 +193,11 @@ final class WidgetCompositeTest extends TestCase
     #[Test]
     public function canGetInterval(): void
     {
+        $intervalComparator = $this->getIntervalComparatorMock();
         $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
+        $intervalComparator
             ->method('smallest')
-            ->with(null)
+            ->with($interval, null)
             ->willReturn($interval)
         ;
         $revolver = $this->getWidgetRevolverMock();
@@ -209,6 +208,7 @@ final class WidgetCompositeTest extends TestCase
         ;
         $widgetComposite = $this->getTesteeInstance(
             revolver: $revolver,
+            intervalComparator: $intervalComparator,
         );
         self::assertSame($interval, $widgetComposite->getInterval());
     }
@@ -229,12 +229,6 @@ final class WidgetCompositeTest extends TestCase
         $children
             ->expects(self::exactly(2))
             ->method('getInterval')
-            ->willReturn($otherInterval)
-        ;
-        $interval
-            ->expects(self::once())
-            ->method('smallest')
-            ->with($otherInterval)
             ->willReturn($otherInterval)
         ;
 
@@ -399,5 +393,10 @@ final class WidgetCompositeTest extends TestCase
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
+    }
+
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
     }
 }

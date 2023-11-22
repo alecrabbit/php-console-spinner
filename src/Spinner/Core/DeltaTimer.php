@@ -12,7 +12,7 @@ final class DeltaTimer implements IDeltaTimer
     private float $current;
 
     public function __construct(
-        protected readonly INowTimer $now,
+        private readonly INowTimer $nowTimer,
         float $startTime = 0.0,
     ) {
         $this->current = $startTime;
@@ -21,7 +21,7 @@ final class DeltaTimer implements IDeltaTimer
     public function getDelta(): float
     {
         $last = $this->current;
-        $this->current = $this->now->now();
+        $this->current = $this->nowTimer->now();
         return $this->current - $last;
     }
 }

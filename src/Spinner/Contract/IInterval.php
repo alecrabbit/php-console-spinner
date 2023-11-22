@@ -14,9 +14,4 @@ interface IInterval
     public function toMilliseconds(): float;
 
     public function toSeconds(): float;
-
-    /**
-     * @deprecated Use IIntervalComparator instead
-     */
-    public function smallest(mixed $other): IInterval;
 }

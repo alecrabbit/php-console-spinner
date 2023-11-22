@@ -30,4 +30,6 @@ interface IDriverBuilder
     public function withObserver(IObserver $observer): IDriverBuilder;
 
     public function withSequenceStateBuilder(ISequenceStateBuilder $sequenceStateBuilder): IDriverBuilder;
+
+    public function withIntervalComparator(IIntervalComparator $intervalComparator): IDriverBuilder;
 }

@@ -170,12 +170,6 @@ final class MicrosecondTimerTest extends TestCase
                     throw new RuntimeException('INTENTIONALLY Not implemented.');
                 }
 
-                /** @inheritDoc */
-                public function smallest(mixed $other): IInterval
-                {
-                    throw new RuntimeException('INTENTIONALLY Not implemented.');
-                }
-
                 public function now(): int|float
                 {
                     throw new RuntimeException('INTENTIONALLY Not implemented.');

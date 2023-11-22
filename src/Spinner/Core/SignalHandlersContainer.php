@@ -13,8 +13,9 @@ final readonly class SignalHandlersContainer implements ISignalHandlersContainer
     /**
      * @param Traversable<int, IHandlerCreator> $signalHandlers
      */
-    public function __construct(protected Traversable $signalHandlers)
-    {
+    public function __construct(
+        private Traversable $signalHandlers,
+    ) {
     }
 
     public function getHandlerCreators(): Traversable

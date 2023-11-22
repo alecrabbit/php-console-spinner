@@ -103,6 +103,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
 use AlecRabbit\Spinner\Core\DriverSetup;
@@ -134,6 +135,7 @@ use AlecRabbit\Spinner\Core\Factory\SequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\IntervalComparator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
@@ -259,6 +261,7 @@ function getDefinitions(): Traversable
             return $container->get(ISignalHandlingSetupFactory::class)->create();
         },
 
+        IIntervalComparator::class => IntervalComparator::class,
         IIntervalNormalizer::class => static function (IContainer $container): IIntervalNormalizer {
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },

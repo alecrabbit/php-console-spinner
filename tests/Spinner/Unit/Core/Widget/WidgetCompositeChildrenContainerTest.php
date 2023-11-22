@@ -62,11 +62,6 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
         ;
 
         $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('smallest')
-            ->willReturnSelf()
-        ;
 
         $context = $this->getWidgetContextMock();
         $context
@@ -235,12 +230,6 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
     public function observerUpdateInvokedOnIntervalChange(): void
     {
         $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('smallest')
-            ->with(null)
-            ->willReturnSelf()
-        ;
 
         $context = $this->getWidgetContextMock();
         $context
@@ -302,13 +291,6 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
             observer: $observer,
         );
 
-        $newInterval
-            ->expects(self::once())
-            ->method('smallest')
-            ->with(null)
-            ->willReturnSelf()
-        ;
-
         $observer
             ->expects(self::once())
             ->method('update')
@@ -330,12 +312,6 @@ final class WidgetCompositeChildrenContainerTest extends TestCase
     public function intervalContainerMethodAddInvokedOnContextAdd(): void
     {
         $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('smallest')
-            ->with(null)
-            ->willReturnSelf()
-        ;
 
         $context = $this->getWidgetContextMock();
         $context

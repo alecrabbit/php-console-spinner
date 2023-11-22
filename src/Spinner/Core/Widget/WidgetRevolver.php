@@ -6,7 +6,10 @@ namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
+use AlecRabbit\Spinner\Core\IntervalComparator;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
@@ -15,16 +18,17 @@ use AlecRabbit\Spinner\Exception\LogicException;
 final class WidgetRevolver extends ARevolver implements IWidgetRevolver
 {
     public function __construct(
-        protected IRevolver $style,
-        protected IRevolver $character,
+        private readonly IRevolver $style,
+        private readonly IRevolver $character,
         ITolerance $tolerance,
+        IIntervalComparator $intervalComparator = new IntervalComparator(), // FIXME (2023-11-21 17:34) [Alec Rabbit]: pass it as param it or better pass IInterval
     ) {
         parent::__construct(
-            $style->getInterval()
-                ->smallest(
-                    $character->getInterval()
-                ),
-            $tolerance
+            $intervalComparator->smallest(
+                $style->getInterval(),
+                $character->getInterval(),
+            ),
+            $tolerance,
         );
     }
 
@@ -32,10 +36,15 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
     {
         $style = $this->style->getFrame($dt);
         $char = $this->character->getFrame($dt);
-        return new CharFrame(
+        return $this->createFrame(
             sprintf($style->sequence(), $char->sequence()),
             $style->width() + $char->width()
         );
+    }
+
+    private function createFrame(string $sequence, int $width): ICharFrame
+    {
+        return new CharFrame($sequence, $width);
     }
 
     // @codeCoverageIgnoreStart

@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
@@ -33,26 +34,32 @@ final class WidgetCompositeFactoryTest extends TestCase
         ?IWidgetConfigFactory $widgetConfigFactory = null,
         ?IWidgetCompositeBuilder $widgetBuilder = null,
         ?IWidgetRevolverFactory $widgetRevolverFactory = null,
+        ?IIntervalComparator $intervalComparator = null,
     ): IWidgetCompositeFactory {
         return
             new WidgetCompositeFactory(
                 widgetConfigFactory: $widgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
                 widgetBuilder: $widgetBuilder ?? $this->getWidgetCompositeBuilderMock(),
                 widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
+                intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
             );
     }
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
+    }
 
-    protected function getWidgetConfigFactoryMock(): MockObject&IWidgetConfigFactory
+    private function getWidgetConfigFactoryMock(): MockObject&IWidgetConfigFactory
     {
         return $this->createMock(IWidgetConfigFactory::class);
     }
 
-    protected function getWidgetCompositeBuilderMock(): MockObject&IWidgetCompositeBuilder
+    private function getWidgetCompositeBuilderMock(): MockObject&IWidgetCompositeBuilder
     {
         return $this->createMock(IWidgetCompositeBuilder::class);
     }
 
-    protected function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
+    private function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
     {
         return $this->createMock(IWidgetRevolverFactory::class);
     }
@@ -63,6 +70,7 @@ final class WidgetCompositeFactoryTest extends TestCase
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
         $revolverConfig = $this->getRevolverConfigMock();
+        $intervalComparator = $this->getIntervalComparatorMock();
         $widgetConfig = $this->getWidgetConfigMock();
         $widgetConfig
             ->expects(self::once())
@@ -121,6 +129,12 @@ final class WidgetCompositeFactoryTest extends TestCase
         ;
         $widgetBuilder
             ->expects(self::once())
+            ->method('withIntervalComparator')
+            ->with(self::identicalTo($intervalComparator))
+            ->willReturnSelf()
+        ;
+        $widgetBuilder
+            ->expects(self::once())
             ->method('build')
             ->willReturn($widget)
         ;
@@ -129,6 +143,7 @@ final class WidgetCompositeFactoryTest extends TestCase
             widgetConfigFactory: $widgetConfigFactory,
             widgetBuilder: $widgetBuilder,
             widgetRevolverFactory: $widgetRevolverFactory,
+            intervalComparator: $intervalComparator,
         );
 
         self::assertInstanceOf(WidgetCompositeFactory::class, $widgetFactory);
