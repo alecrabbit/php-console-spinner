@@ -59,8 +59,7 @@ abstract class AContainerEnclosure
 
     final protected static function getContainer(): IContainer
     {
-        dump(__METHOD__);
-        return self::$container ?? self::createContainer();
+        return self::$container ?? self::$container = self::createContainer();
     }
 
     protected static function createContainer(): IContainer

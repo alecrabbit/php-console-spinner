@@ -17,6 +17,6 @@ final readonly class DriverModeDetector implements IDriverModeDetector
 
     public function isEnabled(): bool
     {
-        return dump($this->driverConfig->getDriverMode()) === DriverMode::ENABLED;
+        return $this->driverConfig->getDriverMode() === DriverMode::ENABLED;
     }
 }

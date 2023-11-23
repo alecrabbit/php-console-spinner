@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\DriverLinker;
+use AlecRabbit\Spinner\Core\DummyDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\ILinkerResolver;
@@ -141,6 +142,8 @@ final class DriverLinkerFactoryTest extends TestCase
         self::assertInstanceOf(DriverLinkerFactory::class, $factory);
 
         $linker = $factory->create();
+
+        self::assertInstanceOf(DummyDriverLinker::class, $linker);
 
         $driver = $this->getDriverMock();
         $driver

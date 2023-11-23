@@ -28,7 +28,6 @@ final readonly class DriverModeSolver extends ASolver implements Contract\IDrive
         ?DriverOption $defaultOption
     ): DriverMode {
         $options = [$userOption, $detectedOption, $defaultOption];
-        dump($options);
         return match ($options) {
             [
                 DriverOption::AUTO,
