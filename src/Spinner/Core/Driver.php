@@ -76,6 +76,7 @@ final class Driver extends ADriver
     {
         if ($this->spinner) {
             $this->stateWriter->erase($this->state);
+            // $this->renderer->erase($this->spinner);
         }
     }
 
@@ -116,6 +117,8 @@ final class Driver extends ADriver
     public function render(?float $dt = null): void
     {
         if ($this->spinner) {
+            // $this->renderer->render($this->spinner, $dt);
+
             $frame =
                 $this->spinner->getFrame(
                     $dt ?? $this->deltaTimer->getDelta()
