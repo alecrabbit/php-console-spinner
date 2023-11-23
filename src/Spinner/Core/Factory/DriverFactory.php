@@ -24,8 +24,6 @@ final readonly class DriverFactory implements IDriverFactory
         private IIntervalFactory $intervalFactory,
         private IDeltaTimerFactory $timerFactory,
         private IIntervalComparator $intervalComparator,
-        private ISequenceStateWriterFactory $sequenceStateWriterFactory,
-        private ISequenceStateBuilder $sequenceStateBuilder,
         private IRenderer $renderer,
     ) {
     }

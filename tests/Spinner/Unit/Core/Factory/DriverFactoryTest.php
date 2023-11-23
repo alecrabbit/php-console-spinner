@@ -38,10 +38,8 @@ final class DriverFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IDriverBuilder $driverBuilder = null,
         ?IIntervalFactory $intervalFactory = null,
-        ?ISequenceStateWriterFactory $sequenceStateWriterFactory = null,
         ?IDeltaTimerFactory $timerFactory = null,
         ?IIntervalComparator $intervalComparator = null,
-        ?ISequenceStateBuilder $sequenceStateBuilder = null,
         ?IDriverMessages $driverMessages = null,
         ?IRenderer $renderer = null,
     ): IDriverFactory {
@@ -52,8 +50,6 @@ final class DriverFactoryTest extends TestCase
                 intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
                 timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
                 intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
-                sequenceStateWriterFactory: $sequenceStateWriterFactory ?? $this->getSequenceStateWriterFactoryMock(),
-                sequenceStateBuilder: $sequenceStateBuilder ?? $this->getSequenceStateBuilderMock(),
                 renderer: $renderer ?? $this->getRendererMock(),
             );
     }
@@ -63,17 +59,17 @@ final class DriverFactoryTest extends TestCase
         return $this->createMock(IDriverMessages::class);
     }
 
-    protected function getDriverBuilderMock(): MockObject&IDriverBuilder
+    private function getDriverBuilderMock(): MockObject&IDriverBuilder
     {
         return $this->createMock(IDriverBuilder::class);
     }
 
-    protected function getIntervalFactoryMock(): MockObject&IIntervalFactory
+    private function getIntervalFactoryMock(): MockObject&IIntervalFactory
     {
         return $this->createMock(IIntervalFactory::class);
     }
 
-    protected function getTimerFactoryMock(): MockObject&IDeltaTimerFactory
+    private function getTimerFactoryMock(): MockObject&IDeltaTimerFactory
     {
         return $this->createMock(IDeltaTimerFactory::class);
     }
@@ -81,16 +77,6 @@ final class DriverFactoryTest extends TestCase
     private function getIntervalComparatorMock(): MockObject&IIntervalComparator
     {
         return $this->createMock(IIntervalComparator::class);
-    }
-
-    protected function getSequenceStateWriterFactoryMock(): MockObject&ISequenceStateWriterFactory
-    {
-        return $this->createMock(ISequenceStateWriterFactory::class);
-    }
-
-    private function getSequenceStateBuilderMock(): MockObject&ISequenceStateBuilder
-    {
-        return $this->createMock(ISequenceStateBuilder::class);
     }
 
     #[Test]
@@ -106,7 +92,6 @@ final class DriverFactoryTest extends TestCase
         ;
 
         $driverMessages = $this->getDriverMessagesMock();
-        $sequenceStateBuilder = $this->getSequenceStateBuilderMock();
 
         $driver = $this->getDriverMock();
 
@@ -154,46 +139,20 @@ final class DriverFactoryTest extends TestCase
                 driverBuilder: $driverBuilder,
                 intervalFactory: $intervalFactory,
                 intervalComparator: $intervalComparator,
-                sequenceStateBuilder: $sequenceStateBuilder,
                 driverMessages: $driverMessages,
             );
 
         self::assertSame($driver, $driverFactory->create());
     }
 
-    protected function getIntervalMock(): MockObject&IInterval
+    private function getIntervalMock(): MockObject&IInterval
     {
         return $this->createMock(IInterval::class);
     }
 
-    protected function getDriverMock(): MockObject&IDriver
+    private function getDriverMock(): MockObject&IDriver
     {
         return $this->createMock(IDriver::class);
-    }
-
-    protected function getTimerMock(): MockObject&IDeltaTimer
-    {
-        return $this->createMock(IDeltaTimer::class);
-    }
-
-    protected function getSequenceStateWriterMock(): MockObject&ISequenceStateWriter
-    {
-        return $this->createMock(ISequenceStateWriter::class);
-    }
-
-    protected function getDriverStub(): Stub&IDriver
-    {
-        return $this->createStub(IDriver::class);
-    }
-
-    protected function getLinkerConfigMock(): MockObject&ILinkerConfig
-    {
-        return $this->createMock(ILinkerConfig::class);
-    }
-
-    private function getDriverConfigMock(): MockObject&IDriverConfig
-    {
-        return $this->createMock(IDriverConfig::class);
     }
 
     private function getRendererMock(): MockObject&IRenderer
