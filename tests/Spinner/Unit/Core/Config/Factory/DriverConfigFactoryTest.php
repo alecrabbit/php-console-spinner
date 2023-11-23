@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Factory;
 
+use AlecRabbit\Spinner\Contract\Mode\DriverMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverMessagesSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverModeSolver;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -27,11 +29,13 @@ final class DriverConfigFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IDriverConfigBuilder $driverConfigBuilder = null,
         ?IDriverMessagesSolver $driverMessagesSolver = null,
+        ?IDriverModeSolver $driverModeSolver = null,
     ): IDriverConfigFactory {
         return
             new DriverConfigFactory(
                 driverConfigBuilder: $driverConfigBuilder ?? $this->getDriverConfigBuilderMock(),
                 driverMessagesSolver: $driverMessagesSolver ?? $this->getDriverMessagesSolverMock(),
+                driverModeSolver: $driverModeSolver ?? $this->getDriverModeSolverMock(),
             );
     }
 
@@ -46,9 +50,23 @@ final class DriverConfigFactoryTest extends TestCase
         return $this->createMock(IDriverMessagesSolver::class);
     }
 
+    protected function getDriverModeSolverMock(
+        ?DriverMode $driverMode = null,
+    ): MockObject&IDriverModeSolver {
+        return
+            $this->createConfiguredMock(
+                IDriverModeSolver::class,
+                [
+                    'solve' => $driverMode ?? DriverMode::DISABLED,
+                ]
+            );
+    }
+
     #[Test]
     public function canCreate(): void
     {
+        $driverMode = DriverMode::ENABLED;
+
         $driverMessages = $this->getDriverMessagesMock();
         $driverConfig = $this->geyDriverConfigMock();
         $driverMessagesSolver = $this->getDriverMessagesSolverMock();
@@ -65,6 +83,12 @@ final class DriverConfigFactoryTest extends TestCase
         ;
         $driverConfigBuilder
             ->expects(self::once())
+            ->method('withDriverMode')
+            ->with($driverMode)
+            ->willReturnSelf()
+        ;
+        $driverConfigBuilder
+            ->expects(self::once())
             ->method('build')
             ->willReturn($driverConfig)
         ;
@@ -72,6 +96,7 @@ final class DriverConfigFactoryTest extends TestCase
         $factory = $this->getTesteeInstance(
             driverConfigBuilder: $driverConfigBuilder,
             driverMessagesSolver: $driverMessagesSolver,
+            driverModeSolver: $this->getDriverModeSolverMock($driverMode),
         );
 
         self::assertSame($driverConfig, $factory->create());

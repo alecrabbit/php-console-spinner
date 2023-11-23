@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Settings;
 
+use AlecRabbit\Spinner\Contract\Option\DriverOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IMessages;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
@@ -23,11 +24,25 @@ final class DriverSettingsTest extends TestCase
 
     public function getTesteeInstance(
         ?IMessages $messages = null,
+        ?DriverOption $driverOption = null,
     ): IDriverSettings {
         return
             new DriverSettings(
                 messages: $messages,
+                driverOption: $driverOption ?? DriverOption::AUTO,
             );
+    }
+
+    #[Test]
+    public function canGetDriverOption(): void
+    {
+        $driverOption = DriverOption::DISABLED;
+
+        $settings = $this->getTesteeInstance(
+            driverOption: $driverOption,
+        );
+
+        self::assertSame($driverOption, $settings->getDriverOption());
     }
 
     #[Test]

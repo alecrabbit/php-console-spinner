@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Builder;
 
+use AlecRabbit\Spinner\Contract\Mode\DriverMode;
 use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
@@ -38,6 +39,7 @@ final class DriverConfigBuilderTest extends TestCase
 
         $config = $configBuilder
             ->withDriverMessages($driverMessages)
+            ->withDriverMode(DriverMode::DISABLED)
             ->build()
         ;
 
@@ -61,6 +63,28 @@ final class DriverConfigBuilderTest extends TestCase
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
+                ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+
+    #[Test]
+    public function throwsIfDriverModeIsNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'DriverMode is not set.';
+
+        $test = function (): void {
+            $configBuilder = $this->getTesteeInstance();
+
+            $configBuilder
+                ->withDriverMessages($this->getDriverMessagesMock())
                 ->build()
             ;
         };

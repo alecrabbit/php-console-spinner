@@ -49,11 +49,6 @@ final class WidgetCompositeBuilderTest extends TestCase
         self::assertInstanceOf(WidgetComposite::class, $widgetComposite);
     }
 
-    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
-    {
-        return $this->createMock(IIntervalComparator::class);
-    }
-
     protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
     {
         return $this->createMock(IWidgetRevolver::class);
@@ -62,6 +57,11 @@ final class WidgetCompositeBuilderTest extends TestCase
     protected function getFrameMock(): MockObject&IFrame
     {
         return $this->createMock(IFrame::class);
+    }
+
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
     }
 
     #[Test]

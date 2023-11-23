@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\INormalizerSettings;
 final readonly class NormalizerSettings implements INormalizerSettings
 {
     public function __construct(
-        protected NormalizerOption $normalizerOption = NormalizerOption::AUTO,
+        private NormalizerOption $normalizerOption = NormalizerOption::AUTO,
     ) {
     }
 

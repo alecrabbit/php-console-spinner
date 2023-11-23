@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Loop;
 
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IAutoStartResolver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
@@ -18,23 +20,23 @@ final class LoopSetupTest extends TestCase
     #[Test]
     public function canBeInstantiated(): void
     {
-        $driverBuilder = $this->getTesteeInstance();
+        $loopSetup = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopSetup::class, $driverBuilder);
+        self::assertInstanceOf(LoopSetup::class, $loopSetup);
     }
 
     public function getTesteeInstance(
-        ?ILoopConfig $loopConfig = null
+        ?IAutoStartResolver $autoStartResolver = null,
     ): ILoopSetup {
         return
             new LoopSetup(
-                loopConfig: $loopConfig ?? $this->getLoopConfigMock(),
+                autoStartResolver: $autoStartResolver ?? $this->getAutoStartResolverMock(),
             );
     }
 
-    private function getLoopConfigMock(): MockObject&ILoopConfig
+    private function getAutoStartResolverMock(): MockObject&IAutoStartResolver
     {
-        return $this->createMock(ILoopConfig::class);
+        return $this->createMock(IAutoStartResolver::class);
     }
 
     #[Test]
@@ -46,15 +48,15 @@ final class LoopSetupTest extends TestCase
             ->method('autoStart')
         ;
 
-        $loopConfig = $this->getLoopConfigMock();
-        $loopConfig
+        $autoStartResolver = $this->getAutoStartResolverMock();
+        $autoStartResolver
             ->expects(self::once())
-            ->method('getAutoStartMode')
-            ->willReturn(AutoStartMode::ENABLED)
+            ->method('isEnabled')
+            ->willReturn(true)
         ;
 
         $loopSetup = $this->getTesteeInstance(
-            loopConfig: $loopConfig,
+            autoStartResolver: $autoStartResolver,
         );
 
         $loopSetup->setup($loop);
@@ -64,5 +66,4 @@ final class LoopSetupTest extends TestCase
     {
         return $this->createMock(ILoop::class);
     }
-
 }

@@ -40,6 +40,10 @@ use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\INormalizerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IRevolverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\IAutoStartModeDetector;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\IInitializationModeDetector;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\ILinkerModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IGeneralConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialRootWidgetConfigFactory;
@@ -60,6 +64,10 @@ use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Detector\AutoStartModeDetector;
+use AlecRabbit\Spinner\Core\Config\Detector\DriverModeDetector;
+use AlecRabbit\Spinner\Core\Config\Detector\InitializationModeDetector;
+use AlecRabbit\Spinner\Core\Config\Detector\LinkerModeDetector;
 use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\GeneralConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\InitialRootWidgetConfigFactory;
@@ -75,6 +83,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverMessagesSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
@@ -88,6 +97,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IToleranceSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\DriverMessagesSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\DriverModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\NormalizerModeSolver;
@@ -101,6 +111,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\ToleranceSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
@@ -135,6 +146,12 @@ use AlecRabbit\Spinner\Core\Factory\SequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Feature\Resolver\AutoStartResolver;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IAutoStartResolver;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\ILinkerResolver;
+use AlecRabbit\Spinner\Core\Feature\Resolver\InitializationResolver;
+use AlecRabbit\Spinner\Core\Feature\Resolver\LinkerResolver;
 use AlecRabbit\Spinner\Core\IntervalComparator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
@@ -321,52 +338,63 @@ function configs(): Traversable
         IRevolverConfig::class => static function (IContainer $container): IRevolverConfig {
             return $container->get(IRevolverConfigFactory::class)->create();
         },
+        IInitializationResolver::class => InitializationResolver::class,
+        IAutoStartResolver::class => AutoStartResolver::class,
+        ILinkerResolver::class => LinkerResolver::class,
+        IAutoStartModeDetector::class => AutoStartModeDetector::class,
+        ILinkerModeDetector::class => LinkerModeDetector::class,
+        IDriverModeDetector::class => DriverModeDetector::class,
+        IInitializationModeDetector::class => InitializationModeDetector::class,
+        IDriverMessages::class => static function (IContainer $container): IDriverMessages {
+            return $container->get(IDriverConfig::class)->getDriverMessages();
+        },
     ];
 }
 
 function builders(): Traversable
 {
     yield from [
-        IDriverBuilder::class => DriverBuilder::class,
-        ISequenceStateWriterBuilder::class => SequenceStateWriterBuilder::class,
-        ISequenceStateBuilder::class => SequenceStateBuilder::class,
-        IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
-        IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
-        IDeltaTimerBuilder::class => DeltaTimerBuilder::class,
-        IWidgetBuilder::class => WidgetBuilder::class,
-        IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
-        IWidgetCompositeBuilder::class => WidgetCompositeBuilder::class,
         IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
-        ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
-
+        IDeltaTimerBuilder::class => DeltaTimerBuilder::class,
+        IDriverBuilder::class => DriverBuilder::class,
         IDriverConfigBuilder::class => DriverConfigBuilder::class,
-        ILoopConfigBuilder::class => LoopConfigBuilder::class,
-        IOutputConfigBuilder::class => OutputConfigBuilder::class,
+        IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
+        IGeneralConfigBuilder::class => GeneralConfigBuilder::class,
+        IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
         ILinkerConfigBuilder::class => LinkerConfigBuilder::class,
+        ILoopConfigBuilder::class => LoopConfigBuilder::class,
+        INormalizerConfigBuilder::class => NormalizerConfigBuilder::class,
+        IOutputConfigBuilder::class => OutputConfigBuilder::class,
 
         IRevolverConfigBuilder::class => RevolverConfigBuilder::class,
-        IGeneralConfigBuilder::class => GeneralConfigBuilder::class,
-        INormalizerConfigBuilder::class => NormalizerConfigBuilder::class,
+        ISequenceStateBuilder::class => SequenceStateBuilder::class,
+        ISequenceStateWriterBuilder::class => SequenceStateWriterBuilder::class,
+        ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
+
+        IWidgetBuilder::class => WidgetBuilder::class,
+        IWidgetCompositeBuilder::class => WidgetCompositeBuilder::class,
+        IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
     ];
 }
 
 function solvers(): Traversable
 {
     yield from [
-        IRunMethodModeSolver::class => RunMethodModeSolver::class,
-        INormalizerModeSolver::class => NormalizerModeSolver::class,
         IAutoStartModeSolver::class => AutoStartModeSolver::class,
-        ISignalHandlingModeSolver::class => SignalHandlingModeSolver::class,
-        ISignalHandlersContainerSolver::class => SignalHandlersContainerSolver::class,
-        IStylingMethodModeSolver::class => StylingMethodModeSolver::class,
         ICursorVisibilityModeSolver::class => CursorVisibilityModeSolver::class,
-        ILinkerModeSolver::class => LinkerModeSolver::class,
-        IInitializationModeSolver::class => InitializationModeSolver::class,
-        IStreamSolver::class => StreamSolver::class,
         IDriverMessagesSolver::class => DriverMessagesSolver::class,
-        IWidgetSettingsSolver::class => WidgetSettingsSolver::class,
+        IDriverModeSolver::class => DriverModeSolver::class,
+        IInitializationModeSolver::class => InitializationModeSolver::class,
+        ILinkerModeSolver::class => LinkerModeSolver::class,
+        INormalizerModeSolver::class => NormalizerModeSolver::class,
         IRootWidgetSettingsSolver::class => RootWidgetSettingsSolver::class,
+        IRunMethodModeSolver::class => RunMethodModeSolver::class,
+        ISignalHandlersContainerSolver::class => SignalHandlersContainerSolver::class,
+        ISignalHandlingModeSolver::class => SignalHandlingModeSolver::class,
+        IStreamSolver::class => StreamSolver::class,
+        IStylingMethodModeSolver::class => StylingMethodModeSolver::class,
         IToleranceSolver::class => ToleranceSolver::class,
+        IWidgetSettingsSolver::class => WidgetSettingsSolver::class,
     ];
 }
 

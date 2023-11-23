@@ -18,10 +18,9 @@ use Closure;
 abstract class ADriver extends ASubject implements IDriver
 {
     protected IInterval $interval;
-    protected readonly IDriverMessages $messages;
 
     public function __construct(
-        IDriverConfig $driverConfig,
+        protected readonly IDriverMessages $driverMessages,
         protected readonly IDeltaTimer $deltaTimer,
         protected readonly IInterval $initialInterval,
         protected readonly ISequenceStateWriter $stateWriter,
@@ -30,18 +29,17 @@ abstract class ADriver extends ASubject implements IDriver
     ) {
         parent::__construct($observer);
         $this->interval = $this->initialInterval;
-        $this->messages = $driverConfig->getDriverMessages();
     }
 
     public function interrupt(?string $interruptMessage = null): void
     {
-        $this->finalize($interruptMessage ?? $this->messages->getInterruptionMessage());
+        $this->finalize($interruptMessage ?? $this->driverMessages->getInterruptionMessage());
     }
 
     public function finalize(?string $finalMessage = null): void
     {
         $this->erase();
-        $this->stateWriter->finalize($finalMessage ?? $this->messages->getFinalMessage());
+        $this->stateWriter->finalize($finalMessage ?? $this->driverMessages->getFinalMessage());
     }
 
     abstract protected function erase(): void;

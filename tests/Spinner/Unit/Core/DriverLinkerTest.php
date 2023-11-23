@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Exception\DriverCanNotBeReplaced;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -151,7 +151,7 @@ final class DriverLinkerTest extends TestCase
     #[Test]
     public function throwsIfLinkOfOtherInstanceOfDriverAttempted(): void
     {
-        $e = new LogicException(
+        $e = new DriverCanNotBeReplaced(
             'Other instance of driver is already linked.'
         );
 

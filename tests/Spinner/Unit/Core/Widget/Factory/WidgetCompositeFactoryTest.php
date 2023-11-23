@@ -44,10 +44,6 @@ final class WidgetCompositeFactoryTest extends TestCase
                 intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
             );
     }
-    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
-    {
-        return $this->createMock(IIntervalComparator::class);
-    }
 
     private function getWidgetConfigFactoryMock(): MockObject&IWidgetConfigFactory
     {
@@ -62,6 +58,11 @@ final class WidgetCompositeFactoryTest extends TestCase
     private function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
     {
         return $this->createMock(IWidgetRevolverFactory::class);
+    }
+
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
     }
 
     #[Test]

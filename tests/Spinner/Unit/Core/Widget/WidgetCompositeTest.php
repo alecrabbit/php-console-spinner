@@ -57,6 +57,11 @@ final class WidgetCompositeTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
+    }
+
     protected function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer
     {
         return $this->createMock(IWidgetCompositeChildrenContainer::class);
@@ -104,7 +109,8 @@ final class WidgetCompositeTest extends TestCase
         $intervalComparator
             ->expects(self::exactly(2))
             ->method('smallest')
-            ->willReturn($initialInterval);
+            ->willReturn($initialInterval)
+        ;
 
         $widgetComposite = $this->getTesteeInstance(
             revolver: $revolver,
@@ -125,12 +131,12 @@ final class WidgetCompositeTest extends TestCase
         self::assertSame($initialInterval, $widgetComposite->getInterval());
     }
 
+//
+
     protected function getIntervalMock(): MockObject&IInterval
     {
         return $this->createMock(IInterval::class);
     }
-
-//
 
     #[Test]
     public function canGetFrameIfHasRevolverOnly(): void
@@ -393,10 +399,5 @@ final class WidgetCompositeTest extends TestCase
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
-    }
-
-    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
-    {
-        return $this->createMock(IIntervalComparator::class);
     }
 }

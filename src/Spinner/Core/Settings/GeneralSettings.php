@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 final readonly class GeneralSettings implements IGeneralSettings
 {
     public function __construct(
-        protected RunMethodOption $runMethodOption = RunMethodOption::AUTO,
+        private RunMethodOption $runMethodOption = RunMethodOption::AUTO,
     ) {
     }
 

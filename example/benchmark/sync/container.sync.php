@@ -32,7 +32,7 @@ $registry->bind(
             public function getDelta(): float
             {
                 // simulate unequal time intervals
-                return (float) random_int(1000, 500000);
+                return (float)random_int(1000, 500000);
             }
         }
     ),

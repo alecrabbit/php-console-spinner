@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Builder;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Builder\SequenceStateBuilder;

@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Exception\DriverCanNotBeReplaced;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class DriverLinker implements IDriverLinker
@@ -40,7 +41,7 @@ final class DriverLinker implements IDriverLinker
         if ($this->driver === null || $this->driver === $driver) {
             return;
         }
-        throw new LogicException(
+        throw new DriverCanNotBeReplaced(
             'Other instance of driver is already linked.'
         );
     }

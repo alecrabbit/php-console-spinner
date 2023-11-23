@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateWriterBuilder;
 use AlecRabbit\Spinner\Core\Builder\SequenceStateWriterBuilder;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\SequenceStateWriter;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -38,6 +39,7 @@ final class SequenceStateWriterBuilderTest extends TestCase
             $outputBuilder
                 ->withOutput($this->getBufferedOutputMock())
                 ->withCursor($this->getCursorMock())
+                ->withInitializationResolver($this->getInitializationResolverMock())
                 ->build()
         ;
 
@@ -54,6 +56,11 @@ final class SequenceStateWriterBuilderTest extends TestCase
         return $this->createMock(IConsoleCursor::class);
     }
 
+    private function getInitializationResolverMock(): MockObject&IInitializationResolver
+    {
+        return $this->createMock(IInitializationResolver::class);
+    }
+
     #[Test]
     public function throwsIfCursorIsNotSet(): void
     {
@@ -65,6 +72,7 @@ final class SequenceStateWriterBuilderTest extends TestCase
 
             $outputBuilder
                 ->withOutput($this->getBufferedOutputMock())
+                ->withInitializationResolver($this->getInitializationResolverMock())
                 ->build()
             ;
         };
@@ -84,6 +92,7 @@ final class SequenceStateWriterBuilderTest extends TestCase
 
             $outputBuilder
                 ->withCursor($this->getCursorMock())
+                ->withInitializationResolver($this->getInitializationResolverMock())
                 ->build()
             ;
         };
@@ -92,6 +101,26 @@ final class SequenceStateWriterBuilderTest extends TestCase
             $test,
             LogicException::class,
             'Output is not set.',
+        );
+    }
+
+    #[Test]
+    public function throwsIfInitializationResolverIsNotSet(): void
+    {
+        $test = function (): void {
+            $outputBuilder = $this->getTesteeInstance();
+
+            $outputBuilder
+                ->withCursor($this->getCursorMock())
+                ->withOutput($this->getBufferedOutputMock())
+                ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            $test,
+            LogicException::class,
+            'Initialization resolver is not set.',
         );
     }
 }
