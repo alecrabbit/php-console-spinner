@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Driver;
@@ -26,7 +27,7 @@ class TestCaseForDriver extends TestCase
         ?ISequenceStateWriter $stateWriter = null,
         ?ISequenceStateBuilder $stateBuilder = null,
         ?IInterval $initialInterval = null,
-        ?IDriverConfig $driverConfig = null,
+        ?IDriverMessages $driverMessages = null,
         ?IIntervalComparator $intervalComparator = null,
         ?IObserver $observer = null,
     ): IDriver {
@@ -35,10 +36,15 @@ class TestCaseForDriver extends TestCase
             stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
             deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
-            driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
+            driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
             intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
             observer: $observer,
         );
+    }
+
+    protected function getDriverMessagesMock(): MockObject&IDriverMessages
+    {
+        return $this->createMock(IDriverMessages::class);
     }
 
     protected function getSequenceStateWriterMock(): MockObject&ISequenceStateWriter

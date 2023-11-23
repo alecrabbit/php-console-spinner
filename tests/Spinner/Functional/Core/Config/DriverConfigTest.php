@@ -33,7 +33,7 @@ final class DriverConfigTest extends TestCase
             );
     }
 
-    private function getDriverMessagesMock(): MockObject&IDriverMessages
+    protected function getDriverMessagesMock(): MockObject&IDriverMessages
     {
         return $this->createMock(IDriverMessages::class);
     }

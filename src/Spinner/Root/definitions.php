@@ -111,6 +111,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\ToleranceSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
@@ -344,6 +345,9 @@ function configs(): Traversable
         ILinkerModeDetector::class => LinkerModeDetector::class,
         IDriverModeDetector::class => DriverModeDetector::class,
         IInitializationModeDetector::class => InitializationModeDetector::class,
+        IDriverMessages::class => static function (IContainer $container): IDriverMessages {
+            return $container->get(IDriverConfig::class)->getDriverMessages();
+        },
     ];
 }
 

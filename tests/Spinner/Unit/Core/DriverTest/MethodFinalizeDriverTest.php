@@ -63,13 +63,6 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
             ->willReturn($message)
         ;
 
-        $driverConfig = $this->getDriverConfigMock();
-        $driverConfig
-            ->expects(self::once())
-            ->method('getDriverMessages')
-            ->willReturn($driverMessages)
-        ;
-
         $sequenceStateWriter = $this->getSequenceStateWriterMock();
         $sequenceStateWriter
             ->expects(self::once())
@@ -80,17 +73,13 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
         $driver =
             $this->getTesteeInstance(
                 stateWriter: $sequenceStateWriter,
-                driverConfig: $driverConfig,
+                driverMessages: $driverMessages,
             );
 
         $driver->initialize();
         $driver->finalize();
     }
 
-    private function getDriverMessagesMock(): MockObject&IDriverMessages
-    {
-        return $this->createMock(IDriverMessages::class);
-    }
 
     #[Test]
     public function canFinalizeUninitialized(): void

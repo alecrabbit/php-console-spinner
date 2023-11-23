@@ -42,13 +42,6 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
             ->willReturn($message)
         ;
 
-        $driverConfig = $this->getDriverConfigMock();
-        $driverConfig
-            ->expects(self::once())
-            ->method('getDriverMessages')
-            ->willReturn($driverMessages)
-        ;
-
         $sequenceStateWriter = $this->getSequenceStateWriterMock();
         $sequenceStateWriter
             ->expects(self::once())
@@ -59,16 +52,11 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
         $driver =
             $this->getTesteeInstance(
                 stateWriter: $sequenceStateWriter,
-                driverConfig: $driverConfig,
+                driverMessages: $driverMessages,
             );
 
         $driver->initialize();
         $driver->interrupt();
-    }
-
-    private function getDriverMessagesMock(): MockObject&IDriverMessages
-    {
-        return $this->createMock(IDriverMessages::class);
     }
 
     #[Test]

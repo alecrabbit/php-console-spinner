@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
@@ -48,8 +49,8 @@ final class DriverBuilderTest extends TestCase
             ->withSequenceStateBuilder($this->getSequenceStateBuilderMock())
             ->withDeltaTimer($this->getTimerMock())
             ->withInitialInterval($interval)
-            ->withDriverConfig($this->getDriverConfigMock())
             ->withIntervalComparator($this->getIntervalComparatorMock())
+            ->withDriverMessages($this->getDriverMessagesMock())
             ->build()
         ;
 
@@ -98,7 +99,7 @@ final class DriverBuilderTest extends TestCase
             ->withDeltaTimer($this->getTimerMock())
             ->withObserver($this->getObserverMock())
             ->withInitialInterval($this->getIntervalMock())
-            ->withDriverConfig($this->getDriverConfigMock())
+            ->withDriverMessages($this->getDriverMessagesMock())
             ->withIntervalComparator($this->getIntervalComparatorMock())
             ->build()
         ;
@@ -111,6 +112,11 @@ final class DriverBuilderTest extends TestCase
         return $this->createMock(IObserver::class);
     }
 
+    private function getDriverMessagesMock(): MockObject&IDriverMessages
+    {
+        return $this->createMock(IDriverMessages::class);
+    }
+
     #[Test]
     public function throwsIfSequenceStateWriterIsNotSet(): void
     {
@@ -121,8 +127,12 @@ final class DriverBuilderTest extends TestCase
             $driverBuilder = $this->getTesteeInstance();
 
             $driverBuilder
+                ->withSequenceStateBuilder($this->getSequenceStateBuilderMock())
                 ->withDeltaTimer($this->getTimerMock())
+                ->withObserver($this->getObserverMock())
                 ->withInitialInterval($this->getIntervalMock())
+                ->withDriverMessages($this->getDriverMessagesMock())
+                ->withIntervalComparator($this->getIntervalComparatorMock())
                 ->build()
             ;
         };
@@ -147,6 +157,7 @@ final class DriverBuilderTest extends TestCase
                 ->withSequenceStateWriter($this->getSequenceStateWriterMock())
                 ->withDeltaTimer($this->getTimerMock())
                 ->withInitialInterval($this->getIntervalMock())
+                ->withDriverMessages($this->getDriverMessagesMock())
                 ->build()
             ;
         };
@@ -171,6 +182,7 @@ final class DriverBuilderTest extends TestCase
                 ->withSequenceStateWriter($this->getSequenceStateWriterMock())
                 ->withSequenceStateBuilder($this->getSequenceStateBuilderMock())
                 ->withInitialInterval($this->getIntervalMock())
+                ->withDriverMessages($this->getDriverMessagesMock())
                 ->build()
             ;
         };
@@ -195,6 +207,7 @@ final class DriverBuilderTest extends TestCase
                 ->withSequenceStateWriter($this->getSequenceStateWriterMock())
                 ->withSequenceStateBuilder($this->getSequenceStateBuilderMock())
                 ->withDeltaTimer($this->getTimerMock())
+                ->withDriverMessages($this->getDriverMessagesMock())
                 ->build()
             ;
         };
@@ -205,6 +218,33 @@ final class DriverBuilderTest extends TestCase
             message: $exceptionMessage,
         );
     }
+
+    #[Test]
+        public function throwIfDriverMessagesAreNotSet(): void
+        {
+            $exceptionClass = LogicException::class;
+            $exceptionMessage = 'DriverMessages is not set.';
+
+            $test = function (): void {
+                $driverBuilder = $this->getTesteeInstance();
+
+                $driverBuilder
+                    ->withSequenceStateWriter($this->getSequenceStateWriterMock())
+                    ->withSequenceStateBuilder($this->getSequenceStateBuilderMock())
+                    ->withDeltaTimer($this->getTimerMock())
+                    ->withObserver($this->getObserverMock())
+                    ->withInitialInterval($this->getIntervalMock())
+                    ->withIntervalComparator($this->getIntervalComparatorMock())
+                    ->build()
+                ;
+            };
+
+            $this->wrapExceptionTest(
+                test: $test,
+                exception: $exceptionClass,
+                message: $exceptionMessage,
+            );
+        }
 
     protected function getLinkerConfigMock(): MockObject&ILinkerConfig
     {

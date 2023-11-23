@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -72,14 +73,14 @@ final class MethodWrapDriverTest extends TestCaseForDriver
         ?ISequenceStateWriter $stateWriter = null,
         ?ISequenceStateBuilder $stateBuilder = null,
         ?IInterval $initialInterval = null,
-        ?IDriverConfig $driverConfig = null,
+        ?IDriverMessages $driverMessages = null,
         ?IIntervalComparator $intervalComparator = null,
         ?IObserver $observer = null,
         ?ISequenceState $state = null,
     ): IDriver {
         return
             new class(
-                driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
+                driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
                 deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
                 initialInterval: $initialInterval ?? $this->getIntervalMock(),
                 stateWriter: $stateWriter ?? $this->getSequenceStateWriterMock(),
@@ -89,7 +90,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                 observer: $observer,
             ) extends ADriver {
                 public function __construct(
-                    IDriverConfig $driverConfig,
+                    IDriverMessages $driverMessages,
                     IDeltaTimer $deltaTimer,
                     IInterval $initialInterval,
                     ISequenceStateWriter $stateWriter,
@@ -99,7 +100,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                     ?IObserver $observer = null,
                 ) {
                     parent::__construct(
-                        $driverConfig,
+                        $driverMessages,
                         $deltaTimer,
                         $initialInterval,
                         $stateWriter,

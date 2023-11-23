@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
@@ -17,7 +18,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
 final readonly class DriverFactory implements IDriverFactory
 {
     public function __construct(
-        private IDriverConfig $driverConfig,
+        private IDriverMessages $driverMessages,
         private IDriverBuilder $driverBuilder,
         private IIntervalFactory $intervalFactory,
         private IDeltaTimerFactory $timerFactory,
@@ -42,7 +43,7 @@ final readonly class DriverFactory implements IDriverFactory
             ->withInitialInterval(
                 $this->intervalFactory->createStill()
             )
-            ->withDriverConfig($this->driverConfig)
+            ->withDriverMessages($this->driverMessages)
             ->withIntervalComparator($this->intervalComparator)
             ->build()
         ;

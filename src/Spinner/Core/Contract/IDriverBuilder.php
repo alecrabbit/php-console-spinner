@@ -25,11 +25,11 @@ interface IDriverBuilder
 
     public function withSequenceStateWriter(ISequenceStateWriter $sequenceStateWriter): IDriverBuilder;
 
-    public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder;
-
     public function withObserver(IObserver $observer): IDriverBuilder;
 
     public function withSequenceStateBuilder(ISequenceStateBuilder $sequenceStateBuilder): IDriverBuilder;
 
     public function withIntervalComparator(IIntervalComparator $intervalComparator): IDriverBuilder;
+
+    public function withDriverMessages(IDriverMessages $driverMessages): IDriverBuilder;
 }

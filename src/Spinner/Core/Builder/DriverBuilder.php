@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
@@ -25,7 +26,7 @@ final class DriverBuilder implements IDriverBuilder
     private ?IDeltaTimer $deltaTimer = null;
     private ?IInterval $initialInterval = null;
     private ?IObserver $observer = null;
-    private ?IDriverConfig $driverConfig = null;
+    private ?IDriverMessages $driverMessages = null;
     private ?IIntervalComparator $intervalComparator = null;
     private ?ISequenceStateBuilder $sequenceStateBuilder = null;
 
@@ -66,7 +67,7 @@ final class DriverBuilder implements IDriverBuilder
             stateBuilder: $this->sequenceStateBuilder,
             deltaTimer: $this->deltaTimer,
             initialInterval: $this->initialInterval,
-            driverConfig: $this->driverConfig,
+            driverMessages: $this->driverMessages,
             intervalComparator: $this->intervalComparator,
             observer: $this->observer,
         );
@@ -82,17 +83,10 @@ final class DriverBuilder implements IDriverBuilder
             $this->sequenceStateBuilder === null => throw new LogicException('SequenceStateBuilder is not set.'),
             $this->deltaTimer === null => throw new LogicException('Timer is not set.'),
             $this->initialInterval === null => throw new LogicException('InitialInterval is not set.'),
-            $this->driverConfig === null => throw new LogicException('DriverConfig is not set.'),
+            $this->driverMessages === null => throw new LogicException('DriverMessages is not set.'),
             $this->intervalComparator === null => throw new LogicException('IntervalComparator is not set.'),
             default => null,
         };
-    }
-
-    public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder
-    {
-        $clone = clone $this;
-        $clone->driverConfig = $driverConfig;
-        return $clone;
     }
 
     public function withSequenceStateBuilder(ISequenceStateBuilder $sequenceStateBuilder): IDriverBuilder
@@ -106,6 +100,13 @@ final class DriverBuilder implements IDriverBuilder
     {
         $clone = clone $this;
         $clone->intervalComparator = $intervalComparator;
+        return $clone;
+    }
+
+    public function withDriverMessages(IDriverMessages $driverMessages): IDriverBuilder
+    {
+        $clone = clone $this;
+        $clone->driverMessages = $driverMessages;
         return $clone;
     }
 }
