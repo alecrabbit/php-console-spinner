@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\DriverTest;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver\DriverTest;
 
-use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class MethodFinalizeDriverTest extends TestCaseForDriver
 {

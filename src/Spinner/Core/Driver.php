@@ -18,8 +18,8 @@ use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 
 final class Driver extends ADriver
 {
-    protected ?ISpinner $spinner = null;
-    protected ISequenceState $state;
+    private ?ISpinner $spinner = null;
+    private ISequenceState $state;
 
     public function __construct(
         ISequenceStateWriter $stateWriter,

@@ -116,7 +116,9 @@ use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
+use AlecRabbit\Spinner\Core\Driver\Renderer;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
@@ -262,6 +264,7 @@ function getDefinitions(): Traversable
             IServiceDefinition::SINGLETON,
         ),
 
+        IRenderer::class => Renderer::class,
         NormalizerMode::class => static function (IContainer $container): NormalizerMode {
             return $container->get(INormalizerConfig::class)->getNormalizerMode();
         },

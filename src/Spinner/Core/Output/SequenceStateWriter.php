@@ -24,13 +24,13 @@ final class SequenceStateWriter implements ISequenceStateWriter
     public function finalize(?string $finalMessage = null): void
     {
         if ($this->initialized) {
-            $this->initialized = false;
-
             $finalMessage && $this->output->append($finalMessage);
 
             $this->cursor->show();
 
             $this->output->flush();
+
+            $this->initialized = false;
         }
     }
 
@@ -66,11 +66,11 @@ final class SequenceStateWriter implements ISequenceStateWriter
     public function initialize(): void
     {
         if ($this->initializationResolver->isEnabled()) {
+            $this->initialized = true;
+
             $this->cursor->hide();
 
             $this->output->flush();
-
-            $this->initialized = true;
         }
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Contract\IFinalizable;
 use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IInitializable;
 use AlecRabbit\Spinner\Contract\IObserver;
@@ -15,7 +16,8 @@ interface IDriver extends IObserver,
                           ISubject,
                           IRenderable,
                           IHasInterval,
-                          IInitializable
+                          IInitializable,
+                          IFinalizable
 {
     /**
      * Adds spinner to the driver.
@@ -32,15 +34,7 @@ interface IDriver extends IObserver,
      */
     public function remove(ISpinner $spinner): void;
 
-    /**
-     * Interrupts driver. Erases spinner(s) and outputs interrupt message. Shows cursor(if enabled).
-     */
     public function interrupt(?string $interruptMessage = null): void;
-
-    /**
-     * Finalizes driver. Erases spinner(s) and outputs final message. Shows cursor(if enabled).
-     */
-    public function finalize(?string $finalMessage = null): void;
 
     /**
      * Wraps a user callback with erase and render methods calls. Returns wrapped callback.
