@@ -6,7 +6,7 @@ use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Facade;
 
-require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../bootstrap.async.php';
 
 Facade::getSettings()
     ->set(
@@ -17,6 +17,3 @@ Facade::getSettings()
 ;
 
 $spinner = Facade::createSpinner();
-
-// perform example unrelated actions:
-require_once __DIR__ . '/../bootstrap.async.php';

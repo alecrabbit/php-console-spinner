@@ -41,41 +41,52 @@ $container = (new ContainerFactory($registry))->create();
 
 Facade::useContainer($container);
 
-$driver = Facade::getDriver();
+register_shutdown_function(
+    static function (): void {
+        $driver = Facade::getDriver();
 
-// Create echo function
-$echo =
-    $driver->wrap(
-        static function (?string $message = null): void {
-            echo $message . PHP_EOL;
-        }
-    );
+        // Create echo function
+        $echo =
+            $driver->wrap(
+                static function (?string $message = null): void {
+                    echo $message . PHP_EOL;
+                }
+            );
 
-// Create memory report function
-$memoryReport =
-    static function () use ($echo): void {
-        static $memoryUsage = new MemoryUsage();
+        // Create memory report function
+        $memoryReport =
+            static function () use ($echo): void {
+                static $memoryUsage = new MemoryUsage();
 
-        $echo(
-            sprintf(
-                '%s %s',
-                (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
-                $memoryUsage->report(),
+                $echo(
+                    sprintf(
+                        '%s %s',
+                        (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
+                        $memoryUsage->report(),
+                    )
+                );
+            };
+
+        $loop = Facade::getLoop();
+
+        $echo();
+        $echo(sprintf('Using loop: "%s"', get_debug_type($loop)));
+        $echo();
+
+        // Schedule memory report function
+        $loop
+            ->repeat(
+                MEMORY_REPORT_INTERVAL,
+                $memoryReport
             )
-        );
-    };
+        ;
 
-$loop = Facade::getLoop();
-
-// Execute memory report function every $reportInterval seconds
-$loop
-    ->repeat(
-        MEMORY_REPORT_INTERVAL,
-        $memoryReport
-    )
-;
-
-$echo(PHP_EOL . sprintf('Using loop: "%s"', get_debug_type($loop)));
-$echo();
-
-$memoryReport(); // initial report
+        // Schedule initial memory report immediately after loop start
+        $loop
+            ->delay(
+                0,
+                $memoryReport
+            )
+        ;
+    }
+);

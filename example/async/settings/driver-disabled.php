@@ -6,7 +6,7 @@ use AlecRabbit\Spinner\Contract\Option\DriverOption;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Spinner\Facade;
 
-require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../bootstrap.async.php';
 
 $driverSettings =
     new DriverSettings(
@@ -20,6 +20,3 @@ Facade::getSettings()
 ;
 
 $spinner = Facade::createSpinner();
-
-//// perform example unrelated actions:
-//require_once __DIR__ . '/../bootstrap.async.php';
