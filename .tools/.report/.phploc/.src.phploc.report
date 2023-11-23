@@ -4,9 +4,9 @@ Directories                                         77
 Files                                              427
 
 Size
-  Lines of Code (LOC)                            14123
-  Comment Lines of Code (CLOC)                     804 (5.69%)
-  Non-Comment Lines of Code (NCLOC)              13319 (94.31%)
+  Lines of Code (LOC)                            14117
+  Comment Lines of Code (CLOC)                     798 (5.65%)
+  Non-Comment Lines of Code (NCLOC)              13319 (94.35%)
   Logical Lines of Code (LLOC)                    1505 (10.66%)
     Classes                                       1404 (93.29%)
       Average Class Length                           3
@@ -36,9 +36,9 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                               659
-    Non-Static                                     643 (97.57%)
-    Static                                          16 (2.43%)
+  Attribute Accesses                               660
+    Non-Static                                     643 (97.42%)
+    Static                                          17 (2.58%)
   Method Calls                                     818
     Non-Static                                     738 (90.22%)
     Static                                          80 (9.78%)
@@ -57,8 +57,8 @@ Structure
       Non-Static Methods                           947 (93.76%)
       Static Methods                                63 (6.24%)
     Visibility
-      Public Methods                               805 (79.70%)
-      Protected Methods                             67 (6.63%)
+      Public Methods                               804 (79.60%)
+      Protected Methods                             68 (6.73%)
       Private Methods                              138 (13.66%)
   Functions                                         37
     Named Functions                                  7 (18.92%)
