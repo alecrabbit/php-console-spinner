@@ -22,12 +22,11 @@ final class Driver extends ADriver
     private ?ISpinner $spinner = null;
 
     public function __construct(
-        IRenderer $renderer,
-        ISequenceStateBuilder $stateBuilder,
-        IDeltaTimer $deltaTimer,
         IInterval $initialInterval,
         IDriverMessages $driverMessages,
+        IRenderer $renderer,
         private readonly IIntervalComparator $intervalComparator,
+        IDeltaTimer $deltaTimer,
         ?IObserver $observer = null
     ) {
         parent::__construct(
@@ -35,7 +34,6 @@ final class Driver extends ADriver
             driverMessages: $driverMessages,
             renderer: $renderer,
             deltaTimer: $deltaTimer,
-            stateBuilder: $stateBuilder,
             observer: $observer,
         );
 

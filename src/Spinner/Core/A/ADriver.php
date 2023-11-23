@@ -25,7 +25,6 @@ abstract class ADriver extends ASubject implements IDriver
         protected readonly IDriverMessages $driverMessages,
         protected readonly IRenderer $renderer,
         protected readonly IDeltaTimer $deltaTimer,
-        protected readonly ISequenceStateBuilder $stateBuilder,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);

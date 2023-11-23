@@ -105,7 +105,6 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                         driverMessages: $driverMessages,
                         renderer: $renderer,
                         deltaTimer: $deltaTimer,
-                        stateBuilder: $stateBuilder,
                         observer: $observer
                     );
                 }
