@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\IHasInterval;
+use AlecRabbit\Spinner\Contract\IInitializable;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\IRenderable;
 use AlecRabbit\Spinner\Contract\ISubject;
@@ -13,7 +14,8 @@ use Closure;
 interface IDriver extends IObserver,
                           ISubject,
                           IRenderable,
-                          IHasInterval
+                          IHasInterval,
+                          IInitializable
 {
     /**
      * Adds spinner to the driver.
@@ -29,11 +31,6 @@ interface IDriver extends IObserver,
      * Removes spinner from the driver. Fails silently if spinner is not in the driver.
      */
     public function remove(ISpinner $spinner): void;
-
-    /**
-     * Initializes driver. Hides cursor(if enabled).
-     */
-    public function initialize(): void;
 
     /**
      * Interrupts driver. Erases spinner(s) and outputs interrupt message. Shows cursor(if enabled).
