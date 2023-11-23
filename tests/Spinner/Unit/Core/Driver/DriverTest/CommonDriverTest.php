@@ -25,8 +25,8 @@ final class CommonDriverTest extends TestCaseForDriver
     {
         $interruptMessage = 'interruptMessage';
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
             ->with(self::equalTo($interruptMessage))
@@ -34,7 +34,7 @@ final class CommonDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter
+                renderer: $renderer
             );
 
         $driver->initialize();

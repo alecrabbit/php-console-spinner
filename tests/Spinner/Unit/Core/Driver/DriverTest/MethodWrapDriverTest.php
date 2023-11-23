@@ -26,27 +26,27 @@ final class MethodWrapDriverTest extends TestCaseForDriver
     #[Test]
     public function canWrap(): void
     {
-        $state = $this->getSequenceStateMock();
-
-        $stateWriter = $this->getSequenceStateWriterMock();
+        $spinner = $this->getSpinnerMock();
+        $renderer = $this->getRendererMock();
         // Make sure method erase() is called. See ADriver::wrap()
-        $stateWriter
+        $renderer
             ->expects(self::once())
             ->method('erase')
-            ->with(self::identicalTo($state))
+            ->with(self::identicalTo($spinner))
         ;
         // Make sure method render() is called. See ADriver::wrap()
-        $stateWriter
+        $renderer
             ->expects(self::once())
-            ->method('write')
-            ->with(self::identicalTo($state))
+            ->method('render')
+            ->with(self::identicalTo($spinner), self::isNull())
         ;
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $stateWriter,
-                state: $state,
+                renderer: $renderer,
+                spinner: $spinner,
             );
+
 
         $counter = 0;
         $callback = static function () use (&$counter) {
@@ -77,7 +77,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
         ?IDriverMessages $driverMessages = null,
         ?IIntervalComparator $intervalComparator = null,
         ?IObserver $observer = null,
-        ?ISequenceState $state = null,
+        ?ISpinner $spinner = null,
     ): IDriver {
         return
             new class(
@@ -85,9 +85,8 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                 driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
                 deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
                 initialInterval: $initialInterval ?? $this->getIntervalMock(),
-                stateWriter: $stateWriter ?? $this->getSequenceStateWriterMock(),
                 stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
-                state: $state ?? $this->getSequenceStateMock(),
+                spinner: $spinner ?? $this->getSpinnerMock(),
                 intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
                 observer: $observer,
             ) extends ADriver {
@@ -96,10 +95,9 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                     IDriverMessages $driverMessages,
                     IDeltaTimer $deltaTimer,
                     IInterval $initialInterval,
-                    ISequenceStateWriter $stateWriter,
                     ISequenceStateBuilder $stateBuilder,
                     IIntervalComparator $intervalComparator,
-                    private readonly ISequenceState $state,
+                    private readonly ISpinner $spinner,
                     ?IObserver $observer = null,
                 ) {
                     parent::__construct(
@@ -107,7 +105,6 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                         driverMessages: $driverMessages,
                         renderer: $renderer,
                         deltaTimer: $deltaTimer,
-                        stateWriter: $stateWriter,
                         stateBuilder: $stateBuilder,
                         observer: $observer
                     );
@@ -115,12 +112,12 @@ final class MethodWrapDriverTest extends TestCaseForDriver
 
                 protected function erase(): void
                 {
-                    $this->stateWriter->erase($this->state);
+                    $this->renderer->erase($this->spinner);
                 }
 
                 public function render(?float $dt = null): void
                 {
-                    $this->stateWriter->write($this->state);
+                    $this->renderer->render($this->spinner, $dt);
                 }
 
                 public function add(ISpinner $spinner): void

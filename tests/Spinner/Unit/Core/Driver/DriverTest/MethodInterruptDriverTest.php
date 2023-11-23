@@ -13,8 +13,8 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
     {
         $interruptMessage = 'interruptMessage';
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
             ->with(self::equalTo($interruptMessage))
@@ -22,7 +22,7 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter
+                renderer: $renderer
             );
 
         $driver->initialize();
@@ -40,8 +40,8 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
             ->willReturn($message)
         ;
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
             ->with(self::identicalTo($message))
@@ -49,7 +49,7 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter,
+                renderer: $renderer,
                 driverMessages: $driverMessages,
             );
 
@@ -62,15 +62,15 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
     {
         $interruptMessage = 'interruptMessage';
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter
+                renderer: $renderer
             );
 
         $driver->interrupt($interruptMessage);

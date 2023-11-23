@@ -25,7 +25,6 @@ abstract class ADriver extends ASubject implements IDriver
         protected readonly IDriverMessages $driverMessages,
         protected readonly IRenderer $renderer,
         protected readonly IDeltaTimer $deltaTimer,
-        protected readonly ISequenceStateWriter $stateWriter,
         protected readonly ISequenceStateBuilder $stateBuilder,
         ?IObserver $observer = null,
     ) {
@@ -41,7 +40,7 @@ abstract class ADriver extends ASubject implements IDriver
     public function finalize(?string $finalMessage = null): void
     {
         $this->erase();
-        $this->stateWriter->finalize($finalMessage ?? $this->driverMessages->getFinalMessage());
+        $this->renderer->finalize($finalMessage ?? $this->driverMessages->getFinalMessage());
     }
 
     abstract protected function erase(): void;
@@ -64,7 +63,7 @@ abstract class ADriver extends ASubject implements IDriver
 
     public function initialize(): void
     {
-        $this->stateWriter->initialize();
+        $this->renderer->initialize();
     }
 
     abstract public function has(ISpinner $spinner): bool;

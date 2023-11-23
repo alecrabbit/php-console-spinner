@@ -12,22 +12,16 @@ final class MethodRenderDriverTest extends TestCaseForDriver
     public function canRender(): void
     {
         $spinner = $this->getSpinnerMock();
-        $spinner
+
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::exactly(2))
-            ->method('getFrame')
-            ->with(self::equalTo(null))
+            ->method('render')
+            ->with(self::identicalTo($spinner))
         ;
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
-            ->expects(self::once())
-            ->method('write')
-        ;
+        $driver = $this->getTesteeInstance(renderer: $renderer);
 
-        $driver =
-            $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter
-            );
         $driver->initialize();
 
         $driver->add($spinner);
@@ -36,36 +30,17 @@ final class MethodRenderDriverTest extends TestCaseForDriver
     }
 
     #[Test]
-    public function canRenderUsingTimer(): void
+    public function canRenderIfNoSpinnerAdded(): void
     {
-        $delta = 0.1;
-        $timer = $this->getDeltaTimerMock();
-        $timer
-            ->expects(self::once())
-            ->method('getDelta')
-            ->willReturn($delta)
+        $renderer = $this->getRendererMock();
+        $renderer
+            ->expects(self::never())
+            ->method('render')
         ;
 
-        $spinner = $this->getSpinnerMock();
-        $spinner
-            ->expects(self::exactly(2))
-            ->method('getFrame')//            ->with(self::equalTo($delta))
-        ;
+        $driver = $this->getTesteeInstance(renderer: $renderer);
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
-            ->expects(self::once())
-            ->method('write')
-        ;
-
-        $driver =
-            $this->getTesteeInstance(
-                deltaTimer: $timer,
-                stateWriter: $sequenceStateWriter
-            );
         $driver->initialize();
-
-        $driver->add($spinner);
 
         $driver->render();
     }

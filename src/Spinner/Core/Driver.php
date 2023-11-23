@@ -20,10 +20,8 @@ use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 final class Driver extends ADriver
 {
     private ?ISpinner $spinner = null;
-    private ISequenceState $state;
 
     public function __construct(
-        ISequenceStateWriter $stateWriter,
         IRenderer $renderer,
         ISequenceStateBuilder $stateBuilder,
         IDeltaTimer $deltaTimer,
@@ -37,25 +35,10 @@ final class Driver extends ADriver
             driverMessages: $driverMessages,
             renderer: $renderer,
             deltaTimer: $deltaTimer,
-            stateWriter: $stateWriter,
             stateBuilder: $stateBuilder,
             observer: $observer,
         );
 
-        $this->state = $this->createState();
-    }
-
-    private function createState(
-        string $sequence = '',
-        int $width = 0,
-        int $previousWidth = 0
-    ): ISequenceState {
-        return $this->stateBuilder
-            ->withSequence($sequence)
-            ->withWidth($width)
-            ->withPreviousWidth($previousWidth)
-            ->build()
-        ;
     }
 
     public function add(ISpinner $spinner): void
@@ -66,11 +49,10 @@ final class Driver extends ADriver
             $this->doRemove($this->spinner);
         }
 
-        $frame = $spinner->getFrame();
-
-        $this->state = $this->createState($frame->sequence(), $frame->width());
-
         $this->spinner = $spinner;
+
+        $this->render();
+
         $spinner->attach($this);
         $this->update($spinner);
     }
@@ -78,8 +60,7 @@ final class Driver extends ADriver
     protected function erase(): void
     {
         if ($this->spinner) {
-            $this->stateWriter->erase($this->state);
-            // $this->renderer->erase($this->spinner);
+            $this->renderer->erase($this->spinner);
         }
     }
 
@@ -87,18 +68,21 @@ final class Driver extends ADriver
     {
         $spinner->detach($this);
         $this->spinner = null;
-        $this->interval = $this->recalculateInterval();
+        $this->interval = $this->smallestInterval();
     }
 
-    protected function recalculateInterval(): IInterval
+    protected function smallestInterval(): IInterval
     {
-        return $this->intervalComparator->smallest($this->initialInterval, $this->spinner?->getInterval());
+        return $this->intervalComparator->smallest(
+            $this->initialInterval,
+            $this->spinner?->getInterval(),
+        );
     }
 
     public function update(ISubject $subject): void
     {
         if ($this->spinner === $subject) {
-            $this->interval = $this->recalculateInterval();
+            $this->interval = $this->smallestInterval();
             $this->notify();
         }
     }
@@ -120,20 +104,7 @@ final class Driver extends ADriver
     public function render(?float $dt = null): void
     {
         if ($this->spinner) {
-            // $this->renderer->render($this->spinner, $dt);
-
-            $frame =
-                $this->spinner->getFrame(
-                    $dt ?? $this->deltaTimer->getDelta()
-                );
-
-            $this->state = $this->createState(
-                $frame->sequence(),
-                $frame->width(),
-                $this->state->getWidth(),
-            );
-
-            $this->stateWriter->write($this->state);
+            $this->renderer->render($this->spinner, $dt);
         }
     }
 }

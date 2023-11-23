@@ -65,7 +65,6 @@ final class DriverBuilder implements IDriverBuilder
         $this->validate();
 
         return new Driver(
-            stateWriter: $this->sequenceStateWriter,
             renderer: $this->renderer,
             stateBuilder: $this->sequenceStateBuilder,
             deltaTimer: $this->deltaTimer,
