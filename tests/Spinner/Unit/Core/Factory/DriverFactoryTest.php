@@ -113,19 +113,8 @@ final class DriverFactoryTest extends TestCase
         $driverBuilder = $this->getDriverBuilderMock();
         $driverBuilder
             ->expects(self::once())
-            ->method('withSequenceStateWriter')
-            ->willReturnSelf()
-        ;
-        $driverBuilder
-            ->expects(self::once())
             ->method('withDeltaTimer')
             ->with(self::isInstanceOf(IDeltaTimer::class))
-            ->willReturnSelf()
-        ;
-        $driverBuilder
-            ->expects(self::once())
-            ->method('withSequenceStateBuilder')
-            ->with(self::identicalTo($sequenceStateBuilder))
             ->willReturnSelf()
         ;
         $driverBuilder
@@ -158,28 +147,12 @@ final class DriverFactoryTest extends TestCase
             ->willReturn($driver)
         ;
 
-        $timerFactory = $this->getTimerFactoryMock();
-        $timerFactory
-            ->expects(self::once())
-            ->method('create')
-            ->willReturn($this->getTimerMock())
-        ;
-
-        $sequenceStateWriterFactory = $this->getSequenceStateWriterFactoryMock();
-        $sequenceStateWriterFactory
-            ->expects(self::once())
-            ->method('create')
-            ->willReturn($this->getSequenceStateWriterMock())
-        ;
-
         $intervalComparator = $this->getIntervalComparatorMock();
 
         $driverFactory =
             $this->getTesteeInstance(
                 driverBuilder: $driverBuilder,
                 intervalFactory: $intervalFactory,
-                sequenceStateWriterFactory: $sequenceStateWriterFactory,
-                timerFactory: $timerFactory,
                 intervalComparator: $intervalComparator,
                 sequenceStateBuilder: $sequenceStateBuilder,
                 driverMessages: $driverMessages,

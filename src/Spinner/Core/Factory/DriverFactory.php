@@ -33,12 +33,6 @@ final readonly class DriverFactory implements IDriverFactory
     public function create(): IDriver
     {
         return $this->driverBuilder
-            ->withSequenceStateWriter(
-                $this->sequenceStateWriterFactory->create()
-            )
-            ->withSequenceStateBuilder(
-                $this->sequenceStateBuilder
-            )
             ->withDeltaTimer(
                 $this->timerFactory->create()
             )

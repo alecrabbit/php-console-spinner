@@ -23,11 +23,7 @@ interface IDriverBuilder
 
     public function withDeltaTimer(IDeltaTimer $timer): IDriverBuilder;
 
-    public function withSequenceStateWriter(ISequenceStateWriter $sequenceStateWriter): IDriverBuilder;
-
     public function withObserver(IObserver $observer): IDriverBuilder;
-
-    public function withSequenceStateBuilder(ISequenceStateBuilder $sequenceStateBuilder): IDriverBuilder;
 
     public function withIntervalComparator(IIntervalComparator $intervalComparator): IDriverBuilder;
 

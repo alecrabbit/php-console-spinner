@@ -23,21 +23,12 @@ use AlecRabbit\Spinner\Exception\LogicException;
  */
 final class DriverBuilder implements IDriverBuilder
 {
-    private ?ISequenceStateWriter $sequenceStateWriter = null;
     private ?IDeltaTimer $deltaTimer = null;
     private ?IInterval $initialInterval = null;
     private ?IObserver $observer = null;
     private ?IDriverMessages $driverMessages = null;
     private ?IIntervalComparator $intervalComparator = null;
-    private ?ISequenceStateBuilder $sequenceStateBuilder = null;
     private ?IRenderer $renderer = null;
-
-    public function withSequenceStateWriter(ISequenceStateWriter $sequenceStateWriter): IDriverBuilder
-    {
-        $clone = clone $this;
-        $clone->sequenceStateWriter = $sequenceStateWriter;
-        return $clone;
-    }
 
     public function withDeltaTimer(IDeltaTimer $timer): IDriverBuilder
     {
@@ -81,21 +72,12 @@ final class DriverBuilder implements IDriverBuilder
     {
         match (true) {
             $this->renderer === null => throw new LogicException('Renderer is not set.'),
-            $this->sequenceStateWriter === null => throw new LogicException('SequenceStateWriter is not set.'),
-            $this->sequenceStateBuilder === null => throw new LogicException('SequenceStateBuilder is not set.'),
             $this->deltaTimer === null => throw new LogicException('Timer is not set.'),
             $this->initialInterval === null => throw new LogicException('InitialInterval is not set.'),
             $this->driverMessages === null => throw new LogicException('DriverMessages is not set.'),
             $this->intervalComparator === null => throw new LogicException('IntervalComparator is not set.'),
             default => null,
         };
-    }
-
-    public function withSequenceStateBuilder(ISequenceStateBuilder $sequenceStateBuilder): IDriverBuilder
-    {
-        $clone = clone $this;
-        $clone->sequenceStateBuilder = $sequenceStateBuilder;
-        return $clone;
     }
 
     public function withIntervalComparator(IIntervalComparator $intervalComparator): IDriverBuilder
