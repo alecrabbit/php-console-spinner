@@ -37,9 +37,9 @@ $registry->bind(
     new ServiceDefinition(IDriverLinkerWithOutputFactory::class, DriverLinkerWithOutputFactory::class),
 );
 
-$container = (new ContainerFactory($registry))->create();
-
-Facade::useContainer($container);
+//$container = (new ContainerFactory($registry))->create();
+//
+//Facade::useContainer($container);
 
 register_shutdown_function(
     static function (): void {

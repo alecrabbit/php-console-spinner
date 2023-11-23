@@ -51,7 +51,7 @@ foreach (getDefinitions() as $id => $definition) {
     );
 }
 
-$container = (new ContainerFactory($registry))->create();
-
-Facade::useContainer($container);
+//$container = (new ContainerFactory($registry))->create();
+//
+//Facade::useContainer($container);
 // @codeCoverageIgnoreEnd

@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Container\A;
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Container\Adapter\ContainerAdapter;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\Spinner\Unit\Container\A\Override\AContainerEnclosureOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -39,6 +40,21 @@ final class AContainerEnclosureTest extends TestCase
     }
 
     #[Test]
+    public function canUseContainerFactory(): void
+    {
+        $factoryClass = $this->getContainerFactoryMock();
+
+        AContainerEnclosure::useContainerFactory($factoryClass::class);
+
+        self::assertInstanceOf(IContainer::class, self::extractContainer());
+    }
+
+    private function getContainerFactoryMock(): MockObject&IContainerFactory
+    {
+        return $this->createMock(IContainerFactory::class);
+    }
+
+    #[Test]
     public function canUseContainerAdapter(): void
     {
         $container = $this->getContainerInterfaceMock();
@@ -53,15 +69,6 @@ final class AContainerEnclosureTest extends TestCase
     private function getContainerInterfaceMock(): MockObject&ContainerInterface
     {
         return $this->createMock(ContainerInterface::class);
-    }
-
-    #[Test]
-    public function throwsExceptionWhenContainerIsNotSet(): void
-    {
-        $this->expectException(ContainerException::class);
-        $this->expectExceptionMessage('Container is not set.');
-
-        self::extractContainer();
     }
 
     protected function setUp(): void
