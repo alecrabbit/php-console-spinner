@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -29,6 +30,7 @@ final class DriverBuilder implements IDriverBuilder
     private ?IDriverMessages $driverMessages = null;
     private ?IIntervalComparator $intervalComparator = null;
     private ?ISequenceStateBuilder $sequenceStateBuilder = null;
+    private ?IRenderer $renderer = null;
 
     public function withSequenceStateWriter(ISequenceStateWriter $sequenceStateWriter): IDriverBuilder
     {
@@ -64,6 +66,7 @@ final class DriverBuilder implements IDriverBuilder
 
         return new Driver(
             stateWriter: $this->sequenceStateWriter,
+            renderer: $this->renderer,
             stateBuilder: $this->sequenceStateBuilder,
             deltaTimer: $this->deltaTimer,
             initialInterval: $this->initialInterval,
@@ -79,6 +82,7 @@ final class DriverBuilder implements IDriverBuilder
     private function validate(): void
     {
         match (true) {
+            $this->renderer === null => throw new LogicException('Renderer is not set.'),
             $this->sequenceStateWriter === null => throw new LogicException('SequenceStateWriter is not set.'),
             $this->sequenceStateBuilder === null => throw new LogicException('SequenceStateBuilder is not set.'),
             $this->deltaTimer === null => throw new LogicException('Timer is not set.'),
@@ -107,6 +111,13 @@ final class DriverBuilder implements IDriverBuilder
     {
         $clone = clone $this;
         $clone->driverMessages = $driverMessages;
+        return $clone;
+    }
+
+    public function withRenderer(IRenderer $renderer): IDriverBuilder
+    {
+        $clone = clone $this;
+        $clone->renderer = $renderer;
         return $clone;
     }
 }

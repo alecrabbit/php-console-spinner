@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Root;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
@@ -168,6 +169,7 @@ use AlecRabbit\Spinner\Core\Loop\LoopSetup;
 use AlecRabbit\Spinner\Core\Output\BufferedOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\Factory\IResourceStreamFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
+use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Spinner\Core\Output\Factory\ResourceStreamFactory;
 use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
@@ -263,7 +265,20 @@ function getDefinitions(): Traversable
             },
             IServiceDefinition::SINGLETON,
         ),
-
+        new ServiceDefinition(
+            ISequenceStateWriter::class,
+            static function (IContainer $container): ISequenceStateWriter {
+                return $container->get(ISequenceStateWriterFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            IDeltaTimer::class,
+            static function (IContainer $container): IDeltaTimer {
+                return $container->get(IDeltaTimerFactory::class)->create();
+            },
+            IServiceDefinition::SINGLETON,
+        ),
         IRenderer::class => Renderer::class,
         NormalizerMode::class => static function (IContainer $container): NormalizerMode {
             return $container->get(INormalizerConfig::class)->getNormalizerMode();

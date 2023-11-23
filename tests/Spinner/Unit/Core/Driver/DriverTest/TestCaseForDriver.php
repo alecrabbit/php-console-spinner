@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
@@ -23,6 +24,7 @@ use PHPUnit\Framework\MockObject\Stub;
 class TestCaseForDriver extends TestCase
 {
     public function getTesteeInstance(
+        ?IRenderer $renderer = null,
         ?IDeltaTimer $deltaTimer = null,
         ?ISequenceStateWriter $stateWriter = null,
         ?ISequenceStateBuilder $stateBuilder = null,
@@ -33,6 +35,7 @@ class TestCaseForDriver extends TestCase
     ): IDriver {
         return new Driver(
             stateWriter: $stateWriter ?? $this->getSequenceStateWriterMock(),
+            renderer: $renderer ?? $this->getRendererMock(),
             stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
             deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
@@ -95,5 +98,10 @@ class TestCaseForDriver extends TestCase
     protected function getSpinnerStub(): Stub&ISpinner
     {
         return $this->createStub(ISpinner::class);
+    }
+
+    protected function getRendererMock(): MockObject&IRenderer
+    {
+        return $this->createMock(IRenderer::class);
     }
 }

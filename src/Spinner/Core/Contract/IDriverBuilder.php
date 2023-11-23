@@ -32,4 +32,6 @@ interface IDriverBuilder
     public function withIntervalComparator(IIntervalComparator $intervalComparator): IDriverBuilder;
 
     public function withDriverMessages(IDriverMessages $driverMessages): IDriverBuilder;
+
+    public function withRenderer(IRenderer $renderer): IDriverBuilder;
 }

@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use Closure;
@@ -19,10 +20,11 @@ abstract class ADriver extends ASubject implements IDriver
 {
     protected IInterval $interval;
 
-    public function __construct(
-        protected readonly IDriverMessages $driverMessages,
-        protected readonly IDeltaTimer $deltaTimer,
+    protected function __construct(
         protected readonly IInterval $initialInterval,
+        protected readonly IDriverMessages $driverMessages,
+        protected readonly IRenderer $renderer,
+        protected readonly IDeltaTimer $deltaTimer,
         protected readonly ISequenceStateWriter $stateWriter,
         protected readonly ISequenceStateBuilder $stateBuilder,
         ?IObserver $observer = null,

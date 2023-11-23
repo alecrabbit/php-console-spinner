@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
@@ -23,6 +24,7 @@ final class Driver extends ADriver
 
     public function __construct(
         ISequenceStateWriter $stateWriter,
+        IRenderer $renderer,
         ISequenceStateBuilder $stateBuilder,
         IDeltaTimer $deltaTimer,
         IInterval $initialInterval,
@@ -31,9 +33,10 @@ final class Driver extends ADriver
         ?IObserver $observer = null
     ) {
         parent::__construct(
-            driverMessages: $driverMessages,
-            deltaTimer: $deltaTimer,
             initialInterval: $initialInterval,
+            driverMessages: $driverMessages,
+            renderer: $renderer,
+            deltaTimer: $deltaTimer,
             stateWriter: $stateWriter,
             stateBuilder: $stateBuilder,
             observer: $observer,

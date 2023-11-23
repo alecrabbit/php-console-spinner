@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
@@ -25,6 +26,7 @@ final readonly class DriverFactory implements IDriverFactory
         private IIntervalComparator $intervalComparator,
         private ISequenceStateWriterFactory $sequenceStateWriterFactory,
         private ISequenceStateBuilder $sequenceStateBuilder,
+        private IRenderer $renderer,
     ) {
     }
 
@@ -45,6 +47,7 @@ final readonly class DriverFactory implements IDriverFactory
             )
             ->withDriverMessages($this->driverMessages)
             ->withIntervalComparator($this->intervalComparator)
+            ->withRenderer($this->renderer)
             ->build()
         ;
     }

@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
@@ -68,6 +69,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
      * Get testee instance derived from abstract class ADriver.
      */
     public function getTesteeInstance(
+        ?IRenderer $renderer = null,
         ?IDeltaTimer $deltaTimer = null,
         ?ISequenceStateWriter $stateWriter = null,
         ?ISequenceStateBuilder $stateBuilder = null,
@@ -79,6 +81,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
     ): IDriver {
         return
             new class(
+                renderer: $renderer ?? $this->getRendererMock(),
                 driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
                 deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
                 initialInterval: $initialInterval ?? $this->getIntervalMock(),
@@ -89,6 +92,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                 observer: $observer,
             ) extends ADriver {
                 public function __construct(
+                    IRenderer $renderer,
                     IDriverMessages $driverMessages,
                     IDeltaTimer $deltaTimer,
                     IInterval $initialInterval,
@@ -99,12 +103,13 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                     ?IObserver $observer = null,
                 ) {
                     parent::__construct(
-                        $driverMessages,
-                        $deltaTimer,
-                        $initialInterval,
-                        $stateWriter,
-                        $stateBuilder,
-                        $observer
+                        initialInterval: $initialInterval,
+                        driverMessages: $driverMessages,
+                        renderer: $renderer,
+                        deltaTimer: $deltaTimer,
+                        stateWriter: $stateWriter,
+                        stateBuilder: $stateBuilder,
+                        observer: $observer
                     );
                 }
 

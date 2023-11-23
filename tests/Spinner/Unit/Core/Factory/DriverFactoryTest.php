@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
@@ -42,6 +43,7 @@ final class DriverFactoryTest extends TestCase
         ?IIntervalComparator $intervalComparator = null,
         ?ISequenceStateBuilder $sequenceStateBuilder = null,
         ?IDriverMessages $driverMessages = null,
+        ?IRenderer $renderer = null,
     ): IDriverFactory {
         return
             new DriverFactory(
@@ -52,6 +54,7 @@ final class DriverFactoryTest extends TestCase
                 intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
                 sequenceStateWriterFactory: $sequenceStateWriterFactory ?? $this->getSequenceStateWriterFactoryMock(),
                 sequenceStateBuilder: $sequenceStateBuilder ?? $this->getSequenceStateBuilderMock(),
+                renderer: $renderer ?? $this->getRendererMock(),
             );
     }
 
@@ -145,6 +148,12 @@ final class DriverFactoryTest extends TestCase
         ;
         $driverBuilder
             ->expects(self::once())
+            ->method('withRenderer')
+            ->with(self::isInstanceOf(IRenderer::class))
+            ->willReturnSelf()
+        ;
+        $driverBuilder
+            ->expects(self::once())
             ->method('build')
             ->willReturn($driver)
         ;
@@ -212,5 +221,10 @@ final class DriverFactoryTest extends TestCase
     private function getDriverConfigMock(): MockObject&IDriverConfig
     {
         return $this->createMock(IDriverConfig::class);
+    }
+
+    private function getRendererMock(): MockObject&IRenderer
+    {
+        return $this->createMock(IRenderer::class);
     }
 }
