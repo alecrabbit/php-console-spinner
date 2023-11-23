@@ -5,11 +5,9 @@ declare(strict_types=1);
 require_once __DIR__ . '/../container.php';
 
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
-use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
-use AlecRabbit\Spinner\Facade;
 
 $registry = DefinitionRegistry::getInstance();
 
@@ -25,6 +23,7 @@ $registry->bind(
         }
     ),
 );
+
 $registry->bind(
     new ServiceDefinition(
         IDeltaTimer::class,
@@ -37,9 +36,3 @@ $registry->bind(
         }
     ),
 );
-
-$container = (new ContainerFactory($registry))->create();
-
-Facade::useContainer($container);
-
-return $container;

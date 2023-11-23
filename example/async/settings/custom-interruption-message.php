@@ -6,7 +6,7 @@ use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Messages;
 use AlecRabbit\Spinner\Facade;
 
-require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../bootstrap.async.php';
 
 Facade::getSettings()
     ->set(
@@ -21,8 +21,3 @@ Facade::getSettings()
 echo PHP_EOL . 'Press CTRL+C to interrupt.' . PHP_EOL . PHP_EOL;
 
 $spinner = Facade::createSpinner();
-
-// perform example unrelated actions:
-require_once __DIR__ . '/../bootstrap.async.php';
-
-//dump($spinner);

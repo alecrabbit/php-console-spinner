@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkResultsFactory;
-use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\Factory\ReportFactory;
 use AlecRabbit\Lib\Helper\MemoryUsage;
+use AlecRabbit\Lib\Spinner\BenchmarkFacade;
 use AlecRabbit\Lib\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Facade;
@@ -14,7 +13,7 @@ use AlecRabbit\Spinner\Probes;
 const CYCLES = 2_000_000;
 const PROGRESS_EVERY_CYCLES = CYCLES / 10;
 
-$container = require __DIR__ . '/container.sync.php';
+require __DIR__ . '/container.sync.php';
 
 // unregister all loop probes
 Probes::unregister(ILoopProbe::class);
@@ -65,8 +64,7 @@ $driver->wrap(static fn() => null);
 $driver->finalize();
 
 // Print report:
-/** @var IBenchmarkResultsFactory $benchmarkResultsFactory */
-$benchmarkResultsFactory = $container->get(IBenchmarkResultsFactory::class);
+$benchmarkResultsFactory = BenchmarkFacade::getBenchmarkResultsFactory();
 
 $benchmarkResults =
     $benchmarkResultsFactory
@@ -77,7 +75,7 @@ $benchmarkResults =
         )
 ;
 
-$reportPrinter = $container->get(IReportPrinter::class);
+$reportPrinter = BenchmarkFacade::getReportPrinter();
 
 $title = sprintf('%s cycles', CYCLES);
 

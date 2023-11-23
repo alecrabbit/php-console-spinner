@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\DriverTest;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver\DriverTest;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
@@ -10,10 +10,10 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
@@ -26,27 +26,27 @@ final class MethodWrapDriverTest extends TestCaseForDriver
     #[Test]
     public function canWrap(): void
     {
-        $state = $this->getSequenceStateMock();
-
-        $stateWriter = $this->getSequenceStateWriterMock();
+        $spinner = $this->getSpinnerMock();
+        $renderer = $this->getRendererMock();
         // Make sure method erase() is called. See ADriver::wrap()
-        $stateWriter
+        $renderer
             ->expects(self::once())
             ->method('erase')
-            ->with(self::identicalTo($state))
+            ->with(self::identicalTo($spinner))
         ;
         // Make sure method render() is called. See ADriver::wrap()
-        $stateWriter
+        $renderer
             ->expects(self::once())
-            ->method('write')
-            ->with(self::identicalTo($state))
+            ->method('render')
+            ->with(self::identicalTo($spinner), self::isNull())
         ;
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $stateWriter,
-                state: $state,
+                renderer: $renderer,
+                spinner: $spinner,
             );
+
 
         $counter = 0;
         $callback = static function () use (&$counter) {
@@ -69,6 +69,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
      * Get testee instance derived from abstract class ADriver.
      */
     public function getTesteeInstance(
+        ?IRenderer $renderer = null,
         ?IDeltaTimer $deltaTimer = null,
         ?ISequenceStateWriter $stateWriter = null,
         ?ISequenceStateBuilder $stateBuilder = null,
@@ -76,47 +77,46 @@ final class MethodWrapDriverTest extends TestCaseForDriver
         ?IDriverMessages $driverMessages = null,
         ?IIntervalComparator $intervalComparator = null,
         ?IObserver $observer = null,
-        ?ISequenceState $state = null,
+        ?ISpinner $spinner = null,
     ): IDriver {
         return
             new class(
+                renderer: $renderer ?? $this->getRendererMock(),
                 driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
                 deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
                 initialInterval: $initialInterval ?? $this->getIntervalMock(),
-                stateWriter: $stateWriter ?? $this->getSequenceStateWriterMock(),
                 stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
-                state: $state ?? $this->getSequenceStateMock(),
+                spinner: $spinner ?? $this->getSpinnerMock(),
                 intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
                 observer: $observer,
             ) extends ADriver {
                 public function __construct(
+                    IRenderer $renderer,
                     IDriverMessages $driverMessages,
                     IDeltaTimer $deltaTimer,
                     IInterval $initialInterval,
-                    ISequenceStateWriter $stateWriter,
                     ISequenceStateBuilder $stateBuilder,
                     IIntervalComparator $intervalComparator,
-                    private readonly ISequenceState $state,
+                    private readonly ISpinner $spinner,
                     ?IObserver $observer = null,
                 ) {
                     parent::__construct(
-                        $driverMessages,
-                        $deltaTimer,
-                        $initialInterval,
-                        $stateWriter,
-                        $stateBuilder,
-                        $observer
+                        initialInterval: $initialInterval,
+                        driverMessages: $driverMessages,
+                        renderer: $renderer,
+                        deltaTimer: $deltaTimer,
+                        observer: $observer
                     );
                 }
 
                 protected function erase(): void
                 {
-                    $this->stateWriter->erase($this->state);
+                    $this->renderer->erase($this->spinner);
                 }
 
                 public function render(?float $dt = null): void
                 {
-                    $this->stateWriter->write($this->state);
+                    $this->renderer->render($this->spinner, $dt);
                 }
 
                 public function add(ISpinner $spinner): void

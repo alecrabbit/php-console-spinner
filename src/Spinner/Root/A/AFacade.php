@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Root\Contract\IFacade;
 
-abstract class AFacade extends AContainerEnclosure implements IFacade
+abstract class AFacade extends AContainerEnclosure
 {
     protected static function getSpinnerFactory(): ISpinnerFactory
     {

@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Functional\Core\Driver;
 
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\IntervalComparator;
-use AlecRabbit\Tests\Spinner\Unit\Core\DriverTest\TestCaseForDriver;
+use AlecRabbit\Tests\Spinner\Unit\Core\Driver\DriverTest\TestCaseForDriver;
 use PHPUnit\Framework\Attributes\Test;
 
 final class DriverTest extends TestCaseForDriver

@@ -2,20 +2,22 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\DriverTest;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver\DriverTest;
 
 use PHPUnit\Framework\Attributes\Test;
 
-final class MethodUpdateDriverTest extends TestCaseForDriver
+final class MethodRemoveDriverTest extends TestCaseForDriver
 {
     #[Test]
-    public function canUpdate(): void
+    public function canRemove(): void
     {
         $observer = $this->getObserverMock();
+
         $driver =
             $this->getTesteeInstance(
                 observer: $observer,
             );
+
         $spinner = $this->getSpinnerMock();
 
         $driver->add($spinner);
@@ -25,7 +27,12 @@ final class MethodUpdateDriverTest extends TestCaseForDriver
             ->method('update')
             ->with($driver)
         ;
+        $spinner
+            ->expects(self::once())
+            ->method('detach')
+            ->with($driver)
+        ;
 
-        $driver->update($spinner);
+        $driver->remove($spinner);
     }
 }

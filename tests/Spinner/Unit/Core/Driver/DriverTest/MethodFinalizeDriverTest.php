@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\DriverTest;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver\DriverTest;
 
-use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class MethodFinalizeDriverTest extends TestCaseForDriver
 {
@@ -15,8 +13,8 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     {
         $finalMessage = 'finalMessage';
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
             ->with(self::equalTo($finalMessage))
@@ -24,7 +22,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter
+                renderer: $renderer
             );
 
         $driver->initialize();
@@ -36,8 +34,8 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     {
         $finalMessage = '';
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
             ->with(self::equalTo($finalMessage))
@@ -45,7 +43,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter
+                renderer: $renderer
             );
 
         $driver->initialize();
@@ -63,8 +61,8 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
             ->willReturn($message)
         ;
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
             ->with(self::identicalTo($message))
@@ -72,7 +70,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter,
+                renderer: $renderer,
                 driverMessages: $driverMessages,
             );
 
@@ -86,15 +84,15 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     {
         $finalMessage = 'finalMessage';
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter
+                renderer: $renderer
             );
 
         $driver->finalize($finalMessage);
@@ -103,14 +101,14 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     #[Test]
     public function canFinalizeUninitializedWithNoMessage(): void
     {
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
         ;
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter
+                renderer: $renderer
             );
 
         $driver->finalize();
@@ -119,15 +117,15 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     #[Test]
     public function erasesAllAddedSpinners(): void
     {
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::exactly(2))
             ->method('erase')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter
+                renderer: $renderer
             );
 
         $driver->initialize();

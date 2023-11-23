@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkResultsFactory;
-use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Benchmark\Factory\ReportFactory;
 use AlecRabbit\Lib\Helper\MemoryUsage;
+use AlecRabbit\Lib\Spinner\BenchmarkFacade;
 use AlecRabbit\Lib\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Spinner\Facade;
@@ -15,7 +14,7 @@ use AlecRabbit\Spinner\Probes;
 const RUNTIME = 600;
 const MEMORY_REPORT_INTERVAL = 60;
 
-$container = require __DIR__ . '/../container.php';
+require __DIR__ . '/../container.php';
 
 // Pick ONE of the following event loops:
 Probes::unregister(ReactLoopProbe::class);
@@ -40,8 +39,7 @@ $echo =
         }
     );
 
-/** @var IBenchmarkResultsFactory $benchmarkResultsFactory */
-$benchmarkResultsFactory = $container->get(IBenchmarkResultsFactory::class);
+$benchmarkResultsFactory = BenchmarkFacade::getBenchmarkResultsFactory();
 
 $benchmarkResults =
     $benchmarkResultsFactory
@@ -52,8 +50,7 @@ $benchmarkResults =
         )
 ;
 
-// Create report function:
-$reportPrinter = $container->get(IReportPrinter::class);
+$reportPrinter = BenchmarkFacade::getReportPrinter();
 
 $reportObject =
     (new ReportFactory(benchmarkResults: $benchmarkResults, title: 'Benchmarking'))

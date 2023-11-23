@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Settings\SignalHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\SignalHandlerSettings;
 use AlecRabbit\Spinner\Facade;
 
-require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../bootstrap.async.php';
 
 $handlerCreator =
     new class() implements IHandlerCreator {

@@ -20,6 +20,3 @@ Facade::getSettings()
 ;
 
 $spinner = Facade::createSpinner();
-
-//// perform example unrelated actions:
-//require_once __DIR__ . '/../bootstrap.async.php';

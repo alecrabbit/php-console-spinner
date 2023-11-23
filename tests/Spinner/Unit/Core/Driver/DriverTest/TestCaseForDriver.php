@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\DriverTest;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver\DriverTest;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
@@ -23,6 +24,7 @@ use PHPUnit\Framework\MockObject\Stub;
 class TestCaseForDriver extends TestCase
 {
     public function getTesteeInstance(
+        ?IRenderer $renderer = null,
         ?IDeltaTimer $deltaTimer = null,
         ?ISequenceStateWriter $stateWriter = null,
         ?ISequenceStateBuilder $stateBuilder = null,
@@ -32,12 +34,11 @@ class TestCaseForDriver extends TestCase
         ?IObserver $observer = null,
     ): IDriver {
         return new Driver(
-            stateWriter: $stateWriter ?? $this->getSequenceStateWriterMock(),
-            stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
-            deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
             driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
+            renderer: $renderer ?? $this->getRendererMock(),
             intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
+            deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             observer: $observer,
         );
     }
@@ -95,5 +96,10 @@ class TestCaseForDriver extends TestCase
     protected function getSpinnerStub(): Stub&ISpinner
     {
         return $this->createStub(ISpinner::class);
+    }
+
+    protected function getRendererMock(): MockObject&IRenderer
+    {
+        return $this->createMock(IRenderer::class);
     }
 }

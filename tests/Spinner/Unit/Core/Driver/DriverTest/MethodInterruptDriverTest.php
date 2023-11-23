@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\DriverTest;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver\DriverTest;
 
-use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class MethodInterruptDriverTest extends TestCaseForDriver
 {
@@ -15,8 +13,8 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
     {
         $interruptMessage = 'interruptMessage';
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
             ->with(self::equalTo($interruptMessage))
@@ -24,7 +22,7 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter
+                renderer: $renderer
             );
 
         $driver->initialize();
@@ -42,8 +40,8 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
             ->willReturn($message)
         ;
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
             ->with(self::identicalTo($message))
@@ -51,7 +49,7 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter,
+                renderer: $renderer,
                 driverMessages: $driverMessages,
             );
 
@@ -64,15 +62,15 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
     {
         $interruptMessage = 'interruptMessage';
 
-        $sequenceStateWriter = $this->getSequenceStateWriterMock();
-        $sequenceStateWriter
+        $renderer = $this->getRendererMock();
+        $renderer
             ->expects(self::once())
             ->method('finalize')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                stateWriter: $sequenceStateWriter
+                renderer: $renderer
             );
 
         $driver->interrupt($interruptMessage);

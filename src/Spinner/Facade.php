@@ -11,8 +11,9 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Root\A\AFacade;
+use AlecRabbit\Spinner\Root\Contract\IFacade;
 
-final class Facade extends AFacade
+final class Facade extends AFacade implements IFacade
 {
     public static function getLoop(): ILoop
     {
