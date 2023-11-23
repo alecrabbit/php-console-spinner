@@ -18,21 +18,8 @@ use Psr\Container\ContainerInterface;
 final class AContainerEnclosureTest extends TestCase
 {
     private const GET_CONTAINER = 'getContainer';
+    private const USE_CONTAINER = 'useContainer';
     private static ?ContainerInterface $container;
-
-    #[Test]
-    public function canUseContainer(): void
-    {
-        $container = $this->getContainerMock();
-        AContainerEnclosure::useContainer($container);
-
-        self::assertSame($container, self::extractContainer());
-    }
-
-    private function getContainerMock(): MockObject&IContainer
-    {
-        return $this->createMock(IContainer::class);
-    }
 
     protected static function extractContainer(): mixed
     {
@@ -54,23 +41,6 @@ final class AContainerEnclosureTest extends TestCase
         return $this->createMock(IContainerFactory::class);
     }
 
-    #[Test]
-    public function canUseContainerAdapter(): void
-    {
-        $container = $this->getContainerInterfaceMock();
-        AContainerEnclosure::useContainer($container);
-
-        $extractedContainer = self::extractContainer();
-
-        self::assertInstanceOf(ContainerAdapter::class, $extractedContainer);
-        self::assertSame($container, self::getPropertyValue('container', $extractedContainer));
-    }
-
-    private function getContainerInterfaceMock(): MockObject&ContainerInterface
-    {
-        return $this->createMock(ContainerInterface::class);
-    }
-
     protected function setUp(): void
     {
         self::$container = self::extractContainer();
@@ -80,7 +50,8 @@ final class AContainerEnclosureTest extends TestCase
 
     protected static function setContainer(?ContainerInterface $container): void
     {
-        AContainerEnclosure::useContainer($container);
+        // FIXME (2023-11-23 17:27) [Alec Rabbit]: to set container call `useContainerFactory` instead
+        self::callMethod(AContainerEnclosureOverride::class, self::USE_CONTAINER, $container);
     }
 
     protected function tearDown(): void

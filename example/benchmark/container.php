@@ -37,12 +37,10 @@ use AlecRabbit\Lib\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
 use AlecRabbit\Lib\Spinner\Factory\BenchmarkingDriverFactory;
 use AlecRabbit\Lib\Spinner\Factory\BenchmarkingDriverProviderFactory;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
-use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Core\Output\Output;
-use AlecRabbit\Spinner\Facade;
 use Psr\Container\ContainerInterface;
 
 $registry = DefinitionRegistry::getInstance();
@@ -99,9 +97,3 @@ $registry->bind(
         }
     )
 );
-
-$container = (new ContainerFactory($registry))->create();
-
-Facade::useContainer($container);
-
-return $container;

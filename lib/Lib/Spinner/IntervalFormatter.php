@@ -9,9 +9,7 @@ use AlecRabbit\Spinner\Contract\IHasInterval;
 
 final readonly class IntervalFormatter implements IIntervalFormatter
 {
-    /**
-     * @inheritDoc
-     */
+    /** @inheritDoc */
     public function format(IHasInterval $object): string
     {
         return sprintf(

@@ -27,10 +27,7 @@ abstract class AContainerEnclosure
         // No instances allowed.
     }
 
-    /**
-     * @deprecated
-     */
-    public static function useContainer(?ContainerInterface $container): void
+    protected static function useContainer(?ContainerInterface $container): void
     {
         if ($container instanceof IContainer) {
             self::$container = $container;
@@ -62,6 +59,7 @@ abstract class AContainerEnclosure
 
     final protected static function getContainer(): IContainer
     {
+        dump(__METHOD__);
         return self::$container ?? self::createContainer();
     }
 

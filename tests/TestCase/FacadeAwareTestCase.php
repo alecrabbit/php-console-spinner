@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Facade;
+use AlecRabbit\Tests\Spinner\Unit\Container\A\Override\AContainerEnclosureOverride;
 use Psr\Container\ContainerInterface;
 
 abstract class FacadeAwareTestCase extends TestCase
 {
     private const GET_CONTAINER = 'getContainer';
+    private const USE_CONTAINER = 'useContainer';
     private static ?ContainerInterface $container;
 
     protected static function getStoredContainer(): ?ContainerInterface
@@ -31,7 +33,8 @@ abstract class FacadeAwareTestCase extends TestCase
 
     protected static function setContainer(?ContainerInterface $container): void
     {
-        Facade::useContainer($container);
+        // FIXME (2023-11-23 17:27) [Alec Rabbit]: to set container call `useContainerFactory` instead
+        self::callMethod(Facade::class, self::USE_CONTAINER, $container);
     }
 
     protected function tearDown(): void
