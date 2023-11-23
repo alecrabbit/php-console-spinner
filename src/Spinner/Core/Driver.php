@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
@@ -40,15 +39,18 @@ final class Driver extends ADriver
             observer: $observer,
         );
 
-        $this->state = $this->initialState();
+        $this->state = $this->createState();
     }
 
-    private function initialState(): ISequenceState
-    {
+    private function createState(
+        string $sequence = '',
+        int $width = 0,
+        int $previousWidth = 0
+    ): ISequenceState {
         return $this->stateBuilder
-            ->withSequence('')
-            ->withWidth(0)
-            ->withPreviousWidth(0)
+            ->withSequence($sequence)
+            ->withWidth($width)
+            ->withPreviousWidth($previousWidth)
             ->build()
         ;
     }
@@ -63,13 +65,7 @@ final class Driver extends ADriver
 
         $frame = $spinner->getFrame();
 
-        $this->state =
-            $this->stateBuilder
-                ->withSequence($frame->sequence())
-                ->withWidth($frame->width())
-                ->withPreviousWidth(0)
-                ->build()
-        ;
+        $this->state = $this->createState($frame->sequence(), $frame->width());
 
         $this->spinner = $spinner;
         $spinner->attach($this);
@@ -125,13 +121,11 @@ final class Driver extends ADriver
                     $dt ?? $this->deltaTimer->getDelta()
                 );
 
-            $this->state =
-                $this->stateBuilder
-                    ->withSequence($frame->sequence())
-                    ->withWidth($frame->width())
-                    ->withPreviousWidth($this->state->getWidth())
-                    ->build()
-            ;
+            $this->state = $this->createState(
+                $frame->sequence(),
+                $frame->width(),
+                $this->state->getWidth(),
+            );
 
             $this->stateWriter->write($this->state);
         }
