@@ -22,7 +22,6 @@ final readonly class ServiceObjectFactory implements Contract\IServiceObjectFact
     {
         return new Service(
             value: $value,
-            serviceDefinition: $serviceDefinition,
             storable: $this->isStorableSolver->isStorable($serviceDefinition),
         );
     }

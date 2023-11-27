@@ -7,6 +7,9 @@ namespace AlecRabbit\Spinner\Core\Loop\Contract\A;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 
+/**
+ * @codeCoverageIgnore
+ */
 abstract class ALoopProbe implements ILoopProbe
 {
     abstract public static function isSupported(): bool;

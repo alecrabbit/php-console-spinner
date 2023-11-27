@@ -60,11 +60,6 @@ final class MethodWrapDriverTest extends TestCaseForDriver
         self::assertEquals(1, $counter);
     }
 
-    private function getSequenceStateMock(): MockObject&ISequenceState
-    {
-        return $this->createMock(ISequenceState::class);
-    }
-
     /**
      * Get testee instance derived from abstract class ADriver.
      */
@@ -139,5 +134,10 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                     throw new RuntimeException('Not implemented. Should not be called.');
                 }
             };
+    }
+
+    private function getSequenceStateMock(): MockObject&ISequenceState
+    {
+        return $this->createMock(ISequenceState::class);
     }
 }

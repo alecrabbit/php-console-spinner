@@ -6,16 +6,14 @@ namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Tests\Spinner\Unit\Container\A\Override\AContainerEnclosureOverride;
-use Psr\Container\ContainerInterface;
 
 abstract class FacadeAwareTestCase extends TestCase
 {
     private const GET_CONTAINER = 'getContainer';
-    private const USE_CONTAINER = 'useContainer';
-    private static ?ContainerInterface $container;
+    private const SET_CONTAINER = 'setContainer';
+    private static ?IContainer $container;
 
-    protected static function getStoredContainer(): ?ContainerInterface
+    protected static function getStoredContainer(): ?IContainer
     {
         return self::$container;
     }
@@ -34,7 +32,7 @@ abstract class FacadeAwareTestCase extends TestCase
 
     protected static function setContainer(?IContainer $container): void
     {
-        self::callMethod(Facade::class, self::USE_CONTAINER, $container);
+        self::callMethod(Facade::class, self::SET_CONTAINER, $container);
     }
 
     protected function tearDown(): void

@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Feature\Resolver;
 
 
 use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
-use AlecRabbit\Spinner\Core\Config\Contract\Detector\IInitializationModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\Detector\ILinkerModeDetector;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\ILinkerResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\LinkerResolver;

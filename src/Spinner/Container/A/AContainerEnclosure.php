@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Container\A;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
+use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
@@ -43,7 +44,7 @@ abstract class AContainerEnclosure
     final protected static function getContainer(): IContainer
     {
         if (self::$container === null) {
-            self::useContainer(self::createContainer());
+            self::$container = self::createContainer();
         }
         return self::$container;
     }
@@ -51,20 +52,23 @@ abstract class AContainerEnclosure
     /**
      * This method is used to override container instance in tests.
      */
-    final protected static function useContainer(?IContainer $container): void
+    final protected static function setContainer(?IContainer $container): void
     {
         self::$container = $container;
     }
 
-    protected static function createContainer(): IContainer
+    private static function createContainer(): IContainer
     {
         return self::getFactory()->create();
     }
 
-    protected static function getFactory(): mixed
+    private static function getFactory(): IContainerFactory
     {
-        $registry = DefinitionRegistry::getInstance();
+        return new (self::$factoryClass)(self::getDefinitionRegistry());
+    }
 
-        return new (self::$factoryClass)($registry);
+    private static function getDefinitionRegistry(): IDefinitionRegistry
+    {
+        return DefinitionRegistry::getInstance();
     }
 }

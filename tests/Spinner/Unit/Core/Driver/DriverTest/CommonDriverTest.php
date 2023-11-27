@@ -42,7 +42,6 @@ final class CommonDriverTest extends TestCaseForDriver
     }
 
 
-
     #[Test]
     public function canAddAndRemoveSpinner(): void
     {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Container\A;
 
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
-use AlecRabbit\Spinner\Container\Adapter\ContainerAdapter;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
@@ -14,17 +13,13 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Container\ContainerInterface;
+use stdClass;
 
 final class AContainerEnclosureTest extends TestCase
 {
     private const GET_CONTAINER = 'getContainer';
-    private const USE_CONTAINER = 'useContainer';
+    private const SET_CONTAINER = 'setContainer';
     private static ?ContainerInterface $container;
-
-    protected static function extractContainer(): mixed
-    {
-        return self::callMethod(AContainerEnclosureOverride::class, self::GET_CONTAINER);
-    }
 
     #[Test]
     public function canUseContainerFactoryClass(): void
@@ -36,10 +31,20 @@ final class AContainerEnclosureTest extends TestCase
         self::assertInstanceOf(IContainer::class, self::extractContainer());
     }
 
+    private function getContainerFactoryMock(): MockObject&IContainerFactory
+    {
+        return $this->createMock(IContainerFactory::class);
+    }
+
+    protected static function extractContainer(): mixed
+    {
+        return self::callMethod(AContainerEnclosureOverride::class, self::GET_CONTAINER);
+    }
+
     #[Test]
     public function throwsIfFactoryClassISInvalid(): void
     {
-        $class = \stdClass::class;
+        $class = stdClass::class;
         $this->expectException(ContainerException::class);
         $this->expectExceptionMessage(
             sprintf(
@@ -51,11 +56,6 @@ final class AContainerEnclosureTest extends TestCase
         AContainerEnclosure::useContainerFactory($class);
     }
 
-    private function getContainerFactoryMock(): MockObject&IContainerFactory
-    {
-        return $this->createMock(IContainerFactory::class);
-    }
-
     protected function setUp(): void
     {
         self::$container = self::extractContainer();
@@ -65,7 +65,7 @@ final class AContainerEnclosureTest extends TestCase
 
     protected static function setContainer(?ContainerInterface $container): void
     {
-        self::callMethod(AContainerEnclosureOverride::class, self::USE_CONTAINER, $container);
+        self::callMethod(AContainerEnclosureOverride::class, self::SET_CONTAINER, $container);
     }
 
     protected function tearDown(): void

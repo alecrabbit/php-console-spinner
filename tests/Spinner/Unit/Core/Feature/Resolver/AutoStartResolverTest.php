@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Feature\Resolver;
 
 
-use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\Detector\IAutoStartModeDetector;
-use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IAutoStartResolver;
+use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
 use AlecRabbit\Spinner\Core\Feature\Resolver\AutoStartResolver;
+use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IAutoStartResolver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -56,7 +56,8 @@ final class AutoStartResolverTest extends TestCase
         $initializationModeDetector = $this->getAutoStartModeDetectorMock();
         $initializationModeDetector
             ->expects(self::never())
-            ->method('isEnabled');
+            ->method('isEnabled')
+        ;
 
         $resolver = $this->getTesteeInstance(
             driverModeDetector: $driverModeDetector,
