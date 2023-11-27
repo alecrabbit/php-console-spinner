@@ -116,7 +116,7 @@ final class FacadeSettingsWidgetSettingsSpinnerTest extends ContainerModifyingTe
     {
         self::setContainer(
             self::modifyContainer(
-                self::getFacadeContainer(),
+                self::extractContainer(),
                 [
                     $id => $definition,
                 ]

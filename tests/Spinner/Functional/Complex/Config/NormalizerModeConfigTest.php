@@ -21,7 +21,7 @@ final class NormalizerModeConfigTest extends ConfigurationTestCase
     {
         self::setContainer(
             self::modifyContainer(
-                self::getFacadeContainer(),
+                self::extractContainer(),
                 [
                     // Detected settings considered as AUTO
                     IDetectedSettingsFactory::class => static function () {

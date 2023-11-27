@@ -20,7 +20,7 @@ final class RunMethodModeConfigTest extends ConfigurationTestCase
     protected static function performContainerModifications(): void
     {
         self::modifyContainer(
-            self::getFacadeContainer(),
+            self::extractContainer(),
             [
                 // Detected settings considered as AUTO
                 IDetectedSettingsFactory::class => static function () {

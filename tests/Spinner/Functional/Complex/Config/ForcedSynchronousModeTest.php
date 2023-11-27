@@ -23,7 +23,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
     protected static function performContainerModifications(): void
     {
         self::modifyContainer(
-            self::getFacadeContainer(),
+            self::extractContainer(),
             [
                 // Detected settings considered as AUTO
                 IDetectedSettingsFactory::class => static function () {
@@ -70,7 +70,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');
 
-        self::getFacadeContainer()
+        self::extractContainer()
             ->get(ILoopProvider::class)
             ->getLoop()
         ;
@@ -100,7 +100,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');
 
-        self::getFacadeContainer()
+        self::extractContainer()
             ->get(ILoopProvider::class)
             ->getLoop()
         ;
@@ -122,7 +122,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');
 
-        self::getFacadeContainer()
+        self::extractContainer()
             ->get(ILoopProvider::class)
             ->getLoop()
         ;
