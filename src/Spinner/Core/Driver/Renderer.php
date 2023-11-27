@@ -54,7 +54,8 @@ final class Renderer implements IRenderer
             $this->state->getWidth(),
         );
 
-        $this->stateWriter->write($this->state);    }
+        $this->stateWriter->write($this->state);
+    }
 
     public function finalize(?string $finalMessage = null): void
     {

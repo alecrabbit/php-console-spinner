@@ -27,13 +27,28 @@ final class AContainerEnclosureTest extends TestCase
     }
 
     #[Test]
-    public function canUseContainerFactory(): void
+    public function canUseContainerFactoryClass(): void
     {
         $factoryClass = $this->getContainerFactoryMock();
 
         AContainerEnclosure::useContainerFactory($factoryClass::class);
 
         self::assertInstanceOf(IContainer::class, self::extractContainer());
+    }
+
+    #[Test]
+    public function throwsIfFactoryClassISInvalid(): void
+    {
+        $class = \stdClass::class;
+        $this->expectException(ContainerException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Factory class must implement [%s]. "%s" given.',
+                IContainerFactory::class,
+                $class,
+            )
+        );
+        AContainerEnclosure::useContainerFactory($class);
     }
 
     private function getContainerFactoryMock(): MockObject&IContainerFactory
@@ -50,7 +65,6 @@ final class AContainerEnclosureTest extends TestCase
 
     protected static function setContainer(?ContainerInterface $container): void
     {
-        // FIXME (2023-11-23 17:27) [Alec Rabbit]: to set container call `useContainerFactory` instead
         self::callMethod(AContainerEnclosureOverride::class, self::USE_CONTAINER, $container);
     }
 

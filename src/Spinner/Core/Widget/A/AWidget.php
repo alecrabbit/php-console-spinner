@@ -34,7 +34,8 @@ abstract class AWidget extends ASubject implements IWidget
         $widgetRevolverFrame = $this->widgetRevolver->getFrame($dt);
 
         return $this->createFrame(
-            $this->leadingSpacer->getSequence() . $widgetRevolverFrame->getSequence() . $this->trailingSpacer->getSequence(),
+            $this->leadingSpacer->getSequence() . $widgetRevolverFrame->getSequence(
+            ) . $this->trailingSpacer->getSequence(),
             $this->leadingSpacer->getWidth() + $widgetRevolverFrame->getWidth() + $this->trailingSpacer->getWidth()
         );
     }

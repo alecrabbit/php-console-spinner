@@ -9,13 +9,10 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ADriver;
-use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
-use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 
 final class Driver extends ADriver
 {
@@ -36,7 +33,6 @@ final class Driver extends ADriver
             deltaTimer: $deltaTimer,
             observer: $observer,
         );
-
     }
 
     public function add(ISpinner $spinner): void
@@ -77,6 +73,13 @@ final class Driver extends ADriver
         );
     }
 
+    public function render(?float $dt = null): void
+    {
+        if ($this->spinner) {
+            $this->renderer->render($this->spinner, $dt);
+        }
+    }
+
     public function update(ISubject $subject): void
     {
         if ($this->spinner === $subject) {
@@ -97,12 +100,5 @@ final class Driver extends ADriver
     public function has(ISpinner $spinner): bool
     {
         return $this->spinner === $spinner;
-    }
-
-    public function render(?float $dt = null): void
-    {
-        if ($this->spinner) {
-            $this->renderer->render($this->spinner, $dt);
-        }
     }
 }

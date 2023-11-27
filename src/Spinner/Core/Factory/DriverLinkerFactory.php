@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
-use AlecRabbit\Spinner\Core\Config\Contract\Detector\IDriverModeDetector;
-use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\DummyDriverLinker;
