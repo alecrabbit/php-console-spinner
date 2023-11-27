@@ -9,6 +9,9 @@ use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Exception\LogicException;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class IntegerNormalizerBuilder implements IIntegerNormalizerBuilder
 {
     private ?int $divisor = null;
@@ -27,7 +30,7 @@ final class IntegerNormalizerBuilder implements IIntegerNormalizerBuilder
     private function validate(): void
     {
         match (true) {
-            null === $this->divisor => throw new LogicException('Divisor value is not set.'),
+            $this->divisor === null => throw new LogicException('Divisor value is not set.'),
             $this->min === null => throw new LogicException('Min value is not set.'),
             default => null,
         };

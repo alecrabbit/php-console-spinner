@@ -16,13 +16,14 @@ abstract readonly class ASolver implements ISolver
     ) {
     }
 
-    /** @inheritDoc */
     abstract public function solve(): mixed;
 
     /**
-     * @psalm-template T as ISettingsElement
+     * @psalm-template T of ISettingsElement
+     *
      * @psalm-param ISettings $settings
      * @psalm-param class-string<T> $id
+     *
      * @psalm-return T|null
      */
     protected function extractSettingsElement(ISettings $settings, string $id): ?ISettingsElement

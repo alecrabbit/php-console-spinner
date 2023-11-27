@@ -6,7 +6,7 @@ The event loop availability is detected using loop probes. Loops are probed in t
 
 ## Synchronous mode
 
-If no loop is detected, the synchronous mode is used. In this mode, the spinner is displayed only when the `render()` method is called.
+If no loop is detected, the synchronous mode is used. In this mode, the spinner is displayed only when driver's `render()` method is called.
 
 ```php
 $spinner = Facade::createSpinner();
@@ -24,6 +24,14 @@ To disable a specific event loop probe, you can use the following code:
 ```php  
 Probes::unregister(ReactLoopProbe::class);
 ``` 
+
+## How to disable all event loop probes
+
+To disable all event loop probes, you can use the following code:
+
+```php
+Probes::unregister(ILoopProbe::class);
+```
 
 ## How to add a custom event loop probe
 

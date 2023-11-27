@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Pattern;
 
-final class PatternFactory implements IPatternFactory
+final readonly class PatternFactory implements IPatternFactory
 {
     public function __construct(
         protected IIntervalFactory $intervalFactory,
@@ -30,10 +30,9 @@ final class PatternFactory implements IPatternFactory
                 $template->getOptions()->getInterval()
             );
 
-        return
-            new Pattern(
-                interval: $interval,
-                frames: $template->getEntries(),
-            );
+        return new Pattern(
+            interval: $interval,
+            frames: $template->getEntries(),
+        );
     }
 }

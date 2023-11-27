@@ -11,6 +11,9 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class FrameRevolverBuilder implements IFrameRevolverBuilder
 {
     private ?IFrameCollection $frames = null;
@@ -21,12 +24,11 @@ final class FrameRevolverBuilder implements IFrameRevolverBuilder
     {
         $this->validate();
 
-        return
-            new FrameCollectionRevolver(
-                $this->frames,
-                $this->interval,
-                $this->tolerance,
-            );
+        return new FrameCollectionRevolver(
+            $this->frames,
+            $this->interval,
+            $this->tolerance,
+        );
     }
 
     private function validate(): void

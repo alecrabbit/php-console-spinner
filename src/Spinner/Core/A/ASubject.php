@@ -6,7 +6,9 @@ namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
+use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 
 use function sprintf;
 
@@ -17,33 +19,27 @@ abstract class ASubject implements ISubject
     ) {
     }
 
-    /** @inheritDoc */
     public function notify(): void
     {
         $this->observer?->update($this);
     }
 
-    /** @inheritDoc */
     public function attach(IObserver $observer): void
     {
-        $this->assertObserverIsNotAttached();
-
         $this->assertNotSelf($observer);
+
+        $this->assertObserverIsNotAttached();
 
         $this->observer = $observer;
     }
 
-    protected function assertObserverIsNotAttached(): void
-    {
-        if ($this->observer !== null) {
-            throw new InvalidArgumentException('Observer is already attached.');
-        }
-    }
-
+    /**
+     * @throws InvalidArgument
+     */
     protected function assertNotSelf(object $obj): void
     {
         if ($obj === $this) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     'Object can not be self. %s #%s.',
                     get_debug_type($obj),
@@ -53,7 +49,16 @@ abstract class ASubject implements ISubject
         }
     }
 
-    /** @inheritDoc */
+    /**
+     * @throws LogicException
+     */
+    protected function assertObserverIsNotAttached(): void
+    {
+        if ($this->observer instanceof IObserver) {
+            throw new ObserverCanNotBeOverwritten('Observer is already attached.');
+        }
+    }
+
     public function detach(IObserver $observer): void
     {
         if ($this->observer === $observer) {

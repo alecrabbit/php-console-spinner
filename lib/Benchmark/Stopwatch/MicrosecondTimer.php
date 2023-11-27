@@ -16,9 +16,9 @@ final class MicrosecondTimer extends ATimer
 
     public function __construct(
         TimeUnit $unit = self::UNIT,
-        Closure $timeFunction = null,
+        ?Closure $timeFunction = null,
     ) {
-        if (null === $timeFunction) {
+        if ($timeFunction === null) {
             $timeFunction =
                 static fn(): float => microtime(true) * 1_000_000; // microseconds
         }

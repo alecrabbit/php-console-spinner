@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Builder;
 
-
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Widget\Builder\A\AWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
@@ -21,29 +20,31 @@ final class WidgetBuilder extends AWidgetBuilder implements IWidgetBuilder
     {
         $this->validate();
 
-        return
-            new Widget(
-                $this->revolver,
-                $this->leadingSpacer,
-                $this->trailingSpacer,
-            );
+        return new Widget(
+            $this->revolver,
+            $this->leadingSpacer,
+            $this->trailingSpacer,
+        );
     }
 
     public function withWidgetRevolver(IWidgetRevolver $revolver): IWidgetBuilder
     {
-        $this->revolver = $revolver;
-        return $this;
+        $clone = clone $this;
+        $clone->revolver = $revolver;
+        return $clone;
     }
 
-    public function withLeadingSpacer(IFrame $frame): IWidgetBuilder
+    public function withLeadingSpacer(IFrame $leadingSpacer): IWidgetBuilder
     {
-        $this->leadingSpacer = $frame;
-        return $this;
+        $clone = clone $this;
+        $clone->leadingSpacer = $leadingSpacer;
+        return $clone;
     }
 
-    public function withTrailingSpacer(IFrame $frame): IWidgetBuilder
+    public function withTrailingSpacer(IFrame $trailingSpacer): IWidgetBuilder
     {
-        $this->trailingSpacer = $frame;
-        return $this;
+        $clone = clone $this;
+        $clone->trailingSpacer = $trailingSpacer;
+        return $clone;
     }
 }

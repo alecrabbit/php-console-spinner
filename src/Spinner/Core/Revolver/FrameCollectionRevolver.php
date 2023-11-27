@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final class FrameCollectionRevolver extends ARevolver implements IFrameCollectionRevolver
 {
@@ -18,7 +18,7 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
     protected int $offset = 0;
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     public function __construct(
         protected IFrameCollection $frameCollection,
@@ -31,12 +31,12 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     protected function assertIsNotEmpty(): void
     {
         if ($this->count === 0) {
-            throw new InvalidArgumentException('Frame collection is empty.');
+            throw new InvalidArgument('Frame collection is empty.');
         }
     }
 

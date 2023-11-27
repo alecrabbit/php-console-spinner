@@ -7,14 +7,16 @@ namespace AlecRabbit\Benchmark\Stopwatch;
 use AlecRabbit\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Benchmark\Exception\MeasurementException;
 
-class Measurement implements IMeasurement
+final class Measurement implements IMeasurement
 {
-    protected const DEFAULT_THRESHOLD = 2;
-    protected array $data = [];
-    protected int|float $average;
-    protected int|float $min;
-    protected int|float $max;
-    protected int $count = 0;
+    private const DEFAULT_THRESHOLD = 2;
+
+    /** @var array<int|float> */
+    private array $data = [];
+    private int|float $average;
+    private int|float $min;
+    private int|float $max;
+    private int $count = 0;
 
     public function __construct(
         protected readonly int $threshold = self::DEFAULT_THRESHOLD,
@@ -44,18 +46,16 @@ class Measurement implements IMeasurement
         }
     }
 
-    protected function reachedThreshold(): bool
+    private function reachedThreshold(): bool
     {
         return count($this->data) >= $this->threshold;
     }
 
-    /** @inheritDoc */
     public function getAverage(): int|float
     {
         return $this->average ?? throw new MeasurementException('Not enough data.');
     }
 
-    /** @inheritDoc */
     public function getAny(): int|float
     {
         $count = count($this->data);
@@ -72,13 +72,11 @@ class Measurement implements IMeasurement
         return $this->count;
     }
 
-    /** @inheritDoc */
     public function getMin(): int|float
     {
         return $this->min ?? throw new MeasurementException('Min is not set.');
     }
 
-    /** @inheritDoc */
     public function getMax(): int|float
     {
         return $this->max ?? throw new MeasurementException('Max is not set.');

@@ -25,18 +25,17 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
     {
         $this->validate();
 
-        return
-            new WidgetRevolver(
-                $this->styleRevolver,
-                $this->charRevolver,
-                $this->tolerance,
-            );
+        return new WidgetRevolver(
+            $this->styleRevolver,
+            $this->charRevolver,
+            $this->tolerance,
+        );
     }
 
     protected function validate(): void
     {
         match (true) {
-            null === $this->styleRevolver => throw new LogicException('Style revolver is not set.'),
+            $this->styleRevolver === null => throw new LogicException('Style revolver is not set.'),
             $this->charRevolver === null => throw new LogicException('Character revolver is not set.'),
             $this->tolerance === null => throw new LogicException('Tolerance is not set.'),
             default => null,

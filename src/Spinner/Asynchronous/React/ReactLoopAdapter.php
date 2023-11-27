@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Asynchronous\React;
 
 use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopAdapter;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use Closure;
 use React\EventLoop\LoopInterface;
 use React\EventLoop\TimerInterface;
@@ -48,7 +48,7 @@ final class ReactLoopAdapter extends ALoopAdapter
     public function cancel(mixed $timer): void
     {
         if (!$timer instanceof TimerInterface) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     'Invalid timer type: %s, expected %s',
                     gettype($timer),

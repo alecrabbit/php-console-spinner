@@ -9,5 +9,4 @@ use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
 
 final readonly class StyleFrame extends AFrame implements IStyleFrame
 {
-
 }

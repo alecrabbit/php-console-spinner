@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IOutput;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use Generator;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use Traversable;
 
 final readonly class Output implements IOutput
 {
     public function __construct(
-        protected IResourceStream $stream,
+        protected IWritableStream $stream,
     ) {
     }
 
@@ -31,12 +30,13 @@ final readonly class Output implements IOutput
     /**
      * @return Traversable<string>
      */
-    protected function homogenize(iterable|string $messages, bool $newline = false): Traversable
+    private function homogenize(iterable|string $messages, bool $newline = false): Traversable
     {
         if (!is_iterable($messages)) {
             $messages = [$messages];
         }
-        /** @var mixed $message */
+
+        /** @psalm-suppress MixedAssignment */
         foreach ($messages as $message) {
             if (is_string($message)) {
                 if ($newline) {

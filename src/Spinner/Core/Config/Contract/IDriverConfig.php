@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Contract;
 
-use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
-use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
+use AlecRabbit\Spinner\Contract\Mode\DriverMode;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 
 interface IDriverConfig extends IConfigElement
 {
-    public function getLinkerMode(): LinkerMode;
+    public function getDriverMessages(): IDriverMessages;
+
+    public function getDriverMode(): DriverMode;
 }

@@ -20,18 +20,17 @@ final class StopwatchBuilder implements IStopwatchBuilder
     {
         $this->validate();
 
-        return
-            new Stopwatch(
-                timer: $this->timer,
-                measurementFactory: $this->measurementFactory,
-            );
+        return new Stopwatch(
+            timer: $this->timer,
+            measurementFactory: $this->measurementFactory,
+        );
     }
 
     private function validate(): void
     {
         match (true) {
-            null === $this->timer => throw new LogicException('Timer is not set.'),
-            null === $this->measurementFactory => throw new LogicException('Measurement factory is not set.'),
+            $this->timer === null => throw new LogicException('Timer is not set.'),
+            $this->measurementFactory === null => throw new LogicException('Measurement factory is not set.'),
             default => null,
         };
     }

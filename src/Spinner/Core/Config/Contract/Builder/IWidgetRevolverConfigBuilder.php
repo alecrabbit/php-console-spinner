@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Contract\Builder;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -18,4 +19,6 @@ interface IWidgetRevolverConfigBuilder
     public function withStylePalette(IPalette $palette): IWidgetRevolverConfigBuilder;
 
     public function withCharPalette(IPalette $palette): IWidgetRevolverConfigBuilder;
+
+    public function withRevolverConfig(IRevolverConfig $revolverConfig): IWidgetRevolverConfigBuilder;
 }

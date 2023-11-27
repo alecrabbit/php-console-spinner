@@ -5,25 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Palette\A\APalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use AlecRabbit\Spinner\Core\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use Traversable;
 
 use function array_reverse;
 
-final class Snake extends APalette implements ICharPalette
+final class Snake extends ACharPalette
 {
-    protected function getEntries(?IPaletteMode $mode = null): Traversable
-    {
-        /** @var string $element */
-        foreach ($this->sequence() as $element) {
-            yield new CharFrame($element, 1);
-        }
-    }
-
-    private function sequence(): Traversable
+    protected function sequence(): Traversable
     {
         $a = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
 
@@ -34,16 +24,13 @@ final class Snake extends APalette implements ICharPalette
         yield from $a;
     }
 
-    protected function getOptions(?IPaletteMode $mode = null): IPaletteOptions
+    protected function createFrame(string $element): ICharFrame
     {
-        $this->options =
-            new PaletteOptions(
-                interval: $this->options->getInterval() ?? 80,
-                reversed: $this->options->getReversed(),
-            );
-
-        return parent::getOptions($mode);
+        return new CharFrame($element, 1);
     }
 
-
+    protected function getInterval(): ?int
+    {
+        return 80;
+    }
 }

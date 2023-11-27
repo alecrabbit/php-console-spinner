@@ -6,19 +6,19 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayObject;
 
 final readonly class Settings implements ISettings
 {
     /** @var ArrayObject<class-string<ISettingsElement>, ISettingsElement> */
-    protected ArrayObject $settingsElements;
+    private ArrayObject $settingsElements;
 
-    /**
-     * @param ArrayObject<class-string<ISettingsElement>, ISettingsElement> $settingElements
-     */
     public function __construct(ArrayObject $settingElements = new ArrayObject())
     {
+        /**
+         * @var ArrayObject<class-string<ISettingsElement>, ISettingsElement> $settingElements
+         */
         $this->settingsElements = $settingElements;
     }
 
@@ -33,30 +33,29 @@ final readonly class Settings implements ISettings
 
     /**
      * @param class-string<ISettingsElement> $id
-     * @throws InvalidArgumentException
+     *
+     * @throws InvalidArgument
      */
     private static function assertIdentifier(string $id): void
     {
         if (!interface_exists($id)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf('Identifier "%s" is not an interface.', $id)
             );
         }
         if (!is_a($id, ISettingsElement::class, true)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf('Identifier "%s" is not an instance of "%s".', $id, ISettingsElement::class)
             );
         }
     }
 
-    /** @inheritDoc */
     public function get(string $id): ?ISettingsElement
     {
         self::assertIdentifier($id);
 
-        return
-            $this->settingsElements->offsetExists($id)
-                ? $this->settingsElements->offsetGet($id)
-                : null;
+        return $this->settingsElements->offsetExists($id)
+            ? $this->settingsElements->offsetGet($id)
+            : null;
     }
 }

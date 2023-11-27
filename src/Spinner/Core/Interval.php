@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
-final class Interval implements IInterval
+final readonly class Interval implements IInterval
 {
     private float $milliseconds;
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     public function __construct(?float $milliseconds = null)
     {
@@ -31,18 +31,18 @@ final class Interval implements IInterval
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private static function assert(self $interval): void
     {
         match (true) {
-            $interval->milliseconds < self::min() => throw new InvalidArgumentException(
+            $interval->milliseconds < self::min() => throw new InvalidArgument(
                 sprintf(
                     'Interval should be greater than or equal to %s.',
                     self::min()
                 )
             ),
-            $interval->milliseconds > self::max() => throw new InvalidArgumentException(
+            $interval->milliseconds > self::max() => throw new InvalidArgument(
                 sprintf(
                     'Interval should be less than or equal to %s.',
                     self::max()
@@ -65,14 +65,6 @@ final class Interval implements IInterval
     public function toMicroseconds(): float
     {
         return $this->milliseconds * 1000;
-    }
-
-    public function smallest(mixed $other): IInterval
-    {
-        if ($other instanceof IInterval && $this->milliseconds > $other->toMilliseconds()) {
-            return $other;
-        }
-        return $this;
     }
 
     public function toMilliseconds(): float

@@ -12,10 +12,10 @@ use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 final readonly class OutputConfig implements IOutputConfig
 {
     public function __construct(
-        protected StylingMethodMode $stylingMethodMode,
-        protected CursorVisibilityMode $cursorVisibilityMode,
-        protected InitializationMode $initializationMode,
-        protected mixed $stream,
+        private StylingMethodMode $stylingMethodMode,
+        private CursorVisibilityMode $cursorVisibilityMode,
+        private InitializationMode $initializationMode,
+        private mixed $stream,
     ) {
     }
 

@@ -12,8 +12,8 @@ use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
 final readonly class DriverSetup implements IDriverSetup
 {
     public function __construct(
-        protected IDriverLinker $driverLinker,
-        protected ISignalHandlingSetup $signalHandlingSetup,
+        private IDriverLinker $driverLinker,
+        private ISignalHandlingSetup $signalHandlingSetup,
     ) {
     }
 

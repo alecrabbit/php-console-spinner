@@ -11,14 +11,14 @@ use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
+use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
@@ -30,7 +30,7 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
 {
     public function __construct(
         private ILoopSupportDetector $loopSupportDetector,
-        private IColorSupportDetector $colorSupportDetector,
+        private IStylingMethodDetector $colorSupportDetector,
         private ISignalHandlingSupportDetector $signalProcessingSupportDetector,
     ) {
     }
@@ -47,10 +47,10 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
     private function fill(ISettings $settings): void
     {
         $settings->set(
-            new AuxSettings(
+            new GeneralSettings(
                 runMethodOption: $this->getRunMethodOption(),
             ),
-            new DriverSettings(
+            new LinkerSettings(
                 linkerOption: $this->getLinkerOption(),
             ),
             new LoopSettings(
@@ -60,14 +60,13 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
             new OutputSettings(
                 stylingMethodOption: $this->detectStylingMethodOption(),
             ),
-
         );
         if ($this->isSignalHandlingEnabled()) {
             $settings->set(
                 new SignalHandlerSettings(
                     new SignalHandlerCreator(
                         signal: SIGINT, // requires pcntl-ext
-                        handlerCreator: new class implements IHandlerCreator {
+                        handlerCreator: new class() implements IHandlerCreator {
                             /**
                              * @codeCoverageIgnore
                              */
@@ -79,7 +78,7 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
                                 };
                             }
                         },
-                    )
+                    ),
                 ),
             );
         }
@@ -87,10 +86,9 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
 
     private function getRunMethodOption(): RunMethodOption
     {
-        return
-            $this->loopIsAvailable()
-                ? RunMethodOption::ASYNC
-                : RunMethodOption::SYNCHRONOUS;
+        return $this->loopIsAvailable()
+            ? RunMethodOption::ASYNC
+            : RunMethodOption::SYNCHRONOUS;
     }
 
     private function loopIsAvailable(): bool
@@ -100,30 +98,26 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
 
     private function getLinkerOption(): LinkerOption
     {
-        return
-            $this->loopIsAvailable()
-                ? LinkerOption::ENABLED
-                : LinkerOption::DISABLED;
+        return $this->loopIsAvailable()
+            ? LinkerOption::ENABLED
+            : LinkerOption::DISABLED;
     }
 
     private function getAutoStartOption(): AutoStartOption
     {
-        return
-            $this->loopIsAvailable()
-                ? AutoStartOption::ENABLED
-                : AutoStartOption::DISABLED;
+        return $this->loopIsAvailable()
+            ? AutoStartOption::ENABLED
+            : AutoStartOption::DISABLED;
     }
 
     private function getSignalMethodOption(): SignalHandlingOption
     {
-        return
-            $this->signalProcessingSupportDetector->getSupportValue();
+        return $this->signalProcessingSupportDetector->getSupportValue();
     }
 
     private function detectStylingMethodOption(): StylingMethodOption
     {
-        return
-            $this->colorSupportDetector->getSupportValue();
+        return $this->colorSupportDetector->getSupportValue();
     }
 
     private function isSignalHandlingEnabled(): bool

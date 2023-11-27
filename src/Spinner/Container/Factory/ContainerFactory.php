@@ -8,36 +8,21 @@ use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
-use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
-use AlecRabbit\Spinner\Container\ServiceSpawner;
-use Closure;
-use Psr\Container\ContainerInterface;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
 
 final readonly class ContainerFactory implements IContainerFactory
 {
     public function __construct(
-        private IDefinitionRegistry $registry,
-        private ?Closure $spawnerCreator = null,
+        private IDefinitionRegistry $definitionRegistry,
+        private IServiceSpawnerFactory $spawnerFactory = new ServiceSpawnerFactory(),
     ) {
     }
 
     public function create(): IContainer
     {
-        return
-            new Container(
-                spawnerCreatorCb: $this->getSpawnerCreator(),
-                definitions: $this->registry->load(),
-            );
-    }
-
-    protected function getSpawnerCreator(): Closure
-    {
-        return
-            $this->spawnerCreator
-            ??
-            static function (ContainerInterface $container): IServiceSpawner {
-                return
-                    new ServiceSpawner($container);
-            };
+        return new Container(
+            spawnerFactory: $this->spawnerFactory,
+            definitions: $this->definitionRegistry->load(),
+        );
     }
 }

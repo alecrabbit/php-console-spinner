@@ -20,11 +20,10 @@ final class ReportPrinterBuilder implements IReportPrinterBuilder
     {
         $this->validate();
 
-        return
-            new ReportPrinter(
-                output: $this->output,
-                reportFormatter: $this->reportFormatter,
-            );
+        return new ReportPrinter(
+            output: $this->output,
+            reportFormatter: $this->reportFormatter,
+        );
     }
 
     private function validate(): void

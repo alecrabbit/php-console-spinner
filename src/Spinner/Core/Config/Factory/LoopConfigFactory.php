@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
 
-final class LoopConfigFactory implements ILoopConfigFactory
+final readonly class LoopConfigFactory implements ILoopConfigFactory
 {
     public function __construct(
         protected IAutoStartModeSolver $autoStartModeSolver,
@@ -23,18 +23,17 @@ final class LoopConfigFactory implements ILoopConfigFactory
 
     public function create(): ILoopConfig
     {
-        return
-            $this->loopConfigBuilder
-                ->withAutoStartMode(
-                    $this->autoStartModeSolver->solve()
-                )
-                ->withSignalHandlingMode(
-                    $this->signalHandlersModeSolver->solve()
-                )
-                ->withSignalHandlersContainer(
-                    $this->signalHandlersContainerSolver->solve()
-                )
-                ->build()
+        return $this->loopConfigBuilder
+            ->withAutoStartMode(
+                $this->autoStartModeSolver->solve()
+            )
+            ->withSignalHandlingMode(
+                $this->signalHandlersModeSolver->solve()
+            )
+            ->withSignalHandlersContainer(
+                $this->signalHandlersContainerSolver->solve()
+            )
+            ->build()
         ;
     }
 }

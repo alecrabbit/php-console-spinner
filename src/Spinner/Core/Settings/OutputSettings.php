@@ -9,13 +9,13 @@ use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 
-final class OutputSettings implements IOutputSettings
+final readonly class OutputSettings implements IOutputSettings
 {
     public function __construct(
-        protected StylingMethodOption $stylingMethodOption = StylingMethodOption::AUTO,
-        protected CursorVisibilityOption $cursorVisibilityOption = CursorVisibilityOption::AUTO,
-        protected InitializationOption $initializationOption = InitializationOption::AUTO,
-        protected mixed $stream = null,
+        private StylingMethodOption $stylingMethodOption = StylingMethodOption::AUTO,
+        private CursorVisibilityOption $cursorVisibilityOption = CursorVisibilityOption::AUTO,
+        private InitializationOption $initializationOption = InitializationOption::AUTO,
+        private mixed $stream = null,
     ) {
     }
 

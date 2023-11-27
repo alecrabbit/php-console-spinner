@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
-use AlecRabbit\Spinner\Contract\Option\InitializationOption;
-use AlecRabbit\Spinner\Contract\Option\LinkerOption;
+use AlecRabbit\Spinner\Contract\Option\DriverOption;
 
 interface IDriverSettings extends ISettingsElement
 {
-    public function getLinkerOption(): LinkerOption;
+    public function getMessages(): ?IMessages;
+
+    public function getDriverOption(): DriverOption;
 }

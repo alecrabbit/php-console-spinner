@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IInterval
 {
-    final public const MIN_INTERVAL_MILLISECONDS = 10;      // 10 milliseconds
+    final public const MIN_INTERVAL_MILLISECONDS = 10;
     final public const MAX_INTERVAL_MILLISECONDS = 900000;  // 15 minutes
 
     public function toMicroseconds(): float;
@@ -14,6 +14,4 @@ interface IInterval
     public function toMilliseconds(): float;
 
     public function toSeconds(): float;
-
-    public function smallest(mixed $other): IInterval;
 }

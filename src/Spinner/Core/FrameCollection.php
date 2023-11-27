@@ -6,7 +6,8 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
+use AlecRabbit\Spinner\Exception\LogicException;
 use ArrayObject;
 use Traversable;
 
@@ -19,8 +20,10 @@ use Traversable;
  */
 final class FrameCollection extends ArrayObject implements IFrameCollection
 {
+    private const COLLECTION_IS_EMPTY = 'Collection is empty.';
+
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     public function __construct(Traversable $frames)
     {
@@ -30,7 +33,7 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private function initialize(Traversable $frames): void
     {
@@ -44,12 +47,12 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgument
      */
     private static function assertFrame(mixed $frame): void
     {
         if (!$frame instanceof IFrame) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
                     '"%s" expected, "%s" given.',
                     IFrame::class,
@@ -62,13 +65,22 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     private static function assertIsNotEmpty(IFrameCollection $collection): void
     {
         if ($collection->count() === 0) {
-            throw new InvalidArgumentException('Collection is empty.');
+            throw new InvalidArgument(self::COLLECTION_IS_EMPTY);
         }
     }
 
     public function lastIndex(): int
     {
-        return array_key_last($this->getArrayCopy());
+        $index = array_key_last($this->getArrayCopy());
+
+        // @codeCoverageIgnoreStart
+        if ($index === null) {
+            // should not be thrown
+            throw new LogicException(self::COLLECTION_IS_EMPTY);
+        }
+        // @codeCoverageIgnoreEnd
+
+        return $index;
     }
 
     public function get(int $index): IFrame

@@ -21,7 +21,6 @@ final readonly class BufferedOutput implements IBufferedOutput
         $this->output->write($this->buffer->flush());
     }
 
-    /** @inheritDoc */
     public function append(iterable|string $messages): IBufferedOutput
     {
         $this->buffer->append($messages);

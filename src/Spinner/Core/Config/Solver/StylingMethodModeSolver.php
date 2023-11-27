@@ -10,18 +10,17 @@ use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final readonly class StylingMethodModeSolver extends ASolver implements IStylingMethodModeSolver
 {
     public function solve(): StylingMethodMode
     {
-        return
-            $this->doSolve(
-                $this->extractOption($this->settingsProvider->getUserSettings()),
-                $this->extractOption($this->settingsProvider->getDetectedSettings()),
-                $this->extractOption($this->settingsProvider->getDefaultSettings()),
-            );
+        return $this->doSolve(
+            $this->extractOption($this->settingsProvider->getUserSettings()),
+            $this->extractOption($this->settingsProvider->getDetectedSettings()),
+            $this->extractOption($this->settingsProvider->getDefaultSettings()),
+        );
     }
 
     private function doSolve(
@@ -42,6 +41,10 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
             $mode = $detectedMode ?? $defaultMode;
         }
 
+        /**
+         * @psalm-suppress TypeDoesNotContainNull
+         * @psalm-suppress RedundantCondition
+         */
         if ($detectedMode !== null && ($mode?->value > $detectedMode?->value)) {
             $mode = $detectedMode;
         }
@@ -50,7 +53,7 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
             return $mode;
         }
 
-        throw new InvalidArgumentException(
+        throw new InvalidArgument(
             sprintf(
                 'Unable to solve "%s". From values %s.',
                 StylingMethodMode::class,
@@ -66,14 +69,13 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
 
     private function createModeFromOption(?StylingMethodOption $option): ?StylingMethodMode
     {
-        return
-            match ($option) {
-                StylingMethodOption::NONE => StylingMethodMode::NONE,
-                StylingMethodOption::ANSI4 => StylingMethodMode::ANSI4,
-                StylingMethodOption::ANSI8 => StylingMethodMode::ANSI8,
-                StylingMethodOption::ANSI24 => StylingMethodMode::ANSI24,
-                default => null,
-            };
+        return match ($option) {
+            StylingMethodOption::NONE => StylingMethodMode::NONE,
+            StylingMethodOption::ANSI4 => StylingMethodMode::ANSI4,
+            StylingMethodOption::ANSI8 => StylingMethodMode::ANSI8,
+            StylingMethodOption::ANSI24 => StylingMethodMode::ANSI24,
+            default => null,
+        };
     }
 
     protected function extractOption(ISettings $settings): ?StylingMethodOption

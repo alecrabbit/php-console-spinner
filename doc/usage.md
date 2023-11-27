@@ -1,11 +1,11 @@
 [⬅️ to README.md](../README.md)
 # Usage
 
-+ [Usage with event loop](#ev)
-+ [Usage without event loop](#no-ev)
-+ [Patterns](#patterns)
++ [Usage with event loop (Asynchronous mode)](#evl)
++ [Usage without event loop (Synchronous mode)](#no-evl)
++ [Custom palettes](#palettes)
 
-## <a name="ev"></a> Usage with event loop - Asynchronous mode(default)
+## <a name="evl"></a> Usage with event loop - Asynchronous mode(default)
 
 ```php
 use AlecRabbit\Spinner\Factory\Factory;
@@ -14,81 +14,76 @@ require_once __DIR__ . '/../bootstrap.php';
 
 $spinner = Factory::createSpinner();
 ```
-> see [example/async](../example/async)
 
-## <a name="no-ev"></a> Usage without event loop - Synchronous mode
+## <a name="no-evl"></a> Usage without event loop - Synchronous mode
 
-In synchronous mode usage is a bit more complicated. For the sake of examples `App::class` is used. It is a simple class with `run()` method. It is used to demonstrate how to use `Spinner` in synchronous mode.
-
-```php
-use Example\Kernel\App;
-
-require_once __DIR__ . '/../bootstrap.php';
-
-App::prepareDefaults();
-
-$app = new App();
-
-$app->run();
-```
-> see [example/synchronous](../example/synchronous)
-
-
-## <a name="patterns"></a> Patterns
-
-There are two pattern types:
-- character patterns, e.g. `'⠏'` `'⠛'` `'⠹'`
-- style patterns, describing which style to apply to a char frame
-
-### Character patterns
-
-List of supplied character patterns you will find [here](patterns.md).
-
-#### How to create your own character pattern
-
-For that purpose you can use `\AlecRabbit\Spinner\Core\Pattern\Char\CustomPattern::class`.
+In synchronous mode usage is a bit more complicated. Simply speaking, you need to periodically call `render()` method of `IDriver` implementation.
 
 ```php
-// ...
-$config =
-    Facade::getConfigBuilder()
-        ->withCharPattern(
-            new CustomPattern(
-                pattern: ['1', '2', '3'], // takes iterable of Stringable|string|IFrame
-                interval: 1000, 
-                reversed: false
-            )
-        )
-        ->build();
-// ...
+$driver = \AlecRabbit\Spinner\Facade::getDriver();
+
+while (true) {
+    $driver->render();
+    usleep(100000);
+}
 ```
-> **Note** IFrame is a raw representation of a frame, e.g. `FrameFactory::create('⠹', 1)` 
 
-### Style patterns
+## <a name="palettes"></a> Custom palettes
 
-List of supplied style patterns you will find [here](patterns.md).
+There are four palettes supplied with the package: 
+- Rainbow (style)
+- NoStylePalette
+- Snake (characters)
+- NoCharPalette
 
-#### How to create your own style pattern
-
-For that purpose you can use `\AlecRabbit\Spinner\Core\Pattern\Style\CustomStylePattern::class`.
+#### How to create your own character palette
 
 ```php
-// ...
-$config =
-    Facade::getConfigBuilder()
-        ->withStylePattern(
-            new CustomStylePattern(
-                pattern: [$style1, $style2], // required, takes iterable of IStyle|IFrame 
-                colorMode: ColorMode::ANSI8  // optional
-                interval: 1000,              // optional
-                reversed: false              // optional
-            )
-        )
-        ->build();
-// ...
+class Dots extends ACharPalette {
+    protected function createFrame(string $element): ICharFrame
+    {
+        return new CharFrame($element, 3); // note the width is 3
+    }
+
+    /** @inheritDoc */
+    protected function sequence(): Traversable
+    {
+        // note the width of each element
+        $a = ['   ', '.  ', '.. ', '...', ' ..', '  .', '   ']; 
+
+        if ($this->options->getReversed()) {
+            $a = array_reverse($a);
+        }
+
+        yield from $a;
+    }
+}
 ```
-> **Note** IFrame is a raw representation of a frame, e.g. `FrameFactory::create("\e[38;2;255;255;255;48;2;255;0;0m%s\e[0m", 0)`(`%s` is important)
 
-> **Note** AnsiColorConverter supplied with this package is capable of converting IStyle to ANSI escape codes using only foreground color, in `int` format or using `#rrggbb` format(only colors in a table). 
+#### How to create your own style palette
 
-> **Note** IStyle|IFrame limitation is not implemented yet.
+```php
+class Greeny extends AStylePalette {
+    protected function ansi4StyleFrames(): Traversable
+    {
+        yield from [
+            $this->createFrame("\e[92m%s\e[39m"),
+        ];
+    }
+
+    protected function ansi8StyleFrames(): Traversable
+    {
+        return $this->ansi4StyleFrames();
+    }
+
+    protected function ansi24StyleFrames(): Traversable
+    {
+        return $this->ansi4StyleFrames();
+    }
+
+    protected function getInterval(StylingMethodMode $stylingMode): ?int
+    {
+        return null; // due to single style frame
+    }
+}
+```

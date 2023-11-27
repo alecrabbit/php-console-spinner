@@ -4,25 +4,49 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ADriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 
 final class Driver extends ADriver
 {
-    protected ?ISpinner $spinner = null;
-    protected ISpinnerState $state;
+    private ?ISpinner $spinner = null;
 
-    /** @inheritDoc */
+    public function __construct(
+        IInterval $initialInterval,
+        IDriverMessages $driverMessages,
+        IRenderer $renderer,
+        private readonly IIntervalComparator $intervalComparator,
+        IDeltaTimer $deltaTimer,
+        ?IObserver $observer = null
+    ) {
+        parent::__construct(
+            initialInterval: $initialInterval,
+            driverMessages: $driverMessages,
+            renderer: $renderer,
+            deltaTimer: $deltaTimer,
+            observer: $observer,
+        );
+    }
+
     public function add(ISpinner $spinner): void
     {
         $this->erase();
 
-        $this->state = new SpinnerState();
+        if ($this->spinner) {
+            $this->doRemove($this->spinner);
+        }
 
         $this->spinner = $spinner;
+
+        $this->render();
+
         $spinner->attach($this);
         $this->update($spinner);
     }
@@ -30,55 +54,51 @@ final class Driver extends ADriver
     protected function erase(): void
     {
         if ($this->spinner) {
-            $this->output->erase($this->state);
+            $this->renderer->erase($this->spinner);
+        }
+    }
+
+    protected function doRemove(ISpinner $spinner): void
+    {
+        $spinner->detach($this);
+        $this->spinner = null;
+        $this->interval = $this->smallestInterval();
+    }
+
+    protected function smallestInterval(): IInterval
+    {
+        return $this->intervalComparator->smallest(
+            $this->initialInterval,
+            $this->spinner?->getInterval(),
+        );
+    }
+
+    public function render(?float $dt = null): void
+    {
+        if ($this->spinner) {
+            $this->renderer->render($this->spinner, $dt);
         }
     }
 
     public function update(ISubject $subject): void
     {
         if ($this->spinner === $subject) {
-            $this->interval = $this->recalculateInterval();
+            $this->interval = $this->smallestInterval();
             $this->notify();
         }
     }
 
-    protected function recalculateInterval(): IInterval
-    {
-        return $this->initialInterval->smallest($this->spinner?->getInterval());
-    }
-
-    /** @inheritDoc */
-    public function has(ISpinner $spinner): bool
-    {
-        return $this->spinner === $spinner;
-    }
-
-    /** @inheritDoc */
     public function remove(ISpinner $spinner): void
     {
         if ($this->spinner === $spinner) {
             $this->erase();
-            $spinner->detach($this);
-            $this->spinner = null;
-            $this->interval = $this->recalculateInterval();
+            $this->doRemove($spinner);
             $this->notify();
         }
     }
 
-    /** @inheritDoc */
-    public function render(?float $dt = null): void
+    public function has(ISpinner $spinner): bool
     {
-        if ($this->spinner) {
-            $dt ??= $this->timer->getDelta();
-            $frame = $this->spinner->getFrame($dt);
-            $this->state =
-                new SpinnerState(
-                    sequence: $frame->sequence(),
-                    width: $frame->width(),
-                    previousWidth: $this->state->getWidth()
-                );
-
-            $this->output->write($this->state);
-        }
+        return $this->spinner === $spinner;
     }
 }

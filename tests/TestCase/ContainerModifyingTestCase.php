@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
+use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
+use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use ArrayObject;
-use Psr\Container\ContainerInterface;
 use Traversable;
 
 abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
@@ -25,9 +27,9 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
     }
 
     protected static function modifyContainer(
-        ContainerInterface $container,
+        IContainer $container,
         array $substitutes = []
-    ): ContainerInterface {
+    ): IContainer {
         $definitions = self::getPropertyValue(self::DEFINITIONS, $container);
 
         return
@@ -36,7 +38,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
             );
     }
 
-    protected static function createContainer(ArrayObject $definitions): ContainerInterface
+    protected static function createContainer(ArrayObject $definitions): IContainer
     {
         $registry =
             new class($definitions) implements IDefinitionRegistry {
@@ -49,7 +51,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                     return $this->definitions;
                 }
 
-                public function bind(string $typeId, callable|object|string $definition): void
+                public function bind(IServiceDefinition $serviceDefinition): void
                 {
                     // do nothing
                 }
@@ -64,27 +66,35 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
             array_merge(
                 [
                     // disable output
-                    IResourceStream::class =>
-                        new class implements IResourceStream {
+                    new ServiceDefinition(
+                        IWritableStream::class,
+                        new class() implements IWritableStream {
                             public function write(Traversable $data): void
                             {
                                 // do nothing
                             }
                         },
+                    ),
                     // disable auto start
-                    ILoopSetup::class =>
-                        new class implements ILoopSetup {
+                    new ServiceDefinition(
+                        ILoopSetup::class,
+                        new class() implements ILoopSetup {
                             public function setup(ILoop $loop): void
                             {
                                 // do nothing
                             }
                         },
+                    ),
                 ],
                 $substitutes
             );
 
         foreach ($substitutes as $id => $substitute) {
-            $definitions->offsetSet($id, $substitute);
+            if ($substitute instanceof IServiceDefinition) {
+                $definitions->offsetSet($substitute->getId(), $substitute);
+                continue;
+            }
+            $definitions->offsetSet($id, new ServiceDefinition($id, $substitute));
         }
 
         return $definitions;

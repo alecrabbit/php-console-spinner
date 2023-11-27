@@ -10,42 +10,28 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Root\A\AFacade;
+use AlecRabbit\Spinner\Root\Contract\IFacade;
 
-final class Facade extends AFacade
+final class Facade extends AFacade implements IFacade
 {
-    private static bool $configurationCreated = false;
-
-    /** @inheritDoc */
     public static function getLoop(): ILoop
     {
-        self::initialize();
-
         $loopProvider = self::getLoopProvider();
 
-        return
-            $loopProvider->hasLoop()
-                ? $loopProvider->getLoop()
-                : throw new DomainException('Loop is unavailable.');
-    }
+        if ($loopProvider->hasLoop()) {
+            return $loopProvider->getLoop();
+        }
 
-    private static function initialize(): void
-    {
-        self::$configurationCreated = true;
+        throw new DomainException('Event loop is unavailable.');
     }
 
     public static function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner
     {
-        self::initialize();
-
-        $spinner =
-            self::getSpinnerFactory()
-                ->create($spinnerSettings)
-        ;
+        $spinner = self::getSpinnerFactory()->create($spinnerSettings);
 
         if ($spinnerSettings?->isAutoAttach() ?? true) {
-            self::getDriver()
-                ->add($spinner)
-            ;
+            self::getDriver()->add($spinner);
         }
 
         return $spinner;
@@ -53,35 +39,11 @@ final class Facade extends AFacade
 
     public static function getDriver(): IDriver
     {
-        self::initialize();
-
-        return
-            self::getDriverProvider()
-                ->getDriver()
-        ;
+        return self::getDriverProvider()->getDriver();
     }
 
-    /** @inheritDoc */
     public static function getSettings(): ISettings
     {
-        self::assertNotInitialized();
-
-        return
-            self::getSettingsProvider()
-                ->getUserSettings()
-        ;
+        return self::getSettingsProvider()->getUserSettings();
     }
-
-    /**
-     * @throws DomainException
-     */
-    protected static function assertNotInitialized(): void
-    {
-        if (self::$configurationCreated) {
-            throw new DomainException(
-                'Settings can not be changed. Configuration is already created.'
-            );
-        }
-    }
-
 }

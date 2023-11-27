@@ -6,34 +6,67 @@ Settings are used to configure the package. Here is the list of available settin
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
+use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\LinkerSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Messages;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 
 //...
 
-// Aux settings
-$auxSettings = 
-    new AuxSettings(
-        runMethodOption: RunMethodOption::AUTO, 
+// Normalizer settings
+$normalizerSettings = 
+    new NormalizerSettings(
         normalizerOption: NormalizerOption::AUTO, 
     );
+// Revolver settings
+$revolverSettings = 
+    new RevolverSettings(
+        tolerance: new Tolerance(5), // defaults to: Tolerance(5)
+    );
+ 
+// Widget settings
+$widgetSettings = 
+    new WidgetSettings(
+        leadingSpacer: null, // defaults to: CharFrame('', 0)
+        trailingSpacer: null, // defaults to: CharFrame('', 0)
+        stylePalette: null, // defaults to: NoStylePalette()
+        charPalette: null, // defaults to: NoCharPalette()
+    );
 
-// Loop settings
+// Root Widget settings
+$rootWidgetSettings = 
+    new RootWidgetSettings(
+        leadingSpacer: null, // defaults to: WidgetConfig.leadingSpacer
+        trailingSpacer: null, // defaults to: WidgetConfig.trailingSpacer
+        stylePalette: null, // defaults to: new Rainbow() 
+        charPalette: null, // defaults to: new Snake() 
+    );
+        
+// Changes have no effect after configuration is created:
+
+// General settings 
+$generalSettings = 
+    new GeneralSettings(
+        runMethodOption: RunMethodOption::AUTO, 
+    );
+
+// Loop settings 
 $loopSettings = 
     new LoopSettings(
         autoStartOption: AutoStartOption::AUTO,
         signalHandlingOption: SignalHandlingOption::AUTO,
     );
 
-// Signal handling settings
+// Signal handling settings 
 $onInterrupt = 
     new SignalHandlerCreator(
         signal: SIGINT, // requires pcntl-ext
-        handlerCreator: new class implements IHandlerCreator {
+        handlerCreator: new class() implements IHandlerCreator {
             public function createHandler(IDriver $driver, ILoop $loop): \Closure
             {
                 return 
@@ -50,7 +83,7 @@ $signalHandlerSettings =
         $onInterrupt,
     );
 
-// Output settings
+// Output settings 
 $outputSettings = 
     new OutputSettings(
         stylingMethodOption: StylingMethodOption::AUTO, 
@@ -59,34 +92,22 @@ $outputSettings =
         stream: null, // defaults to: STDERR
     );
 
-// # NEW FEATURE: $outputSettings? ClearScreenOption(ClearScreenOption::AUTO);
+// Linker settings 
+$linkerSettings = 
+    new LinkerSettings(
+        linkerOption: LinkerOption::AUTO, 
+    );
 
-// Driver settings
+// Driver settings 
 $driverSettings = 
     new DriverSettings(
-        linkerOption: LinkerOption::AUTO, // todo: check semantics
+        messages: new Messages(
+            finalMessage: null, // defaults to: ''
+            interruptionMessage: null, // defaults to: ''
+        )
     );
+ 
 
-// # NEW FEATURE: $driverSettings? FinalMessage(''); // todo: where to put it?
-// # NEW FEATURE: $driverSettings? InterruptMessage(''); // todo: where to put it?
-
-// Widget settings
-$widgetSettings = 
-    new WidgetSettings(
-        leadingSpacer: null, // defaults to: CharFrame('', 0)
-        trailingSpacer: null, // defaults to: CharFrame('', 0)
-        stylePalette: null, // defaults to: none
-        charPalette: null, // defaults to: none
-    );
-
-// Root Widget settings
-$rootWidgetSettings = 
-    new RootWidgetSettings(
-        leadingSpacer: null, // defaults to: WidgetConfig.leadingSpacer
-        trailingSpacer: null, // defaults to: WidgetConfig.trailingSpacer
-        stylePalette: null, // defaults to: new Rainbow() 
-        charPalette: null, // defaults to: new Snake() 
-    );
 ```
 
 ```php
@@ -94,11 +115,14 @@ $rootWidgetSettings =
 $settings = Facade::getSettings();
 
 $settings->set(
-    $auxSettings,
-    $loopSettings,
-    $outputSettings,
+    $generalSettings,
+    $normalizerSettings,
     $driverSettings,
+    $loopSettings,
+    $driverSettings,
+    $linkerSettings,
     $widgetSettings,
+    $revolverSettings,
     $rootWidgetSettings,
     $signalHandlerSettings,
 );
@@ -106,5 +130,5 @@ $settings->set(
 
 ```php
 // to get settings
-$settings->get(IAuxSettings::class); // returns AuxSettings object or null
+$settings->get(IGeneralSettings::class); // returns GeneralSettings object or null
 ```

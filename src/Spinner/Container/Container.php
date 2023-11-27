@@ -5,41 +5,45 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IService;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
-use AlecRabbit\Spinner\Container\Exception\CircularDependencyException;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
-use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
+use AlecRabbit\Spinner\Container\Exception\NotFoundInContainer;
 use ArrayObject;
-use Closure;
+use Psr\Container\ContainerExceptionInterface;
 use Throwable;
 use Traversable;
 
-final class Container implements IContainer
+final readonly class Container implements IContainer
 {
     private IServiceSpawner $serviceSpawner;
 
-    /** @var ArrayObject<string, callable|object|string> */
+    /** @var ArrayObject<string, IServiceDefinition> */
     private ArrayObject $definitions;
 
-    /** @var ArrayObject<string, mixed> */
+    /** @var ArrayObject<string, IService> */
     private ArrayObject $services;
 
-    private ArrayObject $dependencyStack;
-
-    public function __construct(Closure $spawnerCreatorCb, ?Traversable $definitions = null)
-    {
-        $this->serviceSpawner = $this->createSpawner($spawnerCreatorCb);
+    /**
+     * @param Traversable<string|int, IServiceDefinition>|null $definitions
+     */
+    public function __construct(
+        IServiceSpawnerFactory $spawnerFactory,
+        ?Traversable $definitions = null,
+    ) {
+        $this->serviceSpawner = $spawnerFactory->create($this);
 
         /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->definitions = new ArrayObject();
         /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->services = new ArrayObject();
-        $this->dependencyStack = new ArrayObject();
 
         if ($definitions) {
             /**
-             * @var string $id
-             * @var callable|object|string $definition
+             * @var int|string $id
+             * @var IServiceDefinition $definition
              */
             foreach ($definitions as $id => $definition) {
                 $this->register($id, $definition);
@@ -47,35 +51,19 @@ final class Container implements IContainer
         }
     }
 
-    /**
-     * @psalm-suppress MixedInferredReturnType
-     * @psalm-suppress MixedReturnStatement
-     */
-    protected function createSpawner(Closure $spawnerCreatorCb): IServiceSpawner
+    private function register(int|string $id, IServiceDefinition $definition): void
     {
-        return $spawnerCreatorCb($this);
-    }
-
-    private function register(string $id, mixed $definition): void
-    {
-        $this->assertDefinition($definition);
-
-        $this->assertNotRegistered($id);
-
-        /** @var callable|object|string $definition */
-        $this->definitions[$id] = $definition;
-    }
-
-    private function assertDefinition(mixed $definition): void
-    {
-        if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
-            throw new ContainerException(
-                sprintf(
-                    'Definition should be callable, object or string, "%s" given.',
-                    gettype($definition),
-                )
-            );
+        if (is_int($id)) {
+            $id = $definition->getId();
         }
+
+        $this->registerDefinition($id, $definition);
+    }
+
+    private function registerDefinition(string $id, IServiceDefinition $definition): void
+    {
+        $this->assertNotRegistered($id);
+        $this->definitions->offsetSet($id, $definition);
     }
 
     private function assertNotRegistered(string $id): void
@@ -92,18 +80,23 @@ final class Container implements IContainer
 
     public function has(string $id): bool
     {
+        return $this->hasDefinition($id);
+    }
+
+    private function hasDefinition(string $id): bool
+    {
         return $this->definitions->offsetExists($id);
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     *
+     * @psalm-suppress MixedInferredReturnType
+     */
     public function get(string $id): mixed
     {
-        if ($this->hasService($id)) {
-            return $this->services[$id];
-        }
-
         if (!$this->has($id)) {
-            throw new NotInContainerException(
+            throw new NotFoundInContainer(
                 sprintf(
                     'There is no service with id "%s" in the container.',
                     $id,
@@ -111,15 +104,13 @@ final class Container implements IContainer
             );
         }
 
-        $this->addDependencyToStack($id);
+        if ($this->hasService($id)) {
+            /** @psalm-suppress MixedReturnStatement */
+            return $this->retrieveService($id)->getValue();
+        }
 
-        $definition = $this->definitions[$id];
-
-        $this->services[$id] = $this->getService($id, $definition);
-
-        $this->removeDependencyFromStack();
-
-        return $this->services[$id];
+        /** @psalm-suppress MixedReturnStatement */
+        return $this->getService($id)->getValue();
     }
 
     private function hasService(string $id): bool
@@ -127,44 +118,56 @@ final class Container implements IContainer
         return $this->services->offsetExists($id);
     }
 
-    private function addDependencyToStack(string $id): void
+    private function retrieveService(string $id): IService
     {
-        $this->assertDependencyIsNotInStack($id);
-
-        $this->dependencyStack->append($id);
+        /** @psalm-suppress MixedReturnStatement */
+        return $this->services->offsetGet($id);
     }
 
-    private function assertDependencyIsNotInStack(string $id): void
+    /**
+     * @throws ContainerExceptionInterface
+     */
+    private function getService(string $id): IService
     {
-        if (in_array($id, $this->dependencyStack->getArrayCopy(), true)) {
-            // @codeCoverageIgnoreStart
-            throw new CircularDependencyException($this->dependencyStack);
-            // @codeCoverageIgnoreEnd
+        $definition = $this->getDefinition($id);
+
+        $service = $this->spawn($definition);
+
+        if ($service->isStorable()) {
+            $this->services->offsetSet($id, $service);
         }
+
+        /** @psalm-suppress MixedReturnStatement */
+        return $service;
     }
 
-    private function getService(string $id, callable|object|string $definition): object
+    private function getDefinition(string $id): IServiceDefinition
+    {
+        return $this->definitions->offsetGet($id);
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     */
+    private function spawn(IServiceDefinition $definition): IService
     {
         try {
             return $this->serviceSpawner->spawn($definition);
         } catch (Throwable $e) {
+            $details =
+                sprintf(
+                    '[%s]: "%s".',
+                    get_debug_type($e),
+                    $e->getMessage(),
+                );
+
             throw new ContainerException(
                 sprintf(
-                    'Could not instantiate service with id "%s".%s',
-                    $id,
-                    sprintf(
-                        ' [%s]: "%s".',
-                        get_debug_type($e),
-                        $e->getMessage(),
-                    ),
+                    'Could not instantiate service. %s',
+                    $details,
                 ),
                 previous: $e,
             );
         }
-    }
-
-    private function removeDependencyFromStack(): void
-    {
-        $this->dependencyStack->offsetUnset($this->dependencyStack->count() - 1);
     }
 }

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use Traversable;
 
-final class Pattern implements IPattern
+final readonly class Pattern implements IPattern
 {
     public function __construct(
         protected IInterval $interval,

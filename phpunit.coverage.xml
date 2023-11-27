@@ -11,17 +11,29 @@
          beStrictAboutCoverageMetadata="false"
 >
   <testsuites>
-    <testsuite name="Functional">
-      <directory>tests/Functional</directory>
-    </testsuite>
-    <testsuite name="Unit">
-      <directory>tests/Unit</directory>
-    </testsuite>
+        <testsuite name="Spinner/Functional">
+            <directory>tests/Spinner/Functional</directory>
+        </testsuite>
+        <testsuite name="Spinner/Unit">
+            <directory>tests/Spinner/Unit</directory>
+        </testsuite>
+        <testsuite name="Lib/Functional">
+            <directory>tests/Lib/Functional</directory>
+        </testsuite>
+        <testsuite name="Lib/Unit">
+            <directory>tests/Lib/Unit</directory>
+        </testsuite>
+        <testsuite name="Benchmark/Functional">
+            <directory>tests/Benchmark/Functional</directory>
+        </testsuite>
+        <testsuite name="Benchmark/Unit">
+            <directory>tests/Benchmark/Unit</directory>
+        </testsuite>
   </testsuites>
   <coverage>
     <report>
       <text outputFile=".tools/.report/.build/coverage.txt" showOnlySummary="true"/>
-      <html outputDirectory=".tools/.report/.build/coverage"/>
+      <html outputDirectory=".tools/.report/.build/coverage/generic"/>
     </report>
   </coverage>
   <source>

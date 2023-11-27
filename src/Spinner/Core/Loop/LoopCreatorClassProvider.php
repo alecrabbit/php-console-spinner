@@ -4,22 +4,28 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Loop;
 
+use AlecRabbit\Spinner\Contract\ICreator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
+
+use function is_a;
+use function sprintf;
 
 final class LoopCreatorClassProvider implements ILoopCreatorClassProvider
 {
     /** @var class-string<ILoopCreator>|null */
-    protected ?string $creatorClass = null;
+    private ?string $creatorClass = null;
 
     /**
-     * @param class-string<ILoopCreator>|null $creatorClass
-     * @throws InvalidArgumentException
+     * @param class-string<ICreator>|null $creatorClass
+     *
+     * @throws InvalidArgument
      */
     public function __construct(?string $creatorClass)
     {
         self::assertClass($creatorClass);
+        /** @var class-string<ILoopCreator>|null $creatorClass */
         $this->creatorClass = $creatorClass;
     }
 
@@ -29,9 +35,9 @@ final class LoopCreatorClassProvider implements ILoopCreatorClassProvider
             return;
         }
         if (!is_a($creatorClass, ILoopCreator::class, true)) {
-            throw new InvalidArgumentException(
+            throw new InvalidArgument(
                 sprintf(
-                    'Creator class must be an instance of "%s" interface.',
+                    'Creator class must be of "%s" interface.',
                     ILoopCreator::class
                 )
             );

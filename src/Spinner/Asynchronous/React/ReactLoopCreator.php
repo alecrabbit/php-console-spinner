@@ -12,7 +12,6 @@ final class ReactLoopCreator implements ILoopCreator
 {
     public function create(): ILoop
     {
-        return
-            new ReactLoopAdapter(Loop::get());
+        return new ReactLoopAdapter(Loop::get());
     }
 }

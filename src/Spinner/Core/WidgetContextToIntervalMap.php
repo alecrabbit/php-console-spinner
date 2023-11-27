@@ -7,23 +7,32 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IWidgetContextToIntervalMap;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
 use Traversable;
 use WeakMap;
 
+/**
+ * @template TKey of IWIdgetContext
+ * @template TValue of IInterval|null
+ *
+ * @implements IWidgetContextToIntervalMap<TKey, TValue>
+ */
 final readonly class WidgetContextToIntervalMap implements IWidgetContextToIntervalMap
 {
-
     public function __construct(
-        protected ArrayAccess&Countable&IteratorAggregate $map = new WeakMap(),
+        private ArrayAccess&Countable&IteratorAggregate $map = new WeakMap(),
     ) {
     }
 
     public function getIterator(): Traversable
     {
+        /**
+         * @var IWidgetContext $key
+         * @var IInterval|false|null $value
+         */
         foreach ($this->map as $key => $value) {
             if ($value === false) {
                 $value = null;
@@ -40,21 +49,29 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         return $this->map->offsetExists($offset);
     }
 
+    /**
+     * @psalm-param TKey $offset
+     *
+     * @psalm-return TValue
+     */
     public function offsetGet(mixed $offset): ?IInterval
     {
         $this->assertOffset($offset);
 
-        if ($this->map->offsetGet($offset) === false) {
+        /** @var IInterval|false|null $value */
+        $value = $this->map->offsetGet($offset);
+
+        if ($value === false) {
             return null;
         }
 
-        return $this->map->offsetGet($offset);
+        return $value;
     }
 
     private function assertOffset(mixed $offset): void
     {
         if (!$offset instanceof IWidgetContext) {
-            throw new InvalidArgumentException('Invalid offset type.');
+            throw new InvalidArgument('Invalid offset type.');
         }
     }
 
@@ -71,11 +88,11 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
 
     private function assertValue(mixed $value): void
     {
-        if (null === $value) {
+        if ($value === null) {
             return;
         }
         if (!$value instanceof IInterval) {
-            throw new InvalidArgumentException('Invalid value type.');
+            throw new InvalidArgument('Invalid value type.');
         }
     }
 
