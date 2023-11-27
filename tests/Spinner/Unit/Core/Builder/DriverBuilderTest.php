@@ -68,16 +68,6 @@ final class DriverBuilderTest extends TestCase
         return $this->createMock(IRenderer::class);
     }
 
-    protected function getSequenceStateWriterMock(): MockObject&ISequenceStateWriter
-    {
-        return $this->createMock(ISequenceStateWriter::class);
-    }
-
-    protected function getSequenceStateBuilderMock(): MockObject&ISequenceStateBuilder
-    {
-        return $this->createMock(ISequenceStateBuilder::class);
-    }
-
     protected function getTimerMock(): MockObject&IDeltaTimer
     {
         return $this->createMock(IDeltaTimer::class);
@@ -189,6 +179,7 @@ final class DriverBuilderTest extends TestCase
             message: $exceptionMessage,
         );
     }
+
     #[Test]
     public function throwIfRendererIsNotSet(): void
     {
@@ -213,6 +204,16 @@ final class DriverBuilderTest extends TestCase
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
+    }
+
+    protected function getSequenceStateWriterMock(): MockObject&ISequenceStateWriter
+    {
+        return $this->createMock(ISequenceStateWriter::class);
+    }
+
+    protected function getSequenceStateBuilderMock(): MockObject&ISequenceStateBuilder
+    {
+        return $this->createMock(ISequenceStateBuilder::class);
     }
 
     protected function getLinkerConfigMock(): MockObject&ILinkerConfig

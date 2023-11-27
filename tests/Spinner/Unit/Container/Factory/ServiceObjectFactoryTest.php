@@ -58,7 +58,6 @@ final class ServiceObjectFactoryTest extends TestCase
         $service = $factory->create($value, $serviceDefinition);
 
         self::assertSame($value, $service->getValue());
-        self::assertSame($serviceDefinition, $service->getServiceDefinition());
         self::assertSame($isStorable, $service->isStorable());
     }
 

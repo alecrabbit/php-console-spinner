@@ -56,7 +56,8 @@ final class InitializationResolverTest extends TestCase
         $initializationModeDetector = $this->getInitializationModeDetectorMock();
         $initializationModeDetector
             ->expects(self::never())
-            ->method('isEnabled');
+            ->method('isEnabled')
+        ;
 
         $resolver = $this->getTesteeInstance(
             driverModeDetector: $driverModeDetector,

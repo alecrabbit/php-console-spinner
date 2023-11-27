@@ -43,9 +43,29 @@ class TestCaseForDriver extends TestCase
         );
     }
 
+    protected function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
+
     protected function getDriverMessagesMock(): MockObject&IDriverMessages
     {
         return $this->createMock(IDriverMessages::class);
+    }
+
+    protected function getRendererMock(): MockObject&IRenderer
+    {
+        return $this->createMock(IRenderer::class);
+    }
+
+    protected function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
+    }
+
+    protected function getDeltaTimerMock(): MockObject&IDeltaTimer
+    {
+        return $this->createMock(IDeltaTimer::class);
     }
 
     protected function getSequenceStateWriterMock(): MockObject&ISequenceStateWriter
@@ -58,24 +78,9 @@ class TestCaseForDriver extends TestCase
         return $this->createMock(ISequenceStateBuilder::class);
     }
 
-    protected function getDeltaTimerMock(): MockObject&IDeltaTimer
-    {
-        return $this->createMock(IDeltaTimer::class);
-    }
-
-    protected function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
-    }
-
     protected function getDriverConfigMock(): MockObject&IDriverConfig
     {
         return $this->createMock(IDriverConfig::class);
-    }
-
-    protected function getIntervalComparatorMock(): MockObject&IIntervalComparator
-    {
-        return $this->createMock(IIntervalComparator::class);
     }
 
     protected function getLinkerConfigMock(): MockObject&ILinkerConfig
@@ -96,10 +101,5 @@ class TestCaseForDriver extends TestCase
     protected function getSpinnerStub(): Stub&ISpinner
     {
         return $this->createStub(ISpinner::class);
-    }
-
-    protected function getRendererMock(): MockObject&IRenderer
-    {
-        return $this->createMock(IRenderer::class);
     }
 }
