@@ -4,9 +4,9 @@ Directories                                         74
 Files                                              280
 
 Size
-  Lines of Code (LOC)                            32649
+  Lines of Code (LOC)                            32647
   Comment Lines of Code (CLOC)                     457 (1.40%)
-  Non-Comment Lines of Code (NCLOC)              32192 (98.60%)
+  Non-Comment Lines of Code (NCLOC)              32190 (98.60%)
   Logical Lines of Code (LLOC)                    7262 (22.24%)
     Classes                                       7254 (99.89%)
       Average Class Length                          26
@@ -40,8 +40,8 @@ Dependencies
     Non-Static                                      23 (82.14%)
     Static                                           5 (17.86%)
   Method Calls                                    9989
-    Non-Static                                    6700 (67.07%)
-    Static                                        3289 (32.93%)
+    Non-Static                                    6679 (66.86%)
+    Static                                        3310 (33.14%)
 
 Structure
   Namespaces                                        74
@@ -54,8 +54,8 @@ Structure
       Non-Final Classes                             18 (6.59%)
   Methods                                         1838
     Scope
-      Non-Static Methods                          1735 (94.40%)
-      Static Methods                               103 (5.60%)
+      Non-Static Methods                          1734 (94.34%)
+      Static Methods                               104 (5.66%)
     Visibility
       Public Methods                              1114 (60.61%)
       Protected Methods                            352 (19.15%)
