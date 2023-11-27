@@ -25,6 +25,4 @@ abstract class ConfigurationTestCase extends ContainerModifyingTestCase
     }
 
     abstract protected static function performContainerModifications(): void;
-
-
 }
