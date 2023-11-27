@@ -2,6 +2,8 @@ deptrac:
   layers:
     - name: Root
       collectors:
+        - type: className
+          value: '%namespace%\\Root\\.*'
         - type: bool
           must:
             - type: className

@@ -27,35 +27,30 @@ final readonly class RootWidgetConfigFactory implements IRootWidgetConfigFactory
         }
 
         if ($widgetSettings instanceof IWidgetConfig) {
-            return
-                new RootWidgetConfig(
-                    leadingSpacer: $widgetSettings->getLeadingSpacer(),
-                    trailingSpacer: $widgetSettings->getTrailingSpacer(),
-                    revolverConfig: $widgetSettings->getWidgetRevolverConfig(),
-                );
+            return new RootWidgetConfig(
+                leadingSpacer: $widgetSettings->getLeadingSpacer(),
+                trailingSpacer: $widgetSettings->getTrailingSpacer(),
+                revolverConfig: $widgetSettings->getWidgetRevolverConfig(),
+            );
         }
 
-        return
-            new RootWidgetConfig(
-                leadingSpacer: $this->getLeadingSpacer($widgetSettings),
-                trailingSpacer: $this->getTrailingSpacer($widgetSettings),
-                revolverConfig: $this->getWidgetRevolverConfig($widgetSettings),
-            );
+        return new RootWidgetConfig(
+            leadingSpacer: $this->getLeadingSpacer($widgetSettings),
+            trailingSpacer: $this->getTrailingSpacer($widgetSettings),
+            revolverConfig: $this->getWidgetRevolverConfig($widgetSettings),
+        );
     }
 
-
-    protected function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
-        return
-            $widgetSettings->getLeadingSpacer()
+        return $widgetSettings->getLeadingSpacer()
             ??
             $this->rootWidgetConfig->getLeadingSpacer();
     }
 
-    protected function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
-        return
-            $widgetSettings->getTrailingSpacer()
+        return $widgetSettings->getTrailingSpacer()
             ??
             $this->rootWidgetConfig->getTrailingSpacer();
     }
@@ -64,11 +59,10 @@ final readonly class RootWidgetConfigFactory implements IRootWidgetConfigFactory
     {
         $wRConfig = $this->rootWidgetConfig->getWidgetRevolverConfig();
 
-        return
-            new WidgetRevolverConfig(
-                stylePalette: $widgetSettings->getStylePalette() ?? $wRConfig->getStylePalette(),
-                charPalette: $widgetSettings->getCharPalette() ?? $wRConfig->getCharPalette(),
-                revolverConfig: $wRConfig->getRevolverConfig(),
-            );
+        return new WidgetRevolverConfig(
+            stylePalette: $widgetSettings->getStylePalette() ?? $wRConfig->getStylePalette(),
+            charPalette: $widgetSettings->getCharPalette() ?? $wRConfig->getCharPalette(),
+            revolverConfig: $wRConfig->getRevolverConfig(),
+        );
     }
 }

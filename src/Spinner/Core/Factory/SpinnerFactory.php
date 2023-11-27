@@ -28,17 +28,15 @@ final readonly class SpinnerFactory implements ISpinnerFactory
                 $spinnerSettings?->getWidgetSettings()
             );
 
-        return
-            new Spinner(
-                widget: $widget
-            );
+        return new Spinner(
+            widget: $widget
+        );
     }
 
-    protected function createWidget(?IWidgetSettings $widgetSettings): IWidget
+    private function createWidget(?IWidgetSettings $widgetSettings): IWidget
     {
         $widgetConfig = $this->widgetConfigFactory->create($widgetSettings);
 
-        return
-            $this->widgetFactory->create($widgetConfig);
+        return $this->widgetFactory->create($widgetConfig);
     }
 }

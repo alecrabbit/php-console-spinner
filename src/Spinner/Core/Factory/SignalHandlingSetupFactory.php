@@ -22,20 +22,17 @@ final class SignalHandlingSetupFactory implements Contract\ISignalHandlingSetupF
     public function create(): ISignalHandlingSetup
     {
         if ($this->loopProvider->hasLoop() && $this->isSignalHandlingEnabled()) {
-            return
-                new SignalHandlingSetup(
-                    $this->loopProvider->getLoop(),
-                    $this->loopConfig,
-                );
+            return new SignalHandlingSetup(
+                $this->loopProvider->getLoop(),
+                $this->loopConfig,
+            );
         }
 
-        return
-            new DummySignalHandlingSetup();
+        return new DummySignalHandlingSetup();
     }
 
     private function isSignalHandlingEnabled(): bool
     {
-        return
-            $this->loopConfig->getSignalHandlingMode() === SignalHandlingMode::ENABLED;
+        return $this->loopConfig->getSignalHandlingMode() === SignalHandlingMode::ENABLED;
     }
 }

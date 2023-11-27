@@ -11,8 +11,8 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 final readonly class LoopSettings implements ILoopSettings
 {
     public function __construct(
-        protected AutoStartOption $autoStartOption = AutoStartOption::AUTO,
-        protected SignalHandlingOption $signalHandlingOption = SignalHandlingOption::AUTO,
+        private AutoStartOption $autoStartOption = AutoStartOption::AUTO,
+        private SignalHandlingOption $signalHandlingOption = SignalHandlingOption::AUTO,
     ) {
     }
 

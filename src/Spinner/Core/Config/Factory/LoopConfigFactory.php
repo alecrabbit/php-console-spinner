@@ -23,18 +23,17 @@ final readonly class LoopConfigFactory implements ILoopConfigFactory
 
     public function create(): ILoopConfig
     {
-        return
-            $this->loopConfigBuilder
-                ->withAutoStartMode(
-                    $this->autoStartModeSolver->solve()
-                )
-                ->withSignalHandlingMode(
-                    $this->signalHandlersModeSolver->solve()
-                )
-                ->withSignalHandlersContainer(
-                    $this->signalHandlersContainerSolver->solve()
-                )
-                ->build()
+        return $this->loopConfigBuilder
+            ->withAutoStartMode(
+                $this->autoStartModeSolver->solve()
+            )
+            ->withSignalHandlingMode(
+                $this->signalHandlersModeSolver->solve()
+            )
+            ->withSignalHandlersContainer(
+                $this->signalHandlersContainerSolver->solve()
+            )
+            ->build()
         ;
     }
 }

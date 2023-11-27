@@ -25,7 +25,6 @@ final class Benchmark implements IBenchmark
         return $result;
     }
 
-    /** @inheritDoc */
     public function getStopwatch(): IStopwatch
     {
         return $this->stopwatch;

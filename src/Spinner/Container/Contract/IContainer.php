@@ -26,6 +26,5 @@ interface IContainer extends ContainerInterface
      */
     public function get(string $id);
 
-    /** @inheritDoc */
     public function has(string $id): bool;
 }

@@ -13,7 +13,6 @@ use function array_reverse;
 
 final class Snake extends ACharPalette
 {
-    /** @inheritDoc */
     protected function sequence(): Traversable
     {
         $a = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];

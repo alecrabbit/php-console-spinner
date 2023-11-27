@@ -67,14 +67,6 @@ final readonly class Interval implements IInterval
         return $this->milliseconds * 1000;
     }
 
-    public function smallest(mixed $other): IInterval
-    {
-        if ($other instanceof IInterval && $this->milliseconds > $other->toMilliseconds()) {
-            return $other;
-        }
-        return $this;
-    }
-
     public function toMilliseconds(): float
     {
         return $this->milliseconds;

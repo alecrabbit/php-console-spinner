@@ -8,14 +8,13 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 
-
 final readonly class RootWidgetSettings implements IRootWidgetSettings
 {
     public function __construct(
-        protected ?IFrame $leadingSpacer = null,
-        protected ?IFrame $trailingSpacer = null,
-        protected ?IPalette $stylePalette = null,
-        protected ?IPalette $charPalette = null,
+        private ?IFrame $leadingSpacer = null,
+        private ?IFrame $trailingSpacer = null,
+        private ?IPalette $stylePalette = null,
+        private ?IPalette $charPalette = null,
     ) {
     }
 

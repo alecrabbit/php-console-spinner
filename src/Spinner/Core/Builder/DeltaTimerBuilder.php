@@ -22,11 +22,10 @@ final class DeltaTimerBuilder implements IDeltaTimerBuilder
     {
         $this->validate();
 
-        return
-            new DeltaTimer(
-                now: $this->nowTimer,
-                startTime: $this->startTime,
-            );
+        return new DeltaTimer(
+            nowTimer: $this->nowTimer,
+            startTime: $this->startTime,
+        );
     }
 
     private function validate(): void

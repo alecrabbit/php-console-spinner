@@ -11,7 +11,7 @@ use Traversable;
 
 final readonly class SignalHandlerSettings implements ISignalHandlerSettings
 {
-    protected Traversable $creators;
+    private Traversable $creators;
 
     public function __construct(ISignalHandlerCreator ...$creators)
     {

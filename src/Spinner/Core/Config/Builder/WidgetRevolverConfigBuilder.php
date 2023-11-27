@@ -20,19 +20,15 @@ final class WidgetRevolverConfigBuilder implements IWidgetRevolverConfigBuilder
     private ?IPalette $charPalette = null;
     private ?IRevolverConfig $revolverConfig = null;
 
-    /**
-     * @inheritDoc
-     */
     public function build(): IWidgetRevolverConfig
     {
         $this->validate();
 
-        return
-            new WidgetRevolverConfig(
-                stylePalette: $this->stylePalette,
-                charPalette: $this->charPalette,
-                revolverConfig: $this->revolverConfig,
-            );
+        return new WidgetRevolverConfig(
+            stylePalette: $this->stylePalette,
+            charPalette: $this->charPalette,
+            revolverConfig: $this->revolverConfig,
+        );
     }
 
     private function validate(): void

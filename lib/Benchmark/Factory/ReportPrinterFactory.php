@@ -21,11 +21,10 @@ final class ReportPrinterFactory implements IReportPrinterFactory
 
     public function create(): IReportPrinter
     {
-        return
-            $this->builder
-                ->withOutput($this->output)
-                ->withReportFormatter($this->reportFormatter)
-                ->build()
+        return $this->builder
+            ->withOutput($this->output)
+            ->withReportFormatter($this->reportFormatter)
+            ->build()
         ;
     }
 }

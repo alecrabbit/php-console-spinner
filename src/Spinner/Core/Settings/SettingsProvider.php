@@ -10,9 +10,9 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 final readonly class SettingsProvider implements ISettingsProvider
 {
     public function __construct(
-        protected ISettings $userSettings,
-        protected ISettings $defaultSettings,
-        protected ISettings $detectedSettings,
+        private ISettings $userSettings,
+        private ISettings $defaultSettings,
+        private ISettings $detectedSettings,
     ) {
     }
 

@@ -19,12 +19,11 @@ final readonly class NormalizerConfigFactory implements INormalizerConfigFactory
 
     public function create(): INormalizerConfig
     {
-        return
-            $this->normalizerConfigBuilder
-                ->withNormalizerMode(
-                    $this->normalizerModeSolver->solve()
-                )
-                ->build()
+        return $this->normalizerConfigBuilder
+            ->withNormalizerMode(
+                $this->normalizerModeSolver->solve()
+            )
+            ->build()
         ;
     }
 }

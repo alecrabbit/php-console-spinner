@@ -8,5 +8,4 @@ use InvalidArgumentException;
 
 class InvalidOptionsArgument extends InvalidArgumentException
 {
-
 }

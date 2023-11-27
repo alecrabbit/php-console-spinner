@@ -14,8 +14,8 @@ use Traversable;
 final readonly class SignalHandlingSetup implements ISignalHandlingSetup
 {
     public function __construct(
-        protected ILoop $loop,
-        protected ILoopConfig $loopConfig,
+        private ILoop $loop,
+        private ILoopConfig $loopConfig,
     ) {
     }
 
@@ -37,9 +37,8 @@ final readonly class SignalHandlingSetup implements ISignalHandlingSetup
 
     private function getHandlers(): Traversable
     {
-        return
-            $this->loopConfig->getSignalHandlersContainer()
-                ->getHandlerCreators()
+        return $this->loopConfig->getSignalHandlersContainer()
+            ->getHandlerCreators()
         ;
     }
 }

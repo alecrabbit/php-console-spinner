@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Exception\WidgetIsNotAComposite;
 final class Spinner extends ASubject implements ISpinner
 {
     public function __construct(
-        protected readonly IWidget $widget,
+        private readonly IWidget $widget,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);

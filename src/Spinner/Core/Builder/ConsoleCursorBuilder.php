@@ -23,11 +23,10 @@ final class ConsoleCursorBuilder implements IConsoleCursorBuilder
     {
         $this->validate();
 
-        return
-            new ConsoleCursor(
-                $this->buffer,
-                $this->cursorVisibilityMode,
-            );
+        return new ConsoleCursor(
+            $this->buffer,
+            $this->cursorVisibilityMode,
+        );
     }
 
     private function validate(): void

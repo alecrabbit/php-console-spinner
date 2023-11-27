@@ -21,11 +21,10 @@ final class ReportFactory implements IReportFactory
 
     public function create(): IReport
     {
-        return
-            $this->reportBuilder
-                ->withBenchmarkResults($this->benchmarkResults)
-                ->withTitle($this->title)
-                ->build()
+        return $this->reportBuilder
+            ->withBenchmarkResults($this->benchmarkResults)
+            ->withTitle($this->title)
+            ->build()
         ;
     }
 }

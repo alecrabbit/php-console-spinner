@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IRevolverSettings;
 final readonly class RevolverSettings implements IRevolverSettings
 {
     public function __construct(
-        protected ITolerance $tolerance,
+        private ITolerance $tolerance,
     ) {
     }
 
@@ -19,7 +19,6 @@ final readonly class RevolverSettings implements IRevolverSettings
         return $this->tolerance;
     }
 
-    /** @inheritDoc */
     public function getIdentifier(): string
     {
         return IRevolverSettings::class;

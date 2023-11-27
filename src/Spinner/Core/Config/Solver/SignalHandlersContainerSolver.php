@@ -20,12 +20,11 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
 {
     public function solve(): ISignalHandlersContainer
     {
-        return
-            $this->doSolve(
-                $this->extractSignalHandlerCreators($this->settingsProvider->getUserSettings()),
-                $this->extractSignalHandlerCreators($this->settingsProvider->getDetectedSettings()),
-                $this->extractSignalHandlerCreators($this->settingsProvider->getDefaultSettings()),
-            );
+        return $this->doSolve(
+            $this->extractSignalHandlerCreators($this->settingsProvider->getUserSettings()),
+            $this->extractSignalHandlerCreators($this->settingsProvider->getDetectedSettings()),
+            $this->extractSignalHandlerCreators($this->settingsProvider->getDefaultSettings()),
+        );
     }
 
     private function doSolve(
@@ -33,14 +32,13 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
         ?Traversable $detectedCreators,
         ?Traversable $defaultCreators,
     ): ISignalHandlersContainer {
-        return
-            new SignalHandlersContainer(
-                $this->mergeSignalHandlerCreators(
-                    $userCreators,
-                    $detectedCreators,
-                    $defaultCreators
-                )
-            );
+        return new SignalHandlersContainer(
+            $this->mergeSignalHandlerCreators(
+                $userCreators,
+                $detectedCreators,
+                $defaultCreators
+            )
+        );
     }
 
     /**
@@ -58,8 +56,7 @@ final readonly class SignalHandlersContainerSolver extends ASolver implements IS
             iterator_to_array($this->unwrap($detectedCreators ?? new ArrayObject([]))) +
             iterator_to_array($this->unwrap($defaultCreators ?? new ArrayObject([])));
 
-        return
-            new ArrayObject($merged);
+        return new ArrayObject($merged);
     }
 
     /**

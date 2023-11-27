@@ -17,12 +17,11 @@ final readonly class DriverMessagesSolver extends ASolver implements IDriverMess
 {
     public function solve(): IDriverMessages
     {
-        return
-            $this->doSolve(
-                $this->extractMessages($this->settingsProvider->getUserSettings()),
-                $this->extractMessages($this->settingsProvider->getDetectedSettings()),
-                $this->extractMessages($this->settingsProvider->getDefaultSettings()),
-            );
+        return $this->doSolve(
+            $this->extractMessages($this->settingsProvider->getUserSettings()),
+            $this->extractMessages($this->settingsProvider->getDetectedSettings()),
+            $this->extractMessages($this->settingsProvider->getDefaultSettings()),
+        );
     }
 
     private function doSolve(
@@ -46,11 +45,10 @@ final readonly class DriverMessagesSolver extends ASolver implements IDriverMess
                 sprintf('Unable to solve "%s". (for interrupt message)', IDriverMessages::class)
             );
 
-        return
-            new DriverMessages(
-                finalMessage: $finalMessage,
-                interruptionMessage: $interruptionMessage,
-            );
+        return new DriverMessages(
+            finalMessage: $finalMessage,
+            interruptionMessage: $interruptionMessage,
+        );
     }
 
     private function extractMessages(ISettings $settings): ?IMessages

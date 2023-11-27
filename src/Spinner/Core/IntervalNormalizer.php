@@ -8,10 +8,10 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 
-final class IntervalNormalizer implements IIntervalNormalizer
+final readonly class IntervalNormalizer implements IIntervalNormalizer
 {
     public function __construct(
-        protected IIntegerNormalizer $integerNormalizer,
+        private IIntegerNormalizer $integerNormalizer,
     ) {
     }
 

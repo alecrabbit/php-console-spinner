@@ -9,9 +9,9 @@ use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 final readonly class SequenceState implements ISequenceState
 {
     public function __construct(
-        protected string $sequence,
-        protected int $width,
-        protected int $previousWidth,
+        private string $sequence,
+        private int $width,
+        private int $previousWidth,
     ) {
     }
 

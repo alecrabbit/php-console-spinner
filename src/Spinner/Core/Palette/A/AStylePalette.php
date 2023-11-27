@@ -28,18 +28,16 @@ abstract class AStylePalette extends APalette implements IStylePalette
 
     protected function getInterval(StylingMethodMode $stylingMode): ?int
     {
-        return
-            match ($stylingMode) {
-                StylingMethodMode::ANSI8 => 1000,
-                StylingMethodMode::ANSI24 => 100,
-                default => null,
-            };
+        return match ($stylingMode) {
+            StylingMethodMode::ANSI8 => 1000,
+            StylingMethodMode::ANSI24 => 100,
+            default => null,
+        };
     }
 
     protected function extractStylingMode(?IPaletteMode $options): StylingMethodMode
     {
-        return
-            $options?->getStylingMode() ?? StylingMethodMode::NONE;
+        return $options?->getStylingMode() ?? StylingMethodMode::NONE;
     }
 
     /**

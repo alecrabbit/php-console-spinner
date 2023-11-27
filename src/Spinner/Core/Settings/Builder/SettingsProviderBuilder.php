@@ -19,17 +19,15 @@ final class SettingsProviderBuilder implements ISettingsProviderBuilder
     private ?ISettings $defaultSettings = null;
     private ?ISettings $detectedSettings = null;
 
-
     public function build(): ISettingsProvider
     {
         $this->validate();
 
-        return
-            new SettingsProvider(
-                userSettings: $this->settings,
-                defaultSettings: $this->defaultSettings,
-                detectedSettings: $this->detectedSettings,
-            );
+        return new SettingsProvider(
+            userSettings: $this->settings,
+            defaultSettings: $this->defaultSettings,
+            detectedSettings: $this->detectedSettings,
+        );
     }
 
     private function validate(): void

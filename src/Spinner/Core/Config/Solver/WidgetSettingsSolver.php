@@ -17,12 +17,11 @@ final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSett
 {
     public function solve(): IWidgetSettings
     {
-        return
-            $this->doSolve(
-                $this->extractSettings($this->settingsProvider->getUserSettings()),
-                $this->extractSettings($this->settingsProvider->getDetectedSettings()),
-                $this->extractSettings($this->settingsProvider->getDefaultSettings()),
-            );
+        return $this->doSolve(
+            $this->extractSettings($this->settingsProvider->getUserSettings()),
+            $this->extractSettings($this->settingsProvider->getDetectedSettings()),
+            $this->extractSettings($this->settingsProvider->getDefaultSettings()),
+        );
     }
 
     /**
@@ -45,13 +44,12 @@ final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSett
         $charPalette =
             $this->getCharPalette($userSettings, $detectedSettings, $defaultSettings);
 
-        return
-            new WidgetSettings(
-                leadingSpacer: $leadingSpacer,
-                trailingSpacer: $trailingSpacer,
-                stylePalette: $stylePalette,
-                charPalette: $charPalette,
-            );
+        return new WidgetSettings(
+            leadingSpacer: $leadingSpacer,
+            trailingSpacer: $trailingSpacer,
+            stylePalette: $stylePalette,
+            charPalette: $charPalette,
+        );
     }
 
     private function getLeadingSpacer(
@@ -59,8 +57,7 @@ final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSett
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
     ): IFrame {
-        return
-            $userSettings?->getLeadingSpacer()
+        return $userSettings?->getLeadingSpacer()
             ??
             $detectedSettings?->getLeadingSpacer()
             ??
@@ -74,8 +71,7 @@ final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSett
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
     ): IFrame {
-        return
-            $userSettings?->getTrailingSpacer()
+        return $userSettings?->getTrailingSpacer()
             ??
             $detectedSettings?->getTrailingSpacer()
             ??
@@ -89,8 +85,7 @@ final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSett
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
     ): IPalette {
-        return
-            $userSettings?->getStylePalette()
+        return $userSettings?->getStylePalette()
             ??
             $detectedSettings?->getStylePalette()
             ??
@@ -104,8 +99,7 @@ final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSett
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
     ): IPalette {
-        return
-            $userSettings?->getCharPalette()
+        return $userSettings?->getCharPalette()
             ??
             $detectedSettings?->getCharPalette()
             ??

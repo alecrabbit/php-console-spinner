@@ -21,11 +21,10 @@ final class BenchmarkingDriverFactory implements IBenchmarkingDriverFactory
 
     public function create(): IBenchmarkingDriver
     {
-        return
-            $this->benchmarkingDriverBuilder
-                ->withDriver($this->driverFactory->create())
-                ->withBenchmark($this->benchmarkFactory->create())
-                ->build()
+        return $this->benchmarkingDriverBuilder
+            ->withDriver($this->driverFactory->create())
+            ->withBenchmark($this->benchmarkFactory->create())
+            ->build()
         ;
     }
 }

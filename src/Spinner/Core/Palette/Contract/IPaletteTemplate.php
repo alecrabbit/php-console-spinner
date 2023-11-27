@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Palette\Contract;
 use AlecRabbit\Spinner\Contract\IFrame;
 use Traversable;
 
-interface  IPaletteTemplate
+interface IPaletteTemplate
 {
     /**
      * @return Traversable<IFrame>

@@ -38,8 +38,52 @@ There are four palettes supplied with the package:
 
 #### How to create your own character palette
 
-// todo
+```php
+class Dots extends ACharPalette {
+    protected function createFrame(string $element): ICharFrame
+    {
+        return new CharFrame($element, 3); // note the width is 3
+    }
+
+    /** @inheritDoc */
+    protected function sequence(): Traversable
+    {
+        // note the width of each element
+        $a = ['   ', '.  ', '.. ', '...', ' ..', '  .', '   ']; 
+
+        if ($this->options->getReversed()) {
+            $a = array_reverse($a);
+        }
+
+        yield from $a;
+    }
+}
+```
 
 #### How to create your own style palette
 
-// todo
+```php
+class Greeny extends AStylePalette {
+    protected function ansi4StyleFrames(): Traversable
+    {
+        yield from [
+            $this->createFrame("\e[92m%s\e[39m"),
+        ];
+    }
+
+    protected function ansi8StyleFrames(): Traversable
+    {
+        return $this->ansi4StyleFrames();
+    }
+
+    protected function ansi24StyleFrames(): Traversable
+    {
+        return $this->ansi4StyleFrames();
+    }
+
+    protected function getInterval(StylingMethodMode $stylingMode): ?int
+    {
+        return null; // due to single style frame
+    }
+}
+```

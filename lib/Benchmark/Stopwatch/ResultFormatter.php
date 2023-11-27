@@ -13,7 +13,7 @@ final class ResultFormatter implements IResultFormatter
     private string $format;
 
     public function __construct(
-        string $format = null,
+        ?string $format = null,
         protected string $shortFormat = self::FORMAT,
         string $formatPrototype = '%s [%s/%s]',
         protected string $units = 'μs',
@@ -29,18 +29,16 @@ final class ResultFormatter implements IResultFormatter
             );
     }
 
-
     public function format(IResult $result): string
     {
-        return
-            sprintf(
-                $this->format,
-                $result->getAverage(),
-                $this->units,
-                $result->getMax(),
-                $this->units,
-                $result->getMin(),
-                $this->units,
-            );
+        return sprintf(
+            $this->format,
+            $result->getAverage(),
+            $this->units,
+            $result->getMax(),
+            $this->units,
+            $result->getMin(),
+            $this->units,
+        );
     }
 }

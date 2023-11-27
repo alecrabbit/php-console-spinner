@@ -18,9 +18,8 @@ final class ResourceStreamFactory implements IResourceStreamFactory
 
     public function create(): IWritableStream
     {
-        return
-            new WritableStream(
-                $this->outputConfig->getStream()
-            );
+        return new WritableStream(
+            $this->outputConfig->getStream()
+        );
     }
 }

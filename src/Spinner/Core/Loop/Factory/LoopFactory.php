@@ -21,16 +21,17 @@ final readonly class LoopFactory implements ILoopFactory
 
     public function create(): ILoop
     {
+        /** @var class-string<ILoopCreator> $class */
         $class = $this->classProvider->getCreatorClass();
 
         self::assertClass($class);
 
-        /** @var class-string<ILoopCreator> $class */
-        return (new $class)->create();
+        return (new $class())->create();
     }
 
     /**
-     * @param null|class-string<ILoopCreator> $loopCreator
+     * @param class-string<ILoopCreator>|null $loopCreator
+     *
      * @throws LoopException
      */
     private static function assertClass(?string $loopCreator): void

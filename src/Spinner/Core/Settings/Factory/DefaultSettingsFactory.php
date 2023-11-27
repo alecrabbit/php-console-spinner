@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\DriverOption;
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
@@ -58,6 +59,7 @@ final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
             ),
             new DriverSettings(
                 messages: new Messages('', ''),
+                driverOption: DriverOption::ENABLED,
             ),
             new LoopSettings(
                 autoStartOption: AutoStartOption::ENABLED,

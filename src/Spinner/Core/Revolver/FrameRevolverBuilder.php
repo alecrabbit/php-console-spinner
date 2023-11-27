@@ -24,12 +24,11 @@ final class FrameRevolverBuilder implements IFrameRevolverBuilder
     {
         $this->validate();
 
-        return
-            new FrameCollectionRevolver(
-                $this->frames,
-                $this->interval,
-                $this->tolerance,
-            );
+        return new FrameCollectionRevolver(
+            $this->frames,
+            $this->interval,
+            $this->tolerance,
+        );
     }
 
     private function validate(): void

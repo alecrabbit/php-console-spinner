@@ -9,5 +9,4 @@ use AlecRabbit\Spinner\Contract\IHasInterval;
 
 interface IRevolver extends IHasFrame, IHasInterval
 {
-
 }

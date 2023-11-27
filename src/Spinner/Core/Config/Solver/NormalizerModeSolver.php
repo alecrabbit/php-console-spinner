@@ -16,12 +16,11 @@ final readonly class NormalizerModeSolver extends ASolver implements INormalizer
 {
     public function solve(): NormalizerMode
     {
-        return
-            $this->doSolve(
-                $this->extractOption($this->settingsProvider->getUserSettings()),
-                $this->extractOption($this->settingsProvider->getDetectedSettings()),
-                $this->extractOption($this->settingsProvider->getDefaultSettings()),
-            );
+        return $this->doSolve(
+            $this->extractOption($this->settingsProvider->getUserSettings()),
+            $this->extractOption($this->settingsProvider->getDetectedSettings()),
+            $this->extractOption($this->settingsProvider->getDefaultSettings()),
+        );
     }
 
     private function doSolve(
@@ -55,15 +54,14 @@ final readonly class NormalizerModeSolver extends ASolver implements INormalizer
 
     private function createModeFromOption(?NormalizerOption $option): ?NormalizerMode
     {
-        return
-            match ($option) {
-                NormalizerOption::SMOOTH => NormalizerMode::SMOOTH,
-                NormalizerOption::BALANCED => NormalizerMode::BALANCED,
-                NormalizerOption::PERFORMANCE => NormalizerMode::PERFORMANCE,
-                NormalizerOption::SLOW => NormalizerMode::SLOW,
-                NormalizerOption::STILL => NormalizerMode::STILL,
-                default => null,
-            };
+        return match ($option) {
+            NormalizerOption::SMOOTH => NormalizerMode::SMOOTH,
+            NormalizerOption::BALANCED => NormalizerMode::BALANCED,
+            NormalizerOption::PERFORMANCE => NormalizerMode::PERFORMANCE,
+            NormalizerOption::SLOW => NormalizerMode::SLOW,
+            NormalizerOption::STILL => NormalizerMode::STILL,
+            default => null,
+        };
     }
 
     protected function extractOption(ISettings $settings): ?NormalizerOption

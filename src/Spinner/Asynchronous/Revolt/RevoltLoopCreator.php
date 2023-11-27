@@ -12,7 +12,6 @@ final class RevoltLoopCreator implements ILoopCreator
 {
     public function create(): ILoop
     {
-        return
-            new RevoltLoopAdapter(EventLoop::getDriver());
+        return new RevoltLoopAdapter(EventLoop::getDriver());
     }
 }

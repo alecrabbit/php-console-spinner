@@ -17,6 +17,4 @@ interface IServiceDefinition
     public function getDefinition(): object|callable|string;
 
     public function getOptions(): int;
-
-    public function isStorable(): bool;
 }

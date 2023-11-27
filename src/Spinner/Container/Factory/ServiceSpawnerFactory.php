@@ -24,12 +24,11 @@ final readonly class ServiceSpawnerFactory implements IServiceSpawnerFactory
 
     public function create(IContainer $container): IServiceSpawner
     {
-        return
-            $this->spawnerBuilder
-                ->withContainer($container)
-                ->withCircularDependencyDetector($this->circularDependencyDetector)
-                ->withServiceObjectFactory($this->serviceObjectFactory)
-                ->build()
+        return $this->spawnerBuilder
+            ->withContainer($container)
+            ->withCircularDependencyDetector($this->circularDependencyDetector)
+            ->withServiceObjectFactory($this->serviceObjectFactory)
+            ->build()
         ;
     }
 }

@@ -5,44 +5,68 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Widget\Builder\A\AWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
+use AlecRabbit\Spinner\Exception\LogicException;
 
 /**
  * @psalm-suppress PossiblyNullArgument
  */
 final class WidgetCompositeBuilder extends AWidgetBuilder implements IWidgetCompositeBuilder
 {
+    private ?IIntervalComparator $intervalComparator = null;
+
     public function build(): IWidgetComposite
     {
         $this->validate();
 
-        return
-            new WidgetComposite(
-                $this->revolver,
-                $this->leadingSpacer,
-                $this->trailingSpacer,
-            );
+        return new WidgetComposite(
+            revolver: $this->revolver,
+            leadingSpacer: $this->leadingSpacer,
+            trailingSpacer: $this->trailingSpacer,
+            intervalComparator: $this->intervalComparator,
+        );
+    }
+
+    protected function validate(): void
+    {
+        parent::validate();
+
+        match (true) {
+            $this->intervalComparator === null => throw new LogicException('Interval comparator is not set.'),
+            default => null,
+        };
     }
 
     public function withWidgetRevolver(IWidgetRevolver $revolver): IWidgetCompositeBuilder
     {
-        $this->revolver = $revolver;
-        return $this;
+        $clone = clone $this;
+        $clone->revolver = $revolver;
+        return $clone;
     }
 
-    public function withLeadingSpacer(IFrame $frame): IWidgetCompositeBuilder
+    public function withLeadingSpacer(IFrame $leadingSpacer): IWidgetCompositeBuilder
     {
-        $this->leadingSpacer = $frame;
-        return $this;
+        $clone = clone $this;
+        $clone->leadingSpacer = $leadingSpacer;
+        return $clone;
     }
 
-    public function withTrailingSpacer(IFrame $frame): IWidgetCompositeBuilder
+    public function withTrailingSpacer(IFrame $trailingSpacer): IWidgetCompositeBuilder
     {
-        $this->trailingSpacer = $frame;
-        return $this;
+        $clone = clone $this;
+        $clone->trailingSpacer = $trailingSpacer;
+        return $clone;
+    }
+
+    public function withIntervalComparator(IIntervalComparator $intervalComparator): IWidgetCompositeBuilder
+    {
+        $clone = clone $this;
+        $clone->intervalComparator = $intervalComparator;
+        return $clone;
     }
 }

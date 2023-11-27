@@ -20,10 +20,9 @@ final readonly class ContainerFactory implements IContainerFactory
 
     public function create(): IContainer
     {
-        return
-            new Container(
-                spawnerFactory: $this->spawnerFactory,
-                definitions: $this->definitionRegistry->load(),
-            );
+        return new Container(
+            spawnerFactory: $this->spawnerFactory,
+            definitions: $this->definitionRegistry->load(),
+        );
     }
 }

@@ -25,12 +25,11 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
     {
         $this->validate();
 
-        return
-            new WidgetRevolver(
-                $this->styleRevolver,
-                $this->charRevolver,
-                $this->tolerance,
-            );
+        return new WidgetRevolver(
+            $this->styleRevolver,
+            $this->charRevolver,
+            $this->tolerance,
+        );
     }
 
     protected function validate(): void

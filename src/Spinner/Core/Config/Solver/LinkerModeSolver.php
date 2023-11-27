@@ -15,12 +15,11 @@ final readonly class LinkerModeSolver extends ASolver implements Contract\ILinke
 {
     public function solve(): LinkerMode
     {
-        return
-            $this->doSolve(
-                $this->extractOption($this->settingsProvider->getUserSettings()),
-                $this->extractOption($this->settingsProvider->getDetectedSettings()),
-                $this->extractOption($this->settingsProvider->getDefaultSettings()),
-            );
+        return $this->doSolve(
+            $this->extractOption($this->settingsProvider->getUserSettings()),
+            $this->extractOption($this->settingsProvider->getDetectedSettings()),
+            $this->extractOption($this->settingsProvider->getDefaultSettings()),
+        );
     }
 
     private function doSolve(
@@ -29,136 +28,135 @@ final readonly class LinkerModeSolver extends ASolver implements Contract\ILinke
         ?LinkerOption $defaultOption
     ): LinkerMode {
         $options = [$userOption, $detectedOption, $defaultOption];
-        return
-            match ($options) {
-                [
-                    LinkerOption::AUTO,
-                    LinkerOption::ENABLED,
-                    LinkerOption::DISABLED,
-                ],
-                [
-                    LinkerOption::AUTO,
-                    LinkerOption::ENABLED,
-                    LinkerOption::ENABLED,
-                ],
-                [
-                    LinkerOption::ENABLED,
-                    LinkerOption::ENABLED,
-                    LinkerOption::ENABLED,
-                ],
-                [
-                    LinkerOption::ENABLED,
-                    LinkerOption::DISABLED,
-                    LinkerOption::DISABLED,
-                ],
-                [
-                    LinkerOption::ENABLED,
-                    null,
-                    null,
-                ],
-                [
-                    LinkerOption::AUTO,
-                    LinkerOption::ENABLED,
-                    null,
-                ],
-                [
-                    LinkerOption::AUTO,
-                    null,
-                    LinkerOption::ENABLED,
-                ],
-                [
-                    null,
-                    LinkerOption::AUTO,
-                    LinkerOption::ENABLED,
-                ],
-                [
-                    null,
-                    LinkerOption::ENABLED,
-                    null,
-                ],
-                [
-                    null,
-                    LinkerOption::ENABLED,
-                    LinkerOption::ENABLED,
-                ],
-                [
-                    null,
-                    null,
-                    LinkerOption::ENABLED,
-                ] => LinkerMode::ENABLED,
-                [
-                    LinkerOption::AUTO,
-                    LinkerOption::DISABLED,
-                    LinkerOption::DISABLED,
-                ],
-                [
-                    LinkerOption::DISABLED,
-                    LinkerOption::DISABLED,
-                    LinkerOption::DISABLED,
-                ],
-                [
-                    LinkerOption::AUTO,
-                    LinkerOption::DISABLED,
-                    null,
-                ],
-                [
-                    LinkerOption::AUTO,
-                    null,
-                    LinkerOption::DISABLED,
-                ],
-                [
-                    null,
-                    LinkerOption::AUTO,
-                    LinkerOption::DISABLED,
-                ],
-                [
-                    null,
-                    LinkerOption::DISABLED,
-                    null,
-                ],
-                [
-                    null,
-                    LinkerOption::DISABLED,
-                    LinkerOption::DISABLED,
-                ],
-                [
-                    null,
-                    LinkerOption::DISABLED,
-                    LinkerOption::ENABLED,
-                ],
-                [
-                    null,
-                    LinkerOption::ENABLED,
-                    LinkerOption::DISABLED,
-                ],
-                [
-                    LinkerOption::DISABLED,
-                    LinkerOption::ENABLED,
-                    LinkerOption::ENABLED,
-                ],
-                [
-                    LinkerOption::DISABLED,
-                    null,
-                    null,
-                ],
-                [
-                    null,
-                    null,
-                    LinkerOption::DISABLED,
-                ] => LinkerMode::DISABLED,
-                default => throw new InvalidArgument(
+        return match ($options) {
+            [
+                LinkerOption::AUTO,
+                LinkerOption::ENABLED,
+                LinkerOption::DISABLED,
+            ],
+            [
+                LinkerOption::AUTO,
+                LinkerOption::ENABLED,
+                LinkerOption::ENABLED,
+            ],
+            [
+                LinkerOption::ENABLED,
+                LinkerOption::ENABLED,
+                LinkerOption::ENABLED,
+            ],
+            [
+                LinkerOption::ENABLED,
+                LinkerOption::DISABLED,
+                LinkerOption::DISABLED,
+            ],
+            [
+                LinkerOption::ENABLED,
+                null,
+                null,
+            ],
+            [
+                LinkerOption::AUTO,
+                LinkerOption::ENABLED,
+                null,
+            ],
+            [
+                LinkerOption::AUTO,
+                null,
+                LinkerOption::ENABLED,
+            ],
+            [
+                null,
+                LinkerOption::AUTO,
+                LinkerOption::ENABLED,
+            ],
+            [
+                null,
+                LinkerOption::ENABLED,
+                null,
+            ],
+            [
+                null,
+                LinkerOption::ENABLED,
+                LinkerOption::ENABLED,
+            ],
+            [
+                null,
+                null,
+                LinkerOption::ENABLED,
+            ] => LinkerMode::ENABLED,
+            [
+                LinkerOption::AUTO,
+                LinkerOption::DISABLED,
+                LinkerOption::DISABLED,
+            ],
+            [
+                LinkerOption::DISABLED,
+                LinkerOption::DISABLED,
+                LinkerOption::DISABLED,
+            ],
+            [
+                LinkerOption::AUTO,
+                LinkerOption::DISABLED,
+                null,
+            ],
+            [
+                LinkerOption::AUTO,
+                null,
+                LinkerOption::DISABLED,
+            ],
+            [
+                null,
+                LinkerOption::AUTO,
+                LinkerOption::DISABLED,
+            ],
+            [
+                null,
+                LinkerOption::DISABLED,
+                null,
+            ],
+            [
+                null,
+                LinkerOption::DISABLED,
+                LinkerOption::DISABLED,
+            ],
+            [
+                null,
+                LinkerOption::DISABLED,
+                LinkerOption::ENABLED,
+            ],
+            [
+                null,
+                LinkerOption::ENABLED,
+                LinkerOption::DISABLED,
+            ],
+            [
+                LinkerOption::DISABLED,
+                LinkerOption::ENABLED,
+                LinkerOption::ENABLED,
+            ],
+            [
+                LinkerOption::DISABLED,
+                null,
+                null,
+            ],
+            [
+                null,
+                null,
+                LinkerOption::DISABLED,
+            ] => LinkerMode::DISABLED,
+            default => throw new InvalidArgument(
+                sprintf(
+                    'Unable to solve "%s". From values %s.',
+                    LinkerMode::class,
                     sprintf(
-                        'Unable to solve "%s". From values %s.',
-                        LinkerMode::class,
-                        sprintf(
-                            '[%s, %s, %s]',
-                            $userOption?->name ?? 'null',
-                            $detectedOption?->name ?? 'null',
-                            $defaultOption?->name ?? 'null',
-                        ),
-                    )
+                        '[%s, %s, %s]',
+                        $userOption?->name ?? 'null',
+                        $detectedOption?->name ?? 'null',
+                        $defaultOption?->name ?? 'null',
+                    ),
                 )
-            };
+            )
+        };
     }
 
     protected function extractOption(ISettings $settings): ?LinkerOption

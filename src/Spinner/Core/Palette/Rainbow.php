@@ -41,6 +41,9 @@ final class Rainbow extends AStylePalette
         }
     }
 
+    /**
+     * @return Traversable<string>
+     */
     private function ansi8Sequence(): Traversable
     {
         yield from [
@@ -76,9 +79,14 @@ final class Rainbow extends AStylePalette
         ];
     }
 
+    /**
+     * @param Traversable<string> $sequence
+     *
+     * @return iterable<string>
+     */
     private function reverseSequence(Traversable $sequence): iterable
     {
-        /** @var string[] $s */
+        /** @var array<string> $s */
         $s = [];
         /** @var string $item */
         foreach ($sequence as $item) {

@@ -10,7 +10,6 @@ interface ISettings
 
     /**
      * @param class-string<ISettingsElement> $id
-     * @return ISettingsElement|null
      */
     public function get(string $id): ?ISettingsElement;
 }

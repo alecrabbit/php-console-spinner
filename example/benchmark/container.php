@@ -37,12 +37,10 @@ use AlecRabbit\Lib\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
 use AlecRabbit\Lib\Spinner\Factory\BenchmarkingDriverFactory;
 use AlecRabbit\Lib\Spinner\Factory\BenchmarkingDriverProviderFactory;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
-use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Core\Output\Output;
-use AlecRabbit\Spinner\Facade;
 use Psr\Container\ContainerInterface;
 
 $registry = DefinitionRegistry::getInstance();
@@ -65,7 +63,6 @@ $registry->bind(new ServiceDefinition(IKeyFormatter::class, KeyFormatter::class)
 
 $registry->bind(
     new ServiceDefinition(
-
         IReportPrinter::class,
         static function (ContainerInterface $container): IReportPrinter {
             return $container->get(IReportPrinterFactory::class)->create();
@@ -78,7 +75,7 @@ $registry->bind(
         IReportPrinterFactory::class,
         static function (ContainerInterface $container): IReportPrinterFactory {
             $stream =
-                new class implements IWritableStream {
+                new class() implements IWritableStream {
                     public function write(Traversable $data): void
                     {
                         foreach ($data as $el) {
@@ -92,18 +89,11 @@ $registry->bind(
                     $stream
                 );
 
-            return
-                new ReportPrinterFactory(
-                    $container->get(IReportPrinterBuilder::class),
-                    $output,
-                    $container->get(IReportFormatter::class),
-                );
+            return new ReportPrinterFactory(
+                $container->get(IReportPrinterBuilder::class),
+                $output,
+                $container->get(IReportFormatter::class),
+            );
         }
     )
 );
-
-$container = (new ContainerFactory($registry))->create();
-
-Facade::useContainer($container);
-
-return $container;

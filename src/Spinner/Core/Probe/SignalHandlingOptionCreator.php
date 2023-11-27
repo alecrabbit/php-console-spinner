@@ -13,9 +13,8 @@ final class SignalHandlingOptionCreator implements ISignalHandlingOptionCreator
 
     public function create(): SignalHandlingOption
     {
-        return
-            extension_loaded(self::SIGNAL_PROCESSING_EXTENSION)
-                ? SignalHandlingOption::ENABLED
-                : SignalHandlingOption::DISABLED;
+        return extension_loaded(self::SIGNAL_PROCESSING_EXTENSION)
+            ? SignalHandlingOption::ENABLED
+            : SignalHandlingOption::DISABLED;
     }
 }

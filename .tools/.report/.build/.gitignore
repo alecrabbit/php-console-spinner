@@ -2,3 +2,4 @@
 *.*
 !.gitignore
 !coverage.txt
+!coverage.path.txt

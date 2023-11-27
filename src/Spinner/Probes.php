@@ -80,6 +80,7 @@ final class Probes
      * Loads all registered probes matching filter. If filter is not specified, all registered probes will be loaded.
      * Note that the order of loading is reversed.
      *     *
+     *
      * @template TProbe of T
      *
      * @psalm-param class-string<TProbe>|null $filter
@@ -88,7 +89,7 @@ final class Probes
      *
      * @throws InvalidArgument
      */
-    public static function load(string $filter = null): Traversable
+    public static function load(?string $filter = null): Traversable
     {
         self::assertClass($filter);
 
@@ -100,6 +101,9 @@ final class Probes
         }
     }
 
+    /**
+     * @return iterable<string, class-string<IStaticProbe>>
+     */
     private static function reversedProbes(): iterable
     {
         return array_reverse(self::$probes, true);

@@ -18,5 +18,4 @@ final readonly class CharFrame extends AFrame implements ICharFrame
     {
         return new CharFrame(' ', 1);
     }
-
 }

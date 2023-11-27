@@ -18,32 +18,29 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
         protected IFrameRevolverBuilder $frameRevolverBuilder,
         protected IFrameCollectionFactory $frameCollectionFactory,
         protected IRevolverConfig $revolverConfig,
-
     ) {
     }
 
     public function create(IPattern $pattern): IFrameRevolver
     {
-        return
-            $this->frameRevolverBuilder
-                ->withFrameCollection(
-                    $this->frameCollectionFactory->create(
-                        $pattern->getFrames()
-                    )
+        return $this->frameRevolverBuilder
+            ->withFrameCollection(
+                $this->frameCollectionFactory->create(
+                    $pattern->getFrames()
                 )
-                ->withInterval(
-                    $pattern->getInterval()
-                )
-                ->withTolerance(
-                    $this->getTolerance()
-                )
-                ->build()
+            )
+            ->withInterval(
+                $pattern->getInterval()
+            )
+            ->withTolerance(
+                $this->getTolerance()
+            )
+            ->build()
         ;
     }
 
     private function getTolerance(): ITolerance
     {
-        return
-            $this->revolverConfig->getTolerance();
+        return $this->revolverConfig->getTolerance();
     }
 }

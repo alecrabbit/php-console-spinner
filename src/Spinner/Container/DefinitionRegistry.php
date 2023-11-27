@@ -25,18 +25,16 @@ final class DefinitionRegistry implements IDefinitionRegistry
 
     public static function getInstance(): IDefinitionRegistry
     {
-        if (null === self::$instance) {
+        if (self::$instance === null) {
             self::$instance = new self();
         }
         return self::$instance;
     }
 
-    /** @inheritDoc */
     public function load(): Traversable
     {
         yield from $this->definitions;
     }
-
 
     public function bind(IServiceDefinition $serviceDefinition): void
     {

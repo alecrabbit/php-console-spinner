@@ -12,11 +12,10 @@ use Traversable;
 final readonly class PaletteTemplate implements IPaletteTemplate
 {
     /** @var Traversable<IFrame> $entries */
-    protected Traversable $entries;
+    private Traversable $entries;
 
     /**
      * @param Traversable<IFrame> $entries
-     * @param IPaletteOptions $options
      */
     public function __construct(
         Traversable $entries,

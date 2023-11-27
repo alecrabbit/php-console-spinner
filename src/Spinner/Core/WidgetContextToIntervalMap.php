@@ -23,16 +23,15 @@ use WeakMap;
 final readonly class WidgetContextToIntervalMap implements IWidgetContextToIntervalMap
 {
     public function __construct(
-        protected ArrayAccess&Countable&IteratorAggregate $map = new WeakMap(),
+        private ArrayAccess&Countable&IteratorAggregate $map = new WeakMap(),
     ) {
     }
 
-    /** @inheritDoc */
     public function getIterator(): Traversable
     {
         /**
          * @var IWidgetContext $key
-         * @var IInterval|null|false $value
+         * @var IInterval|false|null $value
          */
         foreach ($this->map as $key => $value) {
             if ($value === false) {
@@ -42,7 +41,6 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         }
     }
 
-    /** @inheritDoc */
     public function offsetExists(mixed $offset): bool
     {
         if (!$offset instanceof IWidgetContext) {
@@ -53,13 +51,14 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
 
     /**
      * @psalm-param TKey $offset
+     *
      * @psalm-return TValue
      */
     public function offsetGet(mixed $offset): ?IInterval
     {
         $this->assertOffset($offset);
 
-        /** @var IInterval|null|false $value */
+        /** @var IInterval|false|null $value */
         $value = $this->map->offsetGet($offset);
 
         if ($value === false) {
@@ -76,7 +75,6 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         }
     }
 
-    /** @inheritDoc */
     public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->assertOffset($offset);
@@ -98,7 +96,6 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
         }
     }
 
-    /** @inheritDoc */
     public function offsetUnset(mixed $offset): void
     {
         $this->assertOffset($offset);

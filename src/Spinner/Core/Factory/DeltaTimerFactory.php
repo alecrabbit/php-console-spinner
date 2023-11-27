@@ -20,11 +20,10 @@ final readonly class DeltaTimerFactory implements IDeltaTimerFactory
 
     public function create(): IDeltaTimer
     {
-        return
-            $this->timerBuilder
-                ->withStartTime($this->startTime)
-                ->withNowTimer($this->nowTimer)
-                ->build()
+        return $this->timerBuilder
+            ->withStartTime($this->startTime)
+            ->withNowTimer($this->nowTimer)
+            ->build()
         ;
     }
 }

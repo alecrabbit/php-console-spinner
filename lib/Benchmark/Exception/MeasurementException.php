@@ -8,5 +8,4 @@ use LogicException;
 
 class MeasurementException extends LogicException
 {
-
 }

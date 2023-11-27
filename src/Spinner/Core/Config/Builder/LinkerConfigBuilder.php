@@ -17,17 +17,13 @@ final class LinkerConfigBuilder implements ILinkerConfigBuilder
 {
     private ?LinkerMode $linkerMode = null;
 
-    /**
-     * @inheritDoc
-     */
     public function build(): ILinkerConfig
     {
         $this->validate();
 
-        return
-            new LinkerConfig(
-                linkerMode: $this->linkerMode,
-            );
+        return new LinkerConfig(
+            linkerMode: $this->linkerMode,
+        );
     }
 
     /**

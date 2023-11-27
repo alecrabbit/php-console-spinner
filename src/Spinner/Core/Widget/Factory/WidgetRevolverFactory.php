@@ -26,28 +26,27 @@ final readonly class WidgetRevolverFactory implements IWidgetRevolverFactory
 
     public function create(IWidgetRevolverConfig $widgetRevolverConfig): IWidgetRevolver
     {
-        return
-            $this->widgetRevolverBuilder
-                ->withStyleRevolver(
-                    $this->styleRevolverFactory
-                        ->create(
-                            $this->patternFactory->create(
-                                $widgetRevolverConfig->getStylePalette()
-                            )
+        return $this->widgetRevolverBuilder
+            ->withStyleRevolver(
+                $this->styleRevolverFactory
+                    ->create(
+                        $this->patternFactory->create(
+                            $widgetRevolverConfig->getStylePalette()
                         )
-                )
-                ->withCharRevolver(
-                    $this->charRevolverFactory
-                        ->create(
-                            $this->patternFactory->create(
-                                $widgetRevolverConfig->getCharPalette()
-                            )
+                    )
+            )
+            ->withCharRevolver(
+                $this->charRevolverFactory
+                    ->create(
+                        $this->patternFactory->create(
+                            $widgetRevolverConfig->getCharPalette()
                         )
-                )
-                ->withTolerance(
-                    $this->revolverConfig->getTolerance()
-                )
-                ->build()
+                    )
+            )
+            ->withTolerance(
+                $this->revolverConfig->getTolerance()
+            )
+            ->build()
         ;
     }
 }

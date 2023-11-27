@@ -42,16 +42,14 @@ function getHost(): string
 {
     $srv = getenv('VAR_DUMPER_SERVER');
 
-    return
-        $srv === false
-            ? 'tcp://127.0.0.1:9912'
-            : sprintf('tcp://%s', $srv);
+    return $srv === false
+        ? 'tcp://127.0.0.1:9912'
+        : sprintf('tcp://%s', $srv);
 }
 
 function getDumper(): AbstractDumper
 {
-    return
-        in_array(PHP_SAPI, ['cli', 'phpdbg'], true)
-            ? new CliDumper()
-            : new HtmlDumper();
+    return in_array(PHP_SAPI, ['cli', 'phpdbg'], true)
+        ? new CliDumper()
+        : new HtmlDumper();
 }

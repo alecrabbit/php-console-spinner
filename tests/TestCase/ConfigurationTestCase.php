@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
-use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use RuntimeException;
 
 abstract class ConfigurationTestCase extends ContainerModifyingTestCase

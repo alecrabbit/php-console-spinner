@@ -21,11 +21,10 @@ final class StopwatchFactory implements IStopwatchFactory
 
     public function create(): IStopwatch
     {
-        return
-            $this->builder
-                ->withTimer($this->timer)
-                ->withMeasurementFactory($this->measurementFactory)
-                ->build()
+        return $this->builder
+            ->withTimer($this->timer)
+            ->withMeasurementFactory($this->measurementFactory)
+            ->build()
         ;
     }
 }

@@ -68,7 +68,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                     // disable output
                     new ServiceDefinition(
                         IWritableStream::class,
-                        new class implements IWritableStream {
+                        new class() implements IWritableStream {
                             public function write(Traversable $data): void
                             {
                                 // do nothing
@@ -78,7 +78,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                     // disable auto start
                     new ServiceDefinition(
                         ILoopSetup::class,
-                        new class implements ILoopSetup {
+                        new class() implements ILoopSetup {
                             public function setup(ILoop $loop): void
                             {
                                 // do nothing

@@ -13,12 +13,11 @@ final readonly class StreamSolver extends ASolver implements Contract\IStreamSol
 {
     public function solve(): mixed
     {
-        return
-            $this->doSolve(
-                $this->extractStream($this->settingsProvider->getUserSettings()),
-                $this->extractStream($this->settingsProvider->getDetectedSettings()),
-                $this->extractStream($this->settingsProvider->getDefaultSettings()),
-            );
+        return $this->doSolve(
+            $this->extractStream($this->settingsProvider->getUserSettings()),
+            $this->extractStream($this->settingsProvider->getDetectedSettings()),
+            $this->extractStream($this->settingsProvider->getDefaultSettings()),
+        );
     }
 
     private function doSolve(
@@ -26,8 +25,7 @@ final readonly class StreamSolver extends ASolver implements Contract\IStreamSol
         mixed $detectedStream,
         mixed $defaultStream
     ): mixed {
-        return
-            $userStream
+        return $userStream
             ?? $detectedStream
             ?? $defaultStream
             ?? throw new InvalidArgument(

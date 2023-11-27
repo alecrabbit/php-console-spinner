@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IMessages;
 final readonly class Messages implements IMessages
 {
     public function __construct(
-        protected ?string $finalMessage = null,
-        protected ?string $interruptionMessage = null,
+        private ?string $finalMessage = null,
+        private ?string $interruptionMessage = null,
     ) {
     }
 

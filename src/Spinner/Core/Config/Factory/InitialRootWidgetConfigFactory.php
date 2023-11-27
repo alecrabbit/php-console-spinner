@@ -32,32 +32,29 @@ final readonly class InitialRootWidgetConfigFactory implements IInitialRootWidge
         $rootWidgetSettings = $this->rootWidgetSettingsSolver->solve();
         $widgetSettings = $this->widgetSettingsSolver->solve();
 
-        return
-            new RootWidgetConfig(
-                leadingSpacer: $this->getLeadingSpacer($rootWidgetSettings, $widgetSettings),
-                trailingSpacer: $this->getTrailingSpacer($rootWidgetSettings, $widgetSettings),
-                revolverConfig: $this->getWidgetRevolverConfig($rootWidgetSettings, $widgetSettings),
-            );
+        return new RootWidgetConfig(
+            leadingSpacer: $this->getLeadingSpacer($rootWidgetSettings, $widgetSettings),
+            trailingSpacer: $this->getTrailingSpacer($rootWidgetSettings, $widgetSettings),
+            revolverConfig: $this->getWidgetRevolverConfig($rootWidgetSettings, $widgetSettings),
+        );
     }
 
-    protected function getLeadingSpacer(
+    private function getLeadingSpacer(
         IRootWidgetSettings $rootWidgetSettings,
         IWidgetSettings $widgetSettings
     ): IFrame {
-        return
-            $rootWidgetSettings->getLeadingSpacer()
+        return $rootWidgetSettings->getLeadingSpacer()
             ??
             $widgetSettings->getLeadingSpacer()
             ??
             throw new DomainException('Leading spacer expected to be set.');
     }
 
-    protected function getTrailingSpacer(
+    private function getTrailingSpacer(
         IRootWidgetSettings $rootWidgetSettings,
         IWidgetSettings $widgetSettings
     ): IFrame {
-        return
-            $rootWidgetSettings->getTrailingSpacer()
+        return $rootWidgetSettings->getTrailingSpacer()
             ??
             $widgetSettings->getTrailingSpacer()
             ??
@@ -68,39 +65,36 @@ final readonly class InitialRootWidgetConfigFactory implements IInitialRootWidge
         IRootWidgetSettings $rootWidgetSettings,
         IWidgetSettings $widgetSettings
     ): IWidgetRevolverConfig {
-        return
-            new WidgetRevolverConfig(
-                stylePalette: $this->getStylePalette($rootWidgetSettings, $widgetSettings),
-                charPalette: $this->getCharPalette($rootWidgetSettings, $widgetSettings),
-                revolverConfig: $this->getRevolverConfig(),
-            );
+        return new WidgetRevolverConfig(
+            stylePalette: $this->getStylePalette($rootWidgetSettings, $widgetSettings),
+            charPalette: $this->getCharPalette($rootWidgetSettings, $widgetSettings),
+            revolverConfig: $this->getRevolverConfig(),
+        );
     }
 
-    protected function getStylePalette(
+    private function getStylePalette(
         IRootWidgetSettings $rootWidgetSettings,
         IWidgetSettings $widgetSettings
     ): IPalette {
-        return
-            $rootWidgetSettings->getStylePalette()
+        return $rootWidgetSettings->getStylePalette()
             ??
             $widgetSettings->getStylePalette()
             ??
             throw new DomainException('Style palette expected to be set.');
     }
 
-    protected function getCharPalette(
+    private function getCharPalette(
         IRootWidgetSettings $rootWidgetSettings,
         IWidgetSettings $widgetSettings
     ): IPalette {
-        return
-            $rootWidgetSettings->getCharPalette()
+        return $rootWidgetSettings->getCharPalette()
             ??
             $widgetSettings->getCharPalette()
             ??
             throw new DomainException('Char palette expected to be set.');
     }
 
-    protected function getRevolverConfig(): IRevolverConfig
+    private function getRevolverConfig(): IRevolverConfig
     {
         return new RevolverConfig();
     }

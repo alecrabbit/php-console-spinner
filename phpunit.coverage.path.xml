@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         executionOrder="random"
+         beStrictAboutOutputDuringTests="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         colors="true"
+         cacheDirectory=".tools/.phpunit.cache"
+         beStrictAboutCoverageMetadata="false"
+>
+  <testsuites>
+        <testsuite name="Spinner/Functional">
+            <directory>tests/Spinner/Functional</directory>
+        </testsuite>
+        <testsuite name="Spinner/Unit">
+            <directory>tests/Spinner/Unit</directory>
+        </testsuite>
+        <testsuite name="Lib/Functional">
+            <directory>tests/Lib/Functional</directory>
+        </testsuite>
+        <testsuite name="Lib/Unit">
+            <directory>tests/Lib/Unit</directory>
+        </testsuite>
+        <testsuite name="Benchmark/Functional">
+            <directory>tests/Benchmark/Functional</directory>
+        </testsuite>
+        <testsuite name="Benchmark/Unit">
+            <directory>tests/Benchmark/Unit</directory>
+        </testsuite>
+  </testsuites>
+  <coverage>
+    <report>
+      <text outputFile=".tools/.report/.build/coverage.path.txt" showOnlySummary="true"/>
+      <html outputDirectory=".tools/.report/.build/coverage/path"/>
+    </report>
+  </coverage>
+  <source>
+    <include>
+      <directory suffix=".php">lib</directory>
+      <directory suffix=".php">src</directory>
+    </include>
+  </source>
+</phpunit>

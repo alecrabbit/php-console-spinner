@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ILinkerSettings;
 final readonly class LinkerSettings implements ILinkerSettings
 {
     public function __construct(
-        protected LinkerOption $linkerOption = LinkerOption::AUTO,
+        private LinkerOption $linkerOption = LinkerOption::AUTO,
     ) {
     }
 
@@ -23,5 +23,4 @@ final readonly class LinkerSettings implements ILinkerSettings
     {
         return ILinkerSettings::class;
     }
-
 }

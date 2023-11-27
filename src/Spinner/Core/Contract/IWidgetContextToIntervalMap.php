@@ -27,6 +27,7 @@ interface IWidgetContextToIntervalMap extends ArrayAccess, Countable, IteratorAg
 
     /**
      * @psalm-param TKey $offset
+     *
      * @psalm-return TValue
      */
     public function offsetGet(mixed $offset): ?IInterval;

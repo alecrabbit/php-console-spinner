@@ -23,14 +23,14 @@ final class BenchmarkResultsFactory implements IBenchmarkResultsFactory
     /** @inheritDoc */
     public function create(iterable $measurements): IBenchmarkResults
     {
-        return
-            new BenchmarkResults(
-                $this->createResults($measurements),
-            );
+        return new BenchmarkResults(
+            $this->createResults($measurements),
+        );
     }
 
     /**
      * @param iterable<string, IMeasurement> $measurements
+     *
      * @return Traversable<string, IResult>
      */
     private function createResults(iterable $measurements): Traversable

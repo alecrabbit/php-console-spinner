@@ -12,25 +12,22 @@ use AlecRabbit\Benchmark\Stopwatch\Result;
 
 final class ResultMaker implements IResultMaker
 {
-    /** @inheritDoc */
     public function make(IMeasurement $measurement): IResult
     {
         try {
-            return
-                new Result(
-                    $measurement->getAverage(),
-                    $measurement->getMin(),
-                    $measurement->getMax(),
-                    $measurement->getCount(),
-                );
+            return new Result(
+                $measurement->getAverage(),
+                $measurement->getMin(),
+                $measurement->getMax(),
+                $measurement->getCount(),
+            );
         } catch (MeasurementException $_) {
-            return
-                new Result(
-                    $measurement->getAny(),
-                    $measurement->getMin(),
-                    $measurement->getMax(),
-                    $measurement->getCount(),
-                );
+            return new Result(
+                $measurement->getAny(),
+                $measurement->getMin(),
+                $measurement->getMax(),
+                $measurement->getCount(),
+            );
         }
     }
 }

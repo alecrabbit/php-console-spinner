@@ -19,12 +19,11 @@ final readonly class RevolverConfigFactory implements IRevolverConfigFactory
 
     public function create(): IRevolverConfig
     {
-        return
-            $this->revolverConfigBuilder
-                ->withTolerance(
-                    $this->toleranceSolver->solve()
-                )
-                ->build()
+        return $this->revolverConfigBuilder
+            ->withTolerance(
+                $this->toleranceSolver->solve()
+            )
+            ->build()
         ;
     }
 }

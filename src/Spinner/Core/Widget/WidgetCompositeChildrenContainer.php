@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
+use AlecRabbit\Spinner\Core\IntervalComparator;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\WidgetContextToIntervalMap;
@@ -27,7 +29,9 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
     protected ?IInterval $interval = null;
 
     public function __construct(
-        protected readonly ArrayAccess&Countable&IteratorAggregate $map = new WidgetContextToIntervalMap(),
+        private readonly ArrayAccess&Countable&IteratorAggregate $map = new WidgetContextToIntervalMap(),
+        private readonly IIntervalComparator $intervalComparator = new IntervalComparator(),
+        // FIXME (2023-11-21 17:34) [Alec Rabbit]: inject it?
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
@@ -59,7 +63,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
     protected function checkInterval(?IInterval $interval): void
     {
         if ($interval instanceof IInterval) {
-            $this->interval = $interval->smallest($this->interval);
+            $this->interval = $this->intervalComparator->smallest($interval, $this->interval);
             if ($interval === $this->interval) {
                 $this->notify();
             }
@@ -106,7 +110,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
                 $this->interval = $interval;
                 continue;
             }
-            $this->interval = $this->interval->smallest($interval);
+            $this->interval = $this->intervalComparator->smallest($this->interval, $interval);
         }
     }
 

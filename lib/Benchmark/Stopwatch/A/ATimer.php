@@ -57,7 +57,7 @@ abstract class ATimer implements ITimer
     private static function assertIntersectionType(ReflectionIntersectionType $intersectionType): void
     {
         throw new InvalidArgument(
-            'Unexpected intersection type.',
+            'Unexpected intersection type. ' . get_debug_type($intersectionType),
         );
     }
 

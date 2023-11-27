@@ -6,5 +6,4 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
 interface IRootWidgetSettings extends IWidgetSettings
 {
-
 }
