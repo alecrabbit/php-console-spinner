@@ -52,13 +52,19 @@ final class ServiceObjectFactoryTest extends TestCase
             isStorableSolver: $solver,
         );
 
+        $id = $this->getFaker()->word();
         $value = new stdClass();
         $serviceDefinition = $this->getServiceDefinitionMock();
+        $serviceDefinition
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn($id);
 
         $service = $factory->create($value, $serviceDefinition);
 
         self::assertSame($value, $service->getValue());
         self::assertSame($isStorable, $service->isStorable());
+        self::assertSame($id, $service->getId());
     }
 
     protected function getServiceDefinitionMock(): MockObject&IServiceDefinition

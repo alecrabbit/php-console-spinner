@@ -4,21 +4,21 @@ Directories                                         77
 Files                                              427
 
 Size
-  Lines of Code (LOC)                            14094
+  Lines of Code (LOC)                            14108
   Comment Lines of Code (CLOC)                     804 (5.70%)
-  Non-Comment Lines of Code (NCLOC)              13290 (94.30%)
-  Logical Lines of Code (LLOC)                    1502 (10.66%)
-    Classes                                       1401 (93.28%)
+  Non-Comment Lines of Code (NCLOC)              13304 (94.30%)
+  Logical Lines of Code (LLOC)                    1505 (10.67%)
+    Classes                                       1404 (93.29%)
       Average Class Length                           3
         Minimum Class Length                         0
-        Maximum Class Length                        27
+        Maximum Class Length                        28
       Average Method Length                          1
         Minimum Method Length                        0
         Maximum Method Length                       10
       Average Methods Per Class                      2
         Minimum Methods Per Class                    0
-        Maximum Methods Per Class                   12
-    Functions                                       38 (2.53%)
+        Maximum Methods Per Class                   13
+    Functions                                       38 (2.52%)
       Average Function Length                        1
     Not in classes or functions                     63 (4.19%)
 
@@ -36,12 +36,12 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                               658
-    Non-Static                                     642 (97.57%)
+  Attribute Accesses                               659
+    Non-Static                                     643 (97.57%)
     Static                                          16 (2.43%)
-  Method Calls                                     821
-    Non-Static                                     739 (90.01%)
-    Static                                          82 (9.99%)
+  Method Calls                                     823
+    Non-Static                                     741 (90.04%)
+    Static                                          82 (9.96%)
 
 Structure
   Namespaces                                        77
@@ -52,14 +52,14 @@ Structure
     Concrete Classes                               196 (93.33%)
       Final Classes                                 73 (37.24%)
       Non-Final Classes                            123 (62.76%)
-  Methods                                         1011
+  Methods                                         1014
     Scope
-      Non-Static Methods                           946 (93.57%)
-      Static Methods                                65 (6.43%)
+      Non-Static Methods                           949 (93.59%)
+      Static Methods                                65 (6.41%)
     Visibility
-      Public Methods                               802 (79.33%)
-      Protected Methods                             67 (6.63%)
-      Private Methods                              142 (14.05%)
+      Public Methods                               804 (79.29%)
+      Protected Methods                             67 (6.61%)
+      Private Methods                              143 (14.10%)
   Functions                                         37
     Named Functions                                  7 (18.92%)
     Anonymous Functions                             30 (81.08%)

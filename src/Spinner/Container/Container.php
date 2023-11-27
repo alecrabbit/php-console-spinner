@@ -110,7 +110,7 @@ final readonly class Container implements IContainer
         }
 
         /** @psalm-suppress MixedReturnStatement */
-        return $this->getService($id)->getValue();
+        return $this->createService($id)->getValue();
     }
 
     private function hasService(string $id): bool
@@ -127,14 +127,14 @@ final readonly class Container implements IContainer
     /**
      * @throws ContainerExceptionInterface
      */
-    private function getService(string $id): IService
+    private function createService(string $id): IService
     {
         $definition = $this->getDefinition($id);
 
         $service = $this->spawn($definition);
 
         if ($service->isStorable()) {
-            $this->services->offsetSet($id, $service);
+            $this->storeService($id, $service);
         }
 
         /** @psalm-suppress MixedReturnStatement */
@@ -169,5 +169,10 @@ final readonly class Container implements IContainer
                 previous: $e,
             );
         }
+    }
+
+    private function storeService(string $id, IService $service): void
+    {
+        $this->services->offsetSet($id, $service);
     }
 }

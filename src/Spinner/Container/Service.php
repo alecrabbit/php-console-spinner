@@ -11,6 +11,7 @@ final readonly class Service implements IService
     public function __construct(
         private mixed $value,
         private bool $storable,
+        private string $id,
     ) {
     }
 
@@ -22,5 +23,10 @@ final readonly class Service implements IService
     public function isStorable(): bool
     {
         return $this->storable;
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 }
