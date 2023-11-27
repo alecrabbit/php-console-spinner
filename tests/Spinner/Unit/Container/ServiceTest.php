@@ -29,7 +29,7 @@ final class ServiceTest extends TestCase
             new Service(
                 value: $value,
                 storable: $storable ?? false,
-                id: $id ?? $this->getFaker()->word(),
+                id: $id ?? self::getFaker()->word(),
             );
     }
 
@@ -48,7 +48,7 @@ final class ServiceTest extends TestCase
     #[Test]
     public function canGetId(): void
     {
-        $id = $this->getFaker()->word();
+        $id = self::getFaker()->word();
 
         $service = $this->getTesteeInstance(
             id: $id,

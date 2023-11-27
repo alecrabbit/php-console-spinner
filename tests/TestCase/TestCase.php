@@ -129,7 +129,7 @@ abstract class TestCase extends PHPUnitTestCase
         );
     }
 
-    protected function getFaker(): FakerGenerator
+    protected static function getFaker(): FakerGenerator
     {
         return FakerFactory::create();
     }

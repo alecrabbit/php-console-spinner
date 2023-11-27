@@ -52,7 +52,7 @@ final class ServiceObjectFactoryTest extends TestCase
             isStorableSolver: $solver,
         );
 
-        $id = $this->getFaker()->word();
+        $id = self::getFaker()->word();
         $value = new stdClass();
         $serviceDefinition = $this->getServiceDefinitionMock();
         $serviceDefinition

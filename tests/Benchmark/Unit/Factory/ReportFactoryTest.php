@@ -33,7 +33,7 @@ final class ReportFactoryTest extends TestCase
         return
             new ReportFactory(
                 benchmarkResults: $benchmarkResults ?? $this->getBenchmarkResultsMock(),
-                title: $title ?? $this->getFaker()->word(),
+                title: $title ?? self::getFaker()->word(),
                 reportBuilder: $reportBuilder ?? $this->getReportBuilderMock(),
             );
     }
