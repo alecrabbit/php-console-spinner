@@ -66,8 +66,8 @@ final class CharFrameTest extends TestCase
 
         $frame = self::getTesteeInstance($incoming[self::ARGUMENTS] ?? []);
 
-        self::assertSame($expected[self::SEQUENCE], $frame->sequence());
-        self::assertSame($expected[self::WIDTH], $frame->width());
+        self::assertSame($expected[self::SEQUENCE], $frame->getSequence());
+        self::assertSame($expected[self::WIDTH], $frame->getWidth());
     }
 
     public static function getTesteeInstance(array $args = []): IFrame
@@ -80,8 +80,8 @@ final class CharFrameTest extends TestCase
     {
         $frame = CharFrame::createEmpty();
 
-        self::assertSame('', $frame->sequence());
-        self::assertSame(0, $frame->width());
+        self::assertSame('', $frame->getSequence());
+        self::assertSame(0, $frame->getWidth());
     }
 
     #[Test]
@@ -89,7 +89,7 @@ final class CharFrameTest extends TestCase
     {
         $frame = CharFrame::createSpace();
 
-        self::assertSame(' ', $frame->sequence());
-        self::assertSame(1, $frame->width());
+        self::assertSame(' ', $frame->getSequence());
+        self::assertSame(1, $frame->getWidth());
     }
 }

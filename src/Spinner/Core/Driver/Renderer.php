@@ -49,8 +49,8 @@ final class Renderer implements IRenderer
             );
 
         $this->state = $this->createState(
-            $frame->sequence(),
-            $frame->width(),
+            $frame->getSequence(),
+            $frame->getWidth(),
             $this->state->getWidth(),
         );
 

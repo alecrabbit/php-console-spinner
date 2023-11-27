@@ -39,8 +39,8 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
         $style = $this->style->getFrame($dt);
         $char = $this->character->getFrame($dt);
         return $this->createFrame(
-            sprintf($style->sequence(), $char->sequence()),
-            $style->width() + $char->width()
+            sprintf($style->getSequence(), $char->getSequence()),
+            $style->getWidth() + $char->getWidth()
         );
     }
 

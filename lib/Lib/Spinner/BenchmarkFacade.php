@@ -8,6 +8,9 @@ use AlecRabbit\Benchmark\Contract\Factory\IBenchmarkResultsFactory;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Spinner\Root\A\AFacade;
 
+/**
+ * @codeCoverageIgnore 
+ */
 final class BenchmarkFacade extends AFacade
 {
     public static function getReportPrinter(): IReportPrinter

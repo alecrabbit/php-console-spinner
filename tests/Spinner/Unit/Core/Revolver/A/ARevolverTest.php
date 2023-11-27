@@ -96,11 +96,11 @@ final class ARevolverTest extends TestCase
         $frame = $this->getFrameMock();
         $frame
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
         ;
         $frame
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
         ;
         $interval = $this->getIntervalMock();
         $interval
@@ -123,11 +123,11 @@ final class ARevolverTest extends TestCase
         $frame = $this->getFrameMock();
         $frame
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
         ;
         $frame
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
         ;
         $interval = $this->getIntervalMock();
         $interval
@@ -158,11 +158,11 @@ final class ARevolverTest extends TestCase
         $frame = $this->getFrameMock();
         $frame
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
         ;
         $frame
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
         ;
         $interval = $this->getIntervalMock();
         $interval

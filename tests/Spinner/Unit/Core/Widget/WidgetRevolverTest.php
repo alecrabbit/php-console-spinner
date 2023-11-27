@@ -85,23 +85,23 @@ final class WidgetRevolverTest extends TestCase
         $styleFrame = $this->getFrameMock();
         $styleFrame
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
             ->willReturn('-%s-')
         ;
         $styleFrame
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
             ->willReturn(2)
         ;
         $characterFrame = $this->getFrameMock();
         $characterFrame
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
             ->willReturn('c')
         ;
         $characterFrame
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
             ->willReturn(1)
         ;
 
@@ -128,8 +128,8 @@ final class WidgetRevolverTest extends TestCase
 
         $result = $revolver->getFrame($dt);
 
-        self::assertEquals('-c-', $result->sequence());
-        self::assertEquals(3, $result->width());
+        self::assertEquals('-c-', $result->getSequence());
+        self::assertEquals(3, $result->getWidth());
     }
 
     protected function getFrameMock(): MockObject&IFrame

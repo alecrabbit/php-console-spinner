@@ -21,8 +21,8 @@ final class ARevolverOverride extends ARevolver
 
     protected function next(?float $dt = null): void
     {
-        $this->frame->sequence(); // simulating frame update
-        $this->frame->width(); // simulating frame update
+        $this->frame->getSequence(); // simulating frame update
+        $this->frame->getWidth(); // simulating frame update
     }
 
     protected function current(): IFrame

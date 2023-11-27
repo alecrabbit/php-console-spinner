@@ -174,41 +174,41 @@ final class WidgetCompositeTest extends TestCase
 
         $revolverFrame
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
             ->willReturn('rfs')
         ;
         $revolverFrame
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
             ->willReturn(3)
         ;
 
         $leadingSpacer
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
             ->willReturn('ls')
         ;
         $leadingSpacer
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
             ->willReturn(2)
         ;
 
         $trailingSpacer
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
             ->willReturn('ts')
         ;
         $trailingSpacer
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
             ->willReturn(2)
         ;
 
         $result = $widgetComposite->getFrame();
 
-        self::assertSame('lsrfstso1o2', $result->sequence());
-        self::assertSame(11, $result->width());
+        self::assertSame('lsrfstso1o2', $result->getSequence());
+        self::assertSame(11, $result->getWidth());
     }
 
     protected function getWidgetContextMock(): MockObject&IWidgetContext

@@ -179,12 +179,12 @@ final class RendererTest extends TestCase
         $frame = $this->getFrameMock();
         $frame
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
             ->willReturn($sequence)
         ;
         $frame
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
             ->willReturn($width)
         ;
 

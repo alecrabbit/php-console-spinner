@@ -114,40 +114,40 @@ final class WidgetTest extends TestCase
 
         $revolverFrame
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
             ->willReturn('rfs')
         ;
         $revolverFrame
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
             ->willReturn(3)
         ;
 
         $leadingSpacer
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
             ->willReturn('ls')
         ;
         $leadingSpacer
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
             ->willReturn(2)
         ;
 
         $trailingSpacer
             ->expects(self::once())
-            ->method('sequence')
+            ->method('getSequence')
             ->willReturn('ts')
         ;
         $trailingSpacer
             ->expects(self::once())
-            ->method('width')
+            ->method('getWidth')
             ->willReturn(2)
         ;
 
         $result = $widget->getFrame();
 
-        self::assertSame('lsrfsts', $result->sequence());
-        self::assertSame(7, $result->width());
+        self::assertSame('lsrfsts', $result->getSequence());
+        self::assertSame(7, $result->getWidth());
     }
 }

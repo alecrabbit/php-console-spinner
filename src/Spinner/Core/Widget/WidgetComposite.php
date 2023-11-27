@@ -72,8 +72,8 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
                     $f = $widget->getFrame($dt);
 
                     $frame = $this->createFrame(
-                        $frame->sequence() . $f->sequence(),
-                        $frame->width() + $f->width()
+                        $frame->getSequence() . $f->getSequence(),
+                        $frame->getWidth() + $f->getWidth()
                     );
                 }
             }

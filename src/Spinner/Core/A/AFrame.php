@@ -14,12 +14,12 @@ abstract readonly class AFrame implements IFrame
     ) {
     }
 
-    public function sequence(): string
+    public function getSequence(): string
     {
         return $this->sequence;
     }
 
-    public function width(): int
+    public function getWidth(): int
     {
         return $this->width;
     }
