@@ -14,11 +14,6 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class AutoStartModeConfigTest extends ConfigurationTestCase
 {
-    protected static function performContainerModifications(): void
-    {
-        // do nothing
-    }
-
     #[Test]
     public function canSetLoopAutoStartOptionEnabled(): void
     {

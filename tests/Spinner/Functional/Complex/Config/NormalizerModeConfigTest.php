@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class NormalizerModeConfigTest extends ConfigurationTestCase
 {
-    protected static function performContainerModifications(): void
+    protected static function setTestContainer(): void
     {
         self::setContainer(
             self::modifyContainer(

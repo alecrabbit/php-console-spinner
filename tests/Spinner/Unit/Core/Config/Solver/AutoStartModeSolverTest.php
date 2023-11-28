@@ -104,6 +104,8 @@ final class AutoStartModeSolverTest extends TestCase
             [[$mD], [$oDi, $oEn, $oEn],],
 
             [[$mD], [$oDi, $oDi, $oEn],], // #27
+            [[$mE], [$oEn, null, $oEn],], // #28
+            [[$mD], [$oDi, null, $oEn],], // #29
         ];
     }
 

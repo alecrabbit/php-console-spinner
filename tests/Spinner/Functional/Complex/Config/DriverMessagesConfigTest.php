@@ -18,7 +18,7 @@ final class DriverMessagesConfigTest extends ConfigurationTestCase
 {
     const DEFAULT_MESSAGE = '';
 
-    protected static function performContainerModifications(): void
+    protected static function setTestContainer(): void
     {
         self::setContainer(
             self::modifyContainer(

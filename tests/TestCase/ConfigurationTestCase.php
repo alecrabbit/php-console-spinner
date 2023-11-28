@@ -17,12 +17,4 @@ abstract class ConfigurationTestCase extends ContainerModifyingTestCase
         }
         throw new RuntimeException('Unable to get required config: ' . $class);
     }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        static::performContainerModifications();
-    }
-
-    abstract protected static function performContainerModifications(): void;
 }

@@ -19,7 +19,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 final class WidgetConfigTest extends ConfigurationTestCase
 {
-    protected static function performContainerModifications(): void
+    protected static function setTestContainer(): void
     {
         self::setContainer(
             self::modifyContainer(

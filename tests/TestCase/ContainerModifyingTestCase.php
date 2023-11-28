@@ -19,9 +19,8 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
 {
     private const DEFINITIONS = 'definitions';
 
-    protected function setUp(): void
+    protected static function setTestContainer(): void
     {
-        parent::setUp();
         $modifiedContainer = self::modifyContainer(clone self::getStoredContainer());
         self::setContainer($modifiedContainer);
     }
@@ -40,24 +39,28 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
 
     protected static function createContainer(ArrayObject $definitions): IContainer
     {
-        $registry =
-            new class($definitions) implements IDefinitionRegistry {
-                public function __construct(protected Traversable $definitions)
-                {
-                }
-
-                public function load(): Traversable
-                {
-                    return $this->definitions;
-                }
-
-                public function bind(IServiceDefinition $serviceDefinition): void
-                {
-                    // do nothing
-                }
-            };
+        $registry = self::createDefinitionRegistry($definitions);
 
         return (new ContainerFactory($registry))->create();
+    }
+
+    protected static function createDefinitionRegistry(ArrayObject $definitions): IDefinitionRegistry
+    {
+        return new class($definitions) implements IDefinitionRegistry {
+            public function __construct(protected Traversable $definitions)
+            {
+            }
+
+            public function load(): Traversable
+            {
+                return $this->definitions;
+            }
+
+            public function bind(IServiceDefinition $serviceDefinition): void
+            {
+                // do nothing
+            }
+        };
     }
 
     protected static function modifyDefinitions(ArrayObject $definitions, array $substitutes = []): ArrayObject

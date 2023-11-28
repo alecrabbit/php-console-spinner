@@ -96,9 +96,11 @@ final class CursorVisibilityModeSolverTest extends TestCase
             [[$mH], [null, null, $oHi],],
             [[$mV], [null, null, $oVi],],
 
-            [[$mH], [$oAu, $oAu, $oHi],],
+            [[$mH], [$oAu, $oAu, $oHi],], // #22
 
-            [[$mV], [$oVi, $oAu, $oHi],],
+            [[$mV], [$oVi, $oAu, $oHi],], // #23
+
+            [[$mV], [$oVi, null, $oHi],], // #24
         ];
     }
 

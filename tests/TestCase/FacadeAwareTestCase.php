@@ -22,10 +22,10 @@ abstract class FacadeAwareTestCase extends TestCase
     {
         parent::setUp();
         self::storeContainer();
-        self::setTestContainer();
+        static::setTestContainer();
     }
 
-    protected static function storeContainer(): void
+    private static function storeContainer(): void
     {
         self::$container = self::extractContainer();
     }
@@ -51,7 +51,7 @@ abstract class FacadeAwareTestCase extends TestCase
         parent::tearDown();
     }
 
-    protected static function rollbackContainer(): void
+    private static function rollbackContainer(): void
     {
         self::setContainer(self::$container);
     }

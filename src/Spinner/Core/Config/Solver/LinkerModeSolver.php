@@ -46,6 +46,11 @@ final readonly class LinkerModeSolver extends ASolver implements Contract\ILinke
             ],
             [
                 LinkerOption::ENABLED,
+                null,
+                LinkerOption::ENABLED,
+            ],
+            [
+                LinkerOption::ENABLED,
                 LinkerOption::DISABLED,
                 LinkerOption::DISABLED,
             ],
@@ -118,6 +123,11 @@ final readonly class LinkerModeSolver extends ASolver implements Contract\ILinke
                 null,
                 LinkerOption::DISABLED,
                 LinkerOption::DISABLED,
+            ],
+            [
+                LinkerOption::DISABLED,
+                null,
+                LinkerOption::ENABLED,
             ],
             [
                 null,

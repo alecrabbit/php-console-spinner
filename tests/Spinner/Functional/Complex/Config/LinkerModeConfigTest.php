@@ -14,10 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class LinkerModeConfigTest extends ConfigurationTestCase
 {
-    protected static function performContainerModifications(): void
-    {
-        // do nothing
-    }
+
 
     #[Test]
     public function canSetLinkerOptionEnabled(): void

@@ -20,7 +20,7 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class SignalHandlersContainerConfigTest extends ConfigurationTestCase
 {
-    protected static function performContainerModifications(): void
+    protected static function setTestContainer(): void
     {
         self::setContainer(
             self::modifyContainer(
