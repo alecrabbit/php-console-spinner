@@ -70,10 +70,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');
 
-        self::extractContainer()
-            ->get(ILoopProvider::class)
-            ->getLoop()
-        ;
+        $loop = self::getService(ILoopProvider::class)->getLoop();
 
         self::fail('Exception was not thrown.');
     }
@@ -100,10 +97,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');
 
-        self::extractContainer()
-            ->get(ILoopProvider::class)
-            ->getLoop()
-        ;
+        $loop = self::getService(ILoopProvider::class)->getLoop();
 
         self::fail('Exception was not thrown.');
     }
@@ -122,10 +116,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');
 
-        self::extractContainer()
-            ->get(ILoopProvider::class)
-            ->getLoop()
-        ;
+        $loop = self::getService(ILoopProvider::class)->getLoop();
 
         self::fail('Exception was not thrown.');
     }

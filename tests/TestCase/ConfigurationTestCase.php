@@ -11,7 +11,7 @@ abstract class ConfigurationTestCase extends ContainerModifyingTestCase
 {
     protected static function getRequiredConfig(string $class): IConfigElement
     {
-        $config = self::extractContainer()->get($class);
+        $config = self::getService($class);
         if ($config instanceof IConfigElement && is_a($config, $class, true)) {
             return $config;
         }

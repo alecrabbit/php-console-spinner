@@ -30,9 +30,14 @@ abstract class FacadeAwareTestCase extends TestCase
         self::$container = self::extractContainer();
     }
 
-    protected static function extractContainer(): mixed
+    private static function extractContainer(): mixed
     {
         return self::callMethod(Facade::class, self::GET_CONTAINER);
+    }
+
+    protected static function getService(string $id): mixed
+    {
+        return self::extractContainer()->get($id);
     }
 
     protected static function setTestContainer(): void
