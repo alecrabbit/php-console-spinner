@@ -84,6 +84,11 @@ abstract class TestCase extends PHPUnitTestCase
         return end($parts);
     }
 
+    protected static function getFaker(): FakerGenerator
+    {
+        return FakerFactory::create();
+    }
+
     protected function expectsException(mixed $expected): ?Throwable
     {
         if (
@@ -127,10 +132,5 @@ abstract class TestCase extends PHPUnitTestCase
                 self::exceptionNotThrownString($exception, $message)
             )
         );
-    }
-
-    protected static function getFaker(): FakerGenerator
-    {
-        return FakerFactory::create();
     }
 }

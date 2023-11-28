@@ -58,7 +58,8 @@ final class ServiceObjectFactoryTest extends TestCase
         $serviceDefinition
             ->expects(self::once())
             ->method('getId')
-            ->willReturn($id);
+            ->willReturn($id)
+        ;
 
         $service = $factory->create($value, $serviceDefinition);
 

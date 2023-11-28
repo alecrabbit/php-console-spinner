@@ -16,13 +16,13 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class DriverMessagesConfigTest extends ConfigurationTestCase
 {
-    const DEFAULT_MESSAGE = '';
+    private const DEFAULT_MESSAGE = '';
 
     protected static function setTestContainer(): void
     {
         self::setContainer(
             self::modifyContainer(
-                self::extractContainer(),
+                self::getStoredContainer(),
                 [
                     // Detected settings considered as AUTO
                     IDetectedSettingsFactory::class => static function () {

@@ -21,15 +21,18 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
 
     protected static function setTestContainer(): void
     {
-        $modifiedContainer = self::modifyContainer(clone self::getStoredContainer());
-        self::setContainer($modifiedContainer);
+        self::setContainer(
+            self::modifyContainer(
+                self::getStoredContainer()
+            )
+        );
     }
 
     protected static function modifyContainer(
         IContainer $container,
         array $substitutes = []
     ): IContainer {
-        $definitions = self::getPropertyValue(self::DEFINITIONS, $container);
+        $definitions = self::extractDefinitions($container);
 
         return
             self::createContainer(
@@ -37,14 +40,19 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
             );
     }
 
-    protected static function createContainer(ArrayObject $definitions): IContainer
+    private static function extractDefinitions(IContainer $container): ArrayObject
+    {
+        return self::getPropertyValue(self::DEFINITIONS, $container);
+    }
+
+    private static function createContainer(ArrayObject $definitions): IContainer
     {
         $registry = self::createDefinitionRegistry($definitions);
 
         return (new ContainerFactory($registry))->create();
     }
 
-    protected static function createDefinitionRegistry(ArrayObject $definitions): IDefinitionRegistry
+    private static function createDefinitionRegistry(ArrayObject $definitions): IDefinitionRegistry
     {
         return new class($definitions) implements IDefinitionRegistry {
             public function __construct(protected Traversable $definitions)
@@ -63,34 +71,11 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
         };
     }
 
-    protected static function modifyDefinitions(ArrayObject $definitions, array $substitutes = []): ArrayObject
+    private static function modifyDefinitions(ArrayObject $definitions, array $substitutes = []): ArrayObject
     {
-        $substitutes =
-            array_merge(
-                [
-                    // disable output
-                    new ServiceDefinition(
-                        IWritableStream::class,
-                        new class() implements IWritableStream {
-                            public function write(Traversable $data): void
-                            {
-                                // do nothing
-                            }
-                        },
-                    ),
-                    // disable auto start
-                    new ServiceDefinition(
-                        ILoopSetup::class,
-                        new class() implements ILoopSetup {
-                            public function setup(ILoop $loop): void
-                            {
-                                // do nothing
-                            }
-                        },
-                    ),
-                ],
-                $substitutes
-            );
+        $definitions = clone $definitions;
+
+        $substitutes = self::mergeSubstitutes($substitutes);
 
         foreach ($substitutes as $id => $substitute) {
             if ($substitute instanceof IServiceDefinition) {
@@ -101,5 +86,34 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
         }
 
         return $definitions;
+    }
+
+    private static function mergeSubstitutes(array $substitutes): array
+    {
+        return array_merge(
+            [
+                // disable output
+                new ServiceDefinition(
+                    IWritableStream::class,
+                    new class() implements IWritableStream {
+                        public function write(Traversable $data): void
+                        {
+                            // do nothing
+                        }
+                    },
+                ),
+                // disable auto start
+                new ServiceDefinition(
+                    ILoopSetup::class,
+                    new class() implements ILoopSetup {
+                        public function setup(ILoop $loop): void
+                        {
+                            // do nothing
+                        }
+                    },
+                ),
+            ],
+            $substitutes
+        );
     }
 }

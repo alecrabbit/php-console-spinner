@@ -21,7 +21,7 @@ final class RunMethodModeConfigForcedTest extends ConfigurationTestCase
     protected static function setTestContainer(): void
     {
         self::modifyContainer(
-            self::extractContainer(),
+            self::getStoredContainer(),
             [
                 // Detected settings considered as AUTO
                 IDetectedSettingsFactory::class => static function () {

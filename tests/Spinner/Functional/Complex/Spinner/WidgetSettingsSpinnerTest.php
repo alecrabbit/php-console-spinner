@@ -82,7 +82,7 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
     {
         self::setContainer(
             self::modifyContainer(
-                self::extractContainer(),
+                self::getStoredContainer(),
                 [
                     $id => $definition,
                 ]

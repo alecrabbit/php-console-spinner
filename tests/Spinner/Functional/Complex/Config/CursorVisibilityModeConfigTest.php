@@ -14,8 +14,6 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class CursorVisibilityModeConfigTest extends ConfigurationTestCase
 {
-
-
     #[Test]
     public function canSetCursorVisibilityOptionVisible(): void
     {
