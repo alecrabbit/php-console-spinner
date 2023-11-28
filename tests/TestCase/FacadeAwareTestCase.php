@@ -21,8 +21,7 @@ abstract class FacadeAwareTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        self::$container = self::extractContainer();
-        self::setContainer(null);
+        self::storeContainer();
     }
 
     protected static function extractContainer(): mixed
@@ -37,7 +36,18 @@ abstract class FacadeAwareTestCase extends TestCase
 
     protected function tearDown(): void
     {
-        self::setContainer(self::$container);
+        self::rollbackContainer();
         parent::tearDown();
+    }
+
+    protected static function storeContainer(): void
+    {
+        self::$container = self::extractContainer();
+        self::setContainer(null);
+    }
+
+    protected static function rollbackContainer(): void
+    {
+        self::setContainer(self::$container);
     }
 }
