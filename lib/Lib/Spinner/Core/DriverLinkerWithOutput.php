@@ -17,7 +17,7 @@ final readonly class DriverLinkerWithOutput implements IDriverLinker
     public function __construct(
         private IDriverLinker $linker,
         private IOutput $output,
-        private IIntervalFormatter $formatter = new IntervalFormatter(),
+        private IIntervalFormatter $intervalFormatter = new IntervalFormatter(),
     ) {
     }
 
@@ -42,9 +42,15 @@ final readonly class DriverLinkerWithOutput implements IDriverLinker
 
     private function write(IDriver $driver): void
     {
-        $this->output->write(
-            $this->formatter->format($driver)
-        );
+        $messages = [
+            sprintf('%s:', $this::class),
+            ' ',
+            sprintf('[%s]', $driver::class),
+            ' ',
+            $this->intervalFormatter->format($driver->getInterval()),
+        ];
+
+        $this->output->write($messages);
     }
 
     public function update(ISubject $subject): void

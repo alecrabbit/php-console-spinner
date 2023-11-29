@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Functional\Complex\Config;
+namespace AlecRabbit\Tests\Spinner\Complex\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
@@ -13,9 +13,10 @@ use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
-final class RunMethodModeConfigTest extends ConfigurationTestCase
+final class RunMethodModeConfigForcedTest extends ConfigurationTestCase
 {
     protected static function setTestContainer(): void
     {
@@ -27,7 +28,13 @@ final class RunMethodModeConfigTest extends ConfigurationTestCase
                     return new class() implements IDetectedSettingsFactory {
                         public function create(): ISettings
                         {
-                            return new Settings();
+                            return new Settings(
+                                new ArrayObject([
+                                    new GeneralSettings(
+                                        runMethodOption: RunMethodOption::ASYNC,
+                                    )
+                                ])
+                            );
                         }
                     };
                 },
@@ -83,6 +90,6 @@ final class RunMethodModeConfigTest extends ConfigurationTestCase
         /** @var IGeneralConfig $generalConfig */
         $generalConfig = self::getRequiredConfig(IGeneralConfig::class);
 
-        self::assertSame(RunMethodMode::SYNCHRONOUS, $generalConfig->getRunMethodMode());
+        self::assertEquals(RunMethodMode::SYNCHRONOUS, $generalConfig->getRunMethodMode());
     }
 }

@@ -30,6 +30,11 @@ abstract class FacadeAwareTestCase extends TestCase
         self::$container = self::extractContainer();
     }
 
+    protected static function getCurrentContainer(): IContainer
+    {
+        return self::extractContainer();
+    }
+
     private static function extractContainer(): mixed
     {
         return self::callMethod(Facade::class, self::GET_CONTAINER);

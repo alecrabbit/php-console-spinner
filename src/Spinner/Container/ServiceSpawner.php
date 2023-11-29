@@ -100,7 +100,7 @@ final readonly class ServiceSpawner implements IServiceSpawner
         return match (true) {
             class_exists($definition) => $this->createInstanceByReflection($definition),
             default => throw new ClassDoesNotExist(
-                sprintf('Class does not exist: %s', (string)$definition)
+                sprintf('Class does not exist: %s', $definition)
             ),
         };
     }

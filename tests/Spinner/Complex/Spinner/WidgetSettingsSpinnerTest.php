@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Functional\Complex\Spinner;
+namespace AlecRabbit\Tests\Spinner\Complex\Spinner;
+
+
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;

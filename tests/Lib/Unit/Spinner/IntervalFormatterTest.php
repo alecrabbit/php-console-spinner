@@ -39,18 +39,6 @@ final class IntervalFormatterTest extends TestCase
             ->willReturn(10.0)
         ;
 
-        $object = $this->getHasIntervalMock();
-        $object
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
-
-        self::assertStringContainsString('Interval: 10ms', $formatter->format($object));
-    }
-
-    private function getHasIntervalMock(): MockObject&IHasInterval
-    {
-        return $this->createMock(IHasInterval::class);
+        self::assertStringContainsString('Interval: 10ms', $formatter->format($interval));
     }
 }

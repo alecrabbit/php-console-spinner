@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Functional\Complex\Config;
+namespace AlecRabbit\Tests\Spinner\Complex\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\DriverMode;
 use AlecRabbit\Spinner\Contract\Option\DriverOption;
@@ -14,8 +14,6 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class DriverModeConfigTest extends ConfigurationTestCase
 {
-
-
     #[Test]
     public function canSetDriverOptionEnabled(): void
     {

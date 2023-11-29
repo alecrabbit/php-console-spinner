@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Functional\Complex\Config;
+namespace AlecRabbit\Tests\Spinner\Complex\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;

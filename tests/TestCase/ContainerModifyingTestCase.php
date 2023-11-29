@@ -36,7 +36,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
 
         return
             self::createContainer(
-                self::modifyDefinitions($definitions, $substitutes)
+                self::modifyDefinitions(clone $definitions, $substitutes)
             );
     }
 
@@ -73,8 +73,6 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
 
     private static function modifyDefinitions(ArrayObject $definitions, array $substitutes = []): ArrayObject
     {
-        $definitions = clone $definitions;
-
         $substitutes = self::mergeSubstitutes($substitutes);
 
         foreach ($substitutes as $id => $substitute) {
@@ -101,6 +99,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                             // do nothing
                         }
                     },
+                    IServiceDefinition::SINGLETON,
                 ),
                 // disable auto start
                 new ServiceDefinition(

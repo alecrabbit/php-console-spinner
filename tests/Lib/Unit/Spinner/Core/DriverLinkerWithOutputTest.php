@@ -35,7 +35,7 @@ final class DriverLinkerWithOutputTest extends TestCase
             new DriverLinkerWithOutput(
                 linker: $linker ?? $this->getDriverLinkerMock(),
                 output: $output ?? $this->getOutputMock(),
-                formatter: $intervalFormatter ?? $this->getIntervalFormatterMock(),
+                intervalFormatter: $intervalFormatter ?? $this->getIntervalFormatterMock(),
             );
     }
 
@@ -92,12 +92,18 @@ final class DriverLinkerWithOutputTest extends TestCase
             intervalFormatter: $formatter,
         );
 
+        $interval = $this->getIntervalMock();
         $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
 
         $formatter
             ->expects(self::once())
             ->method('format')
-            ->with($driver)
+            ->with($interval)
         ;
 
         $driverLinker
@@ -111,8 +117,6 @@ final class DriverLinkerWithOutputTest extends TestCase
             ->expects(self::once())
             ->method('write')
         ;
-
-        $interval = $this->getIntervalMock();
 
         $driver
             ->expects(self::once())
@@ -141,12 +145,18 @@ final class DriverLinkerWithOutputTest extends TestCase
             intervalFormatter: $formatter,
         );
 
+        $interval = $this->getIntervalMock();
         $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
 
         $formatter
             ->expects(self::once())
             ->method('format')
-            ->with($driver)
+            ->with($interval)
         ;
 
         $driverLinker
