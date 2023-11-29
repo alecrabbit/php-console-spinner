@@ -12,6 +12,10 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 
+/**
+ * This class acts as a decorator for the DriverLinker class.
+ * It writes the current driver interval to the output during 'link' and 'update' method calls.
+ */
 final readonly class DriverLinkerWithOutput implements IDriverLinker
 {
     public function __construct(
