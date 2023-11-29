@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Lib\Unit\Spinner\Core;
 
 
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
-use AlecRabbit\Lib\Spinner\Core\DriverLinkerWithOutput;
+use AlecRabbit\Lib\Spinner\Core\DriverLinkerDecorator;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -16,14 +16,14 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverLinkerWithOutputTest extends TestCase
+final class DriverLinkerDecoratorTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $linker = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverLinkerWithOutput::class, $linker);
+        self::assertInstanceOf(DriverLinkerDecorator::class, $linker);
     }
 
     private function getTesteeInstance(
@@ -32,7 +32,7 @@ final class DriverLinkerWithOutputTest extends TestCase
         ?IIntervalFormatter $intervalFormatter = null,
     ): IDriverLinker {
         return
-            new DriverLinkerWithOutput(
+            new DriverLinkerDecorator(
                 linker: $linker ?? $this->getDriverLinkerMock(),
                 output: $output ?? $this->getOutputMock(),
                 intervalFormatter: $intervalFormatter ?? $this->getIntervalFormatterMock(),

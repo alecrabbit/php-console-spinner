@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Lib\Spinner\Factory;
 
-use AlecRabbit\Lib\Spinner\Contract\Factory\IDriverLinkerWithOutputFactory;
-use AlecRabbit\Lib\Spinner\Core\DriverLinkerWithOutput;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IDriverLinkerDecoratorFactory;
+use AlecRabbit\Lib\Spinner\Core\DriverLinkerDecorator;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\DummyDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 
-final readonly class DriverLinkerWithOutputFactory implements IDriverLinkerWithOutputFactory
+final readonly class DriverLinkerDecoratorFactory implements IDriverLinkerDecoratorFactory
 {
     public function __construct(
         private IDriverLinkerFactory $driverLinkerFactory,
@@ -27,7 +27,7 @@ final readonly class DriverLinkerWithOutputFactory implements IDriverLinkerWithO
             return $linker;
         }
 
-        return new DriverLinkerWithOutput(
+        return new DriverLinkerDecorator(
             $linker,
             $this->output,
         );

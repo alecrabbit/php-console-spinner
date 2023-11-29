@@ -6,7 +6,7 @@ namespace AlecRabbit\Lib\Spinner\Contract\Factory;
 
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 
-interface IDriverLinkerWithOutputFactory extends IDriverLinkerFactory
+interface IDriverLinkerDecoratorFactory extends IDriverLinkerFactory
 {
 
 }

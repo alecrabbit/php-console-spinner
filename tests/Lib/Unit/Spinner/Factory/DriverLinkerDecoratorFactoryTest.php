@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Lib\Unit\Spinner\Factory;
 
-use AlecRabbit\Lib\Spinner\Contract\Factory\IDriverLinkerWithOutputFactory;
-use AlecRabbit\Lib\Spinner\Core\DriverLinkerWithOutput;
-use AlecRabbit\Lib\Spinner\Factory\DriverLinkerWithOutputFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IDriverLinkerDecoratorFactory;
+use AlecRabbit\Lib\Spinner\Core\DriverLinkerDecorator;
+use AlecRabbit\Lib\Spinner\Factory\DriverLinkerDecoratorFactory;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\DummyDriverLinker;
@@ -15,22 +15,22 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverLinkerWithOutputFactoryTest extends TestCase
+final class DriverLinkerDecoratorFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $factory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverLinkerWithOutputFactory::class, $factory);
+        self::assertInstanceOf(DriverLinkerDecoratorFactory::class, $factory);
     }
 
     public function getTesteeInstance(
         ?IDriverLinkerFactory $driverLinkerFactory = null,
         ?IOutput $output = null,
-    ): IDriverLinkerWithOutputFactory {
+    ): IDriverLinkerDecoratorFactory {
         return
-            new DriverLinkerWithOutputFactory(
+            new DriverLinkerDecoratorFactory(
                 driverLinkerFactory: $driverLinkerFactory ?? $this->getDriverLinkerFactoryMock(),
                 output: $output ?? $this->getOutputMock(),
             );
@@ -85,7 +85,7 @@ final class DriverLinkerWithOutputFactoryTest extends TestCase
 
         $linker = $factory->create();
 
-        self::assertInstanceOf(DriverLinkerWithOutput::class, $linker);
+        self::assertInstanceOf(DriverLinkerDecorator::class, $linker);
     }
 
     private function getDriverLinkerMock(): MockObject&IDriverLinker
