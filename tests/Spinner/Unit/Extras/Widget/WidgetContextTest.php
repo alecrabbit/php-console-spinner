@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget;
+namespace AlecRabbit\Tests\Spinner\Unit\Extras\Widget;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\WidgetContext;
+use AlecRabbit\Spinner\Extras\WidgetContext;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

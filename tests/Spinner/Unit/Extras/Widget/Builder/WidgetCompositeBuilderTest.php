@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget\Builder;
+namespace AlecRabbit\Tests\Spinner\Unit\Extras\Widget\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
-use AlecRabbit\Spinner\Core\Widget\Builder\WidgetCompositeBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
-use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Extras\Widget\Builder\Contract\IWidgetCompositeBuilder;
+use AlecRabbit\Spinner\Extras\Widget\Builder\WidgetCompositeBuilder;
+use AlecRabbit\Spinner\Extras\Widget\WidgetComposite;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

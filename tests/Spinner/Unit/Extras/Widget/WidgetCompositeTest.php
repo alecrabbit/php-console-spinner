@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget;
+namespace AlecRabbit\Tests\Spinner\Unit\Extras\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
-use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
+use AlecRabbit\Spinner\Extras\Widget\Contract\IWidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Extras\Widget\WidgetComposite;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

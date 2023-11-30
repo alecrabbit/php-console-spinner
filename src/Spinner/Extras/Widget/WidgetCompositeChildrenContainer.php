@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Widget;
+namespace AlecRabbit\Spinner\Extras\Widget;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
@@ -10,9 +10,9 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\IntervalComparator;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\WidgetContextToIntervalMap;
+use AlecRabbit\Spinner\Extras\Widget\Contract\IWidgetCompositeChildrenContainer;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;

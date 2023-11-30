@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget\Factory;
+namespace AlecRabbit\Tests\Spinner\Unit\Extras\Widget\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
@@ -11,11 +11,11 @@ use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
-use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
+use AlecRabbit\Spinner\Extras\Widget\Builder\Contract\IWidgetCompositeBuilder;
+use AlecRabbit\Spinner\Extras\Widget\Factory\Contract\IWidgetCompositeFactory;
+use AlecRabbit\Spinner\Extras\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

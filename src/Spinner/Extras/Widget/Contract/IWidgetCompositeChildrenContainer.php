@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Widget\Contract;
+namespace AlecRabbit\Spinner\Extras\Widget\Contract;
 
 use AlecRabbit\Spinner\Contract\IHasEmptyState;
 use AlecRabbit\Spinner\Contract\IHasNullableInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use Countable;
 use IteratorAggregate;
 

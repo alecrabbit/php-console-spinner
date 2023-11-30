@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Widget\Builder;
+namespace AlecRabbit\Spinner\Extras\Widget\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Widget\Builder\A\AWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
-use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Extras\Widget\Builder\Contract\IWidgetCompositeBuilder;
+use AlecRabbit\Spinner\Extras\Widget\WidgetComposite;
 
 /**
  * @psalm-suppress PossiblyNullArgument

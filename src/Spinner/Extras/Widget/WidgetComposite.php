@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Widget;
+namespace AlecRabbit\Spinner\Extras\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
@@ -13,11 +13,10 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Widget\A\AWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
+use AlecRabbit\Spinner\Extras\Widget\Contract\IWidgetCompositeChildrenContainer;
 
-// FIXME (2023-11-21 18:7) [Alec Rabbit]: move to Extras
 final class WidgetComposite extends AWidget implements IWidgetComposite
 {
     protected IInterval $interval;
@@ -53,7 +52,8 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
 
         if ($subject === $this->children) {
             $interval = $this->intervalComparator->smallest($this->interval, $subject->getInterval());
-            if ($interval !== $this->interval) {
+
+            if ($this->interval !== $interval) {
                 $this->interval = $interval;
                 $this->notify();
             }
@@ -65,15 +65,15 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         $frame = parent::getFrame($dt);
 
         if (!$this->children->isEmpty()) {
-            /** @var IWidgetContext $childContext */
-            foreach ($this->children as $childContext => $_) {
-                $widget = $childContext->getWidget();
+            /** @var IWidgetContext $context */
+            foreach ($this->children as $context => $_) {
+                $widget = $context->getWidget();
                 if ($widget instanceof IWidget) {
                     $f = $widget->getFrame($dt);
 
                     $frame = $this->createFrame(
                         $frame->getSequence() . $f->getSequence(),
-                        $frame->getWidth() + $f->getWidth()
+                        $frame->getWidth() + $f->getWidth(),
                     );
                 }
             }

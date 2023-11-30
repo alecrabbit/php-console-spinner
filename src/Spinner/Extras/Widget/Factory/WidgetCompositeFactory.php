@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Widget\Factory;
+namespace AlecRabbit\Spinner\Extras\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
+use AlecRabbit\Spinner\Extras\Widget\Builder\Contract\IWidgetCompositeBuilder;
+use AlecRabbit\Spinner\Extras\Widget\Factory\Contract\IWidgetCompositeFactory;
 
 final readonly class WidgetCompositeFactory implements IWidgetCompositeFactory
 {

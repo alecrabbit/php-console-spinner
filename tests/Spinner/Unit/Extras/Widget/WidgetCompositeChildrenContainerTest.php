@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget;
+namespace AlecRabbit\Tests\Spinner\Unit\Extras\Widget;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\Contract\IWeakMap;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
+use AlecRabbit\Spinner\Extras\Widget\Contract\IWidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Extras\Widget\WidgetCompositeChildrenContainer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayAccess;
 use Countable;
