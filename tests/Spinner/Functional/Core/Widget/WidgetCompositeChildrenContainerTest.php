@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Spinner\Core\WidgetContextToIntervalMap;
 use AlecRabbit\Spinner\Extras\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Extras\Widget\WidgetCompositeChildrenContainer;
-use AlecRabbit\Spinner\Extras\WidgetContext;
+use AlecRabbit\Spinner\Extras\Widget\WidgetContext;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayAccess;
 use Countable;

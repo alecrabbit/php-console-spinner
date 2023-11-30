@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Extras\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Extras\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Extras\Widget\WidgetCompositeChildrenContainer;
-use AlecRabbit\Spinner\Extras\WidgetContext;
+use AlecRabbit\Spinner\Extras\Widget\WidgetContext;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
