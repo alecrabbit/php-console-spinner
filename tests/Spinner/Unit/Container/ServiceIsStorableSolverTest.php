@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IIsStorableSolver;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
-use AlecRabbit\Spinner\Container\Contract\ServiceIsStorableSolver;
+use AlecRabbit\Spinner\Container\ServiceIsStorableSolver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

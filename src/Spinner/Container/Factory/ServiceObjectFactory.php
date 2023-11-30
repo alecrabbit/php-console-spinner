@@ -8,8 +8,8 @@ use AlecRabbit\Spinner\Container\Contract;
 use AlecRabbit\Spinner\Container\Contract\IIsStorableSolver;
 use AlecRabbit\Spinner\Container\Contract\IService;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
-use AlecRabbit\Spinner\Container\Contract\ServiceIsStorableSolver;
 use AlecRabbit\Spinner\Container\Service;
+use AlecRabbit\Spinner\Container\ServiceIsStorableSolver;
 
 final readonly class ServiceObjectFactory implements Contract\IServiceObjectFactory
 {
