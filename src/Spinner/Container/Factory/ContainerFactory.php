@@ -13,16 +13,15 @@ use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
 final readonly class ContainerFactory implements IContainerFactory
 {
     public function __construct(
-        private IDefinitionRegistry $definitionRegistry,
         private IServiceSpawnerFactory $spawnerFactory = new ServiceSpawnerFactory(),
     ) {
     }
 
-    public function create(): IContainer
+    public function create(IDefinitionRegistry $definitionRegistry): IContainer
     {
         return new Container(
             spawnerFactory: $this->spawnerFactory,
-            definitions: $this->definitionRegistry->load(),
+            definitions: $definitionRegistry->load(),
         );
     }
 }

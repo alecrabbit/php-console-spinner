@@ -49,7 +49,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
     {
         $registry = self::createDefinitionRegistry($definitions);
 
-        return (new ContainerFactory($registry))->create();
+        return (new ContainerFactory())->create($registry);
     }
 
     private static function createDefinitionRegistry(ArrayObject $definitions): IDefinitionRegistry
