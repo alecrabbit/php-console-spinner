@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Extras\Widget\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
@@ -26,25 +26,25 @@ interface IWidgetContextToIntervalMap extends ArrayAccess, Countable, IteratorAg
     public function getIterator(): Traversable;
 
     /**
-     * @psalm-param TKey $offset
+     * @psalm-param IWidgetContext $offset
      *
-     * @psalm-return TValue
+     * @psalm-return IInterval
      */
     public function offsetGet(mixed $offset): ?IInterval;
 
     /**
-     * @psalm-param TKey $offset
+     * @psalm-param IWidgetContext $offset
      */
     public function offsetUnset(mixed $offset): void;
 
     /**
-     * @psalm-param TKey $offset
-     * @psalm-param TValue $value
+     * @psalm-param IWidgetContext $offset
+     * @psalm-param IInterval $value
      */
     public function offsetSet(mixed $offset, mixed $value): void;
 
     /**
-     * @psalm-param TKey $offset
+     * @psalm-param IWidgetContext $offset
      *
      * @psalm-return bool
      */

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core;
+namespace AlecRabbit\Tests\Spinner\Unit\Extras\Widget;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Contract\IWidgetContextToIntervalMap;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\WidgetContextToIntervalMap;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
+use AlecRabbit\Spinner\Extras\Widget\Contract\IWidgetContextToIntervalMap;
+use AlecRabbit\Spinner\Extras\Widget\WidgetContextToIntervalMap;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayAccess;
 use Countable;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Extras\Widget;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Contract\IWidgetContextToIntervalMap;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
+use AlecRabbit\Spinner\Extras\Widget\Contract\IWidgetContextToIntervalMap;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
@@ -50,9 +50,9 @@ final readonly class WidgetContextToIntervalMap implements IWidgetContextToInter
     }
 
     /**
-     * @psalm-param TKey $offset
+     * @psalm-param IWidgetContext $offset
      *
-     * @psalm-return TValue
+     * @psalm-return IInterval
      */
     public function offsetGet(mixed $offset): ?IInterval
     {
