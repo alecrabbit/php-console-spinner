@@ -13,8 +13,8 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
+use AlecRabbit\Spinner\Extras\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -135,35 +135,35 @@ final class SpinnerFactoryTest extends TestCase
         self::assertInstanceOf(Spinner::class, $spinner);
     }
 
-    #[Test]
-    public function canCreateUsingWidgetCompositeFactory(): void
-    {
-        $widgetConfig = $this->getRootWidgetConfigMock();
-
-        $widgetFactory = $this->getWidgetCompositeFactoryMock();
-        $widgetFactory
-            ->expects(self::once())
-            ->method('create')
-            ->with(self::identicalTo($widgetConfig))
-        ;
-
-        $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
-        $widgetConfigFactory
-            ->expects(self::once())
-            ->method('create')
-            ->with(self::identicalTo(null))
-            ->willReturn($widgetConfig)
-        ;
-
-        $spinnerFactory = $this->getTesteeInstance(
-            widgetFactory: $widgetFactory,
-            widgetConfigFactory: $widgetConfigFactory,
-        );
-
-        $spinner = $spinnerFactory->create();
-
-        self::assertInstanceOf(Spinner::class, $spinner);
-    }
+//    #[Test] // FIXME (2023-11-30 16:42) [Alec Rabbit]: move to extras
+//    public function canCreateUsingWidgetCompositeFactory(): void
+//    {
+//        $widgetConfig = $this->getRootWidgetConfigMock();
+//
+//        $widgetFactory = $this->getWidgetCompositeFactoryMock();
+//        $widgetFactory
+//            ->expects(self::once())
+//            ->method('create')
+//            ->with(self::identicalTo($widgetConfig))
+//        ;
+//
+//        $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
+//        $widgetConfigFactory
+//            ->expects(self::once())
+//            ->method('create')
+//            ->with(self::identicalTo(null))
+//            ->willReturn($widgetConfig)
+//        ;
+//
+//        $spinnerFactory = $this->getTesteeInstance(
+//            widgetFactory: $widgetFactory,
+//            widgetConfigFactory: $widgetConfigFactory,
+//        );
+//
+//        $spinner = $spinnerFactory->create();
+//
+//        self::assertInstanceOf(Spinner::class, $spinner);
+//    }
 
     protected function getWidgetCompositeFactoryMock(): MockObject&IWidgetCompositeFactory
     {

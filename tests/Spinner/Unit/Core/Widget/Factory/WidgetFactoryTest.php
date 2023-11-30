@@ -12,11 +12,11 @@ use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
+use AlecRabbit\Spinner\Extras\Widget\Builder\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -40,7 +40,7 @@ final class WidgetFactoryTest extends TestCase
             new WidgetFactory(
                 widgetConfigFactory: $widgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
                 widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
-                widgetBuilder: $widgetBuilder ?? $this->getWidgetCompositeBuilderMock(),
+                widgetBuilder: $widgetBuilder ?? $this->getWidgetBuilderMock(),
             );
     }
 
@@ -52,11 +52,6 @@ final class WidgetFactoryTest extends TestCase
     protected function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
     {
         return $this->createMock(IWidgetRevolverFactory::class);
-    }
-
-    protected function getWidgetCompositeBuilderMock(): MockObject&IWidgetCompositeBuilder
-    {
-        return $this->createMock(IWidgetCompositeBuilder::class);
     }
 
     #[Test]
