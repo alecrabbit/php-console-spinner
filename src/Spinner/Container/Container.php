@@ -27,7 +27,7 @@ final readonly class Container implements IContainer
     private ArrayObject $services;
 
     /**
-     * @param Traversable<string|int, IServiceDefinition>|null $definitions
+     * @param Traversable<IServiceDefinition>|null $definitions
      */
     public function __construct(
         IServiceSpawnerFactory $spawnerFactory,
@@ -42,26 +42,18 @@ final readonly class Container implements IContainer
 
         if ($definitions) {
             /**
-             * @var int|string $id
              * @var IServiceDefinition $definition
              */
-            foreach ($definitions as $id => $definition) {
-                $this->register($id, $definition);
+            foreach ($definitions as $definition) {
+                $this->register($definition);
             }
         }
     }
 
-    private function register(int|string $id, IServiceDefinition $definition): void
+    private function register(IServiceDefinition $definition): void
     {
-        if (is_int($id)) {
-            $id = $definition->getId();
-        }
+        $id = $definition->getId();
 
-        $this->registerDefinition($id, $definition);
-    }
-
-    private function registerDefinition(string $id, IServiceDefinition $definition): void
-    {
         $this->assertNotRegistered($id);
         $this->definitions->offsetSet($id, $definition);
     }
@@ -71,7 +63,7 @@ final readonly class Container implements IContainer
         if ($this->has($id)) {
             throw new ContainerException(
                 sprintf(
-                    'Definition with id "%s" already registered in the container.',
+                    'Definition with id "%s" already registered.',
                     $id,
                 )
             );
@@ -134,10 +126,9 @@ final readonly class Container implements IContainer
         $service = $this->spawn($definition);
 
         if ($service->isStorable()) {
-            $this->storeService($id, $service);
+            $this->storeService($service);
         }
 
-        /** @psalm-suppress MixedReturnStatement */
         return $service;
     }
 
@@ -171,8 +162,8 @@ final readonly class Container implements IContainer
         }
     }
 
-    private function storeService(string $id, IService $service): void
+    private function storeService(IService $service): void
     {
-        $this->services->offsetSet($id, $service);
+        $this->services->offsetSet($service->getId(), $service);
     }
 }
