@@ -40,7 +40,7 @@ final class WidgetFactoryTest extends TestCase
             new WidgetFactory(
                 widgetConfigFactory: $widgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
                 widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
-                widgetBuilder: $widgetBuilder ?? $this->getWidgetCompositeBuilderMock(),
+                widgetBuilder: $widgetBuilder ?? $this->getWidgetBuilderMock(),
             );
     }
 
@@ -52,11 +52,6 @@ final class WidgetFactoryTest extends TestCase
     protected function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
     {
         return $this->createMock(IWidgetRevolverFactory::class);
-    }
-
-    protected function getWidgetCompositeBuilderMock(): MockObject&IWidgetCompositeBuilder
-    {
-        return $this->createMock(IWidgetCompositeBuilder::class);
     }
 
     #[Test]
