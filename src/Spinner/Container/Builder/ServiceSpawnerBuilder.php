@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Container\Builder;
 
 use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IServiceObjectFactory;
+use AlecRabbit\Spinner\Container\Contract\IServiceFactory;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerBuilder;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
@@ -19,7 +19,7 @@ final class ServiceSpawnerBuilder implements IServiceSpawnerBuilder
 {
     private ?IContainer $container = null;
     private ?ICircularDependencyDetector $circularDependencyDetector = null;
-    private ?IServiceObjectFactory $serviceObjectFactory = null;
+    private ?IServiceFactory $serviceObjectFactory = null;
 
     public function withContainer(IContainer $container): IServiceSpawnerBuilder
     {
@@ -58,7 +58,7 @@ final class ServiceSpawnerBuilder implements IServiceSpawnerBuilder
         return $clone;
     }
 
-    public function withServiceObjectFactory(IServiceObjectFactory $serviceObjectFactory): IServiceSpawnerBuilder
+    public function withServiceObjectFactory(IServiceFactory $serviceObjectFactory): IServiceSpawnerBuilder
     {
         $clone = clone $this;
         $clone->serviceObjectFactory = $serviceObjectFactory;

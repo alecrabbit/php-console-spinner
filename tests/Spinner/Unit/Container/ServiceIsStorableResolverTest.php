@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Container;
 
-use AlecRabbit\Spinner\Container\Contract\IIsStorableSolver;
+use AlecRabbit\Spinner\Container\Contract\IIsStorableResolver;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
-use AlecRabbit\Spinner\Container\ServiceIsStorableSolver;
+use AlecRabbit\Spinner\Container\ServiceIsStorableResolver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ServiceIsStorableSolverTest extends TestCase
+final class ServiceIsStorableResolverTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $service = $this->getTesteeInstance();
 
-        self::assertInstanceOf(ServiceIsStorableSolver::class, $service);
+        self::assertInstanceOf(ServiceIsStorableResolver::class, $service);
     }
 
-    protected function getTesteeInstance(): IIsStorableSolver
+    protected function getTesteeInstance(): IIsStorableResolver
     {
         return
-            new ServiceIsStorableSolver();
+            new ServiceIsStorableResolver();
     }
 
     #[Test]

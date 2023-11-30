@@ -8,11 +8,14 @@ use AlecRabbit\Spinner\Container\Contract\IService;
 use AlecRabbit\Spinner\Container\Contract\IServiceBuilder;
 use AlecRabbit\Spinner\Container\Service;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class ServiceBuilder implements IServiceBuilder
 {
     private mixed $value;
-    private bool $isStorable;
-    private string $id;
+    private ?bool $isStorable = null;
+    private ?string $id = null;
 
     public function build(): IService
     {
@@ -29,8 +32,8 @@ final class ServiceBuilder implements IServiceBuilder
     {
         match (true) {
             !isset($this->value) => throw new \InvalidArgumentException('Value is not set.'),
-            !isset($this->id) || '' === $this->id => throw new \InvalidArgumentException('Id is not set.'),
-            !isset($this->isStorable) => throw new \InvalidArgumentException('isStorable is not set.'),
+            $this->id === null => throw new \InvalidArgumentException('Id is not set.'),
+            $this->isStorable=== null => throw new \InvalidArgumentException('isStorable is not set.'),
             default => null,
         };
     }

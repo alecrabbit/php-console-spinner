@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container;
 
-use AlecRabbit\Spinner\Container\Contract\IIsStorableSolver;
+use AlecRabbit\Spinner\Container\Contract\IIsStorableResolver;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 
-final readonly class ServiceIsStorableSolver implements IIsStorableSolver
+final readonly class ServiceIsStorableResolver implements IIsStorableResolver
 {
     public function isStorable(IServiceDefinition $definition): bool
     {

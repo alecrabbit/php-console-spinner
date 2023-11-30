@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Container;
 use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IService;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
-use AlecRabbit\Spinner\Container\Contract\IServiceObjectFactory;
+use AlecRabbit\Spinner\Container\Contract\IServiceFactory;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExist;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
@@ -26,7 +26,7 @@ final readonly class ServiceSpawner implements IServiceSpawner
     public function __construct(
         private ContainerInterface $container,
         private ICircularDependencyDetector $circularDependencyDetector,
-        private IServiceObjectFactory $serviceObjectFactory,
+        private IServiceFactory $serviceObjectFactory,
     ) {
     }
 
