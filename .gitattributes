@@ -17,8 +17,10 @@ example/ export-ignore
 .gitattributes.keep export-ignore
 .github/ export-ignore
 .gitignore export-ignore
+lib/ export-ignore
 .make/ export-ignore
 Makefile export-ignore
+phpunit.coverage.path.xml export-ignore
 phpunit.coverage.xml export-ignore
 phpunit.testdox.xml export-ignore
 phpunit.xml export-ignore
