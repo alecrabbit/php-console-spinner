@@ -36,10 +36,6 @@ $registry->bind(
     new ServiceDefinition(IDriverLinkerDecoratorFactory::class, DriverLinkerDecoratorFactory::class),
 );
 
-//$container = (new ContainerFactory($registry))->create();
-//
-//Facade::useContainer($container);
-
 register_shutdown_function(
     static function (): void {
         $driver = Facade::getDriver();
