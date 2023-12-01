@@ -18,26 +18,6 @@ use AlecRabbit\Spinner\Exception\DomainException;
 
 abstract class AFacade extends AContainerEnclosure
 {
-    protected static function getSpinnerFactory(): ISpinnerFactory
-    {
-        return self::getContainer()->get(ISpinnerFactory::class);
-    }
-
-    protected static function getLoopProvider(): ILoopProvider
-    {
-        return self::getContainer()->get(ILoopProvider::class);
-    }
-
-    protected static function getDriverProvider(): IDriverProvider
-    {
-        return self::getContainer()->get(IDriverProvider::class);
-    }
-
-    protected static function getSettingsProvider(): ISettingsProvider
-    {
-        return self::getContainer()->get(ISettingsProvider::class);
-    }
-
     public static function getLoop(): ILoop
     {
         $loopProvider = self::getLoopProvider();
@@ -47,6 +27,11 @@ abstract class AFacade extends AContainerEnclosure
         }
 
         throw new DomainException('Event loop is unavailable.');
+    }
+
+    protected static function getLoopProvider(): ILoopProvider
+    {
+        return self::getContainer()->get(ILoopProvider::class);
     }
 
     public static function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner
@@ -60,13 +45,28 @@ abstract class AFacade extends AContainerEnclosure
         return $spinner;
     }
 
+    protected static function getSpinnerFactory(): ISpinnerFactory
+    {
+        return self::getContainer()->get(ISpinnerFactory::class);
+    }
+
     public static function getDriver(): IDriver
     {
         return self::getDriverProvider()->getDriver();
     }
 
+    protected static function getDriverProvider(): IDriverProvider
+    {
+        return self::getContainer()->get(IDriverProvider::class);
+    }
+
     public static function getSettings(): ISettings
     {
         return self::getSettingsProvider()->getUserSettings();
+    }
+
+    protected static function getSettingsProvider(): ISettingsProvider
+    {
+        return self::getContainer()->get(ISettingsProvider::class);
     }
 }

@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Container\Builder;
 use AlecRabbit\Spinner\Container\Contract\IService;
 use AlecRabbit\Spinner\Container\Contract\IServiceBuilder;
 use AlecRabbit\Spinner\Container\Service;
+use InvalidArgumentException;
 
 /**
  * @psalm-suppress PossiblyNullArgument
@@ -31,9 +32,9 @@ final class ServiceBuilder implements IServiceBuilder
     private function validate(): void
     {
         match (true) {
-            !isset($this->value) => throw new \InvalidArgumentException('Value is not set.'),
-            $this->id === null => throw new \InvalidArgumentException('Id is not set.'),
-            $this->isStorable=== null => throw new \InvalidArgumentException('isStorable is not set.'),
+            !isset($this->value) => throw new InvalidArgumentException('Value is not set.'),
+            $this->id === null => throw new InvalidArgumentException('Id is not set.'),
+            $this->isStorable === null => throw new InvalidArgumentException('isStorable is not set.'),
             default => null,
         };
     }

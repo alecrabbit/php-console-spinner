@@ -9,8 +9,10 @@ use AlecRabbit\Spinner\Container\Builder\ServiceBuilder;
 use AlecRabbit\Spinner\Container\Contract\IServiceBuilder;
 use AlecRabbit\Spinner\Container\Service;
 use AlecRabbit\Tests\TestCase\TestCase;
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class ServiceBuilderTest extends TestCase
 {
@@ -20,8 +22,8 @@ final class ServiceBuilderTest extends TestCase
             // [value, id, isStorable]
             [['value', 'id', false]],
             [['value', 'id', true]],
-            [[new \stdClass(), \stdClass::class, true]],
-            [[new \stdClass(), \stdClass::class, false]],
+            [[new stdClass(), stdClass::class, true]],
+            [[new stdClass(), stdClass::class, false]],
         ];
     }
 
@@ -64,7 +66,7 @@ final class ServiceBuilderTest extends TestCase
     {
         $builder = $this->getTesteeInstance();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Value is not set.');
 
         $builder
@@ -79,7 +81,7 @@ final class ServiceBuilderTest extends TestCase
     {
         $builder = $this->getTesteeInstance();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Id is not set.');
 
         $builder
@@ -94,7 +96,7 @@ final class ServiceBuilderTest extends TestCase
     {
         $builder = $this->getTesteeInstance();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('isStorable is not set.');
 
         $builder

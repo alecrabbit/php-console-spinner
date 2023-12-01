@@ -7,11 +7,9 @@ namespace AlecRabbit\Tests\Lib\Unit\Spinner;
 
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\IntervalFormatter;
-use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class IntervalFormatterTest extends TestCase
 {
