@@ -64,7 +64,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                 return $this->definitions;
             }
 
-            public function bind(IServiceDefinition $serviceDefinition): void
+            public function bind(IServiceDefinition ...$serviceDefinitions): void
             {
                 // do nothing
             }

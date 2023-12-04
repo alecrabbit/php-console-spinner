@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette\A;
 
+use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
@@ -84,5 +85,32 @@ final class ACharPaletteTest extends TestCase
         self::assertInstanceOf(PaletteTemplate::class, $template);
 
         self::assertSame(100, $template->getOptions()->getInterval());
+    }
+
+    #[Test]
+    public function canGetTemplateThree(): void
+    {
+        $charFrame = new CharFrame('22', 2);
+
+        $entries = new \ArrayObject(['a', $charFrame, 'b']);
+
+        $options = $this->getPaletteOptionsMock();
+
+        $palette = $this->getTesteeInstance(
+            options: $options,
+            entries: $entries,
+        );
+
+        $template = $palette->getTemplate();
+
+        self::assertInstanceOf(PaletteTemplate::class, $template);
+
+        self::assertSame(100, $template->getOptions()->getInterval());
+
+        $templateEntries = iterator_to_array($template->getEntries());
+
+        self::assertEquals(new CharFrame('a', 1), $templateEntries[0]);
+        self::assertEquals(new CharFrame('b', 1), $templateEntries[2]);
+        self::assertSame($charFrame, $templateEntries[1]);
     }
 }

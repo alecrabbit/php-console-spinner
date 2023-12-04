@@ -21,9 +21,7 @@ class ACharPaletteOverride extends ACharPalette
 
     protected function sequence(): Traversable
     {
-        foreach ($this->entries as $element) {
-            yield $this->createFrame($element);
-        }
+        yield from $this->entries;
     }
 
     protected function createFrame(string $element): ICharFrame
