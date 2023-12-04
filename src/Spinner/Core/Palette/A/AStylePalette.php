@@ -17,9 +17,11 @@ abstract class AStylePalette extends APalette implements IStylePalette
 {
     protected function getOptions(?IPaletteMode $mode = null): IPaletteOptions
     {
+        $interval = $this->options->getInterval() ?? $this->getInterval($this->extractStylingMode($mode));
+
         $this->options =
             new PaletteOptions(
-                interval: $this->options->getInterval() ?? $this->getInterval($this->extractStylingMode($mode)),
+                interval: $interval,
                 reversed: $this->options->getReversed(),
             );
 

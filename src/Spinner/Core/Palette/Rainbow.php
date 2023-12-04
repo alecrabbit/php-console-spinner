@@ -28,14 +28,8 @@ final class Rainbow extends AStylePalette
      */
     protected function ansi8StyleFrames(): Traversable
     {
-        $sequence = $this->ansi8Sequence();
-
-        if ($this->options->getReversed()) {
-            $sequence = $this->reverseSequence($sequence);
-        }
-
         /** @var string $item */
-        foreach ($sequence as $item) {
+        foreach ($this->ansi8Sequence() as $item) {
             $element = sprintf("\e[38;5;%sm%%s\e[39m", $item);
             yield $this->createFrame($element);
         }
@@ -80,34 +74,12 @@ final class Rainbow extends AStylePalette
     }
 
     /**
-     * @param Traversable<string> $sequence
-     *
-     * @return iterable<string>
-     */
-    private function reverseSequence(Traversable $sequence): iterable
-    {
-        /** @var array<string> $s */
-        $s = [];
-        /** @var string $item */
-        foreach ($sequence as $item) {
-            $s[] = $item;
-        }
-        return array_reverse($s);
-    }
-
-    /**
      * @return Traversable<IStyleFrame>
      */
     protected function ansi24StyleFrames(): Traversable
     {
-        $sequence = $this->ansi24Sequence();
-
-        if ($this->options->getReversed()) {
-            $sequence = $this->reverseSequence($sequence);
-        }
-
         /** @var string $item */
-        foreach ($sequence as $item) {
+        foreach ($this->ansi24Sequence() as $item) {
             $element = sprintf("\e[38;2;%sm%%s\e[39m", $item);
             yield $this->createFrame($element);
         }

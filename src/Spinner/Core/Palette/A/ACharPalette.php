@@ -18,25 +18,18 @@ abstract class ACharPalette extends APalette implements ICharPalette
      */
     protected function getEntries(?IPaletteMode $mode = null): Traversable
     {
-        /** @var string $element */
-        foreach ($this->getSequence() as $element) {
+        /** @var string|ICharFrame $element */
+        foreach ($this->sequence() as $element) {
+            if ($element instanceof ICharFrame) {
+                yield $element;
+                continue;
+            }
             yield $this->createFrame($element);
         }
     }
 
-    protected function getSequence(): Traversable
-    {
-        $sequence = $this->sequence();
-
-        if ($this->options->getReversed()) {
-            $sequence = array_reverse(iterator_to_array($sequence));
-        }
-
-        yield from $sequence;
-    }
-
     /**
-     * @return Traversable<string>
+     * @return Traversable<string|ICharFrame>
      */
     abstract protected function sequence(): Traversable;
 

@@ -49,7 +49,11 @@ final class SignalHandlingModeConfigTest extends ConfigurationTestCase
         /** @var ILoopConfig $loopConfig */
         $loopConfig = self::getRequiredConfig(ILoopConfig::class);
 
-        self::assertSame(SignalHandlingMode::ENABLED, $loopConfig->getSignalHandlingMode());
+        if (function_exists('pcntl_signal')) {
+            self::assertSame(SignalHandlingMode::ENABLED, $loopConfig->getSignalHandlingMode());
+        } else {
+            self::assertSame(SignalHandlingMode::DISABLED, $loopConfig->getSignalHandlingMode());
+        }
     }
 
     #[Test]

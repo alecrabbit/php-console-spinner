@@ -22,9 +22,6 @@ $registry->bind(
             }
         }
     ),
-);
-
-$registry->bind(
     new ServiceDefinition(
         IDeltaTimer::class,
         new class() implements IDeltaTimer {

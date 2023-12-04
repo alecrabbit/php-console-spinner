@@ -45,32 +45,28 @@ use Psr\Container\ContainerInterface;
 
 $registry = DefinitionRegistry::getInstance();
 
-$registry->bind(new ServiceDefinition(ITimer::class, new MicrosecondTimer()));
-$registry->bind(new ServiceDefinition(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class));
-$registry->bind(new ServiceDefinition(IResultMaker::class, ResultMaker::class));
-$registry->bind(new ServiceDefinition(IBenchmarkResultsFactory::class, BenchmarkResultsFactory::class));
-$registry->bind(new ServiceDefinition(IBenchmarkingDriverFactory::class, BenchmarkingDriverFactory::class));
-$registry->bind(new ServiceDefinition(IBenchmarkingDriverBuilder::class, BenchmarkingDriverBuilder::class));
-$registry->bind(new ServiceDefinition(IBenchmarkFactory::class, BenchmarkFactory::class));
-$registry->bind(new ServiceDefinition(IMeasurementFactory::class, MeasurementFactory::class));
-$registry->bind(new ServiceDefinition(IStopwatchBuilder::class, StopwatchBuilder::class));
-$registry->bind(new ServiceDefinition(IStopwatchFactory::class, StopwatchFactory::class));
-$registry->bind(new ServiceDefinition(IReportPrinterBuilder::class, ReportPrinterBuilder::class));
-$registry->bind(new ServiceDefinition(IReportFormatter::class, ReportFormatter::class));
-$registry->bind(new ServiceDefinition(IDatetimeFormatter::class, DatetimeFormatter::class));
-$registry->bind(new ServiceDefinition(IResultFormatter::class, ResultFormatter::class));
-$registry->bind(new ServiceDefinition(IKeyFormatter::class, KeyFormatter::class));
-
 $registry->bind(
+    new ServiceDefinition(ITimer::class, new MicrosecondTimer()),
+    new ServiceDefinition(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class),
+    new ServiceDefinition(IResultMaker::class, ResultMaker::class),
+    new ServiceDefinition(IBenchmarkResultsFactory::class, BenchmarkResultsFactory::class),
+    new ServiceDefinition(IBenchmarkingDriverFactory::class, BenchmarkingDriverFactory::class),
+    new ServiceDefinition(IBenchmarkingDriverBuilder::class, BenchmarkingDriverBuilder::class),
+    new ServiceDefinition(IBenchmarkFactory::class, BenchmarkFactory::class),
+    new ServiceDefinition(IMeasurementFactory::class, MeasurementFactory::class),
+    new ServiceDefinition(IStopwatchBuilder::class, StopwatchBuilder::class),
+    new ServiceDefinition(IStopwatchFactory::class, StopwatchFactory::class),
+    new ServiceDefinition(IReportPrinterBuilder::class, ReportPrinterBuilder::class),
+    new ServiceDefinition(IReportFormatter::class, ReportFormatter::class),
+    new ServiceDefinition(IDatetimeFormatter::class, DatetimeFormatter::class),
+    new ServiceDefinition(IResultFormatter::class, ResultFormatter::class),
+    new ServiceDefinition(IKeyFormatter::class, KeyFormatter::class),
     new ServiceDefinition(
         IReportPrinter::class,
         static function (ContainerInterface $container): IReportPrinter {
             return $container->get(IReportPrinterFactory::class)->create();
         }
     ),
-);
-
-$registry->bind(
     new ServiceDefinition(
         IReportPrinterFactory::class,
         static function (ContainerInterface $container): IReportPrinterFactory {
