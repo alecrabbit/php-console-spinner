@@ -24,7 +24,7 @@ $driver = \AlecRabbit\Spinner\Facade::getDriver();
 
 while (true) {
     $driver->render();
-    usleep(100000);
+    // do some work 
 }
 ```
 
