@@ -40,6 +40,10 @@ final readonly class PaletteTemplate implements IPaletteTemplate
         return $this->options;
     }
 
+    /**
+     * @param Traversable<IFrame> $entries
+     * @return Traversable<IFrame>
+     */
     private function reversed(Traversable $entries): Traversable
     {
         $sequence = [];

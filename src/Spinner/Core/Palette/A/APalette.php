@@ -20,6 +20,7 @@ abstract class APalette implements IPalette
     ) {
     }
 
+    // FIXME (2023-12-04 16:9) [Alec Rabbit]: extract functionality to PaletteTemplateFactory->create($palette)
     public function getTemplate(?IPaletteMode $mode = null): IPaletteTemplate
     {
         return new PaletteTemplate(
