@@ -80,6 +80,45 @@ final class DefinitionRegistryTest extends TestCase
     }
 
     #[Test]
+    public function definitionCanBeBoundAsMultipleParams(): void
+    {
+        $registry = $this->getTesteeInstance();
+
+        $serviceDefinition1 = $this->getServiceDefinitionMock();
+        $serviceDefinition1
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service1')
+        ;
+        $serviceDefinition2 = $this->getServiceDefinitionMock();
+        $serviceDefinition2
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service2')
+        ;
+        $serviceDefinition3 = $this->getServiceDefinitionMock();
+        $serviceDefinition3
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn('service3')
+        ;
+
+        $registry->bind(
+            $serviceDefinition1,
+            $serviceDefinition2,
+            $serviceDefinition3
+        );
+
+        $definitions = iterator_to_array($registry->load());
+
+        self::assertCount(3, $definitions);
+
+        self::assertSame($serviceDefinition1, $definitions['service1']);
+        self::assertSame($serviceDefinition2, $definitions['service2']);
+        self::assertSame($serviceDefinition3, $definitions['service3']);
+    }
+
+    #[Test]
     public function definitionCanBeOverridden(): void
     {
         $registry = $this->getTesteeInstance();

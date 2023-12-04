@@ -36,8 +36,10 @@ final class DefinitionRegistry implements IDefinitionRegistry
         yield from $this->definitions;
     }
 
-    public function bind(IServiceDefinition $serviceDefinition): void
+    public function bind(IServiceDefinition ...$serviceDefinitions): void
     {
-        $this->definitions->offsetSet($serviceDefinition->getId(), $serviceDefinition);
+        foreach ($serviceDefinitions as $serviceDefinition) {
+            $this->definitions->offsetSet($serviceDefinition->getId(), $serviceDefinition);
+        }
     }
 }

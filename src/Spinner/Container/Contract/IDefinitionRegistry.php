@@ -13,5 +13,5 @@ interface IDefinitionRegistry
      */
     public function load(): Traversable;
 
-    public function bind(IServiceDefinition $serviceDefinition): void;
+    public function bind(IServiceDefinition ...$serviceDefinitions): void;
 }
