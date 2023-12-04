@@ -197,15 +197,11 @@ use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\UserSettingsFactory;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Builder\WidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
-use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Probes;
@@ -390,7 +386,6 @@ function builders(): Traversable
         ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
 
         IWidgetBuilder::class => WidgetBuilder::class,
-        IWidgetCompositeBuilder::class => WidgetCompositeBuilder::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
     ];
 }
@@ -439,7 +434,6 @@ function factories(): Traversable
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         IDeltaTimerFactory::class => DeltaTimerFactory::class,
         IUserSettingsFactory::class => UserSettingsFactory::class,
-        IWidgetCompositeFactory::class => WidgetCompositeFactory::class,
         IWidgetFactory::class => WidgetFactory::class,
         IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
 

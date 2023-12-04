@@ -11,23 +11,43 @@ abstract class FacadeAwareTestCase extends TestCase
 {
     private const GET_CONTAINER = 'getContainer';
     private const SET_CONTAINER = 'setContainer';
-    private static ?IContainer $container;
+    private static ?IContainer $container = null;
 
     protected static function getStoredContainer(): ?IContainer
     {
         return self::$container;
     }
 
-    protected function setUp(): void
+    protected static function getCurrentContainer(): IContainer
     {
-        self::$container = self::getFacadeContainer();
-        self::setContainer(null);
-        parent::setUp();
+        return self::extractContainer();
     }
 
-    protected static function getFacadeContainer(): mixed
+    protected static function getService(string $id): mixed
+    {
+        return self::extractContainer()->get($id);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        self::storeContainer();
+        static::setTestContainer();
+    }
+
+    private static function storeContainer(): void
+    {
+        self::$container = self::extractContainer();
+    }
+
+    private static function extractContainer(): mixed
     {
         return self::callMethod(Facade::class, self::GET_CONTAINER);
+    }
+
+    protected static function setTestContainer(): void
+    {
+        self::setContainer(null);
     }
 
     protected static function setContainer(?IContainer $container): void
@@ -37,7 +57,12 @@ abstract class FacadeAwareTestCase extends TestCase
 
     protected function tearDown(): void
     {
+        self::rollbackContainer();
         parent::tearDown();
+    }
+
+    private static function rollbackContainer(): void
+    {
         self::setContainer(self::$container);
     }
 }

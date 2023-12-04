@@ -59,12 +59,12 @@ abstract class AContainerEnclosure
 
     private static function createContainer(): IContainer
     {
-        return self::getFactory()->create();
+        return self::getFactory()->create(self::getDefinitionRegistry());
     }
 
     private static function getFactory(): IContainerFactory
     {
-        return new (self::$factoryClass)(self::getDefinitionRegistry());
+        return new (self::$factoryClass)();
     }
 
     private static function getDefinitionRegistry(): IDefinitionRegistry

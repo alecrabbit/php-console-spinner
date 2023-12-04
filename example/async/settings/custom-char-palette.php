@@ -30,13 +30,7 @@ $charPalette =
 
         protected function sequence(): Traversable
         {
-            $a = ['   ', '.  ', '.. ', '...', ' ..', '  .', '   ']; // note the width of each element
-
-            if ($this->options->getReversed()) {
-                $a = array_reverse($a);
-            }
-
-            yield from $a;
+            yield from ['   ', '.  ', '.. ', '...', ' ..', '  .', '   ']; // note the width of each element
         }
     };
 

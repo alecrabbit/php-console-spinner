@@ -12,5 +12,5 @@ interface IServiceSpawnerBuilder
 
     public function build(): IServiceSpawner;
 
-    public function withServiceObjectFactory(IServiceObjectFactory $serviceObjectFactory): IServiceSpawnerBuilder;
+    public function withServiceObjectFactory(IServiceFactory $serviceObjectFactory): IServiceSpawnerBuilder;
 }

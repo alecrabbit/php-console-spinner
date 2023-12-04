@@ -19,75 +19,61 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
 {
     private const DEFINITIONS = 'definitions';
 
-    protected function setUp(): void
+    protected static function setTestContainer(): void
     {
-        parent::setUp();
-        $modifiedContainer = self::modifyContainer(clone self::getStoredContainer());
-        self::setContainer($modifiedContainer);
+        self::setContainer(
+            self::modifyContainer(
+                self::getStoredContainer()
+            )
+        );
     }
 
     protected static function modifyContainer(
         IContainer $container,
         array $substitutes = []
     ): IContainer {
-        $definitions = self::getPropertyValue(self::DEFINITIONS, $container);
+        $definitions = self::extractDefinitions($container);
 
         return
             self::createContainer(
-                self::modifyDefinitions($definitions, $substitutes)
+                self::modifyDefinitions(clone $definitions, $substitutes)
             );
     }
 
-    protected static function createContainer(ArrayObject $definitions): IContainer
+    private static function extractDefinitions(IContainer $container): ArrayObject
     {
-        $registry =
-            new class($definitions) implements IDefinitionRegistry {
-                public function __construct(protected Traversable $definitions)
-                {
-                }
-
-                public function load(): Traversable
-                {
-                    return $this->definitions;
-                }
-
-                public function bind(IServiceDefinition $serviceDefinition): void
-                {
-                    // do nothing
-                }
-            };
-
-        return (new ContainerFactory($registry))->create();
+        return self::getPropertyValue(self::DEFINITIONS, $container);
     }
 
-    protected static function modifyDefinitions(ArrayObject $definitions, array $substitutes = []): ArrayObject
+    private static function createContainer(ArrayObject $definitions): IContainer
     {
-        $substitutes =
-            array_merge(
-                [
-                    // disable output
-                    new ServiceDefinition(
-                        IWritableStream::class,
-                        new class() implements IWritableStream {
-                            public function write(Traversable $data): void
-                            {
-                                // do nothing
-                            }
-                        },
-                    ),
-                    // disable auto start
-                    new ServiceDefinition(
-                        ILoopSetup::class,
-                        new class() implements ILoopSetup {
-                            public function setup(ILoop $loop): void
-                            {
-                                // do nothing
-                            }
-                        },
-                    ),
-                ],
-                $substitutes
-            );
+        $registry = self::createDefinitionRegistry($definitions);
+
+        return (new ContainerFactory())->create($registry);
+    }
+
+    private static function createDefinitionRegistry(ArrayObject $definitions): IDefinitionRegistry
+    {
+        return new class($definitions) implements IDefinitionRegistry {
+            public function __construct(protected Traversable $definitions)
+            {
+            }
+
+            public function load(): Traversable
+            {
+                return $this->definitions;
+            }
+
+            public function bind(IServiceDefinition $serviceDefinition): void
+            {
+                // do nothing
+            }
+        };
+    }
+
+    private static function modifyDefinitions(ArrayObject $definitions, array $substitutes = []): ArrayObject
+    {
+        $substitutes = self::mergeSubstitutes($substitutes);
 
         foreach ($substitutes as $id => $substitute) {
             if ($substitute instanceof IServiceDefinition) {
@@ -98,5 +84,35 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
         }
 
         return $definitions;
+    }
+
+    private static function mergeSubstitutes(array $substitutes): array
+    {
+        return array_merge(
+            [
+                // disable output
+                new ServiceDefinition(
+                    IWritableStream::class,
+                    new class() implements IWritableStream {
+                        public function write(Traversable $data): void
+                        {
+                            // do nothing
+                        }
+                    },
+                    IServiceDefinition::SINGLETON,
+                ),
+                // disable auto start
+                new ServiceDefinition(
+                    ILoopSetup::class,
+                    new class() implements ILoopSetup {
+                        public function setup(ILoop $loop): void
+                        {
+                            // do nothing
+                        }
+                    },
+                ),
+            ],
+            $substitutes
+        );
     }
 }

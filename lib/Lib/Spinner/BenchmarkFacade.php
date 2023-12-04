@@ -9,7 +9,7 @@ use AlecRabbit\Benchmark\Contract\IReportPrinter;
 use AlecRabbit\Spinner\Root\A\AFacade;
 
 /**
- * @codeCoverageIgnore 
+ * @codeCoverageIgnore
  */
 final class BenchmarkFacade extends AFacade
 {

@@ -9,4 +9,6 @@ interface IService
     public function getValue(): mixed;
 
     public function isStorable(): bool;
+
+    public function getId(): string;
 }

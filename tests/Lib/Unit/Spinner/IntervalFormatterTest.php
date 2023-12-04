@@ -7,11 +7,9 @@ namespace AlecRabbit\Tests\Lib\Unit\Spinner;
 
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\IntervalFormatter;
-use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class IntervalFormatterTest extends TestCase
 {
@@ -39,18 +37,6 @@ final class IntervalFormatterTest extends TestCase
             ->willReturn(10.0)
         ;
 
-        $object = $this->getHasIntervalMock();
-        $object
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
-
-        self::assertStringContainsString('Interval: 10ms', $formatter->format($object));
-    }
-
-    private function getHasIntervalMock(): MockObject&IHasInterval
-    {
-        return $this->createMock(IHasInterval::class);
+        self::assertStringContainsString('Interval: 10ms', $formatter->format($interval));
     }
 }

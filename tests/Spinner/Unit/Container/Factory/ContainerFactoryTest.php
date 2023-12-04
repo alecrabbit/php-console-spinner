@@ -25,19 +25,12 @@ final class ContainerFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IDefinitionRegistry $registry = null,
         ?IServiceSpawnerFactory $spawnerFactory = null
     ): IContainerFactory {
         return
             new ContainerFactory(
-                definitionRegistry: $registry ?? $this->getDefinitionRegistryMock(),
                 spawnerFactory: $spawnerFactory ?? $this->getSpawnerFactoryMock(),
             );
-    }
-
-    protected function getDefinitionRegistryMock(): MockObject&IDefinitionRegistry
-    {
-        return $this->createMock(IDefinitionRegistry::class);
     }
 
     private function getSpawnerFactoryMock(): MockObject&IServiceSpawnerFactory
@@ -50,9 +43,14 @@ final class ContainerFactoryTest extends TestCase
     {
         $containerFactory = $this->getTesteeInstance();
 
-        $container = $containerFactory->create();
+        $container = $containerFactory->create($this->getDefinitionRegistryMock());
 
         self::assertInstanceOf(Container::class, $container);
+    }
+
+    protected function getDefinitionRegistryMock(): MockObject&IDefinitionRegistry
+    {
+        return $this->createMock(IDefinitionRegistry::class);
     }
 
     protected function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder

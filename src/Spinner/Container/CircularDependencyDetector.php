@@ -28,10 +28,10 @@ final readonly class CircularDependencyDetector implements ICircularDependencyDe
 
     public function pop(): void
     {
-        $this->stack->offsetUnset(
-            array_key_last(
-                $this->stack->getArrayCopy()
-            )
-        );
+        $key = array_key_last($this->stack->getArrayCopy());
+
+        if ($key !== null && $this->stack->offsetExists($key)) {
+            $this->stack->offsetUnset($key);
+        }
     }
 }

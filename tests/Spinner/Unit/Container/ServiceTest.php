@@ -23,11 +23,13 @@ final class ServiceTest extends TestCase
     protected function getTesteeInstance(
         mixed $value = null,
         ?bool $storable = null,
+        ?string $id = null,
     ): IService {
         return
             new Service(
                 value: $value,
                 storable: $storable ?? false,
+                id: $id ?? self::getFaker()->word(),
             );
     }
 
@@ -41,6 +43,18 @@ final class ServiceTest extends TestCase
         );
 
         self::assertSame($value, $service->getValue());
+    }
+
+    #[Test]
+    public function canGetId(): void
+    {
+        $id = self::getFaker()->word();
+
+        $service = $this->getTesteeInstance(
+            id: $id,
+        );
+
+        self::assertSame($id, $service->getId());
     }
 
     #[Test]

@@ -30,7 +30,7 @@ final class ServiceDefinitionTest extends TestCase
     ): IServiceDefinition {
         return
             new ServiceDefinition(
-                id: $id ?? $this->getFaker()->word(),
+                id: $id ?? self::getFaker()->word(),
                 definition: $definition ?? stdClass::class,
                 options: $options ?? IServiceDefinition::SINGLETON,
             );
@@ -39,7 +39,7 @@ final class ServiceDefinitionTest extends TestCase
     #[Test]
     public function canGetId(): void
     {
-        $id = $this->getFaker()->word();
+        $id = self::getFaker()->word();
 
         $serviceDefinition = $this->getTesteeInstance(id: $id);
 

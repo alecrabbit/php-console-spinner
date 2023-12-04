@@ -26,10 +26,10 @@ final class ResultTest extends TestCase
         null|int $count = null,
     ): IResult {
         return new Result(
-            average: $average ?? $this->getFaker()->randomFloat(),
-            min: $min ?? $this->getFaker()->randomFloat(),
-            max: $max ?? $this->getFaker()->randomFloat(),
-            count: $count ?? $this->getFaker()->randomDigit(),
+            average: $average ?? self::getFaker()->randomFloat(),
+            min: $min ?? self::getFaker()->randomFloat(),
+            max: $max ?? self::getFaker()->randomFloat(),
+            count: $count ?? self::getFaker()->randomDigit(),
         );
     }
 

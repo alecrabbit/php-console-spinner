@@ -13,6 +13,9 @@
          stopOnFailure="false"
 >
     <testsuites>
+        <testsuite name="Spinner/Complex">
+            <directory>tests/Spinner/Complex</directory>
+        </testsuite>
         <testsuite name="Spinner/Functional">
             <directory>tests/Spinner/Functional</directory>
         </testsuite>

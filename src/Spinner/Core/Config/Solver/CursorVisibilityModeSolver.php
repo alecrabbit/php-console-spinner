@@ -78,6 +78,11 @@ final readonly class CursorVisibilityModeSolver extends ASolver implements Contr
             [
                 CursorVisibilityOption::VISIBLE,
                 null,
+                CursorVisibilityOption::HIDDEN,
+            ],
+            [
+                CursorVisibilityOption::VISIBLE,
+                null,
                 null,
             ] => CursorVisibilityMode::VISIBLE,
             [

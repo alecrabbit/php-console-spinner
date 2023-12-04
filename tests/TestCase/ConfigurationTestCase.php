@@ -11,20 +11,10 @@ abstract class ConfigurationTestCase extends ContainerModifyingTestCase
 {
     protected static function getRequiredConfig(string $class): IConfigElement
     {
-        $config = self::getFacadeContainer()->get($class);
+        $config = self::getService($class);
         if ($config instanceof IConfigElement && is_a($config, $class, true)) {
             return $config;
         }
         throw new RuntimeException('Unable to get required config: ' . $class);
     }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        static::performContainerModifications();
-    }
-
-    abstract protected static function performContainerModifications(): void;
-
-
 }
