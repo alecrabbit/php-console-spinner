@@ -49,13 +49,7 @@ class Dots extends ACharPalette {
     protected function sequence(): Traversable
     {
         // note the width of each element
-        $a = ['   ', '.  ', '.. ', '...', ' ..', '  .', '   ']; 
-
-        if ($this->options->getReversed()) {
-            $a = array_reverse($a);
-        }
-
-        yield from $a;
+        yield from ['   ', '.  ', '.. ', '...', ' ..', '  .', '   ']; 
     }
 }
 ```
@@ -67,7 +61,7 @@ class Greeny extends AStylePalette {
     protected function ansi4StyleFrames(): Traversable
     {
         yield from [
-            $this->createFrame("\e[92m%s\e[39m"),
+            $this->createFrame("\e[92m%s\e[39m"), // note the ANSI codes
         ];
     }
 
