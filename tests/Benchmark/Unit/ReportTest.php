@@ -30,8 +30,8 @@ final class ReportTest extends TestCase
         return
             new Report(
                 benchmarkResults: $benchmarkResults ?? $this->getBenchmarkResultsMock(),
-                title: $title ?? $this->getFaker()->word(),
-                prefix: $prefix ?? $this->getFaker()->word(),
+                title: $title ?? self::getFaker()->word(),
+                prefix: $prefix ?? self::getFaker()->word(),
             );
     }
 

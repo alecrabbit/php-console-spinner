@@ -47,6 +47,11 @@ final readonly class AutoStartModeSolver extends ASolver implements IAutoStartMo
             ],
             [
                 AutoStartOption::ENABLED,
+                null,
+                AutoStartOption::ENABLED,
+            ],
+            [
+                AutoStartOption::ENABLED,
                 AutoStartOption::DISABLED,
                 AutoStartOption::DISABLED,
             ],
@@ -98,6 +103,11 @@ final readonly class AutoStartModeSolver extends ASolver implements IAutoStartMo
             [
                 AutoStartOption::DISABLED,
                 AutoStartOption::ENABLED,
+                AutoStartOption::ENABLED,
+            ],
+            [
+                AutoStartOption::DISABLED,
+                null,
                 AutoStartOption::ENABLED,
             ],
             [

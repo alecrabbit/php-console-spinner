@@ -15,13 +15,7 @@ final class Snake extends ACharPalette
 {
     protected function sequence(): Traversable
     {
-        $a = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
-
-        if ($this->options->getReversed()) {
-            $a = array_reverse($a);
-        }
-
-        yield from $a;
+        yield from ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
     }
 
     protected function createFrame(string $element): ICharFrame

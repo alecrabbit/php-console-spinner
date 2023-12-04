@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Probes;
 const CYCLES = 2_000_000;
 const PROGRESS_EVERY_CYCLES = CYCLES / 10;
 
-require __DIR__ . '/container.sync.php';
+require __DIR__ . '/../container.sync.php';
 
 // unregister all loop probes
 Probes::unregister(ILoopProbe::class);

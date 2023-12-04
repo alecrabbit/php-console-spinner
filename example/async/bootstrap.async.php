@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use AlecRabbit\Lib\Helper\MemoryUsage;
-use AlecRabbit\Lib\Spinner\Contract\Factory\IDriverLinkerWithOutputFactory;
-use AlecRabbit\Lib\Spinner\Factory\DriverLinkerWithOutputFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IDriverLinkerDecoratorFactory;
+use AlecRabbit\Lib\Spinner\Factory\DriverLinkerDecoratorFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
@@ -25,7 +25,7 @@ $registry->bind(
     new ServiceDefinition(
         IDriverLinker::class,
         static function (IContainer $container): IDriverLinker {
-            return $container->get(IDriverLinkerWithOutputFactory::class)->create();
+            return $container->get(IDriverLinkerDecoratorFactory::class)->create();
         },
         IServiceDefinition::SINGLETON,
     ),
@@ -33,12 +33,8 @@ $registry->bind(
 
 // Register driver linker with output factory
 $registry->bind(
-    new ServiceDefinition(IDriverLinkerWithOutputFactory::class, DriverLinkerWithOutputFactory::class),
+    new ServiceDefinition(IDriverLinkerDecoratorFactory::class, DriverLinkerDecoratorFactory::class),
 );
-
-//$container = (new ContainerFactory($registry))->create();
-//
-//Facade::useContainer($container);
 
 register_shutdown_function(
     static function (): void {

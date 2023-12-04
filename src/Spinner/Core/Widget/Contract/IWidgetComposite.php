@@ -12,4 +12,6 @@ interface IWidgetComposite extends IWidget,
     public function add(IWidgetContext $context): IWidgetContext;
 
     public function remove(IWidgetContext $context): void;
+
+    public function getContext(): IWidgetContext;
 }

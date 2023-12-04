@@ -29,9 +29,9 @@ final class SequenceStateBuilderTest extends TestCase
     #[Test]
     public function canBuild(): void
     {
-        $sequence = $this->getFaker()->word();
-        $width = $this->getFaker()->numberBetween(1, 10);
-        $previousWidth = $this->getFaker()->numberBetween(1, 10);
+        $sequence = self::getFaker()->word();
+        $width = self::getFaker()->numberBetween(1, 10);
+        $previousWidth = self::getFaker()->numberBetween(1, 10);
 
         $builder = $this->getTesteeInstance();
 
@@ -52,8 +52,8 @@ final class SequenceStateBuilderTest extends TestCase
     #[Test]
     public function throwIfSequenceIsNotSet(): void
     {
-        $width = $this->getFaker()->numberBetween(1, 10);
-        $previousWidth = $this->getFaker()->numberBetween(1, 10);
+        $width = self::getFaker()->numberBetween(1, 10);
+        $previousWidth = self::getFaker()->numberBetween(1, 10);
 
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Sequence is not set.');
@@ -70,8 +70,8 @@ final class SequenceStateBuilderTest extends TestCase
     #[Test]
     public function throwIfWidthIsNotSet(): void
     {
-        $sequence = $this->getFaker()->word();
-        $previousWidth = $this->getFaker()->numberBetween(1, 10);
+        $sequence = self::getFaker()->word();
+        $previousWidth = self::getFaker()->numberBetween(1, 10);
 
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Width is not set.');
@@ -88,8 +88,8 @@ final class SequenceStateBuilderTest extends TestCase
     #[Test]
     public function throwIfPreviousWidthIsNotSet(): void
     {
-        $sequence = $this->getFaker()->word();
-        $width = $this->getFaker()->numberBetween(1, 10);
+        $sequence = self::getFaker()->word();
+        $width = self::getFaker()->numberBetween(1, 10);
 
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Previous width is not set.');

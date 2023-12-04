@@ -232,13 +232,13 @@ final class ContainerTest extends TestCase
     public function throwsWhenOneOfDefinitionsAlreadyRegistered(): void
     {
         $exceptionClass = ContainerException::class;
-        $exceptionMessage = 'Definition with id "foo" already registered in the container.';
+        $exceptionMessage = 'Definition with id "foo" already registered.';
 
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
         $definitions = static function (): Generator {
-            yield 'foo' => new ServiceDefinition('foo', 'bar');
+            yield new ServiceDefinition('foo', 'bar');
             yield 'foo' => new ServiceDefinition('foo', 'bar');
         };
 

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IService;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
-use AlecRabbit\Spinner\Container\Contract\IServiceObjectFactory;
+use AlecRabbit\Spinner\Container\Contract\IServiceFactory;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
@@ -36,7 +36,7 @@ final class ServiceSpawnerTest extends TestCase
     protected function getTesteeInstance(
         ?ContainerInterface $container = null,
         ?ICircularDependencyDetector $circularDependencyDetector = null,
-        ?IServiceObjectFactory $serviceObjectFactory = null,
+        ?IServiceFactory $serviceObjectFactory = null,
     ): IServiceSpawner {
         return
             new ServiceSpawner(
@@ -56,9 +56,9 @@ final class ServiceSpawnerTest extends TestCase
         return $this->createMock(ICircularDependencyDetector::class);
     }
 
-    private function getServiceObjectFactoryMock(): MockObject&IServiceObjectFactory
+    private function getServiceObjectFactoryMock(): MockObject&IServiceFactory
     {
-        return $this->createMock(IServiceObjectFactory::class);
+        return $this->createMock(IServiceFactory::class);
     }
 
     #[Test]

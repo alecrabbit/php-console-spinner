@@ -36,7 +36,7 @@ final class AContainerEnclosureTest extends TestCase
         return $this->createMock(IContainerFactory::class);
     }
 
-    protected static function extractContainer(): mixed
+    private static function extractContainer(): mixed
     {
         return self::callMethod(AContainerEnclosureOverride::class, self::GET_CONTAINER);
     }
