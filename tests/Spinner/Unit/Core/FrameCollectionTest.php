@@ -86,7 +86,8 @@ final class FrameCollectionTest extends TestCase
     public function throwsIfIsCreatedWithWrongTypeTraversable(): void
     {
         $exceptionClass = InvalidArgument::class;
-        $exceptionMessage = '"AlecRabbit\Spinner\Contract\IFrame" expected, "string" given.';
+        $exceptionMessage =
+            'Frame should be an instance of "AlecRabbit\Spinner\Contract\IFrame". "string" given.';
 
         $test = function (): void {
             $frameCollection = $this->getTesteeInstance(new ArrayObject(['a string']));

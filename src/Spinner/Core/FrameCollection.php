@@ -16,7 +16,7 @@ use Traversable;
  *
  * @extends ArrayObject<int,T>
  *
- * @implements IFrameCollection<T>
+ * // FIXME (2023-12-05 13:36) [Alec Rabbit]: there is no need to extend ArrayObject any more
  */
 final class FrameCollection extends ArrayObject implements IFrameCollection
 {
@@ -54,7 +54,7 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
         if (!$frame instanceof IFrame) {
             throw new InvalidArgument(
                 sprintf(
-                    '"%s" expected, "%s" given.',
+                    'Frame should be an instance of "%s". "%s" given.',
                     IFrame::class,
                     get_debug_type($frame)
                 )
