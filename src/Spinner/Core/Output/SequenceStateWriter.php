@@ -56,7 +56,7 @@ final class SequenceStateWriter implements ISequenceStateWriter
     {
         if ($this->initialized) {
             $this->cursor->erase(
-                $state->getPreviousWidth()
+                $state->getWidth()
             );
 
             $this->output->flush();
