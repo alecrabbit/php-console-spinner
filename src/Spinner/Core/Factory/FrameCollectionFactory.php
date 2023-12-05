@@ -11,6 +11,8 @@ use Traversable;
 
 final class FrameCollectionFactory implements IFrameCollectionFactory
 {
+
+    /** @inheritDoc */
     public function create(Traversable $frames): IFrameCollection
     {
         return new FrameCollection($frames);

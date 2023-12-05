@@ -10,6 +10,9 @@ use Countable;
 
 interface IFrameCollection extends Countable
 {
+    /**
+     * @deprecated Use combination of next() and current() instead
+     */
     public function get(int $index): IFrame;
 
     /**

@@ -12,6 +12,8 @@ use ArrayObject;
 use Traversable;
 
 /**
+ * Intended to be used as a finite collection of frames.
+ *
  * @template T of IFrame
  *
  * @extends ArrayObject<int,T>
@@ -23,9 +25,15 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     private const COLLECTION_IS_EMPTY = 'Collection is empty.';
 
     /**
+     * @param Traversable<T> $frames Should be a finite set of frames.
+     * @param int $index Starting index of a collection.
+     *
      * @throws InvalidArgument
      */
-    public function __construct(Traversable $frames)
+    public function __construct(
+        Traversable $frames,
+        private int $index = 0, // TODO (2023-12-05 13:47) [Alec Rabbit]: for future use
+    )
     {
         parent::__construct();
         $this->initialize($frames);
@@ -69,6 +77,26 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
         }
     }
 
+    public function count(): int
+    {
+        return parent::count();
+    }
+
+    public function next(): void
+    {
+        // TODO: Implement next() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+    }
+
+    public function current(): IFrame
+    {
+        // TODO: Implement current() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+    }
+
+    /**
+     * @deprecated
+     */
     public function lastIndex(): int
     {
         $index = array_key_last($this->getArrayCopy());
@@ -83,20 +111,9 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
         return $index;
     }
 
+    /** @inheritDoc */
     public function get(int $index): IFrame
     {
         return $this->offsetGet($index);
-    }
-
-    public function next(): void
-    {
-        // TODO: Implement next() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
-    }
-
-    public function current(): IFrame
-    {
-        // TODO: Implement current() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }
