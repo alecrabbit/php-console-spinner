@@ -31,9 +31,14 @@ final class FrameCollectionTest extends TestCase
         self::assertInstanceOf(FrameCollection::class, $frameCollection);
     }
 
-    protected function getTesteeInstance(Traversable $frames): IFrameCollection
-    {
-        return new FrameCollection($frames);
+    protected function getTesteeInstance(
+        Traversable $frames,
+        int $index = 0,
+    ): IFrameCollection {
+        return new FrameCollection(
+            frames: $frames,
+            index: $index,
+        );
     }
 
     protected function getFrameMock(): MockObject&IFrame
@@ -62,6 +67,32 @@ final class FrameCollectionTest extends TestCase
         self::assertSame($frame2, $frameCollection->get(2));
         self::assertSame($frame0, $frameCollection->get(0));
         self::assertSame(2, $frameCollection->lastIndex());
+    }
+
+    #[Test]
+    public function canGetCurrentInCombinationWithNext(): void
+    {
+        $frame0 = $this->getFrameMock();
+        $frame1 = $this->getFrameMock();
+        $frame2 = $this->getFrameMock();
+        $frameCollection = $this->getTesteeInstance(
+            new ArrayObject(
+                [
+                    $frame0,
+                    $frame1,
+                    $frame2,
+                ]
+            ),
+        );
+        self::assertInstanceOf(FrameCollection::class, $frameCollection);
+
+        self::assertSame($frame0, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame1, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame2, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame0, $frameCollection->current());
     }
 
     #[Test]

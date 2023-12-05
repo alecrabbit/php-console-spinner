@@ -12,20 +12,18 @@ use ArrayObject;
 use Traversable;
 
 /**
- * Intended to be used as a finite collection of frames.
- *
- * @template T of IFrame
- *
- * @extends ArrayObject<int,T>
- *
- * // FIXME (2023-12-05 13:36) [Alec Rabbit]: there is no need to extend ArrayObject any more
+ * Finite collection of frames.
  */
-final class FrameCollection extends ArrayObject implements IFrameCollection
+final class FrameCollection implements IFrameCollection
 {
     private const COLLECTION_IS_EMPTY = 'Collection is empty.';
 
+    /** @var ArrayObject<int, IFrame> */
+    private ArrayObject $frames;
+    private int $count = 0;
+
     /**
-     * @param Traversable<T> $frames Should be a finite set of frames.
+     * @param Traversable<IFrame> $frames Should be a finite set of frames.
      * @param int $index Starting index of a collection.
      *
      * @throws InvalidArgument
@@ -35,8 +33,13 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
         private int $index = 0, // TODO (2023-12-05 13:47) [Alec Rabbit]: for future use
     )
     {
-        parent::__construct();
+        /** @psalm-suppress MixedPropertyTypeCoercion */
+        $this->frames = new ArrayObject();
+
         $this->initialize($frames);
+
+        $this->count = $this->frames->count();
+
         self::assertIsNotEmpty($this);
     }
 
@@ -46,11 +49,11 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     private function initialize(Traversable $frames): void
     {
         /**
-         * @var T $frame
+         * @var IFrame $frame
          */
         foreach ($frames as $frame) {
             self::assertFrame($frame);
-            $this->append($frame);
+            $this->frames->append($frame);
         }
     }
 
@@ -79,19 +82,19 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
 
     public function count(): int
     {
-        return parent::count();
+        return $this->count;
     }
 
     public function next(): void
     {
-        // TODO: Implement next() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        if ($this->count === 1 || ++$this->index === $this->count) {
+            $this->index = 0;
+        }
     }
 
     public function current(): IFrame
     {
-        // TODO: Implement current() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        return $this->frames->offsetGet($this->index);
     }
 
     /**
@@ -99,7 +102,7 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
      */
     public function lastIndex(): int
     {
-        $index = array_key_last($this->getArrayCopy());
+        $index = array_key_last($this->frames->getArrayCopy());
 
         // @codeCoverageIgnoreStart
         if ($index === null) {
@@ -114,6 +117,6 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     /** @inheritDoc */
     public function get(int $index): IFrame
     {
-        return $this->offsetGet($index);
+        return $this->frames->offsetGet($index);
     }
 }
