@@ -8,13 +8,13 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 /**
  * @psalm-suppress PossiblyNullArgument
  */
-final class FrameRevolverBuilder implements IFrameRevolverBuilder
+final class FrameCollectionRevolverBuilder implements IFrameCollectionRevolverBuilder
 {
     private ?IFrameCollection $frames = null;
     private ?IInterval $interval = null;
@@ -31,6 +31,9 @@ final class FrameRevolverBuilder implements IFrameRevolverBuilder
         );
     }
 
+    /**
+     * @throws LogicException
+     */
     private function validate(): void
     {
         match (true) {
@@ -41,21 +44,21 @@ final class FrameRevolverBuilder implements IFrameRevolverBuilder
         };
     }
 
-    public function withFrameCollection(IFrameCollection $frames): IFrameRevolverBuilder
+    public function withFrameCollection(IFrameCollection $frames): IFrameCollectionRevolverBuilder
     {
         $clone = clone $this;
         $clone->frames = $frames;
         return $clone;
     }
 
-    public function withInterval(IInterval $interval): IFrameRevolverBuilder
+    public function withInterval(IInterval $interval): IFrameCollectionRevolverBuilder
     {
         $clone = clone $this;
         $clone->interval = $interval;
         return $clone;
     }
 
-    public function withTolerance(ITolerance $tolerance): IFrameRevolverBuilder
+    public function withTolerance(ITolerance $tolerance): IFrameCollectionRevolverBuilder
     {
         $clone = clone $this;
         $clone->tolerance = $tolerance;

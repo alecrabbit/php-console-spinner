@@ -177,8 +177,8 @@ use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\PatternFactory;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
-use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolverBuilder;
 use AlecRabbit\Spinner\Core\Settings\Builder\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
@@ -372,7 +372,7 @@ function builders(): Traversable
         IDeltaTimerBuilder::class => DeltaTimerBuilder::class,
         IDriverBuilder::class => DriverBuilder::class,
         IDriverConfigBuilder::class => DriverConfigBuilder::class,
-        IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
+        IFrameCollectionRevolverBuilder::class => FrameCollectionRevolverBuilder::class,
         IGeneralConfigBuilder::class => GeneralConfigBuilder::class,
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
         ILinkerConfigBuilder::class => LinkerConfigBuilder::class,

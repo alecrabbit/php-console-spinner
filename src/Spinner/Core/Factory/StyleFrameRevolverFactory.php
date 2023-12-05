@@ -10,12 +10,12 @@ use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 
 final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
 {
     public function __construct(
-        protected IFrameRevolverBuilder $frameRevolverBuilder,
+        protected IFrameCollectionRevolverBuilder $frameRevolverBuilder,
         protected IFrameCollectionFactory $frameCollectionFactory,
         protected IRevolverConfig $revolverConfig,
     ) {

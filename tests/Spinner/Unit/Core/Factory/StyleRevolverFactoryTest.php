@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -31,7 +31,7 @@ final class StyleRevolverFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IFrameRevolverBuilder $frameRevolverBuilder = null,
+        ?IFrameCollectionRevolverBuilder $frameRevolverBuilder = null,
         ?IFrameCollectionFactory $frameCollectionFactory = null,
         ?IRevolverConfig $revolverConfig = null,
     ): IStyleFrameRevolverFactory {
@@ -43,9 +43,9 @@ final class StyleRevolverFactoryTest extends TestCase
             );
     }
 
-    protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
+    protected function getFrameRevolverBuilderMock(): MockObject&IFrameCollectionRevolverBuilder
     {
-        return $this->createMock(IFrameRevolverBuilder::class);
+        return $this->createMock(IFrameCollectionRevolverBuilder::class);
     }
 
     protected function getFrameCollectionFactoryMock(): MockObject&IFrameCollectionFactory
