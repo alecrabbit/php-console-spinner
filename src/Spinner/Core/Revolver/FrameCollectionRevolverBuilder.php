@@ -7,8 +7,9 @@ namespace AlecRabbit\Spinner\Core\Revolver;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 /**
@@ -20,7 +21,7 @@ final class FrameCollectionRevolverBuilder implements IFrameCollectionRevolverBu
     private ?IInterval $interval = null;
     private ?ITolerance $tolerance = null;
 
-    public function build(): IFrameRevolver
+    public function build(): IFrameCollectionRevolver
     {
         $this->validate();
 
@@ -44,11 +45,28 @@ final class FrameCollectionRevolverBuilder implements IFrameCollectionRevolverBu
         };
     }
 
-    public function withFrameCollection(IFrameCollection $frames): IFrameCollectionRevolverBuilder
+    public function withFrames(IFrameCollection|\Generator $frames): IFrameCollectionRevolverBuilder
     {
+        $this->assertFrames($frames);
         $clone = clone $this;
         $clone->frames = $frames;
         return $clone;
+    }
+
+    /**
+     * @throws InvalidArgument
+     */
+    private function assertFrames(mixed $frames): void
+    {
+        if (!$frames instanceof IFrameCollection) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Frames must be instance of "%s". "%s" given.',
+                    IFrameCollection::class,
+                    get_debug_type($frames),
+                )
+            );
+        }
     }
 
     public function withInterval(IInterval $interval): IFrameCollectionRevolverBuilder

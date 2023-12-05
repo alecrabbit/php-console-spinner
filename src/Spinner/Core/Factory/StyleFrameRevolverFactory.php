@@ -24,7 +24,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
     public function create(IPattern $pattern): IFrameRevolver
     {
         return $this->frameRevolverBuilder
-            ->withFrameCollection(
+            ->withFrames(
                 $this->frameCollectionFactory->create(
                     $pattern->getFrames()
                 )

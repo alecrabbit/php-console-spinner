@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -87,7 +88,7 @@ final class StyleRevolverFactoryTest extends TestCase
         $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
         $frameRevolverBuilder
             ->expects(self::once())
-            ->method('withFrameCollection')
+            ->method('withFrames')
             ->with($frameCollection)
             ->willReturnSelf()
         ;
@@ -104,7 +105,7 @@ final class StyleRevolverFactoryTest extends TestCase
             ->willReturnSelf()
         ;
 
-        $frameRevolver = $this->getFrameRevolverMock();
+        $frameRevolver = $this->getFrameCollectionRevolverMock();
         $frameRevolverBuilder
             ->expects(self::once())
             ->method('build')
@@ -158,9 +159,9 @@ final class StyleRevolverFactoryTest extends TestCase
         return $this->createMock(IFrameCollection::class);
     }
 
-    private function getFrameRevolverMock(): MockObject&IFrameRevolver
+    private function getFrameCollectionRevolverMock(): MockObject&IFrameCollectionRevolver
     {
-        return $this->createMock(IFrameRevolver::class);
+        return $this->createMock(IFrameCollectionRevolver::class);
     }
 
     protected function getIntervalFactoryMock(): MockObject&IIntervalFactory

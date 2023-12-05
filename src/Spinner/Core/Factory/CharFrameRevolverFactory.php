@@ -23,7 +23,7 @@ final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
     public function create(IPattern $pattern): IFrameRevolver
     {
         return $this->frameRevolverBuilder
-            ->withFrameCollection(
+            ->withFrames(
                 $this->frameCollectionFactory
                     ->create(
                         $pattern->getFrames()

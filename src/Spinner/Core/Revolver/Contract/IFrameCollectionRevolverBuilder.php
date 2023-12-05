@@ -10,15 +10,18 @@ use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-interface IFrameCollectionRevolverBuilder
+interface IFrameCollectionRevolverBuilder extends IFrameRevolverBuilder
 {
     /**
      * @throws InvalidArgument
      * @throws LogicException
      */
-    public function build(): IFrameRevolver;
+    public function build(): IFrameCollectionRevolver;
 
-    public function withFrameCollection(IFrameCollection $frames): IFrameCollectionRevolverBuilder;
+    /**
+     * @throws InvalidArgument
+     */
+    public function withFrames(IFrameCollection|\Generator $frames): IFrameCollectionRevolverBuilder;
 
     public function withInterval(IInterval $interval): IFrameCollectionRevolverBuilder;
 

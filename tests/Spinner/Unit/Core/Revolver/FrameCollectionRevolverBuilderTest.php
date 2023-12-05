@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolverBuilder;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -43,7 +44,7 @@ final class FrameCollectionRevolverBuilderTest extends TestCase
         $frameRevolverBuilder = $this->getTesteeInstance();
         $revolver =
             $frameRevolverBuilder
-                ->withFrameCollection($frameCollection)
+                ->withFrames($frameCollection)
                 ->withInterval($this->getIntervalMock())
                 ->withTolerance($this->getToleranceMock())
                 ->build()
@@ -104,7 +105,7 @@ final class FrameCollectionRevolverBuilderTest extends TestCase
 
             $revolver =
                 $frameRevolverBuilder
-                    ->withFrameCollection($this->getFrameCollectionMock())
+                    ->withFrames($this->getFrameCollectionMock())
                     ->build()
             ;
             self::assertInstanceOf(FrameCollectionRevolverBuilder::class, $frameRevolverBuilder);
@@ -118,4 +119,35 @@ final class FrameCollectionRevolverBuilderTest extends TestCase
         );
     }
 
+    #[Test]
+    public function throwsIfGeneratorPassedInsteadOfFrameCollection(): void
+    {
+        $exceptionClass = InvalidArgument::class;
+        $exceptionMessage =
+            'Frames must be instance of "AlecRabbit\Spinner\Core\Contract\IFrameCollection". "Generator" given.';
+
+        $test = function (): void {
+            $frameRevolverBuilder = $this->getTesteeInstance();
+
+            $revolver =
+                $frameRevolverBuilder
+                    ->withFrames($this->createGenerator())
+                    ->withInterval($this->getIntervalMock())
+                    ->build()
+            ;
+            self::assertInstanceOf(FrameCollectionRevolverBuilder::class, $frameRevolverBuilder);
+            self::assertInstanceOf(FrameCollectionRevolver::class, $revolver);
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+
+    private function createGenerator(): \Generator
+    {
+        yield 1;
+    }
 }
