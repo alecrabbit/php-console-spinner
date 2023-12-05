@@ -15,6 +15,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class FrameCollectionRevolverBuilderTest extends TestCase
 {
@@ -124,14 +125,14 @@ final class FrameCollectionRevolverBuilderTest extends TestCase
     {
         $exceptionClass = InvalidArgument::class;
         $exceptionMessage =
-            'Frames must be instance of "AlecRabbit\Spinner\Core\Contract\IFrameCollection". "Generator" given.';
+            'Frames must be instance of "AlecRabbit\Spinner\Core\Contract\IFrameCollection".';
 
         $test = function (): void {
             $frameRevolverBuilder = $this->getTesteeInstance();
 
             $revolver =
                 $frameRevolverBuilder
-                    ->withFrames($this->createGenerator())
+                    ->withFrames($this->getTraversableMock())
                     ->withInterval($this->getIntervalMock())
                     ->build()
             ;
@@ -146,8 +147,9 @@ final class FrameCollectionRevolverBuilderTest extends TestCase
         );
     }
 
-    private function createGenerator(): \Generator
+
+    private function getTraversableMock(): MockObject&Traversable
     {
-        yield 1;
+        return $this->createMock(Traversable::class);
     }
 }

@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use AlecRabbit\Tests\Spinner\Unit\Core\Palette\A\Override\ACharPaletteOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Traversable;
@@ -92,7 +93,7 @@ final class ACharPaletteTest extends TestCase
     {
         $charFrame = new CharFrame('22', 2);
 
-        $entries = new \ArrayObject(['a', $charFrame, 'b']);
+        $entries = new ArrayObject(['a', $charFrame, 'b']);
 
         $options = $this->getPaletteOptionsMock();
 

@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 
 final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
 {

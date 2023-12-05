@@ -23,6 +23,11 @@ abstract class FacadeAwareTestCase extends PcntlAwareTestCase
         return self::extractContainer();
     }
 
+    private static function extractContainer(): mixed
+    {
+        return self::callMethod(Facade::class, self::GET_CONTAINER);
+    }
+
     protected static function getService(string $id): mixed
     {
         return self::extractContainer()->get($id);
@@ -38,11 +43,6 @@ abstract class FacadeAwareTestCase extends PcntlAwareTestCase
     private static function storeContainer(): void
     {
         self::$container = self::extractContainer();
-    }
-
-    private static function extractContainer(): mixed
-    {
-        return self::callMethod(Facade::class, self::GET_CONTAINER);
     }
 
     protected static function setTestContainer(): void

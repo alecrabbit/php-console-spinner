@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
 use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
 use Traversable;
 
-use function array_reverse;
 use function sprintf;
 
 final class Rainbow extends AStylePalette

@@ -9,8 +9,6 @@ use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use Traversable;
 
-use function array_reverse;
-
 final class Snake extends ACharPalette
 {
     protected function sequence(): Traversable

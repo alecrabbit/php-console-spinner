@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\LogicException;
+use Traversable;
 
 /**
  * @psalm-suppress PossiblyNullArgument
@@ -45,7 +46,7 @@ final class FrameCollectionRevolverBuilder implements IFrameCollectionRevolverBu
         };
     }
 
-    public function withFrames(IFrameCollection|\Generator $frames): IFrameCollectionRevolverBuilder
+    public function withFrames(IFrameCollection|Traversable $frames): IFrameCollectionRevolverBuilder
     {
         $this->assertFrames($frames);
         $clone = clone $this;

@@ -7,7 +7,6 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Probe;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Core\Probe\SignalHandlingOptionCreator;
 use AlecRabbit\Tests\TestCase\PcntlAwareTestCase;
-use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
 final class SignalHandlingOptionCreatorTest extends PcntlAwareTestCase

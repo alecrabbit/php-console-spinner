@@ -87,4 +87,16 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     {
         return $this->offsetGet($index);
     }
+
+    public function next(): void
+    {
+        // TODO: Implement next() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+    }
+
+    public function current(): IFrame
+    {
+        // TODO: Implement current() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+    }
 }

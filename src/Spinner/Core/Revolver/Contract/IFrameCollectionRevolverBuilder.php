@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\LogicException;
+use Traversable;
 
 interface IFrameCollectionRevolverBuilder extends IFrameRevolverBuilder
 {
@@ -21,7 +22,7 @@ interface IFrameCollectionRevolverBuilder extends IFrameRevolverBuilder
     /**
      * @throws InvalidArgument
      */
-    public function withFrames(IFrameCollection|\Generator $frames): IFrameCollectionRevolverBuilder;
+    public function withFrames(IFrameCollection|Traversable $frames): IFrameCollectionRevolverBuilder;
 
     public function withInterval(IInterval $interval): IFrameCollectionRevolverBuilder;
 

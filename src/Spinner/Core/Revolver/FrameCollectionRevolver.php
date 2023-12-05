@@ -42,6 +42,7 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
 
     protected function next(?float $dt = null): void
     {
+        // FIXME (2023-12-05 13:21) [Alec Rabbit]: use $this->frameCollection->next();
         if ($this->count === 1 || ++$this->offset === $this->count) {
             $this->offset = 0;
         }
@@ -49,6 +50,7 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
 
     protected function current(): IFrame
     {
+        // FIXME (2023-12-05 13:21) [Alec Rabbit]: use $this->frameCollection->current();
         return $this->frameCollection->get($this->offset);
     }
 }
