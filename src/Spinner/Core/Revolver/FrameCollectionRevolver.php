@@ -14,9 +14,6 @@ use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final class FrameCollectionRevolver extends ARevolver implements IFrameCollectionRevolver
 {
-    protected int $count = 0;
-    protected int $offset = 0;
-
     /**
      * @throws InvalidArgument
      */
@@ -26,7 +23,6 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
         ITolerance $tolerance,
     ) {
         parent::__construct($interval, $tolerance);
-        $this->count = $this->frameCollection->count();
         $this->assertIsNotEmpty();
     }
 
@@ -35,22 +31,19 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
      */
     protected function assertIsNotEmpty(): void
     {
-        if ($this->count === 0) {
+        // FIXME (2023-12-05 15:0) [Alec Rabbit]: unnecessary check (already checked in FrameCollection::__construct)
+        if ($this->frameCollection->count() === 0) {
             throw new InvalidArgument('Frame collection is empty.');
         }
     }
 
     protected function next(?float $dt = null): void
     {
-        // FIXME (2023-12-05 13:21) [Alec Rabbit]: use $this->frameCollection->next();
-        if ($this->count === 1 || ++$this->offset === $this->count) {
-            $this->offset = 0;
-        }
+        $this->frameCollection->next();
     }
 
     protected function current(): IFrame
     {
-        // FIXME (2023-12-05 13:21) [Alec Rabbit]: use $this->frameCollection->current();
-        return $this->frameCollection->get($this->offset);
+        return $this->frameCollection->current();
     }
 }
