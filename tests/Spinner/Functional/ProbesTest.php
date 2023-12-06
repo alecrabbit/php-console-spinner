@@ -21,14 +21,6 @@ final class ProbesTest extends TestCase
     private const PROBES = 'probes';
     private array $probes = [];
 
-//    #[Test]
-//    public function canNotBeInstantiated(): void
-//    {
-//        $this->expectException(\Error::class);
-//        $this->expectExceptionMessage('Call to private AlecRabbit\Spinner\Probes::__construct()');
-//        $probe = new Probes();
-//    }
-
     #[Test]
     public function canRegisterProbe(): void
     {

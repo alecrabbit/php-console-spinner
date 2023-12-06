@@ -78,20 +78,6 @@ final class WidgetTest extends TestCase
     {
         return $this->createMock(IInterval::class);
     }
-//    #[Test]
-//    public function canBeEnvelopedWithAnotherContext():void
-//    {
-//        $widget = $this->getTesteeInstance();
-//
-//        $context = $this->getWidgetContextMock();
-//        $context
-//            ->expects(self::once())
-//            ->method('update')
-//            ->with($widget)
-//        ;
-//
-//        $widget->envelopWithContext($context);
-//    }
 
     #[Test]
     public function canGetFrameIfHasRevolverOnly(): void

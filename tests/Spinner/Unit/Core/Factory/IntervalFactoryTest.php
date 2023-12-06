@@ -121,10 +121,4 @@ final class IntervalFactoryTest extends TestCase
     {
         return $this->createMock(IInterval::class);
     }
-
-//    protected function setUp(): void
-//    {
-//        self::setPropertyValue(IntervalFactory::class, 'normalizedDefaultInterval', null);
-//        self::setPropertyValue(IntervalFactory::class, 'normalizedStillInterval', null);
-//    }
 }
