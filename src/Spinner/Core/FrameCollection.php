@@ -30,8 +30,7 @@ final class FrameCollection implements IFrameCollection
     public function __construct(
         Traversable $frames,
         private int $index = 0,
-    )
-    {
+    ) {
         /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->frames = new ArrayObject();
 

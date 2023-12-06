@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
-use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final class FrameCollectionRevolver extends ARevolver implements IFrameCollectionRevolver
 {
