@@ -4,11 +4,11 @@ Directories                                         74
 Files                                              274
 
 Size
-  Lines of Code (LOC)                            30653
-  Comment Lines of Code (CLOC)                     489 (1.60%)
-  Non-Comment Lines of Code (NCLOC)              30164 (98.40%)
-  Logical Lines of Code (LLOC)                    6709 (21.89%)
-    Classes                                       6701 (99.88%)
+  Lines of Code (LOC)                            30524
+  Comment Lines of Code (CLOC)                     363 (1.19%)
+  Non-Comment Lines of Code (NCLOC)              30161 (98.81%)
+  Logical Lines of Code (LLOC)                    6711 (21.99%)
+    Classes                                       6703 (99.88%)
       Average Class Length                          24
         Minimum Class Length                         0
         Maximum Class Length                       871
@@ -39,9 +39,9 @@ Dependencies
   Attribute Accesses                                28
     Non-Static                                      23 (82.14%)
     Static                                           5 (17.86%)
-  Method Calls                                    9156
-    Non-Static                                    6013 (65.67%)
-    Static                                        3143 (34.33%)
+  Method Calls                                    9158
+    Non-Static                                    6015 (65.68%)
+    Static                                        3143 (34.32%)
 
 Structure
   Namespaces                                        74
