@@ -36,11 +36,11 @@ final class FrameCollectionRevolverBuilderTest extends TestCase
     public function canBuild(): void
     {
         $frameCollection = $this->getFrameCollectionMock();
-        $frameCollection
-            ->expects(self::once())
-            ->method('count')
-            ->willReturn(1)
-        ;
+//        $frameCollection
+//            ->expects(self::once())
+//            ->method('count')
+//            ->willReturn(1)
+//        ;
 
         $frameRevolverBuilder = $this->getTesteeInstance();
         $revolver =

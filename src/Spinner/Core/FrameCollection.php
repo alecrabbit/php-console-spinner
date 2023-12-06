@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
-use AlecRabbit\Spinner\Exception\LogicException;
 use ArrayObject;
 use Traversable;
 
@@ -20,7 +19,7 @@ final class FrameCollection implements IFrameCollection
 
     /** @var ArrayObject<int, IFrame> */
     private ArrayObject $frames;
-    private int $count = 0;
+    private int $count;
 
     /**
      * @param Traversable<IFrame> $frames Should be a finite set of frames.
@@ -30,24 +29,12 @@ final class FrameCollection implements IFrameCollection
      */
     public function __construct(
         Traversable $frames,
-        private int $index = 0, // TODO (2023-12-05 13:47) [Alec Rabbit]: for future use
+        private int $index = 0,
     )
     {
         /** @psalm-suppress MixedPropertyTypeCoercion */
         $this->frames = new ArrayObject();
 
-        $this->initialize($frames);
-
-        $this->count = $this->frames->count();
-
-        self::assertIsNotEmpty($this);
-    }
-
-    /**
-     * @throws InvalidArgument
-     */
-    private function initialize(Traversable $frames): void
-    {
         /**
          * @var IFrame $frame
          */
@@ -55,6 +42,10 @@ final class FrameCollection implements IFrameCollection
             self::assertFrame($frame);
             $this->frames->append($frame);
         }
+
+        $this->count = $this->frames->count();
+
+        self::assertIsNotEmpty($this);
     }
 
     /**
@@ -73,16 +64,16 @@ final class FrameCollection implements IFrameCollection
         }
     }
 
+    public function count(): int
+    {
+        return $this->count;
+    }
+
     private static function assertIsNotEmpty(IFrameCollection $collection): void
     {
         if ($collection->count() === 0) {
             throw new InvalidArgument(self::COLLECTION_IS_EMPTY);
         }
-    }
-
-    public function count(): int
-    {
-        return $this->count;
     }
 
     public function next(): void
@@ -95,28 +86,5 @@ final class FrameCollection implements IFrameCollection
     public function current(): IFrame
     {
         return $this->frames->offsetGet($this->index);
-    }
-
-    /**
-     * @deprecated
-     */
-    public function lastIndex(): int
-    {
-        $index = array_key_last($this->frames->getArrayCopy());
-
-        // @codeCoverageIgnoreStart
-        if ($index === null) {
-            // should not be thrown
-            throw new LogicException(self::COLLECTION_IS_EMPTY);
-        }
-        // @codeCoverageIgnoreEnd
-
-        return $index;
-    }
-
-    /** @inheritDoc */
-    public function get(int $index): IFrame
-    {
-        return $this->frames->offsetGet($index);
     }
 }

@@ -47,29 +47,6 @@ final class FrameCollectionTest extends TestCase
     }
 
     #[Test]
-    public function canGetFrameByIndex(): void
-    {
-        $frame0 = $this->getFrameMock();
-        $frame1 = $this->getFrameMock();
-        $frame2 = $this->getFrameMock();
-        $frameCollection = $this->getTesteeInstance(
-            new ArrayObject(
-                [
-                    $frame0,
-                    $frame1,
-                    $frame2,
-                ]
-            )
-        );
-        self::assertInstanceOf(FrameCollection::class, $frameCollection);
-        self::assertSame($frame1, $frameCollection->get(1));
-        self::assertSame($frame0, $frameCollection->get(0));
-        self::assertSame($frame2, $frameCollection->get(2));
-        self::assertSame($frame0, $frameCollection->get(0));
-        self::assertSame(2, $frameCollection->lastIndex());
-    }
-
-    #[Test]
     public function canGetCurrentInCombinationWithNext(): void
     {
         $frame0 = $this->getFrameMock();
