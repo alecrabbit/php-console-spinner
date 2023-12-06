@@ -27,13 +27,13 @@
     },
     "require-dev": {
         "fakerphp/faker": "*",
-        "nunomaduro/collision": "^7.0",
+        "nunomaduro/collision": "*",
         "phpunit/php-code-coverage": "*",
         "phpunit/phpunit": "^10.0",
         "react/event-loop": "*",
         "react/http": "*",
         "revolt/event-loop": "*",
-        "symfony/console": "^6.2",
+        "symfony/console": "*",
         "symfony/var-dumper": "*"
     },
     "suggest": {
