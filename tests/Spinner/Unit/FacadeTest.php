@@ -22,14 +22,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 final class FacadeTest extends FacadeAwareTestCase
 {
-//    #[Test]
-//    public function canNotBeInstantiated(): void
-//    {
-//        $this->expectException(\Error::class);
-//        $this->expectExceptionMessage('Call to private AlecRabbit\Spinner\Facade::__construct()');
-//        $facade = new Facade();
-//    }
-
     #[Test]
     public function canGetSettings(): void
     {
