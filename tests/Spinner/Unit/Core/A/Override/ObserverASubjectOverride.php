@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use RuntimeException;
 
-class ObserverASubjectOverride extends ASubjectOverride implements IObserver
+final class ObserverASubjectOverride extends ASubjectOverride implements IObserver
 {
     public function update(ISubject $subject): void
     {

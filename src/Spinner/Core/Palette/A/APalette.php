@@ -13,7 +13,7 @@ use Traversable;
 abstract class APalette implements IPalette
 {
     public function __construct(
-        protected IPaletteOptions $options = new PaletteOptions(), // FIXME (2023-12-07 17:0) [Alec Rabbit]: remove default value
+        protected IPaletteOptions $options,
     ) {
     }
 

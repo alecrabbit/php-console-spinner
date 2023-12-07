@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use RuntimeException;
 use Traversable;
 
-class StylePaletteOverride extends APalette implements IStylePalette
+final class StylePaletteOverride extends APalette implements IStylePalette
 {
     public function getEntries(?IPaletteMode $mode = null): Traversable
     {

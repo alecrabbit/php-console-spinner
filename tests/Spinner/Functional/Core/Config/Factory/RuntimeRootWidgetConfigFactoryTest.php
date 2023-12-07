@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Config\Factory\RootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RevolverConfig;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Tests\Spinner\Functional\Override\CharPaletteOverride;
@@ -33,8 +34,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
                         leadingSpacer: new CharFrame('', 0),
                         trailingSpacer: new CharFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: new StylePaletteOverride(),
-                            charPalette: new CharPaletteOverride(),
+                            stylePalette: new StylePaletteOverride(new PaletteOptions()),
+                            charPalette: new CharPaletteOverride(new PaletteOptions()),
                             revolverConfig: new RevolverConfig(
                                 tolerance: new Tolerance(),
                             ),
@@ -52,8 +53,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
                         leadingSpacer: $ls = new CharFrame('', 0),
                         trailingSpacer: $ts = new CharFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: $style = new StylePaletteOverride(),
-                            charPalette: $char = new CharPaletteOverride(),
+                            stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
+                            charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
                             revolverConfig: $revolverConfig = new RevolverConfig(
                                 tolerance: new Tolerance(),
                             ),
@@ -65,8 +66,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
                         leadingSpacer: new CharFrame('', 0),
                         trailingSpacer: new CharFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: new StylePaletteOverride(),
-                            charPalette: new CharPaletteOverride(),
+                            stylePalette: new StylePaletteOverride(new PaletteOptions()),
+                            charPalette: new CharPaletteOverride(new PaletteOptions()),
                             revolverConfig: $revolverConfig,
                         ),
                     ),
@@ -84,8 +85,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
                         leadingSpacer: $ls = new CharFrame('', 0),
                         trailingSpacer: $ts = new CharFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: $style = new StylePaletteOverride(),
-                            charPalette: $char = new CharPaletteOverride(),
+                            stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
+                            charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
                             revolverConfig: $revolverConfig = new RevolverConfig(
                                 tolerance: new Tolerance(),
                             ),
@@ -97,8 +98,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
                         leadingSpacer: $ls,
                         trailingSpacer: $ts,
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: new StylePaletteOverride(),
-                            charPalette: new CharPaletteOverride(),
+                            stylePalette: new StylePaletteOverride(new PaletteOptions()),
+                            charPalette: new CharPaletteOverride(new PaletteOptions()),
                             revolverConfig: $revolverConfig,
                         ),
                     ),
@@ -116,8 +117,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
                         leadingSpacer: $ls = new CharFrame('', 0),
                         trailingSpacer: $ts = new CharFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: $style = new StylePaletteOverride(),
-                            charPalette: $char = new CharPaletteOverride(),
+                            stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
+                            charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
                             revolverConfig: $revolverConfig = new RevolverConfig(
                                 tolerance: new Tolerance(),
                             ),
@@ -130,7 +131,7 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
                         trailingSpacer: $ts,
                         revolverConfig: new WidgetRevolverConfig(
                             stylePalette: $style,
-                            charPalette: new CharPaletteOverride(),
+                            charPalette: new CharPaletteOverride(new PaletteOptions()),
                             revolverConfig: $revolverConfig,
                         ),
                     ),
@@ -148,8 +149,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
                         leadingSpacer: $ls = new CharFrame('', 0),
                         trailingSpacer: $ts = new CharFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: $style = new StylePaletteOverride(),
-                            charPalette: $char = new CharPaletteOverride(),
+                            stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
+                            charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
                             revolverConfig: $revolverConfig = new RevolverConfig(
                                 tolerance: new Tolerance(),
                             ),
