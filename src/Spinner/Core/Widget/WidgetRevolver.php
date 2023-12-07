@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
-use AlecRabbit\Spinner\Core\IntervalComparator;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
@@ -21,10 +20,8 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
         private readonly IRevolver $style,
         private readonly IRevolver $character,
         ITolerance $tolerance,
-        IIntervalComparator $intervalComparator = new IntervalComparator(
-        ), // FIXME (2023-11-21 17:34) [Alec Rabbit]: pass it as param it or better pass IInterval
-    )
-    {
+        IIntervalComparator $intervalComparator,
+    ) {
         parent::__construct(
             $intervalComparator->smallest(
                 $style->getInterval(),

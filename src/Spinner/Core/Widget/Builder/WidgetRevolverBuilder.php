@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Builder;
 
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
@@ -20,6 +21,7 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
     private ?IFrameRevolver $styleRevolver = null;
     private ?IFrameRevolver $charRevolver = null;
     private ?ITolerance $tolerance = null;
+    private ?IIntervalComparator $intervalComparator = null;
 
     public function build(): IWidgetRevolver
     {
@@ -29,6 +31,7 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
             $this->styleRevolver,
             $this->charRevolver,
             $this->tolerance,
+            $this->intervalComparator,
         );
     }
 
@@ -38,6 +41,7 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
             $this->styleRevolver === null => throw new LogicException('Style revolver is not set.'),
             $this->charRevolver === null => throw new LogicException('Character revolver is not set.'),
             $this->tolerance === null => throw new LogicException('Tolerance is not set.'),
+            $this->intervalComparator === null => throw new LogicException('Interval comparator is not set.'),
             default => null,
         };
     }
@@ -60,6 +64,13 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
     {
         $clone = clone $this;
         $clone->tolerance = $tolerance;
+        return $clone;
+    }
+
+    public function withIntervalComparator(IIntervalComparator $intervalComparator): IWidgetRevolverBuilder
+    {
+        $clone = clone $this;
+        $clone->intervalComparator = $intervalComparator;
         return $clone;
     }
 }

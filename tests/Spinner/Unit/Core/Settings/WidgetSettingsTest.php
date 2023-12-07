@@ -44,9 +44,14 @@ final class WidgetSettingsTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getPaletteMock(): MockObject&IPalette
+    private function getStylePaletteMock(): MockObject&IStylePalette
     {
-        return $this->createMock(IPalette::class);
+        return $this->createMock(IStylePalette::class);
+    }
+
+    private function getCharPaletteMock(): MockObject&ICharPalette
+    {
+        return $this->createMock(ICharPalette::class);
     }
 
     #[Test]
@@ -84,15 +89,6 @@ final class WidgetSettingsTest extends TestCase
 
         self::assertSame($stylePalette, $settings->getStylePalette());
     }
-    private function getStylePaletteMock(): MockObject&IStylePalette
-    {
-        return $this->createMock(IStylePalette::class);
-    }
-
-    private function getCharPaletteMock(): MockObject&ICharPalette
-    {
-        return $this->createMock(ICharPalette::class);
-    }
 
     #[Test]
     public function canGetCharPalette(): void
@@ -125,5 +121,10 @@ final class WidgetSettingsTest extends TestCase
         self::assertSame($trailingSpacer, $settings->getTrailingSpacer());
         self::assertSame($stylePalette, $settings->getStylePalette());
         self::assertSame($charPalette, $settings->getCharPalette());
+    }
+
+    protected function getPaletteMock(): MockObject&IPalette
+    {
+        return $this->createMock(IPalette::class);
     }
 }

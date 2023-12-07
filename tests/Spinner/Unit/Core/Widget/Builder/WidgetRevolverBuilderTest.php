@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget\Builder;
 
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
@@ -41,6 +42,7 @@ final class WidgetRevolverBuilderTest extends TestCase
                 ->withStyleRevolver($this->getFrameRevolverMock())
                 ->withCharRevolver($this->getFrameRevolverMock())
                 ->withTolerance($this->getToleranceMock())
+                ->withIntervalComparator($this->getIntervalComparatorMock())
                 ->build()
         ;
 
@@ -57,6 +59,11 @@ final class WidgetRevolverBuilderTest extends TestCase
         return $this->createMock(ITolerance::class);
     }
 
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
+    }
+
     #[Test]
     public function throwsOnBuildWithoutStyleRevolver(): void
     {
@@ -67,6 +74,8 @@ final class WidgetRevolverBuilderTest extends TestCase
             $widgetRevolver = // intentional assignment
                 $this->getTesteeInstance()
                     ->withCharRevolver($this->getFrameRevolverMock())
+                    ->withTolerance($this->getToleranceMock())
+                    ->withIntervalComparator($this->getIntervalComparatorMock())
                     ->build()
             ;
         };
@@ -88,6 +97,31 @@ final class WidgetRevolverBuilderTest extends TestCase
             $widgetRevolver = // intentional assignment
                 $this->getTesteeInstance()
                     ->withStyleRevolver($this->getFrameRevolverMock())
+                    ->withTolerance($this->getToleranceMock())
+                    ->withIntervalComparator($this->getIntervalComparatorMock())
+                    ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+
+    #[Test]
+    public function throwsOnBuildWithoutIntervalComparator(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'Interval comparator is not set.';
+
+        $test = function (): void {
+            $widgetRevolver = // intentional assignment
+                $this->getTesteeInstance()
+                    ->withStyleRevolver($this->getFrameRevolverMock())
+                    ->withCharRevolver($this->getFrameRevolverMock())
+                    ->withTolerance($this->getToleranceMock())
                     ->build()
             ;
         };

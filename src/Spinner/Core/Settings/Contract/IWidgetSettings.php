@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 
 interface IWidgetSettings extends ISettingsElement

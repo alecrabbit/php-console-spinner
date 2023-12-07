@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette;
 
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\StyleFrame;
@@ -28,7 +28,7 @@ final class RainbowTest extends TestCase
 
     private function getTesteeInstance(
         ?IPaletteOptions $options = null,
-    ): IPalette {
+    ): IStylePalette {
         return
             new Rainbow(
                 options: $options ?? $this->getPaletteOptionsMock(),

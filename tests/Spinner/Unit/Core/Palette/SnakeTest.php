@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette;
 
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
@@ -27,7 +27,7 @@ final class SnakeTest extends TestCase
 
     private function getTesteeInstance(
         ?IPaletteOptions $options = null,
-    ): IPalette {
+    ): ICharPalette {
         return
             new Snake(
                 options: $options ?? $this->getPaletteOptionsMock(),

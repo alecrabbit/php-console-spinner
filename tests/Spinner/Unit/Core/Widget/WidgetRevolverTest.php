@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
@@ -28,12 +29,14 @@ final class WidgetRevolverTest extends TestCase
         ?IRevolver $style = null,
         ?IRevolver $character = null,
         ?ITolerance $tolerance = null,
+        ?IIntervalComparator $intervalComparator = null,
     ): IWidgetRevolver {
         return
             new WidgetRevolver(
                 style: $style ?? $this->getRevolverMock(),
                 character: $character ?? $this->getRevolverMock(),
                 tolerance: $tolerance ?? $this->getToleranceMock(),
+                intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
             );
     }
 
@@ -45,6 +48,11 @@ final class WidgetRevolverTest extends TestCase
     private function getToleranceMock(): MockObject&ITolerance
     {
         return $this->createMock(ITolerance::class);
+    }
+
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
     }
 
     #[Test]
@@ -66,10 +74,21 @@ final class WidgetRevolverTest extends TestCase
             ->method('getInterval')
             ->willReturn($characterInterval)
         ;
+
+        $intervalComparator = $this->getIntervalComparatorMock();
+        $intervalComparator
+            ->expects(self::once())
+            ->method('smallest')
+            ->with($styleInterval, $characterInterval)
+            ->willReturn($styleInterval)
+        ;
+
         $revolver = $this->getTesteeInstance(
             style: $style,
             character: $character,
+            intervalComparator: $intervalComparator,
         );
+
         self::assertSame($styleInterval, $revolver->getInterval());
     }
 

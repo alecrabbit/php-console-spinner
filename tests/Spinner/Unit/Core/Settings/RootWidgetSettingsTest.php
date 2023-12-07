@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
@@ -27,8 +26,8 @@ final class RootWidgetSettingsTest extends TestCase
     public function getTesteeInstance(
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-        ?IPalette $stylePalette = null,
-        ?IPalette $charPalette = null,
+        ?IStylePalette $stylePalette = null,
+        ?ICharPalette $charPalette = null,
     ): IRootWidgetSettings {
         return
             new RootWidgetSettings(
