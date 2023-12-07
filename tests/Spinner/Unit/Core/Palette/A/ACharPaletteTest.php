@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Tests\Spinner\Unit\Core\Palette\A\Override\ACharPaletteOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
+use Generator;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Traversable;
@@ -72,7 +73,7 @@ final class ACharPaletteTest extends TestCase
         $palette = $this->getTesteeInstance();
         $mode = $this->getPaletteModeMock();
 
-        self::assertInstanceOf(\Generator::class, $palette->getEntries($mode));
+        self::assertInstanceOf(Generator::class, $palette->getEntries($mode));
     }
 
     #[Test]
@@ -93,7 +94,7 @@ final class ACharPaletteTest extends TestCase
 
         $traversable = $palette->getEntries($mode);
 
-        self::assertInstanceOf(\Generator::class, $traversable);
+        self::assertInstanceOf(Generator::class, $traversable);
 
         self::assertSame(100, $palette->getOptions()->getInterval());
 
