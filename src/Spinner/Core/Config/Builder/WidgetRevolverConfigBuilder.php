@@ -8,7 +8,9 @@ use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetRevolverConfigBuilder
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 /**
@@ -16,8 +18,8 @@ use AlecRabbit\Spinner\Exception\LogicException;
  */
 final class WidgetRevolverConfigBuilder implements IWidgetRevolverConfigBuilder
 {
-    private ?IPalette $stylePalette = null;
-    private ?IPalette $charPalette = null;
+    private ?IStylePalette $stylePalette = null;
+    private ?ICharPalette $charPalette = null;
     private ?IRevolverConfig $revolverConfig = null;
 
     public function build(): IWidgetRevolverConfig
@@ -41,14 +43,14 @@ final class WidgetRevolverConfigBuilder implements IWidgetRevolverConfigBuilder
         };
     }
 
-    public function withStylePalette(IPalette $palette): IWidgetRevolverConfigBuilder
+    public function withStylePalette(IStylePalette $palette): IWidgetRevolverConfigBuilder
     {
         $clone = clone $this;
         $clone->stylePalette = $palette;
         return $clone;
     }
 
-    public function withCharPalette(IPalette $palette): IWidgetRevolverConfigBuilder
+    public function withCharPalette(ICharPalette $palette): IWidgetRevolverConfigBuilder
     {
         $clone = clone $this;
         $clone->charPalette = $palette;

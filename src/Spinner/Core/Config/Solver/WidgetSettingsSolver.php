@@ -7,7 +7,9 @@ namespace AlecRabbit\Spinner\Core\Config\Solver;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
@@ -84,7 +86,7 @@ final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSett
         ?IWidgetSettings $userSettings,
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
-    ): IPalette {
+    ): IStylePalette {
         return $userSettings?->getStylePalette()
             ??
             $detectedSettings?->getStylePalette()
@@ -98,7 +100,7 @@ final readonly class WidgetSettingsSolver extends ASolver implements IWidgetSett
         ?IWidgetSettings $userSettings,
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
-    ): IPalette {
+    ): ICharPalette {
         return $userSettings?->getCharPalette()
             ??
             $detectedSettings?->getCharPalette()

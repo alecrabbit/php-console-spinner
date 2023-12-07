@@ -14,7 +14,9 @@ use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRootWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Exception\DomainException;
@@ -75,7 +77,7 @@ final readonly class InitialRootWidgetConfigFactory implements IInitialRootWidge
     private function getStylePalette(
         IRootWidgetSettings $rootWidgetSettings,
         IWidgetSettings $widgetSettings
-    ): IPalette {
+    ): IStylePalette {
         return $rootWidgetSettings->getStylePalette()
             ??
             $widgetSettings->getStylePalette()
@@ -86,7 +88,7 @@ final readonly class InitialRootWidgetConfigFactory implements IInitialRootWidge
     private function getCharPalette(
         IRootWidgetSettings $rootWidgetSettings,
         IWidgetSettings $widgetSettings
-    ): IPalette {
+    ): ICharPalette {
         return $rootWidgetSettings->getCharPalette()
             ??
             $widgetSettings->getCharPalette()
