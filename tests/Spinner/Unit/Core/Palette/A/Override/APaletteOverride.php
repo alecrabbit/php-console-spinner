@@ -18,7 +18,7 @@ class APaletteOverride extends APalette
         parent::__construct($options);
     }
 
-    protected function getEntries(?IPaletteMode $mode = null): Traversable
+    public function getEntries(?IPaletteMode $mode = null): Traversable
     {
         return $this->entries;
     }

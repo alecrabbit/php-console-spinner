@@ -15,7 +15,7 @@ use Traversable;
 
 abstract class AStylePalette extends APalette implements IStylePalette
 {
-    protected function getOptions(?IPaletteMode $mode = null): IPaletteOptions
+    public function getOptions(?IPaletteMode $mode = null): IPaletteOptions
     {
         $interval = $this->options->getInterval() ?? $this->getInterval($this->extractStylingMode($mode));
 
@@ -45,7 +45,7 @@ abstract class AStylePalette extends APalette implements IStylePalette
     /**
      * @return Traversable<IStyleFrame>
      */
-    protected function getEntries(?IPaletteMode $mode = null): Traversable
+    public function getEntries(?IPaletteMode $mode = null): Traversable
     {
         $stylingMode = $this->extractStylingMode($mode);
 

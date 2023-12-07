@@ -12,7 +12,7 @@ use Traversable;
 
 final class NoStylePalette extends APalette implements IStylePalette
 {
-    protected function getEntries(?IPaletteMode $mode = null): Traversable
+    public function getEntries(?IPaletteMode $mode = null): Traversable
     {
         yield from [
             new StyleFrame('%s', 0),

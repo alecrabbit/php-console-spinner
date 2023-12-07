@@ -21,6 +21,9 @@ abstract class APalette implements IPalette
     }
 
     // FIXME (2023-12-04 16:9) [Alec Rabbit]: extract functionality to PaletteTemplateFactory->create($palette)
+    /**
+     * @deprecated
+     */
     public function getTemplate(?IPaletteMode $mode = null): IPaletteTemplate
     {
         return new PaletteTemplate(
@@ -29,12 +32,10 @@ abstract class APalette implements IPalette
         );
     }
 
-    /**
-     * @return Traversable<IFrame>
-     */
-    abstract protected function getEntries(?IPaletteMode $mode = null): Traversable;
+    /** @inheritDoc */
+    abstract public function getEntries(?IPaletteMode $mode = null): Traversable;
 
-    protected function getOptions(?IPaletteMode $mode = null): IPaletteOptions
+    public function getOptions(?IPaletteMode $mode = null): IPaletteOptions
     {
         return $this->options;
     }

@@ -4,18 +4,23 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette\Builder;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Palette\Builder\Contract\IPaletteTemplateBuilder;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
 use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
+use Traversable;
 
 /**
  * @psalm-suppress PossiblyNullArgument
  */
 final class PaletteTemplateBuilder implements IPaletteTemplateBuilder
 {
-    private ?\Traversable $entries = null;
+    /**
+     * @var Traversable<IFrame>|null
+     */
+    private ?Traversable $entries = null;
     private ?IPaletteOptions $options = null;
 
     public function build(): IPaletteTemplate
@@ -40,7 +45,8 @@ final class PaletteTemplateBuilder implements IPaletteTemplateBuilder
         };
     }
 
-    public function withEntries(\Traversable $entries): IPaletteTemplateBuilder
+    /** @inheritDoc */
+    public function withEntries(Traversable $entries): IPaletteTemplateBuilder
     {
         $clone = clone $this;
         $clone->entries = $entries;

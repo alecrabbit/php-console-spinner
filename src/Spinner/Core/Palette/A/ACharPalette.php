@@ -16,7 +16,7 @@ abstract class ACharPalette extends APalette implements ICharPalette
     /**
      * @return Traversable<ICharFrame>
      */
-    protected function getEntries(?IPaletteMode $mode = null): Traversable
+    public function getEntries(?IPaletteMode $mode = null): Traversable
     {
         /** @var string|ICharFrame $element */
         foreach ($this->sequence() as $element) {
@@ -35,7 +35,7 @@ abstract class ACharPalette extends APalette implements ICharPalette
 
     abstract protected function createFrame(string $element): ICharFrame;
 
-    protected function getOptions(?IPaletteMode $mode = null): IPaletteOptions
+    public function getOptions(?IPaletteMode $mode = null): IPaletteOptions
     {
         $this->options =
             new PaletteOptions(
