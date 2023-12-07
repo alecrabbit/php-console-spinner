@@ -8,11 +8,9 @@
 ## <a name="evl"></a> Usage with event loop - Asynchronous mode(default)
 
 ```php
-use AlecRabbit\Spinner\Factory\Factory;
+use AlecRabbit\Spinner\Facade;
 
-require_once __DIR__ . '/../bootstrap.php';
-
-$spinner = Factory::createSpinner();
+$spinner = Facade::createSpinner();
 ```
 
 ## <a name="no-evl"></a> Usage without event loop - Synchronous mode
@@ -20,7 +18,11 @@ $spinner = Factory::createSpinner();
 In synchronous mode usage is a bit more complicated. Simply speaking, you need to periodically call `render()` method of `IDriver` implementation.
 
 ```php
-$driver = \AlecRabbit\Spinner\Facade::getDriver();
+use AlecRabbit\Spinner\Facade;
+
+$spinner = Facade::createSpinner();
+
+$driver = Facade::getDriver();
 
 while (true) {
     $driver->render();
