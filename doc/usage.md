@@ -34,8 +34,8 @@ while (true) {
 
 There are four palettes supplied with the package: 
 - Rainbow (style)
-- NoStylePalette
 - Snake (characters)
+- NoStylePalette
 - NoCharPalette
 
 #### How to create your own character palette
