@@ -17,8 +17,8 @@ $loop = Facade::getLoop();
 $loop
     ->repeat(
         0.1,
+        // schedule random country generation
         static function () use ($loop): void {
-            // schedule random country generation
             $loop->delay(
                 random_int(1, 500) / 1000,
                 static function (): void {

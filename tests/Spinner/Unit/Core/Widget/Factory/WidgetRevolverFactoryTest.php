@@ -10,7 +10,8 @@ use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
@@ -78,8 +79,8 @@ final class WidgetRevolverFactoryTest extends TestCase
         $stylePattern = $this->getPatternMock();
         $charPattern = $this->getPatternMock();
 
-        $stylePalette = $this->getPaletteMock();
-        $charPalette = $this->getPaletteMock();
+        $stylePalette = $this->getStylePaletteMock();
+        $charPalette = $this->getCharPaletteMock();
 
         $styleRevolver = $this->getFrameRevolverMock();
         $charRevolver = $this->getFrameRevolverMock();
@@ -174,9 +175,14 @@ final class WidgetRevolverFactoryTest extends TestCase
         return $this->createMock(IPattern::class);
     }
 
-    private function getPaletteMock(): MockObject&IPalette
+    private function getStylePaletteMock(): MockObject&IStylePalette
     {
-        return $this->createMock(IPalette::class);
+        return $this->createMock(IStylePalette::class);
+    }
+
+    private function getCharPaletteMock(): MockObject&ICharPalette
+    {
+        return $this->createMock(ICharPalette::class);
     }
 
     private function getFrameRevolverMock(): MockObject&IFrameRevolver

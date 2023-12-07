@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetRevolverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetRevolverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -38,8 +38,8 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
         $configBuilder = $this->getTesteeInstance();
 
         $config = $configBuilder
-            ->withStylePalette($this->getPaletteMock())
-            ->withCharPalette($this->getPaletteMock())
+            ->withStylePalette($this->getStylePaletteMock())
+            ->withCharPalette($this->getCharPaletteMock())
             ->withRevolverConfig($this->getRevolverConfigMock())
             ->build()
         ;
@@ -47,9 +47,14 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
         self::assertInstanceOf(WidgetRevolverConfig::class, $config);
     }
 
-    private function getPaletteMock(): MockObject&IPalette
+    private function getStylePaletteMock(): MockObject&IStylePalette
     {
-        return $this->createMock(IPalette::class);
+        return $this->createMock(IStylePalette::class);
+    }
+
+    private function getCharPaletteMock(): MockObject&ICharPalette
+    {
+        return $this->createMock(ICharPalette::class);
     }
 
     protected function getRevolverConfigMock(): MockObject&IRevolverConfig
@@ -64,7 +69,7 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
 
         $builder =
             $configBuilder
-                ->withStylePalette($this->getPaletteMock())
+                ->withStylePalette($this->getStylePaletteMock())
         ;
 
         self::assertNotSame($builder, $configBuilder);
@@ -77,7 +82,7 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
 
         $builder =
             $configBuilder
-                ->withCharPalette($this->getPaletteMock())
+                ->withCharPalette($this->getCharPaletteMock())
         ;
 
         self::assertNotSame($builder, $configBuilder);
@@ -93,7 +98,7 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withCharPalette($this->getPaletteMock())
+                ->withCharPalette($this->getCharPaletteMock())
                 ->build()
             ;
         };
@@ -115,7 +120,7 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withStylePalette($this->getPaletteMock())
+                ->withStylePalette($this->getStylePaletteMock())
                 ->build()
             ;
         };
@@ -137,8 +142,8 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withStylePalette($this->getPaletteMock())
-                ->withCharPalette($this->getPaletteMock())
+                ->withStylePalette($this->getStylePaletteMock())
+                ->withCharPalette($this->getCharPaletteMock())
                 ->build()
             ;
         };
@@ -153,10 +158,5 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
     protected function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
         return $this->createMock(IWidgetRevolverConfig::class);
-    }
-
-    private function getFrameMock(): MockObject&IFrame
-    {
-        return $this->createMock(IFrame::class);
     }
 }

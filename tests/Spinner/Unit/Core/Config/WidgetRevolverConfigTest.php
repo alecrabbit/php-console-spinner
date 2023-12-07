@@ -8,7 +8,9 @@ use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\RevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -24,35 +26,22 @@ final class WidgetRevolverConfigTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?IPalette $stylePalette = null,
-        ?IPalette $charPalette = null,
+        ?IStylePalette $stylePalette = null,
+        ?ICharPalette $charPalette = null,
         ?IRevolverConfig $revolverConfig = null,
     ): IWidgetRevolverConfig {
-        if ($revolverConfig === null) {
-            return new WidgetRevolverConfig(
-                stylePalette: $stylePalette ?? $this->getPaletteMock(),
-                charPalette: $charPalette ?? $this->getPaletteMock(),
-                revolverConfig: new RevolverConfig(),
-            );
-        }
-
         return
             new WidgetRevolverConfig(
-                stylePalette: $stylePalette ?? $this->getPaletteMock(),
-                charPalette: $charPalette ?? $this->getPaletteMock(),
-                revolverConfig: $revolverConfig,
+                stylePalette: $stylePalette ?? $this->getStylePaletteMock(),
+                charPalette: $charPalette ?? $this->getCharPaletteMock(),
+                revolverConfig: $revolverConfig ?? new RevolverConfig(),
             );
-    }
-
-    protected function getPaletteMock(): MockObject&IPalette
-    {
-        return $this->createMock(IPalette::class);
     }
 
     #[Test]
     public function canGetStylePalette(): void
     {
-        $stylePalette = $this->getPaletteMock();
+        $stylePalette = $this->getStylePaletteMock();
 
         $config = $this->getTesteeInstance(
             stylePalette: $stylePalette,
@@ -64,7 +53,7 @@ final class WidgetRevolverConfigTest extends TestCase
     #[Test]
     public function canGetCharPalette(): void
     {
-        $charPalette = $this->getPaletteMock();
+        $charPalette = $this->getCharPaletteMock();
 
         $config = $this->getTesteeInstance(
             charPalette: $charPalette,
@@ -93,9 +82,18 @@ final class WidgetRevolverConfigTest extends TestCase
         self::assertSame($revolverConfig, $config->getRevolverConfig());
     }
 
-
     protected function getRevolverConfigMock(): MockObject&IRevolverConfig
     {
         return $this->createMock(IRevolverConfig::class);
+    }
+
+    private function getStylePaletteMock(): MockObject&IStylePalette
+    {
+        return $this->createMock(IStylePalette::class);
+    }
+
+    private function getCharPaletteMock(): MockObject&ICharPalette
+    {
+        return $this->createMock(ICharPalette::class);
     }
 }

@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Complex\Spinner;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
@@ -190,7 +190,7 @@ final class FacadeSettingsWidgetSettingsSpinnerTest extends ContainerModifyingTe
         $stylePaletteOne = new NoStylePalette();
 
         $trailingSpacerTwo = $this->getFrameMock();
-        $stylePaletteTwo = $this->getPaletteMock();
+        $stylePaletteTwo = $this->getStylePaletteMock();
 
         $widgetSettings =
             new WidgetSettings(
@@ -270,8 +270,8 @@ final class FacadeSettingsWidgetSettingsSpinnerTest extends ContainerModifyingTe
         self::assertTrue($driver->has($spinner));
     }
 
-    private function getPaletteMock(): MockObject&IPalette
+    private function getStylePaletteMock(): MockObject&IStylePalette
     {
-        return $this->createMock(IPalette::class);
+        return $this->createMock(IStylePalette::class);
     }
 }

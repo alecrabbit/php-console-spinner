@@ -7,7 +7,9 @@ namespace AlecRabbit\Tests\Spinner\Complex\Spinner;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
@@ -94,7 +96,7 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
     #[Test]
     public function spinnerCanBeCreatedWithAnyStylePalette(): void
     {
-        $stylePalette = $this->getPaletteMock();
+        $stylePalette = $this->getStylePaletteMock();
 
         $widgetSettings = new WidgetSettings(stylePalette: $stylePalette);
 
@@ -118,11 +120,6 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
         $driver = Facade::getDriver();
 
         self::assertTrue($driver->has($spinner));
-    }
-
-    private function getPaletteMock(): MockObject&IPalette
-    {
-        return $this->createMock(IPalette::class);
     }
 
     #[Test]
@@ -157,7 +154,7 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
     #[Test]
     public function spinnerCanBeCreatedWithAnyCharPalette(): void
     {
-        $charPalette = $this->getPaletteMock();
+        $charPalette = $this->getCharPaletteMock();
 
         $widgetSettings = new WidgetSettings(charPalette: $charPalette);
 
@@ -181,6 +178,16 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
         $driver = Facade::getDriver();
 
         self::assertTrue($driver->has($spinner));
+    }
+
+    private function getStylePaletteMock(): MockObject&IStylePalette
+    {
+        return $this->createMock(IStylePalette::class);
+    }
+
+    private function getCharPaletteMock(): MockObject&ICharPalette
+    {
+        return $this->createMock(ICharPalette::class);
     }
 
     #[Test]
