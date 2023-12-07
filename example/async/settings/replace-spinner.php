@@ -7,6 +7,7 @@ use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
+use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
@@ -17,7 +18,7 @@ require_once __DIR__ . '/../bootstrap.async.php';
 $spinnerOne = Facade::createSpinner();
 
 $charPalette =
-    new class() extends ACharPalette {
+    new class(new PaletteOptions()) extends ACharPalette {
         protected function createFrame(string $element): ICharFrame
         {
             return new CharFrame($element, 3); // note the width is 3
