@@ -20,7 +20,6 @@ abstract class APalette implements IPalette
     ) {
     }
 
-    // FIXME (2023-12-04 16:9) [Alec Rabbit]: extract functionality to PaletteTemplateFactory->create($palette)
     /**
      * @deprecated
      */
