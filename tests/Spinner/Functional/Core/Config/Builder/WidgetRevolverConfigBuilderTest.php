@@ -41,6 +41,12 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
         self::assertSame($revolverConfig, $config->getRevolverConfig());
     }
 
+    protected function getTesteeInstance(): IWidgetRevolverConfigBuilder
+    {
+        return
+            new WidgetRevolverConfigBuilder();
+    }
+
     private function getStylePaletteMock(): MockObject&IStylePalette
     {
         return $this->createMock(IStylePalette::class);
@@ -51,17 +57,6 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
         return $this->createMock(ICharPalette::class);
     }
 
-    protected function getTesteeInstance(): IWidgetRevolverConfigBuilder
-    {
-        return
-            new WidgetRevolverConfigBuilder();
-    }
-
-    private function getPaletteMock(): MockObject&IPalette
-    {
-        return $this->createMock(IPalette::class);
-    }
-
     protected function getRevolverConfigMock(): MockObject&IRevolverConfig
     {
         return $this->createMock(IRevolverConfig::class);
@@ -70,5 +65,10 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
     protected function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
         return $this->createMock(IWidgetRevolverConfig::class);
+    }
+
+    private function getPaletteMock(): MockObject&IPalette
+    {
+        return $this->createMock(IPalette::class);
     }
 }

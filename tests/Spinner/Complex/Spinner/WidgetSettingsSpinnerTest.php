@@ -8,7 +8,6 @@ namespace AlecRabbit\Tests\Spinner\Complex\Spinner;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
@@ -122,6 +121,11 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
         self::assertTrue($driver->has($spinner));
     }
 
+    private function getStylePaletteMock(): MockObject&IStylePalette
+    {
+        return $this->createMock(IStylePalette::class);
+    }
+
     #[Test]
     public function spinnerCanBeCreatedWithNoCharPalette(): void
     {
@@ -178,11 +182,6 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
         $driver = Facade::getDriver();
 
         self::assertTrue($driver->has($spinner));
-    }
-
-    private function getStylePaletteMock(): MockObject&IStylePalette
-    {
-        return $this->createMock(IStylePalette::class);
     }
 
     private function getCharPaletteMock(): MockObject&ICharPalette

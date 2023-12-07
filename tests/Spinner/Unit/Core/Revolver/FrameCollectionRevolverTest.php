@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -71,7 +72,7 @@ final class FrameCollectionRevolverTest extends TestCase
         $frame1 = $this->getFrameMock();
         $frame2 = $this->getFrameMock();
 
-        $dataSet = new \ArrayObject(
+        $dataSet = new ArrayObject(
             [
                 $frame0,
                 $frame1,
