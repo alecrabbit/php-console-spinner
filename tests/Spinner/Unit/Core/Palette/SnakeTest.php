@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette;
 
-use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
+use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Tests\TestCase\TestCase;
 use Generator;
@@ -40,21 +39,12 @@ final class SnakeTest extends TestCase
     }
 
     #[Test]
-    public function canGetTemplateWithMode(): void
+    public function canGetEntries(): void
     {
         $palette = $this->getTesteeInstance();
-
         $mode = $this->getPaletteModeMock();
-        $mode
-            ->expects(self::never())
-            ->method('getStylingMode')
-        ;
 
-        $template = $palette->getTemplate($mode);
-
-        self::assertInstanceOf(PaletteTemplate::class, $template);
-        self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertSame(80, $template->getOptions()->getInterval());
+        self::assertInstanceOf(Generator::class, $palette->getEntries($mode));
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode
@@ -63,103 +53,20 @@ final class SnakeTest extends TestCase
     }
 
     #[Test]
-    public function canGetEntriesWithoutMode(): void
-    {
-        $palette = $this->getTesteeInstance();
-
-        $template = $palette->getTemplate();
-
-        self::assertInstanceOf(PaletteTemplate::class, $template);
-        self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertSame(80, $template->getOptions()->getInterval());
-    }
-
-    #[Test]
-    public function canGetEntriesWithoutModeCustomOptions(): void
+    public function canGetOptions(): void
     {
         $options = $this->getPaletteOptionsMock();
-        $options
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn(null)
-        ;
 
         $palette = $this->getTesteeInstance(
             options: $options,
         );
 
-        $template = $palette->getTemplate();
-
-        self::assertInstanceOf(PaletteTemplate::class, $template);
-        self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertSame(80, $template->getOptions()->getInterval());
-    }
-
-    #[Test]
-    public function returnsFrames(): void
-    {
-        $palette = $this->getTesteeInstance();
-
-        $template = $palette->getTemplate();
-
-        $traversable = $template->getEntries();
-
-        self::assertInstanceOf(Generator::class, $traversable);
-        self::assertSame(80, $template->getOptions()->getInterval()); // should pass before unwrapping
-
-        $entries = iterator_to_array($traversable); // unwrap generator
-
-        self::assertCount(8, $entries);
-
-        self::assertEquals(new CharFrame('⠏', 1), $entries[0]);
-        self::assertEquals(new CharFrame('⠛', 1), $entries[1]);
-        self::assertEquals(new CharFrame('⠹', 1), $entries[2]);
-        self::assertEquals(new CharFrame('⢸', 1), $entries[3]);
-        self::assertEquals(new CharFrame('⣰', 1), $entries[4]);
-        self::assertEquals(new CharFrame('⣤', 1), $entries[5]);
-        self::assertEquals(new CharFrame('⣆', 1), $entries[6]);
-        self::assertEquals(new CharFrame('⡇', 1), $entries[7]);
-    }
-
-    #[Test]
-    public function returnsFramesWithOptions(): void
-    {
-        $interval = 100;
-
-        $options = $this->getPaletteOptionsMock();
-        $options
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
+        $mode = $this->getPaletteModeMock();
+        $mode
+            ->expects(self::never())
+            ->method('getStylingMode')
         ;
-        $options
-            ->expects(self::once())
-            ->method('getReversed')
-            ->willReturn(true)
-        ;
-
-        $palette = $this->getTesteeInstance(
-            options: $options,
-        );
-
-        $template = $palette->getTemplate();
-
-        $traversable = $template->getEntries();
-
-        self::assertInstanceOf(Generator::class, $traversable);
-
-        $entries = iterator_to_array($traversable); // unwrap generator
-        self::assertSame($interval, $template->getOptions()->getInterval());
-
-        self::assertCount(8, $entries);
-
-        self::assertEquals(new CharFrame('⡇', 1), $entries[0]);
-        self::assertEquals(new CharFrame('⣆', 1), $entries[1]);
-        self::assertEquals(new CharFrame('⣤', 1), $entries[2]);
-        self::assertEquals(new CharFrame('⣰', 1), $entries[3]);
-        self::assertEquals(new CharFrame('⢸', 1), $entries[4]);
-        self::assertEquals(new CharFrame('⠹', 1), $entries[5]);
-        self::assertEquals(new CharFrame('⠛', 1), $entries[6]);
-        self::assertEquals(new CharFrame('⠏', 1), $entries[7]);
+        self::assertInstanceOf(PaletteOptions::class, $palette->getOptions($mode));
     }
+
 }

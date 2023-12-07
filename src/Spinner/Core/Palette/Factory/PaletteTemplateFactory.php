@@ -25,6 +25,7 @@ final readonly class PaletteTemplateFactory implements IPaletteTemplateFactory
         return $this->builder
             ->withEntries($palette->getEntries($mode))
             ->withOptions($palette->getOptions($mode))
-            ->build();
+            ->build()
+        ;
     }
 }

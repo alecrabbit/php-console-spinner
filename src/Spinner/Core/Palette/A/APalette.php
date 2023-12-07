@@ -4,31 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette\A;
 
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use Traversable;
 
 abstract class APalette implements IPalette
 {
     public function __construct(
-        protected IPaletteOptions $options = new PaletteOptions(),
+        protected IPaletteOptions $options = new PaletteOptions(), // FIXME (2023-12-07 17:0) [Alec Rabbit]: remove default value
     ) {
-    }
-
-    /**
-     * @deprecated
-     */
-    public function getTemplate(?IPaletteMode $mode = null): IPaletteTemplate
-    {
-        return new PaletteTemplate(
-            $this->getEntries($mode),
-            $this->getOptions($mode),
-        );
     }
 
     /** @inheritDoc */

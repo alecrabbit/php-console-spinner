@@ -46,11 +46,6 @@ final class PatternFactoryTest extends TestCase
         return $this->createMock(IIntervalFactory::class);
     }
 
-    private function getPaletteModeFactoryMock(): MockObject&IPaletteModeFactory
-    {
-        return $this->createMock(IPaletteModeFactory::class);
-    }
-
     private function getPaletteTemplateFactoryMock(): MockObject&IPaletteTemplateFactory
     {
         return $this->createMock(IPaletteTemplateFactory::class);
@@ -78,9 +73,7 @@ final class PatternFactoryTest extends TestCase
         ;
 
 
-
         $paletteMode = $this->getPaletteModeMock();
-
 
 
         $entries = $this->getTraversableMock();
@@ -99,7 +92,8 @@ final class PatternFactoryTest extends TestCase
             ->expects(self::once())
             ->method('create')
             ->with($palette)
-            ->willReturn($template);
+            ->willReturn($template)
+        ;
 
         $template
             ->expects(self::once())
@@ -148,5 +142,10 @@ final class PatternFactoryTest extends TestCase
     private function getPaletteMock(): MockObject&IPalette
     {
         return $this->createMock(IPalette::class);
+    }
+
+    private function getPaletteModeFactoryMock(): MockObject&IPaletteModeFactory
+    {
+        return $this->createMock(IPaletteModeFactory::class);
     }
 }

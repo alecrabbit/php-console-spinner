@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
-use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
+use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Tests\TestCase\TestCase;
 use Generator;
 use PHPUnit\Framework\Attributes\Test;
@@ -31,17 +31,19 @@ final class NoCharPaletteTest extends TestCase
     }
 
     #[Test]
-    public function canGetTemplateWithMode(): void
+    public function canGetEntries(): void
     {
         $palette = $this->getTesteeInstance();
-
         $mode = $this->getPaletteModeMock();
 
-        $template = $palette->getTemplate($mode);
+        $traversable = $palette->getEntries($mode);
 
-        self::assertInstanceOf(PaletteTemplate::class, $template);
-        self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertNull($template->getOptions()->getInterval());
+        self::assertInstanceOf(Generator::class, $traversable);
+
+        $entries = iterator_to_array($traversable); // unwrap generator
+
+        self::assertCount(1, $entries);
+        self::assertEquals(new CharFrame('', 0), $entries[0]);
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode
@@ -50,31 +52,12 @@ final class NoCharPaletteTest extends TestCase
     }
 
     #[Test]
-    public function canGetEntriesWithoutMode(): void
+    public function canGetOptions(): void
     {
         $palette = $this->getTesteeInstance();
 
-        $template = $palette->getTemplate();
+        $mode = $this->getPaletteModeMock();
 
-        self::assertInstanceOf(PaletteTemplate::class, $template);
-        self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertNull($template->getOptions()->getInterval());
-    }
-
-    #[Test]
-    public function returnsOneFrameIterator(): void
-    {
-        $palette = $this->getTesteeInstance();
-
-        $template = $palette->getTemplate();
-
-        $traversable = $template->getEntries();
-
-        self::assertInstanceOf(Generator::class, $traversable);
-
-        $entries = iterator_to_array($traversable); // unwrap generator
-
-        self::assertCount(1, $entries);
-        self::assertEquals(new CharFrame('', 0), $entries[0]);
+        self::assertInstanceOf(PaletteOptions::class, $palette->getOptions($mode));
     }
 }

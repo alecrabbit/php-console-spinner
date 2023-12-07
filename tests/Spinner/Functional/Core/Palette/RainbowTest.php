@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Palette;
 
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
+use AlecRabbit\Spinner\Core\Palette\Builder\PaletteTemplateBuilder;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
@@ -52,7 +55,7 @@ final class RainbowTest extends TestCase
             ->willReturn(StylingMethodMode::NONE)
         ;
 
-        $template = $palette->getTemplate($mode);
+        $template = $this->createTemplate($mode);
 
         self::assertInstanceOf(PaletteTemplate::class, $template);
         self::assertInstanceOf(Generator::class, $template->getEntries());
@@ -64,24 +67,30 @@ final class RainbowTest extends TestCase
         return $this->createMock(IPaletteMode::class);
     }
 
-    #[Test]
-    public function canGetEntriesWithoutMode(): void
+    private function createTemplate(IPaletteMode $mode, ?IPalette $palette = null): IPaletteTemplate
     {
-        $palette = $this->getTesteeInstance();
+        $palette ??= $this->getTesteeInstance();
 
-        $template = $palette->getTemplate();
+        $templateBuilder = new PaletteTemplateBuilder();
 
-        self::assertInstanceOf(PaletteTemplate::class, $template);
-        self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertNull($template->getOptions()->getInterval());
+        return $templateBuilder
+            ->withEntries($palette->getEntries($mode))
+            ->withOptions($palette->getOptions($mode))
+            ->build()
+        ;
     }
 
     #[Test]
     public function returnsOneFrameIteratorWithoutMode(): void
     {
-        $palette = $this->getTesteeInstance();
+        $mode = $this->getPaletteModeMock();
+        $mode
+            ->expects(self::exactly(2))
+            ->method('getStylingMode')
+            ->willReturn(StylingMethodMode::NONE)
+        ;
 
-        $template = $palette->getTemplate();
+        $template = $this->createTemplate($mode);
 
         $traversable = $template->getEntries();
 
@@ -98,8 +107,6 @@ final class RainbowTest extends TestCase
     #[Test]
     public function returnsOneFrameIteratorOnStylingModeNone(): void
     {
-        $palette = $this->getTesteeInstance();
-
         $mode = $this->getPaletteModeMock();
         $mode
             ->expects(self::exactly(2))
@@ -107,7 +114,7 @@ final class RainbowTest extends TestCase
             ->willReturn(StylingMethodMode::NONE)
         ;
 
-        $template = $palette->getTemplate($mode);
+        $template = $this->createTemplate($mode);
 
         $traversable = $template->getEntries();
 
@@ -137,7 +144,7 @@ final class RainbowTest extends TestCase
             ->willReturn(StylingMethodMode::ANSI4)
         ;
 
-        $template = $palette->getTemplate($mode);
+        $template = $this->createTemplate($mode);
 
         $traversable = $template->getEntries();
 
@@ -167,7 +174,7 @@ final class RainbowTest extends TestCase
             ->willReturn(StylingMethodMode::ANSI8)
         ;
 
-        $template = $palette->getTemplate($mode);
+        $template = $this->createTemplate($mode, $palette);
 
         $traversable = $template->getEntries();
 
@@ -236,7 +243,7 @@ final class RainbowTest extends TestCase
             ->willReturn(StylingMethodMode::ANSI8)
         ;
 
-        $template = $palette->getTemplate($mode);
+        $template = $this->createTemplate($mode, $palette);
 
         $traversable = $template->getEntries();
 
@@ -295,7 +302,7 @@ final class RainbowTest extends TestCase
             ->willReturn(StylingMethodMode::ANSI24)
         ;
 
-        $template = $palette->getTemplate($mode);
+        $template = $this->createTemplate($mode);
 
         $traversable = $template->getEntries();
 
@@ -695,7 +702,7 @@ final class RainbowTest extends TestCase
             ->willReturn(StylingMethodMode::ANSI24)
         ;
 
-        $template = $palette->getTemplate($mode);
+        $template = $this->createTemplate($mode, $palette);
 
         $traversable = $template->getEntries();
 

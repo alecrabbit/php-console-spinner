@@ -15,6 +15,7 @@ use AlecRabbit\Spinner\Core\Palette\Factory\PaletteTemplateFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class PaletteTemplateFactoryTest extends TestCase
 {
@@ -109,9 +110,9 @@ final class PaletteTemplateFactoryTest extends TestCase
         return $this->createMock(IPaletteMode::class);
     }
 
-    private function getTraversableMock(): MockObject&\Traversable
+    private function getTraversableMock(): MockObject&Traversable
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(Traversable::class);
     }
 
     private function getPaletteOptionsMock(): MockObject&IPaletteOptions

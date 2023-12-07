@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class RainbowTest extends TestCase
 {
@@ -44,7 +45,7 @@ final class RainbowTest extends TestCase
         $palette = $this->getTesteeInstance();
         $mode = $this->getPaletteModeMock();
 
-        self::assertInstanceOf(\Traversable::class, $palette->getEntries($mode));
+        self::assertInstanceOf(Traversable::class, $palette->getEntries($mode));
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode

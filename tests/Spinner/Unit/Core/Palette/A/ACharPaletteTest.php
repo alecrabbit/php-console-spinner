@@ -6,8 +6,9 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette\A;
 
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
+use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Tests\Spinner\Unit\Core\Palette\A\Override\ACharPaletteOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
@@ -47,45 +48,31 @@ final class ACharPaletteTest extends TestCase
     }
 
     #[Test]
-    public function canGetTemplate(): void
+    public function canGetOptions(): void
     {
-        $entries = $this->getTraversableMock();
         $options = $this->getPaletteOptionsMock();
-        $interval = 150;
-        $options
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
 
         $palette = $this->getTesteeInstance(
             options: $options,
-            entries: $entries,
         );
 
-        $template = $palette->getTemplate();
+        $mode = $this->getPaletteModeMock();
 
-        self::assertInstanceOf(PaletteTemplate::class, $template);
+        self::assertInstanceOf(PaletteOptions::class, $palette->getOptions($mode));
+    }
 
-        self::assertSame($interval, $template->getOptions()->getInterval());
+    private function getPaletteModeMock(): MockObject&IPaletteMode
+    {
+        return $this->createMock(IPaletteMode::class);
     }
 
     #[Test]
-    public function canGetTemplateTwo(): void
+    public function canGetEntries(): void
     {
-        $entries = $this->getTraversableMock();
-        $options = $this->getPaletteOptionsMock();
+        $palette = $this->getTesteeInstance();
+        $mode = $this->getPaletteModeMock();
 
-        $palette = $this->getTesteeInstance(
-            options: $options,
-            entries: $entries,
-        );
-
-        $template = $palette->getTemplate();
-
-        self::assertInstanceOf(PaletteTemplate::class, $template);
-
-        self::assertSame(100, $template->getOptions()->getInterval());
+        self::assertInstanceOf(\Generator::class, $palette->getEntries($mode));
     }
 
     #[Test]
@@ -102,13 +89,15 @@ final class ACharPaletteTest extends TestCase
             entries: $entries,
         );
 
-        $template = $palette->getTemplate();
+        $mode = $this->getPaletteModeMock();
 
-        self::assertInstanceOf(PaletteTemplate::class, $template);
+        $traversable = $palette->getEntries($mode);
 
-        self::assertSame(100, $template->getOptions()->getInterval());
+        self::assertInstanceOf(\Generator::class, $traversable);
 
-        $templateEntries = iterator_to_array($template->getEntries());
+        self::assertSame(100, $palette->getOptions()->getInterval());
+
+        $templateEntries = iterator_to_array($traversable);
 
         self::assertEquals(new CharFrame('a', 1), $templateEntries[0]);
         self::assertEquals(new CharFrame('b', 1), $templateEntries[2]);
