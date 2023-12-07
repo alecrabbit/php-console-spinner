@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Contract;
 
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 
 interface IWidgetRevolverConfig
 {
-    public function getStylePalette(): IPalette;
+    public function getStylePalette(): IStylePalette;
 
-    public function getCharPalette(): IPalette;
+    public function getCharPalette(): ICharPalette;
 
     public function getRevolverConfig(): IRevolverConfig;
 }

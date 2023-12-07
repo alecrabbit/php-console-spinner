@@ -35,11 +35,6 @@ final readonly class PaletteTemplate implements IPaletteTemplate
         return $this->entries;
     }
 
-    public function getOptions(): IPaletteOptions
-    {
-        return $this->options;
-    }
-
     /**
      * @param Traversable<IFrame> $entries
      * @return Traversable<IFrame>
@@ -53,5 +48,10 @@ final readonly class PaletteTemplate implements IPaletteTemplate
         }
 
         yield from array_reverse($sequence);
+    }
+
+    public function getOptions(): IPaletteOptions
+    {
+        return $this->options;
     }
 }

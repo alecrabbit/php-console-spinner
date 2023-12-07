@@ -9,7 +9,9 @@ use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetRevolverConfigBuilder
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -21,8 +23,8 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
     {
         $configBuilder = $this->getTesteeInstance();
 
-        $stylePalette = $this->getPaletteMock();
-        $charPalette = $this->getPaletteMock();
+        $stylePalette = $this->getStylePaletteMock();
+        $charPalette = $this->getCharPaletteMock();
         $revolverConfig = $this->getRevolverConfigMock();
 
         $config = $configBuilder
@@ -45,9 +47,14 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
             new WidgetRevolverConfigBuilder();
     }
 
-    private function getPaletteMock(): MockObject&IPalette
+    private function getStylePaletteMock(): MockObject&IStylePalette
     {
-        return $this->createMock(IPalette::class);
+        return $this->createMock(IStylePalette::class);
+    }
+
+    private function getCharPaletteMock(): MockObject&ICharPalette
+    {
+        return $this->createMock(ICharPalette::class);
     }
 
     protected function getRevolverConfigMock(): MockObject&IRevolverConfig
@@ -58,5 +65,10 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
     protected function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
         return $this->createMock(IWidgetRevolverConfig::class);
+    }
+
+    private function getPaletteMock(): MockObject&IPalette
+    {
+        return $this->createMock(IPalette::class);
     }
 }

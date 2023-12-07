@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
@@ -21,6 +22,7 @@ final readonly class WidgetRevolverFactory implements IWidgetRevolverFactory
         protected ICharFrameRevolverFactory $charRevolverFactory,
         protected IPatternFactory $patternFactory,
         protected IRevolverConfig $revolverConfig,
+        protected IIntervalComparator $intervalComparator,
     ) {
     }
 
@@ -46,6 +48,7 @@ final readonly class WidgetRevolverFactory implements IWidgetRevolverFactory
             ->withTolerance(
                 $this->revolverConfig->getTolerance()
             )
+            ->withIntervalComparator($this->intervalComparator)
             ->build()
         ;
     }

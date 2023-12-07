@@ -7,23 +7,21 @@ namespace AlecRabbit\Spinner\Core\Pattern\Factory;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
-use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
+use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteTemplateFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Pattern;
 
 final readonly class PatternFactory implements IPatternFactory
 {
     public function __construct(
-        protected IIntervalFactory $intervalFactory,
-        protected IPaletteModeFactory $paletteModeFactory,
+        private IIntervalFactory $intervalFactory,
+        private IPaletteTemplateFactory $paletteTemplateFactory,
     ) {
     }
 
     public function create(IPalette $palette): IPattern
     {
-        $mode = $this->paletteModeFactory->create();
-
-        $template = $palette->getTemplate($mode);
+        $template = $this->paletteTemplateFactory->create($palette);
 
         $interval =
             $this->intervalFactory->createNormalized(

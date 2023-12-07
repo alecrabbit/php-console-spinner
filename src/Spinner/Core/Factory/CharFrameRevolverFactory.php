@@ -8,13 +8,13 @@ use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 
 final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
 {
     public function __construct(
-        protected IFrameRevolverBuilder $frameRevolverBuilder,
+        protected IFrameCollectionRevolverBuilder $frameRevolverBuilder,
         protected IFrameCollectionFactory $frameCollectionFactory,
         protected IRevolverConfig $revolverConfig,
     ) {
@@ -23,7 +23,7 @@ final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
     public function create(IPattern $pattern): IFrameRevolver
     {
         return $this->frameRevolverBuilder
-            ->withFrameCollection(
+            ->withFrames(
                 $this->frameCollectionFactory
                     ->create(
                         $pattern->getFrames()

@@ -13,8 +13,8 @@ use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -31,7 +31,7 @@ final class CharRevolverFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IFrameRevolverBuilder $frameRevolverBuilder = null,
+        ?IFrameCollectionRevolverBuilder $frameRevolverBuilder = null,
         ?IFrameCollectionFactory $frameCollectionFactory = null,
         ?IRevolverConfig $revolverConfig = null,
     ): ICharFrameRevolverFactory {
@@ -43,9 +43,9 @@ final class CharRevolverFactoryTest extends TestCase
             );
     }
 
-    protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
+    protected function getFrameRevolverBuilderMock(): MockObject&IFrameCollectionRevolverBuilder
     {
-        return $this->createMock(IFrameRevolverBuilder::class);
+        return $this->createMock(IFrameCollectionRevolverBuilder::class);
     }
 
     protected function getFrameCollectionFactoryMock(): MockObject&IFrameCollectionFactory
@@ -88,7 +88,7 @@ final class CharRevolverFactoryTest extends TestCase
         $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
         $frameRevolverBuilder
             ->expects(self::once())
-            ->method('withFrameCollection')
+            ->method('withFrames')
             ->with($frameCollection)
             ->willReturnSelf()
         ;
@@ -105,7 +105,7 @@ final class CharRevolverFactoryTest extends TestCase
             ->willReturnSelf()
         ;
 
-        $frameRevolver = $this->getFrameRevolverMock();
+        $frameRevolver = $this->getFrameCollectionRevolverMock();
         $frameRevolverBuilder
             ->expects(self::once())
             ->method('build')
@@ -159,9 +159,9 @@ final class CharRevolverFactoryTest extends TestCase
         return $this->createMock(IFrameCollection::class);
     }
 
-    private function getFrameRevolverMock(): MockObject&IFrameRevolver
+    private function getFrameCollectionRevolverMock(): MockObject&IFrameCollectionRevolver
     {
-        return $this->createMock(IFrameRevolver::class);
+        return $this->createMock(IFrameCollectionRevolver::class);
     }
 
     protected function getIntervalFactoryMock(): MockObject&IIntervalFactory

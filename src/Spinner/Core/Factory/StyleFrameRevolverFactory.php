@@ -9,13 +9,13 @@ use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 
 final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
 {
     public function __construct(
-        protected IFrameRevolverBuilder $frameRevolverBuilder,
+        protected IFrameCollectionRevolverBuilder $frameRevolverBuilder,
         protected IFrameCollectionFactory $frameCollectionFactory,
         protected IRevolverConfig $revolverConfig,
     ) {
@@ -24,7 +24,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
     public function create(IPattern $pattern): IFrameRevolver
     {
         return $this->frameRevolverBuilder
-            ->withFrameCollection(
+            ->withFrames(
                 $this->frameCollectionFactory->create(
                     $pattern->getFrames()
                 )

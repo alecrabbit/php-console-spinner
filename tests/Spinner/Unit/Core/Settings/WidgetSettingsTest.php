@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -25,15 +27,15 @@ final class WidgetSettingsTest extends TestCase
     public function getTesteeInstance(
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-        ?IPalette $stylePalette = null,
-        ?IPalette $charPalette = null,
+        ?IStylePalette $stylePalette = null,
+        ?ICharPalette $charPalette = null,
     ): IWidgetSettings {
         return
             new WidgetSettings(
                 leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
                 trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
-                stylePalette: $stylePalette ?? $this->getPaletteMock(),
-                charPalette: $charPalette ?? $this->getPaletteMock(),
+                stylePalette: $stylePalette ?? $this->getStylePaletteMock(),
+                charPalette: $charPalette ?? $this->getCharPaletteMock(),
             );
     }
 
@@ -42,9 +44,14 @@ final class WidgetSettingsTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getPaletteMock(): MockObject&IPalette
+    private function getStylePaletteMock(): MockObject&IStylePalette
     {
-        return $this->createMock(IPalette::class);
+        return $this->createMock(IStylePalette::class);
+    }
+
+    private function getCharPaletteMock(): MockObject&ICharPalette
+    {
+        return $this->createMock(ICharPalette::class);
     }
 
     #[Test]
@@ -74,7 +81,7 @@ final class WidgetSettingsTest extends TestCase
     #[Test]
     public function canGetStylePalette(): void
     {
-        $stylePalette = $this->getPaletteMock();
+        $stylePalette = $this->getStylePaletteMock();
 
         $settings = $this->getTesteeInstance(
             stylePalette: $stylePalette,
@@ -86,7 +93,7 @@ final class WidgetSettingsTest extends TestCase
     #[Test]
     public function canGetCharPalette(): void
     {
-        $charPalette = $this->getPaletteMock();
+        $charPalette = $this->getCharPaletteMock();
 
         $settings = $this->getTesteeInstance(
             charPalette: $charPalette,
@@ -100,8 +107,8 @@ final class WidgetSettingsTest extends TestCase
     {
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
-        $stylePalette = $this->getPaletteMock();
-        $charPalette = $this->getPaletteMock();
+        $stylePalette = $this->getStylePaletteMock();
+        $charPalette = $this->getCharPaletteMock();
 
         $settings = $this->getTesteeInstance(
             leadingSpacer: $leadingSpacer,
@@ -114,5 +121,10 @@ final class WidgetSettingsTest extends TestCase
         self::assertSame($trailingSpacer, $settings->getTrailingSpacer());
         self::assertSame($stylePalette, $settings->getStylePalette());
         self::assertSame($charPalette, $settings->getCharPalette());
+    }
+
+    protected function getPaletteMock(): MockObject&IPalette
+    {
+        return $this->createMock(IPalette::class);
     }
 }

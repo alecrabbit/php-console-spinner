@@ -31,9 +31,14 @@ final class FrameCollectionTest extends TestCase
         self::assertInstanceOf(FrameCollection::class, $frameCollection);
     }
 
-    protected function getTesteeInstance(Traversable $frames): IFrameCollection
-    {
-        return new FrameCollection($frames);
+    protected function getTesteeInstance(
+        Traversable $frames,
+        int $index = 0,
+    ): IFrameCollection {
+        return new FrameCollection(
+            frames: $frames,
+            index: $index,
+        );
     }
 
     protected function getFrameMock(): MockObject&IFrame
@@ -42,7 +47,7 @@ final class FrameCollectionTest extends TestCase
     }
 
     #[Test]
-    public function canGetFrameByIndex(): void
+    public function canGetCurrentInCombinationWithNext(): void
     {
         $frame0 = $this->getFrameMock();
         $frame1 = $this->getFrameMock();
@@ -54,14 +59,17 @@ final class FrameCollectionTest extends TestCase
                     $frame1,
                     $frame2,
                 ]
-            )
+            ),
         );
         self::assertInstanceOf(FrameCollection::class, $frameCollection);
-        self::assertSame($frame1, $frameCollection->get(1));
-        self::assertSame($frame0, $frameCollection->get(0));
-        self::assertSame($frame2, $frameCollection->get(2));
-        self::assertSame($frame0, $frameCollection->get(0));
-        self::assertSame(2, $frameCollection->lastIndex());
+
+        self::assertSame($frame0, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame1, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame2, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame0, $frameCollection->current());
     }
 
     #[Test]
@@ -86,7 +94,8 @@ final class FrameCollectionTest extends TestCase
     public function throwsIfIsCreatedWithWrongTypeTraversable(): void
     {
         $exceptionClass = InvalidArgument::class;
-        $exceptionMessage = '"AlecRabbit\Spinner\Contract\IFrame" expected, "string" given.';
+        $exceptionMessage =
+            'Frame should be an instance of "AlecRabbit\Spinner\Contract\IFrame". "string" given.';
 
         $test = function (): void {
             $frameCollection = $this->getTesteeInstance(new ArrayObject(['a string']));

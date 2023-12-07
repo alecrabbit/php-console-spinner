@@ -7,43 +7,44 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
-use AlecRabbit\Spinner\Exception\LogicException;
 use ArrayObject;
 use Traversable;
 
 /**
- * @template T of IFrame
- *
- * @extends ArrayObject<int,T>
- *
- * @implements IFrameCollection<T>
+ * Finite collection of frames.
  */
-final class FrameCollection extends ArrayObject implements IFrameCollection
+final class FrameCollection implements IFrameCollection
 {
     private const COLLECTION_IS_EMPTY = 'Collection is empty.';
 
-    /**
-     * @throws InvalidArgument
-     */
-    public function __construct(Traversable $frames)
-    {
-        parent::__construct();
-        $this->initialize($frames);
-        self::assertIsNotEmpty($this);
-    }
+    /** @var ArrayObject<int, IFrame> */
+    private ArrayObject $frames;
+    private int $count;
 
     /**
+     * @param Traversable<IFrame> $frames Should be a finite set of frames.
+     * @param int $index Starting index of a collection.
+     *
      * @throws InvalidArgument
      */
-    private function initialize(Traversable $frames): void
-    {
+    public function __construct(
+        Traversable $frames,
+        private int $index = 0,
+    ) {
+        /** @psalm-suppress MixedPropertyTypeCoercion */
+        $this->frames = new ArrayObject();
+
         /**
-         * @var T $frame
+         * @var IFrame $frame
          */
         foreach ($frames as $frame) {
             self::assertFrame($frame);
-            $this->append($frame);
+            $this->frames->append($frame);
         }
+
+        $this->count = $this->frames->count();
+
+        self::assertIsNotEmpty($this);
     }
 
     /**
@@ -54,12 +55,17 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
         if (!$frame instanceof IFrame) {
             throw new InvalidArgument(
                 sprintf(
-                    '"%s" expected, "%s" given.',
+                    'Frame should be an instance of "%s". "%s" given.',
                     IFrame::class,
                     get_debug_type($frame)
                 )
             );
         }
+    }
+
+    public function count(): int
+    {
+        return $this->count;
     }
 
     private static function assertIsNotEmpty(IFrameCollection $collection): void
@@ -69,22 +75,15 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
         }
     }
 
-    public function lastIndex(): int
+    public function next(): void
     {
-        $index = array_key_last($this->getArrayCopy());
-
-        // @codeCoverageIgnoreStart
-        if ($index === null) {
-            // should not be thrown
-            throw new LogicException(self::COLLECTION_IS_EMPTY);
+        if ($this->count === 1 || ++$this->index === $this->count) {
+            $this->index = 0;
         }
-        // @codeCoverageIgnoreEnd
-
-        return $index;
     }
 
-    public function get(int $index): IFrame
+    public function current(): IFrame
     {
-        return $this->offsetGet($index);
+        return $this->frames->offsetGet($this->index);
     }
 }

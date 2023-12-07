@@ -5,14 +5,20 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Revolver\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
+use AlecRabbit\Spinner\Exception\InvalidArgument;
+use AlecRabbit\Spinner\Exception\LogicException;
+use Traversable;
 
 interface IFrameRevolverBuilder
 {
+    /**
+     * @throws InvalidArgument
+     * @throws LogicException
+     */
     public function build(): IFrameRevolver;
 
-    public function withFrameCollection(IFrameCollection $frames): IFrameRevolverBuilder;
+    public function withFrames(Traversable $frames): IFrameRevolverBuilder;
 
     public function withInterval(IInterval $interval): IFrameRevolverBuilder;
 

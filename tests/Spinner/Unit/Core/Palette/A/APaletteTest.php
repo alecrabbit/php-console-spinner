@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette\A;
 
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use AlecRabbit\Tests\Spinner\Unit\Core\Palette\A\Override\APaletteOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -45,27 +45,30 @@ final class APaletteTest extends TestCase
     }
 
     #[Test]
-    public function canGetTemplate(): void
+    public function canGetOptions(): void
     {
-        $entries = $this->getTraversableMock();
         $options = $this->getPaletteOptionsMock();
-        $interval = 100;
-        $options
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
 
         $palette = $this->getTesteeInstance(
             options: $options,
-            entries: $entries,
         );
 
-        $template = $palette->getTemplate();
+        $mode = $this->getPaletteModeMock();
 
-        self::assertInstanceOf(PaletteTemplate::class, $template);
+        self::assertSame($options, $palette->getOptions($mode));
+    }
 
-        self::assertSame($entries, $template->getEntries());
-        self::assertSame($interval, $template->getOptions()->getInterval());
+    private function getPaletteModeMock(): MockObject&IPaletteMode
+    {
+        return $this->createMock(IPaletteMode::class);
+    }
+
+    #[Test]
+    public function canGetEntries(): void
+    {
+        $palette = $this->getTesteeInstance();
+        $mode = $this->getPaletteModeMock();
+
+        self::assertInstanceOf(Traversable::class, $palette->getEntries($mode));
     }
 }

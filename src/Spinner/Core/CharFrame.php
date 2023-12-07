@@ -9,11 +9,17 @@ use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 
 final readonly class CharFrame extends AFrame implements ICharFrame
 {
+    /**
+     * @deprecated
+     */
     public static function createEmpty(): ICharFrame
     {
         return new CharFrame('', 0);
     }
 
+    /**
+     * @deprecated
+     */
     public static function createSpace(): ICharFrame
     {
         return new CharFrame(' ', 1);

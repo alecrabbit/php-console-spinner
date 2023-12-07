@@ -8,11 +8,17 @@ use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\A\APalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use Traversable;
 
 final class NoCharPalette extends APalette implements ICharPalette
 {
-    protected function getEntries(?IPaletteMode $mode = null): Traversable
+    public function __construct(IPaletteOptions $options = new PaletteOptions())
+    {
+        parent::__construct($options);
+    }
+
+    public function getEntries(?IPaletteMode $mode = null): Traversable
     {
         yield from [
             new CharFrame('', 0),

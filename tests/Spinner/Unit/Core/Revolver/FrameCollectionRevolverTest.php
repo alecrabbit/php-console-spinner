@@ -10,8 +10,8 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
-use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -56,19 +56,6 @@ final class FrameCollectionRevolverTest extends TestCase
     }
 
     #[Test]
-    public function ifCollectionHasOnlyOneElementOffsetIsAlwaysZero(): void
-    {
-        $frameCollectionRevolver = $this->getTesteeInstance();
-
-        self::assertInstanceOf(FrameCollectionRevolver::class, $frameCollectionRevolver);
-        self::assertEquals(0, self::getPropertyValue('offset', $frameCollectionRevolver));
-        self::callMethod($frameCollectionRevolver, 'next');
-        self::assertEquals(0, self::getPropertyValue('offset', $frameCollectionRevolver));
-        self::callMethod($frameCollectionRevolver, 'next');
-        self::assertEquals(0, self::getPropertyValue('offset', $frameCollectionRevolver));
-    }
-
-    #[Test]
     public function canUpdate(): void
     {
         $interval = $this->getIntervalMock();
@@ -80,36 +67,30 @@ final class FrameCollectionRevolverTest extends TestCase
         ;
 
         $frameCollection = $this->getFrameCollectionMock();
-        $frameCollection
-            ->expects(self::once())
-            ->method('count')
-            ->willReturn(3)
-        ;
 
         $frame0 = $this->getFrameMock();
         $frame1 = $this->getFrameMock();
         $frame2 = $this->getFrameMock();
 
+        $dataSet = new ArrayObject(
+            [
+                $frame0,
+                $frame1,
+                $frame2,
+            ]
+        );
+
         {
-            // A solution to absence of `->withConsecutive()` in PHPUnit 10
-            $matcher = self::exactly(4);
+            // A workaround to absence of `->withConsecutive()` method in PHPUnit 10
+            $matcher = self::exactly(5);
 
             $frameCollection
                 ->expects($matcher)
-                ->method('get')
+                ->method('current')
                 ->willReturnCallback(
-                    function (int $offset) use ($matcher, $frame0, $frame1, $frame2) {
-                        match ($matcher->numberOfInvocations()) {
-                            1 => self::assertEquals(1, $offset),
-                            2 => self::assertEquals(2, $offset),
-                            3, 4 => self::assertEquals(0, $offset),
-                        };
-
-                        return match ($offset) {
-                            0 => $frame0,
-                            1 => $frame1,
-                            2 => $frame2,
-                        };
+                    function () use ($matcher, $dataSet) {
+                        $index = ($matcher->numberOfInvocations() - 1) % $dataSet->count();
+                        return $dataSet->offsetGet($index);
                     }
                 )
             ;
@@ -121,10 +102,11 @@ final class FrameCollectionRevolverTest extends TestCase
         );
 
         self::assertInstanceOf(FrameCollectionRevolver::class, $frameCollectionRevolver);
+        self::assertSame($frame0, $frameCollectionRevolver->getFrame());
         self::assertSame($frame1, $frameCollectionRevolver->getFrame());
         self::assertSame($frame2, $frameCollectionRevolver->getFrame());
         self::assertSame($frame0, $frameCollectionRevolver->getFrame());
-        self::assertSame($frame0, $frameCollectionRevolver->getFrame(1));
+        self::assertSame($frame1, $frameCollectionRevolver->getFrame(1));
     }
 
     protected function getFrameCollectionMock(): MockObject&IFrameCollection
@@ -151,12 +133,12 @@ final class FrameCollectionRevolverTest extends TestCase
     }
 
     #[Test]
-    public function invokingCurrentInvokesGetOnCollection(): void
+    public function invokingCurrentInvokesCurrentOnCollection(): void
     {
         $frameCollection = $this->getOneElementFrameCollectionMock();
         $frameCollection
             ->expects(self::exactly(2))
-            ->method('get')
+            ->method('current')
         ;
         $frameCollectionRevolver = $this->getTesteeInstance(
             frameCollection: $frameCollection,
@@ -165,26 +147,5 @@ final class FrameCollectionRevolverTest extends TestCase
         self::assertInstanceOf(FrameCollectionRevolver::class, $frameCollectionRevolver);
         self::callMethod($frameCollectionRevolver, 'current');
         self::callMethod($frameCollectionRevolver, 'current');
-    }
-
-    #[Test]
-    public function throwsIfFrameCollectionIsEmpty(): void
-    {
-        $exceptionClass = InvalidArgument::class;
-        $exceptionMessage = 'Frame collection is empty.';
-
-        $test = function (): void {
-            $frameCollectionRevolver = $this->getTesteeInstance(
-                frameCollection: $this->getFrameCollectionMock(),
-            );
-
-            self::assertInstanceOf(FrameCollectionRevolver::class, $frameCollectionRevolver);
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
     }
 }

@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use Traversable;
 
-class ACharPaletteOverride extends ACharPalette
+final class ACharPaletteOverride extends ACharPalette
 {
     public function __construct(
         IPaletteOptions $options,

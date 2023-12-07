@@ -13,7 +13,8 @@ use AlecRabbit\Spinner\Core\Config\RevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Exception\DomainException;
 
@@ -58,14 +59,14 @@ final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigF
         );
     }
 
-    private function getStylePalette(IWidgetSettings $widgetSettings): IPalette
+    private function getStylePalette(IWidgetSettings $widgetSettings): IStylePalette
     {
         return $widgetSettings->getStylePalette()
             ??
             throw new DomainException('Style palette expected to be set.');
     }
 
-    private function getCharPalette(IWidgetSettings $widgetSettings): IPalette
+    private function getCharPalette(IWidgetSettings $widgetSettings): ICharPalette
     {
         return $widgetSettings->getCharPalette()
             ??

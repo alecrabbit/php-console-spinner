@@ -6,13 +6,18 @@ namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
 use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use Traversable;
 
-use function array_reverse;
 use function sprintf;
 
 final class Rainbow extends AStylePalette
 {
+    public function __construct(IPaletteOptions $options = new PaletteOptions())
+    {
+        parent::__construct($options);
+    }
+
     /**
      * @return Traversable<IStyleFrame>
      */

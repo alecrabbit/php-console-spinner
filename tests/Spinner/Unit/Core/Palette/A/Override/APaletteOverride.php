@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use Traversable;
 
-class APaletteOverride extends APalette
+final class APaletteOverride extends APalette
 {
     public function __construct(
         IPaletteOptions $options,
@@ -18,7 +18,7 @@ class APaletteOverride extends APalette
         parent::__construct($options);
     }
 
-    protected function getEntries(?IPaletteMode $mode = null): Traversable
+    public function getEntries(?IPaletteMode $mode = null): Traversable
     {
         return $this->entries;
     }

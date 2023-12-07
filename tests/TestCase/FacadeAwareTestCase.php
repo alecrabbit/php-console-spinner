@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\TestCase;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Facade;
 
-abstract class FacadeAwareTestCase extends TestCase
+abstract class FacadeAwareTestCase extends PcntlAwareTestCase
 {
     private const GET_CONTAINER = 'getContainer';
     private const SET_CONTAINER = 'setContainer';
@@ -21,6 +21,11 @@ abstract class FacadeAwareTestCase extends TestCase
     protected static function getCurrentContainer(): IContainer
     {
         return self::extractContainer();
+    }
+
+    private static function extractContainer(): mixed
+    {
+        return self::callMethod(Facade::class, self::GET_CONTAINER);
     }
 
     protected static function getService(string $id): mixed
@@ -38,11 +43,6 @@ abstract class FacadeAwareTestCase extends TestCase
     private static function storeContainer(): void
     {
         self::$container = self::extractContainer();
-    }
-
-    private static function extractContainer(): mixed
-    {
-        return self::callMethod(Facade::class, self::GET_CONTAINER);
     }
 
     protected static function setTestContainer(): void
