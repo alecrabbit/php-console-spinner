@@ -23,8 +23,8 @@ Size
     Not in classes or functions                     63 (4.36%)
 
 Cyclomatic Complexity
-  Average Complexity per LLOC                     0.33
-  Average Complexity per Class                    2.03
+  Average Complexity per LLOC                     0.32
+  Average Complexity per Class                    2.02
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     21.00
   Average Complexity per Method                   1.48

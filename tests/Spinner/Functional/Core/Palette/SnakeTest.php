@@ -152,7 +152,7 @@ final class SnakeTest extends TestCase
         ;
         $options
             ->expects(self::once())
-            ->method('getReversed')
+            ->method('isReversed')
             ->willReturn(true)
         ;
 

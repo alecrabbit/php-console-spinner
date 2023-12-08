@@ -10,11 +10,11 @@ final readonly class PaletteOptions implements IPaletteOptions
 {
     public function __construct(
         protected ?int $interval = null,
-        protected ?bool $reversed = null,
+        protected bool $reversed = false,
     ) {
     }
 
-    public function getReversed(): ?bool
+    public function isReversed(): bool
     {
         return $this->reversed;
     }

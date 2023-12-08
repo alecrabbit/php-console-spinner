@@ -16,8 +16,8 @@ final readonly class Pattern implements IPattern
      * @param Traversable<IFrame> $frames
      */
     public function __construct(
-        protected IInterval $interval,
-        protected Traversable $frames,
+        private IInterval $interval,
+        private Traversable $frames,
     ) {
     }
 

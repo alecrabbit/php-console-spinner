@@ -72,10 +72,6 @@ final class PatternFactoryTest extends TestCase
             ->willReturn($paletteInterval)
         ;
 
-
-        $paletteMode = $this->getPaletteModeMock();
-
-
         $entries = $this->getTraversableMock();
 
         $template = $this->getTemplateMock();

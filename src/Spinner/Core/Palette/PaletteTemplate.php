@@ -19,7 +19,7 @@ final readonly class PaletteTemplate implements IPaletteTemplate
      */
     public function __construct(
         Traversable $entries,
-        protected IPaletteOptions $options = new PaletteOptions(),
+        protected IPaletteOptions $options,
     ) {
         $this->entries = $entries;
     }
@@ -29,7 +29,7 @@ final readonly class PaletteTemplate implements IPaletteTemplate
      */
     public function getEntries(): Traversable
     {
-        if ($this->options->getReversed()) {
+        if ($this->options->isReversed()) {
             return $this->reversed($this->entries);
         }
         return $this->entries;

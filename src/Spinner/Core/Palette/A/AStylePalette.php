@@ -22,7 +22,7 @@ abstract class AStylePalette extends APalette implements IStylePalette
         $this->options =
             new PaletteOptions(
                 interval: $interval,
-                reversed: $this->options->getReversed(),
+                reversed: $this->options->isReversed(),
             );
 
         return parent::getOptions($mode);

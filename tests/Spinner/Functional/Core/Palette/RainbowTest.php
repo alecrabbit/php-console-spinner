@@ -228,7 +228,7 @@ final class RainbowTest extends TestCase
         ;
         $options
             ->expects(self::once())
-            ->method('getReversed')
+            ->method('isReversed')
             ->willReturn(true)
         ;
 
@@ -687,7 +687,7 @@ final class RainbowTest extends TestCase
         ;
         $options
             ->expects(self::once())
-            ->method('getReversed')
+            ->method('isReversed')
             ->willReturn(true)
         ;
 
