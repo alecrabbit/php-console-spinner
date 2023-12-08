@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 final readonly class PaletteOptions implements IPaletteOptions
 {
     public function __construct(
-        protected ?int $interval = null,
-        protected bool $reversed = false,
+        private ?int $interval = null,
+        private bool $reversed = false,
     ) {
     }
 

@@ -11,13 +11,14 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 
-final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
+final readonly class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
 {
     public function __construct(
-        protected IFrameCollectionRevolverBuilder $frameRevolverBuilder,
-        protected IFrameCollectionFactory $frameCollectionFactory,
-        protected IRevolverConfig $revolverConfig,
+        private IFrameCollectionRevolverBuilder $frameRevolverBuilder,
+        private IFrameCollectionFactory $frameCollectionFactory,
+        private IRevolverConfig $revolverConfig,
     ) {
     }
 
