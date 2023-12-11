@@ -120,11 +120,6 @@ final class PatternFactoryTest extends TestCase
         return $this->createMock(IPaletteOptions::class);
     }
 
-    private function getPaletteModeMock(): MockObject&IPaletteMode
-    {
-        return $this->createMock(IPaletteMode::class);
-    }
-
     private function getTraversableMock(): MockObject&Traversable
     {
         return $this->createMock(Traversable::class);
@@ -138,6 +133,11 @@ final class PatternFactoryTest extends TestCase
     private function getPaletteMock(): MockObject&IPalette
     {
         return $this->createMock(IPalette::class);
+    }
+
+    private function getPaletteModeMock(): MockObject&IPaletteMode
+    {
+        return $this->createMock(IPaletteMode::class);
     }
 
     private function getPaletteModeFactoryMock(): MockObject&IPaletteModeFactory
