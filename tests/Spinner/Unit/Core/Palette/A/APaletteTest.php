@@ -66,9 +66,12 @@ final class APaletteTest extends TestCase
     #[Test]
     public function canGetEntries(): void
     {
-        $palette = $this->getTesteeInstance();
+        $traversable = $this->getTraversableMock();
+        $palette = $this->getTesteeInstance(
+            entries: $traversable
+        );
         $mode = $this->getPaletteModeMock();
 
-        self::assertInstanceOf(Traversable::class, $palette->getEntries($mode));
+        self::assertSame($traversable, $palette->getEntries($mode));
     }
 }

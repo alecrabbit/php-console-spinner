@@ -12,11 +12,6 @@ use Traversable;
 
 final class Snake extends ACharPalette
 {
-    public function __construct(IPaletteOptions $options = new PaletteOptions())
-    {
-        parent::__construct($options);
-    }
-
     protected function sequence(): Traversable
     {
         yield from ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];

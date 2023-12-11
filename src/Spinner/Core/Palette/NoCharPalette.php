@@ -13,11 +13,6 @@ use Traversable;
 
 final class NoCharPalette extends APalette implements ICharPalette
 {
-    public function __construct(IPaletteOptions $options = new PaletteOptions())
-    {
-        parent::__construct($options);
-    }
-
     public function getEntries(?IPaletteMode $mode = null): Traversable
     {
         yield from [

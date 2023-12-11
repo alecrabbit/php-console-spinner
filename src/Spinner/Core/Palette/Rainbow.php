@@ -13,11 +13,6 @@ use function sprintf;
 
 final class Rainbow extends AStylePalette
 {
-    public function __construct(IPaletteOptions $options = new PaletteOptions())
-    {
-        parent::__construct($options);
-    }
-
     /**
      * @return Traversable<IStyleFrame>
      */

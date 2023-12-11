@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Facade;
 require_once __DIR__ . '/../bootstrap.async.php';
 
 $stylePalette =
-    new class(new PaletteOptions()) extends AStylePalette {
+    new class() extends AStylePalette {
 
         protected function ansi4StyleFrames(): Traversable
         {
