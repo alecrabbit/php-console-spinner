@@ -49,16 +49,26 @@ abstract class AStylePalette extends APalette implements IStylePalette
     {
         $stylingMode = $this->extractStylingMode($mode);
 
-        yield from match ($stylingMode) {
+
+        $frames = match ($stylingMode) {
             StylingMethodMode::NONE => $this->noStyleFrames(),
             StylingMethodMode::ANSI4 => $this->ansi4StyleFrames(),
             StylingMethodMode::ANSI8 => $this->ansi8StyleFrames(),
             StylingMethodMode::ANSI24 => $this->ansi24StyleFrames(),
         };
+
+        /** @var IStyleFrame|string $item */
+        foreach ($frames as $item) {
+            if ($item instanceof IStyleFrame) {
+                yield $item;
+                continue;
+            }
+            yield $this->createFrame($item);
+        }
     }
 
     /**
-     * @return Traversable<IStyleFrame>
+     * @return Traversable<IStyleFrame|string>
      */
     protected function noStyleFrames(): Traversable
     {
@@ -73,17 +83,17 @@ abstract class AStylePalette extends APalette implements IStylePalette
     }
 
     /**
-     * @return Traversable<IStyleFrame>
+     * @return Traversable<IStyleFrame|string>
      */
     abstract protected function ansi4StyleFrames(): Traversable;
 
     /**
-     * @return Traversable<IStyleFrame>
+     * @return Traversable<IStyleFrame|string>
      */
     abstract protected function ansi8StyleFrames(): Traversable;
 
     /**
-     * @return Traversable<IStyleFrame>
+     * @return Traversable<IStyleFrame|string>
      */
     abstract protected function ansi24StyleFrames(): Traversable;
 }
