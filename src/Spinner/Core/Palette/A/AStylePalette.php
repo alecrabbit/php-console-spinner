@@ -48,7 +48,7 @@ abstract class AStylePalette extends APalette implements IStylePalette
     protected function noStyleFrames(): Traversable
     {
         yield from [
-            $this->createFrame('%s'),
+            $this->createFrame('%s', 0),
         ];
     }
 
