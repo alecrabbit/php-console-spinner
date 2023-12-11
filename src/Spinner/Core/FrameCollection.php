@@ -44,6 +44,10 @@ final class FrameCollection implements IFrameCollection
 
         $this->count = $this->frames->count();
 
+        if ($this->index >= $this->count) {
+            $this->index = 0;
+        }
+
         self::assertIsNotEmpty($this);
     }
 
