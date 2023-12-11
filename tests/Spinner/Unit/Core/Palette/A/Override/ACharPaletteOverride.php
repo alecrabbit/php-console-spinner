@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette\A\Override;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
@@ -24,8 +25,8 @@ final class ACharPaletteOverride extends ACharPalette
         yield from $this->entries;
     }
 
-    protected function createFrame(string $element): ICharFrame
+    protected function createFrame(string $element, ?int $width = null): ICharFrame
     {
-        return new CharFrame($element, 1);
+        return new CharFrame($element, $width ?? 1);
     }
 }

@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
 use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use AlecRabbit\Spinner\Core\StyleFrame;
 use Traversable;
 
 use function sprintf;
@@ -21,6 +21,11 @@ final class Rainbow extends AStylePalette
         yield from [
             $this->createFrame("\e[96m%s\e[39m"),
         ];
+    }
+
+    protected function createFrame(string $element, ?int $width = null): IStyleFrame
+    {
+        return new StyleFrame($element, 0);
     }
 
     /**

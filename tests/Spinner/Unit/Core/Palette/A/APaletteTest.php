@@ -48,6 +48,17 @@ final class APaletteTest extends TestCase
     public function canGetOptions(): void
     {
         $options = $this->getPaletteOptionsMock();
+        $interval = 1337;
+        $options
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
+        $options
+            ->expects(self::once())
+            ->method('isReversed')
+            ->willReturn(true)
+        ;
 
         $palette = $this->getTesteeInstance(
             options: $options,
@@ -55,7 +66,10 @@ final class APaletteTest extends TestCase
 
         $mode = $this->getPaletteModeMock();
 
-        self::assertSame($options, $palette->getOptions($mode));
+        $resultOptions = $palette->getOptions($mode);
+
+        self::assertSame($interval, $resultOptions->getInterval());
+        self::assertTrue($resultOptions->isReversed());
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode

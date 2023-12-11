@@ -3,11 +3,14 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
+use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
 use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
+use AlecRabbit\Spinner\Core\StyleFrame;
 use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
@@ -22,19 +25,14 @@ $stylePalette =
             ];
         }
 
-        protected function ansi8StyleFrames(): Traversable
-        {
-            return $this->ansi4StyleFrames();
-        }
-
-        protected function ansi24StyleFrames(): Traversable
-        {
-            return $this->ansi4StyleFrames();
-        }
-
-        protected function getInterval(StylingMethodMode $stylingMode): ?int
+        protected function modeInterval(?IPaletteMode $mode = null): ?int
         {
             return null; // due to single style frame
+        }
+
+        protected function createFrame(string $element): IStyleFrame
+        {
+            return new StyleFrame($element, 0);
         }
     };
 

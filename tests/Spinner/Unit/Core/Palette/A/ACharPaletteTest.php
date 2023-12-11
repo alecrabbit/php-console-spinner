@@ -96,7 +96,7 @@ final class ACharPaletteTest extends TestCase
 
         self::assertInstanceOf(Generator::class, $traversable);
 
-        self::assertSame(100, $palette->getOptions()->getInterval());
+        self::assertSame(200, $palette->getOptions()->getInterval());
 
         $templateEntries = iterator_to_array($traversable);
 

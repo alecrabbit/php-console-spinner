@@ -7,8 +7,6 @@ namespace AlecRabbit\Spinner\Core\Palette\A;
 use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use Traversable;
 
 abstract class ACharPalette extends APalette implements ICharPalette
@@ -33,21 +31,10 @@ abstract class ACharPalette extends APalette implements ICharPalette
      */
     abstract protected function sequence(): Traversable;
 
-    abstract protected function createFrame(string $element): ICharFrame;
+    abstract protected function createFrame(string $element, ?int $width = null): ICharFrame;
 
-    public function getOptions(?IPaletteMode $mode = null): IPaletteOptions
+    protected function modeInterval(?IPaletteMode $mode = null): ?int
     {
-        $this->options =
-            new PaletteOptions(
-                interval: $this->options->getInterval() ?? $this->getInterval(),
-                reversed: $this->options->isReversed(),
-            );
-
-        return parent::getOptions($mode);
-    }
-
-    protected function getInterval(): ?int
-    {
-        return 100;
+        return 200;
     }
 }
