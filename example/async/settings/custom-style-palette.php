@@ -30,9 +30,9 @@ $stylePalette =
             return null; // due to single style frame
         }
 
-        protected function createFrame(string $element): IStyleFrame
+        protected function createFrame(string $element, ?int $width = null): IStyleFrame
         {
-            return new StyleFrame($element, 0);
+            return new StyleFrame($element, $width ?? 0);
         }
     };
 
