@@ -8,7 +8,7 @@
 
 ## <a name="usecases"></a> Use cases
 
-When to use spinners?
+When to use spinner?
 - You have a long-running process (e.g. searching for a specific hashtag) and you want to show that it is still running. 
 - Your application is waiting for an event.
 
