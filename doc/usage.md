@@ -8,9 +8,11 @@
 
 ## <a name="usecases"></a> Use cases
 
-When to use spinner?
-- You have a long-running process (e.g. searching for a specific hashtag) and you want to show that it is still running. 
-- Your application is waiting for an event.
+When to use a spinner:
+
+ - During long-running processes to visually indicate ongoing activity and reassure users that the operation is in progress.
+ - While your application is anticipating an event to provide a visual cue that the system is actively monitoring for the event.
+ - During software installation processes, the spinner can indicate that the installation is ongoing and the system is progressing with the setup.
 
 ## <a name="evl"></a> Usage with event loop - Asynchronous mode(default)
 
