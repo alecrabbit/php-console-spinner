@@ -50,7 +50,7 @@ $http = new React\Http\HttpServer(
                 $datetime,
                 $info
             )
-        )->withStatus(Fig\Http\Message\StatusCodeInterface::STATUS_NOT_FOUND);
+        )->withStatus(Fig\Http\Message\StatusCodeInterface::STATUS_OK);
     }
 );
 
