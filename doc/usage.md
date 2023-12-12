@@ -1,9 +1,16 @@
 [⬅️ to README.md](../README.md)
 # Usage
 
++ [Use cases](#usecases)
 + [Usage with event loop (Asynchronous mode)](#evl)
 + [Usage without event loop (Synchronous mode)](#no-evl)
 + [Custom palettes](#palettes)
+
+## <a name="usecases"></a> Use cases
+
+When to use spinners?
+- You have a long-running process (e.g. searching for a specific hashtag) and you want to show that it is still running. 
+- Your application is waiting for an event.
 
 ## <a name="evl"></a> Usage with event loop - Asynchronous mode(default)
 
@@ -42,9 +49,9 @@ There are four palettes supplied with the package:
 
 ```php
 class Dots extends ACharPalette {
-    protected function createFrame(string $element): ICharFrame
+    protected function createFrame(string $element, ?int $width = null): ICharFrame
     {
-        return new CharFrame($element, 3); // note the width is 3
+        return new CharFrame($element, $width ?? 3); // note the width is 3
     }
 
     /** @inheritDoc */
@@ -76,8 +83,8 @@ class Greeny extends AStylePalette {
     {
         return $this->ansi4StyleFrames();
     }
-
-    protected function getInterval(StylingMethodMode $stylingMode): ?int
+    
+    protected function modeInterval(?IPaletteMode $mode = null): ?int
     {
         return null; // due to single style frame
     }

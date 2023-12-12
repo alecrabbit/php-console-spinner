@@ -23,9 +23,9 @@ $options =
 
 $charPalette =
     new class($options) extends ACharPalette {
-        protected function createFrame(string $element): ICharFrame
+        protected function createFrame(string $element, ?int $width = null): ICharFrame
         {
-            return new CharFrame($element, 3); // note the width is 3
+            return new CharFrame($element, $width ?? 3); // note the width is 3
         }
 
         protected function sequence(): Traversable
