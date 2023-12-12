@@ -8,6 +8,9 @@ use AlecRabbit\Spinner\Probes;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
+$addr = '0.0.0.0:8080'; // Listen on all interfaces, port 8080
+
+// by default React\Http\HttpServer requires React\EventLoop\LoopInterface as event loop
 Probes::unregister(RevoltLoopProbe::class);
 
 $html = <<<HTML
@@ -53,8 +56,6 @@ $http = new React\Http\HttpServer(
         )->withStatus(Fig\Http\Message\StatusCodeInterface::STATUS_OK);
     }
 );
-
-$addr = '0.0.0.0:8080';
 
 $http->listen(new React\Socket\SocketServer($addr));
 
