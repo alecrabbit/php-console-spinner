@@ -75,15 +75,10 @@ class Greeny extends AStylePalette {
             $this->createFrame("\e[92m%s\e[39m"), // note the ANSI codes
         ];
     }
-
-    protected function ansi8StyleFrames(): Traversable
+    
+    protected function createFrame(string $element, ?int $width = null): IStyleFrame
     {
-        return $this->ansi4StyleFrames();
-    }
-
-    protected function ansi24StyleFrames(): Traversable
-    {
-        return $this->ansi4StyleFrames();
+        return new StyleFrame($element, $width ?? 0);
     }
     
     protected function modeInterval(?IPaletteMode $mode = null): ?int

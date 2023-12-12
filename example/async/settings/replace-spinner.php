@@ -18,7 +18,7 @@ require_once __DIR__ . '/../bootstrap.async.php';
 $spinnerOne = Facade::createSpinner();
 
 $charPalette =
-    new class(new PaletteOptions()) extends ACharPalette {
+    new class() extends ACharPalette {
         protected function createFrame(string $element, ?int $width = null): ICharFrame
         {
             return new CharFrame($element, $width ?? 3); // note the width is 3
