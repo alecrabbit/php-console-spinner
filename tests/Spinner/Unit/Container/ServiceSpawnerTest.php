@@ -14,6 +14,8 @@ use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Tests\Spinner\Unit\Container\Override\ClassForSpawner;
+use AlecRabbit\Tests\Spinner\Unit\Container\Override\ClassForSpawnerTwo;
+use AlecRabbit\Tests\Spinner\Unit\Container\Override\ClassForSpawnerUnionNotAllowingNull;
 use AlecRabbit\Tests\Spinner\Unit\Container\Override\ClassForSpawnerWithParameters;
 use AlecRabbit\Tests\Spinner\Unit\Container\Override\ClassForSpawnerWithParametersNoType;
 use AlecRabbit\Tests\Spinner\Unit\Container\Override\NonInstantiableClass;
@@ -126,7 +128,46 @@ final class ServiceSpawnerTest extends TestCase
             ->expects(self::once())
             ->method('create')
             ->with(
-                value: self::isInstanceOf(ClassForSpawner::class),
+                value: self::isInstanceOf($classString),
+                serviceDefinition: $serviceDefinition,
+            )
+            ->willReturn($service)
+        ;
+
+        $spawner = $this->getTesteeInstance(
+            serviceObjectFactory: $serviceObjectFactory,
+        );
+
+        $serviceDefinition
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn($classString)
+        ;
+        $serviceDefinition
+            ->expects(self::once())
+            ->method('getDefinition')
+            ->willReturn($classString)
+        ;
+
+        $serviceObject = $spawner->spawn($serviceDefinition);
+
+        self::assertSame($service, $serviceObject);
+    }
+
+    #[Test]
+    public function canSpawnWithClassStringTwo(): void
+    {
+        $classString = ClassForSpawnerTwo::class;
+
+        $service = $this->getServiceMock();
+        $serviceDefinition = $this->getServiceDefinitionMock();
+
+        $serviceObjectFactory = $this->getServiceObjectFactoryMock();
+        $serviceObjectFactory
+            ->expects(self::once())
+            ->method('create')
+            ->with(
+                value: self::isInstanceOf($classString),
                 serviceDefinition: $serviceDefinition,
             )
             ->willReturn($service)
@@ -299,6 +340,31 @@ final class ServiceSpawnerTest extends TestCase
         $this->expectExceptionMessage($exceptionMessage);
 
         $classString = NonInstantiableClass::class;
+
+        $spawner = $this->getTesteeInstance();
+
+        self::assertInstanceOf(ServiceSpawner::class, $spawner);
+
+        $serviceDefinition = new ServiceDefinition(
+            id: 'id',
+            definition: $classString,
+        );
+
+        $spawner->spawn($serviceDefinition);
+
+        self::fail(
+            self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
+        );
+    }
+#[Test]
+    public function throwsWhenUnableToSpawnByConstructorTwo(): void
+    {
+        $exceptionClass = SpawnFailed::class;
+        $exceptionMessage = 'Only "ReflectionNamedType" parameters are supported without default value.';
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $classString = ClassForSpawnerUnionNotAllowingNull::class;
 
         $spawner = $this->getTesteeInstance();
 

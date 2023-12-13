@@ -12,14 +12,13 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 
-final class WidgetFactory implements IWidgetFactory
+final readonly class WidgetFactory implements IWidgetFactory
 {
-    private null|IWidgetSettings|IWidgetConfig $widgetSettings = null;
-
     public function __construct(
-        private readonly IWidgetConfigFactory $widgetConfigFactory,
-        private readonly IWidgetRevolverFactory $widgetRevolverFactory,
-        private readonly IWidgetBuilder $widgetBuilder,
+        private IWidgetConfigFactory $widgetConfigFactory,
+        private IWidgetRevolverFactory $widgetRevolverFactory,
+        private IWidgetBuilder $widgetBuilder,
+        private null|IWidgetSettings|IWidgetConfig $widgetSettings = null,
     ) {
     }
 
@@ -33,8 +32,6 @@ final class WidgetFactory implements IWidgetFactory
                 $widgetConfig->getWidgetRevolverConfig()
             );
 
-        $this->widgetSettings = null;
-
         return $this->widgetBuilder
             ->withLeadingSpacer($widgetConfig->getLeadingSpacer())
             ->withTrailingSpacer($widgetConfig->getTrailingSpacer())
@@ -45,7 +42,11 @@ final class WidgetFactory implements IWidgetFactory
 
     public function using(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetFactory
     {
-        $this->widgetSettings = $widgetSettings;
-        return $this;
+        return new self(
+            widgetConfigFactory: $this->widgetConfigFactory,
+            widgetRevolverFactory: $this->widgetRevolverFactory,
+            widgetBuilder: $this->widgetBuilder,
+            widgetSettings: $widgetSettings,
+        );
     }
 }

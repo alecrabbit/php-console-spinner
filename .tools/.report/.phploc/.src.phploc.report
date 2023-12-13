@@ -4,11 +4,11 @@ Directories                                         80
 Files                                              424
 
 Size
-  Lines of Code (LOC)                            13829
+  Lines of Code (LOC)                            13831
   Comment Lines of Code (CLOC)                     780 (5.64%)
-  Non-Comment Lines of Code (NCLOC)              13049 (94.36%)
-  Logical Lines of Code (LLOC)                    1451 (10.49%)
-    Classes                                       1350 (93.04%)
+  Non-Comment Lines of Code (NCLOC)              13051 (94.36%)
+  Logical Lines of Code (LLOC)                    1448 (10.47%)
+    Classes                                       1347 (93.02%)
       Average Class Length                           3
         Minimum Class Length                         0
         Maximum Class Length                        27
@@ -20,7 +20,7 @@ Size
         Maximum Methods Per Class                   12
     Functions                                       38 (2.62%)
       Average Function Length                        1
-    Not in classes or functions                     63 (4.34%)
+    Not in classes or functions                     63 (4.35%)
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.33
@@ -36,12 +36,12 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                               620
-    Non-Static                                     604 (97.42%)
+  Attribute Accesses                               621
+    Non-Static                                     605 (97.42%)
     Static                                          16 (2.58%)
-  Method Calls                                     762
-    Non-Static                                     688 (90.29%)
-    Static                                          74 (9.71%)
+  Method Calls                                     763
+    Non-Static                                     689 (90.30%)
+    Static                                          74 (9.70%)
 
 Structure
   Namespaces                                        80
@@ -50,8 +50,8 @@ Structure
   Classes                                          207
     Abstract Classes                                14 (6.76%)
     Concrete Classes                               193 (93.24%)
-      Final Classes                                 70 (36.27%)
-      Non-Final Classes                            123 (63.73%)
+      Final Classes                                 69 (35.75%)
+      Non-Final Classes                            124 (64.25%)
   Methods                                          992
     Scope
       Non-Static Methods                           927 (93.45%)

@@ -121,6 +121,11 @@ final readonly class ServiceSpawner implements IServiceSpawner
             $parameters = [];
             foreach ($constructorParameters as $parameter) {
                 $name = $parameter->getName();
+                if($parameter->isDefaultValueAvailable()) {
+                    $parameters[$name] = $parameter->getDefaultValue();
+                    continue;
+                }
+
                 /** @var ReflectionNamedType|null $type */
                 $type = $parameter->getType();
                 if ($type === null) {
@@ -152,8 +157,9 @@ final readonly class ServiceSpawner implements IServiceSpawner
             $type instanceof ReflectionNamedType => !$type->isBuiltin(),
             default => throw new UnableToExtractType(
                 sprintf(
-                    'Only %s is supported.',
+                    'Only "%s" parameters are supported without default value. "%s" given.',
                     ReflectionNamedType::class,
+                    get_debug_type($type)
                 )
             ),
         };
