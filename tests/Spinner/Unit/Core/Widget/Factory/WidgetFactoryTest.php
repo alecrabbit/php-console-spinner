@@ -133,7 +133,7 @@ final class WidgetFactoryTest extends TestCase
         );
 
         self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
-        self::assertSame($widget, $widgetFactory->using($widgetConfig)->create());
+        self::assertSame($widget, $widgetFactory->usingSettings($widgetConfig)->create());
     }
 
     protected function getFrameMock(): MockObject&IFrame
@@ -236,7 +236,7 @@ final class WidgetFactoryTest extends TestCase
         );
 
         self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
-        self::assertSame($widget, $widgetFactory->using($widgetSettings)->create());
+        self::assertSame($widget, $widgetFactory->usingSettings($widgetSettings)->create());
     }
 
     protected function getWidgetSettingsMock(): MockObject&IWidgetSettings

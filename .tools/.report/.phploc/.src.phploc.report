@@ -4,26 +4,26 @@ Directories                                         80
 Files                                              424
 
 Size
-  Lines of Code (LOC)                            13831
-  Comment Lines of Code (CLOC)                     780 (5.64%)
-  Non-Comment Lines of Code (NCLOC)              13051 (94.36%)
-  Logical Lines of Code (LLOC)                    1448 (10.47%)
-    Classes                                       1347 (93.02%)
+  Lines of Code (LOC)                            13839
+  Comment Lines of Code (CLOC)                     782 (5.65%)
+  Non-Comment Lines of Code (NCLOC)              13057 (94.35%)
+  Logical Lines of Code (LLOC)                    1450 (10.48%)
+    Classes                                       1349 (93.03%)
       Average Class Length                           3
         Minimum Class Length                         0
         Maximum Class Length                        27
       Average Method Length                          1
         Minimum Method Length                        0
-        Maximum Method Length                       10
+        Maximum Method Length                       12
       Average Methods Per Class                      2
         Minimum Methods Per Class                    0
         Maximum Methods Per Class                   12
     Functions                                       38 (2.62%)
       Average Function Length                        1
-    Not in classes or functions                     63 (4.35%)
+    Not in classes or functions                     63 (4.34%)
 
 Cyclomatic Complexity
-  Average Complexity per LLOC                     0.33
+  Average Complexity per LLOC                     0.34
   Average Complexity per Class                    2.06
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     21.00
@@ -39,9 +39,9 @@ Dependencies
   Attribute Accesses                               621
     Non-Static                                     605 (97.42%)
     Static                                          16 (2.58%)
-  Method Calls                                     763
-    Non-Static                                     689 (90.30%)
-    Static                                          74 (9.70%)
+  Method Calls                                     764
+    Non-Static                                     690 (90.31%)
+    Static                                          74 (9.69%)
 
 Structure
   Namespaces                                        80

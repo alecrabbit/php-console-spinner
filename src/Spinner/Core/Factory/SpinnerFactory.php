@@ -36,7 +36,7 @@ final readonly class SpinnerFactory implements ISpinnerFactory
         $widgetConfig = $this->widgetConfigFactory->create($widgetSettings);
 
         return $this->widgetFactory
-            ->using($widgetConfig)
+            ->usingSettings($widgetConfig)
             ->create();
     }
 }

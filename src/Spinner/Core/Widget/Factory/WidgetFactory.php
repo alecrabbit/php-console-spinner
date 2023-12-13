@@ -40,7 +40,7 @@ final readonly class WidgetFactory implements IWidgetFactory
         ;
     }
 
-    public function using(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetFactory
+    public function usingSettings(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetFactory
     {
         return new self(
             widgetConfigFactory: $this->widgetConfigFactory,

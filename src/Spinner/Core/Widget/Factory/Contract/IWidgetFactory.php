@@ -12,5 +12,5 @@ interface IWidgetFactory
 {
     public function create(): IWidget;
 
-    public function using(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetFactory;
+    public function usingSettings(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetFactory;
 }

@@ -110,7 +110,7 @@ final class FacadeSettingsWidgetSettingsSpinnerTest extends ContainerModifyingTe
                     return $this->widget;
                 }
 
-                public function using(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetFactory
+                public function usingSettings(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetFactory
                 {
                     $this->widgetSettings = $widgetSettings;
                     return $this;

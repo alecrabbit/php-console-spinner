@@ -58,7 +58,7 @@ final class SpinnerFactoryTest extends TestCase
         $widgetFactory = $this->getWidgetFactoryMock();
         $widgetFactory
             ->expects(self::once())
-            ->method('using')
+            ->method('usingSettings')
             ->with(self::identicalTo($widgetConfig))
             ->willReturnSelf();
         $widgetFactory
@@ -114,7 +114,7 @@ final class SpinnerFactoryTest extends TestCase
         $widgetFactory = $this->getWidgetFactoryMock();
         $widgetFactory
             ->expects(self::once())
-            ->method('using')
+            ->method('usingSettings')
             ->with(self::identicalTo($widgetConfig))
             ->willReturnSelf()
         ;
