@@ -5,8 +5,8 @@
 * [Usage with event loop - Asynchronous mode(default)](#usage-with-event-loop---asynchronous-modedefault)
 * [Usage without event loop - Synchronous mode](#usage-without-event-loop---synchronous-mode)
 * [Custom palettes](#custom-palettes)
-  * [How to create your own character palette](#custom-palettes)
-  * [How to create your own style palette](#custom-palettes)
+  * [How to create your own character palette](#how-to-create-your-own-character-palette)
+  * [How to create your own style palette](#how-to-create-your-own-style-palette)
 
 ## Use cases
 
