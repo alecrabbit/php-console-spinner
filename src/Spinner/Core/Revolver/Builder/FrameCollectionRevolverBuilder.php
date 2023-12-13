@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Revolver\Builder;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
@@ -46,6 +47,8 @@ final class FrameCollectionRevolverBuilder implements IFrameCollectionRevolverBu
             default => null,
         };
     }
+
+    /** @inheritDoc */
 
     public function withFrames(IFrameCollection|Traversable $frames): IFrameCollectionRevolverBuilder
     {

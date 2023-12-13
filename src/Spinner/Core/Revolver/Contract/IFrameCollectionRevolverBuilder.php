@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Revolver\Contract;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
@@ -20,6 +21,8 @@ interface IFrameCollectionRevolverBuilder extends IFrameRevolverBuilder
     public function build(): IFrameCollectionRevolver;
 
     /**
+     * @param IFrameCollection|Traversable<IFrame> $frames
+     * @return IFrameCollectionRevolverBuilder
      * @throws InvalidArgument
      */
     public function withFrames(IFrameCollection|Traversable $frames): IFrameCollectionRevolverBuilder;
