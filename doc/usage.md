@@ -2,9 +2,11 @@
 # Usage
 
 * [Use cases](#use-cases)
-* [Usage with event loop - Asynchronous mode(default)](#with-event-loop)
-* [Usage without event loop - Synchronous mode](#without-event-loop)
-* [Custom palettes](#palettes)
+* [Usage with event loop - Asynchronous mode(default)](#usage-with-event-loop---asynchronous-modedefault)
+* [Usage without event loop - Synchronous mode](#usage-without-event-loop---synchronous-mode)
+* [Custom palettes](#custom-palettes)
+  * [How to create your own character palette](#custom-palettes)
+  * [How to create your own style palette](#custom-palettes)
 
 ## Use cases
 
