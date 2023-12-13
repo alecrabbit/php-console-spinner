@@ -1,14 +1,14 @@
 phploc 7.0.2 by Sebastian Bergmann.
 
 Directories                                         78
-Files                                              275
+Files                                              277
 
 Size
-  Lines of Code (LOC)                            31025
+  Lines of Code (LOC)                            31202
   Comment Lines of Code (CLOC)                     361 (1.16%)
-  Non-Comment Lines of Code (NCLOC)              30664 (98.84%)
-  Logical Lines of Code (LLOC)                    6817 (21.97%)
-    Classes                                       6809 (99.88%)
+  Non-Comment Lines of Code (NCLOC)              30841 (98.84%)
+  Logical Lines of Code (LLOC)                    6859 (21.98%)
+    Classes                                       6851 (99.88%)
       Average Class Length                          24
         Minimum Class Length                         0
         Maximum Class Length                       869
@@ -24,7 +24,7 @@ Size
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.07
-  Average Complexity per Class                    2.62
+  Average Complexity per Class                    2.63
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     16.00
   Average Complexity per Method                   1.26
@@ -36,30 +36,30 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                                28
-    Non-Static                                      23 (82.14%)
-    Static                                           5 (17.86%)
-  Method Calls                                    9333
-    Non-Static                                    6169 (66.10%)
-    Static                                        3164 (33.90%)
+  Attribute Accesses                                35
+    Non-Static                                      30 (85.71%)
+    Static                                           5 (14.29%)
+  Method Calls                                    9384
+    Non-Static                                    6205 (66.12%)
+    Static                                        3179 (33.88%)
 
 Structure
   Namespaces                                        78
   Interfaces                                         1
   Traits                                             1
-  Classes                                          272
-    Abstract Classes                                 5 (1.84%)
-    Concrete Classes                               267 (98.16%)
-      Final Classes                                257 (96.25%)
-      Non-Final Classes                             10 (3.75%)
-  Methods                                         1770
+  Classes                                          274
+    Abstract Classes                                 5 (1.82%)
+    Concrete Classes                               269 (98.18%)
+      Final Classes                                259 (96.28%)
+      Non-Final Classes                             10 (3.72%)
+  Methods                                         1783
     Scope
-      Non-Static Methods                          1666 (94.12%)
-      Static Methods                               104 (5.88%)
+      Non-Static Methods                          1679 (94.17%)
+      Static Methods                               104 (5.83%)
     Visibility
-      Public Methods                              1048 (59.21%)
-      Protected Methods                            311 (17.57%)
-      Private Methods                              411 (23.22%)
+      Public Methods                              1055 (59.17%)
+      Protected Methods                            313 (17.55%)
+      Private Methods                              415 (23.28%)
   Functions                                         91
     Named Functions                                  2 (2.20%)
     Anonymous Functions                             89 (97.80%)

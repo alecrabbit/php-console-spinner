@@ -1,12 +1,12 @@
 [⬅️ to README.md](../README.md)
 # Usage
 
-+ [Use cases](#usecases)
-+ [Usage with event loop (Asynchronous mode)](#evl)
-+ [Usage without event loop (Synchronous mode)](#no-evl)
-+ [Custom palettes](#palettes)
+* [Use cases](#use-cases)
+* [Usage with event loop - Asynchronous mode(default)](#with-event-loop)
+* [Usage without event loop - Synchronous mode](#without-event-loop)
+* [Custom palettes](#palettes)
 
-## <a name="usecases"></a> Use cases
+## Use cases
 
 When to use a spinner:
 
@@ -14,7 +14,7 @@ When to use a spinner:
  - While your application is anticipating an event to provide a visual cue that the system is actively monitoring for the event.
  - During software installation processes, the spinner can indicate that the installation is ongoing and the system is progressing with the setup.
 
-## <a name="evl"></a> Usage with event loop - Asynchronous mode(default)
+## Usage with event loop - Asynchronous mode(default)
 
 ```php
 use AlecRabbit\Spinner\Facade;
@@ -22,7 +22,7 @@ use AlecRabbit\Spinner\Facade;
 $spinner = Facade::createSpinner();
 ```
 
-## <a name="no-evl"></a> Usage without event loop - Synchronous mode
+## Usage without event loop - Synchronous mode
 
 In synchronous mode usage is a bit more complicated. Simply speaking, you need to periodically call `render()` method of `IDriver` implementation.
 
@@ -39,7 +39,7 @@ while (true) {
 }
 ```
 
-## <a name="palettes"></a> Custom palettes
+## Custom palettes
 
 There are four palettes supplied with the package: 
 - Rainbow (style)

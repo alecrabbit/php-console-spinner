@@ -63,6 +63,7 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
     {
         return
             new class($widget, $test) implements IWidgetFactory {
+                private IWidgetConfig|IWidgetSettings|null $widgetSettings = null;
 
                 public function __construct(
                     private readonly IWidget $widget,
@@ -70,12 +71,16 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
                 ) {
                 }
 
-                public function create(
-                    IWidgetConfig|IWidgetSettings|null $widgetSettings = null,
-                ): IWidget {
-                    ($this->test)($widgetSettings);
-
+                public function create(): IWidget {
+                    ($this->test)($this->widgetSettings);
+                    $this->widgetSettings = null;
                     return $this->widget;
+                }
+
+                public function using(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetFactory
+                {
+                    $this->widgetSettings = $widgetSettings;
+                    return $this;
                 }
             };
     }
