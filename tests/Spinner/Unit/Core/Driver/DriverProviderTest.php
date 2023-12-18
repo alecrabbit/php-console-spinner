@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
-use AlecRabbit\Spinner\Core\DriverProvider;
+use AlecRabbit\Spinner\Core\Driver\DriverProvider;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

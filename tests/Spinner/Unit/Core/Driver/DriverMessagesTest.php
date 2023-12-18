@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
-use AlecRabbit\Spinner\Core\DriverMessages;
+use AlecRabbit\Spinner\Core\Driver\DriverMessages;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 

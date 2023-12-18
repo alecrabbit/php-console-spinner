@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver\DriverTest;
 
-use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Core\Driver\Driver;
 use AlecRabbit\Spinner\Core\Interval;
 use PHPUnit\Framework\Attributes\Test;
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Core\Driver\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\DriverLinker;
-use AlecRabbit\Spinner\Core\DummyDriverLinker;
+use AlecRabbit\Spinner\Core\Driver\DriverLinker;
+use AlecRabbit\Spinner\Core\Driver\DummyDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\ILinkerResolver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;

@@ -8,7 +8,7 @@ use AlecRabbit\Lib\Spinner\Contract\Factory\IDriverLinkerDecoratorFactory;
 use AlecRabbit\Lib\Spinner\Core\DriverLinkerDecorator;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\DummyDriverLinker;
+use AlecRabbit\Spinner\Core\Driver\DummyDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 
 final readonly class DriverLinkerDecoratorFactory implements IDriverLinkerDecoratorFactory
