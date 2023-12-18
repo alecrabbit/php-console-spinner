@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Output\Contract\Factory;
 
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 
-interface IResourceStreamFactory
+interface IWritableStreamFactory
 {
     public function create(): IWritableStream;
 }

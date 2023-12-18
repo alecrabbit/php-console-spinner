@@ -5,27 +5,27 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Output\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
-use AlecRabbit\Spinner\Core\Output\Contract\Factory\IResourceStreamFactory;
-use AlecRabbit\Spinner\Core\Output\Factory\ResourceStreamFactory;
+use AlecRabbit\Spinner\Core\Output\Contract\Factory\IWritableStreamFactory;
+use AlecRabbit\Spinner\Core\Output\Factory\WritableStreamFactory;
 use AlecRabbit\Spinner\Core\Output\WritableStream;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ResourceStreamFactoryTest extends TestCase
+final class WritableStreamFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $factory = $this->getTesteeInstance();
-        self::assertInstanceOf(ResourceStreamFactory::class, $factory);
+        self::assertInstanceOf(WritableStreamFactory::class, $factory);
     }
 
     public function getTesteeInstance(
         ?IOutputConfig $outputConfig = null,
-    ): IResourceStreamFactory {
+    ): IWritableStreamFactory {
         return
-            new ResourceStreamFactory(
+            new WritableStreamFactory(
                 outputConfig: $outputConfig ?? $this->getOutputConfigMock(),
             );
     }

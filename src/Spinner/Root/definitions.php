@@ -167,10 +167,10 @@ use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
 use AlecRabbit\Spinner\Core\Output\BufferedOutput;
-use AlecRabbit\Spinner\Core\Output\Contract\Factory\IResourceStreamFactory;
+use AlecRabbit\Spinner\Core\Output\Contract\Factory\IWritableStreamFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
-use AlecRabbit\Spinner\Core\Output\Factory\ResourceStreamFactory;
+use AlecRabbit\Spinner\Core\Output\Factory\WritableStreamFactory;
 use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
 use AlecRabbit\Spinner\Core\Palette\Builder\Contract\IPaletteTemplateBuilder;
@@ -233,7 +233,7 @@ function getDefinitions(): Traversable
         new ServiceDefinition(
             IWritableStream::class,
             static function (IContainer $container): IWritableStream {
-                return $container->get(IResourceStreamFactory::class)->create();
+                return $container->get(IWritableStreamFactory::class)->create();
             },
             IServiceDefinition::SINGLETON,
         ),
@@ -424,7 +424,7 @@ function factories(): Traversable
         IDriverConfigFactory::class => DriverConfigFactory::class,
         ILoopProviderFactory::class => LoopProviderFactory::class,
         IDriverProviderFactory::class => DriverProviderFactory::class,
-        IResourceStreamFactory::class => ResourceStreamFactory::class,
+        IWritableStreamFactory::class => WritableStreamFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConsoleCursorFactory::class => ConsoleCursorFactory::class,
         IDefaultSettingsFactory::class => DefaultSettingsFactory::class,

@@ -6,10 +6,10 @@ namespace AlecRabbit\Spinner\Core\Output\Factory;
 
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
-use AlecRabbit\Spinner\Core\Output\Contract\Factory\IResourceStreamFactory;
+use AlecRabbit\Spinner\Core\Output\Contract\Factory\IWritableStreamFactory;
 use AlecRabbit\Spinner\Core\Output\WritableStream;
 
-final class ResourceStreamFactory implements IResourceStreamFactory
+final class WritableStreamFactory implements IWritableStreamFactory
 {
     public function __construct(
         protected IOutputConfig $outputConfig,
