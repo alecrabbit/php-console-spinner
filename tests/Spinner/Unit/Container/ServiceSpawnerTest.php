@@ -356,7 +356,8 @@ final class ServiceSpawnerTest extends TestCase
             self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
         );
     }
-#[Test]
+
+    #[Test]
     public function throwsWhenUnableToSpawnByConstructorTwo(): void
     {
         $exceptionClass = SpawnFailed::class;

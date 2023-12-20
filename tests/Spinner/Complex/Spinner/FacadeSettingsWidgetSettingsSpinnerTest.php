@@ -104,7 +104,8 @@ final class FacadeSettingsWidgetSettingsSpinnerTest extends ContainerModifyingTe
                 ) {
                 }
 
-                public function create(): IWidget {
+                public function create(): IWidget
+                {
                     ($this->test)($this->widgetSettings);
                     $this->widgetSettings = null;
                     return $this->widget;

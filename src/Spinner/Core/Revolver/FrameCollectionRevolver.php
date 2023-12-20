@@ -21,7 +21,7 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
         parent::__construct($interval, $tolerance);
     }
 
-    protected function next(?float $dt = null): void
+    protected function next(): void
     {
         $this->frameCollection->next();
     }

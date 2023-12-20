@@ -60,7 +60,8 @@ final class SpinnerFactoryTest extends TestCase
             ->expects(self::once())
             ->method('usingSettings')
             ->with(self::identicalTo($widgetConfig))
-            ->willReturnSelf();
+            ->willReturnSelf()
+        ;
         $widgetFactory
             ->expects(self::once())
             ->method('create')

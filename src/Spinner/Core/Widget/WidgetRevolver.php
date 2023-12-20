@@ -12,10 +12,11 @@ use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
-use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetRevolver extends ARevolver implements IWidgetRevolver
 {
+    private ?float $dt = null;
+
     public function __construct(
         private readonly IRevolver $style,
         private readonly IRevolver $character,
@@ -31,10 +32,22 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
         );
     }
 
-    public function getFrame(?float $dt = null): IFrame
+    protected function shouldUpdate(?float $dt = null): bool
     {
-        $style = $this->style->getFrame($dt);
-        $char = $this->character->getFrame($dt);
+        $this->dt = $dt;
+        return true;
+    }
+
+    protected function next(): void
+    {
+        // do nothing
+    }
+
+    protected function current(): IFrame
+    {
+        $style = $this->style->getFrame($this->dt);
+        $char = $this->character->getFrame($this->dt);
+        
         return $this->createFrame(
             sprintf($style->getSequence(), $char->getSequence()),
             $style->getWidth() + $char->getWidth()
@@ -45,26 +58,4 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
     {
         return new CharFrame($sequence, $width);
     }
-
-    // @codeCoverageIgnoreStart
-    protected function next(?float $dt = null): void
-    {
-        throw new LogicException(
-            sprintf(
-                'Method %s() should never be called.',
-                __METHOD__
-            )
-        );
-    }
-
-    protected function current(): IFrame
-    {
-        throw new LogicException(
-            sprintf(
-                'Method %s() should never be called.',
-                __METHOD__
-            )
-        );
-    }
-    // @codeCoverageIgnoreEnd
 }

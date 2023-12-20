@@ -32,14 +32,11 @@ abstract class ARevolver implements IRevolver
     public function getFrame(?float $dt = null): IFrame
     {
         if ($this->shouldUpdate($dt)) {
-            $this->next($dt);
+            $this->next();
         }
         return $this->current();
     }
 
-    /**
-     * @param float|null $dt delta time(milliseconds), time passed since last update
-     */
     protected function shouldUpdate(?float $dt = null): bool
     {
         if ($dt === null || $this->intervalValue <= ($dt + $this->deltaTolerance) || $this->diff <= 0) {
@@ -50,7 +47,7 @@ abstract class ARevolver implements IRevolver
         return false;
     }
 
-    abstract protected function next(?float $dt = null): void;
+    abstract protected function next(): void;
 
     abstract protected function current(): IFrame;
 }

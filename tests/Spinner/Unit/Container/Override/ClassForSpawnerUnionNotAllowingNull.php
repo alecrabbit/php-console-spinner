@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Spinner\Unit\Container\Override;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 
 final class ClassForSpawnerUnionNotAllowingNull
 {

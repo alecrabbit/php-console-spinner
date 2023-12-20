@@ -122,7 +122,7 @@ final readonly class ServiceSpawner implements IServiceSpawner
             $parameters = [];
             foreach ($constructorParameters as $parameter) {
                 $name = $parameter->getName();
-                if($parameter->isDefaultValueAvailable()) {
+                if ($parameter->isDefaultValueAvailable()) {
                     /** @psalm-suppress MixedAssignment */
                     $parameters[$name] = $parameter->getDefaultValue();
                     continue;

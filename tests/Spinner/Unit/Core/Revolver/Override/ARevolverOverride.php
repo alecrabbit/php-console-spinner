@@ -19,10 +19,13 @@ final class ARevolverOverride extends ARevolver
         parent::__construct($interval, $tolerance);
     }
 
-    protected function next(?float $dt = null): void
+    protected function next(): void
     {
-        $this->frame->getSequence(); // simulating frame update
-        $this->frame->getWidth(); // simulating frame update
+        {
+            // simulating frame update
+            $this->frame->getSequence();
+            $this->frame->getWidth();
+        }
     }
 
     protected function current(): IFrame
