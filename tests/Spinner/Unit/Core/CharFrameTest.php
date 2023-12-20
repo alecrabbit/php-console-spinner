@@ -74,22 +74,4 @@ final class CharFrameTest extends TestCase
     {
         return new CharFrame(...$args);
     }
-
-    #[Test]
-    public function createEmpty(): void
-    {
-        $frame = CharFrame::createEmpty();
-
-        self::assertSame('', $frame->getSequence());
-        self::assertSame(0, $frame->getWidth());
-    }
-
-    #[Test]
-    public function createSpace(): void
-    {
-        $frame = CharFrame::createSpace();
-
-        self::assertSame(' ', $frame->getSequence());
-        self::assertSame(1, $frame->getWidth());
-    }
 }
