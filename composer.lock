@@ -3488,16 +3488,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v7.0.0",
+            "version": "v7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "cf0220fc7607476fd0d001ab3ed9e830d1fdda56"
+                "reference": "5f6f1a527002068f6d40fda068399220eabebf71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/cf0220fc7607476fd0d001ab3ed9e830d1fdda56",
-                "reference": "cf0220fc7607476fd0d001ab3ed9e830d1fdda56",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/5f6f1a527002068f6d40fda068399220eabebf71",
+                "reference": "5f6f1a527002068f6d40fda068399220eabebf71",
                 "shasum": ""
             },
             "require": {
@@ -3551,7 +3551,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v7.0.0"
+                "source": "https://github.com/symfony/var-dumper/tree/v7.0.2"
             },
             "funding": [
                 {
@@ -3567,7 +3567,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-27T12:39:18+00:00"
+            "time": "2023-12-28T19:18:20+00:00"
         },
         {
             "name": "theseer/tokenizer",
