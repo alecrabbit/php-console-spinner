@@ -15,11 +15,11 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 final readonly class OutputConfigFactory implements IOutputConfigFactory
 {
     public function __construct(
-        protected IStylingMethodModeSolver $stylingMethodModeSolver,
-        protected ICursorVisibilityModeSolver $cursorVisibilityModeSolver,
-        protected IInitializationModeSolver $initializationModeSolver,
-        protected IStreamSolver $streamSolver,
-        protected IOutputConfigBuilder $outputConfigBuilder,
+        private IStylingMethodModeSolver $stylingMethodModeSolver,
+        private ICursorVisibilityModeSolver $cursorVisibilityModeSolver,
+        private IInitializationModeSolver $initializationModeSolver,
+        private IStreamSolver $streamSolver,
+        private IOutputConfigBuilder $outputConfigBuilder,
     ) {
     }
 
