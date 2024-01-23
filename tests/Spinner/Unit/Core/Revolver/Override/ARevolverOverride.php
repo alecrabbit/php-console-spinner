@@ -19,7 +19,7 @@ final class ARevolverOverride extends ARevolver
         parent::__construct($interval, $tolerance);
     }
 
-    protected function next(): void
+    protected function next(?float $dt = null): void
     {
         {
             // simulating frame update

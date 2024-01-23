@@ -32,7 +32,7 @@ abstract class ARevolver implements IRevolver
     public function getFrame(?float $dt = null): IFrame
     {
         if ($this->shouldUpdate($dt)) {
-            $this->next();
+            $this->next($dt);
         }
         return $this->current();
     }
@@ -47,7 +47,7 @@ abstract class ARevolver implements IRevolver
         return false;
     }
 
-    abstract protected function next(): void;
+    abstract protected function next(?float $dt = null): void;
 
     abstract protected function current(): IFrame;
 }

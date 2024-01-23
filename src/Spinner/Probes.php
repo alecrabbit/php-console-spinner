@@ -79,7 +79,7 @@ final class Probes
     /**
      * Loads all registered probes matching filter. If filter is not specified, all registered probes will be loaded.
      * Note that the order of loading is reversed.
-     *     *
+     *
      *
      * @template TProbe of T
      *

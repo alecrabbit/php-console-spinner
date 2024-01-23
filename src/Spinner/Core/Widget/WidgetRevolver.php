@@ -38,7 +38,7 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
         return true;
     }
 
-    protected function next(): void
+    protected function next(?float $dt = null): void
     {
         // do nothing
     }

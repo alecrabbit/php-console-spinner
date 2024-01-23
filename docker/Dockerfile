@@ -1,5 +1,5 @@
 # Note: This Dockerfile creates a general purpose development image.
-FROM php:8.2-cli-alpine
+FROM php:8.3-cli-alpine
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
@@ -8,7 +8,7 @@ ARG EXT_EVENT_VERSION=3.0.8
 ARG EXT_MONGODB_VERSION=1.16.2
 ARG EXT_REDIS_VERSION=5.3.7
 ARG EXT_UUID_VERSION=1.2.0
-ARG EXT_XDEBUG_VERSION=3.2.2
+ARG EXT_XDEBUG_VERSION=3.3.1
 
 ARG WORKING_DIR=/app
 
