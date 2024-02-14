@@ -15,8 +15,6 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 
 final class WidgetRevolver extends ARevolver implements IWidgetRevolver
 {
-    private ?float $dt = null;
-
     public function __construct(
         private readonly IRevolver $style,
         private readonly IRevolver $character,
@@ -32,30 +30,19 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
         );
     }
 
-    protected function shouldUpdate(?float $dt = null): bool
+    private function createFrame(string $sequence, int $width): ICharFrame
     {
-        $this->dt = $dt;
-        return true;
+        return new CharFrame($sequence, $width);
     }
 
-    protected function next(?float $dt = null): void
+    public function getFrame(?float $dt = null): IFrame
     {
-        // do nothing
-    }
+        $style = $this->style->getFrame($dt);
+        $char = $this->character->getFrame($dt);
 
-    protected function current(): IFrame
-    {
-        $style = $this->style->getFrame($this->dt);
-        $char = $this->character->getFrame($this->dt);
-        
         return $this->createFrame(
             sprintf($style->getSequence(), $char->getSequence()),
             $style->getWidth() + $char->getWidth()
         );
-    }
-
-    private function createFrame(string $sequence, int $width): ICharFrame
-    {
-        return new CharFrame($sequence, $width);
     }
 }
