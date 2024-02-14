@@ -26,13 +26,11 @@ final class ARevolverTest extends TestCase
     public function getTesteeInstance(
         ?IFrame $frame = null,
         ?IInterval $interval = null,
-        ?ITolerance $tolerance = null,
     ): IRevolver {
         return
             new ARevolverOverride(
                 frame: $frame ?? $this->getFrameMock(),
                 interval: $interval ?? $this->getIntervalMock(),
-                tolerance: $tolerance ?? $this->getToleranceMock(),
             );
     }
 
@@ -49,37 +47,6 @@ final class ARevolverTest extends TestCase
     private function getToleranceMock(): MockObject&ITolerance
     {
         return $this->createMock(ITolerance::class);
-    }
-
-    #[Test]
-    public function initializedDuringCreate(): void
-    {
-        $intervalValue = 10.0;
-        $deltaTolerance = 5;
-
-        $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('toMilliseconds')
-            ->willReturn($intervalValue)
-        ;
-        $tolerance = $this->getToleranceMock();
-        $tolerance
-            ->expects(self::once())
-            ->method('toMilliseconds')
-            ->willReturn($deltaTolerance)
-        ;
-
-        $revolver = $this->getTesteeInstance(
-            interval: $interval,
-            tolerance: $tolerance,
-        );
-
-        $extractedIntervalValue = self::getPropertyValue('intervalValue', $revolver);
-        $extractedDeltaTolerance = self::getPropertyValue('deltaTolerance', $revolver);
-
-        self::assertSame($intervalValue, $extractedIntervalValue);
-        self::assertSame($deltaTolerance, $extractedDeltaTolerance);
     }
 
     #[Test]
@@ -102,89 +69,11 @@ final class ARevolverTest extends TestCase
             ->expects(self::once())
             ->method('getWidth')
         ;
-        $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('toMilliseconds')
-            ->willReturn(100.0)
-        ;
 
         $revolver = $this->getTesteeInstance(
             frame: $frame,
-            interval: $interval,
         );
 
         self::assertSame($frame, $revolver->getFrame()); // no arg is for calling next()
-    }
-
-    #[Test]
-    public function canGetFrameInToleranceRange(): void
-    {
-        $frame = $this->getFrameMock();
-        $frame
-            ->expects(self::once())
-            ->method('getSequence')
-        ;
-        $frame
-            ->expects(self::once())
-            ->method('getWidth')
-        ;
-        $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('toMilliseconds')
-            ->willReturn(100.0)
-        ;
-        $tolerance = $this->getToleranceMock();
-        $tolerance
-            ->expects(self::once())
-            ->method('toMilliseconds')
-            ->willReturn(10)
-        ;
-
-        $revolver = $this->getTesteeInstance(
-            frame: $frame,
-            interval: $interval,
-            tolerance: $tolerance,
-        );
-
-        self::assertSame($frame, $revolver->getFrame(90.0)); // calls `next()`
-        self::assertSame($frame, $revolver->getFrame(80.0)); // does not call `next()`
-    }
-
-    #[Test]
-    public function canGetFrameIfDiffIsBelowZero(): void
-    {
-        $frame = $this->getFrameMock();
-        $frame
-            ->expects(self::once())
-            ->method('getSequence')
-        ;
-        $frame
-            ->expects(self::once())
-            ->method('getWidth')
-        ;
-        $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('toMilliseconds')
-            ->willReturn(100.0)
-        ;
-        $tolerance = $this->getToleranceMock();
-        $tolerance
-            ->expects(self::once())
-            ->method('toMilliseconds')
-            ->willReturn(0)
-        ;
-
-        $revolver = $this->getTesteeInstance(
-            frame: $frame,
-            interval: $interval,
-            tolerance: $tolerance,
-        );
-
-        self::assertSame($frame, $revolver->getFrame(99.0)); // does not call `next()`
-        self::assertSame($frame, $revolver->getFrame(1.0)); // calls `next()`
-        self::assertSame($frame, $revolver->getFrame(99.0)); // does not call `next()`
     }
 }

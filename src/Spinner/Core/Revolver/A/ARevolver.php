@@ -12,16 +12,9 @@ use AlecRabbit\Spinner\Core\Revolver\Tolerance;
 
 abstract class ARevolver implements IRevolver
 {
-    protected readonly int $deltaTolerance;
-    protected float $diff;
-    protected readonly float $intervalValue;
-
     public function __construct(
         protected IInterval $interval,
-        protected ITolerance $tolerance = new Tolerance(),
     ) {
-        $this->deltaTolerance = $this->tolerance->toMilliseconds();
-        $this->diff = $this->intervalValue = $interval->toMilliseconds();
     }
 
     public function getInterval(): IInterval

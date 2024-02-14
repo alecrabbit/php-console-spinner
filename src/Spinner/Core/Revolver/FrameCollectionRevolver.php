@@ -13,12 +13,19 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 
 final class FrameCollectionRevolver extends ARevolver implements IFrameCollectionRevolver
 {
+    protected readonly int $deltaTolerance;
+    protected float $diff;
+    protected readonly float $intervalValue;
+
     public function __construct(
         protected IFrameCollection $frameCollection,
         IInterval $interval,
-        ITolerance $tolerance,
+        protected ITolerance $tolerance = new Tolerance(),
     ) {
-        parent::__construct($interval, $tolerance);
+        parent::__construct($interval);
+        $this->deltaTolerance = $this->tolerance->toMilliseconds();
+        $this->intervalValue = $interval->toMilliseconds();
+        $this->diff = $this->intervalValue;
     }
 
     public function getFrame(?float $dt = null): IFrame
