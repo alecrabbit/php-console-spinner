@@ -12,14 +12,14 @@ use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 final class ARevolverOverride extends ARevolver
 {
     public function __construct(
-        protected IFrame $frame,
+        private IFrame $frame,
         IInterval $interval,
         ITolerance $tolerance,
     ) {
         parent::__construct($interval, $tolerance);
     }
 
-    protected function next(?float $dt = null): void
+    private function next(?float $dt = null): void
     {
         {
             // simulating frame update
@@ -28,8 +28,26 @@ final class ARevolverOverride extends ARevolver
         }
     }
 
-    protected function current(): IFrame
+    private function current(): IFrame
     {
         return $this->frame;
+    }
+
+    public function getFrame(?float $dt = null): IFrame
+    {
+        if ($this->shouldUpdate($dt)) {
+            $this->next($dt);
+        }
+        return $this->current();
+    }
+
+    private function shouldUpdate(?float $dt = null): bool
+    {
+        if ($dt === null || $this->intervalValue <= ($dt + $this->deltaTolerance) || $this->diff <= 0) {
+            $this->diff = $this->intervalValue;
+            return true;
+        }
+        $this->diff -= $dt;
+        return false;
     }
 }

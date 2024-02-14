@@ -29,25 +29,5 @@ abstract class ARevolver implements IRevolver
         return $this->interval;
     }
 
-    public function getFrame(?float $dt = null): IFrame
-    {
-        if ($this->shouldUpdate($dt)) {
-            $this->next($dt);
-        }
-        return $this->current();
-    }
-
-    protected function shouldUpdate(?float $dt = null): bool
-    {
-        if ($dt === null || $this->intervalValue <= ($dt + $this->deltaTolerance) || $this->diff <= 0) {
-            $this->diff = $this->intervalValue;
-            return true;
-        }
-        $this->diff -= $dt;
-        return false;
-    }
-
-    abstract protected function next(?float $dt = null): void;
-
-    abstract protected function current(): IFrame;
+    abstract public function getFrame(?float $dt = null): IFrame;
 }

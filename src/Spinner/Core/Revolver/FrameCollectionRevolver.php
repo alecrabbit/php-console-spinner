@@ -21,12 +21,30 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
         parent::__construct($interval, $tolerance);
     }
 
-    protected function next(?float $dt = null): void
+    public function getFrame(?float $dt = null): IFrame
+    {
+        if ($this->shouldUpdate($dt)) {
+            $this->next($dt);
+        }
+        return $this->current();
+    }
+
+    private function shouldUpdate(?float $dt = null): bool
+    {
+        if ($dt === null || $this->intervalValue <= ($dt + $this->deltaTolerance) || $this->diff <= 0) {
+            $this->diff = $this->intervalValue;
+            return true;
+        }
+        $this->diff -= $dt;
+        return false;
+    }
+
+    private function next(?float $dt = null): void
     {
         $this->frameCollection->next();
     }
 
-    protected function current(): IFrame
+    private function current(): IFrame
     {
         return $this->frameCollection->current();
     }
