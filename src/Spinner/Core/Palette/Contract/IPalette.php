@@ -11,7 +11,7 @@ interface IPalette
 {
     /**
      * @return Traversable<IFrame>
-     * @deprecated
+     * @deprecated Use {@see IPalette::unwrap()} instead.
      */
     public function getEntries(?IPaletteMode $mode = null): Traversable;
 
