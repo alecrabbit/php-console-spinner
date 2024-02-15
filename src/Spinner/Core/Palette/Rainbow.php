@@ -6,13 +6,25 @@ namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
 use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
 use AlecRabbit\Spinner\Core\StyleFrame;
+use RuntimeException;
 use Traversable;
 
 use function sprintf;
 
 final class Rainbow extends AStylePalette
 {
+    /**
+     * TODO (2024-02-15 17:20) [Alec Rabbit]: [790e8e1f-874c-4ac2-90a1-ac9f0ffdb707]
+     */
+    public function unwrap(?IPaletteMode $mode = null): IPaletteTemplate
+    {
+        // TODO: Implement unwrap() method.
+        throw new RuntimeException(__METHOD__ . ' Not implemented.');
+    }
+
     /**
      * @return Traversable<IStyleFrame>
      */

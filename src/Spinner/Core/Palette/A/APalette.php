@@ -22,6 +22,7 @@ abstract class APalette implements IPalette
     /** @inheritDoc */
     abstract public function getEntries(?IPaletteMode $mode = null): Traversable;
 
+    /** @inheritDoc */
     public function getOptions(?IPaletteMode $mode = null): IPaletteOptions
     {
         return new PaletteOptions(

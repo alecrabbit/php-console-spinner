@@ -14,6 +14,7 @@ abstract class AStylePalette extends APalette implements IStylePalette
 {
     /**
      * @return Traversable<IStyleFrame>
+     * @deprecated
      */
     public function getEntries(?IPaletteMode $mode = null): Traversable
     {
