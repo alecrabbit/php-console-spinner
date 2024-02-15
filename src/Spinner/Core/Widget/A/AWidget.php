@@ -34,13 +34,16 @@ abstract class AWidget extends ASubject implements IWidget
         $widgetRevolverFrame = $this->widgetRevolver->getFrame($dt);
 
         return $this->createFrame(
-            $this->leadingSpacer->getSequence() . $widgetRevolverFrame->getSequence(
-            ) . $this->trailingSpacer->getSequence(),
-            $this->leadingSpacer->getWidth() + $widgetRevolverFrame->getWidth() + $this->trailingSpacer->getWidth()
+            $this->leadingSpacer->getSequence()
+            . $widgetRevolverFrame->getSequence()
+            . $this->trailingSpacer->getSequence(),
+            $this->leadingSpacer->getWidth()
+            + $widgetRevolverFrame->getWidth()
+            + $this->trailingSpacer->getWidth()
         );
     }
 
-    protected function createFrame(string $sequence, int $width): ICharFrame
+    private function createFrame(string $sequence, int $width): ICharFrame
     {
         return new CharFrame($sequence, $width);
     }
