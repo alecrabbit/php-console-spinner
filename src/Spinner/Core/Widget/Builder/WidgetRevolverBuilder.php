@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Builder;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
-use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
@@ -20,16 +20,26 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
 {
     private ?IFrameRevolver $styleRevolver = null;
     private ?IFrameRevolver $charRevolver = null;
-    private ?IIntervalComparator $intervalComparator = null;
+
+    public function __construct(
+        private IIntervalComparator $intervalComparator,
+    ) {
+    }
+
 
     public function build(): IWidgetRevolver
     {
         $this->validate();
 
+        $interval = $this->intervalComparator->smallest(
+            $this->styleRevolver->getInterval(),
+            $this->charRevolver->getInterval()
+        );
+
         return new WidgetRevolver(
             $this->styleRevolver,
             $this->charRevolver,
-            $this->intervalComparator,
+            $interval,
         );
     }
 
@@ -38,7 +48,6 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
         match (true) {
             $this->styleRevolver === null => throw new LogicException('Style revolver is not set.'),
             $this->charRevolver === null => throw new LogicException('Character revolver is not set.'),
-            $this->intervalComparator === null => throw new LogicException('Interval comparator is not set.'),
             default => null,
         };
     }

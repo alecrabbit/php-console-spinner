@@ -28,13 +28,13 @@ final class WidgetRevolverTest extends TestCase
     public function getTesteeInstance(
         ?IRevolver $style = null,
         ?IRevolver $character = null,
-        ?IIntervalComparator $intervalComparator = null,
+        ?IInterval $interval = null,
     ): IWidgetRevolver {
         return
             new WidgetRevolver(
                 style: $style ?? $this->getRevolverMock(),
                 character: $character ?? $this->getRevolverMock(),
-                intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
+                interval: $interval ?? $this->getIntervalMock(),
             );
     }
 
@@ -56,38 +56,13 @@ final class WidgetRevolverTest extends TestCase
     #[Test]
     public function canGetInterval(): void
     {
-        $styleInterval = $this->getIntervalMock();
-        $characterInterval = $this->getIntervalMock();
-
-        $style = $this->getRevolverMock();
-        $style
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($styleInterval)
-        ;
-
-        $character = $this->getRevolverMock();
-        $character
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($characterInterval)
-        ;
-
-        $intervalComparator = $this->getIntervalComparatorMock();
-        $intervalComparator
-            ->expects(self::once())
-            ->method('smallest')
-            ->with($styleInterval, $characterInterval)
-            ->willReturn($styleInterval)
-        ;
+        $interval = $this->getIntervalMock();
 
         $revolver = $this->getTesteeInstance(
-            style: $style,
-            character: $character,
-            intervalComparator: $intervalComparator,
+            interval: $interval,
         );
 
-        self::assertSame($styleInterval, $revolver->getInterval());
+        self::assertSame($interval, $revolver->getInterval());
     }
 
     protected function getIntervalMock(): MockObject&IInterval

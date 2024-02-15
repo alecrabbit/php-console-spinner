@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
@@ -18,14 +19,9 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
     public function __construct(
         private readonly IRevolver $style,
         private readonly IRevolver $character,
-        IIntervalComparator $intervalComparator,
+        IInterval $interval,
     ) {
-        parent::__construct(
-            $intervalComparator->smallest(
-                $style->getInterval(),
-                $character->getInterval(),
-            ),
-        );
+        parent::__construct($interval);
     }
 
     private function createFrame(string $sequence, int $width): ICharFrame
