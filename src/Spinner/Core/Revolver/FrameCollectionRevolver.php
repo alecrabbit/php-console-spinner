@@ -13,17 +13,17 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 
 final class FrameCollectionRevolver extends ARevolver implements IFrameCollectionRevolver
 {
-    protected readonly int $deltaTolerance;
-    protected float $diff;
-    protected readonly float $intervalValue;
+    private readonly int $toleranceValue;
+    private readonly float $intervalValue;
+    private float $diff;
 
     public function __construct(
-        protected IFrameCollection $frameCollection,
+        private readonly IFrameCollection $frameCollection,
         IInterval $interval,
-        protected ITolerance $tolerance = new Tolerance(),
+        private readonly ITolerance $tolerance = new Tolerance(),
     ) {
         parent::__construct($interval);
-        $this->deltaTolerance = $this->tolerance->toMilliseconds();
+        $this->toleranceValue = $this->tolerance->toMilliseconds();
         $this->intervalValue = $interval->toMilliseconds();
         $this->diff = $this->intervalValue;
     }
@@ -38,7 +38,7 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
 
     private function shouldUpdate(?float $dt = null): bool
     {
-        if ($dt === null || $this->intervalValue <= ($dt + $this->deltaTolerance) || $this->diff <= 0) {
+        if ($dt === null || $this->intervalValue <= ($dt + $this->toleranceValue) || $this->diff <= 0) {
             $this->diff = $this->intervalValue;
             return true;
         }

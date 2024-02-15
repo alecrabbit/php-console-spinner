@@ -17,7 +17,5 @@ interface IWidgetRevolverBuilder extends IRevolverBuilder
 
     public function withStyleRevolver(IFrameRevolver $styleRevolver): IWidgetRevolverBuilder;
 
-    public function withTolerance(ITolerance $tolerance): IWidgetRevolverBuilder;
-
     public function withIntervalComparator(IIntervalComparator $intervalComparator): IWidgetRevolverBuilder;
 }

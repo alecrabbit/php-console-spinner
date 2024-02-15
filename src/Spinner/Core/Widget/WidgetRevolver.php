@@ -18,7 +18,6 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
     public function __construct(
         private readonly IRevolver $style,
         private readonly IRevolver $character,
-        ITolerance $tolerance,
         IIntervalComparator $intervalComparator,
     ) {
         parent::__construct(
@@ -26,7 +25,6 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
                 $style->getInterval(),
                 $character->getInterval(),
             ),
-            $tolerance,
         );
     }
 

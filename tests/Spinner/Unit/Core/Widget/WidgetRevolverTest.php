@@ -28,14 +28,12 @@ final class WidgetRevolverTest extends TestCase
     public function getTesteeInstance(
         ?IRevolver $style = null,
         ?IRevolver $character = null,
-        ?ITolerance $tolerance = null,
         ?IIntervalComparator $intervalComparator = null,
     ): IWidgetRevolver {
         return
             new WidgetRevolver(
                 style: $style ?? $this->getRevolverMock(),
                 character: $character ?? $this->getRevolverMock(),
-                tolerance: $tolerance ?? $this->getToleranceMock(),
                 intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
             );
     }

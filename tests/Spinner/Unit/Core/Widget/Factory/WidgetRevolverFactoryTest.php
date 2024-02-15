@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
-use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
@@ -38,7 +36,6 @@ final class WidgetRevolverFactoryTest extends TestCase
         ?IStyleFrameRevolverFactory $styleRevolverFactory = null,
         ?ICharFrameRevolverFactory $charRevolverFactory = null,
         ?IPatternFactory $patternFactory = null,
-        ?IRevolverConfig $revolverConfig = null,
         ?IIntervalComparator $intervalComparator = null,
     ): IWidgetRevolverFactory {
         return new WidgetRevolverFactory(
@@ -46,7 +43,6 @@ final class WidgetRevolverFactoryTest extends TestCase
             styleRevolverFactory: $styleRevolverFactory ?? $this->getStyleFrameRevolverFactoryMock(),
             charRevolverFactory: $charRevolverFactory ?? $this->getCharFrameRevolverFactoryMock(),
             patternFactory: $patternFactory ?? $this->getPatternFactoryMock(),
-            revolverConfig: $revolverConfig ?? $this->getRevolverConfigMock(),
             intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
         );
     }
@@ -71,11 +67,6 @@ final class WidgetRevolverFactoryTest extends TestCase
         return $this->createMock(IPatternFactory::class);
     }
 
-    private function getRevolverConfigMock(): MockObject&IRevolverConfig
-    {
-        return $this->createMock(IRevolverConfig::class);
-    }
-
     private function getIntervalComparatorMock(): MockObject&IIntervalComparator
     {
         return $this->createMock(IIntervalComparator::class);
@@ -84,7 +75,6 @@ final class WidgetRevolverFactoryTest extends TestCase
     #[Test]
     public function canCreate(): void
     {
-        $tolerance = $this->getToleranceMock();
         $intervalComparator = $this->getIntervalComparatorMock();
 
         $stylePattern = $this->getPatternMock();
@@ -138,12 +128,6 @@ final class WidgetRevolverFactoryTest extends TestCase
         ;
         $widgetRevolverBuilder
             ->expects(self::once())
-            ->method('withTolerance')
-            ->with($tolerance)
-            ->willReturnSelf()
-        ;
-        $widgetRevolverBuilder
-            ->expects(self::once())
             ->method('withIntervalComparator')
             ->with($intervalComparator)
             ->willReturnSelf()
@@ -155,19 +139,11 @@ final class WidgetRevolverFactoryTest extends TestCase
             ->willReturn($widgetRevolver)
         ;
 
-        $revolverConfig = $this->getRevolverConfigMock();
-        $revolverConfig
-            ->expects(self::once())
-            ->method('getTolerance')
-            ->willReturn($tolerance)
-        ;
-
         $widgetRevolverFactory = $this->getTesteeInstance(
             widgetRevolverBuilder: $widgetRevolverBuilder,
             styleRevolverFactory: $styleRevolverFactory,
             charRevolverFactory: $charRevolverFactory,
             patternFactory: $patternFactory,
-            revolverConfig: $revolverConfig,
             intervalComparator: $intervalComparator,
         );
 
@@ -187,11 +163,6 @@ final class WidgetRevolverFactoryTest extends TestCase
         ;
 
         self::assertEquals($widgetRevolver, $widgetRevolverFactory->create($widgetRevolverConfig));
-    }
-
-    private function getToleranceMock(): MockObject&ITolerance
-    {
-        return $this->createMock(ITolerance::class);
     }
 
     private function getPatternMock(): MockObject&IPattern

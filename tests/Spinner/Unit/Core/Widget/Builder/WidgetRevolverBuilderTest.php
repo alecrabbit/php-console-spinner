@@ -41,7 +41,6 @@ final class WidgetRevolverBuilderTest extends TestCase
             $widgetRevolverBuilder
                 ->withStyleRevolver($this->getFrameRevolverMock())
                 ->withCharRevolver($this->getFrameRevolverMock())
-                ->withTolerance($this->getToleranceMock())
                 ->withIntervalComparator($this->getIntervalComparatorMock())
                 ->build()
         ;
@@ -74,7 +73,6 @@ final class WidgetRevolverBuilderTest extends TestCase
             $widgetRevolver = // intentional assignment
                 $this->getTesteeInstance()
                     ->withCharRevolver($this->getFrameRevolverMock())
-                    ->withTolerance($this->getToleranceMock())
                     ->withIntervalComparator($this->getIntervalComparatorMock())
                     ->build()
             ;
@@ -97,7 +95,6 @@ final class WidgetRevolverBuilderTest extends TestCase
             $widgetRevolver = // intentional assignment
                 $this->getTesteeInstance()
                     ->withStyleRevolver($this->getFrameRevolverMock())
-                    ->withTolerance($this->getToleranceMock())
                     ->withIntervalComparator($this->getIntervalComparatorMock())
                     ->build()
             ;
@@ -121,7 +118,6 @@ final class WidgetRevolverBuilderTest extends TestCase
                 $this->getTesteeInstance()
                     ->withStyleRevolver($this->getFrameRevolverMock())
                     ->withCharRevolver($this->getFrameRevolverMock())
-                    ->withTolerance($this->getToleranceMock())
                     ->build()
             ;
         };

@@ -21,7 +21,6 @@ final readonly class WidgetRevolverFactory implements IWidgetRevolverFactory
         protected IStyleFrameRevolverFactory $styleRevolverFactory,
         protected ICharFrameRevolverFactory $charRevolverFactory,
         protected IPatternFactory $patternFactory,
-        protected IRevolverConfig $revolverConfig,
         protected IIntervalComparator $intervalComparator,
     ) {
     }
@@ -44,9 +43,6 @@ final readonly class WidgetRevolverFactory implements IWidgetRevolverFactory
                             $widgetRevolverConfig->getCharPalette()
                         )
                     )
-            )
-            ->withTolerance(
-                $this->revolverConfig->getTolerance()
             )
             ->withIntervalComparator($this->intervalComparator)
             ->build()
