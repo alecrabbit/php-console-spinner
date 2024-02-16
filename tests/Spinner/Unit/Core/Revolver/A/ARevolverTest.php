@@ -44,11 +44,6 @@ final class ARevolverTest extends TestCase
         return $this->createMock(IInterval::class);
     }
 
-    private function getToleranceMock(): MockObject&ITolerance
-    {
-        return $this->createMock(ITolerance::class);
-    }
-
     #[Test]
     public function canGetInterval(): void
     {
@@ -75,5 +70,10 @@ final class ARevolverTest extends TestCase
         );
 
         self::assertSame($frame, $revolver->getFrame()); // no arg is for calling next()
+    }
+
+    private function getToleranceMock(): MockObject&ITolerance
+    {
+        return $this->createMock(ITolerance::class);
     }
 }

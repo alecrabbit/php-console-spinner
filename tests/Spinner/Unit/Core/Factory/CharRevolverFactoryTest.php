@@ -13,6 +13,8 @@ use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -33,12 +35,14 @@ final class CharRevolverFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IFrameCollectionRevolverBuilder $frameRevolverBuilder = null,
         ?IFrameCollectionFactory $frameCollectionFactory = null,
+        ?IPatternFactory $patternFactory = null,
         ?IRevolverConfig $revolverConfig = null,
     ): ICharFrameRevolverFactory {
         return
             new CharFrameRevolverFactory(
                 frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
                 frameCollectionFactory: $frameCollectionFactory ?? $this->getFrameCollectionFactoryMock(),
+                patternFactory: $patternFactory ?? $this->getPatternFactoryMock(),
                 revolverConfig: $revolverConfig ?? $this->getRevolverConfigMock(),
             );
     }
@@ -53,6 +57,11 @@ final class CharRevolverFactoryTest extends TestCase
         return $this->createMock(IFrameCollectionFactory::class);
     }
 
+    private function getPatternFactoryMock(): MockObject&IPatternFactory
+    {
+        return $this->createMock(IPatternFactory::class);
+    }
+
     private function getRevolverConfigMock(): MockObject&IRevolverConfig
     {
         return $this->createMock(IRevolverConfig::class);
@@ -61,21 +70,31 @@ final class CharRevolverFactoryTest extends TestCase
     #[Test]
     public function canCreate(): void
     {
-        $interval = $this->getIntervalMock();
-        $frames = $this->getTraversableMock();
         $tolerance = $this->getToleranceMock();
+        $palette = $this->getPaletteMock();
 
+        $frames = $this->getTraversableMock();
+        $interval = $this->getIntervalMock();
         $pattern = $this->getPatternMock();
-        $pattern
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
         $pattern
             ->expects(self::once())
             ->method('getFrames')
             ->willReturn($frames)
         ;
+        $pattern
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
+
+        $patternFactory = $this->getPatternFactoryMock();
+        $patternFactory
+            ->expects(self::once())
+            ->method('create')
+            ->with($palette)
+            ->willReturn($pattern)
+        ;
+
         $frameCollection = $this->getFrameCollectionMock();
         $frameCollectionFactory = $this->getFrameCollectionFactoryMock();
         $frameCollectionFactory
@@ -83,6 +102,13 @@ final class CharRevolverFactoryTest extends TestCase
             ->method('create')
             ->with($frames)
             ->willReturn($frameCollection)
+        ;
+
+        $revolverConfig = $this->getRevolverConfigMock();
+        $revolverConfig
+            ->expects(self::once())
+            ->method('getTolerance')
+            ->willReturn($tolerance)
         ;
 
         $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
@@ -112,31 +138,30 @@ final class CharRevolverFactoryTest extends TestCase
             ->willReturn($frameRevolver)
         ;
 
-        $revolverConfig = $this->getRevolverConfigMock();
-        $revolverConfig
-            ->expects(self::once())
-            ->method('getTolerance')
-            ->willReturn($tolerance)
-        ;
-
-        $charRevolverFactory =
+        $styleRevolverFactory =
             $this->getTesteeInstance(
                 frameRevolverBuilder: $frameRevolverBuilder,
                 frameCollectionFactory: $frameCollectionFactory,
+                patternFactory: $patternFactory,
                 revolverConfig: $revolverConfig,
             );
 
-        self::assertInstanceOf(CharFrameRevolverFactory::class, $charRevolverFactory);
+        self::assertInstanceOf(CharFrameRevolverFactory::class, $styleRevolverFactory);
 
         self::assertSame(
             $frameRevolver,
-            $charRevolverFactory->create($pattern)
+            $styleRevolverFactory->create($palette),
         );
     }
 
-    private function getIntervalMock(): MockObject&IInterval
+    private function getToleranceMock(): MockObject&ITolerance
     {
-        return $this->createMock(IInterval::class);
+        return $this->createMock(ITolerance::class);
+    }
+
+    private function getPaletteMock(): MockObject&IPalette
+    {
+        return $this->createMock(IPalette::class);
     }
 
     private function getTraversableMock(): MockObject&Traversable
@@ -144,9 +169,9 @@ final class CharRevolverFactoryTest extends TestCase
         return $this->createMock(Traversable::class);
     }
 
-    private function getToleranceMock(): MockObject&ITolerance
+    private function getIntervalMock(): MockObject&IInterval
     {
-        return $this->createMock(ITolerance::class);
+        return $this->createMock(IInterval::class);
     }
 
     private function getPatternMock(): MockObject&IPattern

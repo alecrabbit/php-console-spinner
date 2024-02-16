@@ -19,7 +19,7 @@ final readonly class PaletteTemplate implements IPaletteTemplate
      */
     public function __construct(
         Traversable $entries,
-        protected IPaletteOptions $options,
+        private IPaletteOptions $options,
     ) {
         $this->entries = $entries;
     }

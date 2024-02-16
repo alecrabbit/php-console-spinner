@@ -35,14 +35,12 @@ final class WidgetRevolverFactoryTest extends TestCase
         ?IWidgetRevolverBuilder $widgetRevolverBuilder = null,
         ?IStyleFrameRevolverFactory $styleRevolverFactory = null,
         ?ICharFrameRevolverFactory $charRevolverFactory = null,
-        ?IPatternFactory $patternFactory = null,
         ?IIntervalComparator $intervalComparator = null,
     ): IWidgetRevolverFactory {
         return new WidgetRevolverFactory(
             widgetRevolverBuilder: $widgetRevolverBuilder ?? $this->getWidgetRevolverBuilderMock(),
             styleRevolverFactory: $styleRevolverFactory ?? $this->getStyleFrameRevolverFactoryMock(),
             charRevolverFactory: $charRevolverFactory ?? $this->getCharFrameRevolverFactoryMock(),
-            patternFactory: $patternFactory ?? $this->getPatternFactoryMock(),
             intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
         );
     }
@@ -62,11 +60,6 @@ final class WidgetRevolverFactoryTest extends TestCase
         return $this->createMock(ICharFrameRevolverFactory::class);
     }
 
-    private function getPatternFactoryMock(): MockObject&IPatternFactory
-    {
-        return $this->createMock(IPatternFactory::class);
-    }
-
     private function getIntervalComparatorMock(): MockObject&IIntervalComparator
     {
         return $this->createMock(IIntervalComparator::class);
@@ -77,9 +70,6 @@ final class WidgetRevolverFactoryTest extends TestCase
     {
         $intervalComparator = $this->getIntervalComparatorMock();
 
-        $stylePattern = $this->getPatternMock();
-        $charPattern = $this->getPatternMock();
-
         $stylePalette = $this->getStylePaletteMock();
         $charPalette = $this->getCharPaletteMock();
 
@@ -87,21 +77,11 @@ final class WidgetRevolverFactoryTest extends TestCase
         $charRevolver = $this->getFrameRevolverMock();
         $widgetRevolver = $this->getWidgetRevolverMock();
 
-        $patternFactory = $this->getPatternFactoryMock();
-        $patternFactory
-            ->expects(self::exactly(2))
-            ->method('create')
-            ->willReturnOnConsecutiveCalls(
-                $stylePattern,
-                $charPattern,
-            )
-        ;
-
         $styleRevolverFactory = $this->getStyleFrameRevolverFactoryMock();
         $styleRevolverFactory
             ->expects(self::once())
             ->method('create')
-            ->with($stylePattern)
+            ->with($stylePalette)
             ->willReturn($styleRevolver)
         ;
 
@@ -109,7 +89,7 @@ final class WidgetRevolverFactoryTest extends TestCase
         $charRevolverFactory
             ->expects(self::once())
             ->method('create')
-            ->with($charPattern)
+            ->with($charPalette)
             ->willReturn($charRevolver)
         ;
 
@@ -143,7 +123,6 @@ final class WidgetRevolverFactoryTest extends TestCase
             widgetRevolverBuilder: $widgetRevolverBuilder,
             styleRevolverFactory: $styleRevolverFactory,
             charRevolverFactory: $charRevolverFactory,
-            patternFactory: $patternFactory,
             intervalComparator: $intervalComparator,
         );
 
@@ -163,11 +142,6 @@ final class WidgetRevolverFactoryTest extends TestCase
         ;
 
         self::assertEquals($widgetRevolver, $widgetRevolverFactory->create($widgetRevolverConfig));
-    }
-
-    private function getPatternMock(): MockObject&IPattern
-    {
-        return $this->createMock(IPattern::class);
     }
 
     private function getStylePaletteMock(): MockObject&IStylePalette
@@ -193,5 +167,15 @@ final class WidgetRevolverFactoryTest extends TestCase
     private function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
         return $this->createMock(IWidgetRevolverConfig::class);
+    }
+
+    private function getPatternFactoryMock(): MockObject&IPatternFactory
+    {
+        return $this->createMock(IPatternFactory::class);
+    }
+
+    private function getPatternMock(): MockObject&IPattern
+    {
+        return $this->createMock(IPattern::class);
     }
 }

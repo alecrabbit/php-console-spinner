@@ -43,14 +43,9 @@ final class WidgetRevolverTest extends TestCase
         return $this->createMock(IRevolver::class);
     }
 
-    private function getToleranceMock(): MockObject&ITolerance
+    protected function getIntervalMock(): MockObject&IInterval
     {
-        return $this->createMock(ITolerance::class);
-    }
-
-    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
-    {
-        return $this->createMock(IIntervalComparator::class);
+        return $this->createMock(IInterval::class);
     }
 
     #[Test]
@@ -63,11 +58,6 @@ final class WidgetRevolverTest extends TestCase
         );
 
         self::assertSame($interval, $revolver->getInterval());
-    }
-
-    protected function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
     }
 
     #[Test]
@@ -127,5 +117,15 @@ final class WidgetRevolverTest extends TestCase
     protected function getFrameMock(): MockObject&IFrame
     {
         return $this->createMock(IFrame::class);
+    }
+
+    private function getToleranceMock(): MockObject&ITolerance
+    {
+        return $this->createMock(ITolerance::class);
+    }
+
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
     }
 }

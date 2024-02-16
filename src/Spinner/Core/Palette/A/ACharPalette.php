@@ -13,6 +13,7 @@ abstract class ACharPalette extends APalette implements ICharPalette
 {
     /**
      * @return Traversable<ICharFrame>
+     * @deprecated
      */
     public function getEntries(?IPaletteMode $mode = null): Traversable
     {

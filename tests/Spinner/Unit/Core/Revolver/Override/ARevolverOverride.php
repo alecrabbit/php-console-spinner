@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Revolver\Override;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 
 final class ARevolverOverride extends ARevolver
@@ -18,16 +17,6 @@ final class ARevolverOverride extends ARevolver
         parent::__construct($interval);
     }
 
-    private function next(?float $dt = null): void
-    {
-
-    }
-
-    private function current(): IFrame
-    {
-        return $this->frame;
-    }
-
     public function getFrame(?float $dt = null): IFrame
     {
         {
@@ -36,5 +25,14 @@ final class ARevolverOverride extends ARevolver
             $this->frame->getWidth();
         }
         return $this->current();
+    }
+
+    private function current(): IFrame
+    {
+        return $this->frame;
+    }
+
+    private function next(?float $dt = null): void
+    {
     }
 }
