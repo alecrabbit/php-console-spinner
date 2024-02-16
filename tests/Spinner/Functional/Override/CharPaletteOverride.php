@@ -14,7 +14,8 @@ use Traversable;
 
 final class CharPaletteOverride extends APalette implements ICharPalette
 {
-    /** @inheritDoc */public function getEntries(?IPaletteMode $mode = null): Traversable
+    /** @inheritDoc */
+    public function getEntries(?IPaletteMode $mode = null): Traversable
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

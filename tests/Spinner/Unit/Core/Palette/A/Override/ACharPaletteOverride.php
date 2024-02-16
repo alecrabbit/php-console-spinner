@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
+use RuntimeException;
 use Traversable;
 
 final class ACharPaletteOverride extends ACharPalette
@@ -26,8 +27,9 @@ final class ACharPaletteOverride extends ACharPalette
      */
     public function unwrap(?IPaletteMode $mode = null): IPaletteTemplate
     {
-        throw new \RuntimeException('INTENTIONALLY Not implemented.');
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
+
     protected function sequence(): Traversable
     {
         yield from $this->entries;

@@ -28,11 +28,15 @@ final class WidgetRevolverBuilderTest extends TestCase
 
     public function getTesteeInstance(
         ?IIntervalComparator $intervalComparator = null,
-    ): IWidgetRevolverBuilder
-    {
+    ): IWidgetRevolverBuilder {
         return new WidgetRevolverBuilder(
             intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
         );
+    }
+
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
     }
 
     #[Test]
@@ -88,16 +92,6 @@ final class WidgetRevolverBuilderTest extends TestCase
         return $this->createMock(IFrameRevolver::class);
     }
 
-    private function getToleranceMock(): MockObject&ITolerance
-    {
-        return $this->createMock(ITolerance::class);
-    }
-
-    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
-    {
-        return $this->createMock(IIntervalComparator::class);
-    }
-
     #[Test]
     public function throwsOnBuildWithoutStyleRevolver(): void
     {
@@ -140,5 +134,10 @@ final class WidgetRevolverBuilderTest extends TestCase
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
+    }
+
+    private function getToleranceMock(): MockObject&ITolerance
+    {
+        return $this->createMock(ITolerance::class);
     }
 }
