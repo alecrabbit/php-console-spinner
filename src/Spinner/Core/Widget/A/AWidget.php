@@ -43,7 +43,7 @@ abstract class AWidget extends ASubject implements IWidget
         );
     }
 
-    private function createFrame(string $sequence, int $width): ICharFrame
+    protected function createFrame(string $sequence, int $width): ICharFrame
     {
         return new CharFrame($sequence, $width);
     }
