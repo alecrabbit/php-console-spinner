@@ -100,7 +100,7 @@ final class WidgetRevolverFactoryTest extends TestCase
         $styleRevolverFactory = $this->getStyleFrameRevolverFactoryMock();
         $styleRevolverFactory
             ->expects(self::once())
-            ->method('create')
+            ->method('legacyCreate')
             ->with($stylePattern)
             ->willReturn($styleRevolver)
         ;
@@ -108,7 +108,7 @@ final class WidgetRevolverFactoryTest extends TestCase
         $charRevolverFactory = $this->getCharFrameRevolverFactoryMock();
         $charRevolverFactory
             ->expects(self::once())
-            ->method('create')
+            ->method('legacyCreate')
             ->with($charPattern)
             ->willReturn($charRevolver)
         ;

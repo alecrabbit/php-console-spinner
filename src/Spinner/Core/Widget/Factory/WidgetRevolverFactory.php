@@ -24,12 +24,35 @@ final readonly class WidgetRevolverFactory implements IWidgetRevolverFactory
     ) {
     }
 
+    private function doCreate(IWidgetRevolverConfig $widgetRevolverConfig): IWidgetRevolver
+    {
+        $styleRevolver = $this->styleRevolverFactory->create(
+            $widgetRevolverConfig->getStylePalette()
+        );
+
+        $charRevolver = $this->charRevolverFactory->create(
+            $widgetRevolverConfig->getCharPalette()
+        );
+
+        return $this->widgetRevolverBuilder
+            ->withStyleRevolver($styleRevolver)
+            ->withCharRevolver($charRevolver)
+            ->withIntervalComparator($this->intervalComparator)
+            ->build()
+        ;
+    }
+
     public function create(IWidgetRevolverConfig $widgetRevolverConfig): IWidgetRevolver
+    {
+        return $this->legacyDoCreate($widgetRevolverConfig);
+    }
+
+    private function legacyDoCreate(IWidgetRevolverConfig $widgetRevolverConfig): IWidgetRevolver
     {
         return $this->widgetRevolverBuilder
             ->withStyleRevolver(
                 $this->styleRevolverFactory
-                    ->create(
+                    ->legacyCreate(
                         $this->patternFactory->create(
                             $widgetRevolverConfig->getStylePalette()
                         )
@@ -37,7 +60,7 @@ final readonly class WidgetRevolverFactory implements IWidgetRevolverFactory
             )
             ->withCharRevolver(
                 $this->charRevolverFactory
-                    ->create(
+                    ->legacyCreate(
                         $this->patternFactory->create(
                             $widgetRevolverConfig->getCharPalette()
                         )

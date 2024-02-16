@@ -130,7 +130,7 @@ final class CharRevolverFactoryTest extends TestCase
 
         self::assertSame(
             $frameRevolver,
-            $charRevolverFactory->create($pattern)
+            $charRevolverFactory->legacyCreate($pattern)
         );
     }
 

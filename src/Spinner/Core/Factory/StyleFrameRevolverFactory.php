@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 
@@ -21,7 +22,8 @@ final readonly class StyleFrameRevolverFactory implements IStyleFrameRevolverFac
     ) {
     }
 
-    public function create(IPattern $pattern): IFrameRevolver
+    /** @inheritDoc */
+    public function legacyCreate(IPattern $pattern): IFrameRevolver
     {
         return $this->frameRevolverBuilder
             ->withFrames(
@@ -42,5 +44,11 @@ final readonly class StyleFrameRevolverFactory implements IStyleFrameRevolverFac
     private function getTolerance(): ITolerance
     {
         return $this->revolverConfig->getTolerance();
+    }
+
+    public function create(IPalette $palette): IFrameRevolver
+    {
+        // TODO: Implement create() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

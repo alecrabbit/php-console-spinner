@@ -129,7 +129,7 @@ final class StyleRevolverFactoryTest extends TestCase
 
         self::assertSame(
             $frameRevolver,
-            $styleRevolverFactory->create($pattern),
+            $styleRevolverFactory->legacyCreate($pattern),
         );
     }
 

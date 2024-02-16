@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 
@@ -20,7 +21,8 @@ final readonly class CharFrameRevolverFactory implements ICharFrameRevolverFacto
     ) {
     }
 
-    public function create(IPattern $pattern): IFrameRevolver
+    /** @inheritDoc */
+    public function legacyCreate(IPattern $pattern): IFrameRevolver
     {
         return $this->frameRevolverBuilder
             ->withFrames(
@@ -37,5 +39,11 @@ final readonly class CharFrameRevolverFactory implements ICharFrameRevolverFacto
             )
             ->build()
         ;
+    }
+
+    public function create(IPalette $palette): IFrameRevolver
+    {
+        // TODO: Implement create() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }
