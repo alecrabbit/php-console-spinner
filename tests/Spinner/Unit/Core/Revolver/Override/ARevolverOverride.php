@@ -32,7 +32,4 @@ final class ARevolverOverride extends ARevolver
         return $this->frame;
     }
 
-    private function next(?float $dt = null): void
-    {
-    }
 }
