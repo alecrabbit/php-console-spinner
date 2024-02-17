@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Palette\A;
 
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
+use AlecRabbit\Spinner\Core\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use Traversable;
@@ -13,14 +13,14 @@ use Traversable;
 abstract class AStylePalette extends APalette implements IStylePalette
 {
     /**
-     * @return Traversable<IStyleFrame>
+     * @return Traversable<IStyleSequenceFrame>
      * @deprecated
      */
     public function getEntries(?IPaletteMode $mode = null): Traversable
     {
-        /** @var IStyleFrame|string $item */
+        /** @var IStyleSequenceFrame|string $item */
         foreach ($this->getFrames($mode) as $item) {
-            if ($item instanceof IStyleFrame) {
+            if ($item instanceof IStyleSequenceFrame) {
                 yield $item;
                 continue;
             }
@@ -29,7 +29,7 @@ abstract class AStylePalette extends APalette implements IStylePalette
     }
 
     /**
-     * @return Traversable<IStyleFrame|string>
+     * @return Traversable<IStyleSequenceFrame|string>
      */
     protected function getFrames(?IPaletteMode $mode): Traversable
     {
@@ -44,7 +44,7 @@ abstract class AStylePalette extends APalette implements IStylePalette
     }
 
     /**
-     * @return Traversable<IStyleFrame|string>
+     * @return Traversable<IStyleSequenceFrame|string>
      */
     protected function noStyleFrames(): Traversable
     {
@@ -53,10 +53,10 @@ abstract class AStylePalette extends APalette implements IStylePalette
         ];
     }
 
-    abstract protected function createFrame(string $element, ?int $width = null): IStyleFrame;
+    abstract protected function createFrame(string $element, ?int $width = null): IStyleSequenceFrame;
 
     /**
-     * @return Traversable<IStyleFrame|string>
+     * @return Traversable<IStyleSequenceFrame|string>
      */
     protected function ansi4StyleFrames(): Traversable
     {
@@ -64,7 +64,7 @@ abstract class AStylePalette extends APalette implements IStylePalette
     }
 
     /**
-     * @return Traversable<IStyleFrame|string>
+     * @return Traversable<IStyleSequenceFrame|string>
      */
     protected function ansi8StyleFrames(): Traversable
     {
@@ -72,7 +72,7 @@ abstract class AStylePalette extends APalette implements IStylePalette
     }
 
     /**
-     * @return Traversable<IStyleFrame|string>
+     * @return Traversable<IStyleSequenceFrame|string>
      */
     protected function ansi24StyleFrames(): Traversable
     {

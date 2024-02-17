@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Complex\Spinner;
 
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
@@ -82,9 +82,9 @@ final class FacadeSettingsWidgetSettingsSpinnerTest extends ContainerModifyingTe
         self::assertTrue($driver->has($spinner));
     }
 
-    private function getFrameMock(): MockObject&IFrame
+    private function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     private function getWidgetMock(): MockObject&IWidget

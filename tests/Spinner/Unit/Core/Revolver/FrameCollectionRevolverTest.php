@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Revolver;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
@@ -114,9 +114,9 @@ final class FrameCollectionRevolverTest extends TestCase
         return $this->createMock(IFrameCollection::class);
     }
 
-    protected function getFrameMock(): MockObject&IFrame
+    protected function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     #[Test]

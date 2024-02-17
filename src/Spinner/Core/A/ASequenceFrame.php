@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 
-abstract readonly class AFrame implements IFrame
+abstract readonly class ASequenceFrame implements ISequenceFrame
 {
     public function __construct(
         protected string $sequence,

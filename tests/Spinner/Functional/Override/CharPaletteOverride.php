@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Functional\Override;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\APalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
@@ -28,7 +28,7 @@ final class CharPaletteOverride extends APalette implements ICharPalette
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 
-    protected function createFrame(string $element, ?int $width = null): IFrame
+    protected function createFrame(string $element, ?int $width = null): ISequenceFrame
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

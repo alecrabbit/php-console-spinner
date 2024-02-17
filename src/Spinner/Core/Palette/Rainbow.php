@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette;
 
-use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
+use AlecRabbit\Spinner\Core\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
@@ -26,7 +26,7 @@ final class Rainbow extends AStylePalette
     }
 
     /**
-     * @return Traversable<IStyleFrame>
+     * @return Traversable<IStyleSequenceFrame>
      */
     protected function ansi4StyleFrames(): Traversable
     {
@@ -35,13 +35,13 @@ final class Rainbow extends AStylePalette
         ];
     }
 
-    protected function createFrame(string $element, ?int $width = null): IStyleFrame
+    protected function createFrame(string $element, ?int $width = null): IStyleSequenceFrame
     {
         return new StyleFrame($element, $width ?? 0);
     }
 
     /**
-     * @return Traversable<IStyleFrame>
+     * @return Traversable<IStyleSequenceFrame>
      */
     protected function ansi8StyleFrames(): Traversable
     {
@@ -91,7 +91,7 @@ final class Rainbow extends AStylePalette
     }
 
     /**
-     * @return Traversable<IStyleFrame>
+     * @return Traversable<IStyleSequenceFrame>
      */
     protected function ansi24StyleFrames(): Traversable
     {

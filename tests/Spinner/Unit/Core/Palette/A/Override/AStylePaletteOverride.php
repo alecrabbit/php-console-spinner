@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette\A\Override;
 
-use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
+use AlecRabbit\Spinner\Core\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
@@ -35,7 +35,7 @@ final class AStylePaletteOverride extends AStylePalette
         yield from $this->entries;
     }
 
-    protected function createFrame(string $element, ?int $width = null): IStyleFrame
+    protected function createFrame(string $element, ?int $width = null): IStyleSequenceFrame
     {
         return new StyleFrame($element, $width ?? 0);
     }

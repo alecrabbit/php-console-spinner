@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -70,7 +70,7 @@ final class CharFrameTest extends TestCase
         self::assertSame($expected[self::WIDTH], $frame->getWidth());
     }
 
-    public static function getTesteeInstance(array $args = []): IFrame
+    public static function getTesteeInstance(array $args = []): ISequenceFrame
     {
         return new CharFrame(...$args);
     }

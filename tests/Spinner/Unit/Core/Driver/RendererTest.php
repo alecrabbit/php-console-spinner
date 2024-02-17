@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver;
 
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
@@ -211,9 +211,9 @@ final class RendererTest extends TestCase
         $renderer->render($spinner);
     }
 
-    private function getFrameMock(): MockObject&IFrame
+    private function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     #[Test]

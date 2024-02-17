@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget\Factory;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
@@ -136,9 +136,9 @@ final class WidgetFactoryTest extends TestCase
         self::assertSame($widget, $widgetFactory->usingSettings($widgetConfig)->create());
     }
 
-    protected function getFrameMock(): MockObject&IFrame
+    protected function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig

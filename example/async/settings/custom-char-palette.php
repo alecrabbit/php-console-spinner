@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
@@ -23,7 +23,7 @@ $options =
 
 $charPalette =
     new class($options) extends ACharPalette {
-        protected function createFrame(string $element, ?int $width = null): ICharFrame
+        protected function createFrame(string $element, ?int $width = null): ICharSequenceFrame
         {
             return new CharFrame($element, $width ?? 3); // note the width is 3
         }

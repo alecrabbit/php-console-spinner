@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\InitialRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
@@ -111,9 +111,9 @@ final class RootWidgetConfigFactoryTest extends TestCase
         self::assertSame($charPalette, $result->getWidgetRevolverConfig()->getCharPalette());
     }
 
-    private function getFrameMock(): MockObject&IFrame
+    private function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     private function getStylePaletteMock(): MockObject&IStylePalette

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -60,9 +60,9 @@ final class SpinnerTest extends TestCase
         self::assertSame($frame, $spinner->getFrame());
     }
 
-    protected function getFrameMock(): MockObject&IFrame
+    protected function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     protected function getWidgetCompositeMock(): MockObject&IWidgetComposite

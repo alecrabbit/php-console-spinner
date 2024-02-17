@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
 use Traversable;
 
 final readonly class PaletteTemplate implements IPaletteTemplate
 {
-    /** @var Traversable<IFrame> $entries */
+    /** @var Traversable<ISequenceFrame> $entries */
     private Traversable $entries;
 
     /**
-     * @param Traversable<IFrame> $entries
+     * @param Traversable<ISequenceFrame> $entries
      */
     public function __construct(
         Traversable $entries,
@@ -25,7 +25,7 @@ final readonly class PaletteTemplate implements IPaletteTemplate
     }
 
     /**
-     * @return Traversable<IFrame>
+     * @return Traversable<ISequenceFrame>
      */
     public function getEntries(): Traversable
     {
@@ -36,8 +36,8 @@ final readonly class PaletteTemplate implements IPaletteTemplate
     }
 
     /**
-     * @param Traversable<IFrame> $entries
-     * @return Traversable<IFrame>
+     * @param Traversable<ISequenceFrame> $entries
+     * @return Traversable<ISequenceFrame>
      */
     private function reversed(Traversable $entries): Traversable
     {

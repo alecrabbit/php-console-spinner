@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\A\AFrame;
-use AlecRabbit\Spinner\Core\Contract\IStyleFrame;
+use AlecRabbit\Spinner\Core\A\ASequenceFrame;
+use AlecRabbit\Spinner\Core\Contract\IStyleSequenceFrame;
 
-final readonly class StyleFrame extends AFrame implements IStyleFrame
+final readonly class StyleFrame extends ASequenceFrame implements IStyleSequenceFrame
 {
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
@@ -26,8 +26,8 @@ final class WidgetTest extends TestCase
 
     public function getTesteeInstance(
         ?IWidgetRevolver $revolver = null,
-        ?IFrame $leadingSpacer = null,
-        ?IFrame $trailingSpacer = null,
+        ?ISequenceFrame $leadingSpacer = null,
+        ?ISequenceFrame $trailingSpacer = null,
         ?IObserver $observer = null,
     ): IWidget {
         return
@@ -44,9 +44,9 @@ final class WidgetTest extends TestCase
         return $this->createMock(IWidgetRevolver::class);
     }
 
-    protected function getFrameMock(): MockObject&IFrame
+    protected function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     protected function getObserverMock(): MockObject&IObserver

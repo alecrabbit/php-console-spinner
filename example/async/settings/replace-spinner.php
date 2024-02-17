@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
@@ -19,7 +19,7 @@ $spinnerOne = Facade::createSpinner();
 
 $charPalette =
     new class() extends ACharPalette {
-        protected function createFrame(string $element, ?int $width = null): ICharFrame
+        protected function createFrame(string $element, ?int $width = null): ICharSequenceFrame
         {
             return new CharFrame($element, $width ?? 3); // note the width is 3
         }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRootWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
@@ -54,7 +54,7 @@ final readonly class RootWidgetSettingsSolver extends ASolver implements IRootWi
         ?IWidgetSettings $userSettings,
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
-    ): ?IFrame {
+    ): ?ISequenceFrame {
         return $userSettings?->getLeadingSpacer()
             ??
             $detectedSettings?->getLeadingSpacer()
@@ -66,7 +66,7 @@ final readonly class RootWidgetSettingsSolver extends ASolver implements IRootWi
         ?IWidgetSettings $userSettings,
         ?IWidgetSettings $detectedSettings,
         ?IWidgetSettings $defaultSettings
-    ): ?IFrame {
+    ): ?ISequenceFrame {
         return $userSettings?->getTrailingSpacer()
             ??
             $detectedSettings?->getTrailingSpacer()

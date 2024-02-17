@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
@@ -22,7 +22,7 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
         parent::__construct($interval);
     }
 
-    public function getFrame(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): ISequenceFrame
     {
         $style = $this->style->getFrame($dt);
         $char = $this->character->getFrame($dt);
@@ -33,7 +33,7 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
         );
     }
 
-    private function createFrame(string $sequence, int $width): ICharFrame
+    private function createFrame(string $sequence, int $width): ICharSequenceFrame
     {
         return new CharFrame($sequence, $width);
     }

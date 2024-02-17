@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette\Contract;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use Traversable;
 
 interface IPalette
 {
     /**
-     * @return Traversable<IFrame>
+     * @return Traversable<ISequenceFrame>
      * @deprecated Use {@see IPalette::unwrap()} instead.
      */
     public function getEntries(?IPaletteMode $mode = null): Traversable;

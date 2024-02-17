@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayObject;
@@ -17,12 +17,12 @@ final class FrameCollection implements IFrameCollection
 {
     private const COLLECTION_IS_EMPTY = 'Collection is empty.';
 
-    /** @var ArrayObject<int, IFrame> */
+    /** @var ArrayObject<int, ISequenceFrame> */
     private ArrayObject $frames;
     private int $count;
 
     /**
-     * @param Traversable<IFrame> $frames Should be a finite set of frames.
+     * @param Traversable<ISequenceFrame> $frames Should be a finite set of frames.
      * @param int $index Starting index of a collection.
      *
      * @throws InvalidArgument
@@ -35,7 +35,7 @@ final class FrameCollection implements IFrameCollection
         $this->frames = new ArrayObject();
 
         /**
-         * @var IFrame $frame
+         * @var ISequenceFrame $frame
          */
         foreach ($frames as $frame) {
             self::assertFrame($frame);
@@ -56,11 +56,11 @@ final class FrameCollection implements IFrameCollection
      */
     private static function assertFrame(mixed $frame): void
     {
-        if (!$frame instanceof IFrame) {
+        if (!$frame instanceof ISequenceFrame) {
             throw new InvalidArgument(
                 sprintf(
                     'Frame should be an instance of "%s". "%s" given.',
-                    IFrame::class,
+                    ISequenceFrame::class,
                     get_debug_type($frame)
                 )
             );
@@ -86,7 +86,7 @@ final class FrameCollection implements IFrameCollection
         }
     }
 
-    public function current(): IFrame
+    public function current(): ISequenceFrame
     {
         return $this->frames->offsetGet($this->index);
     }

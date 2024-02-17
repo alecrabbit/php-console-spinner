@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\LogicException;
 
@@ -18,7 +18,7 @@ interface IWidgetBuilder
 
     public function withWidgetRevolver(IWidgetRevolver $revolver): IWidgetBuilder;
 
-    public function withLeadingSpacer(IFrame $leadingSpacer): IWidgetBuilder;
+    public function withLeadingSpacer(ISequenceFrame $leadingSpacer): IWidgetBuilder;
 
-    public function withTrailingSpacer(IFrame $trailingSpacer): IWidgetBuilder;
+    public function withTrailingSpacer(ISequenceFrame $trailingSpacer): IWidgetBuilder;
 }

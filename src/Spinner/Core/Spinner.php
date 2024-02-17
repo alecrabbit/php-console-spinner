@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
@@ -25,7 +25,7 @@ final class Spinner extends ASubject implements ISpinner
         $this->widget->attach($this);
     }
 
-    public function getFrame(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): ISequenceFrame
     {
         return $this->widget->getFrame($dt);
     }

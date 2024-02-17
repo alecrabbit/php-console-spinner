@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Revolver;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
@@ -28,7 +28,7 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
         $this->diff = $this->intervalValue;
     }
 
-    public function getFrame(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): ISequenceFrame
     {
         if ($this->shouldUpdate($dt)) {
             $this->next($dt);
@@ -51,7 +51,7 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
         $this->frameCollection->next();
     }
 
-    private function current(): IFrame
+    private function current(): ISequenceFrame
     {
         return $this->frameCollection->current();
     }

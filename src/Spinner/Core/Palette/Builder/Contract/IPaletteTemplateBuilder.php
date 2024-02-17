@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette\Builder\Contract;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
@@ -18,7 +18,7 @@ interface IPaletteTemplateBuilder
     public function build(): IPaletteTemplate;
 
     /**
-     * @param Traversable<IFrame> $entries
+     * @param Traversable<ISequenceFrame> $entries
      */
     public function withEntries(Traversable $entries): IPaletteTemplateBuilder;
 
