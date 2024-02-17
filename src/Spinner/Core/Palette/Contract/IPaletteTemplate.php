@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette\Contract;
 
+use AlecRabbit\Spinner\Contract\IHasFrame;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use Traversable;
 
 interface IPaletteTemplate
 {
     /**
-     * @return Traversable<ISequenceFrame>
+     * @return IHasFrame|Traversable<ISequenceFrame>
      */
-    public function getEntries(): Traversable;
+    public function getEntries(): IHasFrame|Traversable;
 
     public function getOptions(): IPaletteOptions;
 }

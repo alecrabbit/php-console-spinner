@@ -28,16 +28,6 @@ final class PaletteOptionsTest extends TestCase
             );
     }
 
-
-//    #[Test]
-//    public function canGetIsReversedWithFalse(): void
-//    {
-//        $palette = $this->getTesteeInstance(
-//        );
-//
-//        self::assertFalse($palette->isReversed());
-//    }
-
     #[Test]
     public function canGetIntervalWithNull(): void
     {
