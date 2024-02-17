@@ -29,26 +29,26 @@ final readonly class PaletteTemplate implements IPaletteTemplate
      */
     public function getEntries(): Traversable
     {
-        if ($this->options->isReversed()) {
-            return $this->reversed($this->entries);
-        }
+//        if ($this->options->isReversed()) {
+//            return $this->reversed($this->entries);
+//        }
         return $this->entries;
     }
 
-    /**
-     * @param Traversable<ISequenceFrame> $entries
-     * @return Traversable<ISequenceFrame>
-     */
-    private function reversed(Traversable $entries): Traversable
-    {
-        $sequence = [];
-
-        foreach ($entries as $entry) {
-            $sequence[] = $entry;
-        }
-
-        yield from array_reverse($sequence);
-    }
+//    /**
+//     * @param Traversable<ISequenceFrame> $entries
+//     * @return Traversable<ISequenceFrame>
+//     */
+//    private function reversed(Traversable $entries): Traversable
+//    {
+//        $sequence = [];
+//
+//        foreach ($entries as $entry) {
+//            $sequence[] = $entry;
+//        }
+//
+//        yield from array_reverse($sequence);
+//    }
 
     public function getOptions(): IPaletteOptions
     {
