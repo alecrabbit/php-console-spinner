@@ -54,11 +54,7 @@ final class APaletteTest extends TestCase
             ->method('getInterval')
             ->willReturn($interval)
         ;
-        $options
-            ->expects(self::once())
-            ->method('isReversed')
-            ->willReturn(true)
-        ;
+
 
         $palette = $this->getTesteeInstance(
             options: $options,
@@ -69,7 +65,7 @@ final class APaletteTest extends TestCase
         $resultOptions = $palette->getOptions($mode);
 
         self::assertSame($interval, $resultOptions->getInterval());
-        self::assertTrue($resultOptions->isReversed());
+        self::assertFalse($resultOptions->isReversed());
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode

@@ -10,13 +10,16 @@ final readonly class PaletteOptions implements IPaletteOptions
 {
     public function __construct(
         private ?int $interval = null,
-        private bool $reversed = false,
+//        private bool $reversed = false,
     ) {
     }
 
+    /**
+     * @deprecated Palette will NOT have reversed option.
+     */
     public function isReversed(): bool
     {
-        return $this->reversed;
+        return false;
     }
 
     public function getInterval(): ?int

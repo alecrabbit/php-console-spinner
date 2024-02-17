@@ -139,45 +139,45 @@ final class SnakeTest extends TestCase
         self::assertEquals(new CharFrame('⡇', 1), $entries[7]);
     }
 
-    #[Test]
-    public function returnsFramesWithOptions(): void
-    {
-        $interval = 100;
-
-        $options = $this->getPaletteOptionsMock();
-        $options
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
-        $options
-            ->expects(self::once())
-            ->method('isReversed')
-            ->willReturn(true)
-        ;
-
-        $palette = $this->getTesteeInstance(
-            options: $options,
-        );
-
-        $template = $this->createTemplate(palette: $palette);
-
-        $traversable = $template->getEntries();
-
-        self::assertInstanceOf(Generator::class, $traversable);
-
-        $entries = iterator_to_array($traversable); // unwrap generator
-        self::assertSame($interval, $template->getOptions()->getInterval());
-
-        self::assertCount(8, $entries);
-
-        self::assertEquals(new CharFrame('⡇', 1), $entries[0]);
-        self::assertEquals(new CharFrame('⣆', 1), $entries[1]);
-        self::assertEquals(new CharFrame('⣤', 1), $entries[2]);
-        self::assertEquals(new CharFrame('⣰', 1), $entries[3]);
-        self::assertEquals(new CharFrame('⢸', 1), $entries[4]);
-        self::assertEquals(new CharFrame('⠹', 1), $entries[5]);
-        self::assertEquals(new CharFrame('⠛', 1), $entries[6]);
-        self::assertEquals(new CharFrame('⠏', 1), $entries[7]);
-    }
+//    #[Test]
+//    public function returnsFramesWithOptions(): void
+//    {
+//        $interval = 100;
+//
+//        $options = $this->getPaletteOptionsMock();
+//        $options
+//            ->expects(self::once())
+//            ->method('getInterval')
+//            ->willReturn($interval)
+//        ;
+//        $options
+//            ->expects(self::once())
+//            ->method('isReversed')
+//            ->willReturn(true)
+//        ;
+//
+//        $palette = $this->getTesteeInstance(
+//            options: $options,
+//        );
+//
+//        $template = $this->createTemplate(palette: $palette);
+//
+//        $traversable = $template->getEntries();
+//
+//        self::assertInstanceOf(Generator::class, $traversable);
+//
+//        $entries = iterator_to_array($traversable); // unwrap generator
+//        self::assertSame($interval, $template->getOptions()->getInterval());
+//
+//        self::assertCount(8, $entries);
+//
+//        self::assertEquals(new CharFrame('⡇', 1), $entries[0]);
+//        self::assertEquals(new CharFrame('⣆', 1), $entries[1]);
+//        self::assertEquals(new CharFrame('⣤', 1), $entries[2]);
+//        self::assertEquals(new CharFrame('⣰', 1), $entries[3]);
+//        self::assertEquals(new CharFrame('⢸', 1), $entries[4]);
+//        self::assertEquals(new CharFrame('⠹', 1), $entries[5]);
+//        self::assertEquals(new CharFrame('⠛', 1), $entries[6]);
+//        self::assertEquals(new CharFrame('⠏', 1), $entries[7]);
+//    }
 }

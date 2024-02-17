@@ -35,8 +35,4 @@ final class APaletteOverride extends APalette
         return $this->entries;
     }
 
-    protected function createFrame(string $element, ?int $width = null): ISequenceFrame
-    {
-        throw new RuntimeException(__METHOD__ . ' INTENTIONALLY Not implemented.');
-    }
 }

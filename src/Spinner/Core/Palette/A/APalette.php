@@ -20,14 +20,11 @@ abstract class APalette implements IPalette
     }
 
     /** @inheritDoc */
-    abstract public function getEntries(?IPaletteMode $mode = null): Traversable;
-
-    /** @inheritDoc */
     public function getOptions(?IPaletteMode $mode = null): IPaletteOptions
     {
         return new PaletteOptions(
             interval: $this->refineInterval($mode),
-            reversed: $this->options->isReversed(),
+//            reversed: $this->options->isReversed(),
         );
     }
 
@@ -40,8 +37,6 @@ abstract class APalette implements IPalette
     {
         return null;
     }
-
-    abstract protected function createFrame(string $element, ?int $width = null): ISequenceFrame;
 
     protected function extractStylingMode(?IPaletteMode $mode): StylingMethodMode
     {
