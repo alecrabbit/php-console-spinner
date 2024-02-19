@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 abstract class ARevolver implements IRevolver
 {
     public function __construct(
-        protected IInterval $interval,
+        protected readonly IInterval $interval,
     ) {
     }
 
