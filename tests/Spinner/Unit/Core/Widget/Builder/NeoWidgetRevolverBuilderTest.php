@@ -7,7 +7,6 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget\Builder;
 use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Widget\Builder\NeoWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\INeoWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\NeoWidgetRevolver;
@@ -54,12 +53,6 @@ final class NeoWidgetRevolverBuilderTest extends TestCase
 
         self::assertInstanceOf(NeoWidgetRevolver::class, $widgetRevolver);
         self::assertSame($interval, $widgetRevolver->getInterval());
-
-    }
-
-    private function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
     }
 
     private function getHasStyleSequenceFrameMock(): MockObject&IHasStyleSequenceFrame
@@ -70,6 +63,11 @@ final class NeoWidgetRevolverBuilderTest extends TestCase
     private function getHasCharSequenceFrameMock(): MockObject&IHasCharSequenceFrame
     {
         return $this->createMock(IHasCharSequenceFrame::class);
+    }
+
+    private function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 
     #[Test]
@@ -114,7 +112,9 @@ final class NeoWidgetRevolverBuilderTest extends TestCase
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
-    }    public function throwsOnBuildWithoutInterval(): void
+    }
+
+    public function throwsOnBuildWithoutInterval(): void
     {
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Interval is not set.';

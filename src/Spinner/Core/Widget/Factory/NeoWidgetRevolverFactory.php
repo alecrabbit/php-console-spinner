@@ -33,6 +33,7 @@ final readonly class NeoWidgetRevolverFactory implements Contract\IWidgetRevolve
             ->withStyle($style)
             ->withChar($char)
             ->withInterval($interval)
-            ->build();
+            ->build()
+        ;
     }
 }

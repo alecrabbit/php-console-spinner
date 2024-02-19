@@ -44,11 +44,6 @@ final class APaletteTest extends TestCase
         return $this->createMock(Traversable::class);
     }
 
-    private function getPaletteModeMock(): MockObject&IPaletteMode
-    {
-        return $this->createMock(IPaletteMode::class);
-    }
-
     #[Test]
     public function canGetEntries(): void
     {
@@ -59,5 +54,10 @@ final class APaletteTest extends TestCase
         $mode = $this->getPaletteModeMock();
 
         self::assertSame($traversable, $palette->getEntries($mode));
+    }
+
+    private function getPaletteModeMock(): MockObject&IPaletteMode
+    {
+        return $this->createMock(IPaletteMode::class);
     }
 }

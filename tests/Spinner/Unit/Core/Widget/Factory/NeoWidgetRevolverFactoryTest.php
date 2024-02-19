@@ -115,7 +115,6 @@ final class NeoWidgetRevolverFactoryTest extends TestCase
 
         $widgetRevolver = $this->getWidgetRevolverMock();
 
-
         $charIntervalComparator = $this->getIntervalComparatorMock();
         $charIntervalComparator
             ->expects(self::once())
