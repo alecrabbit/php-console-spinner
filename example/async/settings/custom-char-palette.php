@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;

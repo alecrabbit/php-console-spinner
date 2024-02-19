@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette;
 
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\APalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;

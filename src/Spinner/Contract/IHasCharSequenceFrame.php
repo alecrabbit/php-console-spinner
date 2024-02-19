@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\ICharSequenceFrame;
-
 interface IHasCharSequenceFrame extends IHasSequenceFrame
 {
     /**

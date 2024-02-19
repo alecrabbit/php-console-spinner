@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette\A;
 
+use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Core\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use Traversable;

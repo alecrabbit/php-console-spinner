@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
-use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;

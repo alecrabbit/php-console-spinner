@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 
 final readonly class NeoWidgetRevolver implements IWidgetRevolver

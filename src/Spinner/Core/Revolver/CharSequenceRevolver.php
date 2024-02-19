@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Revolver;
 
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\ICharSequenceRevolver;
 

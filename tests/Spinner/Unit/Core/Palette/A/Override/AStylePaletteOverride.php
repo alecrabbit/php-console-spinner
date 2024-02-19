@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette\A\Override;
 
-use AlecRabbit\Spinner\Core\Contract\IStyleSequenceFrame;
+use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;

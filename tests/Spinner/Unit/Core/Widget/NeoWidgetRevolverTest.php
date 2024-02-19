@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget;
 
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\ISequenceFrame;
-use AlecRabbit\Spinner\Core\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
-use AlecRabbit\Spinner\Core\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\NeoWidgetRevolver;
 use AlecRabbit\Tests\TestCase\TestCase;

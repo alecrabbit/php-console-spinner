@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Core\Contract\IStyleSequenceFrame;
+use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Spinner\Core\StyleFrame;
