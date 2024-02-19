@@ -6,13 +6,15 @@ namespace AlecRabbit\Spinner\Core\Pattern;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IHasFrame;
+use AlecRabbit\Spinner\Contract\IHasSequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\Pattern\INeoPattern;
 
 final readonly class NeoPattern implements INeoPattern
 {
     public function __construct(
-        private IHasFrame $frames,
+        private IHasSequenceFrame $frames,
         private IInterval $interval,
     ) {
     }
@@ -23,7 +25,7 @@ final readonly class NeoPattern implements INeoPattern
     }
 
 
-    public function getFrame(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): ISequenceFrame
     {
         return $this->frames->getFrame($dt);
     }

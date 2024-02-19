@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Pattern;
 
-use AlecRabbit\Spinner\Contract\IHasFrame;
 use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IHasSequenceFrame;
+use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
 
-interface INeoPattern extends IHasInterval, IHasSequenceFrame
+interface INeoStylePattern extends IHasInterval, IHasStyleSequenceFrame
 {
 
 }
