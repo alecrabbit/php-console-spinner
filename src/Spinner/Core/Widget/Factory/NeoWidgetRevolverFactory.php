@@ -6,6 +6,8 @@ namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
+use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
+use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\INeoWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 

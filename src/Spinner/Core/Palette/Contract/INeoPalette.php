@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Contract\IHasFrame;
 
 interface INeoPalette extends IHasFrame, IHasPaletteOptions
 {
-    public function getOptions(): IPaletteOptions;
 }
