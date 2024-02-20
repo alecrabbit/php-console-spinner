@@ -29,9 +29,9 @@ HTML;
 
 $http = new React\Http\HttpServer(
     static function (Psr\Http\Message\ServerRequestInterface $request) use ($html): React\Http\Message\Response {
+        $datetime = (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED);
         $uri = $request->getUri();
 
-        $datetime = (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED);
         $info = sprintf(
             '%s %s',
             $request->getMethod(),
@@ -59,11 +59,11 @@ $http = new React\Http\HttpServer(
 
 $http->listen(new React\Socket\SocketServer($addr));
 
+// this is delayed only to prettify output
 Facade::getLoop()
     ->delay(
         1,
         static function () use ($addr): void {
-            // this is delayed only to prettify output
             echo sprintf('Listening on http://%s' . PHP_EOL, $addr);
         }
     )
