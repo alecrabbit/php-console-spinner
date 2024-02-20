@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
@@ -30,7 +30,7 @@ final class Snake extends ACharPalette
 
     protected function createFrame(string $element, ?int $width = null): ICharSequenceFrame
     {
-        return new CharFrame($element, $width ?? 1);
+        return new CharSequenceFrame($element, $width ?? 1);
     }
 
     protected function modeInterval(?IPaletteMode $mode = null): ?int

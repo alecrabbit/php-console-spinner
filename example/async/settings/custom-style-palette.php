@@ -7,7 +7,7 @@ use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
-use AlecRabbit\Spinner\Core\StyleFrame;
+use AlecRabbit\Spinner\Core\StyleSequenceFrame;
 use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
@@ -29,7 +29,7 @@ $stylePalette =
 
         protected function createFrame(string $element, ?int $width = null): IStyleSequenceFrame
         {
-            return new StyleFrame($element, $width ?? 0);
+            return new StyleSequenceFrame($element, $width ?? 0);
         }
     };
 

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
-use AlecRabbit\Spinner\Core\StyleFrame;
+use AlecRabbit\Spinner\Core\StyleSequenceFrame;
 use AlecRabbit\Tests\TestCase\TestCase;
 use Generator;
 use PHPUnit\Framework\Attributes\Test;
@@ -43,7 +43,7 @@ final class NoStylePaletteTest extends TestCase
         $entries = iterator_to_array($traversable); // unwrap generator
 
         self::assertCount(1, $entries);
-        self::assertEquals(new StyleFrame('%s', 0), $entries[0]);
+        self::assertEquals(new StyleSequenceFrame('%s', 0), $entries[0]);
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Palette;
 
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Builder\PaletteTemplateBuilder;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
@@ -129,14 +129,14 @@ final class SnakeTest extends TestCase
 
         self::assertCount(8, $entries);
 
-        self::assertEquals(new CharFrame('⠏', 1), $entries[0]);
-        self::assertEquals(new CharFrame('⠛', 1), $entries[1]);
-        self::assertEquals(new CharFrame('⠹', 1), $entries[2]);
-        self::assertEquals(new CharFrame('⢸', 1), $entries[3]);
-        self::assertEquals(new CharFrame('⣰', 1), $entries[4]);
-        self::assertEquals(new CharFrame('⣤', 1), $entries[5]);
-        self::assertEquals(new CharFrame('⣆', 1), $entries[6]);
-        self::assertEquals(new CharFrame('⡇', 1), $entries[7]);
+        self::assertEquals(new CharSequenceFrame('⠏', 1), $entries[0]);
+        self::assertEquals(new CharSequenceFrame('⠛', 1), $entries[1]);
+        self::assertEquals(new CharSequenceFrame('⠹', 1), $entries[2]);
+        self::assertEquals(new CharSequenceFrame('⢸', 1), $entries[3]);
+        self::assertEquals(new CharSequenceFrame('⣰', 1), $entries[4]);
+        self::assertEquals(new CharSequenceFrame('⣤', 1), $entries[5]);
+        self::assertEquals(new CharSequenceFrame('⣆', 1), $entries[6]);
+        self::assertEquals(new CharSequenceFrame('⡇', 1), $entries[7]);
     }
 
 //    #[Test]

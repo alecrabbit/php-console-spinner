@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\A\ASubject;
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 
@@ -45,6 +45,6 @@ abstract class AWidget extends ASubject implements IWidget
 
     protected function createFrame(string $sequence, int $width): ICharSequenceFrame
     {
-        return new CharFrame($sequence, $width);
+        return new CharSequenceFrame($sequence, $width);
     }
 }

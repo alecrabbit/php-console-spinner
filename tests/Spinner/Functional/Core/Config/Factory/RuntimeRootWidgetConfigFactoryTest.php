@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\RootWidgetConfigFactory;
@@ -31,8 +31,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
             [
                 [
                     $widgetConfig = new RootWidgetConfig(
-                        leadingSpacer: new CharFrame('', 0),
-                        trailingSpacer: new CharFrame('', 0),
+                        leadingSpacer: new CharSequenceFrame('', 0),
+                        trailingSpacer: new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
                             stylePalette: new StylePaletteOverride(new PaletteOptions()),
                             charPalette: new CharPaletteOverride(new PaletteOptions()),
@@ -50,8 +50,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
             [
                 [
                     new RootWidgetConfig(
-                        leadingSpacer: $ls = new CharFrame('', 0),
-                        trailingSpacer: $ts = new CharFrame('', 0),
+                        leadingSpacer: $ls = new CharSequenceFrame('', 0),
+                        trailingSpacer: $ts = new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
                             stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
                             charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
@@ -63,8 +63,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
                 ],
                 [
                     new RootWidgetConfig(
-                        leadingSpacer: new CharFrame('', 0),
-                        trailingSpacer: new CharFrame('', 0),
+                        leadingSpacer: new CharSequenceFrame('', 0),
+                        trailingSpacer: new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
                             stylePalette: new StylePaletteOverride(new PaletteOptions()),
                             charPalette: new CharPaletteOverride(new PaletteOptions()),
@@ -82,8 +82,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
             [
                 [
                     new RootWidgetConfig(
-                        leadingSpacer: $ls = new CharFrame('', 0),
-                        trailingSpacer: $ts = new CharFrame('', 0),
+                        leadingSpacer: $ls = new CharSequenceFrame('', 0),
+                        trailingSpacer: $ts = new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
                             stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
                             charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
@@ -114,8 +114,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
             [
                 [
                     new RootWidgetConfig(
-                        leadingSpacer: $ls = new CharFrame('', 0),
-                        trailingSpacer: $ts = new CharFrame('', 0),
+                        leadingSpacer: $ls = new CharSequenceFrame('', 0),
+                        trailingSpacer: $ts = new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
                             stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
                             charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
@@ -127,7 +127,7 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
                 ],
                 [
                     new RootWidgetConfig(
-                        leadingSpacer: new CharFrame('', 0),
+                        leadingSpacer: new CharSequenceFrame('', 0),
                         trailingSpacer: $ts,
                         revolverConfig: new WidgetRevolverConfig(
                             stylePalette: $style,
@@ -146,8 +146,8 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
             [
                 [
                     new RootWidgetConfig(
-                        leadingSpacer: $ls = new CharFrame('', 0),
-                        trailingSpacer: $ts = new CharFrame('', 0),
+                        leadingSpacer: $ls = new CharSequenceFrame('', 0),
+                        trailingSpacer: $ts = new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
                             stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
                             charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
@@ -159,7 +159,7 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
                 ],
                 [
                     new RootWidgetConfig(
-                        leadingSpacer: new CharFrame('', 0),
+                        leadingSpacer: new CharSequenceFrame('', 0),
                         trailingSpacer: $ts,
                         revolverConfig: new WidgetRevolverConfig(
                             stylePalette: $style,

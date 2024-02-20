@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
-use AlecRabbit\Spinner\Core\StyleFrame;
+use AlecRabbit\Spinner\Core\StyleSequenceFrame;
 use AlecRabbit\Tests\Spinner\Unit\Core\Palette\A\Override\AStylePaletteOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
@@ -85,7 +85,7 @@ final class AStylePaletteTest extends TestCase
     #[Test]
     public function canGetEntriesTwo(): void
     {
-        $styleFrame = new StyleFrame('22', 2);
+        $styleFrame = new StyleSequenceFrame('22', 2);
         $interval = 200;
 
         $entries = new ArrayObject(['a', $styleFrame, 'b']);
@@ -117,8 +117,8 @@ final class AStylePaletteTest extends TestCase
 
         $templateEntries = iterator_to_array($traversable);
 
-        self::assertEquals(new StyleFrame('a', 0), $templateEntries[0]);
-        self::assertEquals(new StyleFrame('b', 0), $templateEntries[2]);
+        self::assertEquals(new StyleSequenceFrame('a', 0), $templateEntries[0]);
+        self::assertEquals(new StyleSequenceFrame('b', 0), $templateEntries[2]);
         self::assertSame($styleFrame, $templateEntries[1]);
     }
 }

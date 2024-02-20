@@ -7,6 +7,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\A\ASequenceFrame;
 
-final readonly class CharFrame extends ASequenceFrame implements ICharSequenceFrame
+final readonly class CharSequenceFrame extends ASequenceFrame implements ICharSequenceFrame
 {
 }

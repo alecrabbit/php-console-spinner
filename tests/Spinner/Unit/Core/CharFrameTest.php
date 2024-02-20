@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core;
 
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -72,6 +72,6 @@ final class CharFrameTest extends TestCase
 
     public static function getTesteeInstance(array $args = []): ISequenceFrame
     {
-        return new CharFrame(...$args);
+        return new CharSequenceFrame(...$args);
     }
 }

@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
@@ -34,6 +34,6 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
 
     private function createFrame(string $sequence, int $width): ICharSequenceFrame
     {
-        return new CharFrame($sequence, $width);
+        return new CharSequenceFrame($sequence, $width);
     }
 }

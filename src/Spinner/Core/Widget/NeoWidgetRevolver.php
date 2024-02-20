@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 
 final readonly class NeoWidgetRevolver implements IWidgetRevolver
@@ -33,7 +33,7 @@ final readonly class NeoWidgetRevolver implements IWidgetRevolver
 
     private function createFrame(string $sequence, int $width): ICharSequenceFrame
     {
-        return new CharFrame($sequence, $width);
+        return new CharSequenceFrame($sequence, $width);
     }
 
     public function getInterval(): IInterval

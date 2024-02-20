@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
@@ -20,7 +20,7 @@ $charPalette =
     new class() extends ACharPalette {
         protected function createFrame(string $element, ?int $width = null): ICharSequenceFrame
         {
-            return new CharFrame($element, $width ?? 3); // note the width is 3
+            return new CharSequenceFrame($element, $width ?? 3); // note the width is 3
         }
 
         protected function sequence(): Traversable
@@ -33,7 +33,7 @@ $charPalette =
 Facade::getSettings()
     ->set(
         new RootWidgetSettings(
-            leadingSpacer: new CharFrame('⏳ ', 3),
+            leadingSpacer: new CharSequenceFrame('⏳ ', 3),
             stylePalette: new NoStylePalette(),
             charPalette: $charPalette,
         ),

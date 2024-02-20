@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette;
 
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
@@ -43,7 +43,7 @@ final class NoCharPaletteTest extends TestCase
         $entries = iterator_to_array($traversable); // unwrap generator
 
         self::assertCount(1, $entries);
-        self::assertEquals(new CharFrame('', 0), $entries[0]);
+        self::assertEquals(new CharSequenceFrame('', 0), $entries[0]);
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode

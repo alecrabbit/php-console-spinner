@@ -7,6 +7,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Core\A\ASequenceFrame;
 
-final readonly class StyleFrame extends ASequenceFrame implements IStyleSequenceFrame
+final readonly class StyleSequenceFrame extends ASequenceFrame implements IStyleSequenceFrame
 {
 }

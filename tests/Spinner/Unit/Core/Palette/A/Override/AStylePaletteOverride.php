@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
-use AlecRabbit\Spinner\Core\StyleFrame;
+use AlecRabbit\Spinner\Core\StyleSequenceFrame;
 use RuntimeException;
 use Traversable;
 
@@ -37,6 +37,6 @@ final class AStylePaletteOverride extends AStylePalette
 
     protected function createFrame(string $element, ?int $width = null): IStyleSequenceFrame
     {
-        return new StyleFrame($element, $width ?? 0);
+        return new StyleSequenceFrame($element, $width ?? 0);
     }
 }
