@@ -31,11 +31,9 @@ final readonly class ModePaletteRenderer implements IModePaletteRenderer
         $options = $palette->getOptions($mode);
 
         if ($palette instanceof IStylePalette) {
-            return new class($frames, $options) extends AStylePalette {
-            };
+            return new CustomStylePalette($frames, $options);
         }
 
-        return new class($frames, $options) extends ACharPalette {
-        };
+        return new CustomStylePalette($frames, $options);
     }
 }

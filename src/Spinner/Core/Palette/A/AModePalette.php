@@ -9,12 +9,29 @@ use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
+use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\StyleSequenceFrame;
 use Traversable;
 
-abstract class AModePalette extends ALegacyPalette implements IModePalette
+abstract class AModePalette implements IModePalette
 {
+    public function __construct(
+        protected IPaletteOptions $options = new PaletteOptions(),
+    ) {
+    }
+
+    public function getOptions(?IPaletteMode $mode = null): IPaletteOptions
+    {
+        return new PaletteOptions(
+            interval: $this->refineInterval($mode),
+        );
+    }
+    protected function refineInterval(?IPaletteMode $mode = null): ?int
+    {
+        return $this->options->getInterval() ?? $this->modeInterval($mode);
+    }
     /**
      * @return Traversable<IStyleSequenceFrame>
      * @deprecated
@@ -30,7 +47,10 @@ abstract class AModePalette extends ALegacyPalette implements IModePalette
             yield $this->createFrame($item);
         }
     }
-
+    protected function extractStylingMode(?IPaletteMode $mode): StylingMethodMode
+    {
+        return $mode?->getStylingMode() ?? StylingMethodMode::NONE;
+    }
     /**
      * @return Traversable<IStyleSequenceFrame|string>
      */
@@ -95,6 +115,4 @@ abstract class AModePalette extends ALegacyPalette implements IModePalette
             default => null,
         };
     }
-
-
 }
