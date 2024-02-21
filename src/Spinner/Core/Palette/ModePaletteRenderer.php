@@ -34,6 +34,6 @@ final readonly class ModePaletteRenderer implements IModePaletteRenderer
             return new CustomStylePalette($frames, $options);
         }
 
-        return new CustomStylePalette($frames, $options);
+        return new CustomCharPalette($frames, $options);
     }
 }
