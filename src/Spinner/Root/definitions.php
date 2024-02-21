@@ -210,15 +210,12 @@ use AlecRabbit\Spinner\Core\Settings\Factory\UserSettingsFactory;
 use AlecRabbit\Spinner\Core\StyleFrameTransformer;
 use AlecRabbit\Spinner\Core\Widget\Builder\NeoWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\INeoWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\NeoWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
-use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Probes;
 use Traversable;
 

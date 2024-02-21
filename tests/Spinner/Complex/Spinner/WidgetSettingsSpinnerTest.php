@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
-use AlecRabbit\Spinner\Core\Palette\LegacyNoCharPalette;
-use AlecRabbit\Spinner\Core\Palette\LegacyNoStylePalette;
+use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
+use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
@@ -28,7 +28,7 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
     #[Test]
     public function spinnerCanBeCreatedWithNoStylePalette(): void
     {
-        $stylePalette = new LegacyNoStylePalette();
+        $stylePalette = new NoStylePalette();
 
         $widgetSettings = new WidgetSettings(stylePalette: $stylePalette);
 
@@ -135,7 +135,7 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
     #[Test]
     public function spinnerCanBeCreatedWithNoCharPalette(): void
     {
-        $charPalette = new LegacyNoCharPalette();
+        $charPalette = new NoCharPalette();
 
         $widgetSettings = new WidgetSettings(charPalette: $charPalette);
 

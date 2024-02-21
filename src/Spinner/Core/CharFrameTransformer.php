@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 final readonly class CharFrameTransformer implements ICharFrameTransformer

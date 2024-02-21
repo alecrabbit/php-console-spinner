@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Factory\Contract;
 
 use AlecRabbit\Spinner\Contract\Pattern\INeoStylePattern;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 
 interface IStylePatternFactory
 {
-    public function create(IPalette $palette): INeoStylePattern;
+    public function create(IStylePalette $palette): INeoStylePattern;
 }

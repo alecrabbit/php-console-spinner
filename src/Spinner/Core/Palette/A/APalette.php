@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Palette\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
@@ -38,10 +37,10 @@ abstract class APalette implements IPalette
         return null;
     }
 
+    abstract public function getFrame(?float $dt = null): IFrame;
+
     protected function extractStylingMode(?IPaletteMode $mode): StylingMethodMode
     {
         return $mode?->getStylingMode() ?? StylingMethodMode::NONE;
     }
-
-    abstract public function getFrame(?float $dt = null): IFrame;
 }

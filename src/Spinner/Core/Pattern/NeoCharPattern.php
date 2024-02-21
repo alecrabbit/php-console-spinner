@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern;
 
-use AlecRabbit\Spinner\Contract\IHasFrame;
-use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IHasFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\INeoCharPattern;
 
 final readonly class NeoCharPattern implements INeoCharPattern

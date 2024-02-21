@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IFinitePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\CharSequenceFrame;
 
 final readonly class NoCharPalette implements IFinitePalette, ICharPalette
 {

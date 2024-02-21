@@ -35,12 +35,14 @@ final class LegacyNoStylePalette extends APalette implements IStylePalette
             $this->createFrame('%s')
         ];
     }
-    public function getFrame(?float $dt = null): IFrame
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
+
     protected function createFrame(string $element, ?int $width = null): IStyleSequenceFrame
     {
         return new StyleSequenceFrame($element, $width ?? 0);
+    }
+
+    public function getFrame(?float $dt = null): IFrame
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 }

@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Contract\Pattern;
 
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
-use AlecRabbit\Spinner\Contract\IHasInterval;
 
 interface INeoCharPattern extends INeoPattern, IHasCharSequenceFrame
 {

@@ -7,11 +7,8 @@ namespace AlecRabbit\Spinner\Core\Pattern\Factory;
 use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\INeoCharPattern;
-use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
-use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
-use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\NeoCharPattern;
 

@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Solver;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRootWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RootWidgetSettingsSolver;
-use AlecRabbit\Spinner\Core\Palette\LegacyNoCharPalette;
+use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
@@ -25,12 +25,12 @@ final class RootWidgetSettingsSolverTest extends TestCase
         $leadingSpacer = new CharSequenceFrame(' ', 1);
         $trailingSpacer = new CharSequenceFrame(' ', 1);
         $stylePalette = new Rainbow();
-        $charPalette = new LegacyNoCharPalette();
+        $charPalette = new NoCharPalette();
 
         $leadingSpacer1 = new CharSequenceFrame(' ', 1);
         $trailingSpacer1 = new CharSequenceFrame(' ', 1);
         $stylePalette1 = new Rainbow();
-        $charPalette1 = new LegacyNoCharPalette();
+        $charPalette1 = new NoCharPalette();
 
         yield from [
             // [result], [$user, $detected, $default]

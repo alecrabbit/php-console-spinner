@@ -16,6 +16,7 @@ final readonly class StyleFrameTransformer implements IStyleFrameTransformer
         if ($frame instanceof IStyleSequenceFrame) {
             return $frame;
         }
+
         throw new InvalidArgument(
             sprintf(
                 'Non-transformable frame type "%s".',

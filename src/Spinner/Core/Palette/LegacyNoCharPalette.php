@@ -36,13 +36,13 @@ final class LegacyNoCharPalette extends APalette implements ICharPalette
         ];
     }
 
-    public function getFrame(?float $dt = null): IFrame
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
     protected function createFrame(string $element, ?int $width = null): ICharSequenceFrame
     {
         return new CharSequenceFrame($element, $width ?? 0);
+    }
+
+    public function getFrame(?float $dt = null): IFrame
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 }
