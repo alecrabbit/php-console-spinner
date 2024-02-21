@@ -24,11 +24,6 @@ final readonly class ModePaletteRenderer implements IModePaletteRenderer
     {
         $mode = $this->paletteModeFactory->create();
 
-//        dump(
-//            iterator_to_array($palette->getEntries($mode)),
-//            $palette->getOptions($mode),
-//        );
-
         $frames = new \ArrayObject(
             iterator_to_array($palette->getEntries($mode)),
         );
