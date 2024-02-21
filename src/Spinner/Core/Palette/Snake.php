@@ -5,36 +5,53 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
-use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
-use RuntimeException;
+use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use ArrayObject;
 use Traversable;
 
-final class Snake extends ACharPalette
+final class Snake implements ICharPalette
 {
-    /**
-     * TODO (2024-02-15 17:20) [Alec Rabbit]: [790e8e1f-874c-4ac2-90a1-ac9f0ffdb707]
-     */
-    public function unwrap(?IPaletteMode $mode = null): IPaletteTemplate
-    {
-        // TODO: Implement unwrap() method.
-        throw new RuntimeException(__METHOD__ . ' Not implemented.');
+    /** @var ArrayObject<int, ISequenceFrame> */
+    private ArrayObject $frames;
+    private int $count;
+
+    public function __construct(
+        private readonly IPaletteOptions $options = new PaletteOptions(interval: 80),
+        private int $index = 0,
+    ) {
+        $this->frames = new ArrayObject(
+            [
+                new CharSequenceFrame('⠏', 1),
+                new CharSequenceFrame('⠛', 1),
+                new CharSequenceFrame('⠹', 1),
+                new CharSequenceFrame('⢸', 1),
+                new CharSequenceFrame('⣰', 1),
+                new CharSequenceFrame('⣤', 1),
+                new CharSequenceFrame('⣆', 1),
+                new CharSequenceFrame('⡇', 1),
+            ],
+        );
+        $this->count = $this->frames->count();
     }
 
-    protected function sequence(): Traversable
+    public function getFrame(?float $dt = null): ICharSequenceFrame
     {
-        yield from ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
+        $this->next();
+        return $this->frames->offsetGet($this->index);
     }
 
-    protected function createFrame(string $element, ?int $width = null): ICharSequenceFrame
+    private function next(): void
     {
-        return new CharSequenceFrame($element, $width ?? 1);
+        if ($this->count === 1 || ++$this->index === $this->count) {
+            $this->index = 0;
+        }
     }
 
-    protected function modeInterval(?IPaletteMode $mode = null): ?int
+    public function getOptions(): IPaletteOptions
     {
-        return 80;
+        return $this->options;
     }
 }

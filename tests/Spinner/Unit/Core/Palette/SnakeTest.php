@@ -39,20 +39,6 @@ final class SnakeTest extends TestCase
     }
 
     #[Test]
-    public function canGetEntries(): void
-    {
-        $palette = $this->getTesteeInstance();
-        $mode = $this->getPaletteModeMock();
-
-        self::assertInstanceOf(Generator::class, $palette->getEntries($mode));
-    }
-
-    private function getPaletteModeMock(): MockObject&IPaletteMode
-    {
-        return $this->createMock(IPaletteMode::class);
-    }
-
-    #[Test]
     public function canGetOptions(): void
     {
         $options = $this->getPaletteOptionsMock();
@@ -61,12 +47,7 @@ final class SnakeTest extends TestCase
             options: $options,
         );
 
-        $mode = $this->getPaletteModeMock();
-        $mode
-            ->expects(self::never())
-            ->method('getStylingMode')
-        ;
-        self::assertInstanceOf(PaletteOptions::class, $palette->getOptions($mode));
+        self::assertSame($options, $palette->getOptions());
     }
 
 }
