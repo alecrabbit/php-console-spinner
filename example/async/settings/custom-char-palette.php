@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
-use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
+use AlecRabbit\Spinner\Core\Palette\A\ACharLegacyPalette;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
@@ -22,7 +22,7 @@ $options =
     );
 
 $charPalette =
-    new class($options) extends ACharPalette {
+    new class($options) extends ACharLegacyPalette {
         protected function createFrame(string $element, ?int $width = null): ICharSequenceFrame
         {
             return new CharSequenceFrame($element, $width ?? 3); // note the width is 3

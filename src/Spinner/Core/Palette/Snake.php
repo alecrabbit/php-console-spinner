@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
-use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use ArrayObject;
-use Traversable;
 
 final class Snake implements ICharPalette
 {
-    /** @var ArrayObject<int, ISequenceFrame> */
+    /** @var ArrayObject<int, ICharSequenceFrame> */
     private ArrayObject $frames;
     private int $count;
 
@@ -39,15 +37,11 @@ final class Snake implements ICharPalette
 
     public function getFrame(?float $dt = null): ICharSequenceFrame
     {
-        $this->next();
-        return $this->frames->offsetGet($this->index);
-    }
-
-    private function next(): void
-    {
         if ($this->count === 1 || ++$this->index === $this->count) {
             $this->index = 0;
         }
+
+        return $this->frames->offsetGet($this->index);
     }
 
     public function getOptions(): IPaletteOptions

@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use Traversable;
 
-abstract class ACharPalette extends APalette implements ICharPalette
+abstract class ACharLegacyPalette extends ALegacyPalette implements ICharPalette
 {
     /**
      * @return Traversable<ICharSequenceFrame>

@@ -5,7 +5,7 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
-use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
+use AlecRabbit\Spinner\Core\Palette\A\ACharLegacyPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
@@ -17,7 +17,7 @@ require_once __DIR__ . '/../bootstrap.async.php';
 $spinnerOne = Facade::createSpinner();
 
 $charPalette =
-    new class() extends ACharPalette {
+    new class() extends ACharLegacyPalette {
         protected function createFrame(string $element, ?int $width = null): ICharSequenceFrame
         {
             return new CharSequenceFrame($element, $width ?? 3); // note the width is 3

@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette\A;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Tests\Spinner\Unit\Core\Palette\A\Override\APaletteOverride;
+use AlecRabbit\Tests\Spinner\Unit\Core\Palette\A\Override\ALegacyPaletteOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -20,7 +20,7 @@ final class APaletteTest extends TestCase
     {
         $palette = $this->getTesteeInstance();
 
-        self::assertInstanceOf(APaletteOverride::class, $palette);
+        self::assertInstanceOf(ALegacyPaletteOverride::class, $palette);
     }
 
     private function getTesteeInstance(
@@ -28,7 +28,7 @@ final class APaletteTest extends TestCase
         ?Traversable $entries = null,
     ): IPalette {
         return
-            new APaletteOverride(
+            new ALegacyPaletteOverride(
                 options: $options ?? $this->getPaletteOptionsMock(),
                 entries: $entries ?? $this->getTraversableMock(),
             );

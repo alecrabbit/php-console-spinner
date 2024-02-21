@@ -178,10 +178,12 @@ use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
 use AlecRabbit\Spinner\Core\Palette\Builder\Contract\IPaletteTemplateBuilder;
 use AlecRabbit\Spinner\Core\Palette\Builder\PaletteTemplateBuilder;
+use AlecRabbit\Spinner\Core\Palette\Contract\IModePaletteRenderer;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteTemplateFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteTemplateFactory;
+use AlecRabbit\Spinner\Core\Palette\ModePaletteRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Factory\CharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
@@ -288,6 +290,7 @@ function getDefinitions(): Traversable
             IServiceDefinition::SINGLETON,
         ),
         IRenderer::class => Renderer::class,
+        IModePaletteRenderer::class => ModePaletteRenderer::class,
         NormalizerMode::class => static function (IContainer $container): NormalizerMode {
             return $container->get(INormalizerConfig::class)->getNormalizerMode();
         },

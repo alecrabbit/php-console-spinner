@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
-use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
+use AlecRabbit\Spinner\Core\Palette\A\AModePalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\StyleSequenceFrame;
-use RuntimeException;
 use Traversable;
 
 use function sprintf;
 
-final class Rainbow extends AStylePalette
+final class Rainbow extends AModePalette implements IStylePalette
 {
     /**
      * @return Traversable<IStyleSequenceFrame>

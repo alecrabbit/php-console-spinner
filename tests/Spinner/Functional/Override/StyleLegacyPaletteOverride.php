@@ -6,14 +6,14 @@ namespace AlecRabbit\Tests\Spinner\Functional\Override;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
-use AlecRabbit\Spinner\Core\Palette\A\APalette;
+use AlecRabbit\Spinner\Core\Palette\A\ALegacyPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use RuntimeException;
 use Traversable;
 
-final class StylePaletteOverride extends APalette implements IStylePalette
+final class StyleLegacyPaletteOverride extends ALegacyPalette implements IStylePalette
 {
     /** @inheritDoc */
     public function getEntries(?IPaletteMode $mode = null): Traversable

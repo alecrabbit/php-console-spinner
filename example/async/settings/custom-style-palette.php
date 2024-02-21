@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
-use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
+use AlecRabbit\Spinner\Core\Palette\A\AStyleLegacyPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Facade;
 require_once __DIR__ . '/../bootstrap.async.php';
 
 $stylePalette =
-    new class() extends AStylePalette {
+    new class() extends AStyleLegacyPalette {
 
         protected function ansi4StyleFrames(): Traversable
         {

@@ -11,19 +11,17 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 
-abstract class APalette implements IPalette
+abstract class ALegacyPalette implements IPalette
 {
     public function __construct(
         protected IPaletteOptions $options = new PaletteOptions(),
     ) {
     }
 
-    /** @inheritDoc */
     public function getOptions(?IPaletteMode $mode = null): IPaletteOptions
     {
         return new PaletteOptions(
             interval: $this->refineInterval($mode),
-//            reversed: $this->options->isReversed(),
         );
     }
 
