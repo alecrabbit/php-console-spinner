@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Pattern\Factory;
 
 use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Palette\Contract\INeoPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\StylePatternFactory;
@@ -85,8 +85,8 @@ final class StylePatternFactoryTest extends TestCase
         return $this->createMock(IPaletteOptions::class);
     }
 
-    private function getNeoPaletteMock(): MockObject&INeoPalette
+    private function getNeoPaletteMock(): MockObject&IPalette
     {
-        return $this->createMock(INeoPalette::class);
+        return $this->createMock(IPalette::class);
     }
 }

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette\A;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
+use AlecRabbit\Spinner\Core\StyleSequenceFrame;
 use Traversable;
 
 abstract class AStylePalette extends APalette implements IStylePalette
@@ -79,6 +81,11 @@ abstract class AStylePalette extends APalette implements IStylePalette
         return $this->ansi8StyleFrames();
     }
 
+    public function getFrame(?float $dt = null): IFrame
+    {
+        return new StyleSequenceFrame('%s', 0);
+    }
+
     protected function modeInterval(?IPaletteMode $mode = null): ?int
     {
         return match ($this->extractStylingMode($mode)) {
@@ -87,4 +94,6 @@ abstract class AStylePalette extends APalette implements IStylePalette
             default => null,
         };
     }
+
+
 }

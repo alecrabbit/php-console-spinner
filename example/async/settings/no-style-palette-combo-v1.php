@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
-use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
+use AlecRabbit\Spinner\Core\Palette\LegacyNoStylePalette;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
@@ -23,7 +23,7 @@ Facade::getSettings()
 $widgetSettings =
     new WidgetSettings(
         leadingSpacer: new CharSequenceFrame('', 0), // <-- used this instead
-        stylePalette: new NoStylePalette(),
+        stylePalette: new LegacyNoStylePalette(),
     );
 
 $spinnerSettings =

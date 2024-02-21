@@ -8,7 +8,7 @@ namespace AlecRabbit\Tests\Spinner\Complex\Spinner;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
-use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
+use AlecRabbit\Spinner\Core\Palette\LegacyNoStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
@@ -28,7 +28,7 @@ final class FacadeSettingsWidgetSettingsSpinnerTest extends ContainerModifyingTe
     public function spinnerCanBeCreatedWithCustomLeadingSpacerAndNoStylePalette(): void
     {
         $leadingSpacer = $this->getFrameMock();
-        $stylePalette = new NoStylePalette();
+        $stylePalette = new LegacyNoStylePalette();
 
         $widgetSettings = new WidgetSettings(stylePalette: $stylePalette);
 
@@ -135,7 +135,7 @@ final class FacadeSettingsWidgetSettingsSpinnerTest extends ContainerModifyingTe
     public function spinnerCanBeCreatedWithCustomTrailingSpacerAndNoStylePalette(): void
     {
         $trailingSpacer = $this->getFrameMock();
-        $stylePalette = new NoStylePalette();
+        $stylePalette = new LegacyNoStylePalette();
 
         $widgetSettings = new WidgetSettings(stylePalette: $stylePalette);
 
@@ -193,7 +193,7 @@ final class FacadeSettingsWidgetSettingsSpinnerTest extends ContainerModifyingTe
     public function closestWidgetSettingsHasPriority(): void
     {
         $trailingSpacerOne = $this->getFrameMock();
-        $stylePaletteOne = new NoStylePalette();
+        $stylePaletteOne = new LegacyNoStylePalette();
 
         $trailingSpacerTwo = $this->getFrameMock();
         $stylePaletteTwo = $this->getStylePaletteMock();

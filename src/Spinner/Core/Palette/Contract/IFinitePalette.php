@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette\Contract;
 
-interface IFinitePalette extends INeoPalette
+interface IFinitePalette extends IPalette
 {
 
 }

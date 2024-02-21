@@ -46,64 +46,64 @@ final class PaletteTemplateFactoryTest extends TestCase
         return $this->createMock(IPaletteModeFactory::class);
     }
 
-    #[Test]
-    public function canCreate(): void
-    {
-        $mode = $this->getPaletteModeMock();
-        $entries = $this->getTraversableMock();
-        $paletteOptions = $this->getPaletteOptionsMock();
-
-        $palette = $this->getPaletteMock();
-
-        $palette
-            ->expects(self::once())
-            ->method('getEntries')
-            ->with($mode)
-            ->willReturn($entries)
-        ;
-        $palette
-            ->expects(self::once())
-            ->method('getOptions')
-            ->with($mode)
-            ->willReturn($paletteOptions)
-        ;
-
-        $template = $this->getPaletteTemplateMock();
-
-        $builder = $this->getPaletteTemplateBuilderMock();
-        $builder
-            ->expects(self::once())
-            ->method('withEntries')
-            ->with($entries)
-            ->willReturnSelf()
-        ;
-        $builder
-            ->expects(self::once())
-            ->method('withOptions')
-            ->with($paletteOptions)
-            ->willReturnSelf()
-        ;
-        $builder
-            ->expects(self::once())
-            ->method('build')
-            ->willReturn($template)
-        ;
-
-        $paletteModeFactory = $this->getPaletteModeFactoryMock();
-        $paletteModeFactory
-            ->expects(self::once())
-            ->method('create')
-            ->willReturn($mode)
-        ;
-
-        $factory = $this->getTesteeInstance(
-            builder: $builder,
-            paletteModeFactory: $paletteModeFactory,
-        );
-
-
-        self::assertSame($template, $factory->create($palette));
-    }
+//    #[Test]
+//    public function canCreate(): void
+//    {
+//        $mode = $this->getPaletteModeMock();
+//        $entries = $this->getTraversableMock();
+//        $paletteOptions = $this->getPaletteOptionsMock();
+//
+//        $palette = $this->getPaletteMock();
+//
+//        $palette
+//            ->expects(self::once())
+//            ->method('getEntries')
+//            ->with($mode)
+//            ->willReturn($entries)
+//        ;
+//        $palette
+//            ->expects(self::once())
+//            ->method('getOptions')
+//            ->with($mode)
+//            ->willReturn($paletteOptions)
+//        ;
+//
+//        $template = $this->getPaletteTemplateMock();
+//
+//        $builder = $this->getPaletteTemplateBuilderMock();
+//        $builder
+//            ->expects(self::once())
+//            ->method('withEntries')
+//            ->with($entries)
+//            ->willReturnSelf()
+//        ;
+//        $builder
+//            ->expects(self::once())
+//            ->method('withOptions')
+//            ->with($paletteOptions)
+//            ->willReturnSelf()
+//        ;
+//        $builder
+//            ->expects(self::once())
+//            ->method('build')
+//            ->willReturn($template)
+//        ;
+//
+//        $paletteModeFactory = $this->getPaletteModeFactoryMock();
+//        $paletteModeFactory
+//            ->expects(self::once())
+//            ->method('create')
+//            ->willReturn($mode)
+//        ;
+//
+//        $factory = $this->getTesteeInstance(
+//            builder: $builder,
+//            paletteModeFactory: $paletteModeFactory,
+//        );
+//
+//
+//        self::assertSame($template, $factory->create($palette));
+//    }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode
     {

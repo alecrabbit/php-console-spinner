@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Functional\Override;
+namespace AlecRabbit\Spinner\Core\Palette;
 
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\ISequenceFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\APalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
@@ -13,28 +14,35 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
 use RuntimeException;
 use Traversable;
 
-final class CharPaletteOverride extends APalette implements ICharPalette
+/**
+ * @deprecated
+ */
+final class LegacyNoCharPalette extends APalette implements ICharPalette
 {
-    /** @inheritDoc */
-    public function getEntries(?IPaletteMode $mode = null): Traversable
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
     /**
      * TODO (2024-02-15 17:20) [Alec Rabbit]: [790e8e1f-874c-4ac2-90a1-ac9f0ffdb707]
      */
     public function unwrap(?IPaletteMode $mode = null): IPaletteTemplate
     {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
+        // TODO: Implement unwrap() method.
+        throw new RuntimeException(__METHOD__ . ' Not implemented.');
     }
 
-    protected function createFrame(string $element, ?int $width = null): ISequenceFrame
+    /** @inheritDoc */
+    public function getEntries(?IPaletteMode $mode = null): Traversable
     {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
+        yield from [
+            $this->createFrame(''),
+        ];
     }
+
     public function getFrame(?float $dt = null): IFrame
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
+    protected function createFrame(string $element, ?int $width = null): ICharSequenceFrame
+    {
+        return new CharSequenceFrame($element, $width ?? 0);
     }
 }

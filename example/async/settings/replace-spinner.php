@@ -6,7 +6,7 @@ use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
-use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
+use AlecRabbit\Spinner\Core\Palette\LegacyNoStylePalette;
 use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
@@ -34,7 +34,7 @@ Facade::getSettings()
     ->set(
         new RootWidgetSettings(
             leadingSpacer: new CharSequenceFrame('⏳ ', 3),
-            stylePalette: new NoStylePalette(),
+            stylePalette: new LegacyNoStylePalette(),
             charPalette: $charPalette,
         ),
         new NormalizerSettings(

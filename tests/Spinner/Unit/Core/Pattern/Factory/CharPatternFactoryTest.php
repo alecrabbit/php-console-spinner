@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Pattern\Factory;
 
 use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Palette\Contract\INeoPalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\CharPatternFactory;
@@ -85,8 +85,8 @@ final class CharPatternFactoryTest extends TestCase
         return $this->createMock(IPaletteOptions::class);
     }
 
-    private function getNeoPaletteMock(): MockObject&INeoPalette
+    private function getNeoPaletteMock(): MockObject&IPalette
     {
-        return $this->createMock(INeoPalette::class);
+        return $this->createMock(IPalette::class);
     }
 }

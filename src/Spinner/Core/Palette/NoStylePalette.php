@@ -5,35 +5,26 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
-use AlecRabbit\Spinner\Core\Palette\A\APalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
+use AlecRabbit\Spinner\Core\Palette\Contract\IFinitePalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\StyleSequenceFrame;
-use RuntimeException;
-use Traversable;
 
-final class NoStylePalette extends APalette implements IStylePalette
+final readonly class NoStylePalette implements IFinitePalette, IStylePalette
 {
-    /**
-     * TODO (2024-02-15 17:20) [Alec Rabbit]: [790e8e1f-874c-4ac2-90a1-ac9f0ffdb707]
-     */
-    public function unwrap(?IPaletteMode $mode = null): IPaletteTemplate
-    {
-        // TODO: Implement unwrap() method.
-        throw new RuntimeException(__METHOD__ . ' Not implemented.');
+    public function __construct(
+        private IPaletteOptions $options = new PaletteOptions(),
+        private IStyleSequenceFrame $frame = new StyleSequenceFrame('%s', 0),
+    ) {
     }
 
-    /** @inheritDoc */
-    public function getEntries(?IPaletteMode $mode = null): Traversable
+    public function getFrame(?float $dt = null): IStyleSequenceFrame
     {
-        yield from [
-            $this->createFrame('%s')
-        ];
+        return $this->frame;
     }
 
-    protected function createFrame(string $element, ?int $width = null): IStyleSequenceFrame
+    public function getOptions(): IPaletteOptions
     {
-        return new StyleSequenceFrame($element, $width ?? 0);
+        return $this->options;
     }
 }
