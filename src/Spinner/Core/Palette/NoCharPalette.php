@@ -14,7 +14,7 @@ final readonly class NoCharPalette implements IFinitePalette, ICharPalette
 {
     public function __construct(
         private IPaletteOptions $options = new PaletteOptions(),
-        private ICharSequenceFrame $frame = new CharSequenceFrame('%s', 0),
+        private ICharSequenceFrame $frame = new CharSequenceFrame('', 0),
     ) {
     }
 
