@@ -19,7 +19,9 @@
         "async",
         "snake",
         "reactphp",
-        "revolt"
+        "revolt",
+        "event-loop",
+        "eventloop"
     ],
     "require": {
         "php": ">=8.2",
