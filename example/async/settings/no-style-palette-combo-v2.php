@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
-use AlecRabbit\Spinner\Core\Palette\LegacyNoStylePalette;
+use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
@@ -26,7 +26,7 @@ Facade::getSettings()
 
 $widgetSettings =
     new WidgetSettings(
-        stylePalette: new LegacyNoStylePalette(), // <-- used this palette instead
+        stylePalette: new NoStylePalette(), // <-- used this palette instead
     );
 
 $spinnerSettings =
