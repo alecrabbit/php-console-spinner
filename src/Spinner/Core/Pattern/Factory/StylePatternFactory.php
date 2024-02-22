@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
 use AlecRabbit\Spinner\Contract\Pattern\INeoStylePattern;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePaletteRenderer;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\NeoStylePattern;
 

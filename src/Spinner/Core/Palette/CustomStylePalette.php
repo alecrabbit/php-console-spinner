@@ -6,11 +6,12 @@ namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use ArrayObject;
 
 final class CustomStylePalette extends AStylePalette
 {
     public function __construct(
-        \ArrayObject $frames,
+        ArrayObject $frames,
         IPaletteOptions $options = new PaletteOptions(),
         int $index = 0,
     ) {

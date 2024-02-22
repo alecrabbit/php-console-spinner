@@ -7,13 +7,14 @@ namespace AlecRabbit\Spinner\Core\Palette\A;
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use ArrayObject;
 
 abstract class ACharPalette implements ICharPalette
 {
     private int $count;
 
     public function __construct(
-        private readonly \ArrayObject $frames,
+        private readonly ArrayObject $frames,
         private readonly IPaletteOptions $options,
         private int $index = 0,
     ) {

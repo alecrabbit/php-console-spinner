@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Palette\A;
 
 use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
-use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
+use ArrayObject;
 
 abstract class AStylePalette implements IStylePalette
 {
     private int $count;
 
     public function __construct(
-        private readonly \ArrayObject $frames,
+        private readonly ArrayObject $frames,
         private readonly IPaletteOptions $options,
         private int $index = 0,
     ) {

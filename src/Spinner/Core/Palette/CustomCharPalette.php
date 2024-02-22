@@ -7,11 +7,12 @@ namespace AlecRabbit\Spinner\Core\Palette;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Extras\Palette\A\AInfiniteCharPalette;
+use ArrayObject;
 
 final class CustomCharPalette extends ACharPalette
 {
     public function __construct(
-        \ArrayObject $frames,
+        ArrayObject $frames,
         IPaletteOptions $options = new PaletteOptions(),
         int $index = 0,
     ) {
