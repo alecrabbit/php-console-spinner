@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\ICharPattern;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IHasFrameWrapper;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
@@ -65,6 +66,7 @@ final readonly class CharPatternFactory implements ICharPatternFactory
                 $this->toleranceValue = $this->tolerance->toMilliseconds();
                 $this->intervalValue = $interval->toMilliseconds();
                 $this->diff = $this->intervalValue;
+                $this->currentFrame = new CharSequenceFrame('', 0);
             }
 
             public function getFrame(?float $dt = null): ICharSequenceFrame

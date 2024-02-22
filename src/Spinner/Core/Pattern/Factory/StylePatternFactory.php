@@ -19,6 +19,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IModePaletteRenderer;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern;
+use AlecRabbit\Spinner\Core\StyleSequenceFrame;
 
 final readonly class StylePatternFactory implements IStylePatternFactory
 {
@@ -44,7 +45,7 @@ final readonly class StylePatternFactory implements IStylePatternFactory
         $interval = $this->intervalFactory->createNormalized(
             $palette->getOptions()->getInterval()
         );
-        
+
         return new class(
             $palette,
             $this->transformer,
@@ -65,6 +66,7 @@ final readonly class StylePatternFactory implements IStylePatternFactory
                 $this->toleranceValue = $this->tolerance->toMilliseconds();
                 $this->intervalValue = $interval->toMilliseconds();
                 $this->diff = $this->intervalValue;
+                $this->currentFrame = new StyleSequenceFrame('%s', 0);
             }
 
             public function getInterval(): IInterval
