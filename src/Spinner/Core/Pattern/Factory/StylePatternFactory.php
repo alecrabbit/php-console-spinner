@@ -66,7 +66,7 @@ final readonly class StylePatternFactory implements IStylePatternFactory
                 $this->toleranceValue = $this->tolerance->toMilliseconds();
                 $this->intervalValue = $interval->toMilliseconds();
                 $this->diff = $this->intervalValue;
-                $this->currentFrame = new StyleSequenceFrame('%s', 0);
+                $this->currentFrame = $this->getFrame();
             }
 
             public function getInterval(): IInterval

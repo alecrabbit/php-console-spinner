@@ -66,7 +66,7 @@ final readonly class CharPatternFactory implements ICharPatternFactory
                 $this->toleranceValue = $this->tolerance->toMilliseconds();
                 $this->intervalValue = $interval->toMilliseconds();
                 $this->diff = $this->intervalValue;
-                $this->currentFrame = new CharSequenceFrame('', 0);
+                $this->currentFrame = $this->getFrame();
             }
 
             public function getFrame(?float $dt = null): ICharSequenceFrame
