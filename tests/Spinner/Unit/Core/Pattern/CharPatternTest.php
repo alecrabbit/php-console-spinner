@@ -44,11 +44,6 @@ final class CharPatternTest extends TestCase
         return $this->createMock(IInterval::class);
     }
 
-    private function getCharFrameTransformerMock(): MockObject&ICharFrameTransformer
-    {
-        return $this->createMock(ICharFrameTransformer::class);
-    }
-
     #[Test]
     public function canGetInterval(): void
     {

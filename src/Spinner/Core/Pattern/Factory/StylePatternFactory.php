@@ -36,25 +36,21 @@ final readonly class StylePatternFactory implements IStylePatternFactory
             $palette = $this->paletteRenderer->render($palette);
         }
 
+        return $this->wrap($palette);
+    }
+
+    private function wrap(IPalette $palette): IStylePattern
+    {
         $interval = $this->intervalFactory->createNormalized(
             $palette->getOptions()->getInterval()
         );
-
-        $frames = $this->wrap($palette, $interval);
-
-        return new StylePattern(
-            frames: $frames,
-            interval: $interval,
-        );
-    }
-    private function wrap(IPalette $palette, IInterval $interval): IHasStyleSequenceFrame
-    {
+        
         return new class(
             $palette,
             $this->transformer,
             $interval,
             $this->revolverConfig->getTolerance(),
-        ) implements IHasStyleSequenceFrame {
+        ) implements IStylePattern {
             private readonly int $toleranceValue;
             private readonly float $intervalValue;
             private float $diff;
@@ -63,12 +59,17 @@ final readonly class StylePatternFactory implements IStylePatternFactory
             public function __construct(
                 private readonly IHasFrame $frames,
                 private readonly IStyleFrameTransformer $transformer,
-                IInterval $interval,
+                private readonly IInterval $interval,
                 private readonly ITolerance $tolerance,
             ) {
                 $this->toleranceValue = $this->tolerance->toMilliseconds();
                 $this->intervalValue = $interval->toMilliseconds();
                 $this->diff = $this->intervalValue;
+            }
+
+            public function getInterval(): IInterval
+            {
+                return $this->interval;
             }
 
             public function getFrame(?float $dt = null): IStyleSequenceFrame

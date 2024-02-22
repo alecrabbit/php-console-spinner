@@ -44,11 +44,6 @@ final class StylePatternTest extends TestCase
         return $this->createMock(IInterval::class);
     }
 
-    private function getStyleFrameTransformerMock(): MockObject&IStyleFrameTransformer
-    {
-        return $this->createMock(IStyleFrameTransformer::class);
-    }
-
     #[Test]
     public function canGetInterval(): void
     {
