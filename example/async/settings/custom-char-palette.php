@@ -14,12 +14,6 @@ use AlecRabbit\Spinner\Facade;
 require_once __DIR__ . '/../bootstrap.async.php';
 
 $interval = 250;
-$reversed = true;
-
-$options =
-    new PaletteOptions(
-        interval: $interval,
-    );
 
 $charPalette = new CustomCharPalette(
     frames:  new ArrayObject(
@@ -33,7 +27,9 @@ $charPalette = new CustomCharPalette(
             new CharSequenceFrame('   ', 3),
         ]
     ),
-    options: new PaletteOptions(interval: 50),
+    options: new PaletteOptions(
+        interval: $interval,
+    ),
 );
 
 $widgetSettings =

@@ -13,12 +13,10 @@ use AlecRabbit\Spinner\Facade;
 require_once __DIR__ . '/../bootstrap.async.php';
 
 $interval = 500;
-$reversed = true;
 
 $options =
     new PaletteOptions(
         interval: $interval,
-        reversed: $reversed,
     );
 
 $charPalette = new Snake($options);
@@ -33,16 +31,16 @@ $spinnerSettings =
         widgetSettings: $widgetSettings,
     );
 
-// Optionally you can disable styling:
-{
-    $outputSettings =
-        new OutputSettings(
-            stylingMethodOption: StylingMethodOption::NONE,
-        );
-
-    Facade::getSettings()
-        ->set($outputSettings)
-    ;
-}
+// // Optionally you can disable styling:
+//{
+//    $outputSettings =
+//        new OutputSettings(
+//            stylingMethodOption: StylingMethodOption::NONE,
+//        );
+//
+//    Facade::getSettings()
+//        ->set($outputSettings)
+//    ;
+//}
 
 $spinner = Facade::createSpinner($spinnerSettings);
