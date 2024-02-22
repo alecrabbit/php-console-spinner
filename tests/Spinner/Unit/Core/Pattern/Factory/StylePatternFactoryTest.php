@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Pattern\Factory;
 
 use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePaletteRenderer;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\StylePatternFactory;
-use AlecRabbit\Spinner\Core\Pattern\NeoStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\StylePattern;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -30,12 +31,14 @@ final class StylePatternFactoryTest extends TestCase
         ?IIntervalFactory $intervalFactory = null,
         ?IStyleFrameTransformer $transformer = null,
         ?IModePaletteRenderer $paletteRenderer = null,
+        ?IRevolverConfig $revolverConfig = null,
     ): IStylePatternFactory {
         return
             new StylePatternFactory(
                 intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
                 transformer: $transformer ?? $this->getStyleFrameTransformerMock(),
                 paletteRenderer: $paletteRenderer ?? $this->getModePaletteRendererMock(),
+                revolverConfig: $revolverConfig ?? $this->getRevolverConfigMock(),
             );
     }
 
@@ -47,6 +50,16 @@ final class StylePatternFactoryTest extends TestCase
     private function getStyleFrameTransformerMock(): MockObject&IStyleFrameTransformer
     {
         return $this->createMock(IStyleFrameTransformer::class);
+    }
+
+    private function getModePaletteRendererMock(): MockObject&IModePaletteRenderer
+    {
+        return $this->createMock(IModePaletteRenderer::class);
+    }
+
+    private function getRevolverConfigMock(): MockObject&IRevolverConfig
+    {
+        return $this->createMock(IRevolverConfig::class);
     }
 
     #[Test]
@@ -61,7 +74,7 @@ final class StylePatternFactoryTest extends TestCase
             ->willReturn($intInterval)
         ;
 
-        $palette = $this->getNeoPaletteMock();
+        $palette = $this->getPaletteMock();
         $palette
             ->expects($this->once())
             ->method('getOptions')
@@ -80,7 +93,7 @@ final class StylePatternFactoryTest extends TestCase
 
         $pattern = $factory->create($palette);
 
-        self::assertInstanceOf(NeoStylePattern::class, $pattern);
+        self::assertInstanceOf(StylePattern::class, $pattern);
     }
 
     private function getPaletteOptionsMock(): MockObject&IPaletteOptions
@@ -88,13 +101,8 @@ final class StylePatternFactoryTest extends TestCase
         return $this->createMock(IPaletteOptions::class);
     }
 
-    private function getNeoPaletteMock(): MockObject&IPalette
+    private function getPaletteMock(): MockObject&IPalette
     {
         return $this->createMock(IPalette::class);
-    }
-
-    private function getModePaletteRendererMock(): MockObject&IModePaletteRenderer
-    {
-        return $this->createMock(IModePaletteRenderer::class);
     }
 }

@@ -18,8 +18,3 @@ Facade::getSettings()
 ;
 
 $spinner = Facade::createSpinner();
-
-// perform example unrelated actions:
-
-
-//dump($spinner);

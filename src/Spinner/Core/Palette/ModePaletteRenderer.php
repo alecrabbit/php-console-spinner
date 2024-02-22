@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette;
 
-use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
-use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePaletteRenderer;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
+use ArrayObject;
 
 final readonly class ModePaletteRenderer implements IModePaletteRenderer
 {
@@ -24,7 +23,7 @@ final readonly class ModePaletteRenderer implements IModePaletteRenderer
     {
         $mode = $this->paletteModeFactory->create();
 
-        $frames = new \ArrayObject(
+        $frames = new ArrayObject(
             iterator_to_array($palette->getEntries($mode)),
         );
 

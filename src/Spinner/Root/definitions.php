@@ -117,6 +117,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Contract\IHasFrameWrapper;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
@@ -127,9 +128,7 @@ use AlecRabbit\Spinner\Core\Driver\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Driver\Factory\DriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Driver\Factory\DriverProviderFactory;
 use AlecRabbit\Spinner\Core\Driver\Renderer;
-use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
@@ -143,7 +142,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\DeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
@@ -151,13 +149,13 @@ use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Feature\Resolver\AutoStartResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IAutoStartResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\ILinkerResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\InitializationResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\LinkerResolver;
+use AlecRabbit\Spinner\Core\HasFrameWrapper;
 use AlecRabbit\Spinner\Core\IntervalComparator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
@@ -176,22 +174,14 @@ use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Spinner\Core\Output\Factory\WritableStreamFactory;
 use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
-use AlecRabbit\Spinner\Core\Palette\Builder\Contract\IPaletteTemplateBuilder;
-use AlecRabbit\Spinner\Core\Palette\Builder\PaletteTemplateBuilder;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePaletteRenderer;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
-use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteTemplateFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
-use AlecRabbit\Spinner\Core\Palette\Factory\PaletteTemplateFactory;
 use AlecRabbit\Spinner\Core\Palette\ModePaletteRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Factory\CharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
-use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
-use AlecRabbit\Spinner\Core\Pattern\Factory\PatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\StylePatternFactory;
-use AlecRabbit\Spinner\Core\Revolver\Builder\FrameCollectionRevolverBuilder;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Spinner\Core\Settings\Builder\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
@@ -210,14 +200,14 @@ use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\UserSettingsFactory;
 use AlecRabbit\Spinner\Core\StyleFrameTransformer;
-use AlecRabbit\Spinner\Core\Widget\Builder\NeoWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\INeoWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
-use AlecRabbit\Spinner\Core\Widget\Factory\NeoWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Probes;
 use Traversable;
 
@@ -327,6 +317,7 @@ function getDefinitions(): Traversable
 
         IStyleFrameTransformer::class => StyleFrameTransformer::class,
         ICharFrameTransformer::class => CharFrameTransformer::class,
+        IHasFrameWrapper::class => HasFrameWrapper::class,
     ];
 
     yield from configs();
@@ -390,7 +381,6 @@ function builders(): Traversable
         IDeltaTimerBuilder::class => DeltaTimerBuilder::class,
         IDriverBuilder::class => DriverBuilder::class,
         IDriverConfigBuilder::class => DriverConfigBuilder::class,
-        IFrameCollectionRevolverBuilder::class => FrameCollectionRevolverBuilder::class,
         IGeneralConfigBuilder::class => GeneralConfigBuilder::class,
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
         ILinkerConfigBuilder::class => LinkerConfigBuilder::class,
@@ -404,10 +394,7 @@ function builders(): Traversable
         ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
 
         IWidgetBuilder::class => WidgetBuilder::class,
-//        IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
-        INeoWidgetRevolverBuilder::class => NeoWidgetRevolverBuilder::class,
-
-        IPaletteTemplateBuilder::class => PaletteTemplateBuilder::class,
+        IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
     ];
 }
 
@@ -440,7 +427,6 @@ function factories(): Traversable
         ILoopProviderFactory::class => LoopProviderFactory::class,
         IDriverProviderFactory::class => DriverProviderFactory::class,
         IWritableStreamFactory::class => WritableStreamFactory::class,
-        ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConsoleCursorFactory::class => ConsoleCursorFactory::class,
         IDefaultSettingsFactory::class => DefaultSettingsFactory::class,
         IDetectedSettingsFactory::class => DetectedSettingsFactory::class,
@@ -452,18 +438,14 @@ function factories(): Traversable
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
         ISpinnerFactory::class => SpinnerFactory::class,
-        IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         IDeltaTimerFactory::class => DeltaTimerFactory::class,
         IUserSettingsFactory::class => UserSettingsFactory::class,
         IWidgetFactory::class => WidgetFactory::class,
-//        IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
-        IWidgetRevolverFactory::class => NeoWidgetRevolverFactory::class,
+        IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
         IStylePatternFactory::class => StylePatternFactory::class,
         ICharPatternFactory::class => CharPatternFactory::class,
 
-        IPatternFactory::class => PatternFactory::class,
         IPaletteModeFactory::class => PaletteModeFactory::class,
-        IPaletteTemplateFactory::class => PaletteTemplateFactory::class,
 
         IGeneralConfigFactory::class => GeneralConfigFactory::class,
         INormalizerConfigFactory::class => NormalizerConfigFactory::class,

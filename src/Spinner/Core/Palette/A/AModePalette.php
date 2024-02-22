@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Palette\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\StyleSequenceFrame;
 use Traversable;
@@ -28,29 +28,41 @@ abstract class AModePalette implements IModePalette
             interval: $this->refineInterval($mode),
         );
     }
+
     protected function refineInterval(?IPaletteMode $mode = null): ?int
     {
         return $this->options->getInterval() ?? $this->modeInterval($mode);
     }
+
+    protected function modeInterval(?IPaletteMode $mode = null): ?int
+    {
+        return match ($this->extractStylingMode($mode)) {
+            StylingMethodMode::ANSI8 => 1000,
+            StylingMethodMode::ANSI24 => 100,
+            default => null,
+        };
+    }
+
+    protected function extractStylingMode(?IPaletteMode $mode): StylingMethodMode
+    {
+        return $mode?->getStylingMode() ?? StylingMethodMode::NONE;
+    }
+
     /**
-     * @return Traversable<IStyleSequenceFrame>
-     * @deprecated
+     * @return Traversable<ISequenceFrame>
      */
     public function getEntries(?IPaletteMode $mode = null): Traversable
     {
-        /** @var IStyleSequenceFrame|string $item */
+        /** @var ISequenceFrame|string $item */
         foreach ($this->getFrames($mode) as $item) {
-            if ($item instanceof IStyleSequenceFrame) {
+            if ($item instanceof ISequenceFrame) {
                 yield $item;
                 continue;
             }
             yield $this->createFrame($item);
         }
     }
-    protected function extractStylingMode(?IPaletteMode $mode): StylingMethodMode
-    {
-        return $mode?->getStylingMode() ?? StylingMethodMode::NONE;
-    }
+
     /**
      * @return Traversable<IStyleSequenceFrame|string>
      */
@@ -105,14 +117,5 @@ abstract class AModePalette implements IModePalette
     public function getFrame(?float $dt = null): IFrame
     {
         return new StyleSequenceFrame('%s', 0);
-    }
-
-    protected function modeInterval(?IPaletteMode $mode = null): ?int
-    {
-        return match ($this->extractStylingMode($mode)) {
-            StylingMethodMode::ANSI8 => 1000,
-            StylingMethodMode::ANSI24 => 100,
-            default => null,
-        };
     }
 }

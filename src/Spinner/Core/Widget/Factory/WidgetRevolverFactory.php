@@ -6,36 +6,35 @@ namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
+use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
+use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 
-final readonly class WidgetRevolverFactory implements IWidgetRevolverFactory
+final readonly class WidgetRevolverFactory implements Contract\IWidgetRevolverFactory
 {
     public function __construct(
-        private IWidgetRevolverBuilder $widgetRevolverBuilder,
-        private IStyleFrameRevolverFactory $styleRevolverFactory,
-        private ICharFrameRevolverFactory $charRevolverFactory,
+        private IWidgetRevolverBuilder $builder,
+        private IStylePatternFactory $styleFactory,
+        private ICharPatternFactory $charFactory,
         private IIntervalComparator $intervalComparator,
     ) {
     }
 
     public function create(IWidgetRevolverConfig $widgetRevolverConfig): IWidgetRevolver
     {
-        $styleRevolver = $this->styleRevolverFactory->create(
-            $widgetRevolverConfig->getStylePalette()
+        $style = $this->styleFactory->create($widgetRevolverConfig->getStylePalette());
+        $char = $this->charFactory->create($widgetRevolverConfig->getCharPalette());
+
+        $interval = $this->intervalComparator->smallest(
+            $style->getInterval(),
+            $char->getInterval()
         );
 
-        $charRevolver = $this->charRevolverFactory->create(
-            $widgetRevolverConfig->getCharPalette()
-        );
-
-        return $this->widgetRevolverBuilder
-            ->withStyleRevolver($styleRevolver)
-            ->withCharRevolver($charRevolver)
-            ->withIntervalComparator($this->intervalComparator)
+        return $this->builder
+            ->withStyle($style)
+            ->withChar($char)
+            ->withInterval($interval)
             ->build()
         ;
     }

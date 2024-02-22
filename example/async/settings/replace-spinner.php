@@ -5,8 +5,10 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
-use AlecRabbit\Spinner\Core\Palette\A\ACharLegacyPalette;
+use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
+use AlecRabbit\Spinner\Core\Palette\CustomCharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
+use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
@@ -16,18 +18,20 @@ require_once __DIR__ . '/../bootstrap.async.php';
 
 $spinnerOne = Facade::createSpinner();
 
-$charPalette =
-    new class() extends ACharLegacyPalette {
-        protected function createFrame(string $element, ?int $width = null): ICharSequenceFrame
-        {
-            return new CharSequenceFrame($element, $width ?? 3); // note the width is 3
-        }
-
-        protected function sequence(): Traversable
-        {
-            yield from ['   ', '.  ', '.. ', '...', ' ..', '  .', '   ']; // note the width of each element
-        }
-    };
+$charPalette = new CustomCharPalette(
+    frames:  new ArrayObject(
+        [
+            new CharSequenceFrame('   ', 3),
+            new CharSequenceFrame('.  ', 3),
+            new CharSequenceFrame('.. ', 3),
+            new CharSequenceFrame('...', 3),
+            new CharSequenceFrame(' ..', 3),
+            new CharSequenceFrame('  .', 3),
+            new CharSequenceFrame('   ', 3),
+        ]
+    ),
+    options: new PaletteOptions(interval: 250),
+);
 
 // Let's change default settings
 Facade::getSettings()

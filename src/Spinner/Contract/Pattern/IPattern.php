@@ -5,13 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Contract\Pattern;
 
 use AlecRabbit\Spinner\Contract\IHasInterval;
-use AlecRabbit\Spinner\Contract\ISequenceFrame;
-use Traversable;
+use AlecRabbit\Spinner\Contract\IHasSequenceFrame;
 
-interface IPattern extends IHasInterval
+interface IPattern extends IHasInterval, IHasSequenceFrame
 {
-    /**
-     * @return Traversable<ISequenceFrame>
-     */
-    public function getFrames(): Traversable;
+
 }

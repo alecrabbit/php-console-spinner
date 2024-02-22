@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget\Factory;
 
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\Pattern\ICharPattern;
+use AlecRabbit\Spinner\Contract\Pattern\IStylePattern;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
-use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
+use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
+use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -32,32 +32,32 @@ final class WidgetRevolverFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IWidgetRevolverBuilder $widgetRevolverBuilder = null,
-        ?IStyleFrameRevolverFactory $styleRevolverFactory = null,
-        ?ICharFrameRevolverFactory $charRevolverFactory = null,
+        ?IWidgetRevolverBuilder $builder = null,
+        ?IStylePatternFactory $styleFactory = null,
+        ?ICharPatternFactory $charFactory = null,
         ?IIntervalComparator $intervalComparator = null,
     ): IWidgetRevolverFactory {
         return new WidgetRevolverFactory(
-            widgetRevolverBuilder: $widgetRevolverBuilder ?? $this->getWidgetRevolverBuilderMock(),
-            styleRevolverFactory: $styleRevolverFactory ?? $this->getStyleFrameRevolverFactoryMock(),
-            charRevolverFactory: $charRevolverFactory ?? $this->getCharFrameRevolverFactoryMock(),
+            builder: $builder ?? $this->getWidgetRevolverBuilderMock(),
+            styleFactory: $styleFactory ?? $this->getStylePatternFactoryMock(),
+            charFactory: $charFactory ?? $this->getCharPatternFactoryMock(),
             intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
         );
     }
 
-    protected function getWidgetRevolverBuilderMock(): MockObject&IWidgetRevolverBuilder
+    private function getWidgetRevolverBuilderMock(): MockObject&IWidgetRevolverBuilder
     {
         return $this->createMock(IWidgetRevolverBuilder::class);
     }
 
-    protected function getStyleFrameRevolverFactoryMock(): MockObject&IStyleFrameRevolverFactory
+    private function getStylePatternFactoryMock(): MockObject&IStylePatternFactory
     {
-        return $this->createMock(IStyleFrameRevolverFactory::class);
+        return $this->createMock(IStylePatternFactory::class);
     }
 
-    protected function getCharFrameRevolverFactoryMock(): MockObject&ICharFrameRevolverFactory
+    private function getCharPatternFactoryMock(): MockObject&ICharPatternFactory
     {
-        return $this->createMock(ICharFrameRevolverFactory::class);
+        return $this->createMock(ICharPatternFactory::class);
     }
 
     private function getIntervalComparatorMock(): MockObject&IIntervalComparator
@@ -68,85 +68,102 @@ final class WidgetRevolverFactoryTest extends TestCase
     #[Test]
     public function canCreate(): void
     {
-        $intervalComparator = $this->getIntervalComparatorMock();
-
-        $stylePalette = $this->getStylePaletteMock();
+        $styleInterval = $this->getIntervalMock();
+        $charInterval = $this->getIntervalMock();
         $charPalette = $this->getCharPaletteMock();
+        $stylePalette = $this->getStylePaletteMock();
+        $config = $this->getWidgetRevolverConfigMock();
+        $config
+            ->expects(self::once())
+            ->method('getStylePalette')
+            ->willReturn($stylePalette)
+        ;
+        $config
+            ->expects(self::once())
+            ->method('getCharPalette')
+            ->willReturn($charPalette)
+        ;
+        $stylePattern = $this->getStylePatternMock();
+        $stylePattern
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($styleInterval)
+        ;
 
-        $styleRevolver = $this->getFrameRevolverMock();
-        $charRevolver = $this->getFrameRevolverMock();
-        $widgetRevolver = $this->getWidgetRevolverMock();
-
-        $styleRevolverFactory = $this->getStyleFrameRevolverFactoryMock();
-        $styleRevolverFactory
+        $stylePatternFactory = $this->getStylePatternFactoryMock();
+        $stylePatternFactory
             ->expects(self::once())
             ->method('create')
             ->with($stylePalette)
-            ->willReturn($styleRevolver)
+            ->willReturn($stylePattern)
         ;
 
-        $charRevolverFactory = $this->getCharFrameRevolverFactoryMock();
-        $charRevolverFactory
+        $charPattern = $this->getCharPatternMock();
+        $charPattern
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($charInterval)
+        ;
+
+        $charPatternFactory = $this->getCharPatternFactoryMock();
+        $charPatternFactory
             ->expects(self::once())
             ->method('create')
             ->with($charPalette)
-            ->willReturn($charRevolver)
+            ->willReturn($charPattern)
         ;
 
-        $widgetRevolverBuilder = $this->getWidgetRevolverBuilderMock();
-        $widgetRevolverBuilder
+        $widgetRevolver = $this->getWidgetRevolverMock();
+
+        $charIntervalComparator = $this->getIntervalComparatorMock();
+        $charIntervalComparator
             ->expects(self::once())
-            ->method('withStyleRevolver')
-            ->with($styleRevolver)
-            ->willReturnSelf()
-        ;
-        $widgetRevolverBuilder
-            ->expects(self::once())
-            ->method('withCharRevolver')
-            ->with($charRevolver)
-            ->willReturnSelf()
-        ;
-        $widgetRevolverBuilder
-            ->expects(self::once())
-            ->method('withIntervalComparator')
-            ->with($intervalComparator)
-            ->willReturnSelf()
+            ->method('smallest')
+            ->with($styleInterval, $charInterval)
+            ->willReturn($charInterval)
         ;
 
-        $widgetRevolverBuilder
+        $builder = $this->getWidgetRevolverBuilderMock();
+        $builder
+            ->expects(self::once())
+            ->method('withStyle')
+            ->with($stylePattern)
+            ->willReturnSelf()
+        ;
+        $builder
+            ->expects(self::once())
+            ->method('withChar')
+            ->with($charPattern)
+            ->willReturnSelf()
+        ;
+        $builder
+            ->expects(self::once())
+            ->method('withInterval')
+            ->with($charInterval)
+            ->willReturnSelf()
+        ;
+        $builder
             ->expects(self::once())
             ->method('build')
             ->willReturn($widgetRevolver)
         ;
 
+
         $widgetRevolverFactory = $this->getTesteeInstance(
-            widgetRevolverBuilder: $widgetRevolverBuilder,
-            styleRevolverFactory: $styleRevolverFactory,
-            charRevolverFactory: $charRevolverFactory,
-            intervalComparator: $intervalComparator,
+            builder: $builder,
+            styleFactory: $stylePatternFactory,
+            charFactory: $charPatternFactory,
+            intervalComparator: $charIntervalComparator,
         );
 
-        self::assertInstanceOf(WidgetRevolverFactory::class, $widgetRevolverFactory);
+        $actual = $widgetRevolverFactory->create($config);
 
-        $widgetRevolverConfig = $this->getWidgetRevolverConfigMock();
-
-        $widgetRevolverConfig
-            ->expects(self::once())
-            ->method('getStylePalette')
-            ->willReturn($stylePalette)
-        ;
-        $widgetRevolverConfig
-            ->expects(self::once())
-            ->method('getCharPalette')
-            ->willReturn($charPalette)
-        ;
-
-        self::assertEquals($widgetRevolver, $widgetRevolverFactory->create($widgetRevolverConfig));
+        self::assertSame($widgetRevolver, $actual);
     }
 
-    private function getStylePaletteMock(): MockObject&IStylePalette
+    private function getIntervalMock(): MockObject&IInterval
     {
-        return $this->createMock(IStylePalette::class);
+        return $this->createMock(IInterval::class);
     }
 
     private function getCharPaletteMock(): MockObject&ICharPalette
@@ -154,14 +171,9 @@ final class WidgetRevolverFactoryTest extends TestCase
         return $this->createMock(ICharPalette::class);
     }
 
-    private function getFrameRevolverMock(): MockObject&IFrameRevolver
+    private function getStylePaletteMock(): MockObject&IStylePalette
     {
-        return $this->createMock(IFrameRevolver::class);
-    }
-
-    private function getWidgetRevolverMock(): MockObject&IWidgetRevolver
-    {
-        return $this->createMock(IWidgetRevolver::class);
+        return $this->createMock(IStylePalette::class);
     }
 
     private function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
@@ -169,13 +181,19 @@ final class WidgetRevolverFactoryTest extends TestCase
         return $this->createMock(IWidgetRevolverConfig::class);
     }
 
-    private function getPatternFactoryMock(): MockObject&IPatternFactory
+    private function getStylePatternMock(): MockObject&IStylePattern
     {
-        return $this->createMock(IPatternFactory::class);
+        return $this->createMock(IStylePattern::class);
     }
 
-    private function getPatternMock(): MockObject&IPattern
+    private function getCharPatternMock(): MockObject&ICharPattern
     {
-        return $this->createMock(IPattern::class);
+        return $this->createMock(ICharPattern::class);
     }
+
+    private function getWidgetRevolverMock(): MockObject&IWidgetRevolver
+    {
+        return $this->createMock(IWidgetRevolver::class);
+    }
+
 }
