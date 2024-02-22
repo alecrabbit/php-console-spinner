@@ -172,8 +172,6 @@ use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Spinner\Core\Output\Factory\WritableStreamFactory;
 use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
-use AlecRabbit\Spinner\Core\Palette\Builder\Contract\IPaletteTemplateBuilder;
-use AlecRabbit\Spinner\Core\Palette\Builder\PaletteTemplateBuilder;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePaletteRenderer;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
@@ -202,9 +200,9 @@ use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\UserSettingsFactory;
 use AlecRabbit\Spinner\Core\StyleFrameTransformer;
-use AlecRabbit\Spinner\Core\Widget\Builder\NeoWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\INeoWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
@@ -396,9 +394,7 @@ function builders(): Traversable
         ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
 
         IWidgetBuilder::class => WidgetBuilder::class,
-        INeoWidgetRevolverBuilder::class => NeoWidgetRevolverBuilder::class,
-
-        IPaletteTemplateBuilder::class => PaletteTemplateBuilder::class,
+        IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
     ];
 }
 

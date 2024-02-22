@@ -4,71 +4,58 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Builder;
 
-use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
-use AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
+use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-/**
- * @psalm-suppress PossiblyNullArgument
- */
-final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRevolverBuilder
+final class WidgetRevolverBuilder implements IWidgetRevolverBuilder
 {
-    private ?IFrameRevolver $styleRevolver = null;
-    private ?IFrameRevolver $charRevolver = null;
-
     public function __construct(
-        private IIntervalComparator $intervalComparator,
+        private ?IHasStyleSequenceFrame $style = null,
+        private ?IHasCharSequenceFrame $char = null,
+        private ?IInterval $interval = null,
     ) {
     }
 
-
+    /** @inheritDoc */
     public function build(): IWidgetRevolver
     {
-        $this->validate();
-
-        $interval = $this->intervalComparator->smallest(
-            $this->styleRevolver->getInterval(),
-            $this->charRevolver->getInterval()
-        );
-
-        return new WidgetRevolver(
-            $this->styleRevolver,
-            $this->charRevolver,
-            $interval,
-        );
-    }
-
-    protected function validate(): void
-    {
         match (true) {
-            $this->styleRevolver === null => throw new LogicException('Style revolver is not set.'),
-            $this->charRevolver === null => throw new LogicException('Character revolver is not set.'),
+            $this->style === null => throw new LogicException('Style is not set.'),
+            $this->char === null => throw new LogicException('Char is not set.'),
+            $this->interval === null => throw new LogicException('Interval is not set.'),
             default => null,
         };
+
+        return new WidgetRevolver(
+            style: $this->style,
+            char: $this->char,
+            interval: $this->interval,
+        );
     }
 
-    public function withStyleRevolver(IFrameRevolver $styleRevolver): IWidgetRevolverBuilder
+    public function withChar(IHasCharSequenceFrame $char): IWidgetRevolverBuilder
     {
         $clone = clone $this;
-        $clone->styleRevolver = $styleRevolver;
+        $clone->char = $char;
         return $clone;
     }
 
-    public function withCharRevolver(IFrameRevolver $charRevolver): IWidgetRevolverBuilder
+    public function withStyle(IHasStyleSequenceFrame $style): IWidgetRevolverBuilder
     {
         $clone = clone $this;
-        $clone->charRevolver = $charRevolver;
+        $clone->style = $style;
         return $clone;
     }
 
-    public function withIntervalComparator(IIntervalComparator $intervalComparator): IWidgetRevolverBuilder
+    public function withInterval(IInterval $interval): IWidgetRevolverBuilder
     {
         $clone = clone $this;
-        $clone->intervalComparator = $intervalComparator;
+        $clone->interval = $interval;
         return $clone;
     }
 }

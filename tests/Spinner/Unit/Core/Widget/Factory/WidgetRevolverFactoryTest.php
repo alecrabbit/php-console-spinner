@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
-use AlecRabbit\Spinner\Core\Widget\Contract\INeoWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
@@ -32,7 +32,7 @@ final class WidgetRevolverFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?INeoWidgetRevolverBuilder $builder = null,
+        ?IWidgetRevolverBuilder $builder = null,
         ?IStylePatternFactory $styleFactory = null,
         ?ICharPatternFactory $charFactory = null,
         ?IIntervalComparator $intervalComparator = null,
@@ -45,9 +45,9 @@ final class WidgetRevolverFactoryTest extends TestCase
         );
     }
 
-    private function getNeoWidgetRevolverBuilderMock(): MockObject&INeoWidgetRevolverBuilder
+    private function getNeoWidgetRevolverBuilderMock(): MockObject&IWidgetRevolverBuilder
     {
-        return $this->createMock(INeoWidgetRevolverBuilder::class);
+        return $this->createMock(IWidgetRevolverBuilder::class);
     }
 
     private function getStylePatternFactoryMock(): MockObject&IStylePatternFactory

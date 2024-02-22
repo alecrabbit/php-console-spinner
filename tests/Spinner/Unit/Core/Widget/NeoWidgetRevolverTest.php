@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
-use AlecRabbit\Spinner\Core\Widget\NeoWidgetRevolver;
+use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -24,7 +24,7 @@ final class NeoWidgetRevolverTest extends TestCase
     {
         $revolver = $this->getTesteeInstance();
 
-        self::assertInstanceOf(NeoWidgetRevolver::class, $revolver);
+        self::assertInstanceOf(WidgetRevolver::class, $revolver);
     }
 
     public function getTesteeInstance(
@@ -33,7 +33,7 @@ final class NeoWidgetRevolverTest extends TestCase
         ?IInterval $interval = null,
     ): IWidgetRevolver {
         return
-            new NeoWidgetRevolver(
+            new WidgetRevolver(
                 style: $style ?? $this->getHasStyleSequenceFrameMock(),
                 char: $char ?? $this->getHasCharSequenceFrameMock(),
                 interval: $interval ?? $this->getIntervalMock(),
