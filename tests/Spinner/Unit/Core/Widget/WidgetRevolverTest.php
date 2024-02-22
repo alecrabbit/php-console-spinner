@@ -17,7 +17,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class NeoWidgetRevolverTest extends TestCase
+final class WidgetRevolverTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

@@ -8,9 +8,9 @@ use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\Pattern\INeoCharPattern;
+use AlecRabbit\Spinner\Contract\Pattern\ICharPattern;
 
-final readonly class NeoCharPattern implements INeoCharPattern
+final readonly class CharPattern implements ICharPattern
 {
     public function __construct(
         private IHasFrame $frames,

@@ -8,9 +8,9 @@ use AlecRabbit\Spinner\Contract\IHasFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
 use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
-use AlecRabbit\Spinner\Contract\Pattern\INeoStylePattern;
+use AlecRabbit\Spinner\Contract\Pattern\IStylePattern;
 
-final readonly class NeoStylePattern implements INeoStylePattern
+final readonly class StylePattern implements IStylePattern
 {
     public function __construct(
         private IHasFrame $frames,

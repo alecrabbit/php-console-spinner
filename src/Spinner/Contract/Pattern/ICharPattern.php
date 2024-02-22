@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Contract\Pattern;
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
 
-interface INeoCharPattern extends INeoPattern, IHasCharSequenceFrame
+interface ICharPattern extends IPattern, IHasCharSequenceFrame
 {
     /**
      * @param float|null $dt delta time(milliseconds), time passed since last update

@@ -5,33 +5,33 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Pattern;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IHasFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
-use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
-use AlecRabbit\Spinner\Contract\Pattern\INeoStylePattern;
-use AlecRabbit\Spinner\Core\Pattern\NeoStylePattern;
+use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Contract\Pattern\ICharPattern;
+use AlecRabbit\Spinner\Core\Pattern\CharPattern;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class NeoStylePatternTest extends TestCase
+final class CharPatternTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $factory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(NeoStylePattern::class, $factory);
+        self::assertInstanceOf(CharPattern::class, $factory);
     }
 
     public function getTesteeInstance(
         ?IHasFrame $frames = null,
         ?IInterval $interval = null,
-        ?IStyleFrameTransformer $transformer = null,
-    ): INeoStylePattern {
-        return new NeoStylePattern(
+        ?ICharFrameTransformer $transformer = null,
+    ): ICharPattern {
+        return new CharPattern(
             frames: $frames ?? $this->getHasFrameMock(),
             interval: $interval ?? $this->getIntervalMock(),
-            transformer: $transformer ?? $this->getStyleFrameTransformerMock(),
+            transformer: $transformer ?? $this->getCharFrameTransformerMock(),
         );
     }
 
@@ -45,9 +45,9 @@ final class NeoStylePatternTest extends TestCase
         return $this->createMock(IInterval::class);
     }
 
-    private function getStyleFrameTransformerMock(): MockObject&IStyleFrameTransformer
+    private function getCharFrameTransformerMock(): MockObject&ICharFrameTransformer
     {
-        return $this->createMock(IStyleFrameTransformer::class);
+        return $this->createMock(ICharFrameTransformer::class);
     }
 
     #[Test]
@@ -69,9 +69,9 @@ final class NeoStylePatternTest extends TestCase
         $f02 = $this->getFrameMock();
         $f03 = $this->getFrameMock();
 
-        $frame01 = $this->getStyleSequenceFrameMock();
-        $frame02 = $this->getStyleSequenceFrameMock();
-        $frame03 = $this->getStyleSequenceFrameMock();
+        $frame01 = $this->getCharSequenceFrameMock();
+        $frame02 = $this->getCharSequenceFrameMock();
+        $frame03 = $this->getCharSequenceFrameMock();
 
         $frames = $this->getHasFrameMock();
         $frames
@@ -84,7 +84,7 @@ final class NeoStylePatternTest extends TestCase
             )
         ;
 
-        $transformer = $this->getStyleFrameTransformerMock();
+        $transformer = $this->getCharFrameTransformerMock();
 
         {
             // A workaround to absence of `->withConsecutive()` method in PHPUnit 10
@@ -130,8 +130,8 @@ final class NeoStylePatternTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    private function getStyleSequenceFrameMock(): MockObject&IStyleSequenceFrame
+    private function getCharSequenceFrameMock(): MockObject&ICharSequenceFrame
     {
-        return $this->createMock(IStyleSequenceFrame::class);
+        return $this->createMock(ICharSequenceFrame::class);
     }
 }

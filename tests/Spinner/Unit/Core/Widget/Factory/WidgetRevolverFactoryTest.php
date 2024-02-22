@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\Pattern\INeoCharPattern;
-use AlecRabbit\Spinner\Contract\Pattern\INeoStylePattern;
+use AlecRabbit\Spinner\Contract\Pattern\ICharPattern;
+use AlecRabbit\Spinner\Contract\Pattern\IStylePattern;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
@@ -38,14 +38,14 @@ final class WidgetRevolverFactoryTest extends TestCase
         ?IIntervalComparator $intervalComparator = null,
     ): IWidgetRevolverFactory {
         return new WidgetRevolverFactory(
-            builder: $builder ?? $this->getNeoWidgetRevolverBuilderMock(),
+            builder: $builder ?? $this->getWidgetRevolverBuilderMock(),
             styleFactory: $styleFactory ?? $this->getStylePatternFactoryMock(),
             charFactory: $charFactory ?? $this->getCharPatternFactoryMock(),
             intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
         );
     }
 
-    private function getNeoWidgetRevolverBuilderMock(): MockObject&IWidgetRevolverBuilder
+    private function getWidgetRevolverBuilderMock(): MockObject&IWidgetRevolverBuilder
     {
         return $this->createMock(IWidgetRevolverBuilder::class);
     }
@@ -123,7 +123,7 @@ final class WidgetRevolverFactoryTest extends TestCase
             ->willReturn($charInterval)
         ;
 
-        $builder = $this->getNeoWidgetRevolverBuilderMock();
+        $builder = $this->getWidgetRevolverBuilderMock();
         $builder
             ->expects(self::once())
             ->method('withStyle')
@@ -181,14 +181,14 @@ final class WidgetRevolverFactoryTest extends TestCase
         return $this->createMock(IWidgetRevolverConfig::class);
     }
 
-    private function getStylePatternMock(): MockObject&INeoStylePattern
+    private function getStylePatternMock(): MockObject&IStylePattern
     {
-        return $this->createMock(INeoStylePattern::class);
+        return $this->createMock(IStylePattern::class);
     }
 
-    private function getCharPatternMock(): MockObject&INeoCharPattern
+    private function getCharPatternMock(): MockObject&ICharPattern
     {
-        return $this->createMock(INeoCharPattern::class);
+        return $this->createMock(ICharPattern::class);
     }
 
     private function getWidgetRevolverMock(): MockObject&IWidgetRevolver

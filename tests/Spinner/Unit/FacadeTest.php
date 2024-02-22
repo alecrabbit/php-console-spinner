@@ -220,7 +220,7 @@ final class FacadeTest extends FacadeAwareTestCase
         ;
 
         $this->expectException(DomainException::class);
-        $this->expectExceptionMessage('Event loop is unavailable.');
+        $this->expectExceptionMessage('Event-loop is unavailable.');
 
         Facade::getLoop();
     }

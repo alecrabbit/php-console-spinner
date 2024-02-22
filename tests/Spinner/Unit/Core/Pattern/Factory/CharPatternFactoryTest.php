@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\CharPatternFactory;
-use AlecRabbit\Spinner\Core\Pattern\NeoCharPattern;
+use AlecRabbit\Spinner\Core\Pattern\CharPattern;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -58,7 +58,7 @@ final class CharPatternFactoryTest extends TestCase
             ->willReturn($intInterval)
         ;
 
-        $palette = $this->getNeoPaletteMock();
+        $palette = $this->getPaletteMock();
         $palette
             ->expects($this->once())
             ->method('getOptions')
@@ -77,7 +77,7 @@ final class CharPatternFactoryTest extends TestCase
 
         $pattern = $factory->create($palette);
 
-        self::assertInstanceOf(NeoCharPattern::class, $pattern);
+        self::assertInstanceOf(CharPattern::class, $pattern);
     }
 
     private function getPaletteOptionsMock(): MockObject&IPaletteOptions
@@ -85,7 +85,7 @@ final class CharPatternFactoryTest extends TestCase
         return $this->createMock(IPaletteOptions::class);
     }
 
-    private function getNeoPaletteMock(): MockObject&IPalette
+    private function getPaletteMock(): MockObject&IPalette
     {
         return $this->createMock(IPalette::class);
     }

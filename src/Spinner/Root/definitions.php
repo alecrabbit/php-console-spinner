@@ -180,8 +180,6 @@ use AlecRabbit\Spinner\Core\Pattern\Factory\CharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\StylePatternFactory;
-use AlecRabbit\Spinner\Core\Revolver\Builder\FrameCollectionRevolverBuilder;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolverBuilder;
 use AlecRabbit\Spinner\Core\Settings\Builder\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
@@ -380,7 +378,6 @@ function builders(): Traversable
         IDeltaTimerBuilder::class => DeltaTimerBuilder::class,
         IDriverBuilder::class => DriverBuilder::class,
         IDriverConfigBuilder::class => DriverConfigBuilder::class,
-        IFrameCollectionRevolverBuilder::class => FrameCollectionRevolverBuilder::class,
         IGeneralConfigBuilder::class => GeneralConfigBuilder::class,
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
         ILinkerConfigBuilder::class => LinkerConfigBuilder::class,
