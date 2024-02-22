@@ -3,6 +3,7 @@
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Pattern;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
 use AlecRabbit\Spinner\Contract\IHasFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
@@ -18,26 +19,24 @@ final class CharPatternTest extends TestCase
     #[Test]
     public function canBeInstantiated(): void
     {
-        $factory = $this->getTesteeInstance();
+        $pattern = $this->getTesteeInstance();
 
-        self::assertInstanceOf(CharPattern::class, $factory);
+        self::assertInstanceOf(CharPattern::class, $pattern);
     }
 
     public function getTesteeInstance(
-        ?IHasFrame $frames = null,
+        ?IHasCharSequenceFrame $frames = null,
         ?IInterval $interval = null,
-        ?ICharFrameTransformer $transformer = null,
     ): ICharPattern {
         return new CharPattern(
-            frames: $frames ?? $this->getHasFrameMock(),
+            frames: $frames ?? $this->getHasCharSequenceFrameMock(),
             interval: $interval ?? $this->getIntervalMock(),
-            transformer: $transformer ?? $this->getCharFrameTransformerMock(),
         );
     }
 
-    private function getHasFrameMock(): MockObject&IHasFrame
+    private function getHasCharSequenceFrameMock(): MockObject&IHasCharSequenceFrame
     {
-        return $this->createMock(IHasFrame::class);
+        return $this->createMock(IHasCharSequenceFrame::class);
     }
 
     private function getIntervalMock(): MockObject&IInterval
@@ -55,79 +54,38 @@ final class CharPatternTest extends TestCase
     {
         $interval = $this->getIntervalMock();
 
-        $factory = $this->getTesteeInstance(
+        $pattern = $this->getTesteeInstance(
             interval: $interval,
         );
 
-        self::assertSame($interval, $factory->getInterval());
+        self::assertSame($interval, $pattern->getInterval());
     }
 
     #[Test]
     public function canGetFrames(): void
     {
-        $f01 = $this->getFrameMock();
-        $f02 = $this->getFrameMock();
-        $f03 = $this->getFrameMock();
-
         $frame01 = $this->getCharSequenceFrameMock();
         $frame02 = $this->getCharSequenceFrameMock();
         $frame03 = $this->getCharSequenceFrameMock();
 
-        $frames = $this->getHasFrameMock();
+        $frames = $this->getHasCharSequenceFrameMock();
         $frames
             ->expects(self::exactly(3))
             ->method('getFrame')
             ->willReturnOnConsecutiveCalls(
-                $f01,
-                $f02,
-                $f03,
+                $frame01,
+                $frame02,
+                $frame03,
             )
         ;
 
-        $transformer = $this->getCharFrameTransformerMock();
-
-        {
-            // A workaround to absence of `->withConsecutive()` method in PHPUnit 10
-            // input:
-            $mock = $transformer;
-            $method = 'transform';
-            $repetitions = 3;
-            $dataSet = new \ArrayObject(
-                [
-                    $frame01,
-                    $frame02,
-                    $frame03,
-                ]
-            );
-
-            $matcher = self::exactly($repetitions);
-
-            $mock
-                ->expects($matcher)
-                ->method($method)
-                ->willReturnCallback(
-                    function () use ($matcher, $dataSet) {
-                        $index = ($matcher->numberOfInvocations() - 1) % $dataSet->count();
-                        return $dataSet->offsetGet($index);
-                    }
-                )
-            ;
-        }
-
-
-        $factory = $this->getTesteeInstance(
+        $pattern = $this->getTesteeInstance(
             frames: $frames,
-            transformer: $transformer,
         );
 
-        self::assertSame($frame01, $factory->getFrame());
-        self::assertSame($frame02, $factory->getFrame());
-        self::assertSame($frame03, $factory->getFrame());
-    }
-
-    private function getFrameMock(): MockObject&IFrame
-    {
-        return $this->createMock(IFrame::class);
+        self::assertSame($frame01, $pattern->getFrame());
+        self::assertSame($frame02, $pattern->getFrame());
+        self::assertSame($frame03, $pattern->getFrame());
     }
 
     private function getCharSequenceFrameMock(): MockObject&ICharSequenceFrame

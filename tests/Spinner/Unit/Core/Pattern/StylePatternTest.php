@@ -4,6 +4,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Pattern;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IHasFrame;
+use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
 use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
@@ -24,20 +25,18 @@ final class StylePatternTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IHasFrame $frames = null,
+        ?IHasStyleSequenceFrame $frames = null,
         ?IInterval $interval = null,
-        ?IStyleFrameTransformer $transformer = null,
     ): IStylePattern {
         return new StylePattern(
-            frames: $frames ?? $this->getHasFrameMock(),
+            frames: $frames ?? $this->getHasStyleSequenceFrameMock(),
             interval: $interval ?? $this->getIntervalMock(),
-            transformer: $transformer ?? $this->getStyleFrameTransformerMock(),
         );
     }
 
-    private function getHasFrameMock(): MockObject&IHasFrame
+    private function getHasStyleSequenceFrameMock(): MockObject&IHasStyleSequenceFrame
     {
-        return $this->createMock(IHasFrame::class);
+        return $this->createMock(IHasStyleSequenceFrame::class);
     }
 
     private function getIntervalMock(): MockObject&IInterval
@@ -73,51 +72,21 @@ final class StylePatternTest extends TestCase
         $frame02 = $this->getStyleSequenceFrameMock();
         $frame03 = $this->getStyleSequenceFrameMock();
 
-        $frames = $this->getHasFrameMock();
+        $frames = $this->getHasStyleSequenceFrameMock();
         $frames
             ->expects(self::exactly(3))
             ->method('getFrame')
             ->willReturnOnConsecutiveCalls(
-                $f01,
-                $f02,
-                $f03,
+                $frame01,
+                $frame02,
+                $frame03,
             )
         ;
 
-        $transformer = $this->getStyleFrameTransformerMock();
-
-        {
-            // A workaround to absence of `->withConsecutive()` method in PHPUnit 10
-            // input:
-            $mock = $transformer;
-            $method = 'transform';
-            $repetitions = 3;
-            $dataSet = new \ArrayObject(
-                [
-                    $frame01,
-                    $frame02,
-                    $frame03,
-                ]
-            );
-
-            $matcher = self::exactly($repetitions);
-
-            $mock
-                ->expects($matcher)
-                ->method($method)
-                ->willReturnCallback(
-                    function () use ($matcher, $dataSet) {
-                        $index = ($matcher->numberOfInvocations() - 1) % $dataSet->count();
-                        return $dataSet->offsetGet($index);
-                    }
-                )
-            ;
-        }
 
 
         $factory = $this->getTesteeInstance(
             frames: $frames,
-            transformer: $transformer,
         );
 
         self::assertSame($frame01, $factory->getFrame());

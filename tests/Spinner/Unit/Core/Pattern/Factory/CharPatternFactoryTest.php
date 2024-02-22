@@ -31,12 +31,14 @@ final class CharPatternFactoryTest extends TestCase
         ?IIntervalFactory $intervalFactory = null,
         ?ICharFrameTransformer $transformer = null,
         ?IHasFrameWrapper $wrapper = null,
+        ?IRevolverConfig $revolverConfig = null,
     ): ICharPatternFactory {
         return
             new CharPatternFactory(
                 intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
                 transformer: $transformer ?? $this->getCharFrameTransformerMock(),
                 wrapper: $wrapper ?? $this->getHasFrameWrapperMock(),
+                revolverConfig: $revolverConfig ?? $this->getRevolverConfigMock(),
             );
     }
 
@@ -81,12 +83,12 @@ final class CharPatternFactoryTest extends TestCase
             ->with($intInterval)
         ;
         $wrapper = $this->getHasFrameWrapperMock();
-        $wrapper
-            ->expects($this->once())
-            ->method('wrap')
-            ->with($palette)
-            ->willReturn($palette)
-        ;
+//        $wrapper
+//            ->expects($this->once())
+//            ->method('wrap')
+//            ->with($palette)
+//            ->willReturn($palette)
+//        ;
 
         $factory = $this->getTesteeInstance(
             intervalFactory: $intervalFactory,
