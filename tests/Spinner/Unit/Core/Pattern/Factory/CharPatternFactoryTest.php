@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Pattern\Factory;
 
 use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
+use AlecRabbit\Spinner\Core\Contract\IHasFrameWrapper;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
-use AlecRabbit\Spinner\Core\Pattern\Factory\CharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern;
+use AlecRabbit\Spinner\Core\Pattern\Factory\CharPatternFactory;
+use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -28,11 +30,13 @@ final class CharPatternFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IIntervalFactory $intervalFactory = null,
         ?ICharFrameTransformer $transformer = null,
+        ?IHasFrameWrapper $wrapper = null,
     ): ICharPatternFactory {
         return
             new CharPatternFactory(
                 intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
                 transformer: $transformer ?? $this->getCharFrameTransformerMock(),
+                wrapper: $wrapper ?? $this->getHasFrameWrapperMock(),
             );
     }
 
@@ -44,6 +48,11 @@ final class CharPatternFactoryTest extends TestCase
     private function getCharFrameTransformerMock(): MockObject&ICharFrameTransformer
     {
         return $this->createMock(ICharFrameTransformer::class);
+    }
+
+    private function getHasFrameWrapperMock(): MockObject&IHasFrameWrapper
+    {
+        return $this->createMock(IHasFrameWrapper::class);
     }
 
     #[Test]
@@ -71,8 +80,17 @@ final class CharPatternFactoryTest extends TestCase
             ->method('createNormalized')
             ->with($intInterval)
         ;
+        $wrapper = $this->getHasFrameWrapperMock();
+        $wrapper
+            ->expects($this->once())
+            ->method('wrap')
+            ->with($palette)
+            ->willReturn($palette)
+        ;
+
         $factory = $this->getTesteeInstance(
             intervalFactory: $intervalFactory,
+            wrapper: $wrapper,
         );
 
         $pattern = $factory->create($palette);
@@ -88,5 +106,10 @@ final class CharPatternFactoryTest extends TestCase
     private function getPaletteMock(): MockObject&IPalette
     {
         return $this->createMock(IPalette::class);
+    }
+
+    private function getRevolverConfigMock(): MockObject&IRevolverConfig
+    {
+        return $this->createMock(IRevolverConfig::class);
     }
 }

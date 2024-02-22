@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Pattern\Factory;
 
 use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePaletteRenderer;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
@@ -30,12 +31,14 @@ final class StylePatternFactoryTest extends TestCase
         ?IIntervalFactory $intervalFactory = null,
         ?IStyleFrameTransformer $transformer = null,
         ?IModePaletteRenderer $paletteRenderer = null,
+        ?IRevolverConfig $revolverConfig = null,
     ): IStylePatternFactory {
         return
             new StylePatternFactory(
                 intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
                 transformer: $transformer ?? $this->getStyleFrameTransformerMock(),
                 paletteRenderer: $paletteRenderer ?? $this->getModePaletteRendererMock(),
+                revolverConfig: $revolverConfig ?? $this->getRevolverConfigMock(),
             );
     }
 
@@ -47,6 +50,16 @@ final class StylePatternFactoryTest extends TestCase
     private function getStyleFrameTransformerMock(): MockObject&IStyleFrameTransformer
     {
         return $this->createMock(IStyleFrameTransformer::class);
+    }
+
+    private function getModePaletteRendererMock(): MockObject&IModePaletteRenderer
+    {
+        return $this->createMock(IModePaletteRenderer::class);
+    }
+
+    private function getRevolverConfigMock(): MockObject&IRevolverConfig
+    {
+        return $this->createMock(IRevolverConfig::class);
     }
 
     #[Test]
@@ -91,10 +104,5 @@ final class StylePatternFactoryTest extends TestCase
     private function getPaletteMock(): MockObject&IPalette
     {
         return $this->createMock(IPalette::class);
-    }
-
-    private function getModePaletteRendererMock(): MockObject&IModePaletteRenderer
-    {
-        return $this->createMock(IModePaletteRenderer::class);
     }
 }
