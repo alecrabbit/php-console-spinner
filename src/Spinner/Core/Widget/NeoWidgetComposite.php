@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IPlaceholder;
 use AlecRabbit\Spinner\Core\Interval;
@@ -21,6 +22,7 @@ final class NeoWidgetComposite extends ASubject implements INeoWidgetComposite
 {
     private int $count;
     private IInterval $interval;
+    private ISequenceFrame $emptyFrame;
 
     public function __construct(
         private readonly \WeakMap $widgets,
@@ -31,6 +33,7 @@ final class NeoWidgetComposite extends ASubject implements INeoWidgetComposite
 
         $this->count = $this->countWidgets();
         $this->interval = $this->createInterval();
+        $this->emptyFrame = $this->createFrame();
     }
 
     private function countWidgets(): int
@@ -43,15 +46,16 @@ final class NeoWidgetComposite extends ASubject implements INeoWidgetComposite
         return new Interval();
     }
 
-    public function getInterval(): IInterval
+    private function createFrame(): ISequenceFrame
     {
-        return $this->interval;
+        return new CharSequenceFrame('', 0);
     }
 
     public function getFrame(?float $dt = null): ISequenceFrame
     {
-        // TODO: Implement getFrame() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        if ($this->count === 0) {
+            return $this->emptyFrame;
+        }
     }
 
     public function add(IWidget $widget, ?IPlaceholder $placeholder = null): IPlaceholder
@@ -77,6 +81,23 @@ final class NeoWidgetComposite extends ASubject implements INeoWidgetComposite
     private function smallestInterval(): void
     {
         $this->interval = $this->getWidgetsInterval();
+    }
+
+    private function getWidgetsInterval(): IInterval
+    {
+        $interval = $this->createInterval();
+        foreach ($this->widgets as $widget) {
+            $interval = $this->intervalComparator->smallest(
+                $interval,
+                $widget->getInterval()
+            );
+        }
+        return $interval;
+    }
+
+    public function getInterval(): IInterval
+    {
+        return $this->interval;
     }
 
     public function remove(IPlaceholder|IWidget $item): void
@@ -109,17 +130,5 @@ final class NeoWidgetComposite extends ASubject implements INeoWidgetComposite
             }
         }
         return false;
-    }
-
-    private function getWidgetsInterval(): IInterval
-    {
-        $interval = $this->createInterval();
-        foreach ($this->widgets as $widget) {
-            $interval = $this->intervalComparator->smallest(
-                $interval,
-                $widget->getInterval()
-            );
-        }
-        return $interval;
     }
 }
