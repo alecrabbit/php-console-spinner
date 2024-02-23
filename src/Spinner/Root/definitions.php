@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
@@ -286,9 +285,6 @@ function getDefinitions(): Traversable
         ),
         IRenderer::class => Renderer::class,
         IModePaletteRenderer::class => ModePaletteRenderer::class,
-        NormalizerMode::class => static function (IContainer $container): NormalizerMode {
-            return $container->get(INormalizerConfig::class)->getNormalizerMode();
-        },
         INowTimer::class => new class() implements INowTimer {
             public function now(): float
             {
@@ -304,7 +300,9 @@ function getDefinitions(): Traversable
 
         IIntervalComparator::class => IntervalComparator::class,
         IIntervalNormalizer::class => static function (IContainer $container): IIntervalNormalizer {
-            return $container->get(IIntervalNormalizerFactory::class)->create();
+            $normalizerMode = $container->get(INormalizerConfig::class)->getNormalizerMode();
+
+            return $container->get(IIntervalNormalizerFactory::class)->create($normalizerMode);
         },
         ILoopCreatorClassProvider::class => static function (IContainer $container): ILoopCreatorClassProvider {
             $creatorClass =

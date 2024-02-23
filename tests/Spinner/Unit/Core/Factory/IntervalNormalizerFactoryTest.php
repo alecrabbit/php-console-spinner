@@ -27,12 +27,10 @@ final class IntervalNormalizerFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IIntegerNormalizerBuilder $integerNormalizerBuilder = null,
         ?IDivisorProvider $divisorProvider = null,
-        ?NormalizerMode $normalizerMode = null,
     ): IIntervalNormalizerFactory {
         return new IntervalNormalizerFactory(
             integerNormalizerBuilder: $integerNormalizerBuilder ?? $this->getIntegerNormalizerBuilderMock(),
             divisorProvider: $divisorProvider ?? $this->getDivisorProviderMock(),
-            normalizerMode: $normalizerMode ?? NormalizerMode::BALANCED,
         );
     }
 
@@ -81,10 +79,9 @@ final class IntervalNormalizerFactoryTest extends TestCase
             $this->getTesteeInstance(
                 integerNormalizerBuilder: $integerNormalizerBuilder,
                 divisorProvider: $divisorProvider,
-                normalizerMode: $mode,
             );
 
         self::assertInstanceOf(IntervalNormalizerFactory::class, $intervalNormalizerFactory);
-        self::assertInstanceOf(IntervalNormalizer::class, $intervalNormalizerFactory->create());
+        self::assertInstanceOf(IntervalNormalizer::class, $intervalNormalizerFactory->create($mode));
     }
 }

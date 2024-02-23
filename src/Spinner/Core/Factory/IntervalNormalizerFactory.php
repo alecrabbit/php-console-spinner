@@ -17,13 +17,12 @@ final readonly class IntervalNormalizerFactory implements IIntervalNormalizerFac
     public function __construct(
         private IIntegerNormalizerBuilder $integerNormalizerBuilder,
         private IDivisorProvider $divisorProvider,
-        private NormalizerMode $normalizerMode,
     ) {
     }
 
-    public function create(): IIntervalNormalizer
+    public function create(NormalizerMode $normalizerMode): IIntervalNormalizer
     {
-        $divisor = $this->divisorProvider->getDivisor($this->normalizerMode);
+        $divisor = $this->divisorProvider->getDivisor($normalizerMode);
 
         $integerNormalizer = $this->integerNormalizerBuilder
             ->withDivisor($divisor)
