@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Pattern\Factory;
 
 use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
-use AlecRabbit\Spinner\Core\Contract\IHasFrameWrapper;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
@@ -30,14 +29,12 @@ final class CharPatternFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IIntervalFactory $intervalFactory = null,
         ?ICharFrameTransformer $transformer = null,
-        ?IHasFrameWrapper $wrapper = null,
         ?IRevolverConfig $revolverConfig = null,
     ): ICharPatternFactory {
         return
             new CharPatternFactory(
                 intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
                 transformer: $transformer ?? $this->getCharFrameTransformerMock(),
-                wrapper: $wrapper ?? $this->getHasFrameWrapperMock(),
                 revolverConfig: $revolverConfig ?? $this->getRevolverConfigMock(),
             );
     }
@@ -52,10 +49,6 @@ final class CharPatternFactoryTest extends TestCase
         return $this->createMock(ICharFrameTransformer::class);
     }
 
-    private function getHasFrameWrapperMock(): MockObject&IHasFrameWrapper
-    {
-        return $this->createMock(IHasFrameWrapper::class);
-    }
 
     #[Test]
     public function canCreate(): void
@@ -82,17 +75,9 @@ final class CharPatternFactoryTest extends TestCase
             ->method('createNormalized')
             ->with($intInterval)
         ;
-        $wrapper = $this->getHasFrameWrapperMock();
-//        $wrapper
-//            ->expects($this->once())
-//            ->method('wrap')
-//            ->with($palette)
-//            ->willReturn($palette)
-//        ;
 
         $factory = $this->getTesteeInstance(
             intervalFactory: $intervalFactory,
-            wrapper: $wrapper,
         );
 
         $pattern = $factory->create($palette);

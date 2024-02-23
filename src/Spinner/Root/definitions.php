@@ -117,7 +117,6 @@ use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
-use AlecRabbit\Spinner\Core\Contract\IHasFrameWrapper;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
@@ -155,7 +154,6 @@ use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\ILinkerResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\InitializationResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\LinkerResolver;
-use AlecRabbit\Spinner\Core\HasFrameWrapper;
 use AlecRabbit\Spinner\Core\IntervalComparator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
@@ -317,7 +315,6 @@ function getDefinitions(): Traversable
 
         IStyleFrameTransformer::class => StyleFrameTransformer::class,
         ICharFrameTransformer::class => CharFrameTransformer::class,
-        IHasFrameWrapper::class => HasFrameWrapper::class,
     ];
 
     yield from configs();

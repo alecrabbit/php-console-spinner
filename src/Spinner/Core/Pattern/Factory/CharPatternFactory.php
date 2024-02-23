@@ -25,7 +25,6 @@ final readonly class CharPatternFactory implements ICharPatternFactory
     public function __construct(
         private IIntervalFactory $intervalFactory,
         private ICharFrameTransformer $transformer,
-        private IHasFrameWrapper $wrapper,
         private IRevolverConfig $revolverConfig,
     ) {
     }
