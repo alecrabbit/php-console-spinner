@@ -44,9 +44,11 @@ final class CustomCharPalette extends ACharPalette
     private function filter(ArrayObject $frames): ArrayObject
     {
         return new ArrayObject(
-            array_filter(
-                $frames->getArrayCopy(),
-                $this->getFilterClosure(),
+            array_values(
+                array_filter(
+                    $frames->getArrayCopy(),
+                    $this->getFilterClosure(),
+                )
             )
         );
     }
