@@ -13,36 +13,43 @@ final readonly class IntervalFactory implements IIntervalFactory
 {
     private const DEFAULT_INTERVAL = 1000;
 
-    private IInterval $normalizedDefault;
-    private IInterval $normalizedStill;
-
     public function __construct(
         protected IIntervalNormalizer $intervalNormalizer,
     ) {
-        $this->normalizedDefault =
-            $this->intervalNormalizer->normalize(
-                new Interval(self::DEFAULT_INTERVAL),
-            );
-        $this->normalizedStill =
-            $this->intervalNormalizer->normalize(
-                new Interval(),
-            );
     }
 
     public function createNormalized(?int $interval): IInterval
     {
         return $interval === null
             ? $this->createStill()
-            : $this->intervalNormalizer->normalize(new Interval($interval));
+            : $this->intervalNormalizer->normalize(
+                new Interval(
+                    $this->refineInterval($interval)
+                )
+            );
     }
 
     public function createStill(): IInterval
     {
-        return $this->normalizedStill;
+        return $this->intervalNormalizer->normalize(
+            new Interval(),
+        );
     }
 
+    private function refineInterval(int $interval): int
+    {
+        return match (true) {
+            $interval < IInterval::MIN_INTERVAL_MILLISECONDS => IInterval::MIN_INTERVAL_MILLISECONDS,
+            $interval > IInterval::MAX_INTERVAL_MILLISECONDS => IInterval::MAX_INTERVAL_MILLISECONDS,
+            default => $interval,
+        };
+    }
+
+    /** @inheritDoc */
     public function createDefault(): IInterval
     {
-        return $this->normalizedDefault;
+        return $this->intervalNormalizer->normalize(
+            new Interval(self::DEFAULT_INTERVAL),
+        );
     }
 }
