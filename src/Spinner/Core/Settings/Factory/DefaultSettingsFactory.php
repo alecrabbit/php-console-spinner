@@ -66,7 +66,7 @@ final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
                 signalHandlingOption: SignalHandlingOption::ENABLED,
             ),
             new OutputSettings(
-                stylingMethodOption: StylingMethodOption::ANSI8,
+                stylingMethodOption: StylingMethodOption::AUTO,
                 cursorVisibilityOption: CursorVisibilityOption::HIDDEN,
                 initializationOption: InitializationOption::ENABLED,
                 stream: STDERR,

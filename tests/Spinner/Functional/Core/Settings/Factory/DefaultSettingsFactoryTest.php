@@ -85,7 +85,7 @@ final class DefaultSettingsFactoryTest extends TestCase
         self::assertEquals(AutoStartOption::ENABLED, $loopSettings->getAutoStartOption());
         self::assertEquals(SignalHandlingOption::ENABLED, $loopSettings->getSignalHandlingOption());
 
-        self::assertEquals(StylingMethodOption::ANSI8, $outputSettings->getStylingMethodOption());
+        self::assertEquals(StylingMethodOption::AUTO, $outputSettings->getStylingMethodOption());
         self::assertEquals(CursorVisibilityOption::HIDDEN, $outputSettings->getCursorVisibilityOption());
 
         self::assertEquals(new CharSequenceFrame('', 0), $widgetSettings->getLeadingSpacer());
