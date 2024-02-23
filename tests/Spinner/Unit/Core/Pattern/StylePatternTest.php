@@ -3,10 +3,8 @@
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Pattern;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IHasFrame;
 use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
 use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern;
@@ -77,7 +75,6 @@ final class StylePatternTest extends TestCase
                 $frame03,
             )
         ;
-
 
 
         $factory = $this->getTesteeInstance(

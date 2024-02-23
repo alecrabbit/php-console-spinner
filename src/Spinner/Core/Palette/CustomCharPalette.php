@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\A\ACharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use ArrayObject;
+use Closure;
 
 final class CustomCharPalette extends ACharPalette
 {
@@ -50,7 +51,7 @@ final class CustomCharPalette extends ACharPalette
         );
     }
 
-    private function getFilterClosure(): \Closure
+    private function getFilterClosure(): Closure
     {
         return static fn(mixed $frame) => $frame instanceof ICharSequenceFrame;
     }

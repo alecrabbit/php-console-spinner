@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\StylePatternFactory;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -92,7 +91,6 @@ final class StylePatternFactoryTest extends TestCase
         );
 
         $pattern = $factory->create($palette);
-
 //        self::assertInstanceOf(StylePattern::class, $pattern);
     }
 

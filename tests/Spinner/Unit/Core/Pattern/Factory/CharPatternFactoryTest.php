@@ -49,6 +49,10 @@ final class CharPatternFactoryTest extends TestCase
         return $this->createMock(ICharFrameTransformer::class);
     }
 
+    private function getRevolverConfigMock(): MockObject&IRevolverConfig
+    {
+        return $this->createMock(IRevolverConfig::class);
+    }
 
     #[Test]
     public function canCreate(): void
@@ -93,10 +97,5 @@ final class CharPatternFactoryTest extends TestCase
     private function getPaletteMock(): MockObject&IPalette
     {
         return $this->createMock(IPalette::class);
-    }
-
-    private function getRevolverConfigMock(): MockObject&IRevolverConfig
-    {
-        return $this->createMock(IRevolverConfig::class);
     }
 }

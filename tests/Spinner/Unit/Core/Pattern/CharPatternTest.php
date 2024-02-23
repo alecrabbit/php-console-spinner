@@ -2,12 +2,9 @@
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Pattern;
 
-use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
-use AlecRabbit\Spinner\Contract\IHasFrame;
-use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
 use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\ICharPattern;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern;
 use AlecRabbit\Tests\TestCase\TestCase;

@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Palette\A\AStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\StyleSequenceFrame;
 use ArrayObject;
+use Closure;
 
 final class CustomStylePalette extends AStylePalette
 {
@@ -50,7 +51,7 @@ final class CustomStylePalette extends AStylePalette
         );
     }
 
-    private function getFilterClosure(): \Closure
+    private function getFilterClosure(): Closure
     {
         return static fn(mixed $frame) => $frame instanceof IStyleSequenceFrame;
     }

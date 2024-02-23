@@ -123,7 +123,7 @@ final class RainbowTest extends TestCase
             ->willReturn(StylingMethodMode::ANSI4)
         ;
 
-        $palette = $this->getTesteeInstance();;
+        $palette = $this->getTesteeInstance();
 
         $traversable = $palette->getEntries($mode);
 
