@@ -70,11 +70,16 @@ final readonly class CharPatternFactory implements ICharPatternFactory
             public function getFrame(?float $dt = null): ICharSequenceFrame
             {
                 if ($this->updateChecker->isDue($dt)) {
-                    $this->currentFrame = $this->transformer->transform(
-                        $this->frames->getFrame($dt)
-                    );
+                    $this->currentFrame = $this->nextFrame($dt);
                 }
                 return $this->currentFrame;
+            }
+
+            private function nextFrame(?float $dt = null): ICharSequenceFrame
+            {
+                return $this->transformer->transform(
+                    $this->frames->getFrame($dt)
+                );
             }
         };
     }
