@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\IStylePattern;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
+use AlecRabbit\Spinner\Core\Contract\IUpdateChecker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePaletteRenderer;
@@ -20,6 +21,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern;
 use AlecRabbit\Spinner\Core\StyleSequenceFrame;
+use AlecRabbit\Spinner\Core\UpdateChecker;
 
 final readonly class StylePatternFactory implements IStylePatternFactory
 {
@@ -37,46 +39,43 @@ final readonly class StylePatternFactory implements IStylePatternFactory
             $palette = $this->paletteRenderer->render($palette);
         }
 
-        return $this->wrap($palette);
-    }
-
-    private function wrap(IPalette $palette): IStylePattern
-    {
         $interval = $this->intervalFactory->createNormalized(
             $palette->getOptions()->getInterval()
+        );
+
+        $frames = $this->wrap($palette, $interval);
+
+        return new StylePattern(
+            frames: $frames,
+            interval: $interval,
+        );
+    }
+
+    private function wrap(IPalette $palette, IInterval $interval): IHasStyleSequenceFrame
+    {
+        $updateChecker = new UpdateChecker(
+            $interval->toMilliseconds(),
+            $this->revolverConfig->getTolerance()->toMilliseconds(),
         );
 
         return new class(
             $palette,
             $this->transformer,
-            $interval,
-            $this->revolverConfig->getTolerance(),
-        ) implements IStylePattern {
-            private readonly int $toleranceValue;
-            private readonly float $intervalValue;
-            private float $diff;
+            $updateChecker,
+        ) implements IHasStyleSequenceFrame {
             private IFrame $currentFrame;
 
             public function __construct(
                 private readonly IHasFrame $frames,
                 private readonly IStyleFrameTransformer $transformer,
-                private readonly IInterval $interval,
-                private readonly ITolerance $tolerance,
+                private readonly IUpdateChecker $updateChecker,
             ) {
-                $this->toleranceValue = $this->tolerance->toMilliseconds();
-                $this->intervalValue = $interval->toMilliseconds();
-                $this->diff = $this->intervalValue;
                 $this->currentFrame = $this->getFrame();
-            }
-
-            public function getInterval(): IInterval
-            {
-                return $this->interval;
             }
 
             public function getFrame(?float $dt = null): IStyleSequenceFrame
             {
-                if ($this->shouldUpdate($dt)) {
+                if ($this->updateChecker->isDue($dt)) {
                     $this->currentFrame = $this->transformer->transform(
                         $this->frames->getFrame($dt)
                     );
@@ -84,15 +83,6 @@ final readonly class StylePatternFactory implements IStylePatternFactory
                 return $this->currentFrame;
             }
 
-            private function shouldUpdate(?float $dt = null): bool
-            {
-                if ($dt === null || $this->intervalValue <= ($dt + $this->toleranceValue) || $this->diff <= 0) {
-                    $this->diff = $this->intervalValue;
-                    return true;
-                }
-                $this->diff -= $dt;
-                return false;
-            }
         };
     }
 }

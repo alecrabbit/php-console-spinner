@@ -15,10 +15,12 @@ use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IHasFrameWrapper;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
+use AlecRabbit\Spinner\Core\Contract\IUpdateChecker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
+use AlecRabbit\Spinner\Core\UpdateChecker;
 
 final readonly class CharPatternFactory implements ICharPatternFactory
 {
@@ -45,47 +47,34 @@ final readonly class CharPatternFactory implements ICharPatternFactory
 
     private function wrap(IPalette $palette, IInterval $interval): IHasCharSequenceFrame
     {
+        $updateChecker = new UpdateChecker(
+            $interval->toMilliseconds(),
+            $this->revolverConfig->getTolerance()->toMilliseconds(),
+        );
+
         return new class(
             $palette,
             $this->transformer,
-            $interval,
-            $this->revolverConfig->getTolerance(),
+            $updateChecker,
         ) implements IHasCharSequenceFrame {
-            private readonly int $toleranceValue;
-            private readonly float $intervalValue;
-            private float $diff;
             private IFrame $currentFrame;
 
             public function __construct(
                 private readonly IHasFrame $frames,
                 private readonly ICharFrameTransformer $transformer,
-                IInterval $interval,
-                private readonly ITolerance $tolerance,
+                private readonly IUpdateChecker $updateChecker,
             ) {
-                $this->toleranceValue = $this->tolerance->toMilliseconds();
-                $this->intervalValue = $interval->toMilliseconds();
-                $this->diff = $this->intervalValue;
                 $this->currentFrame = $this->getFrame();
             }
 
             public function getFrame(?float $dt = null): ICharSequenceFrame
             {
-                if ($this->shouldUpdate($dt)) {
+                if ($this->updateChecker->isDue($dt)) {
                     $this->currentFrame = $this->transformer->transform(
                         $this->frames->getFrame($dt)
                     );
                 }
                 return $this->currentFrame;
-            }
-
-            private function shouldUpdate(?float $dt = null): bool
-            {
-                if ($dt === null || $this->intervalValue <= ($dt + $this->toleranceValue) || $this->diff <= 0) {
-                    $this->diff = $this->intervalValue;
-                    return true;
-                }
-                $this->diff -= $dt;
-                return false;
             }
         };
     }
