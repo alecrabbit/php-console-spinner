@@ -112,6 +112,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\StreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\ToleranceSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
+use AlecRabbit\Spinner\Core\Contract\IDivisorProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
@@ -121,6 +122,7 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
+use AlecRabbit\Spinner\Core\DivisorProvider;
 use AlecRabbit\Spinner\Core\Driver\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Driver\DriverSetup;
 use AlecRabbit\Spinner\Core\Driver\Factory\DriverFactory;
@@ -275,6 +277,11 @@ function getDefinitions(): Traversable
             static function (IContainer $container): IDeltaTimer {
                 return $container->get(IDeltaTimerFactory::class)->create();
             },
+            IServiceDefinition::SINGLETON,
+        ),
+        new ServiceDefinition(
+            IDivisorProvider::class,
+            DivisorProvider::class,
             IServiceDefinition::SINGLETON,
         ),
         IRenderer::class => Renderer::class,

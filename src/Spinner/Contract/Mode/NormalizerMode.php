@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Contract\Mode;
 
 enum NormalizerMode
 {
+    case EXTREME;
     case SMOOTH;
     case BALANCED;
     case PERFORMANCE;

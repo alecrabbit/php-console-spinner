@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Contract\Option;
 enum NormalizerOption
 {
     case AUTO;
+    case EXTREME;
     case SMOOTH;
     case BALANCED;
     case PERFORMANCE;
