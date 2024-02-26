@@ -24,10 +24,9 @@ final readonly class SpinnerFactory implements ISpinnerFactory
 
     public function create(?ISpinnerSettings $spinnerSettings = null): ISpinner
     {
-        $widget =
-            $this->createWidget(
-                $spinnerSettings?->getWidgetSettings()
-            );
+        $widget = $this->createWidget(
+            $spinnerSettings?->getWidgetSettings()
+        );
 
         return $this->spinnerBuilder
             ->withWidget($widget)
