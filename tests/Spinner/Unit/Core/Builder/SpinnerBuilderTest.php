@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Builder\SpinnerBuilder;
 use AlecRabbit\Spinner\Core\Spinner;
@@ -36,16 +37,22 @@ final class SpinnerBuilderTest extends TestCase
 
         $widget = $this->getWidgetMock();
         $observer = $this->getObserverMock();
+        $stateBuilder = $this->getStateBuilderMock();
 
         $spinner = $builder
             ->withWidget($widget)
             ->withObserver($observer)
+            ->withStateBuilder($stateBuilder)
             ->build()
         ;
 
         self::assertInstanceOf(Spinner::class, $spinner);
     }
 
+    private function getStateBuilderMock(): MockObject&ISequenceStateBuilder
+    {
+        return $this->createMock(ISequenceStateBuilder::class);
+    }
     private function getWidgetMock(): MockObject&IWidget
     {
         return $this->createMock(IWidget::class);
@@ -65,6 +72,23 @@ final class SpinnerBuilderTest extends TestCase
         $this->expectExceptionMessage('Widget is not set.');
 
         $builder
+            ->build()
+        ;
+    }
+
+    #[Test]
+    public function throwsIfStateBuilderIsNotSet(): void
+    {
+        $builder = $this->getTesteeInstance();
+        $widget = $this->getWidgetMock();
+        $observer = $this->getObserverMock();
+
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('StateBuilder is not set.');
+
+        $builder
+            ->withWidget($widget)
+            ->withObserver($observer)
             ->build()
         ;
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -19,6 +20,7 @@ final readonly class SpinnerFactory implements ISpinnerFactory
         private IWidgetFactory $widgetFactory,
         private IRootWidgetConfigFactory $widgetConfigFactory,
         private ISpinnerBuilder $spinnerBuilder,
+        private ISequenceStateBuilder $stateBuilder,
     ) {
     }
 
@@ -30,6 +32,7 @@ final readonly class SpinnerFactory implements ISpinnerFactory
 
         return $this->spinnerBuilder
             ->withWidget($widget)
+            ->withStateBuilder($this->stateBuilder)
             ->build()
         ;
     }

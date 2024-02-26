@@ -14,5 +14,7 @@ interface ISpinnerBuilder
 
     public function withWidget(IWidget $widget): ISpinnerBuilder;
 
+    public function withStateBuilder(ISequenceStateBuilder $stateBuilder): ISpinnerBuilder;
+
     public function withObserver(IObserver $observer): ISpinnerBuilder;
 }

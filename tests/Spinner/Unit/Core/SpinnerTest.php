@@ -7,6 +7,8 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
@@ -26,12 +28,16 @@ final class SpinnerTest extends TestCase
         self::assertInstanceOf(Spinner::class, $spinner);
     }
 
-    protected function getTesteeInstance(
-        ?IWidget $rootWidget = null,
+    private function getTesteeInstance(
+        ?IWidget $widget = null,
+        ?ISequenceStateBuilder $stateBuilder = null,
+        ?ISequenceState $state = null,
         ?IObserver $observer = null,
     ): ISpinner {
         return new Spinner(
-            widget: $rootWidget ?? $this->getWidgetMock(),
+            widget: $widget ?? $this->getWidgetMock(),
+            stateBuilder: $stateBuilder ?? $this->getStateBuilderMock(),
+            state: $state ?? $this->getStateMock(),
             observer: $observer,
         );
     }
@@ -41,25 +47,131 @@ final class SpinnerTest extends TestCase
         return $this->createMock(IWidget::class);
     }
 
-    #[Test]
-    public function canGetFrame(): void
+    private function getStateBuilderMock(): MockObject&ISequenceStateBuilder
     {
-        $frame = $this->getFrameMock();
-        $rootWidget = $this->getWidgetMock();
-        $rootWidget
-            ->expects(self::once())
-            ->method('getFrame')
-            ->willReturn($frame)
-        ;
-        $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
-
-        self::assertInstanceOf(Spinner::class, $spinner);
-        self::assertSame($frame, $spinner->getFrame());
+        return $this->createMock(ISequenceStateBuilder::class);
     }
 
-    protected function getFrameMock(): MockObject&ISequenceFrame
+    protected function getSequenceFrameMock(): MockObject&ISequenceFrame
     {
         return $this->createMock(ISequenceFrame::class);
+    }
+
+    #[Test]
+    public function canGetState(): void
+    {
+        $dt = 10;
+        $sequence = 'sequence';
+        $width = 8;
+        $frame = $this->getSequenceFrameMock();
+        $frame
+            ->expects($this->once())
+            ->method('getSequence')
+            ->willReturn($sequence)
+        ;
+        $frame
+            ->expects($this->once())
+            ->method('getWidth')
+            ->willReturn($width)
+        ;
+
+
+        $widget = $this->getWidgetMock();
+        $widget
+            ->expects($this->once())
+            ->method('getFrame')
+            ->with($dt)
+            ->willReturn($frame)
+        ;
+
+        $state = $this->getStateMock();
+        $stateBuilder = $this->getStateBuilderMock();
+        $stateBuilder
+            ->expects($this->once())
+            ->method('withSequence')
+            ->with($sequence)
+            ->willReturnSelf()
+        ;
+        $stateBuilder
+            ->expects($this->once())
+            ->method('withWidth')
+            ->with($width)
+            ->willReturnSelf()
+        ;
+        $stateBuilder
+            ->expects($this->once())
+            ->method('withPreviousWidth')
+            ->with(0)
+            ->willReturnSelf()
+        ;
+        $stateBuilder
+            ->expects($this->once())
+            ->method('build')
+            ->willReturn($state)
+        ;
+
+        $spinner = $this->getTesteeInstance(
+            widget: $widget,
+            stateBuilder: $stateBuilder,
+        );
+
+        self::assertSame($state, $spinner->getState($dt));
+    }
+    #[Test]
+    public function canGetCurrentState(): void
+    {
+        $dt = null;
+        $frame = $this->getSequenceFrameMock();
+        $frame
+            ->expects($this->never())
+            ->method('getSequence')
+        ;
+        $frame
+            ->expects($this->never())
+            ->method('getWidth')
+        ;
+
+
+        $widget = $this->getWidgetMock();
+        $widget
+            ->expects($this->never())
+            ->method('getFrame')
+        ;
+
+        $initialState = $this->getStateMock();
+        $stateBuilder = $this->getStateBuilderMock();
+        $stateBuilder
+            ->expects($this->never())
+            ->method('withSequence')
+            ->willReturnSelf()
+        ;
+        $stateBuilder
+            ->expects($this->never())
+            ->method('withWidth')
+            ->willReturnSelf()
+        ;
+        $stateBuilder
+            ->expects($this->never())
+            ->method('withPreviousWidth')
+            ->willReturnSelf()
+        ;
+        $stateBuilder
+            ->expects($this->never())
+            ->method('build')
+        ;
+
+        $spinner = $this->getTesteeInstance(
+            widget: $widget,
+            stateBuilder: $stateBuilder,
+            state: $initialState,
+        );
+
+        self::assertSame($initialState, $spinner->getState($dt));
+    }
+
+    private function getStateMock(): MockObject&ISequenceState
+    {
+        return $this->createMock(ISequenceState::class);
     }
 
     #[Test]
@@ -68,11 +180,11 @@ final class SpinnerTest extends TestCase
         $rootWidget = $this->getWidgetMock();
         $observer = $this->getObserverMock();
         $observer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('update')
         ;
         $spinner = $this->getTesteeInstance(
-            rootWidget: $rootWidget,
+            widget: $rootWidget,
             observer: $observer
         );
 
@@ -97,7 +209,7 @@ final class SpinnerTest extends TestCase
             ->method('update')
         ;
         $spinner = $this->getTesteeInstance(
-            rootWidget: $rootWidget,
+            widget: $rootWidget,
             observer: $observer
         );
 
@@ -111,12 +223,12 @@ final class SpinnerTest extends TestCase
     {
         $rootWidget = $this->getWidgetMock();
         $rootWidget
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('attach')
         ;
 
         $spinner = $this->getTesteeInstance(
-            rootWidget: $rootWidget,
+            widget: $rootWidget,
         );
 
         self::assertInstanceOf(Spinner::class, $spinner);
@@ -128,11 +240,11 @@ final class SpinnerTest extends TestCase
         $interval = $this->getIntervalMock();
         $rootWidget = $this->getWidgetMock();
         $rootWidget
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getInterval')
             ->willReturn($interval)
         ;
-        $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
+        $spinner = $this->getTesteeInstance(widget: $rootWidget);
 
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($interval, $spinner->getInterval());
