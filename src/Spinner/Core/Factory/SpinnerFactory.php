@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Builder\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 
 final readonly class SpinnerFactory implements ISpinnerFactory
 {
     public function __construct(
-        protected IWidgetFactory $widgetFactory,
-        protected IRootWidgetConfigFactory $widgetConfigFactory,
+        private IWidgetFactory $widgetFactory,
+        private IRootWidgetConfigFactory $widgetConfigFactory,
+        private ISpinnerBuilder $spinnerBuilder,
     ) {
     }
 
@@ -28,7 +29,10 @@ final readonly class SpinnerFactory implements ISpinnerFactory
                 $spinnerSettings?->getWidgetSettings()
             );
 
-        return new Spinner(widget: $widget);
+        return $this->spinnerBuilder
+            ->withWidget($widget)
+            ->build()
+        ;
     }
 
     private function createWidget(?IWidgetSettings $widgetSettings): IWidget

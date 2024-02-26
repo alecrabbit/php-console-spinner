@@ -23,10 +23,12 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IDeltaTimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateWriterBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Builder\DeltaTimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\SequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Builder\SequenceStateWriterBuilder;
+use AlecRabbit\Spinner\Core\Builder\SpinnerBuilder;
 use AlecRabbit\Spinner\Core\CharFrameTransformer;
 use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\GeneralConfigBuilder;
@@ -397,6 +399,7 @@ function builders(): Traversable
 
         IWidgetBuilder::class => WidgetBuilder::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
+        ISpinnerBuilder::class => SpinnerBuilder::class,
     ];
 }
 

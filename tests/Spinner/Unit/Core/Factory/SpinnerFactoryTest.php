@@ -7,12 +7,14 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -37,22 +39,29 @@ final class SpinnerFactoryTest extends TestCase
             new SpinnerFactory(
                 widgetFactory: $widgetFactory ?? $this->getWidgetFactoryMock(),
                 widgetConfigFactory: $widgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
+                spinnerBuilder: $spinnerBuilder ?? $this->getSpinnerBuilderMock(),
             );
     }
 
-    protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
+    private function getWidgetFactoryMock(): MockObject&IWidgetFactory
     {
         return $this->createMock(IWidgetFactory::class);
     }
 
-    protected function getWidgetConfigFactoryMock(): MockObject&IRootWidgetConfigFactory
+    private function getWidgetConfigFactoryMock(): MockObject&IRootWidgetConfigFactory
     {
         return $this->createMock(IRootWidgetConfigFactory::class);
+    }
+
+    private function getSpinnerBuilderMock(): MockObject&ISpinnerBuilder
+    {
+        return $this->createMock(ISpinnerBuilder::class);
     }
 
     #[Test]
     public function canCreateSpinnerUsingSpinnerSettings(): void
     {
+        $widget = $this->getWidgetMock();
         $widgetConfig = $this->getRootWidgetConfigMock();
 
         $widgetSettings = $this->getWidgetSettingsMock();
@@ -67,6 +76,7 @@ final class SpinnerFactoryTest extends TestCase
         $widgetFactory
             ->expects(self::once())
             ->method('create')
+            ->willReturn($widget)
         ;
 
         $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
@@ -77,9 +87,24 @@ final class SpinnerFactoryTest extends TestCase
             ->willReturn($widgetConfig)
         ;
 
+        $spinner = $this->getSpinnerMock();
+        $spinnerBuilder = $this->getSpinnerBuilderMock();
+        $spinnerBuilder
+            ->expects($this->once())
+            ->method('withWidget')
+            ->with($widget)
+            ->willReturnSelf()
+        ;
+        $spinnerBuilder
+            ->expects($this->once())
+            ->method('build')
+            ->willReturn($spinner)
+        ;
+
         $spinnerFactory = $this->getTesteeInstance(
             widgetFactory: $widgetFactory,
             widgetConfigFactory: $widgetConfigFactory,
+            spinnerBuilder: $spinnerBuilder,
         );
 
         $spinnerSettings = $this->getSpinnerSettingsMock();
@@ -89,22 +114,22 @@ final class SpinnerFactoryTest extends TestCase
             ->willReturn($widgetSettings)
         ;
 
-        $spinner = $spinnerFactory->create($spinnerSettings);
+        $actual = $spinnerFactory->create($spinnerSettings);
 
-        self::assertInstanceOf(Spinner::class, $spinner);
+        self::assertSame($spinner, $actual);
     }
 
-    protected function getRootWidgetConfigMock(): MockObject&IRootWidgetConfig
+    private function getRootWidgetConfigMock(): MockObject&IRootWidgetConfig
     {
         return $this->createMock(IRootWidgetConfig::class);
     }
 
-    protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
+    private function getWidgetSettingsMock(): MockObject&IWidgetSettings
     {
         return $this->createMock(IWidgetSettings::class);
     }
 
-    protected function getSpinnerSettingsMock(): MockObject&ISpinnerSettings
+    private function getSpinnerSettingsMock(): MockObject&ISpinnerSettings
     {
         return $this->createMock(ISpinnerSettings::class);
     }
@@ -112,6 +137,7 @@ final class SpinnerFactoryTest extends TestCase
     #[Test]
     public function canCreateSpinnerWithoutSpinnerSettings(): void
     {
+        $widget = $this->getWidgetMock();
         $widgetConfig = $this->getRootWidgetConfigMock();
 
         $widgetFactory = $this->getWidgetFactoryMock();
@@ -124,6 +150,7 @@ final class SpinnerFactoryTest extends TestCase
         $widgetFactory
             ->expects(self::once())
             ->method('create')
+            ->willReturn($widget)
         ;
 
         $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
@@ -134,18 +161,42 @@ final class SpinnerFactoryTest extends TestCase
             ->willReturn($widgetConfig)
         ;
 
+        $spinner = $this->getSpinnerMock();
+        $spinnerBuilder = $this->getSpinnerBuilderMock();
+        $spinnerBuilder
+            ->expects($this->once())
+            ->method('withWidget')
+            ->with($widget)
+            ->willReturnSelf()
+        ;
+        $spinnerBuilder
+            ->expects($this->once())
+            ->method('build')
+            ->willReturn($spinner)
+        ;
 
         $spinnerFactory = $this->getTesteeInstance(
             widgetFactory: $widgetFactory,
             widgetConfigFactory: $widgetConfigFactory,
+            spinnerBuilder: $spinnerBuilder,
         );
 
-        $spinner = $spinnerFactory->create();
+        $actual = $spinnerFactory->create();
 
-        self::assertInstanceOf(Spinner::class, $spinner);
+        self::assertSame($spinner, $actual);
     }
 
-    protected function getSettingsMock(): MockObject&ISettings
+    private function getWidgetMock(): MockObject&IWidget
+    {
+        return $this->createMock(IWidget::class);
+    }
+
+    private function getSpinnerMock(): MockObject&ISpinner
+    {
+        return $this->createMock(ISpinner::class);
+    }
+
+    private function getSettingsMock(): MockObject&ISettings
     {
         return $this->createMock(ISettings::class);
     }
