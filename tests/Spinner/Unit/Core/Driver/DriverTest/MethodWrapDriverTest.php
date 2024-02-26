@@ -65,7 +65,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
      */
     public function getTesteeInstance(
         ?IRenderer $renderer = null,
-        ?IDeltaTimer $deltaTimer = null,
+        ?IDeltaTimer $deltaTimer = null, // TODO: remove [826b01a7-26e8-4662-bd68-3e402317ee0a]
         ?ISequenceStateWriter $stateWriter = null,
         ?ISequenceStateBuilder $stateBuilder = null,
         ?IInterval $initialInterval = null,
@@ -78,7 +78,6 @@ final class MethodWrapDriverTest extends TestCaseForDriver
             new class(
                 renderer: $renderer ?? $this->getRendererMock(),
                 driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
-                deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
                 initialInterval: $initialInterval ?? $this->getIntervalMock(),
                 stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
                 spinner: $spinner ?? $this->getSpinnerMock(),
@@ -88,7 +87,6 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                 public function __construct(
                     IRenderer $renderer,
                     IDriverMessages $driverMessages,
-                    IDeltaTimer $deltaTimer,
                     IInterval $initialInterval,
                     ISequenceStateBuilder $stateBuilder,
                     IIntervalComparator $intervalComparator,
@@ -99,7 +97,6 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                         initialInterval: $initialInterval,
                         driverMessages: $driverMessages,
                         renderer: $renderer,
-                        deltaTimer: $deltaTimer,
                         observer: $observer
                     );
                 }
@@ -134,10 +131,5 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                     throw new RuntimeException('Not implemented. Should not be called.');
                 }
             };
-    }
-
-    private function getSequenceStateMock(): MockObject&ISequenceState
-    {
-        return $this->createMock(ISequenceState::class);
     }
 }

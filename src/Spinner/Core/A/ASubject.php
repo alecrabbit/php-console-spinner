@@ -12,10 +12,6 @@ use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 
 use function sprintf;
 
-/**
- * // TODO (2024-01-30 16:24) [Alec Rabbit]: consider extracting to separate package
- *     [799b9a43-72bd-4e89-aa3e-4cf35dec98e8]
- */
 abstract class ASubject implements ISubject
 {
     public function __construct(
@@ -23,7 +19,6 @@ abstract class ASubject implements ISubject
     ) {
     }
 
-    // todo [f1d3c183-1419-4a28-af89-4c7fe9a0948d]
     public function notify(): void
     {
         $this->observer?->update($this);

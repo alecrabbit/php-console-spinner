@@ -23,14 +23,13 @@ final class Driver extends ADriver
         IDriverMessages $driverMessages,
         IRenderer $renderer,
         private readonly IIntervalComparator $intervalComparator,
-        IDeltaTimer $deltaTimer,
+        IDeltaTimer $deltaTimer, // TODO: remove [826b01a7-26e8-4662-bd68-3e402317ee0a]
         ?IObserver $observer = null
     ) {
         parent::__construct(
             initialInterval: $initialInterval,
             driverMessages: $driverMessages,
             renderer: $renderer,
-            deltaTimer: $deltaTimer,
             observer: $observer,
         );
     }
@@ -39,7 +38,7 @@ final class Driver extends ADriver
     {
         $this->erase();
 
-        if ($this->spinner) {
+        if ($this->spinner instanceof ISpinner) {
             $this->doRemove($this->spinner);
         }
 
