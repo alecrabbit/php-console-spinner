@@ -23,7 +23,6 @@ final class Driver extends ADriver
         IDriverMessages $driverMessages,
         IRenderer $renderer,
         private readonly IIntervalComparator $intervalComparator,
-        IDeltaTimer $deltaTimer, // TODO: remove [826b01a7-26e8-4662-bd68-3e402317ee0a]
         ?IObserver $observer = null
     ) {
         parent::__construct(

@@ -65,7 +65,6 @@ final class MethodWrapDriverTest extends TestCaseForDriver
      */
     public function getTesteeInstance(
         ?IRenderer $renderer = null,
-        ?IDeltaTimer $deltaTimer = null, // TODO: remove [826b01a7-26e8-4662-bd68-3e402317ee0a]
         ?ISequenceStateWriter $stateWriter = null,
         ?ISequenceStateBuilder $stateBuilder = null,
         ?IInterval $initialInterval = null,

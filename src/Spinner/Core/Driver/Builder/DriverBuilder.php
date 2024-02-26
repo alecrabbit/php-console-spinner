@@ -20,19 +20,11 @@ use AlecRabbit\Spinner\Exception\LogicException;
  */
 final class DriverBuilder implements IDriverBuilder
 {
-    private ?IDeltaTimer $deltaTimer = null;
     private ?IInterval $initialInterval = null;
     private ?IObserver $observer = null;
     private ?IDriverMessages $driverMessages = null;
     private ?IIntervalComparator $intervalComparator = null;
     private ?IRenderer $renderer = null;
-
-    public function withDeltaTimer(IDeltaTimer $timer): IDriverBuilder
-    {
-        $clone = clone $this;
-        $clone->deltaTimer = $timer;
-        return $clone;
-    }
 
     public function withInitialInterval(IInterval $interval): IDriverBuilder
     {
@@ -57,7 +49,6 @@ final class DriverBuilder implements IDriverBuilder
             driverMessages: $this->driverMessages,
             renderer: $this->renderer,
             intervalComparator: $this->intervalComparator,
-            deltaTimer: $this->deltaTimer,
             observer: $this->observer,
         );
     }
@@ -69,7 +60,6 @@ final class DriverBuilder implements IDriverBuilder
     {
         match (true) {
             $this->renderer === null => throw new LogicException('Renderer is not set.'),
-            $this->deltaTimer === null => throw new LogicException('Timer is not set.'),
             $this->initialInterval === null => throw new LogicException('InitialInterval is not set.'),
             $this->driverMessages === null => throw new LogicException('DriverMessages is not set.'),
             $this->intervalComparator === null => throw new LogicException('IntervalComparator is not set.'),

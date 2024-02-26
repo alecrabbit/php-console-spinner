@@ -18,8 +18,6 @@ interface IDriverBuilder
 
     public function withInitialInterval(IInterval $interval): IDriverBuilder;
 
-    public function withDeltaTimer(IDeltaTimer $timer): IDriverBuilder;
-
     public function withObserver(IObserver $observer): IDriverBuilder;
 
     public function withIntervalComparator(IIntervalComparator $intervalComparator): IDriverBuilder;

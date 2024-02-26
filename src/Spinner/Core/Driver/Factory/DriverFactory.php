@@ -19,7 +19,6 @@ final readonly class DriverFactory implements IDriverFactory
         private IDriverMessages $driverMessages,
         private IDriverBuilder $driverBuilder,
         private IIntervalFactory $intervalFactory,
-        private IDeltaTimerFactory $timerFactory,
         private IIntervalComparator $intervalComparator,
         private IRenderer $renderer,
     ) {
@@ -28,9 +27,6 @@ final readonly class DriverFactory implements IDriverFactory
     public function create(): IDriver
     {
         return $this->driverBuilder
-            ->withDeltaTimer(
-                $this->timerFactory->create()
-            )
             ->withInitialInterval(
                 $this->intervalFactory->createStill()
             )

@@ -32,7 +32,6 @@ final class DriverFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IDriverBuilder $driverBuilder = null,
         ?IIntervalFactory $intervalFactory = null,
-        ?IDeltaTimerFactory $timerFactory = null,
         ?IIntervalComparator $intervalComparator = null,
         ?IDriverMessages $driverMessages = null,
         ?IRenderer $renderer = null,
@@ -42,7 +41,6 @@ final class DriverFactoryTest extends TestCase
                 driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
                 driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
                 intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
-                timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
                 intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
                 renderer: $renderer ?? $this->getRendererMock(),
             );
@@ -95,12 +93,6 @@ final class DriverFactoryTest extends TestCase
         $driver = $this->getDriverMock();
 
         $driverBuilder = $this->getDriverBuilderMock();
-        $driverBuilder
-            ->expects(self::once())
-            ->method('withDeltaTimer')
-            ->with(self::isInstanceOf(IDeltaTimer::class))
-            ->willReturnSelf()
-        ;
         $driverBuilder
             ->expects(self::once())
             ->method('withInitialInterval')
