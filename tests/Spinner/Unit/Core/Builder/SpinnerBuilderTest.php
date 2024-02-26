@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Builder;
 
-use AlecRabbit\Spinner\Contract\INowTimer;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Builder\SpinnerBuilder;
-use AlecRabbit\Spinner\Core\DeltaTimer;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -36,14 +35,26 @@ final class SpinnerBuilderTest extends TestCase
         $builder = $this->getTesteeInstance();
 
         $widget = $this->getWidgetMock();
+        $observer = $this->getObserverMock();
 
         $spinner = $builder
             ->withWidget($widget)
-            ->build();
+            ->withObserver($observer)
+            ->build()
+        ;
 
         self::assertInstanceOf(Spinner::class, $spinner);
     }
 
+    private function getWidgetMock(): MockObject&IWidget
+    {
+        return $this->createMock(IWidget::class);
+    }
+
+    private function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
+    }
 
     #[Test]
     public function throwsIfWidgetIsNotSet(): void
@@ -56,10 +67,5 @@ final class SpinnerBuilderTest extends TestCase
         $builder
             ->build()
         ;
-    }
-
-    private function getWidgetMock(): MockObject&IWidget
-    {
-        return $this->createMock(IWidget::class);
     }
 }
