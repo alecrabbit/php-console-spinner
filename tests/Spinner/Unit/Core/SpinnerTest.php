@@ -52,7 +52,7 @@ final class SpinnerTest extends TestCase
         return $this->createMock(ISequenceStateBuilder::class);
     }
 
-    protected function getSequenceFrameMock(): MockObject&ISequenceFrame
+    private function getSequenceFrameMock(): MockObject&ISequenceFrame
     {
         return $this->createMock(ISequenceFrame::class);
     }
@@ -117,6 +117,7 @@ final class SpinnerTest extends TestCase
 
         self::assertSame($state, $spinner->getState($dt));
     }
+
     #[Test]
     public function canGetCurrentState(): void
     {
