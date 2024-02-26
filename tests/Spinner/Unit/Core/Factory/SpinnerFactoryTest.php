@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Builder\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
@@ -30,6 +31,7 @@ final class SpinnerFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IWidgetFactory $widgetFactory = null,
         ?IRootWidgetConfigFactory $widgetConfigFactory = null,
+        ?ISpinnerBuilder $spinnerBuilder = null,
     ): ISpinnerFactory {
         return
             new SpinnerFactory(
