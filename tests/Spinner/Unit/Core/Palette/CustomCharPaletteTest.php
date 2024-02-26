@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette;
 
-use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IFinitePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\CustomCharPalette;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use stdClass;
 
 final class CustomCharPaletteTest extends TestCase
 {
@@ -25,7 +25,7 @@ final class CustomCharPaletteTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?\ArrayObject $frames = null,
+        ?ArrayObject $frames = null,
         ?IPaletteOptions $options = null,
         ?int $index = null,
     ): ICharPalette {
@@ -37,9 +37,9 @@ final class CustomCharPaletteTest extends TestCase
             );
     }
 
-    private function getFramesMock(): MockObject&\ArrayObject
+    private function getFramesMock(): MockObject&ArrayObject
     {
-        return $this->createMock(\ArrayObject::class);
+        return $this->createMock(ArrayObject::class);
     }
 
     private function getPaletteOptionsMock(): MockObject&IPaletteOptions
@@ -68,13 +68,13 @@ final class CustomCharPaletteTest extends TestCase
     #[Test]
     public function canBeCreatedWithCustomFrames(): void
     {
-        $frames = new \ArrayObject(
+        $frames = new ArrayObject(
             [
                 new CharSequenceFrame('   ', 3),
                 new CharSequenceFrame('.  ', 3),
                 new CharSequenceFrame('.. ', 3),
                 new CharSequenceFrame('...', 3),
-                new \stdClass(),
+                new stdClass(),
                 new CharSequenceFrame(' ..', 3),
                 new CharSequenceFrame('  .', 3),
                 new CharSequenceFrame('   ', 3),

@@ -6,16 +6,15 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
-use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\Contract\INeoWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\NeoWidgetComposite;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use WeakMap;
 
 final class NeoWidgetCompositeTest extends TestCase
 {
@@ -28,13 +27,13 @@ final class NeoWidgetCompositeTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?\WeakMap $widgets = null,
+        ?WeakMap $widgets = null,
         ?IIntervalComparator $intervalComparator = null,
         ?IObserver $observer = null,
     ): INeoWidgetComposite {
         return
             new NeoWidgetComposite(
-                widgets: $widgets ?? new \WeakMap(),
+                widgets: $widgets ?? new WeakMap(),
                 intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
                 observer: $observer ?? $this->getObserverMock(),
             );
@@ -53,7 +52,7 @@ final class NeoWidgetCompositeTest extends TestCase
     #[Test]
     public function canAdd(): void
     {
-        $widgets = new \WeakMap();
+        $widgets = new WeakMap();
 
         $composite = $this->getTesteeInstance(
             widgets: $widgets,
@@ -63,7 +62,8 @@ final class NeoWidgetCompositeTest extends TestCase
         $widget = $this->getWidgetMock();
         $widget
             ->method('getInterval')
-            ->willReturn($interval);
+            ->willReturn($interval)
+        ;
 
         self::assertEquals(new Interval(), $composite->getInterval());
 
@@ -83,7 +83,7 @@ final class NeoWidgetCompositeTest extends TestCase
     #[Test]
     public function canAddAndRemoveWithPlaceholder(): void
     {
-        $widgets = new \WeakMap();
+        $widgets = new WeakMap();
 
         $composite = $this->getTesteeInstance(
             widgets: $widgets,
@@ -93,7 +93,8 @@ final class NeoWidgetCompositeTest extends TestCase
         $widget = $this->getWidgetMock();
         $widget
             ->method('getInterval')
-            ->willReturn($interval);
+            ->willReturn($interval)
+        ;
 
         $placeholder = $composite->add($widget);
 
@@ -114,7 +115,7 @@ final class NeoWidgetCompositeTest extends TestCase
     #[Test]
     public function canAddAndRemoveWithWidget(): void
     {
-        $widgets = new \WeakMap();
+        $widgets = new WeakMap();
 
         $composite = $this->getTesteeInstance(
             widgets: $widgets,

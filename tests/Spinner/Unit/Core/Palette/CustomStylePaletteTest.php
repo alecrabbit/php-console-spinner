@@ -9,8 +9,10 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Palette\CustomStylePalette;
 use AlecRabbit\Spinner\Core\StyleSequenceFrame;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use stdClass;
 
 final class CustomStylePaletteTest extends TestCase
 {
@@ -23,7 +25,7 @@ final class CustomStylePaletteTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?\ArrayObject $frames = null,
+        ?ArrayObject $frames = null,
         ?IPaletteOptions $options = null,
         ?int $index = null,
     ): IStylePalette {
@@ -35,9 +37,9 @@ final class CustomStylePaletteTest extends TestCase
             );
     }
 
-    private function getFramesMock(): MockObject&\ArrayObject
+    private function getFramesMock(): MockObject&ArrayObject
     {
-        return $this->createMock(\ArrayObject::class);
+        return $this->createMock(ArrayObject::class);
     }
 
     private function getPaletteOptionsMock(): MockObject&IPaletteOptions
@@ -66,13 +68,13 @@ final class CustomStylePaletteTest extends TestCase
     #[Test]
     public function canBeCreatedWithCustomFrames(): void
     {
-        $frames = new \ArrayObject(
+        $frames = new ArrayObject(
             [
                 new StyleSequenceFrame('%s   ', 3),
                 new StyleSequenceFrame('%s.  ', 3),
                 new StyleSequenceFrame('%s.. ', 3),
                 new StyleSequenceFrame('%s...', 3),
-                new \stdClass(),
+                new stdClass(),
                 new StyleSequenceFrame('%s ..', 3),
                 new StyleSequenceFrame('%s  .', 3),
                 new StyleSequenceFrame('%s   ', 3),

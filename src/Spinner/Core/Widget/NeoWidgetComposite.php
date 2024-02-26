@@ -16,6 +16,7 @@ use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Placeholder;
 use AlecRabbit\Spinner\Core\Widget\Contract\INeoWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use WeakMap;
 
 final class NeoWidgetComposite extends ASubject implements INeoWidgetComposite
 
@@ -25,7 +26,7 @@ final class NeoWidgetComposite extends ASubject implements INeoWidgetComposite
     private ISequenceFrame $emptyFrame;
 
     public function __construct(
-        private readonly \WeakMap $widgets,
+        private readonly WeakMap $widgets,
         private readonly IIntervalComparator $intervalComparator,
         ?IObserver $observer = null,
     ) {
