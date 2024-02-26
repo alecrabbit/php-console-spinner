@@ -181,44 +181,44 @@ final class SpinnerTest extends TestCase
         self::assertNull(self::getPropertyValue('observer', $spinner));
     }
 
-    #[Test]
-    public function canAddWidget(): void
-    {
-        $context = $this->getWidgetContextMock();
-
-        $rootWidget = $this->getWidgetCompositeMock();
-        $rootWidget
-            ->expects(self::once())
-            ->method('add')
-            ->willReturn($context)
-        ;
-
-        $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
-
-        self::assertInstanceOf(Spinner::class, $spinner);
-        self::assertSame($context, $spinner->add($context));
-    }
+//    #[Test]
+//    public function canAddWidget(): void
+//    {
+//        $context = $this->getWidgetContextMock();
+//
+//        $rootWidget = $this->getWidgetCompositeMock();
+//        $rootWidget
+//            ->expects(self::once())
+//            ->method('add')
+//            ->willReturn($context)
+//        ;
+//
+//        $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
+//
+//        self::assertInstanceOf(Spinner::class, $spinner);
+//        self::assertSame($context, $spinner->add($context));
+//    }
 
     protected function getWidgetContextMock(): MockObject&IWidgetContext
     {
         return $this->createMock(IWidgetContext::class);
     }
 
-    #[Test]
-    public function canRemoveWidget(): void
-    {
-        $context = $this->getWidgetContextMock();
-        $rootWidget = $this->getWidgetCompositeMock();
-        $rootWidget
-            ->expects(self::once())
-            ->method('remove')
-        ;
-
-        $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
-
-        self::assertInstanceOf(Spinner::class, $spinner);
-        $spinner->remove($context);
-    }
+//    #[Test]
+//    public function canRemoveWidget(): void
+//    {
+//        $context = $this->getWidgetContextMock();
+//        $rootWidget = $this->getWidgetCompositeMock();
+//        $rootWidget
+//            ->expects(self::once())
+//            ->method('remove')
+//        ;
+//
+//        $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
+//
+//        self::assertInstanceOf(Spinner::class, $spinner);
+//        $spinner->remove($context);
+//    }
 
     #[Test]
     public function throwsIfObserverAlreadyAttached(): void
@@ -259,26 +259,26 @@ final class SpinnerTest extends TestCase
         );
     }
 
-    #[Test]
-    public function throwsOnAddIfRootWidgetIsNotAComposite(): void
-    {
-        $exceptionClass = WidgetIsNotAComposite::class;
-        $exceptionMessage = 'Root widget is not a composite.';
-
-        $test = function (): void {
-            $context = $this->getWidgetContextMock();
-
-            $rootWidget = $this->getWidgetMock();
-
-            $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
-
-            self::assertSame($context, $spinner->add($context));
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
+//    #[Test]
+//    public function throwsOnAddIfRootWidgetIsNotAComposite(): void
+//    {
+//        $exceptionClass = WidgetIsNotAComposite::class;
+//        $exceptionMessage = 'Root widget is not a composite.';
+//
+//        $test = function (): void {
+//            $context = $this->getWidgetContextMock();
+//
+//            $rootWidget = $this->getWidgetMock();
+//
+//            $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
+//
+//            self::assertSame($context, $spinner->add($context));
+//        };
+//
+//        $this->wrapExceptionTest(
+//            test: $test,
+//            exception: $exceptionClass,
+//            message: $exceptionMessage,
+//        );
+//    }
 }

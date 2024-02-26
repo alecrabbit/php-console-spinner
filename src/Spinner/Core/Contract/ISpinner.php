@@ -15,7 +15,7 @@ interface ISpinner extends IObserver,
                            IHasInterval,
                            IHasSequenceFrame
 {
-    public function add(IWidgetContext $element): IWidgetContext;
-
-    public function remove(IWidgetContext $element): void;
+//    public function add(IWidgetContext $element): IWidgetContext;
+//
+//    public function remove(IWidgetContext $element): void;
 }
