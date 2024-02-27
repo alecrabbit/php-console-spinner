@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Builder\SpinnerBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -38,21 +39,20 @@ final class SpinnerBuilderTest extends TestCase
         $widget = $this->getWidgetMock();
         $observer = $this->getObserverMock();
         $stateBuilder = $this->getStateBuilderMock();
+        $initialState = $this->getStateMock();
 
         $spinner = $builder
             ->withWidget($widget)
             ->withObserver($observer)
             ->withStateBuilder($stateBuilder)
+            ->withInitialState($initialState)
             ->build()
         ;
 
         self::assertInstanceOf(Spinner::class, $spinner);
+        self::assertSame($initialState, $spinner->getState());
     }
 
-    private function getStateBuilderMock(): MockObject&ISequenceStateBuilder
-    {
-        return $this->createMock(ISequenceStateBuilder::class);
-    }
     private function getWidgetMock(): MockObject&IWidget
     {
         return $this->createMock(IWidget::class);
@@ -61,6 +61,16 @@ final class SpinnerBuilderTest extends TestCase
     private function getObserverMock(): MockObject&IObserver
     {
         return $this->createMock(IObserver::class);
+    }
+
+    private function getStateBuilderMock(): MockObject&ISequenceStateBuilder
+    {
+        return $this->createMock(ISequenceStateBuilder::class);
+    }
+
+    private function getStateMock(): MockObject&ISequenceState
+    {
+        return $this->createMock(ISequenceState::class);
     }
 
     #[Test]

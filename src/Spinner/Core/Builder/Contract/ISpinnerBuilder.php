@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder\Contract;
 
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 
@@ -15,6 +16,8 @@ interface ISpinnerBuilder
     public function withWidget(IWidget $widget): ISpinnerBuilder;
 
     public function withStateBuilder(ISequenceStateBuilder $stateBuilder): ISpinnerBuilder;
+
+    public function withInitialState(ISequenceState $state): ISpinnerBuilder;
 
     public function withObserver(IObserver $observer): ISpinnerBuilder;
 }

@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
@@ -42,14 +43,18 @@ final class Spinner extends ASubject implements ISpinner
         if ($dt !== null) {
             $frame = $this->widget->getFrame($dt);
 
-            $this->state = $this->stateBuilder
-                ->withSequence($frame->getSequence())
-                ->withWidth($frame->getWidth())
-                ->withPreviousWidth($this->state->getWidth())
-                ->build()
-            ;
+            $this->state = $this->createState($frame);
         }
 
         return $this->state;
+    }
+
+    private function createState(ISequenceFrame $frame): ISequenceState
+    {
+        return $this->stateBuilder
+            ->withSequenceFrame($frame)
+            ->withPrevious($this->state)
+            ->build()
+        ;
     }
 }

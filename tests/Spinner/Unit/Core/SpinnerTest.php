@@ -61,20 +61,7 @@ final class SpinnerTest extends TestCase
     public function canGetState(): void
     {
         $dt = 10;
-        $sequence = 'sequence';
-        $width = 8;
         $frame = $this->getSequenceFrameMock();
-        $frame
-            ->expects($this->once())
-            ->method('getSequence')
-            ->willReturn($sequence)
-        ;
-        $frame
-            ->expects($this->once())
-            ->method('getWidth')
-            ->willReturn($width)
-        ;
-
 
         $widget = $this->getWidgetMock();
         $widget
@@ -84,24 +71,20 @@ final class SpinnerTest extends TestCase
             ->willReturn($frame)
         ;
 
+        $initialState = $this->getStateMock();
         $state = $this->getStateMock();
         $stateBuilder = $this->getStateBuilderMock();
         $stateBuilder
             ->expects($this->once())
-            ->method('withSequence')
-            ->with($sequence)
+            ->method('withSequenceFrame')
+            ->with($frame)
             ->willReturnSelf()
         ;
+
         $stateBuilder
             ->expects($this->once())
-            ->method('withWidth')
-            ->with($width)
-            ->willReturnSelf()
-        ;
-        $stateBuilder
-            ->expects($this->once())
-            ->method('withPreviousWidth')
-            ->with(0)
+            ->method('withPrevious')
+            ->with($initialState)
             ->willReturnSelf()
         ;
         $stateBuilder
@@ -113,6 +96,7 @@ final class SpinnerTest extends TestCase
         $spinner = $this->getTesteeInstance(
             widget: $widget,
             stateBuilder: $stateBuilder,
+            state: $initialState,
         );
 
         self::assertSame($state, $spinner->getState($dt));
