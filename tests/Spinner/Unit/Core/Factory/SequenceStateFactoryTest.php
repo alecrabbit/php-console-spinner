@@ -73,6 +73,16 @@ final class SequenceStateFactoryTest extends TestCase
         self::assertSame($state, $actual);
     }
 
+    private function getSequenceFrameMock(): MockObject&ISequenceFrame
+    {
+        return $this->createMock(ISequenceFrame::class);
+    }
+
+    private function getSequenceStateMock(): MockObject&ISequenceState
+    {
+        return $this->createMock(ISequenceState::class);
+    }
+
     #[Test]
     public function canCreateEmpty(): void
     {
@@ -105,16 +115,6 @@ final class SequenceStateFactoryTest extends TestCase
 
         $actual = $factory->create();
         self::assertSame($state, $actual);
-    }
-
-    private function getSequenceFrameMock(): MockObject&ISequenceFrame
-    {
-        return $this->createMock(ISequenceFrame::class);
-    }
-
-    private function getSequenceStateMock(): MockObject&ISequenceState
-    {
-        return $this->createMock(ISequenceState::class);
     }
 
 }

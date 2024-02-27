@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
@@ -59,11 +58,6 @@ final class DriverFactoryTest extends TestCase
     private function getIntervalFactoryMock(): MockObject&IIntervalFactory
     {
         return $this->createMock(IIntervalFactory::class);
-    }
-
-    private function getTimerFactoryMock(): MockObject&IDeltaTimerFactory
-    {
-        return $this->createMock(IDeltaTimerFactory::class);
     }
 
     private function getIntervalComparatorMock(): MockObject&IIntervalComparator
@@ -144,5 +138,10 @@ final class DriverFactoryTest extends TestCase
     private function getDriverMock(): MockObject&IDriver
     {
         return $this->createMock(IDriver::class);
+    }
+
+    private function getTimerFactoryMock(): MockObject&IDeltaTimerFactory
+    {
+        return $this->createMock(IDeltaTimerFactory::class);
     }
 }

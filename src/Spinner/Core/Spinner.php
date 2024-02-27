@@ -9,16 +9,16 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
-use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 
 final class Spinner extends ASubject implements ISpinner
 {
     public function __construct(
         private readonly IWidget $widget,
-        private readonly ISequenceStateBuilder $stateBuilder,
+        private readonly ISequenceStateFactory $stateFactory,
         private ISequenceState $state,
         ?IObserver $observer = null,
     ) {
@@ -51,10 +51,6 @@ final class Spinner extends ASubject implements ISpinner
 
     private function createState(ISequenceFrame $frame): ISequenceState
     {
-        return $this->stateBuilder
-            ->withSequenceFrame($frame)
-            ->withPrevious($this->state)
-            ->build()
-        ;
+        return $this->stateFactory->create($frame, $this->state);
     }
 }

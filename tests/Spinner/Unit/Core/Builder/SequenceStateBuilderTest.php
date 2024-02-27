@@ -40,17 +40,20 @@ final class SequenceStateBuilderTest extends TestCase
         $frame
             ->expects(self::once())
             ->method('getSequence')
-            ->willReturn($sequence);
+            ->willReturn($sequence)
+        ;
         $frame
             ->expects(self::once())
             ->method('getWidth')
-            ->willReturn($width);
+            ->willReturn($width)
+        ;
 
         $previousState = $this->getSequenceStateMock();
         $previousState
             ->expects(self::once())
             ->method('getWidth')
-            ->willReturn($previousWidth);
+            ->willReturn($previousWidth)
+        ;
 
         $builder = $this->getTesteeInstance();
 
@@ -65,6 +68,16 @@ final class SequenceStateBuilderTest extends TestCase
         self::assertEquals($sequence, $state->getSequence());
         self::assertEquals($width, $state->getWidth());
         self::assertEquals($previousWidth, $state->getPreviousWidth());
+    }
+
+    private function getSequenceFrameMock(): MockObject&ISequenceFrame
+    {
+        return $this->createMock(ISequenceFrame::class);
+    }
+
+    private function getSequenceStateMock(): MockObject&ISequenceState
+    {
+        return $this->createMock(ISequenceState::class);
     }
 
     #[Test]
@@ -119,15 +132,5 @@ final class SequenceStateBuilderTest extends TestCase
         ;
 
         self::fail('Exception was not thrown.');
-    }
-
-    private function getSequenceFrameMock(): MockObject&ISequenceFrame
-    {
-        return $this->createMock(ISequenceFrame::class);
-    }
-
-    private function getSequenceStateMock(): MockObject&ISequenceState
-    {
-        return $this->createMock(ISequenceState::class);
     }
 }

@@ -67,11 +67,6 @@ final class DriverBuilderTest extends TestCase
         return $this->createMock(IRenderer::class);
     }
 
-    protected function getTimerMock(): MockObject&IDeltaTimer
-    {
-        return $this->createMock(IDeltaTimer::class);
-    }
-
     private function getIntervalComparatorMock(): MockObject&IIntervalComparator
     {
         return $this->createMock(IIntervalComparator::class);
@@ -175,6 +170,11 @@ final class DriverBuilderTest extends TestCase
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
+    }
+
+    protected function getTimerMock(): MockObject&IDeltaTimer
+    {
+        return $this->createMock(IDeltaTimer::class);
     }
 
     protected function getSequenceStateWriterMock(): MockObject&ISequenceStateWriter
