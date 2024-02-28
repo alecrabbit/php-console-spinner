@@ -23,6 +23,7 @@ final class NormalizerModeSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {
+        $mEx = NormalizerMode::EXTREME;
         $mSm = NormalizerMode::SMOOTH;
         $mBa = NormalizerMode::BALANCED;
         $mPe = NormalizerMode::PERFORMANCE;
@@ -30,6 +31,7 @@ final class NormalizerModeSolverTest extends TestCase
         $mSt = NormalizerMode::STILL;
 
         $oAu = NormalizerOption::AUTO;
+        $oEx = NormalizerOption::EXTREME;
         $oSm = NormalizerOption::SMOOTH;
         $oBa = NormalizerOption::BALANCED;
         $oPe = NormalizerOption::PERFORMANCE;
@@ -91,6 +93,9 @@ final class NormalizerModeSolverTest extends TestCase
             [[$mPe], [null, null, $oPe],], // #16
             [[$mSl], [null, null, $oSl],], // #17
             [[$mSt], [null, null, $oSt],], // #18
+            [[$mEx], [null, null, $oEx],], // #19
+            [[$mEx], [$oEx, null, $oAu],], // #20
+            [[$mEx], [$oEx, null, null],], // #21
             [
                 [
                     self::EXCEPTION => [

@@ -11,6 +11,6 @@ final readonly class StylingMethodOptionCreator implements IStylingMethodOptionC
 {
     public function create(): StylingMethodOption
     {
-        return StylingMethodOption::AUTO;
+        return StylingMethodOption::ANSI8;
     }
 }

@@ -4,37 +4,34 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette\A;
 
-use AlecRabbit\Spinner\Core\Contract\ICharFrame;
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
-use Traversable;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use ArrayObject;
 
-abstract class ACharPalette extends APalette implements ICharPalette
+abstract class ACharPalette implements ICharPalette
 {
-    /**
-     * @return Traversable<ICharFrame>
-     */
-    public function getEntries(?IPaletteMode $mode = null): Traversable
-    {
-        /** @var string|ICharFrame $element */
-        foreach ($this->sequence() as $element) {
-            if ($element instanceof ICharFrame) {
-                yield $element;
-                continue;
-            }
-            yield $this->createFrame($element);
-        }
+    private int $count;
+
+    public function __construct(
+        private readonly ArrayObject $frames,
+        private readonly IPaletteOptions $options,
+        private int $index = 0,
+    ) {
+        $this->count = $this->frames->count();
     }
 
-    /**
-     * @return Traversable<string|ICharFrame>
-     */
-    abstract protected function sequence(): Traversable;
-
-    abstract protected function createFrame(string $element, ?int $width = null): ICharFrame;
-
-    protected function modeInterval(?IPaletteMode $mode = null): ?int
+    public function getFrame(?float $dt = null): ICharSequenceFrame
     {
-        return 200;
+        if ($this->count === 1 || ++$this->index === $this->count) {
+            $this->index = 0;
+        }
+
+        return $this->frames->offsetGet($this->index);
+    }
+
+    public function getOptions(): IPaletteOptions
+    {
+        return $this->options;
     }
 }

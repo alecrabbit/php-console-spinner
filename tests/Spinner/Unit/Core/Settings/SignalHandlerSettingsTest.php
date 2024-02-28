@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISignalHandlerSettings;
 use AlecRabbit\Spinner\Core\Settings\SignalHandlerSettings;
@@ -59,8 +59,8 @@ final class SignalHandlerSettingsTest extends TestCase
         return $this->createMock(ISignalHandlerCreator::class);
     }
 
-    protected function getFrameMock(): MockObject&IFrame
+    protected function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
@@ -24,8 +24,8 @@ final class RootWidgetSettingsTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IFrame $leadingSpacer = null,
-        ?IFrame $trailingSpacer = null,
+        ?ISequenceFrame $leadingSpacer = null,
+        ?ISequenceFrame $trailingSpacer = null,
         ?IStylePalette $stylePalette = null,
         ?ICharPalette $charPalette = null,
     ): IRootWidgetSettings {
@@ -38,9 +38,9 @@ final class RootWidgetSettingsTest extends TestCase
             );
     }
 
-    protected function getFrameMock(): MockObject&IFrame
+    protected function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     private function getStylePaletteMock(): MockObject&IStylePalette

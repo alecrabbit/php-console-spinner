@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core;
 
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateFactory;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
-use AlecRabbit\Spinner\Exception\WidgetIsNotAComposite;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -29,12 +29,16 @@ final class SpinnerTest extends TestCase
         self::assertInstanceOf(Spinner::class, $spinner);
     }
 
-    protected function getTesteeInstance(
-        ?IWidget $rootWidget = null,
+    private function getTesteeInstance(
+        ?IWidget $widget = null,
+        ?ISequenceStateFactory $stateFactory = null,
+        ?ISequenceState $state = null,
         ?IObserver $observer = null,
     ): ISpinner {
         return new Spinner(
-            widget: $rootWidget ?? $this->getWidgetMock(),
+            widget: $widget ?? $this->getWidgetMock(),
+            stateFactory: $stateFactory ?? $this->getStateFactoryMock(),
+            state: $state ?? $this->getStateMock(),
             observer: $observer,
         );
     }
@@ -44,43 +48,52 @@ final class SpinnerTest extends TestCase
         return $this->createMock(IWidget::class);
     }
 
+    private function getStateFactoryMock(): MockObject&ISequenceStateFactory
+    {
+        return $this->createMock(ISequenceStateFactory::class);
+    }
+
+    private function getStateMock(): MockObject&ISequenceState
+    {
+        return $this->createMock(ISequenceState::class);
+    }
+
     #[Test]
-    public function canGetFrame(): void
+    public function canGetInitialState(): void
     {
-        $frame = $this->getFrameMock();
-        $rootWidget = $this->getWidgetCompositeMock();
-        $rootWidget
-            ->expects(self::once())
+        $widget = $this->getWidgetMock();
+        $widget
+            ->expects($this->never())
             ->method('getFrame')
-            ->willReturn($frame)
         ;
-        $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
 
-        self::assertInstanceOf(Spinner::class, $spinner);
-        self::assertSame($frame, $spinner->getFrame());
-    }
+        $initialState = $this->getStateMock();
+        $stateFactory = $this->getStateFactoryMock();
+        $stateFactory
+            ->expects(self::never())
+            ->method('create')
+        ;
 
-    protected function getFrameMock(): MockObject&IFrame
-    {
-        return $this->createMock(IFrame::class);
-    }
+        $spinner = $this->getTesteeInstance(
+            widget: $widget,
+            stateFactory: $stateFactory,
+            state: $initialState,
+        );
 
-    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
-    {
-        return $this->createMock(IWidgetComposite::class);
+        self::assertSame($initialState, $spinner->getState());
     }
 
     #[Test]
     public function canNotifyOnUpdateFromRootWidget(): void
     {
-        $rootWidget = $this->getWidgetCompositeMock();
+        $rootWidget = $this->getWidgetMock();
         $observer = $this->getObserverMock();
         $observer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('update')
         ;
         $spinner = $this->getTesteeInstance(
-            rootWidget: $rootWidget,
+            widget: $rootWidget,
             observer: $observer
         );
 
@@ -98,14 +111,14 @@ final class SpinnerTest extends TestCase
     public function willNotNotifyOnUpdateFromOtherWidget(): void
     {
         $otherWidget = $this->getWidgetMock();
-        $rootWidget = $this->getWidgetCompositeMock();
+        $rootWidget = $this->getWidgetMock();
         $observer = $this->getObserverMock();
         $observer
             ->expects(self::never())
             ->method('update')
         ;
         $spinner = $this->getTesteeInstance(
-            rootWidget: $rootWidget,
+            widget: $rootWidget,
             observer: $observer
         );
 
@@ -117,14 +130,14 @@ final class SpinnerTest extends TestCase
     #[Test]
     public function canBeAttachedAsObserverToRootWidget(): void
     {
-        $rootWidget = $this->getWidgetCompositeMock();
+        $rootWidget = $this->getWidgetMock();
         $rootWidget
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('attach')
         ;
 
         $spinner = $this->getTesteeInstance(
-            rootWidget: $rootWidget,
+            widget: $rootWidget,
         );
 
         self::assertInstanceOf(Spinner::class, $spinner);
@@ -134,13 +147,13 @@ final class SpinnerTest extends TestCase
     public function canGetInterval(): void
     {
         $interval = $this->getIntervalMock();
-        $rootWidget = $this->getWidgetCompositeMock();
+        $rootWidget = $this->getWidgetMock();
         $rootWidget
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getInterval')
             ->willReturn($interval)
         ;
-        $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
+        $spinner = $this->getTesteeInstance(widget: $rootWidget);
 
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($interval, $spinner->getInterval());
@@ -182,45 +195,6 @@ final class SpinnerTest extends TestCase
     }
 
     #[Test]
-    public function canAddWidget(): void
-    {
-        $context = $this->getWidgetContextMock();
-
-        $rootWidget = $this->getWidgetCompositeMock();
-        $rootWidget
-            ->expects(self::once())
-            ->method('add')
-            ->willReturn($context)
-        ;
-
-        $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
-
-        self::assertInstanceOf(Spinner::class, $spinner);
-        self::assertSame($context, $spinner->add($context));
-    }
-
-    protected function getWidgetContextMock(): MockObject&IWidgetContext
-    {
-        return $this->createMock(IWidgetContext::class);
-    }
-
-    #[Test]
-    public function canRemoveWidget(): void
-    {
-        $context = $this->getWidgetContextMock();
-        $rootWidget = $this->getWidgetCompositeMock();
-        $rootWidget
-            ->expects(self::once())
-            ->method('remove')
-        ;
-
-        $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
-
-        self::assertInstanceOf(Spinner::class, $spinner);
-        $spinner->remove($context);
-    }
-
-    #[Test]
     public function throwsIfObserverAlreadyAttached(): void
     {
         $exceptionClass = ObserverCanNotBeOverwritten::class;
@@ -259,26 +233,13 @@ final class SpinnerTest extends TestCase
         );
     }
 
-    #[Test]
-    public function throwsOnAddIfRootWidgetIsNotAComposite(): void
+    private function getSequenceFrameMock(): MockObject&ISequenceFrame
     {
-        $exceptionClass = WidgetIsNotAComposite::class;
-        $exceptionMessage = 'Root widget is not a composite.';
+        return $this->createMock(ISequenceFrame::class);
+    }
 
-        $test = function (): void {
-            $context = $this->getWidgetContextMock();
-
-            $rootWidget = $this->getWidgetMock();
-
-            $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
-
-            self::assertSame($context, $spinner->add($context));
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
+    private function getStateBuilderMock(): MockObject&ISequenceStateBuilder
+    {
+        return $this->createMock(ISequenceStateBuilder::class);
     }
 }

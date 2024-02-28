@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
+use AlecRabbit\Spinner\Core\Contract\IDivisorProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
@@ -25,11 +26,11 @@ final class IntervalNormalizerFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IIntegerNormalizerBuilder $integerNormalizerBuilder = null,
-        ?NormalizerMode $normalizerMode = null,
+        ?IDivisorProvider $divisorProvider = null,
     ): IIntervalNormalizerFactory {
         return new IntervalNormalizerFactory(
             integerNormalizerBuilder: $integerNormalizerBuilder ?? $this->getIntegerNormalizerBuilderMock(),
-            normalizerMode: $normalizerMode ?? NormalizerMode::BALANCED,
+            divisorProvider: $divisorProvider ?? $this->getDivisorProviderMock(),
         );
     }
 
@@ -38,18 +39,36 @@ final class IntervalNormalizerFactoryTest extends TestCase
         return $this->createMock(IIntegerNormalizerBuilder::class);
     }
 
+    private function getDivisorProviderMock(): MockObject&IDivisorProvider
+    {
+        return $this->createMock(IDivisorProvider::class);
+    }
+
     #[Test]
     public function canCreate(): void
     {
+        $mode = NormalizerMode::PERFORMANCE;
+        $divisor = 100;
+
+        $divisorProvider = $this->getDivisorProviderMock();
+        $divisorProvider
+            ->expects(self::once())
+            ->method('getDivisor')
+            ->with($mode)
+            ->willReturn($divisor)
+        ;
+
         $integerNormalizerBuilder = $this->getIntegerNormalizerBuilderMock();
         $integerNormalizerBuilder
             ->expects(self::once())
             ->method('withDivisor')
+            ->with($divisor)
             ->willReturnSelf()
         ;
         $integerNormalizerBuilder
             ->expects(self::once())
             ->method('withMin')
+            ->with($divisor)
             ->willReturnSelf()
         ;
         $integerNormalizerBuilder
@@ -58,10 +77,11 @@ final class IntervalNormalizerFactoryTest extends TestCase
         ;
         $intervalNormalizerFactory =
             $this->getTesteeInstance(
-                integerNormalizerBuilder: $integerNormalizerBuilder
+                integerNormalizerBuilder: $integerNormalizerBuilder,
+                divisorProvider: $divisorProvider,
             );
 
         self::assertInstanceOf(IntervalNormalizerFactory::class, $intervalNormalizerFactory);
-        self::assertInstanceOf(IntervalNormalizer::class, $intervalNormalizerFactory->create());
+        self::assertInstanceOf(IntervalNormalizer::class, $intervalNormalizerFactory->create($mode));
     }
 }

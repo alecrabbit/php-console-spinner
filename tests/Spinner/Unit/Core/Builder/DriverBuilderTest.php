@@ -47,7 +47,6 @@ final class DriverBuilderTest extends TestCase
 
         $driver = $driverBuilder
             ->withRenderer($this->getRendererMock())
-            ->withDeltaTimer($this->getTimerMock())
             ->withInitialInterval($interval)
             ->withIntervalComparator($this->getIntervalComparatorMock())
             ->withDriverMessages($this->getDriverMessagesMock())
@@ -68,11 +67,6 @@ final class DriverBuilderTest extends TestCase
         return $this->createMock(IRenderer::class);
     }
 
-    protected function getTimerMock(): MockObject&IDeltaTimer
-    {
-        return $this->createMock(IDeltaTimer::class);
-    }
-
     private function getIntervalComparatorMock(): MockObject&IIntervalComparator
     {
         return $this->createMock(IIntervalComparator::class);
@@ -90,7 +84,6 @@ final class DriverBuilderTest extends TestCase
 
         $driver = $driverBuilder
             ->withRenderer($this->getRendererMock())
-            ->withDeltaTimer($this->getTimerMock())
             ->withObserver($this->getObserverMock())
             ->withInitialInterval($this->getIntervalMock())
             ->withDriverMessages($this->getDriverMessagesMock())
@@ -107,30 +100,6 @@ final class DriverBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfTimerIsNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Timer is not set.';
-
-        $test = function (): void {
-            $driverBuilder = $this->getTesteeInstance();
-
-            $driverBuilder
-                ->withRenderer($this->getRendererMock())
-                ->withInitialInterval($this->getIntervalMock())
-                ->withDriverMessages($this->getDriverMessagesMock())
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    #[Test]
     public function throwsIfInitialIntervalIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
@@ -141,7 +110,6 @@ final class DriverBuilderTest extends TestCase
 
             $driverBuilder
                 ->withRenderer($this->getRendererMock())
-                ->withDeltaTimer($this->getTimerMock())
                 ->withDriverMessages($this->getDriverMessagesMock())
                 ->build()
             ;
@@ -165,7 +133,6 @@ final class DriverBuilderTest extends TestCase
 
             $driverBuilder
                 ->withRenderer($this->getRendererMock())
-                ->withDeltaTimer($this->getTimerMock())
                 ->withObserver($this->getObserverMock())
                 ->withInitialInterval($this->getIntervalMock())
                 ->withIntervalComparator($this->getIntervalComparatorMock())
@@ -191,7 +158,6 @@ final class DriverBuilderTest extends TestCase
 
             $driverBuilder
                 ->withDriverMessages($this->getDriverMessagesMock())
-                ->withDeltaTimer($this->getTimerMock())
                 ->withObserver($this->getObserverMock())
                 ->withInitialInterval($this->getIntervalMock())
                 ->withIntervalComparator($this->getIntervalComparatorMock())
@@ -204,6 +170,11 @@ final class DriverBuilderTest extends TestCase
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
+    }
+
+    protected function getTimerMock(): MockObject&IDeltaTimer
+    {
+        return $this->createMock(IDeltaTimer::class);
     }
 
     protected function getSequenceStateWriterMock(): MockObject&ISequenceStateWriter

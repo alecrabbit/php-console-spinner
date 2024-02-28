@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
@@ -24,8 +24,8 @@ final class RootWidgetConfigTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?IFrame $leadingSpacer = null,
-        ?IFrame $trailingSpacer = null,
+        ?ISequenceFrame $leadingSpacer = null,
+        ?ISequenceFrame $trailingSpacer = null,
         ?IWidgetRevolverConfig $revolverConfig = null,
     ): IRootWidgetConfig {
         return
@@ -36,9 +36,9 @@ final class RootWidgetConfigTest extends TestCase
             );
     }
 
-    protected function getFrameMock(): MockObject&IFrame
+    protected function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig

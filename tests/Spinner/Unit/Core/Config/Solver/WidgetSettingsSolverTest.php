@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
@@ -23,13 +23,13 @@ final class WidgetSettingsSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {
-        $leadingSpacer = new CharFrame(' ', 1);
-        $trailingSpacer = new CharFrame(' ', 1);
+        $leadingSpacer = new CharSequenceFrame(' ', 1);
+        $trailingSpacer = new CharSequenceFrame(' ', 1);
         $stylePalette = new Rainbow();
         $charPalette = new NoCharPalette();
 
-        $leadingSpacer1 = new CharFrame(' ', 1);
-        $trailingSpacer1 = new CharFrame(' ', 1);
+        $leadingSpacer1 = new CharSequenceFrame(' ', 1);
+        $trailingSpacer1 = new CharSequenceFrame(' ', 1);
         $stylePalette1 = new Rainbow();
         $charPalette1 = new NoCharPalette();
 

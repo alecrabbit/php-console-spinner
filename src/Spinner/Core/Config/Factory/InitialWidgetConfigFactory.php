@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
@@ -36,14 +36,14 @@ final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigF
         );
     }
 
-    private function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getLeadingSpacer(IWidgetSettings $widgetSettings): ISequenceFrame
     {
         return $widgetSettings->getLeadingSpacer()
             ??
             throw new DomainException('Leading spacer expected to be set.');
     }
 
-    private function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getTrailingSpacer(IWidgetSettings $widgetSettings): ISequenceFrame
     {
         return $widgetSettings->getTrailingSpacer()
             ??

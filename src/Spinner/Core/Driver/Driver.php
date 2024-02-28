@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Driver;
 
-use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
@@ -23,14 +22,12 @@ final class Driver extends ADriver
         IDriverMessages $driverMessages,
         IRenderer $renderer,
         private readonly IIntervalComparator $intervalComparator,
-        IDeltaTimer $deltaTimer,
         ?IObserver $observer = null
     ) {
         parent::__construct(
             initialInterval: $initialInterval,
             driverMessages: $driverMessages,
             renderer: $renderer,
-            deltaTimer: $deltaTimer,
             observer: $observer,
         );
     }
@@ -39,7 +36,7 @@ final class Driver extends ADriver
     {
         $this->erase();
 
-        if ($this->spinner) {
+        if ($this->spinner instanceof ISpinner) {
             $this->doRemove($this->spinner);
         }
 

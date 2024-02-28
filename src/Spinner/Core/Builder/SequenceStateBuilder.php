@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Builder;
 
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\SequenceState;
@@ -61,5 +62,20 @@ final class SequenceStateBuilder implements ISequenceStateBuilder
             $this->previousWidth === null => throw new LogicException('Previous width is not set.'),
             default => null,
         };
+    }
+
+    public function withSequenceFrame(ISequenceFrame $frame): ISequenceStateBuilder
+    {
+        $clone = clone $this;
+        $clone->sequence = $frame->getSequence();
+        $clone->width = $frame->getWidth();
+        return $clone;
+    }
+
+    public function withPrevious(ISequenceState $previous): ISequenceStateBuilder
+    {
+        $clone = clone $this;
+        $clone->previousWidth = $previous->getWidth();
+        return $clone;
     }
 }

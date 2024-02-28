@@ -4,24 +4,27 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette;
 
-use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Contract\ICharFrame;
-use AlecRabbit\Spinner\Core\Palette\A\APalette;
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
-use Traversable;
+use AlecRabbit\Spinner\Core\Palette\Contract\IFinitePalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 
-final class NoCharPalette extends APalette implements ICharPalette
+final readonly class NoCharPalette implements IFinitePalette, ICharPalette
 {
-    public function getEntries(?IPaletteMode $mode = null): Traversable
-    {
-        yield from [
-            $this->createFrame(''),
-        ];
+    public function __construct(
+        private IPaletteOptions $options = new PaletteOptions(),
+        private ICharSequenceFrame $frame = new CharSequenceFrame('', 0),
+    ) {
     }
 
-    protected function createFrame(string $element, ?int $width = null): ICharFrame
+    public function getFrame(?float $dt = null): ICharSequenceFrame
     {
-        return new CharFrame($element, $width ?? 0);
+        return $this->frame;
+    }
+
+    public function getOptions(): IPaletteOptions
+    {
+        return $this->options;
     }
 }

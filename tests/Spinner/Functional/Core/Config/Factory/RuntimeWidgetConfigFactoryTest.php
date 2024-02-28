@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
+use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
-use AlecRabbit\Tests\Spinner\Functional\Override\CharPaletteOverride;
-use AlecRabbit\Tests\Spinner\Functional\Override\StylePaletteOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -31,11 +31,11 @@ final class RuntimeWidgetConfigFactoryTest extends TestCase
             [
                 [
                     $widgetConfig = new WidgetConfig(
-                        leadingSpacer: new CharFrame('', 0),
-                        trailingSpacer: new CharFrame('', 0),
+                        leadingSpacer: new CharSequenceFrame('', 0),
+                        trailingSpacer: new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: new StylePaletteOverride(new PaletteOptions()),
-                            charPalette: new CharPaletteOverride(new PaletteOptions()),
+                            stylePalette: new NoStylePalette(new PaletteOptions()),
+                            charPalette: new NoCharPalette(new PaletteOptions()),
                             revolverConfig: new RevolverConfig(
                                 tolerance: new Tolerance(),
                             ),
@@ -50,11 +50,11 @@ final class RuntimeWidgetConfigFactoryTest extends TestCase
             [
                 [
                     new WidgetConfig(
-                        leadingSpacer: $ls = new CharFrame('', 0),
-                        trailingSpacer: $ts = new CharFrame('', 0),
+                        leadingSpacer: $ls = new CharSequenceFrame('', 0),
+                        trailingSpacer: $ts = new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
-                            charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
+                            stylePalette: $style = new NoStylePalette(new PaletteOptions()),
+                            charPalette: $char = new NoCharPalette(new PaletteOptions()),
                             revolverConfig: $revolverConfig = new RevolverConfig(
                                 tolerance: new Tolerance(),
                             ),
@@ -63,11 +63,11 @@ final class RuntimeWidgetConfigFactoryTest extends TestCase
                 ],
                 [
                     new WidgetConfig(
-                        leadingSpacer: new CharFrame('', 0),
-                        trailingSpacer: new CharFrame('', 0),
+                        leadingSpacer: new CharSequenceFrame('', 0),
+                        trailingSpacer: new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: new StylePaletteOverride(new PaletteOptions()),
-                            charPalette: new CharPaletteOverride(new PaletteOptions()),
+                            stylePalette: new NoStylePalette(new PaletteOptions()),
+                            charPalette: new NoCharPalette(new PaletteOptions()),
                             revolverConfig: $revolverConfig,
                         ),
                     ),
@@ -82,11 +82,11 @@ final class RuntimeWidgetConfigFactoryTest extends TestCase
             [
                 [
                     new WidgetConfig(
-                        leadingSpacer: $ls = new CharFrame('', 0),
-                        trailingSpacer: $ts = new CharFrame('', 0),
+                        leadingSpacer: $ls = new CharSequenceFrame('', 0),
+                        trailingSpacer: $ts = new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
-                            charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
+                            stylePalette: $style = new NoStylePalette(new PaletteOptions()),
+                            charPalette: $char = new NoCharPalette(new PaletteOptions()),
                             revolverConfig: $revolverConfig = new RevolverConfig(
                                 tolerance: new Tolerance(),
                             ),
@@ -98,8 +98,8 @@ final class RuntimeWidgetConfigFactoryTest extends TestCase
                         leadingSpacer: $ls,
                         trailingSpacer: $ts,
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: new StylePaletteOverride(new PaletteOptions()),
-                            charPalette: new CharPaletteOverride(new PaletteOptions()),
+                            stylePalette: new NoStylePalette(new PaletteOptions()),
+                            charPalette: new NoCharPalette(new PaletteOptions()),
                             revolverConfig: $revolverConfig,
                         ),
                     ),
@@ -114,11 +114,11 @@ final class RuntimeWidgetConfigFactoryTest extends TestCase
             [
                 [
                     new WidgetConfig(
-                        leadingSpacer: $ls = new CharFrame('', 0),
-                        trailingSpacer: $ts = new CharFrame('', 0),
+                        leadingSpacer: $ls = new CharSequenceFrame('', 0),
+                        trailingSpacer: $ts = new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
-                            charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
+                            stylePalette: $style = new NoStylePalette(new PaletteOptions()),
+                            charPalette: $char = new NoCharPalette(new PaletteOptions()),
                             revolverConfig: $revolverConfig = new RevolverConfig(
                                 tolerance: new Tolerance(),
                             ),
@@ -127,11 +127,11 @@ final class RuntimeWidgetConfigFactoryTest extends TestCase
                 ],
                 [
                     new WidgetConfig(
-                        leadingSpacer: new CharFrame('', 0),
+                        leadingSpacer: new CharSequenceFrame('', 0),
                         trailingSpacer: $ts,
                         revolverConfig: new WidgetRevolverConfig(
                             stylePalette: $style,
-                            charPalette: new CharPaletteOverride(new PaletteOptions()),
+                            charPalette: new NoCharPalette(new PaletteOptions()),
                             revolverConfig: $revolverConfig,
                         ),
                     ),
@@ -146,11 +146,11 @@ final class RuntimeWidgetConfigFactoryTest extends TestCase
             [
                 [
                     new WidgetConfig(
-                        leadingSpacer: $ls = new CharFrame('', 0),
-                        trailingSpacer: $ts = new CharFrame('', 0),
+                        leadingSpacer: $ls = new CharSequenceFrame('', 0),
+                        trailingSpacer: $ts = new CharSequenceFrame('', 0),
                         revolverConfig: new WidgetRevolverConfig(
-                            stylePalette: $style = new StylePaletteOverride(new PaletteOptions()),
-                            charPalette: $char = new CharPaletteOverride(new PaletteOptions()),
+                            stylePalette: $style = new NoStylePalette(new PaletteOptions()),
+                            charPalette: $char = new NoCharPalette(new PaletteOptions()),
                             revolverConfig: $revolverConfig = new RevolverConfig(
                                 tolerance: new Tolerance(),
                             ),
@@ -159,7 +159,7 @@ final class RuntimeWidgetConfigFactoryTest extends TestCase
                 ],
                 [
                     new WidgetConfig(
-                        leadingSpacer: new CharFrame('', 0),
+                        leadingSpacer: new CharSequenceFrame('', 0),
                         trailingSpacer: $ts,
                         revolverConfig: new WidgetRevolverConfig(
                             stylePalette: $style,

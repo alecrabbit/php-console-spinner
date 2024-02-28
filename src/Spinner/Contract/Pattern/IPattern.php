@@ -4,16 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Pattern;
 
-use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IInterval;
-use Traversable;
+use AlecRabbit\Spinner\Contract\IHasInterval;
+use AlecRabbit\Spinner\Contract\IHasSequenceFrame;
 
-interface IPattern
+interface IPattern extends IHasInterval, IHasSequenceFrame
 {
-    public function getInterval(): IInterval;
 
-    /**
-     * @return Traversable<IFrame>
-     */
-    public function getFrames(): Traversable;
 }

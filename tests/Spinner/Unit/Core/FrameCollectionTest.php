@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
@@ -41,9 +41,9 @@ final class FrameCollectionTest extends TestCase
         );
     }
 
-    protected function getFrameMock(): MockObject&IFrame
+    protected function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     #[Test]
@@ -176,7 +176,7 @@ final class FrameCollectionTest extends TestCase
     {
         $exceptionClass = InvalidArgument::class;
         $exceptionMessage =
-            'Frame should be an instance of "AlecRabbit\Spinner\Contract\IFrame". "string" given.';
+            'Frame should be an instance of "AlecRabbit\Spinner\Contract\ISequenceFrame". "string" given.';
 
         $test = function (): void {
             $frameCollection = $this->getTesteeInstance(new ArrayObject(['a string']));

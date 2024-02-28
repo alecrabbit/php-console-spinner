@@ -13,7 +13,7 @@ $spinner = Facade::createSpinner();
 
 $loop = Facade::getLoop();
 
-// let's generate random countries with a timestamp
+// generate random countries with a timestamp
 $loop
     ->repeat(
         0.1,
@@ -33,7 +33,7 @@ $loop
     )
 ;
 
-// let's stop loop after RUNTIME seconds
+// stop loop after RUNTIME seconds
 $loop
     ->delay(
         RUNTIME,

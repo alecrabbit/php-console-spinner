@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 
@@ -19,7 +18,6 @@ final readonly class DriverFactory implements IDriverFactory
         private IDriverMessages $driverMessages,
         private IDriverBuilder $driverBuilder,
         private IIntervalFactory $intervalFactory,
-        private IDeltaTimerFactory $timerFactory,
         private IIntervalComparator $intervalComparator,
         private IRenderer $renderer,
     ) {
@@ -28,9 +26,6 @@ final readonly class DriverFactory implements IDriverFactory
     public function create(): IDriver
     {
         return $this->driverBuilder
-            ->withDeltaTimer(
-                $this->timerFactory->create()
-            )
             ->withInitialInterval(
                 $this->intervalFactory->createStill()
             )

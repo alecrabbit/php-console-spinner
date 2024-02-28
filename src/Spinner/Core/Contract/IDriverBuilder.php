@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -17,8 +16,6 @@ interface IDriverBuilder
     public function build(): IDriver;
 
     public function withInitialInterval(IInterval $interval): IDriverBuilder;
-
-    public function withDeltaTimer(IDeltaTimer $timer): IDriverBuilder;
 
     public function withObserver(IObserver $observer): IDriverBuilder;
 

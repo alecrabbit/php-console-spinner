@@ -21,33 +21,11 @@ final class PaletteOptionsTest extends TestCase
 
     private function getTesteeInstance(
         ?int $interval = null,
-        ?bool $reversed = null,
     ): IPaletteOptions {
         return
             new PaletteOptions(
                 interval: $interval,
-                reversed: $reversed ?? false,
             );
-    }
-
-    #[Test]
-    public function canGetIsReversedWithTrue(): void
-    {
-        $palette = $this->getTesteeInstance(
-            reversed: true,
-        );
-
-        self::assertTrue($palette->isReversed());
-    }
-
-    #[Test]
-    public function canGetIsReversedWithFalse(): void
-    {
-        $palette = $this->getTesteeInstance(
-            reversed: false,
-        );
-
-        self::assertFalse($palette->isReversed());
     }
 
     #[Test]

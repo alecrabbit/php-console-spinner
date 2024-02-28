@@ -25,7 +25,6 @@ class TestCaseForDriver extends TestCase
 {
     public function getTesteeInstance(
         ?IRenderer $renderer = null,
-        ?IDeltaTimer $deltaTimer = null,
         ?ISequenceStateWriter $stateWriter = null,
         ?ISequenceStateBuilder $stateBuilder = null,
         ?IInterval $initialInterval = null,
@@ -38,7 +37,6 @@ class TestCaseForDriver extends TestCase
             driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
             renderer: $renderer ?? $this->getRendererMock(),
             intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
-            deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             observer: $observer,
         );
     }

@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette;
 
-use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Core\Palette\Contract\IFinitePalette;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
-use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Tests\TestCase\TestCase;
-use Generator;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -24,40 +22,49 @@ final class NoCharPaletteTest extends TestCase
         self::assertInstanceOf(NoCharPalette::class, $palette);
     }
 
-    private function getTesteeInstance(): IPalette
-    {
+    private function getTesteeInstance(
+        ?IPaletteOptions $options = null,
+        ?ICharSequenceFrame $frame = null,
+    ): IFinitePalette {
         return
-            new NoCharPalette();
+            new NoCharPalette(
+                options: $options ?? $this->getPaletteOptionsMock(),
+                frame: $frame ?? $this->getCharSequenceFrameMock(),
+            );
+    }
+
+    private function getPaletteOptionsMock(): MockObject&IPaletteOptions
+    {
+        return $this->createMock(IPaletteOptions::class);
+    }
+
+    private function getCharSequenceFrameMock(): MockObject&ICharSequenceFrame
+    {
+        return $this->createMock(ICharSequenceFrame::class);
     }
 
     #[Test]
-    public function canGetEntries(): void
+    public function canFrame(): void
     {
-        $palette = $this->getTesteeInstance();
-        $mode = $this->getPaletteModeMock();
+        $frame = $this->getCharSequenceFrameMock();
+        $palette = $this->getTesteeInstance(
+            frame: $frame,
+        );
 
-        $traversable = $palette->getEntries($mode);
-
-        self::assertInstanceOf(Generator::class, $traversable);
-
-        $entries = iterator_to_array($traversable); // unwrap generator
-
-        self::assertCount(1, $entries);
-        self::assertEquals(new CharFrame('', 0), $entries[0]);
-    }
-
-    private function getPaletteModeMock(): MockObject&IPaletteMode
-    {
-        return $this->createMock(IPaletteMode::class);
+        self::assertSame($frame, $palette->getFrame());
+        self::assertSame($frame, $palette->getFrame());
+        self::assertSame($frame, $palette->getFrame());
+        self::assertSame($frame, $palette->getFrame());
     }
 
     #[Test]
     public function canGetOptions(): void
     {
-        $palette = $this->getTesteeInstance();
+        $options = $this->getPaletteOptionsMock();
+        $palette = $this->getTesteeInstance(
+            options: $options,
+        );
 
-        $mode = $this->getPaletteModeMock();
-
-        self::assertInstanceOf(PaletteOptions::class, $palette->getOptions($mode));
+        self::assertSame($options, $palette->getOptions());
     }
 }

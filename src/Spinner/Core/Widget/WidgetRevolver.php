@@ -4,58 +4,40 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget;
 
-use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Contract\ICharFrame;
-use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
-use AlecRabbit\Spinner\Core\Contract\ITolerance;
-use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 
-final class WidgetRevolver extends ARevolver implements IWidgetRevolver
+final readonly class WidgetRevolver implements IWidgetRevolver
 {
-    private ?float $dt = null;
-
     public function __construct(
-        private readonly IRevolver $style,
-        private readonly IRevolver $character,
-        ITolerance $tolerance,
-        IIntervalComparator $intervalComparator,
+        private IHasStyleSequenceFrame $style,
+        private IHasCharSequenceFrame $char,
+        private IInterval $interval,
     ) {
-        parent::__construct(
-            $intervalComparator->smallest(
-                $style->getInterval(),
-                $character->getInterval(),
-            ),
-            $tolerance,
-        );
     }
 
-    protected function shouldUpdate(?float $dt = null): bool
+    public function getFrame(?float $dt = null): ICharSequenceFrame
     {
-        $this->dt = $dt;
-        return true;
-    }
+        $style = $this->style->getFrame($dt);
+        $char = $this->char->getFrame($dt);
 
-    protected function next(?float $dt = null): void
-    {
-        // do nothing
-    }
-
-    protected function current(): IFrame
-    {
-        $style = $this->style->getFrame($this->dt);
-        $char = $this->character->getFrame($this->dt);
-        
         return $this->createFrame(
             sprintf($style->getSequence(), $char->getSequence()),
             $style->getWidth() + $char->getWidth()
         );
     }
 
-    private function createFrame(string $sequence, int $width): ICharFrame
+    private function createFrame(string $sequence, int $width): ICharSequenceFrame
     {
-        return new CharFrame($sequence, $width);
+        return new CharSequenceFrame($sequence, $width);
+    }
+
+    public function getInterval(): IInterval
+    {
+        return $this->interval;
     }
 }

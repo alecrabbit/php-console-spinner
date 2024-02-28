@@ -20,13 +20,17 @@ $loopSettings =
 
 Facade::getSettings()->set($loopSettings);
 
-$spinner = Facade::createSpinner();
 
+echo 'Will sleep for 1 second...' . PHP_EOL;
+sleep(1);
+
+$spinner = Facade::createSpinner();
+echo 'Spinner created.' . PHP_EOL;
 
 register_shutdown_function(
     static function (): void {
         echo 'Starting loop...' . PHP_EOL;
-        // Loop autostart is disabled, so we need to run do it manually
+        // Loop autostart is disabled, so we need to do it manually
         Facade::getLoop()->run();
     }
 );

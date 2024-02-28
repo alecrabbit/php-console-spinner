@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget\Builder;
 
-use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
-use AlecRabbit\Spinner\Core\Contract\ITolerance;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
+use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
@@ -37,45 +37,50 @@ final class WidgetRevolverBuilderTest extends TestCase
 
         self::assertInstanceOf(WidgetRevolverBuilder::class, $widgetRevolverBuilder);
 
+        $style = $this->getHasStyleSequenceFrameMock();
+
+        $character = $this->getHasCharSequenceFrameMock();
+
+        $interval = $this->getIntervalMock();
+
         $widgetRevolver =
             $widgetRevolverBuilder
-                ->withStyleRevolver($this->getFrameRevolverMock())
-                ->withCharRevolver($this->getFrameRevolverMock())
-                ->withTolerance($this->getToleranceMock())
-                ->withIntervalComparator($this->getIntervalComparatorMock())
+                ->withStyle($style)
+                ->withChar($character)
+                ->withInterval($interval)
                 ->build()
         ;
 
         self::assertInstanceOf(WidgetRevolver::class, $widgetRevolver);
+        self::assertSame($interval, $widgetRevolver->getInterval());
     }
 
-    private function getFrameRevolverMock(): MockObject&IFrameRevolver
+    private function getHasStyleSequenceFrameMock(): MockObject&IHasStyleSequenceFrame
     {
-        return $this->createMock(IFrameRevolver::class);
+        return $this->createMock(IHasStyleSequenceFrame::class);
     }
 
-    private function getToleranceMock(): MockObject&ITolerance
+    private function getHasCharSequenceFrameMock(): MockObject&IHasCharSequenceFrame
     {
-        return $this->createMock(ITolerance::class);
+        return $this->createMock(IHasCharSequenceFrame::class);
     }
 
-    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    private function getIntervalMock(): MockObject&IInterval
     {
-        return $this->createMock(IIntervalComparator::class);
+        return $this->createMock(IInterval::class);
     }
 
     #[Test]
-    public function throwsOnBuildWithoutStyleRevolver(): void
+    public function throwsOnBuildWithoutStyle(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Style revolver is not set.';
+        $exceptionMessage = 'Style is not set.';
 
         $test = function (): void {
             $widgetRevolver = // intentional assignment
                 $this->getTesteeInstance()
-                    ->withCharRevolver($this->getFrameRevolverMock())
-                    ->withTolerance($this->getToleranceMock())
-                    ->withIntervalComparator($this->getIntervalComparatorMock())
+                    ->withChar($this->getHasCharSequenceFrameMock())
+                    ->withInterval($this->getIntervalMock())
                     ->build()
             ;
         };
@@ -88,17 +93,16 @@ final class WidgetRevolverBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsOnBuildWithoutCharRevolver(): void
+    public function throwsOnBuildWithoutChar(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Character revolver is not set.';
+        $exceptionMessage = 'Char is not set.';
 
         $test = function (): void {
             $widgetRevolver = // intentional assignment
                 $this->getTesteeInstance()
-                    ->withStyleRevolver($this->getFrameRevolverMock())
-                    ->withTolerance($this->getToleranceMock())
-                    ->withIntervalComparator($this->getIntervalComparatorMock())
+                    ->withStyle($this->getHasStyleSequenceFrameMock())
+                    ->withInterval($this->getIntervalMock())
                     ->build()
             ;
         };
@@ -110,18 +114,16 @@ final class WidgetRevolverBuilderTest extends TestCase
         );
     }
 
-    #[Test]
-    public function throwsOnBuildWithoutIntervalComparator(): void
+    public function throwsOnBuildWithoutInterval(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Interval comparator is not set.';
+        $exceptionMessage = 'Interval is not set.';
 
         $test = function (): void {
             $widgetRevolver = // intentional assignment
                 $this->getTesteeInstance()
-                    ->withStyleRevolver($this->getFrameRevolverMock())
-                    ->withCharRevolver($this->getFrameRevolverMock())
-                    ->withTolerance($this->getToleranceMock())
+                    ->withChar($this->getHasCharSequenceFrameMock())
+                    ->withStyle($this->getHasStyleSequenceFrameMock())
                     ->build()
             ;
         };

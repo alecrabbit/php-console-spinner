@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
@@ -12,19 +12,19 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 final readonly class WidgetSettings implements IWidgetSettings
 {
     public function __construct(
-        private ?IFrame $leadingSpacer = null,
-        private ?IFrame $trailingSpacer = null,
+        private ?ISequenceFrame $leadingSpacer = null,
+        private ?ISequenceFrame $trailingSpacer = null,
         private ?IStylePalette $stylePalette = null,
         private ?ICharPalette $charPalette = null,
     ) {
     }
 
-    public function getLeadingSpacer(): ?IFrame
+    public function getLeadingSpacer(): ?ISequenceFrame
     {
         return $this->leadingSpacer;
     }
 
-    public function getTrailingSpacer(): ?IFrame
+    public function getTrailingSpacer(): ?ISequenceFrame
     {
         return $this->trailingSpacer;
     }

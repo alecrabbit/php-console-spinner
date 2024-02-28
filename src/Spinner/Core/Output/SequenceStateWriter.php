@@ -13,12 +13,14 @@ use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 final class SequenceStateWriter implements ISequenceStateWriter
 {
     private bool $initialized = false;
+    private bool $initializationEnabled;
 
     public function __construct(
         private readonly IBufferedOutput $output,
         private readonly IConsoleCursor $cursor,
-        private readonly IInitializationResolver $initializationResolver,
+        IInitializationResolver $initializationResolver,
     ) {
+        $this->initializationEnabled = $initializationResolver->isEnabled();
     }
 
     public function finalize(?string $finalMessage = null): void
@@ -65,7 +67,7 @@ final class SequenceStateWriter implements ISequenceStateWriter
 
     public function initialize(): void
     {
-        if ($this->initializationResolver->isEnabled()) {
+        if ($this->initializationEnabled) {
             $this->initialized = true;
 
             $this->cursor->hide();
