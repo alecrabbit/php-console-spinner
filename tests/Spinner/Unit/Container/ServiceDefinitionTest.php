@@ -57,13 +57,23 @@ final class ServiceDefinitionTest extends TestCase
     }
 
     #[Test]
-    public function canGetOptions(): void
+    public function canCheckIsSingleton(): void
     {
-        $options = IServiceDefinition::TRANSIENT;
+        $options = IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC;
 
         $serviceDefinition = $this->getTesteeInstance(options: $options);
 
-        self::assertSame($options, $serviceDefinition->getOptions());
+        self::assertTrue($serviceDefinition->isSingleton());
+    }
+
+    #[Test]
+    public function canCheckIsPublic(): void
+    {
+        $options = IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC;
+
+        $serviceDefinition = $this->getTesteeInstance(options: $options);
+
+        self::assertTrue($serviceDefinition->isPublic());
     }
 
     #[Test]
@@ -80,10 +90,13 @@ final class ServiceDefinitionTest extends TestCase
     #[Test]
     public function throwsIfOptionsValueIsBiggerThenMax(): void
     {
-        $this->expectException(InvalidOptionsArgument::class);
-        $this->expectExceptionMessage('Invalid options. Max value exceeded: [1].');
+        $max = IServiceDefinition::SINGLETON
+            | IServiceDefinition::PUBLIC;
 
-        $serviceDefinition = $this->getTesteeInstance(options: 100);
+        $this->expectException(InvalidOptionsArgument::class);
+        $this->expectExceptionMessage(sprintf('Invalid options. Max value exceeded: [%s].', $max));
+
+        $serviceDefinition = $this->getTesteeInstance(options: $max << 1);
 
         self::assertInstanceOf(ServiceDefinition::class, $serviceDefinition);
     }

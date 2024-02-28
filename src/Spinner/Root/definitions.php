@@ -252,14 +252,14 @@ function getDefinitions(): Traversable
             static function (IContainer $container): ILoopProvider {
                 return $container->get(ILoopProviderFactory::class)->create();
             },
-            IServiceDefinition::SINGLETON,
+            IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC,
         ),
         new ServiceDefinition(
             IDriverProvider::class,
             static function (IContainer $container): IDriverProvider {
                 return $container->get(IDriverProviderFactory::class)->create();
             },
-            IServiceDefinition::SINGLETON,
+            IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC,
         ),
         new ServiceDefinition(
             IDriverLinker::class,
@@ -444,7 +444,11 @@ function factories(): Traversable
         IIntervalFactory::class => IntervalFactory::class,
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
-        ISpinnerFactory::class => SpinnerFactory::class,
+        ISpinnerFactory::class => new ServiceDefinition(
+            ISpinnerFactory::class,
+            SpinnerFactory::class,
+            IServiceDefinition::PUBLIC,
+        ),
         IDeltaTimerFactory::class => DeltaTimerFactory::class,
         IUserSettingsFactory::class => UserSettingsFactory::class,
         IWidgetFactory::class => WidgetFactory::class,

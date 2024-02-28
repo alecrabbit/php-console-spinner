@@ -18,7 +18,7 @@ final readonly class ServiceDefinition implements IServiceDefinition
     public function __construct(
         string $id,
         mixed $definition,
-        int $options = self::TRANSIENT,
+        int $options = self::DEFAULT,
     ) {
         self::assertOptions($options);
         self::assertDefinition($definition);
@@ -49,7 +49,7 @@ final readonly class ServiceDefinition implements IServiceDefinition
     private static function maxOptionsValue(): int
     {
         return self::SINGLETON
-            | self::TRANSIENT;
+            | self::PUBLIC;
     }
 
     private static function assertDefinition(mixed $definition): void
@@ -74,8 +74,13 @@ final readonly class ServiceDefinition implements IServiceDefinition
         return $this->definition;
     }
 
-    public function getOptions(): int
+    public function isSingleton(): bool
     {
-        return $this->options;
+        return ($this->options & self::SINGLETON) === self::SINGLETON;
+    }
+
+    public function isPublic(): bool
+    {
+        return ($this->options & self::PUBLIC) === self::PUBLIC;
     }
 }

@@ -35,8 +35,8 @@ final class ServiceIsStorableResolverTest extends TestCase
         $definition = $this->getServiceDefinitionMock();
         $definition
             ->expects(self::once())
-            ->method('getOptions')
-            ->willReturn(0)
+            ->method('isSingleton')
+            ->willReturn(true)
         ;
 
         self::assertTrue($solver->isStorable($definition));
@@ -55,8 +55,8 @@ final class ServiceIsStorableResolverTest extends TestCase
         $definition = $this->getServiceDefinitionMock();
         $definition
             ->expects(self::once())
-            ->method('getOptions')
-            ->willReturn(1)
+            ->method('isSingleton')
+            ->willReturn(false)
         ;
 
         self::assertFalse($solver->isStorable($definition));

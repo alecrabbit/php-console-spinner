@@ -45,7 +45,6 @@ foreach (getDefinitions() as $id => $definition) {
         new ServiceDefinition(
             $id,
             $definition,
-            IServiceDefinition::TRANSIENT
         )
     );
 }
