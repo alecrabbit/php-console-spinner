@@ -4,5 +4,7 @@ services:
   app:
     build:
       context: ./docker
+    ports:
+      - "8080:8080"
     volumes:
       - *bash-rc

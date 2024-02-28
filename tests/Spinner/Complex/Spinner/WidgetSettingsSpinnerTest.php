@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Complex\Spinner;
 
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
@@ -63,6 +63,7 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
     {
         return
             new class($widget, $test) implements IWidgetFactory {
+                private IWidgetConfig|IWidgetSettings|null $widgetSettings = null;
 
                 public function __construct(
                     private readonly IWidget $widget,
@@ -70,12 +71,17 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
                 ) {
                 }
 
-                public function create(
-                    IWidgetConfig|IWidgetSettings|null $widgetSettings = null,
-                ): IWidget {
-                    ($this->test)($widgetSettings);
-
+                public function create(): IWidget
+                {
+                    ($this->test)($this->widgetSettings);
+                    $this->widgetSettings = null;
                     return $this->widget;
+                }
+
+                public function usingSettings(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetFactory
+                {
+                    $this->widgetSettings = $widgetSettings;
+                    return $this;
                 }
             };
     }
@@ -218,9 +224,9 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
         self::assertTrue($driver->has($spinner));
     }
 
-    private function getFrameMock(): MockObject&IFrame
+    private function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     #[Test]

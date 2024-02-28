@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Widget;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -26,82 +28,50 @@ final class WidgetRevolverTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IRevolver $style = null,
-        ?IRevolver $character = null,
-        ?ITolerance $tolerance = null,
-        ?IIntervalComparator $intervalComparator = null,
+        ?IHasStyleSequenceFrame $style = null,
+        ?IHasCharSequenceFrame $char = null,
+        ?IInterval $interval = null,
     ): IWidgetRevolver {
         return
             new WidgetRevolver(
-                style: $style ?? $this->getRevolverMock(),
-                character: $character ?? $this->getRevolverMock(),
-                tolerance: $tolerance ?? $this->getToleranceMock(),
-                intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
+                style: $style ?? $this->getHasStyleSequenceFrameMock(),
+                char: $char ?? $this->getHasCharSequenceFrameMock(),
+                interval: $interval ?? $this->getIntervalMock(),
             );
     }
 
-    protected function getRevolverMock(): MockObject&IRevolver
+    private function getHasStyleSequenceFrameMock(): MockObject&IHasStyleSequenceFrame
     {
-        return $this->createMock(IRevolver::class);
+        return $this->createMock(IHasStyleSequenceFrame::class);
     }
 
-    private function getToleranceMock(): MockObject&ITolerance
+    private function getHasCharSequenceFrameMock(): MockObject&IHasCharSequenceFrame
     {
-        return $this->createMock(ITolerance::class);
+        return $this->createMock(IHasCharSequenceFrame::class);
     }
 
-    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    private function getIntervalMock(): MockObject&IInterval
     {
-        return $this->createMock(IIntervalComparator::class);
+        return $this->createMock(IInterval::class);
     }
 
     #[Test]
     public function canGetInterval(): void
     {
-        $styleInterval = $this->getIntervalMock();
-        $characterInterval = $this->getIntervalMock();
-
-        $style = $this->getRevolverMock();
-        $style
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($styleInterval)
-        ;
-
-        $character = $this->getRevolverMock();
-        $character
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($characterInterval)
-        ;
-
-        $intervalComparator = $this->getIntervalComparatorMock();
-        $intervalComparator
-            ->expects(self::once())
-            ->method('smallest')
-            ->with($styleInterval, $characterInterval)
-            ->willReturn($styleInterval)
-        ;
+        $interval = $this->getIntervalMock();
 
         $revolver = $this->getTesteeInstance(
-            style: $style,
-            character: $character,
-            intervalComparator: $intervalComparator,
+            interval: $interval,
         );
 
-        self::assertSame($styleInterval, $revolver->getInterval());
-    }
-
-    protected function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
+        self::assertSame($interval, $revolver->getInterval());
     }
 
     #[Test]
     public function canGetFrame(): void
     {
         $dt = 10.0;
-        $styleFrame = $this->getFrameMock();
+        $styleFrame = $this->getStyleSequenceFrameMock();
         $styleFrame
             ->expects(self::once())
             ->method('getSequence')
@@ -112,19 +82,19 @@ final class WidgetRevolverTest extends TestCase
             ->method('getWidth')
             ->willReturn(2)
         ;
-        $characterFrame = $this->getFrameMock();
-        $characterFrame
+        $charFrame = $this->getCharSequenceFrameMock();
+        $charFrame
             ->expects(self::once())
             ->method('getSequence')
             ->willReturn('c')
         ;
-        $characterFrame
+        $charFrame
             ->expects(self::once())
             ->method('getWidth')
             ->willReturn(1)
         ;
 
-        $style = $this->getRevolverMock();
+        $style = $this->getHasStyleSequenceFrameMock();
         $style
             ->expects(self::once())
             ->method('getFrame')
@@ -132,17 +102,17 @@ final class WidgetRevolverTest extends TestCase
             ->willReturn($styleFrame)
         ;
 
-        $character = $this->getRevolverMock();
-        $character
+        $char = $this->getHasCharSequenceFrameMock();
+        $char
             ->expects(self::once())
             ->method('getFrame')
             ->with($dt)
-            ->willReturn($characterFrame)
+            ->willReturn($charFrame)
         ;
 
         $revolver = $this->getTesteeInstance(
             style: $style,
-            character: $character,
+            char: $char,
         );
 
         $result = $revolver->getFrame($dt);
@@ -151,8 +121,23 @@ final class WidgetRevolverTest extends TestCase
         self::assertEquals(3, $result->getWidth());
     }
 
-    protected function getFrameMock(): MockObject&IFrame
+    private function getStyleSequenceFrameMock(): MockObject&IStyleSequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(IStyleSequenceFrame::class);
+    }
+
+    private function getCharSequenceFrameMock(): MockObject&ICharSequenceFrame
+    {
+        return $this->createMock(ICharSequenceFrame::class);
+    }
+
+    private function getToleranceMock(): MockObject&ITolerance
+    {
+        return $this->createMock(ITolerance::class);
+    }
+
+    private function getIntervalComparatorMock(): MockObject&IIntervalComparator
+    {
+        return $this->createMock(IIntervalComparator::class);
     }
 }

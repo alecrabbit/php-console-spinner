@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 
 final readonly class RootWidgetConfig implements IRootWidgetConfig
 {
     public function __construct(
-        protected IFrame $leadingSpacer,
-        protected IFrame $trailingSpacer,
+        protected ISequenceFrame $leadingSpacer,
+        protected ISequenceFrame $trailingSpacer,
         protected IWidgetRevolverConfig $revolverConfig,
     ) {
     }
 
-    public function getLeadingSpacer(): IFrame
+    public function getLeadingSpacer(): ISequenceFrame
     {
         return $this->leadingSpacer;
     }
 
-    public function getTrailingSpacer(): IFrame
+    public function getTrailingSpacer(): ISequenceFrame
     {
         return $this->trailingSpacer;
     }

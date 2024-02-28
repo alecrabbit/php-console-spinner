@@ -15,16 +15,17 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 final readonly class WidgetFactory implements IWidgetFactory
 {
     public function __construct(
-        protected IWidgetConfigFactory $widgetConfigFactory,
-        protected IWidgetRevolverFactory $widgetRevolverFactory,
-        protected IWidgetBuilder $widgetBuilder,
+        private IWidgetConfigFactory $widgetConfigFactory,
+        private IWidgetRevolverFactory $widgetRevolverFactory,
+        private IWidgetBuilder $widgetBuilder,
+        private null|IWidgetSettings|IWidgetConfig $widgetSettings = null,
     ) {
     }
 
-    public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidget
+    public function create(): IWidget
     {
         $widgetConfig =
-            $this->widgetConfigFactory->create($widgetSettings);
+            $this->widgetConfigFactory->create($this->widgetSettings);
 
         $revolver =
             $this->widgetRevolverFactory->create(
@@ -37,5 +38,15 @@ final readonly class WidgetFactory implements IWidgetFactory
             ->withWidgetRevolver($revolver)
             ->build()
         ;
+    }
+
+    public function usingSettings(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetFactory
+    {
+        return new self(
+            widgetConfigFactory: $this->widgetConfigFactory,
+            widgetRevolverFactory: $this->widgetRevolverFactory,
+            widgetBuilder: $this->widgetBuilder,
+            widgetSettings: $widgetSettings,
+        );
     }
 }

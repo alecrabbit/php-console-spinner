@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver\DriverTest;
 
-use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
@@ -14,11 +13,9 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
-use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 use RuntimeException;
 
 final class MethodWrapDriverTest extends TestCaseForDriver
@@ -65,7 +62,6 @@ final class MethodWrapDriverTest extends TestCaseForDriver
      */
     public function getTesteeInstance(
         ?IRenderer $renderer = null,
-        ?IDeltaTimer $deltaTimer = null,
         ?ISequenceStateWriter $stateWriter = null,
         ?ISequenceStateBuilder $stateBuilder = null,
         ?IInterval $initialInterval = null,
@@ -78,7 +74,6 @@ final class MethodWrapDriverTest extends TestCaseForDriver
             new class(
                 renderer: $renderer ?? $this->getRendererMock(),
                 driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
-                deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
                 initialInterval: $initialInterval ?? $this->getIntervalMock(),
                 stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
                 spinner: $spinner ?? $this->getSpinnerMock(),
@@ -88,7 +83,6 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                 public function __construct(
                     IRenderer $renderer,
                     IDriverMessages $driverMessages,
-                    IDeltaTimer $deltaTimer,
                     IInterval $initialInterval,
                     ISequenceStateBuilder $stateBuilder,
                     IIntervalComparator $intervalComparator,
@@ -99,7 +93,6 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                         initialInterval: $initialInterval,
                         driverMessages: $driverMessages,
                         renderer: $renderer,
-                        deltaTimer: $deltaTimer,
                         observer: $observer
                     );
                 }
@@ -134,10 +127,5 @@ final class MethodWrapDriverTest extends TestCaseForDriver
                     throw new RuntimeException('Not implemented. Should not be called.');
                 }
             };
-    }
-
-    private function getSequenceStateMock(): MockObject&ISequenceState
-    {
-        return $this->createMock(ISequenceState::class);
     }
 }

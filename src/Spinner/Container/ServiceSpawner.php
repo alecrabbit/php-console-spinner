@@ -19,6 +19,7 @@ use Psr\Container\NotFoundExceptionInterface;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
+use ReflectionType;
 use Throwable;
 
 final readonly class ServiceSpawner implements IServiceSpawner
@@ -121,12 +122,19 @@ final readonly class ServiceSpawner implements IServiceSpawner
             $parameters = [];
             foreach ($constructorParameters as $parameter) {
                 $name = $parameter->getName();
-                /** @var ReflectionNamedType|null $type */
+                if ($parameter->isDefaultValueAvailable()) {
+                    /** @psalm-suppress MixedAssignment */
+                    $parameters[$name] = $parameter->getDefaultValue();
+                    continue;
+                }
+
+                /** @var ReflectionType|null $type */
                 $type = $parameter->getType();
                 if ($type === null) {
                     throw new UnableToExtractType('Unable to extract type for parameter name: $' . $name);
                 }
                 if ($this->needsService($type)) {
+                    /** @var ReflectionNamedType $type */
                     $parameters[$name] = $this->getServiceFromContainer($type->getName());
                 }
             }
@@ -152,8 +160,9 @@ final readonly class ServiceSpawner implements IServiceSpawner
             $type instanceof ReflectionNamedType => !$type->isBuiltin(),
             default => throw new UnableToExtractType(
                 sprintf(
-                    'Only %s is supported.',
+                    'Only "%s" parameters are supported without default value. "%s" given.',
                     ReflectionNamedType::class,
+                    get_debug_type($type)
                 )
             ),
         };

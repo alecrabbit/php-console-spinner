@@ -55,6 +55,7 @@ final readonly class NormalizerModeSolver extends ASolver implements INormalizer
     private function createModeFromOption(?NormalizerOption $option): ?NormalizerMode
     {
         return match ($option) {
+            NormalizerOption::EXTREME => NormalizerMode::EXTREME,
             NormalizerOption::SMOOTH => NormalizerMode::SMOOTH,
             NormalizerOption::BALANCED => NormalizerMode::BALANCED,
             NormalizerOption::PERFORMANCE => NormalizerMode::PERFORMANCE,

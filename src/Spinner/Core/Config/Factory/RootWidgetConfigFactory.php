@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
@@ -41,14 +41,14 @@ final readonly class RootWidgetConfigFactory implements IRootWidgetConfigFactory
         );
     }
 
-    private function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getLeadingSpacer(IWidgetSettings $widgetSettings): ISequenceFrame
     {
         return $widgetSettings->getLeadingSpacer()
             ??
             $this->rootWidgetConfig->getLeadingSpacer();
     }
 
-    private function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
+    private function getTrailingSpacer(IWidgetSettings $widgetSettings): ISequenceFrame
     {
         return $widgetSettings->getTrailingSpacer()
             ??

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
@@ -37,7 +37,7 @@ final class FrameCollectionFactoryTest extends TestCase
             FrameCollection::class,
             $frameCollectionFactory->create(
                 new ArrayObject([
-                    new CharFrame('a', 1),
+                    new CharSequenceFrame('a', 1),
                 ])
             )
         );

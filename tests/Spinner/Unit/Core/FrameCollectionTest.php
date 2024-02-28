@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
@@ -41,9 +41,9 @@ final class FrameCollectionTest extends TestCase
         );
     }
 
-    protected function getFrameMock(): MockObject&IFrame
+    protected function getFrameMock(): MockObject&ISequenceFrame
     {
-        return $this->createMock(IFrame::class);
+        return $this->createMock(ISequenceFrame::class);
     }
 
     #[Test]
@@ -53,13 +53,94 @@ final class FrameCollectionTest extends TestCase
         $frame1 = $this->getFrameMock();
         $frame2 = $this->getFrameMock();
         $frameCollection = $this->getTesteeInstance(
-            new ArrayObject(
+            frames: new ArrayObject(
                 [
                     $frame0,
                     $frame1,
                     $frame2,
                 ]
             ),
+        );
+        self::assertInstanceOf(FrameCollection::class, $frameCollection);
+
+        self::assertSame($frame0, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame1, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame2, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame0, $frameCollection->current());
+    }
+
+    #[Test]
+    public function canGetCurrentInCombinationWithNextButStartingIndexWasWayOff(): void
+    {
+        $frame0 = $this->getFrameMock();
+        $frame1 = $this->getFrameMock();
+        $frame2 = $this->getFrameMock();
+        $frameCollection = $this->getTesteeInstance(
+            frames: new ArrayObject(
+                [
+                    $frame0,
+                    $frame1,
+                    $frame2,
+                ]
+            ),
+            index: 100,
+        );
+        self::assertInstanceOf(FrameCollection::class, $frameCollection);
+
+        self::assertSame($frame0, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame1, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame2, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame0, $frameCollection->current());
+    }
+
+    #[Test]
+    public function canGetCurrentInCombinationWithNextAndIndex(): void
+    {
+        $frame0 = $this->getFrameMock();
+        $frame1 = $this->getFrameMock();
+        $frame2 = $this->getFrameMock();
+        $frameCollection = $this->getTesteeInstance(
+            frames: new ArrayObject(
+                [
+                    $frame0,
+                    $frame1,
+                    $frame2,
+                ]
+            ),
+            index: 2,
+        );
+        self::assertInstanceOf(FrameCollection::class, $frameCollection);
+
+        self::assertSame($frame2, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame0, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame1, $frameCollection->current());
+        $frameCollection->next();
+        self::assertSame($frame2, $frameCollection->current());
+    }
+
+    #[Test]
+    public function canGetCurrentInCombinationWithNextButStartingIndexWasSlightlyOff(): void
+    {
+        $frame0 = $this->getFrameMock();
+        $frame1 = $this->getFrameMock();
+        $frame2 = $this->getFrameMock();
+        $frameCollection = $this->getTesteeInstance(
+            frames: new ArrayObject(
+                [
+                    $frame0,
+                    $frame1,
+                    $frame2,
+                ]
+            ),
+            index: 3,
         );
         self::assertInstanceOf(FrameCollection::class, $frameCollection);
 
@@ -95,7 +176,7 @@ final class FrameCollectionTest extends TestCase
     {
         $exceptionClass = InvalidArgument::class;
         $exceptionMessage =
-            'Frame should be an instance of "AlecRabbit\Spinner\Contract\IFrame". "string" given.';
+            'Frame should be an instance of "AlecRabbit\Spinner\Contract\ISequenceFrame". "string" given.';
 
         $test = function (): void {
             $frameCollection = $this->getTesteeInstance(new ArrayObject(['a string']));

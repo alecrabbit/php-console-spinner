@@ -6,7 +6,5 @@ namespace AlecRabbit\Spinner\Core\Palette\Contract;
 
 interface IPaletteOptions
 {
-    public function getReversed(): ?bool;
-
     public function getInterval(): ?int;
 }

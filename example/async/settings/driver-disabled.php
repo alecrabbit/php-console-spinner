@@ -19,4 +19,6 @@ Facade::getSettings()
     )
 ;
 
+echo 'Driver is disabled' . PHP_EOL;
+
 $spinner = Facade::createSpinner();

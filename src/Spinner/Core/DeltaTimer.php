@@ -20,8 +20,8 @@ final class DeltaTimer implements IDeltaTimer
 
     public function getDelta(): float
     {
-        $last = $this->current;
+        $previous = $this->current;
         $this->current = $this->nowTimer->now();
-        return $this->current - $last;
+        return $this->current - $previous;
     }
 }

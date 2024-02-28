@@ -6,8 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver;
 
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
-use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
+use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -22,50 +21,17 @@ final class RendererTest extends TestCase
     #[Test]
     public function canBeInstantiated(): void
     {
-        $stateBuilder = $this->getSequenceStateBuilderMock();
-        $stateBuilder
-            ->expects(self::once())
-            ->method('withSequence')
-            ->with(self::identicalTo(''))
-            ->willReturnSelf()
-        ;
-        $stateBuilder
-            ->expects(self::once())
-            ->method('withWidth')
-            ->with(self::identicalTo(0))
-            ->willReturnSelf()
-        ;
-        $stateBuilder
-            ->expects(self::once())
-            ->method('withPreviousWidth')
-            ->with(self::identicalTo(0))
-            ->willReturnSelf()
-        ;
-        $stateBuilder
-            ->expects(self::once())
-            ->method('build')
-        ;
-
-        $renderer = $this->getTesteeInstance(
-            stateBuilder: $stateBuilder,
-        );
+        $renderer = $this->getTesteeInstance();
 
         self::assertInstanceOf(Renderer::class, $renderer);
     }
 
-    private function getSequenceStateBuilderMock(): MockObject&ISequenceStateBuilder
-    {
-        return $this->createMock(ISequenceStateBuilder::class);
-    }
-
     private function getTesteeInstance(
         ?ISequenceStateWriter $stateWriter = null,
-        ?ISequenceStateBuilder $stateBuilder = null,
         ?IDeltaTimer $deltaTimer = null,
     ): IRenderer {
         return new Renderer(
             stateWriter: $stateWriter ?? $this->getSequenceStateWriterMock(),
-            stateBuilder: $stateBuilder ?? $this->getSequenceStateBuilderMock(),
             deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
         );
     }
@@ -85,7 +51,7 @@ final class RendererTest extends TestCase
     {
         $sequenceStateWriter = $this->getSequenceStateWriterMock();
         $sequenceStateWriter
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('initialize')
         ;
 
@@ -102,7 +68,7 @@ final class RendererTest extends TestCase
         $message = 'message';
         $sequenceStateWriter = $this->getSequenceStateWriterMock();
         $sequenceStateWriter
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('finalize')
             ->with(self::identicalTo($message))
         ;
@@ -119,44 +85,24 @@ final class RendererTest extends TestCase
     {
         $sequenceState = $this->getSequenceStateMock();
 
-        $stateBuilder = $this->getSequenceStateBuilderMock();
-        $stateBuilder
-            ->expects(self::once())
-            ->method('withSequence')
-            ->with(self::identicalTo(''))
-            ->willReturnSelf()
-        ;
-        $stateBuilder
-            ->expects(self::once())
-            ->method('withWidth')
-            ->with(self::identicalTo(0))
-            ->willReturnSelf()
-        ;
-        $stateBuilder
-            ->expects(self::once())
-            ->method('withPreviousWidth')
-            ->with(self::identicalTo(0))
-            ->willReturnSelf()
-        ;
-        $stateBuilder
-            ->expects(self::once())
-            ->method('build')
-            ->willReturn($sequenceState)
-        ;
-
         $stateWriter = $this->getSequenceStateWriterMock();
         $stateWriter
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('erase')
-            ->with(self::identicalTo($sequenceState))
+            ->with($this->identicalTo($sequenceState))
         ;
 
         $renderer = $this->getTesteeInstance(
             stateWriter: $stateWriter,
-            stateBuilder: $stateBuilder,
         );
 
         $spinner = $this->getSpinnerMock();
+        $spinner
+            ->expects($this->once())
+            ->method('getState')
+            ->willReturn($sequenceState)
+        ;
+
         $renderer->erase($spinner);
     }
 
@@ -173,32 +119,19 @@ final class RendererTest extends TestCase
     #[Test]
     public function canRender(): void
     {
-        $sequence = 'sequence';
-        $width = 8;
-
-        $frame = $this->getFrameMock();
-        $frame
-            ->expects(self::once())
-            ->method('getSequence')
-            ->willReturn($sequence)
-        ;
-        $frame
-            ->expects(self::once())
-            ->method('getWidth')
-            ->willReturn($width)
-        ;
+        $sequenceState = $this->getSequenceStateMock();
 
         $spinner = $this->getSpinnerMock();
         $spinner
-            ->expects(self::once())
-            ->method('getFrame')
-            ->with(self::equalTo(null))
-            ->willReturn($frame)
+            ->expects($this->once())
+            ->method('getState')
+            ->with($this->equalTo(null))
+            ->willReturn($sequenceState)
         ;
 
         $sequenceStateWriter = $this->getSequenceStateWriterMock();
         $sequenceStateWriter
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('write')
         ;
 
@@ -206,14 +139,10 @@ final class RendererTest extends TestCase
             $this->getTesteeInstance(
                 stateWriter: $sequenceStateWriter,
             );
+
         $renderer->initialize();
 
         $renderer->render($spinner);
-    }
-
-    private function getFrameMock(): MockObject&IFrame
-    {
-        return $this->createMock(IFrame::class);
     }
 
     #[Test]
@@ -222,53 +151,39 @@ final class RendererTest extends TestCase
         $delta = 0.1;
         $timer = $this->getDeltaTimerMock();
         $timer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDelta')
             ->willReturn($delta)
         ;
 
         $spinner = $this->getSpinnerMock();
+        $sequenceState = $this->getSequenceStateMock();
         $spinner
-            ->expects(self::once())
-            ->method('getFrame')
+            ->expects($this->once())
+            ->method('getState')
             ->with(self::identicalTo($delta))
+            ->willReturn($sequenceState)
         ;
 
         $sequenceStateWriter = $this->getSequenceStateWriterMock();
         $sequenceStateWriter
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('write')
-        ;
-
-        $sequenceStateBuilder = $this->getSequenceStateBuilderMock();
-        $sequenceStateBuilder
-            ->expects(self::exactly(2))
-            ->method('withSequence')
-            ->willReturnSelf()
-        ;
-        $sequenceStateBuilder
-            ->expects(self::exactly(2))
-            ->method('withWidth')
-            ->willReturnSelf()
-        ;
-        $sequenceStateBuilder
-            ->expects(self::exactly(2))
-            ->method('withPreviousWidth')
-            ->willReturnSelf()
-        ;
-        $sequenceStateBuilder
-            ->expects(self::exactly(2))
-            ->method('build')
+            ->with(self::identicalTo($sequenceState))
         ;
 
         $renderer =
             $this->getTesteeInstance(
                 stateWriter: $sequenceStateWriter,
-                stateBuilder: $sequenceStateBuilder,
                 deltaTimer: $timer
             );
         $renderer->initialize();
 
         $renderer->render($spinner);
+    }
+
+    private function getFrameMock(): MockObject&ISequenceFrame
+    {
+        return $this->createMock(ISequenceFrame::class);
     }
 }

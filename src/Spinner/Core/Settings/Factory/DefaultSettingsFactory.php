@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
@@ -66,7 +66,7 @@ final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
                 signalHandlingOption: SignalHandlingOption::ENABLED,
             ),
             new OutputSettings(
-                stylingMethodOption: StylingMethodOption::ANSI8,
+                stylingMethodOption: StylingMethodOption::AUTO,
                 cursorVisibilityOption: CursorVisibilityOption::HIDDEN,
                 initializationOption: InitializationOption::ENABLED,
                 stream: STDERR,
@@ -75,8 +75,8 @@ final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
                 tolerance: new Tolerance(5),
             ),
             new WidgetSettings(
-                leadingSpacer: new CharFrame('', 0),
-                trailingSpacer: new CharFrame(' ', 1),
+                leadingSpacer: new CharSequenceFrame('', 0),
+                trailingSpacer: new CharSequenceFrame(' ', 1),
                 stylePalette: new NoStylePalette(),
                 charPalette: new NoCharPalette(),
             ),

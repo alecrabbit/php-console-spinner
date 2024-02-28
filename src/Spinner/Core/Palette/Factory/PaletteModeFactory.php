@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Palette\PaletteMode;
 final readonly class PaletteModeFactory implements IPaletteModeFactory
 {
     public function __construct(
-        protected IOutputConfig $outputConfig,
+        private IOutputConfig $outputConfig,
     ) {
     }
 

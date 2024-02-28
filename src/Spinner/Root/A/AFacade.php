@@ -26,7 +26,7 @@ abstract class AFacade extends AContainerEnclosure
             return $loopProvider->getLoop();
         }
 
-        throw new DomainException('Event loop is unavailable.');
+        throw new DomainException('Event-loop is unavailable.');
     }
 
     protected static function getLoopProvider(): ILoopProvider

@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
-use AlecRabbit\Spinner\Core\DriverProvider;
+use AlecRabbit\Spinner\Core\Driver\DriverProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 

@@ -9,7 +9,7 @@ use AlecRabbit\Lib\Spinner\Core\DriverLinkerDecorator;
 use AlecRabbit\Lib\Spinner\Factory\DriverLinkerDecoratorFactory;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\DummyDriverLinker;
+use AlecRabbit\Spinner\Core\Driver\DummyDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

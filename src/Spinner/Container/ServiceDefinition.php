@@ -18,7 +18,7 @@ final readonly class ServiceDefinition implements IServiceDefinition
     public function __construct(
         string $id,
         mixed $definition,
-        int $options = self::SINGLETON,
+        int $options = self::TRANSIENT,
     ) {
         self::assertOptions($options);
         self::assertDefinition($definition);

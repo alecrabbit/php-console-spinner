@@ -15,7 +15,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Core\Driver\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -25,7 +25,6 @@ class TestCaseForDriver extends TestCase
 {
     public function getTesteeInstance(
         ?IRenderer $renderer = null,
-        ?IDeltaTimer $deltaTimer = null,
         ?ISequenceStateWriter $stateWriter = null,
         ?ISequenceStateBuilder $stateBuilder = null,
         ?IInterval $initialInterval = null,
@@ -38,7 +37,6 @@ class TestCaseForDriver extends TestCase
             driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
             renderer: $renderer ?? $this->getRendererMock(),
             intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
-            deltaTimer: $deltaTimer ?? $this->getDeltaTimerMock(),
             observer: $observer,
         );
     }

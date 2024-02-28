@@ -4,67 +4,40 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget;
 
-use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Contract\ICharFrame;
-use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
-use AlecRabbit\Spinner\Core\Contract\ITolerance;
-use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Contract\ICharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IHasCharSequenceFrame;
+use AlecRabbit\Spinner\Contract\IHasStyleSequenceFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
-use AlecRabbit\Spinner\Exception\LogicException;
 
-final class WidgetRevolver extends ARevolver implements IWidgetRevolver
+final readonly class WidgetRevolver implements IWidgetRevolver
 {
     public function __construct(
-        private readonly IRevolver $style,
-        private readonly IRevolver $character,
-        ITolerance $tolerance,
-        IIntervalComparator $intervalComparator,
+        private IHasStyleSequenceFrame $style,
+        private IHasCharSequenceFrame $char,
+        private IInterval $interval,
     ) {
-        parent::__construct(
-            $intervalComparator->smallest(
-                $style->getInterval(),
-                $character->getInterval(),
-            ),
-            $tolerance,
-        );
     }
 
-    public function getFrame(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): ICharSequenceFrame
     {
         $style = $this->style->getFrame($dt);
-        $char = $this->character->getFrame($dt);
+        $char = $this->char->getFrame($dt);
+
         return $this->createFrame(
             sprintf($style->getSequence(), $char->getSequence()),
             $style->getWidth() + $char->getWidth()
         );
     }
 
-    private function createFrame(string $sequence, int $width): ICharFrame
+    private function createFrame(string $sequence, int $width): ICharSequenceFrame
     {
-        return new CharFrame($sequence, $width);
+        return new CharSequenceFrame($sequence, $width);
     }
 
-    // @codeCoverageIgnoreStart
-    protected function next(?float $dt = null): void
+    public function getInterval(): IInterval
     {
-        throw new LogicException(
-            sprintf(
-                'Method %s() should never be called.',
-                __METHOD__
-            )
-        );
+        return $this->interval;
     }
-
-    protected function current(): IFrame
-    {
-        throw new LogicException(
-            sprintf(
-                'Method %s() should never be called.',
-                __METHOD__
-            )
-        );
-    }
-    // @codeCoverageIgnoreEnd
 }

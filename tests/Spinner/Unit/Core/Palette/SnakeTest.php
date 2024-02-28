@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette;
 
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Tests\TestCase\TestCase;
-use Generator;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -39,20 +36,6 @@ final class SnakeTest extends TestCase
     }
 
     #[Test]
-    public function canGetEntries(): void
-    {
-        $palette = $this->getTesteeInstance();
-        $mode = $this->getPaletteModeMock();
-
-        self::assertInstanceOf(Generator::class, $palette->getEntries($mode));
-    }
-
-    private function getPaletteModeMock(): MockObject&IPaletteMode
-    {
-        return $this->createMock(IPaletteMode::class);
-    }
-
-    #[Test]
     public function canGetOptions(): void
     {
         $options = $this->getPaletteOptionsMock();
@@ -61,12 +44,7 @@ final class SnakeTest extends TestCase
             options: $options,
         );
 
-        $mode = $this->getPaletteModeMock();
-        $mode
-            ->expects(self::never())
-            ->method('getStylingMode')
-        ;
-        self::assertInstanceOf(PaletteOptions::class, $palette->getOptions($mode));
+        self::assertSame($options, $palette->getOptions());
     }
 
 }

@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -30,27 +34,42 @@ final class SpinnerFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IWidgetFactory $widgetFactory = null,
         ?IRootWidgetConfigFactory $widgetConfigFactory = null,
+        ?ISpinnerBuilder $spinnerBuilder = null,
+        ?ISequenceStateFactory $stateFactory = null,
     ): ISpinnerFactory {
         return
             new SpinnerFactory(
                 widgetFactory: $widgetFactory ?? $this->getWidgetFactoryMock(),
                 widgetConfigFactory: $widgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
+                spinnerBuilder: $spinnerBuilder ?? $this->getSpinnerBuilderMock(),
+                stateFactory: $stateFactory ?? $this->getStateFactoryMock(),
             );
     }
 
-    protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
+    private function getWidgetFactoryMock(): MockObject&IWidgetFactory
     {
         return $this->createMock(IWidgetFactory::class);
     }
 
-    protected function getWidgetConfigFactoryMock(): MockObject&IRootWidgetConfigFactory
+    private function getWidgetConfigFactoryMock(): MockObject&IRootWidgetConfigFactory
     {
         return $this->createMock(IRootWidgetConfigFactory::class);
+    }
+
+    private function getSpinnerBuilderMock(): MockObject&ISpinnerBuilder
+    {
+        return $this->createMock(ISpinnerBuilder::class);
+    }
+
+    private function getStateFactoryMock(): MockObject&ISequenceStateFactory
+    {
+        return $this->createMock(ISequenceStateFactory::class);
     }
 
     #[Test]
     public function canCreateSpinnerUsingSpinnerSettings(): void
     {
+        $widget = $this->getWidgetMock();
         $widgetConfig = $this->getRootWidgetConfigMock();
 
         $widgetSettings = $this->getWidgetSettingsMock();
@@ -58,8 +77,14 @@ final class SpinnerFactoryTest extends TestCase
         $widgetFactory = $this->getWidgetFactoryMock();
         $widgetFactory
             ->expects(self::once())
+            ->method('usingSettings')
+            ->with(self::identicalTo($widgetConfig))
+            ->willReturnSelf()
+        ;
+        $widgetFactory
+            ->expects(self::once())
             ->method('create')
-            ->with($widgetConfig)
+            ->willReturn($widget)
         ;
 
         $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
@@ -69,10 +94,32 @@ final class SpinnerFactoryTest extends TestCase
             ->with($widgetSettings)
             ->willReturn($widgetConfig)
         ;
+        $stateFactory = $this->getStateFactoryMock();
+
+        $spinner = $this->getSpinnerMock();
+        $spinnerBuilder = $this->getSpinnerBuilderMock();
+        $spinnerBuilder
+            ->expects($this->once())
+            ->method('withWidget')
+            ->with($widget)
+            ->willReturnSelf()
+        ;
+        $spinnerBuilder
+            ->expects($this->once())
+            ->method('withStateFactory')
+            ->with($stateFactory)
+            ->willReturnSelf()
+        ;
+        $spinnerBuilder
+            ->expects($this->once())
+            ->method('build')
+            ->willReturn($spinner)
+        ;
 
         $spinnerFactory = $this->getTesteeInstance(
             widgetFactory: $widgetFactory,
             widgetConfigFactory: $widgetConfigFactory,
+            spinnerBuilder: $spinnerBuilder,
         );
 
         $spinnerSettings = $this->getSpinnerSettingsMock();
@@ -82,22 +129,32 @@ final class SpinnerFactoryTest extends TestCase
             ->willReturn($widgetSettings)
         ;
 
-        $spinner = $spinnerFactory->create($spinnerSettings);
+        $actual = $spinnerFactory->create($spinnerSettings);
 
-        self::assertInstanceOf(Spinner::class, $spinner);
+        self::assertSame($spinner, $actual);
     }
 
-    protected function getRootWidgetConfigMock(): MockObject&IRootWidgetConfig
+    private function getWidgetMock(): MockObject&IWidget
+    {
+        return $this->createMock(IWidget::class);
+    }
+
+    private function getRootWidgetConfigMock(): MockObject&IRootWidgetConfig
     {
         return $this->createMock(IRootWidgetConfig::class);
     }
 
-    protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
+    private function getWidgetSettingsMock(): MockObject&IWidgetSettings
     {
         return $this->createMock(IWidgetSettings::class);
     }
 
-    protected function getSpinnerSettingsMock(): MockObject&ISpinnerSettings
+    private function getSpinnerMock(): MockObject&ISpinner
+    {
+        return $this->createMock(ISpinner::class);
+    }
+
+    private function getSpinnerSettingsMock(): MockObject&ISpinnerSettings
     {
         return $this->createMock(ISpinnerSettings::class);
     }
@@ -105,13 +162,20 @@ final class SpinnerFactoryTest extends TestCase
     #[Test]
     public function canCreateSpinnerWithoutSpinnerSettings(): void
     {
+        $widget = $this->getWidgetMock();
         $widgetConfig = $this->getRootWidgetConfigMock();
 
         $widgetFactory = $this->getWidgetFactoryMock();
         $widgetFactory
             ->expects(self::once())
-            ->method('create')
+            ->method('usingSettings')
             ->with(self::identicalTo($widgetConfig))
+            ->willReturnSelf()
+        ;
+        $widgetFactory
+            ->expects(self::once())
+            ->method('create')
+            ->willReturn($widget)
         ;
 
         $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
@@ -121,19 +185,47 @@ final class SpinnerFactoryTest extends TestCase
             ->with(self::identicalTo(null))
             ->willReturn($widgetConfig)
         ;
+        $stateFactory = $this->getStateFactoryMock();
+
+        $spinner = $this->getSpinnerMock();
+        $spinnerBuilder = $this->getSpinnerBuilderMock();
+        $spinnerBuilder
+            ->expects($this->once())
+            ->method('withWidget')
+            ->with($widget)
+            ->willReturnSelf()
+        ;
+        $spinnerBuilder
+            ->expects($this->once())
+            ->method('withStateFactory')
+            ->with($stateFactory)
+            ->willReturnSelf()
+        ;
+        $spinnerBuilder
+            ->expects($this->once())
+            ->method('build')
+            ->willReturn($spinner)
+        ;
 
 
         $spinnerFactory = $this->getTesteeInstance(
             widgetFactory: $widgetFactory,
             widgetConfigFactory: $widgetConfigFactory,
+            spinnerBuilder: $spinnerBuilder,
+            stateFactory: $stateFactory,
         );
 
-        $spinner = $spinnerFactory->create();
+        $actual = $spinnerFactory->create();
 
-        self::assertInstanceOf(Spinner::class, $spinner);
+        self::assertSame($spinner, $actual);
     }
 
-    protected function getSettingsMock(): MockObject&ISettings
+    private function getStateBuilderMock(): MockObject&ISequenceStateBuilder
+    {
+        return $this->createMock(ISequenceStateBuilder::class);
+    }
+
+    private function getSettingsMock(): MockObject&ISettings
     {
         return $this->createMock(ISettings::class);
     }
