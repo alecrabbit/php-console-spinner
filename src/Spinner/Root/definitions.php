@@ -145,7 +145,9 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSupportDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSupportDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStylingMethodDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\DeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\INowTimerFactory;
@@ -157,7 +159,9 @@ use AlecRabbit\Spinner\Core\Factory\NowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlingSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\SignalHandlingSupportDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\StylingMethodDetectorFactory;
 use AlecRabbit\Spinner\Core\Feature\Resolver\AutoStartResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IAutoStartResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
@@ -418,6 +422,8 @@ function factories(): Traversable
         ILinkerConfigFactory::class => LinkerConfigFactory::class,
         IRevolverConfigFactory::class => RevolverConfigFactory::class,
         ILoopSupportDetectorFactory::class => LoopSupportDetectorFactory::class,
+        ISignalHandlingSupportDetectorFactory::class => SignalHandlingSupportDetectorFactory::class,
+        IStylingMethodDetectorFactory::class => StylingMethodDetectorFactory::class,
 
         ILoopFactory::class => LoopFactory::class,
 
@@ -433,18 +439,8 @@ function detectors(): Traversable
 {
     yield from [
         ILoopSupportDetector::class => new Reference(ILoopSupportDetectorFactory::class),
-        // FIXME (2024-02-29 13:26) [Alec Rabbit]: convert to Reference
-        ISignalHandlingSupportDetector::class => static function (): SignalHandlingSupportDetector {
-            return new SignalHandlingSupportDetector(
-                Probes::load(ISignalHandlingProbe::class)
-            );
-        },
-        // FIXME (2024-02-29 13:26) [Alec Rabbit]: convert to Reference
-        IStylingMethodDetector::class => static function (): IStylingMethodDetector {
-            return new StylingMethodDetector(
-                Probes::load(IStylingMethodProbe::class)
-            );
-        },
+        ISignalHandlingSupportDetector::class => new Reference(ISignalHandlingSupportDetectorFactory::class),
+        IStylingMethodDetector::class => new Reference(IStylingMethodDetectorFactory::class),
     ];
 }
 // @codeCoverageIgnoreEnd

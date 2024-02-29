@@ -83,13 +83,13 @@ final readonly class ServiceSpawner implements IServiceSpawner
                 \E_USER_DEPRECATED
             );
 
-//            echo "\e[33m" .
-//                sprintf(
-//                    '%s [%s]: Using callable or object as service definition is deprecated.',
-//                    str_pad((string)++$counter, 3, ' ', STR_PAD_LEFT),
-//                    $id,
-//                ) . "\e[0m"
-//                . PHP_EOL;
+            echo "\e[33m" .
+                sprintf(
+                    '%s [%s]: Using callable or object as service definition is deprecated.',
+                    str_pad((string)++$counter, 3, ' ', STR_PAD_LEFT),
+                    $id,
+                ) . "\e[0m"
+                . PHP_EOL;
         }
 
         $value =

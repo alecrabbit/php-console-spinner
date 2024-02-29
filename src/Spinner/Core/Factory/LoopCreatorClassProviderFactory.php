@@ -20,7 +20,7 @@ final readonly class LoopCreatorClassProviderFactory implements ILoopCreatorClas
         ILoopCreatorClassExtractor $loopCreatorClassExtractor,
     )
     {
-        $this->creatorClass = $loopCreatorClassExtractor->extract(Probes::load(ILoopProbe::class));
+        $this->creatorClass = $loopCreatorClassExtractor->extract($this->loadProbes());
     }
 
     public function __invoke(): ILoopCreatorClassProvider
@@ -28,5 +28,10 @@ final readonly class LoopCreatorClassProviderFactory implements ILoopCreatorClas
         return new LoopCreatorClassProvider(
             $this->creatorClass,
         );
+    }
+
+    private function loadProbes(): \Traversable
+    {
+        return Probes::load(ILoopProbe::class);
     }
 }
