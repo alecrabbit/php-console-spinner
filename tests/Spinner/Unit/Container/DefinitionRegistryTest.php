@@ -164,6 +164,7 @@ final class DefinitionRegistryTest extends TestCase
 
         self::assertSame($registry, $this->getTesteeInstance());
         self::assertSame($registry, $this->getTesteeInstance());
+        self::assertSame($registry, $this->getTesteeInstance());
     }
 
     protected function setUp(): void

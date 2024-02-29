@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Output\Factory;
 
+use AlecRabbit\Spinner\Container\Contract\IInvokableFactory;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Output\Contract\Factory\IWritableStreamFactory;
 use AlecRabbit\Spinner\Core\Output\WritableStream;
 
-final class WritableStreamFactory implements IWritableStreamFactory
+final class WritableStreamFactory implements IWritableStreamFactory,
+                                             IInvokableFactory
 {
     public function __construct(
         protected IOutputConfig $outputConfig,
@@ -21,5 +23,10 @@ final class WritableStreamFactory implements IWritableStreamFactory
         return new WritableStream(
             $this->outputConfig->getStream()
         );
+    }
+
+    public function __invoke(): IWritableStream
+    {
+        return $this->create();
     }
 }

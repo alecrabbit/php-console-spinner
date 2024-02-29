@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
+use AlecRabbit\Spinner\Container\Contract\IReference;
 use AlecRabbit\Spinner\Container\Contract\IService;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceFactory;
@@ -69,7 +70,7 @@ final readonly class ServiceSpawner implements IServiceSpawner
             match (true) {
                 is_callable($definition) => $this->spawnByCallable($definition),
                 is_string($definition) => $this->spawnByClassConstructor($definition),
-                default => $definition, // return object as is
+                default => $this->refine($definition), // return object as is
             };
 
         $this->circularDependencyDetector->pop();
@@ -178,5 +179,31 @@ final readonly class ServiceSpawner implements IServiceSpawner
     private function getServiceFromContainer(string $id): object
     {
         return $this->container->get($id);
+    }
+
+    private function refine(object $object): object
+    {
+        if ($object instanceof IReference) {
+            return $this->spawnFromReference($object);
+        }
+
+        return $object;
+    }
+
+    protected function spawnFromReference(IReference $object)
+    {
+        $id = $object->__toString();
+        $invokable = $this->getServiceFromContainer($id);
+
+        if (\is_callable($invokable)) {
+            return $invokable();
+        }
+
+        throw new SpawnFailed(
+            sprintf(
+                'Service with id "%s" is not invokable.',
+                $id,
+            )
+        );
     }
 }

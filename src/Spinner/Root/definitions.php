@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Root;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
+use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
@@ -235,11 +236,16 @@ function getDefinitions(): Traversable
         ),
         new ServiceDefinition(
             IWritableStream::class,
-            static function (IContainer $container): IWritableStream {
-                return $container->get(IWritableStreamFactory::class)->create();
-            },
+            new Reference(IWritableStreamFactory::class),
             IServiceDefinition::SINGLETON,
         ),
+//        new ServiceDefinition(
+//            IWritableStream::class,
+//            static function (IContainer $container): IWritableStream {
+//                return $container->get(IWritableStreamFactory::class)->create();
+//            },
+//            IServiceDefinition::SINGLETON,
+//        ),
         new ServiceDefinition(
             ISettingsProvider::class,
             static function (IContainer $container): ISettingsProvider {

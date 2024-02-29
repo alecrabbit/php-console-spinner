@@ -7,8 +7,8 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Driver;
 
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
+use AlecRabbit\Spinner\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
-use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Driver\Renderer;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
