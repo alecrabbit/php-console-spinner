@@ -192,6 +192,11 @@ final readonly class ServiceSpawner implements IServiceSpawner
             return $this->spawnFromReference($object);
         }
 
+        @trigger_error(
+            'Using object as service definition is deprecated. Use class-string or Reference to invokable instead.',
+            \E_USER_DEPRECATED
+        );
+
         return $object;
     }
 

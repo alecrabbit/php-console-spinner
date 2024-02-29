@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Factory;
 
-use AlecRabbit\Spinner\Container\Contract\IInvokable;
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;

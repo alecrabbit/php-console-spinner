@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Driver\Factory;
 
-use AlecRabbit\Spinner\Container\Contract\IInvokable;
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Driver\DriverLinker;
 use AlecRabbit\Spinner\Core\Driver\DummyDriverLinker;

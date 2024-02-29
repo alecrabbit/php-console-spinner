@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Container\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDeltaTimerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;

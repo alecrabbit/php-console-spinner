@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Container\Contract\IInvokable;
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateWriterBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;

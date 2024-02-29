@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Loop\Factory;
 
-use AlecRabbit\Spinner\Container\Contract\IInvokable;
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;

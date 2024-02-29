@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Container\Contract;
+namespace AlecRabbit\Spinner\Contract;
 
 interface IInvokable
 {

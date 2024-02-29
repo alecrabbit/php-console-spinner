@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Spinner\Unit\Container;
 
 use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IInvokable;
 use AlecRabbit\Spinner\Container\Contract\IReference;
 use AlecRabbit\Spinner\Container\Contract\IService;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
@@ -15,6 +14,7 @@ use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Tests\Spinner\Unit\Container\Override\ClassForSpawner;
 use AlecRabbit\Tests\Spinner\Unit\Container\Override\ClassForSpawnerTwo;
 use AlecRabbit\Tests\Spinner\Unit\Container\Override\ClassForSpawnerUnionNotAllowingNull;

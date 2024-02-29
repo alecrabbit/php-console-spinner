@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Output\Factory;
 
-use AlecRabbit\Spinner\Container\Contract\IInvokable;
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Output\Contract\Factory\IWritableStreamFactory;
