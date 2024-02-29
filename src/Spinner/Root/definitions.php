@@ -141,6 +141,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopCreatorClassProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSupportDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSetupFactory;
@@ -151,6 +152,7 @@ use AlecRabbit\Spinner\Core\Factory\INowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopCreatorClassProviderFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopSupportDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\NowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateWriterFactory;
@@ -415,6 +417,7 @@ function factories(): Traversable
         IOutputConfigFactory::class => OutputConfigFactory::class,
         ILinkerConfigFactory::class => LinkerConfigFactory::class,
         IRevolverConfigFactory::class => RevolverConfigFactory::class,
+        ILoopSupportDetectorFactory::class => LoopSupportDetectorFactory::class,
 
         ILoopFactory::class => LoopFactory::class,
 
@@ -429,12 +432,7 @@ function factories(): Traversable
 function detectors(): Traversable
 {
     yield from [
-        // FIXME (2024-02-29 13:26) [Alec Rabbit]: convert to Reference
-        ILoopSupportDetector::class => static function (IContainer $container): LoopSupportDetector {
-            return new LoopSupportDetector(
-                $container->get(ILoopCreatorClassProvider::class)->getCreatorClass(),
-            );
-        },
+        ILoopSupportDetector::class => new Reference(ILoopSupportDetectorFactory::class),
         // FIXME (2024-02-29 13:26) [Alec Rabbit]: convert to Reference
         ISignalHandlingSupportDetector::class => static function (): SignalHandlingSupportDetector {
             return new SignalHandlingSupportDetector(
