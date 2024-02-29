@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Loop\Factory;
 
 use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
@@ -16,11 +17,14 @@ use Throwable;
 
 final readonly class LoopProviderFactory implements ILoopProviderFactory, IInvokable
 {
+    private RunMethodMode $runMethodMode;
+
     public function __construct(
-        protected ILoopFactory $loopFactory,
-        protected ILoopSetup $loopSetup,
-        protected RunMethodMode $runMethodMode,
+        private ILoopFactory $loopFactory,
+        private ILoopSetup $loopSetup,
+        IGeneralConfig $generalConfig,
     ) {
+        $this->runMethodMode = $generalConfig->getRunMethodMode();
     }
 
     public function create(): ILoopProvider

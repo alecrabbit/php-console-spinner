@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
@@ -30,13 +31,13 @@ final class LoopProviderFactoryTest extends TestCase
     public function getTesteeInstance(
         ?ILoopFactory $loopFactory = null,
         ?ILoopSetup $loopSetup = null,
-        ?RunMethodMode $runMethodMode = null,
+        ?IGeneralConfig $generalConfig = null,
     ): ILoopProviderFactory {
         return
             new LoopProviderFactory(
                 loopFactory: $loopFactory ?? $this->getLoopFactoryMock(),
                 loopSetup: $loopSetup ?? $this->getLoopSetupMock(),
-                runMethodMode: $runMethodMode ?? RunMethodMode::ASYNC,
+                generalConfig: $generalConfig ?? $this->getGeneralConfigMock(),
             );
     }
 
@@ -48,6 +49,17 @@ final class LoopProviderFactoryTest extends TestCase
     private function getLoopSetupMock(): MockObject&ILoopSetup
     {
         return $this->createMock(ILoopSetup::class);
+    }
+
+    private function getGeneralConfigMock(?RunMethodMode $runMethodMode = null): IGeneralConfig&MockObject
+    {
+        $mock = $this->createMock(IGeneralConfig::class);
+        $runMethodMode ??= RunMethodMode::ASYNC;
+        $mock
+            ->method('getRunMethodMode')
+            ->willReturn($runMethodMode);
+
+        return $mock;
     }
 
     #[Test]
@@ -115,7 +127,7 @@ final class LoopProviderFactoryTest extends TestCase
     public function canCreateWithRunMethodModeSynchronous(): void
     {
         $factory = $this->getTesteeInstance(
-            runMethodMode: RunMethodMode::SYNCHRONOUS,
+            generalConfig: $this->getGeneralConfigMock(RunMethodMode::SYNCHRONOUS),
         );
 
         $loopProvider = $factory->create();

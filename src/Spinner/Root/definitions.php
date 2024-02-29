@@ -330,9 +330,9 @@ function configs(): Traversable
         IGeneralConfig::class => new Reference(IGeneralConfigFactory::class),
         IWidgetConfig::class => new Reference(IInitialWidgetConfigFactory::class),
         IRootWidgetConfig::class => new Reference(IInitialRootWidgetConfigFactory::class),
-        RunMethodMode::class => static function (IContainer $container): RunMethodMode {
-            return $container->get(IGeneralConfig::class)->getRunMethodMode();
-        },
+//        RunMethodMode::class => static function (IContainer $container): RunMethodMode {
+//            return $container->get(IGeneralConfig::class)->getRunMethodMode();
+//        },
         IRevolverConfig::class => new Reference(IRevolverConfigFactory::class),
         IInitializationResolver::class => InitializationResolver::class,
         IAutoStartResolver::class => AutoStartResolver::class,
