@@ -239,53 +239,34 @@ function getDefinitions(): Traversable
             new Reference(IWritableStreamFactory::class),
             IServiceDefinition::SINGLETON,
         ),
-//        new ServiceDefinition(
-//            IWritableStream::class,
-//            static function (IContainer $container): IWritableStream {
-//                return $container->get(IWritableStreamFactory::class)->create();
-//            },
-//            IServiceDefinition::SINGLETON,
-//        ),
         new ServiceDefinition(
             ISettingsProvider::class,
-            static function (IContainer $container): ISettingsProvider {
-                return $container->get(ISettingsProviderFactory::class)->create();
-            },
+            new Reference(ISettingsProviderFactory::class),
             IServiceDefinition::SINGLETON,
         ),
         new ServiceDefinition(
             ILoopProvider::class,
-            static function (IContainer $container): ILoopProvider {
-                return $container->get(ILoopProviderFactory::class)->create();
-            },
+            new Reference(ILoopProviderFactory::class),
             IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC,
         ),
         new ServiceDefinition(
             IDriverProvider::class,
-            static function (IContainer $container): IDriverProvider {
-                return $container->get(IDriverProviderFactory::class)->create();
-            },
+            new Reference(IDriverProviderFactory::class),
             IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC,
         ),
         new ServiceDefinition(
             IDriverLinker::class,
-            static function (IContainer $container): IDriverLinker {
-                return $container->get(IDriverLinkerFactory::class)->create();
-            },
+            new Reference(IDriverLinkerFactory::class),
             IServiceDefinition::SINGLETON,
         ),
         new ServiceDefinition(
             ISequenceStateWriter::class,
-            static function (IContainer $container): ISequenceStateWriter {
-                return $container->get(ISequenceStateWriterFactory::class)->create();
-            },
+            new Reference(ISequenceStateWriterFactory::class),
             IServiceDefinition::SINGLETON,
         ),
         new ServiceDefinition(
             IDeltaTimer::class,
-            static function (IContainer $container): IDeltaTimer {
-                return $container->get(IDeltaTimerFactory::class)->create();
-            },
+            new Reference(IDeltaTimerFactory::class),
             IServiceDefinition::SINGLETON,
         ),
         new ServiceDefinition(
@@ -343,9 +324,7 @@ function getDefinitions(): Traversable
 function configs(): Traversable
 {
     yield from [
-        IDriverConfig::class => static function (IContainer $container): IDriverConfig {
-            return $container->get(IDriverConfigFactory::class)->create();
-        },
+        IDriverConfig::class => new Reference(IDriverConfigFactory::class),
         ILinkerConfig::class => static function (IContainer $container): ILinkerConfig {
             return $container->get(ILinkerConfigFactory::class)->create();
         },

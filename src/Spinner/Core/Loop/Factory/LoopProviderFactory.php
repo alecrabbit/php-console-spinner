@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Loop\Factory;
 
+use AlecRabbit\Spinner\Container\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
@@ -13,7 +14,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Loop\LoopProvider;
 use Throwable;
 
-final readonly class LoopProviderFactory implements ILoopProviderFactory
+final readonly class LoopProviderFactory implements ILoopProviderFactory, IInvokable
 {
     public function __construct(
         protected ILoopFactory $loopFactory,
@@ -43,5 +44,10 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory
         } catch (Throwable $_) {
             return null;
         }
+    }
+
+    public function __invoke(): ILoopProvider
+    {
+        return $this->create();
     }
 }

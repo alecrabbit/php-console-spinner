@@ -87,6 +87,11 @@ final readonly class ServiceSpawner implements IServiceSpawner
      */
     private function spawnByCallable(callable $definition): object
     {
+        @trigger_error(
+            'Using callable as service definition is deprecated. Use class-string or Reference to invokable instead.',
+            \E_USER_DEPRECATED
+        );
+
         return $definition($this->container);
     }
 

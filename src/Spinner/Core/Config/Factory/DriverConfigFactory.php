@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
+use AlecRabbit\Spinner\Container\Contract\IInvokable;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverModeSolver;
 
-final readonly class DriverConfigFactory implements IDriverConfigFactory
+final readonly class DriverConfigFactory implements IDriverConfigFactory, IInvokable
 {
     public function __construct(
         protected IDriverConfigBuilder $driverConfigBuilder,
@@ -30,5 +31,10 @@ final readonly class DriverConfigFactory implements IDriverConfigFactory
             )
             ->build()
         ;
+    }
+
+    public function __invoke(): IDriverConfig
+    {
+        return $this->create();
     }
 }

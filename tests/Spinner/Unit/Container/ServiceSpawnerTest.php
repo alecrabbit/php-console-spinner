@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Container;
 
 use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IInvokableFactory;
+use AlecRabbit\Spinner\Container\Contract\IInvokable;
 use AlecRabbit\Spinner\Container\Contract\IReference;
 use AlecRabbit\Spinner\Container\Contract\IService;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
@@ -185,9 +185,9 @@ final class ServiceSpawnerTest extends TestCase
         return $this->createMock(IReference::class);
     }
 
-    private function getInvokableFactoryMock(): MockObject&IInvokableFactory
+    private function getInvokableFactoryMock(): MockObject&IInvokable
     {
-        return $this->createMock(IInvokableFactory::class);
+        return $this->createMock(IInvokable::class);
     }
 
     #[Test]
