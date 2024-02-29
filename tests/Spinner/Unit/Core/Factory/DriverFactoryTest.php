@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
@@ -32,12 +33,12 @@ final class DriverFactoryTest extends TestCase
         ?IDriverBuilder $driverBuilder = null,
         ?IIntervalFactory $intervalFactory = null,
         ?IIntervalComparator $intervalComparator = null,
-        ?IDriverMessages $driverMessages = null,
+        ?IDriverConfig $driverConfig = null,
         ?IRenderer $renderer = null,
     ): IDriverFactory {
         return
             new DriverFactory(
-                driverMessages: $driverMessages ?? $this->getDriverMessagesMock(),
+                driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
                 driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
                 intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
                 intervalComparator: $intervalComparator ?? $this->getIntervalComparatorMock(),
@@ -83,6 +84,11 @@ final class DriverFactoryTest extends TestCase
         ;
 
         $driverMessages = $this->getDriverMessagesMock();
+        $driverConfig = $this->getDriverConfigMock();
+        $driverConfig
+            ->expects(self::once())
+            ->method('getDriverMessages')
+            ->willReturn($driverMessages);
 
         $driver = $this->getDriverMock();
 
@@ -124,7 +130,7 @@ final class DriverFactoryTest extends TestCase
                 driverBuilder: $driverBuilder,
                 intervalFactory: $intervalFactory,
                 intervalComparator: $intervalComparator,
-                driverMessages: $driverMessages,
+                driverConfig: $driverConfig,
             );
 
         self::assertSame($driver, $driverFactory->create());
@@ -143,5 +149,10 @@ final class DriverFactoryTest extends TestCase
     private function getTimerFactoryMock(): MockObject&IDeltaTimerFactory
     {
         return $this->createMock(IDeltaTimerFactory::class);
+    }
+
+    private function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 }

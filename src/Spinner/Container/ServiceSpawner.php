@@ -62,9 +62,35 @@ final readonly class ServiceSpawner implements IServiceSpawner
      */
     private function spawnService(IServiceDefinition $serviceDefinition): IService
     {
-        $this->circularDependencyDetector->push($serviceDefinition->getId());
+        $id = $serviceDefinition->getId();
+
+        $this->circularDependencyDetector->push($id);
 
         $definition = $serviceDefinition->getDefinition();
+
+        static $counter = 0;
+
+        if (match (true) {
+            is_callable($definition) => true,
+            is_string($definition) => false,
+            default => !$definition instanceof IReference,
+        }) {
+            @trigger_error(
+                sprintf(
+                'Using callable or object as service definition("%s") is deprecated. Use class-string or Reference to invokable instead.',
+                    $id,
+                ) ,
+                \E_USER_DEPRECATED
+            );
+
+            echo "\e[33m" .
+                sprintf(
+                    '%s [%s]: Using callable or object as service definition is deprecated.',
+                    str_pad((string)++$counter, 3, ' ', STR_PAD_LEFT),
+                    $id,
+                ) . "\e[0m"
+                . PHP_EOL;
+        }
 
         $value =
             match (true) {
@@ -87,11 +113,6 @@ final readonly class ServiceSpawner implements IServiceSpawner
      */
     private function spawnByCallable(callable $definition): object
     {
-        @trigger_error(
-            'Using callable as service definition is deprecated. Use class-string or Reference to invokable instead.',
-            \E_USER_DEPRECATED
-        );
-
         return $definition($this->container);
     }
 
@@ -191,11 +212,6 @@ final readonly class ServiceSpawner implements IServiceSpawner
         if ($object instanceof IReference) {
             return $this->spawnFromReference($object);
         }
-
-        @trigger_error(
-            'Using object as service definition is deprecated. Use class-string or Reference to invokable instead.',
-            \E_USER_DEPRECATED
-        );
 
         return $object;
     }

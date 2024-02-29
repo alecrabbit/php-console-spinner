@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
@@ -12,7 +13,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 
-final readonly class OutputConfigFactory implements IOutputConfigFactory
+final readonly class OutputConfigFactory implements IOutputConfigFactory, IInvokable
 {
     public function __construct(
         private IStylingMethodModeSolver $stylingMethodModeSolver,
@@ -40,5 +41,10 @@ final readonly class OutputConfigFactory implements IOutputConfigFactory
             )
             ->build()
         ;
+    }
+
+    public function __invoke(): IOutputConfig
+    {
+        return $this->create();
     }
 }

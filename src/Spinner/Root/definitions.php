@@ -285,9 +285,7 @@ function getDefinitions(): Traversable
 
         IOutput::class => Output::class,
         IDriverSetup::class => DriverSetup::class,
-        ISignalHandlingSetup::class => static function (IContainer $container): ISignalHandlingSetup {
-            return $container->get(ISignalHandlingSetupFactory::class)->create();
-        },
+        ISignalHandlingSetup::class => new Reference(ISignalHandlingSetupFactory::class),
 
         IIntervalComparator::class => IntervalComparator::class,
         IIntervalNormalizer::class => static function (IContainer $container): IIntervalNormalizer {
@@ -325,33 +323,17 @@ function configs(): Traversable
 {
     yield from [
         IDriverConfig::class => new Reference(IDriverConfigFactory::class),
-        ILinkerConfig::class => static function (IContainer $container): ILinkerConfig {
-            return $container->get(ILinkerConfigFactory::class)->create();
-        },
-        IOutputConfig::class => static function (IContainer $container): IOutputConfig {
-            return $container->get(IOutputConfigFactory::class)->create();
-        },
-        ILoopConfig::class => static function (IContainer $container): ILoopConfig {
-            return $container->get(ILoopConfigFactory::class)->create();
-        },
-        INormalizerConfig::class => static function (IContainer $container): INormalizerConfig {
-            return $container->get(INormalizerConfigFactory::class)->create();
-        },
-        IGeneralConfig::class => static function (IContainer $container): IGeneralConfig {
-            return $container->get(IGeneralConfigFactory::class)->create();
-        },
-        IWidgetConfig::class => static function (IContainer $container): IWidgetConfig {
-            return $container->get(IInitialWidgetConfigFactory::class)->create();
-        },
-        IRootWidgetConfig::class => static function (IContainer $container): IRootWidgetConfig {
-            return $container->get(IInitialRootWidgetConfigFactory::class)->create();
-        },
+        ILinkerConfig::class => new Reference(ILinkerConfigFactory::class),
+        IOutputConfig::class => new Reference(IOutputConfigFactory::class),
+        ILoopConfig::class => new Reference(ILoopConfigFactory::class),
+        INormalizerConfig::class => new Reference(INormalizerConfigFactory::class),
+        IGeneralConfig::class => new Reference(IGeneralConfigFactory::class),
+        IWidgetConfig::class => new Reference(IInitialWidgetConfigFactory::class),
+        IRootWidgetConfig::class => new Reference(IInitialRootWidgetConfigFactory::class),
         RunMethodMode::class => static function (IContainer $container): RunMethodMode {
             return $container->get(IGeneralConfig::class)->getRunMethodMode();
         },
-        IRevolverConfig::class => static function (IContainer $container): IRevolverConfig {
-            return $container->get(IRevolverConfigFactory::class)->create();
-        },
+        IRevolverConfig::class => new Reference(IRevolverConfigFactory::class),
         IInitializationResolver::class => InitializationResolver::class,
         IAutoStartResolver::class => AutoStartResolver::class,
         ILinkerResolver::class => LinkerResolver::class,
@@ -359,9 +341,9 @@ function configs(): Traversable
         ILinkerModeDetector::class => LinkerModeDetector::class,
         IDriverModeDetector::class => DriverModeDetector::class,
         IInitializationModeDetector::class => InitializationModeDetector::class,
-        IDriverMessages::class => static function (IContainer $container): IDriverMessages {
-            return $container->get(IDriverConfig::class)->getDriverMessages();
-        },
+//        IDriverMessages::class => static function (IContainer $container): IDriverMessages {
+//            return $container->get(IDriverConfig::class)->getDriverMessages();
+//        },
     ];
 }
 
