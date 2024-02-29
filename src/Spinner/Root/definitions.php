@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
@@ -117,7 +116,6 @@ use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Contract\IDivisorProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
@@ -148,8 +146,10 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\DeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Factory\INowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\NowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlingSetupFactory;
@@ -276,23 +276,14 @@ function getDefinitions(): Traversable
         ),
         IRenderer::class => Renderer::class,
         IModePaletteRenderer::class => ModePaletteRenderer::class,
-        INowTimer::class => new class() implements INowTimer {
-            public function now(): float
-            {
-                return hrtime(true) * 1e-6; // returns milliseconds
-            }
-        },
+        INowTimer::class => new Reference(INowTimerFactory::class),
 
         IOutput::class => Output::class,
         IDriverSetup::class => DriverSetup::class,
         ISignalHandlingSetup::class => new Reference(ISignalHandlingSetupFactory::class),
 
         IIntervalComparator::class => IntervalComparator::class,
-        IIntervalNormalizer::class => static function (IContainer $container): IIntervalNormalizer {
-            $normalizerMode = $container->get(INormalizerConfig::class)->getNormalizerMode();
-
-            return $container->get(IIntervalNormalizerFactory::class)->create($normalizerMode);
-        },
+        IIntervalNormalizer::class => new Reference(IIntervalNormalizerFactory::class),
         ILoopCreatorClassProvider::class => static function (IContainer $container): ILoopCreatorClassProvider {
             $creatorClass =
                 $container->get(ILoopCreatorClassExtractor::class)
@@ -330,9 +321,7 @@ function configs(): Traversable
         IGeneralConfig::class => new Reference(IGeneralConfigFactory::class),
         IWidgetConfig::class => new Reference(IInitialWidgetConfigFactory::class),
         IRootWidgetConfig::class => new Reference(IInitialRootWidgetConfigFactory::class),
-//        RunMethodMode::class => static function (IContainer $container): RunMethodMode {
-//            return $container->get(IGeneralConfig::class)->getRunMethodMode();
-//        },
+
         IRevolverConfig::class => new Reference(IRevolverConfigFactory::class),
         IInitializationResolver::class => InitializationResolver::class,
         IAutoStartResolver::class => AutoStartResolver::class,
@@ -341,9 +330,7 @@ function configs(): Traversable
         ILinkerModeDetector::class => LinkerModeDetector::class,
         IDriverModeDetector::class => DriverModeDetector::class,
         IInitializationModeDetector::class => InitializationModeDetector::class,
-//        IDriverMessages::class => static function (IContainer $container): IDriverMessages {
-//            return $container->get(IDriverConfig::class)->getDriverMessages();
-//        },
+
     ];
 }
 
@@ -396,6 +383,7 @@ function solvers(): Traversable
 function factories(): Traversable
 {
     yield from [
+        INowTimerFactory::class => NowTimerFactory::class,
         IDriverFactory::class => DriverFactory::class,
         IDriverConfigFactory::class => DriverConfigFactory::class,
         ILoopProviderFactory::class => LoopProviderFactory::class,
