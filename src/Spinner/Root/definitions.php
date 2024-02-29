@@ -138,6 +138,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopCreatorClassProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateFactory;
@@ -149,6 +150,7 @@ use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\INowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopCreatorClassProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\NowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateWriterFactory;
@@ -284,17 +286,11 @@ function getDefinitions(): Traversable
 
         IIntervalComparator::class => IntervalComparator::class,
         IIntervalNormalizer::class => new Reference(IIntervalNormalizerFactory::class),
-        ILoopCreatorClassProvider::class => static function (IContainer $container): ILoopCreatorClassProvider {
-            $creatorClass =
-                $container->get(ILoopCreatorClassExtractor::class)
-                    ->extract(
-                        Probes::load(ILoopProbe::class)
-                    )
-            ;
-            return new LoopCreatorClassProvider(
-                $creatorClass,
-            );
-        },
+        ILoopCreatorClassProvider::class => new ServiceDefinition(
+            ILoopCreatorClassProvider::class,
+            new Reference(ILoopCreatorClassProviderFactory::class),
+            IServiceDefinition::SINGLETON,
+        ),
         ILoopCreatorClassExtractor::class => LoopCreatorClassExtractor::class,
         ILoopSetup::class => LoopSetup::class,
 
@@ -330,7 +326,6 @@ function configs(): Traversable
         ILinkerModeDetector::class => LinkerModeDetector::class,
         IDriverModeDetector::class => DriverModeDetector::class,
         IInitializationModeDetector::class => InitializationModeDetector::class,
-
     ];
 }
 
@@ -412,6 +407,7 @@ function factories(): Traversable
         ICharPatternFactory::class => CharPatternFactory::class,
 
         IPaletteModeFactory::class => PaletteModeFactory::class,
+        ILoopCreatorClassProviderFactory::class => LoopCreatorClassProviderFactory::class,
 
         IGeneralConfigFactory::class => GeneralConfigFactory::class,
         INormalizerConfigFactory::class => NormalizerConfigFactory::class,
@@ -433,16 +429,19 @@ function factories(): Traversable
 function detectors(): Traversable
 {
     yield from [
+        // FIXME (2024-02-29 13:26) [Alec Rabbit]: convert to Reference
         ILoopSupportDetector::class => static function (IContainer $container): LoopSupportDetector {
             return new LoopSupportDetector(
                 $container->get(ILoopCreatorClassProvider::class)->getCreatorClass(),
             );
         },
+        // FIXME (2024-02-29 13:26) [Alec Rabbit]: convert to Reference
         ISignalHandlingSupportDetector::class => static function (): SignalHandlingSupportDetector {
             return new SignalHandlingSupportDetector(
                 Probes::load(ISignalHandlingProbe::class)
             );
         },
+        // FIXME (2024-02-29 13:26) [Alec Rabbit]: convert to Reference
         IStylingMethodDetector::class => static function (): IStylingMethodDetector {
             return new StylingMethodDetector(
                 Probes::load(IStylingMethodProbe::class)
