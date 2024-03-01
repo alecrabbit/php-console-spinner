@@ -19,6 +19,11 @@ abstract class ADriverProviderFactory implements IDriverProviderFactory, IInvoka
     ) {
     }
 
+    public function __invoke(): IDriverProvider
+    {
+        return $this->create();
+    }
+
     public function create(): IDriverProvider
     {
         $driver = $this->driverFactory->create();
@@ -31,10 +36,5 @@ abstract class ADriverProviderFactory implements IDriverProviderFactory, IInvoka
         $this->driverSetup->setup($driver);
 
         return $driverProvider;
-    }
-
-    public function __invoke(): IDriverProvider
-    {
-        return $this->create();
     }
 }

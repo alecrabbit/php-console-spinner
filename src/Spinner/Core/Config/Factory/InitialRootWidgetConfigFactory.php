@@ -29,6 +29,11 @@ final readonly class InitialRootWidgetConfigFactory implements IInitialRootWidge
     ) {
     }
 
+    public function __invoke(): IRootWidgetConfig
+    {
+        return $this->create();
+    }
+
     public function create(): IRootWidgetConfig
     {
         $rootWidgetSettings = $this->rootWidgetSettingsSolver->solve();
@@ -99,10 +104,5 @@ final readonly class InitialRootWidgetConfigFactory implements IInitialRootWidge
     private function getRevolverConfig(): IRevolverConfig
     {
         return new RevolverConfig();
-    }
-
-    public function __invoke(): IRootWidgetConfig
-    {
-        return $this->create();
     }
 }

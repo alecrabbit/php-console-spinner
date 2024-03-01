@@ -22,6 +22,11 @@ final readonly class LoopConfigFactory implements ILoopConfigFactory, IInvokable
     ) {
     }
 
+    public function __invoke(): ILoopConfig
+    {
+        return $this->create();
+    }
+
     public function create(): ILoopConfig
     {
         return $this->loopConfigBuilder
@@ -36,10 +41,5 @@ final readonly class LoopConfigFactory implements ILoopConfigFactory, IInvokable
             )
             ->build()
         ;
-    }
-
-    public function __invoke(): ILoopConfig
-    {
-        return $this->create();
     }
 }

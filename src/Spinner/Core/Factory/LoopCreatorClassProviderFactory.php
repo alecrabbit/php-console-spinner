@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Probes;
+use Traversable;
 
 final readonly class LoopCreatorClassProviderFactory implements ILoopCreatorClassProviderFactory, IInvokable
 {
@@ -18,9 +19,13 @@ final readonly class LoopCreatorClassProviderFactory implements ILoopCreatorClas
 
     public function __construct(
         ILoopCreatorClassExtractor $loopCreatorClassExtractor,
-    )
-    {
+    ) {
         $this->creatorClass = $loopCreatorClassExtractor->extract($this->loadProbes());
+    }
+
+    private function loadProbes(): Traversable
+    {
+        return Probes::load(ILoopProbe::class);
     }
 
     public function __invoke(): ILoopCreatorClassProvider
@@ -28,10 +33,5 @@ final readonly class LoopCreatorClassProviderFactory implements ILoopCreatorClas
         return new LoopCreatorClassProvider(
             $this->creatorClass,
         );
-    }
-
-    private function loadProbes(): \Traversable
-    {
-        return Probes::load(ILoopProbe::class);
     }
 }

@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Container\Contract\IReference;
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use stdClass;
 
 final class ReferenceTest extends TestCase
 {

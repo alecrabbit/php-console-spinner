@@ -19,6 +19,11 @@ final readonly class DeltaTimerFactory implements IDeltaTimerFactory, IInvokable
     ) {
     }
 
+    public function __invoke(): IDeltaTimer
+    {
+        return $this->create();
+    }
+
     public function create(): IDeltaTimer
     {
         return $this->timerBuilder
@@ -26,10 +31,5 @@ final readonly class DeltaTimerFactory implements IDeltaTimerFactory, IInvokable
             ->withNowTimer($this->nowTimer)
             ->build()
         ;
-    }
-
-    public function __invoke(): IDeltaTimer
-    {
-        return $this->create();
     }
 }

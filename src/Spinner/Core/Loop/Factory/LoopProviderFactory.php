@@ -27,6 +27,11 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory, IInvok
         $this->runMethodMode = $generalConfig->getRunMethodMode();
     }
 
+    public function __invoke(): ILoopProvider
+    {
+        return $this->create();
+    }
+
     public function create(): ILoopProvider
     {
         return new LoopProvider(
@@ -48,10 +53,5 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory, IInvok
         } catch (Throwable $_) {
             return null;
         }
-    }
-
-    public function __invoke(): ILoopProvider
-    {
-        return $this->create();
     }
 }

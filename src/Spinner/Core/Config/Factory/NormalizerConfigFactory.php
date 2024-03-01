@@ -18,6 +18,11 @@ final readonly class NormalizerConfigFactory implements INormalizerConfigFactory
     ) {
     }
 
+    public function __invoke(): INormalizerConfig
+    {
+        return $this->create();
+    }
+
     public function create(): INormalizerConfig
     {
         return $this->normalizerConfigBuilder
@@ -26,10 +31,5 @@ final readonly class NormalizerConfigFactory implements INormalizerConfigFactory
             )
             ->build()
         ;
-    }
-
-    public function __invoke(): INormalizerConfig
-    {
-        return $this->create();
     }
 }

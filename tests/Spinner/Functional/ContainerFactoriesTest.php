@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use stdClass;
 
 final class ContainerFactoriesTest extends TestCase
 {
@@ -57,7 +58,7 @@ final class ContainerFactoriesTest extends TestCase
         $this->expectExceptionMessage(
             sprintf('Class "%s" must implement "%s".', 'stdClass', IContainerFactory::class)
         );
-        ContainerFactories::register(\stdClass::class);
+        ContainerFactories::register(stdClass::class);
     }
 
     protected function setUp(): void

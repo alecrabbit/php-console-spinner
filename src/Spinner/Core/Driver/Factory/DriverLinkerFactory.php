@@ -20,6 +20,11 @@ final readonly class DriverLinkerFactory implements IDriverLinkerFactory, IInvok
     ) {
     }
 
+    public function __invoke(): IDriverLinker
+    {
+        return $this->create();
+    }
+
     public function create(): IDriverLinker
     {
         if ($this->isLinkerEnabled()) {
@@ -34,10 +39,5 @@ final readonly class DriverLinkerFactory implements IDriverLinkerFactory, IInvok
     private function isLinkerEnabled(): bool
     {
         return $this->loopProvider->hasLoop() && $this->linkerResolver->isEnabled();
-    }
-
-    public function __invoke(): IDriverLinker
-    {
-        return $this->create();
     }
 }

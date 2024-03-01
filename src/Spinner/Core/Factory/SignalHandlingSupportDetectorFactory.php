@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSupportDetectorFacto
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\SignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Probes;
+use Traversable;
 
 final readonly class SignalHandlingSupportDetectorFactory implements ISignalHandlingSupportDetectorFactory, IInvokable
 {
@@ -21,7 +22,7 @@ final readonly class SignalHandlingSupportDetectorFactory implements ISignalHand
     }
 
 
-    private function loadProbes(): \Traversable
+    private function loadProbes(): Traversable
     {
         return Probes::load(ISignalHandlingProbe::class);
     }

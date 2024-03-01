@@ -20,6 +20,11 @@ final class SignalHandlingSetupFactory implements Contract\ISignalHandlingSetupF
     ) {
     }
 
+    public function __invoke(): ISignalHandlingSetup
+    {
+        return $this->create();
+    }
+
     public function create(): ISignalHandlingSetup
     {
         if ($this->loopProvider->hasLoop() && $this->isSignalHandlingEnabled()) {
@@ -35,10 +40,5 @@ final class SignalHandlingSetupFactory implements Contract\ISignalHandlingSetupF
     private function isSignalHandlingEnabled(): bool
     {
         return $this->loopConfig->getSignalHandlingMode() === SignalHandlingMode::ENABLED;
-    }
-
-    public function __invoke(): ISignalHandlingSetup
-    {
-        return $this->create();
     }
 }

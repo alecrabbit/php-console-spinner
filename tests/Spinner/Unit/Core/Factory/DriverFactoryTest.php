@@ -46,9 +46,9 @@ final class DriverFactoryTest extends TestCase
             );
     }
 
-    private function getDriverMessagesMock(): MockObject&IDriverMessages
+    private function getDriverConfigMock(): MockObject&IDriverConfig
     {
-        return $this->createMock(IDriverMessages::class);
+        return $this->createMock(IDriverConfig::class);
     }
 
     private function getDriverBuilderMock(): MockObject&IDriverBuilder
@@ -88,7 +88,8 @@ final class DriverFactoryTest extends TestCase
         $driverConfig
             ->expects(self::once())
             ->method('getDriverMessages')
-            ->willReturn($driverMessages);
+            ->willReturn($driverMessages)
+        ;
 
         $driver = $this->getDriverMock();
 
@@ -141,6 +142,11 @@ final class DriverFactoryTest extends TestCase
         return $this->createMock(IInterval::class);
     }
 
+    private function getDriverMessagesMock(): MockObject&IDriverMessages
+    {
+        return $this->createMock(IDriverMessages::class);
+    }
+
     private function getDriverMock(): MockObject&IDriver
     {
         return $this->createMock(IDriver::class);
@@ -149,10 +155,5 @@ final class DriverFactoryTest extends TestCase
     private function getTimerFactoryMock(): MockObject&IDeltaTimerFactory
     {
         return $this->createMock(IDeltaTimerFactory::class);
-    }
-
-    private function getDriverConfigMock(): MockObject&IDriverConfig
-    {
-        return $this->createMock(IDriverConfig::class);
     }
 }

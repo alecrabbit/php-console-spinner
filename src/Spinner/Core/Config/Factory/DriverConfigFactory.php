@@ -20,6 +20,11 @@ final readonly class DriverConfigFactory implements IDriverConfigFactory, IInvok
     ) {
     }
 
+    public function __invoke(): IDriverConfig
+    {
+        return $this->create();
+    }
+
     public function create(): IDriverConfig
     {
         return $this->driverConfigBuilder
@@ -31,10 +36,5 @@ final readonly class DriverConfigFactory implements IDriverConfigFactory, IInvok
             )
             ->build()
         ;
-    }
-
-    public function __invoke(): IDriverConfig
-    {
-        return $this->create();
     }
 }

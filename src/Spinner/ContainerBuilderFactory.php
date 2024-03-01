@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Container\ContainerFactoryStore;
 use AlecRabbit\Spinner\Container\Contract\IContainerBuilder;
 use AlecRabbit\Spinner\Container\Contract\IContainerBuilderFactory;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
+use Traversable;
 
 final readonly class ContainerBuilderFactory implements IContainerBuilderFactory
 {
@@ -36,7 +37,7 @@ final readonly class ContainerBuilderFactory implements IContainerBuilderFactory
         return $containerFactoryStore;
     }
 
-    private function createFactories(): \Traversable
+    private function createFactories(): Traversable
     {
         foreach (ContainerFactories::load() as $factoryClass) {
             yield new $factoryClass();

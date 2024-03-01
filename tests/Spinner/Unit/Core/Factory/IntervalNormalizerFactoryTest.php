@@ -47,6 +47,17 @@ final class IntervalNormalizerFactoryTest extends TestCase
         return $this->createMock(IDivisorProvider::class);
     }
 
+    private function getNormalizerConfigMock(?NormalizerMode $normalizerMode = null): MockObject&INormalizerConfig
+    {
+        $normalizerMode ??= NormalizerMode::BALANCED;
+        $mock = $this->createMock(INormalizerConfig::class);
+        $mock
+            ->method('getNormalizerMode')
+            ->willReturn($normalizerMode)
+        ;
+        return $mock;
+    }
+
     #[Test]
     public function canCreate(): void
     {
@@ -87,15 +98,5 @@ final class IntervalNormalizerFactoryTest extends TestCase
 
         self::assertInstanceOf(IntervalNormalizerFactory::class, $intervalNormalizerFactory);
         self::assertInstanceOf(IntervalNormalizer::class, $intervalNormalizerFactory->create($mode));
-    }
-
-    private function getNormalizerConfigMock(?NormalizerMode $normalizerMode = null): MockObject&INormalizerConfig
-    {
-        $normalizerMode ??= NormalizerMode::BALANCED;
-        $mock = $this->createMock(INormalizerConfig::class);
-        $mock
-            ->method('getNormalizerMode')
-            ->willReturn($normalizerMode);
-        return $mock;
     }
 }

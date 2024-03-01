@@ -23,6 +23,10 @@ use ReflectionNamedType;
 use ReflectionType;
 use Throwable;
 
+use function is_callable;
+
+use const E_USER_DEPRECATED;
+
 final readonly class ServiceSpawner implements IServiceSpawner
 {
     public function __construct(
@@ -78,10 +82,10 @@ final readonly class ServiceSpawner implements IServiceSpawner
             // FIXME (2024-02-29 13:57) [Alec Rabbit]: Remove this block and remove callable and object spawning support
             @trigger_error(
                 sprintf(
-                'Using callable or object as service definition("%s") is deprecated. Use class-string or Reference to invokable instead.',
+                    'Using callable or object as service definition("%s") is deprecated. Use class-string or Reference to invokable instead.',
                     $id,
-                ) ,
-                \E_USER_DEPRECATED
+                ),
+                E_USER_DEPRECATED
             );
 
 //            echo "\e[33m" .
@@ -222,7 +226,7 @@ final readonly class ServiceSpawner implements IServiceSpawner
         $id = $object->__toString();
         $invokable = $this->getServiceFromContainer($id);
 
-        if (\is_callable($invokable)) {
+        if (is_callable($invokable)) {
             return $invokable();
         }
 

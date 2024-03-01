@@ -30,6 +30,19 @@ abstract class AContainerEnclosure
         self::$factoryClass = $class;
     }
 
+    private static function assertClass(string $class): void
+    {
+        if (!is_subclass_of($class, IContainerBuilderFactory::class)) {
+            throw new ContainerException(
+                sprintf(
+                    'Container builder class must implement [%s]. "%s" given.',
+                    IContainerBuilderFactory::class,
+                    $class,
+                )
+            );
+        }
+    }
+
     final protected static function getContainer(): IContainer
     {
         if (self::$container === null) {
@@ -56,18 +69,5 @@ abstract class AContainerEnclosure
         self::assertClass(self::$factoryClass);
 
         return (new (self::$factoryClass)())->create();
-    }
-
-    private static function assertClass(string $class): void
-    {
-        if (!is_subclass_of($class, IContainerBuilderFactory::class)) {
-            throw new ContainerException(
-                sprintf(
-                    'Container builder class must implement [%s]. "%s" given.',
-                    IContainerBuilderFactory::class,
-                    $class,
-                )
-            );
-        }
     }
 }

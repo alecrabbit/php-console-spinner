@@ -15,23 +15,14 @@
               /app/src/Spinner/Core/Factory/SignalHandlingSupportDetectorFactory.php:12                                                 
  ----------- -------------------------------------------------------------------------------------------------------------------------- 
 
- ----------- ------------------------------------------------------------------------------------------------------------------------- 
-  Reason      Container                                                                                                                
- ----------- ------------------------------------------------------------------------------------------------------------------------- 
-  Violation   AlecRabbit\Spinner\Container\A\AContainerEnclosure must not depend on AlecRabbit\Spinner\ContainerBuilderFactory (Root)  
-              /app/src/Spinner/Container/A/AContainerEnclosure.php:18                                                                  
-  Violation   AlecRabbit\Spinner\Container\A\AContainerEnclosure must not depend on AlecRabbit\Spinner\ContainerBuilderFactory (Root)  
-              /app/src/Spinner/Container/A/AContainerEnclosure.php:11                                                                  
- ----------- ------------------------------------------------------------------------------------------------------------------------- 
-
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           8     
+  Violations           6     
   Skipped violations   0     
   Uncovered            195   
-  Allowed              2997  
+  Allowed              2999  
   Warnings             0     
   Errors               0     
  -------------------- ------ 

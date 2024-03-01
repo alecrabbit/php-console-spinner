@@ -16,12 +16,18 @@ use AlecRabbit\Spinner\Core\IntervalNormalizer;
 final readonly class IntervalNormalizerFactory implements IIntervalNormalizerFactory, IInvokable
 {
     private NormalizerMode $normalizerMode;
+
     public function __construct(
         private IIntegerNormalizerBuilder $integerNormalizerBuilder,
         private IDivisorProvider $divisorProvider,
         INormalizerConfig $normalizerConfig,
     ) {
         $this->normalizerMode = $normalizerConfig->getNormalizerMode();
+    }
+
+    public function __invoke(): IIntervalNormalizer
+    {
+        return $this->create();
     }
 
     public function create(): IIntervalNormalizer
@@ -35,9 +41,5 @@ final readonly class IntervalNormalizerFactory implements IIntervalNormalizerFac
         ;
 
         return new IntervalNormalizer($integerNormalizer);
-    }
-    public function __invoke(): IIntervalNormalizer
-    {
-        return $this->create();
     }
 }

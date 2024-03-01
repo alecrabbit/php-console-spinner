@@ -57,7 +57,8 @@ final class LoopProviderFactoryTest extends TestCase
         $runMethodMode ??= RunMethodMode::ASYNC;
         $mock
             ->method('getRunMethodMode')
-            ->willReturn($runMethodMode);
+            ->willReturn($runMethodMode)
+        ;
 
         return $mock;
     }

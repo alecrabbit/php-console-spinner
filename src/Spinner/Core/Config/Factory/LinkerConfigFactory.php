@@ -18,6 +18,11 @@ final readonly class LinkerConfigFactory implements ILinkerConfigFactory, IInvok
     ) {
     }
 
+    public function __invoke(): ILinkerConfig
+    {
+        return $this->create();
+    }
+
     public function create(): ILinkerConfig
     {
         return $this->linkerConfigBuilder
@@ -26,10 +31,5 @@ final readonly class LinkerConfigFactory implements ILinkerConfigFactory, IInvok
             )
             ->build()
         ;
-    }
-
-    public function __invoke(): ILinkerConfig
-    {
-        return $this->create();
     }
 }

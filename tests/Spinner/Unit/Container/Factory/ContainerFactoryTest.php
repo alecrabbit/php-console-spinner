@@ -53,16 +53,16 @@ final class ContainerFactoryTest extends TestCase
         return $this->createMock(IDefinitionRegistry::class);
     }
 
-    private function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
-    {
-        return $this->createMock(IServiceSpawnerBuilder::class);
-    }
-
     #[Test]
     public function canIsSupported(): void
     {
         $containerFactory = $this->getTesteeInstance();
 
         self::assertTrue($containerFactory->isSupported());
+    }
+
+    private function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
+    {
+        return $this->createMock(IServiceSpawnerBuilder::class);
     }
 }

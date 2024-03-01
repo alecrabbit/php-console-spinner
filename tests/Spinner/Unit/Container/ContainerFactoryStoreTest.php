@@ -7,8 +7,8 @@ namespace AlecRabbit\Tests\Spinner\Unit\Container;
 use AlecRabbit\Spinner\Container\ContainerFactoryStore;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactoryStore;
-use AlecRabbit\Tests\TestCase\Helper\PickLock;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -23,17 +23,12 @@ final class ContainerFactoryStoreTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?\ArrayObject $factories = null,
-    ): IContainerFactoryStore
-    {
+        ?ArrayObject $factories = null,
+    ): IContainerFactoryStore {
         return
             new ContainerFactoryStore(
-                factories: $factories ?? new \ArrayObject(),
+                factories: $factories ?? new ArrayObject(),
             );
-    }
-    private function getContainerFactoryMock(): MockObject&IContainerFactory
-    {
-        return $this->createMock(IContainerFactory::class);
     }
 
     #[Test]
@@ -48,7 +43,7 @@ final class ContainerFactoryStoreTest extends TestCase
         ];
 
         $store = $this->getTesteeInstance(
-            factories: new \ArrayObject($factories),
+            factories: new ArrayObject($factories),
         );
 
         $iterator = $store->getIterator();
@@ -57,6 +52,10 @@ final class ContainerFactoryStoreTest extends TestCase
         self::assertContains($factory02, $iterator);
     }
 
+    private function getContainerFactoryMock(): MockObject&IContainerFactory
+    {
+        return $this->createMock(IContainerFactory::class);
+    }
 
     #[Test]
     public function canAddFactory(): void

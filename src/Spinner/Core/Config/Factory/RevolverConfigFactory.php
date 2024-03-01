@@ -18,6 +18,11 @@ final readonly class RevolverConfigFactory implements IRevolverConfigFactory, II
     ) {
     }
 
+    public function __invoke(): IRevolverConfig
+    {
+        return $this->create();
+    }
+
     public function create(): IRevolverConfig
     {
         return $this->revolverConfigBuilder
@@ -26,10 +31,5 @@ final readonly class RevolverConfigFactory implements IRevolverConfigFactory, II
             )
             ->build()
         ;
-    }
-
-    public function __invoke(): IRevolverConfig
-    {
-        return $this->create();
     }
 }

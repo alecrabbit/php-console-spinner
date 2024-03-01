@@ -18,15 +18,15 @@ final class WritableStreamFactory implements IWritableStreamFactory,
     ) {
     }
 
+    public function __invoke(): IWritableStream
+    {
+        return $this->create();
+    }
+
     public function create(): IWritableStream
     {
         return new WritableStream(
             $this->outputConfig->getStream()
         );
-    }
-
-    public function __invoke(): IWritableStream
-    {
-        return $this->create();
     }
 }

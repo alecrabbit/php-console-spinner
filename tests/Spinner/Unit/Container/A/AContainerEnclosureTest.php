@@ -6,9 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Container\A;
 
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IContainerBuilder;
 use AlecRabbit\Spinner\Container\Contract\IContainerBuilderFactory;
-use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\Spinner\Unit\Container\A\Override\AContainerEnclosureOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -31,6 +29,11 @@ final class AContainerEnclosureTest extends TestCase
         AContainerEnclosure::useFactoryClass($factory::class);
 
         self::assertInstanceOf(IContainer::class, self::extractContainer());
+    }
+
+    private function getContainerBuilderFactoryMock(): MockObject&IContainerBuilderFactory
+    {
+        return $this->createMock(IContainerBuilderFactory::class);
     }
 
     private static function extractContainer(): mixed
@@ -69,10 +72,5 @@ final class AContainerEnclosureTest extends TestCase
     {
         parent::tearDown();
         self::setContainer(self::$container);
-    }
-
-    private function getContainerBuilderFactoryMock(): MockObject&IContainerBuilderFactory
-    {
-        return $this->createMock(IContainerBuilderFactory::class);
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;

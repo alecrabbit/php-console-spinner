@@ -26,6 +26,11 @@ final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigF
     ) {
     }
 
+    public function __invoke(): IWidgetConfig
+    {
+        return $this->create();
+    }
+
     public function create(): IWidgetConfig
     {
         $widgetSettings = $this->widgetSettingsSolver->solve();
@@ -77,10 +82,5 @@ final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigF
     private function getRevolverConfig(): IRevolverConfig
     {
         return new RevolverConfig();
-    }
-
-    public function __invoke(): IWidgetConfig
-    {
-        return $this->create();
     }
 }

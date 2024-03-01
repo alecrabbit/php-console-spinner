@@ -18,6 +18,11 @@ final readonly class GeneralConfigFactory implements IGeneralConfigFactory, IInv
     ) {
     }
 
+    public function __invoke(): IGeneralConfig
+    {
+        return $this->create();
+    }
+
     public function create(): IGeneralConfig
     {
         return $this->generalConfigBuilder
@@ -26,10 +31,5 @@ final readonly class GeneralConfigFactory implements IGeneralConfigFactory, IInv
             )
             ->build()
         ;
-    }
-
-    public function __invoke(): IGeneralConfig
-    {
-        return $this->create();
     }
 }

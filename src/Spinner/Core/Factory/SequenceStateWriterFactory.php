@@ -22,6 +22,11 @@ final readonly class SequenceStateWriterFactory implements ISequenceStateWriterF
     ) {
     }
 
+    public function __invoke(): ISequenceStateWriter
+    {
+        return $this->create();
+    }
+
     public function create(): ISequenceStateWriter
     {
         return $this->sequenceStateWriterBuilder
@@ -36,10 +41,5 @@ final readonly class SequenceStateWriterFactory implements ISequenceStateWriterF
             )
             ->build()
         ;
-    }
-
-    public function __invoke(): ISequenceStateWriter
-    {
-        return $this->create();
     }
 }

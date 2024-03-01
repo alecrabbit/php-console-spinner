@@ -23,6 +23,11 @@ final readonly class SettingsProviderFactory implements ISettingsProviderFactory
     ) {
     }
 
+    public function __invoke(): ISettingsProvider
+    {
+        return $this->create();
+    }
+
     public function create(): ISettingsProvider
     {
         return $this->builder
@@ -31,10 +36,5 @@ final readonly class SettingsProviderFactory implements ISettingsProviderFactory
             ->withDetectedSettings($this->detectedSettingsFactory->create())
             ->build()
         ;
-    }
-
-    public function __invoke(): ISettingsProvider
-    {
-        return $this->create();
     }
 }

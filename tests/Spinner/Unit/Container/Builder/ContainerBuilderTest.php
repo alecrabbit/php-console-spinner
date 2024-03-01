@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainerFactoryStore;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayIterator;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -75,7 +76,7 @@ final class ContainerBuilderTest extends TestCase
             ->expects($this->once())
             ->method('getIterator')
             ->willReturn(
-                new \ArrayIterator([
+                new ArrayIterator([
                     $factory01,
                     $factory02,
                 ])
@@ -122,7 +123,7 @@ final class ContainerBuilderTest extends TestCase
             ->expects($this->once())
             ->method('getIterator')
             ->willReturn(
-                new \ArrayIterator([
+                new ArrayIterator([
                     $factory01,
                     $factory02,
                 ])

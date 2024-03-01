@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Root;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
@@ -15,8 +14,6 @@ use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
-use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
-use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDeltaTimerBuilder;
@@ -171,13 +168,11 @@ use AlecRabbit\Spinner\Core\Feature\Resolver\LinkerResolver;
 use AlecRabbit\Spinner\Core\IntervalComparator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Loop\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Factory\LoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassExtractor;
-use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
 use AlecRabbit\Spinner\Core\Output\BufferedOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\Factory\IWritableStreamFactory;
@@ -204,9 +199,6 @@ use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Detector\SignalHandlingSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Detector\StylingMethodDetector;
 use AlecRabbit\Spinner\Core\Settings\Factory\DefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
@@ -220,10 +212,7 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
-use AlecRabbit\Spinner\Probes;
 use Traversable;
-
-use function hrtime;
 
 // @codeCoverageIgnoreStart
 /**

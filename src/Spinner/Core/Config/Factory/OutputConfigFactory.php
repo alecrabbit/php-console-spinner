@@ -24,6 +24,11 @@ final readonly class OutputConfigFactory implements IOutputConfigFactory, IInvok
     ) {
     }
 
+    public function __invoke(): IOutputConfig
+    {
+        return $this->create();
+    }
+
     public function create(): IOutputConfig
     {
         return $this->outputConfigBuilder
@@ -41,10 +46,5 @@ final readonly class OutputConfigFactory implements IOutputConfigFactory, IInvok
             )
             ->build()
         ;
-    }
-
-    public function __invoke(): IOutputConfig
-    {
-        return $this->create();
     }
 }

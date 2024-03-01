@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IStylingMethodDetectorFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\StylingMethodDetector;
 use AlecRabbit\Spinner\Probes;
+use Traversable;
 
 final readonly class StylingMethodDetectorFactory implements IStylingMethodDetectorFactory, IInvokable
 {
@@ -20,7 +21,7 @@ final readonly class StylingMethodDetectorFactory implements IStylingMethodDetec
         );
     }
 
-    private function loadProbes(): \Traversable
+    private function loadProbes(): Traversable
     {
         return Probes::load(IStylingMethodProbe::class);
     }

@@ -6,12 +6,13 @@ namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactoryStore;
+use ArrayObject;
 use Traversable;
 
 final readonly class ContainerFactoryStore implements IContainerFactoryStore
 {
     public function __construct(
-        private \ArrayObject $factories = new \ArrayObject(),
+        private ArrayObject $factories = new ArrayObject(),
     ) {
     }
 
