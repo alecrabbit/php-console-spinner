@@ -29,11 +29,9 @@ final class ContainerBuilderTest extends TestCase
 
     private function getTesteeInstance(
         ?IDefinitionRegistry $registry = null,
-        ?IContainerFactoryStore $factories = null
     ): IContainerBuilder {
         return new ContainerBuilder(
             registry: $registry ?? $this->getDefinitionRegistryMock(),
-            factories: $factories ?? $this->getContainerFactoryStoreMock()
         );
     }
 
@@ -47,50 +45,6 @@ final class ContainerBuilderTest extends TestCase
         return $this->createMock(IContainerFactoryStore::class);
     }
 
-    #[Test]
-    public function canBuild(): void
-    {
-        $container = $this->getContainerMock();
-        $registry = $this->getDefinitionRegistryMock();
-        $factories = $this->getContainerFactoryStoreMock();
-        $factory01 = $this->getContainerFactoryMock();
-        $factory01
-            ->expects($this->once())
-            ->method('isSupported')
-            ->willReturn(false)
-        ;
-        $factory02 = $this->getContainerFactoryMock();
-        $factory02
-            ->expects($this->once())
-            ->method('isSupported')
-            ->willReturn(true)
-        ;
-        $factory02
-            ->expects($this->once())
-            ->method('create')
-            ->with($registry)
-            ->willReturn($container)
-        ;
-
-        $factories
-            ->expects($this->once())
-            ->method('getIterator')
-            ->willReturn(
-                new ArrayIterator([
-                    $factory01,
-                    $factory02,
-                ])
-            )
-        ;
-
-        $builder = $this->getTesteeInstance(
-            registry: $registry,
-            factories: $factories,
-        );
-
-        self::assertSame($container, $builder->build());
-    }
-
     private function getContainerMock(): MockObject&IContainer
     {
         return $this->createMock(IContainer::class);
@@ -102,41 +56,38 @@ final class ContainerBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfNoSupportedFactoryFound(): void
+    public function canBuild(): void
     {
+        $container = $this->getContainerMock();
         $registry = $this->getDefinitionRegistryMock();
-        $factories = $this->getContainerFactoryStoreMock();
-        $factory01 = $this->getContainerFactoryMock();
-        $factory01
-            ->expects($this->once())
-            ->method('isSupported')
-            ->willReturn(false)
-        ;
-        $factory02 = $this->getContainerFactoryMock();
-        $factory02
-            ->expects($this->once())
-            ->method('isSupported')
-            ->willReturn(false)
-        ;
 
-        $factories
+        $factory = $this->getContainerFactoryMock();
+        $factory
             ->expects($this->once())
-            ->method('getIterator')
-            ->willReturn(
-                new ArrayIterator([
-                    $factory01,
-                    $factory02,
-                ])
-            )
+            ->method('create')
+            ->with($registry)
+            ->willReturn($container)
         ;
 
         $builder = $this->getTesteeInstance(
             registry: $registry,
-            factories: $factories,
         );
 
+        $actual = $builder
+            ->withFactory($factory)
+            ->build()
+        ;
+
+        self::assertSame($container, $actual);
+    }
+
+    #[Test]
+    public function throwsIfContainerFactoryIsNotSet(): void
+    {
+        $builder = $this->getTesteeInstance();
+
         $this->expectException(ContainerException::class);
-        $this->expectExceptionMessage('No supported container factory found.');
+        $this->expectExceptionMessage('Container factory is not set.');
 
         $builder->build();
     }

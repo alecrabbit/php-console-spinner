@@ -11,22 +11,28 @@ use AlecRabbit\Spinner\Container\Contract\IContainerFactoryStore;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 
-final readonly class ContainerBuilder implements IContainerBuilder
+final class ContainerBuilder implements IContainerBuilder
 {
+    private ?IContainerFactory $factory = null;
+
     public function __construct(
         private IDefinitionRegistry $registry,
-        private IContainerFactoryStore $factories,
     ) {
     }
 
     public function build(): IContainer
     {
-        foreach ($this->factories as $factory) {
-            if ($factory instanceof IContainerFactory && $factory->isSupported()) {
-                return $factory->create($this->registry);
-            }
+        if ($this->factory === null) {
+            throw new ContainerException('Container factory is not set.');
         }
 
-        throw new ContainerException('No supported container factory found.');
+        return $this->factory->create($this->registry);
+    }
+
+    public function withFactory(IContainerFactory $factory): IContainerBuilder
+    {
+        $clone = clone $this;
+        $clone->factory = $factory;
+        return $clone;
     }
 }

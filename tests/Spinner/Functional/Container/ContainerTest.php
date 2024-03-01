@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Spinner\Functional\Container;
 
 use AlecRabbit\Spinner\Container\Builder\ContainerBuilder;
 use AlecRabbit\Spinner\Container\Container;
-use AlecRabbit\Spinner\Container\ContainerFactoryStore;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
@@ -38,13 +37,15 @@ final class ContainerTest extends TestCase
 
     public function getTesteeInstance(): IContainer
     {
-        $store = new ContainerFactoryStore();
-        $store->add(new ContainerFactory());
-
-        return (new ContainerBuilder(
+        $containerBuilder = new ContainerBuilder(
             registry: DefinitionRegistry::getInstance(),
-            factories: $store,
-        ))->build();
+
+        );
+
+        return $containerBuilder
+            ->withFactory(new ContainerFactory())
+            ->build()
+        ;
     }
 
     #[Test]

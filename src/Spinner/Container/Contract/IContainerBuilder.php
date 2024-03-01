@@ -7,4 +7,6 @@ namespace AlecRabbit\Spinner\Container\Contract;
 interface IContainerBuilder
 {
     public function build(): IContainer;
+
+    public function withFactory(IContainerFactory $factory): IContainerBuilder;
 }
