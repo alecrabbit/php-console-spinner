@@ -37,12 +37,10 @@ final class ContainerTest extends TestCase
 
     public function getTesteeInstance(): IContainer
     {
-        $containerBuilder = new ContainerBuilder(
-            registry: DefinitionRegistry::getInstance(),
-
-        );
+        $containerBuilder = new ContainerBuilder();
 
         return $containerBuilder
+            ->withRegistry(DefinitionRegistry::getInstance())
             ->withFactory(new ContainerFactory())
             ->build()
         ;

@@ -13,7 +13,6 @@ use AlecRabbit\Spinner\Container\Contract\IContainerFactoryStore;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\TestCase\TestCase;
-use ArrayIterator;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -27,32 +26,9 @@ final class ContainerBuilderTest extends TestCase
         self::assertInstanceOf(ContainerBuilder::class, $builder);
     }
 
-    private function getTesteeInstance(
-        ?IDefinitionRegistry $registry = null,
-    ): IContainerBuilder {
-        return new ContainerBuilder(
-            registry: $registry ?? $this->getDefinitionRegistryMock(),
-        );
-    }
-
-    private function getDefinitionRegistryMock(): MockObject&IDefinitionRegistry
+    private function getTesteeInstance(): IContainerBuilder
     {
-        return $this->createMock(IDefinitionRegistry::class);
-    }
-
-    private function getContainerFactoryStoreMock(): MockObject&IContainerFactoryStore
-    {
-        return $this->createMock(IContainerFactoryStore::class);
-    }
-
-    private function getContainerMock(): MockObject&IContainer
-    {
-        return $this->createMock(IContainer::class);
-    }
-
-    private function getContainerFactoryMock(): MockObject&IContainerFactory
-    {
-        return $this->createMock(IContainerFactory::class);
+        return new ContainerBuilder();
     }
 
     #[Test]
@@ -70,15 +46,30 @@ final class ContainerBuilderTest extends TestCase
         ;
 
         $builder = $this->getTesteeInstance(
-            registry: $registry,
         );
 
         $actual = $builder
+            ->withRegistry($registry)
             ->withFactory($factory)
             ->build()
         ;
 
         self::assertSame($container, $actual);
+    }
+
+    private function getContainerMock(): MockObject&IContainer
+    {
+        return $this->createMock(IContainer::class);
+    }
+
+    private function getDefinitionRegistryMock(): MockObject&IDefinitionRegistry
+    {
+        return $this->createMock(IDefinitionRegistry::class);
+    }
+
+    private function getContainerFactoryMock(): MockObject&IContainerFactory
+    {
+        return $this->createMock(IContainerFactory::class);
     }
 
     #[Test]
@@ -90,5 +81,24 @@ final class ContainerBuilderTest extends TestCase
         $this->expectExceptionMessage('Container factory is not set.');
 
         $builder->build();
+    }
+
+    #[Test]
+    public function throwsIfRegistryIsNotSet(): void
+    {
+        $builder = $this->getTesteeInstance();
+
+        $this->expectException(ContainerException::class);
+        $this->expectExceptionMessage('Definition registry is not set.');
+
+        $builder
+            ->withFactory($this->getContainerFactoryMock())
+            ->build()
+        ;
+    }
+
+    private function getContainerFactoryStoreMock(): MockObject&IContainerFactoryStore
+    {
+        return $this->createMock(IContainerFactoryStore::class);
     }
 }
