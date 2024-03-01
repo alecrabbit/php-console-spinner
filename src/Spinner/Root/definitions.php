@@ -239,7 +239,7 @@ function getDefinitions(): Traversable
         new ServiceDefinition(
             ISettingsProvider::class,
             new Reference(ISettingsProviderFactory::class),
-            IServiceDefinition::SINGLETON,
+            IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC,
         ),
         new ServiceDefinition(
             ILoopProvider::class,

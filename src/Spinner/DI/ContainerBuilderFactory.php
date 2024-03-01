@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner;
+namespace AlecRabbit\Spinner\DI;
 
 use AlecRabbit\Spinner\Container\Builder\ContainerBuilder;
 use AlecRabbit\Spinner\Container\ContainerFactoryStore;
 use AlecRabbit\Spinner\Container\Contract\IContainerBuilder;
 use AlecRabbit\Spinner\Container\Contract\IContainerBuilderFactory;
+use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use Traversable;
 
@@ -21,7 +22,7 @@ final readonly class ContainerBuilderFactory implements IContainerBuilderFactory
         );
     }
 
-    private function getDefinitionRegistry(): Container\Contract\IDefinitionRegistry
+    private function getDefinitionRegistry(): IDefinitionRegistry
     {
         return DefinitionRegistry::getInstance();
     }

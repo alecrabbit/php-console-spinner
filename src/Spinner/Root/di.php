@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
+namespace AlecRabbit\Spinner\Root;
+
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
-use AlecRabbit\Spinner\ContainerBuilderFactory;
-use AlecRabbit\Spinner\ContainerFactories;
+use AlecRabbit\Spinner\DI\ContainerBuilderFactory;
+use AlecRabbit\Spinner\DI\ContainerFactories;
+use AlecRabbit\Spinner\DI\Symfony\ContainerFactory as SymfonyContainerFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Facade;
-
-use function AlecRabbit\Spinner\Root\getDefinitions;
 
 require_once __DIR__ . '/definitions.php';
 
@@ -20,6 +21,7 @@ require_once __DIR__ . '/definitions.php';
 // Register container factories
 ContainerFactories::register(
     ContainerFactory::class,
+    SymfonyContainerFactory::class,
 );
 
 // Register container builder factory

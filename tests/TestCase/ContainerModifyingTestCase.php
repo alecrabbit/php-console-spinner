@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
+use AlecRabbit\Spinner\Container\Adapter\ContainerAdapter;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
+use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
@@ -42,6 +44,14 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
 
     private static function extractDefinitions(IContainer $container): ArrayObject
     {
+        if ($container instanceof ContainerAdapter) {
+            return new ArrayObject(
+                iterator_to_array(
+                    DefinitionRegistry::getInstance()->load(),
+                )
+            );
+        }
+
         return self::getPropertyValue(self::DEFINITIONS, $container);
     }
 

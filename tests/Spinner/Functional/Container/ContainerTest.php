@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Functional\Container;
 
+use AlecRabbit\Spinner\Container\Builder\ContainerBuilder;
 use AlecRabbit\Spinner\Container\Container;
+use AlecRabbit\Spinner\Container\ContainerFactoryStore;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\DefinitionRegistry;
+use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
@@ -19,7 +23,6 @@ use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Spinner\Core\Output\Output;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -35,7 +38,13 @@ final class ContainerTest extends TestCase
 
     public function getTesteeInstance(): IContainer
     {
-        return self::callMethod(Facade::class, 'getContainer');
+        $store = new ContainerFactoryStore();
+        $store->add(new ContainerFactory());
+
+        return (new ContainerBuilder(
+            registry: DefinitionRegistry::getInstance(),
+            factories: $store,
+        ))->build();
     }
 
     #[Test]
