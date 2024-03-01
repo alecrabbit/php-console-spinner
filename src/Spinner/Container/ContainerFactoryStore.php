@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactoryStore;
 use Traversable;
 
-final class ContainerFactoryStore implements IContainerFactoryStore
+final readonly class ContainerFactoryStore implements IContainerFactoryStore
 {
     public function __construct(
         private \ArrayObject $factories = new \ArrayObject(),
@@ -23,11 +23,6 @@ final class ContainerFactoryStore implements IContainerFactoryStore
     /** @inheritDoc */
     public function getIterator(): Traversable
     {
-        return new \ArrayIterator($this->reversed());
-    }
-
-    private function reversed(): array
-    {
-        return \array_reverse($this->factories->getArrayCopy());
+        return $this->factories;
     }
 }

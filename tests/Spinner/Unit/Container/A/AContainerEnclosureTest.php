@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Container\A;
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IContainerBuilder;
+use AlecRabbit\Spinner\Container\Contract\IContainerBuilderFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\Spinner\Unit\Container\A\Override\AContainerEnclosureOverride;
@@ -23,11 +24,11 @@ final class AContainerEnclosureTest extends TestCase
     private static ?ContainerInterface $container;
 
     #[Test]
-    public function canUseContainerBuilderClass(): void
+    public function canUseFactoryClass(): void
     {
-        $builder = $this->getContainerBuilderMock();
+        $factory = $this->getContainerBuilderFactoryMock();
 
-        AContainerEnclosure::useContainerBuilderClass($builder::class);
+        AContainerEnclosure::useFactoryClass($factory::class);
 
         self::assertInstanceOf(IContainer::class, self::extractContainer());
     }
@@ -38,18 +39,18 @@ final class AContainerEnclosureTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfContainerBuilderClassIsInvalid(): void
+    public function throwsIfContainerBuilderClassFactoryIsInvalid(): void
     {
         $class = stdClass::class;
         $this->expectException(ContainerException::class);
         $this->expectExceptionMessage(
             sprintf(
                 'Container builder class must implement [%s]. "%s" given.',
-                IContainerBuilder::class,
+                IContainerBuilderFactory::class,
                 $class,
             )
         );
-        AContainerEnclosure::useContainerBuilderClass($class);
+        AContainerEnclosure::useFactoryClass($class);
     }
 
     protected function setUp(): void
@@ -70,8 +71,8 @@ final class AContainerEnclosureTest extends TestCase
         self::setContainer(self::$container);
     }
 
-    private function getContainerBuilderMock(): MockObject&IContainerBuilder
+    private function getContainerBuilderFactoryMock(): MockObject&IContainerBuilderFactory
     {
-        return $this->createMock(IContainerBuilder::class);
+        return $this->createMock(IContainerBuilderFactory::class);
     }
 }

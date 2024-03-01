@@ -53,8 +53,19 @@ final class ContainerFactories
         return is_subclass_of($factoryClass, IContainerFactory::class);
     }
 
-    public static function load(): array
+    /**
+     * @return iterable<string, class-string<IContainerFactory>>
+     */
+    public static function load(): iterable
     {
-        return self::$factories;
+        return self::reversed();
+    }
+
+    /**
+     * @return iterable<string, class-string<IContainerFactory>>
+     */
+    private static function reversed(): iterable
+    {
+        return array_reverse(self::$factories, true);
     }
 }

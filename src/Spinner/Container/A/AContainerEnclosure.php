@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container\A;
 
-use AlecRabbit\Spinner\Container\Builder\ContainerBuilder;
-use AlecRabbit\Spinner\Container\ContainerFactoryStore;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IContainerBuilder;
-use AlecRabbit\Spinner\Container\DefinitionRegistry;
+use AlecRabbit\Spinner\Container\Contract\IContainerBuilderFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
-use AlecRabbit\Spinner\ContainerFactories;
 
 abstract class AContainerEnclosure
 {
     private static ?IContainer $container = null;
 
-    /** @var class-string<IContainerBuilder> */
-    private static string $containerBuilderClass = ContainerBuilder::class;
+    /** @var class-string<IContainerBuilderFactory> */
+    private static string $factoryClass = IContainerBuilderFactory::class;
 
     /**
      * @codeCoverageIgnore
@@ -27,18 +24,10 @@ abstract class AContainerEnclosure
         // No instances allowed.
     }
 
-    public static function useContainerBuilderClass(string $class): void
+    public static function useFactoryClass(string $class): void
     {
-        if (!is_subclass_of($class, IContainerBuilder::class)) {
-            throw new ContainerException(
-                sprintf(
-                    'Container builder class must implement [%s]. "%s" given.',
-                    IContainerBuilder::class,
-                    $class,
-                )
-            );
-        }
-        self::$containerBuilderClass = $class;
+        self::assertClass($class);
+        self::$factoryClass = $class;
     }
 
     final protected static function getContainer(): IContainer
@@ -64,20 +53,21 @@ abstract class AContainerEnclosure
 
     private static function getBuilder(): IContainerBuilder
     {
-        return new (self::$containerBuilderClass)(
-            DefinitionRegistry::getInstance(),
-            new ContainerFactoryStore(
-                self::getFactories(),
-            ),
-        );
+        self::assertClass(self::$factoryClass);
+
+        return (new (self::$factoryClass)())->create();
     }
 
-    private static function getFactories(): \ArrayObject
+    private static function assertClass(string $class): void
     {
-        $instances = new \ArrayObject();
-        foreach (ContainerFactories::load() as $factoryClass) {
-            $instances->append(new $factoryClass());
+        if (!is_subclass_of($class, IContainerBuilderFactory::class)) {
+            throw new ContainerException(
+                sprintf(
+                    'Container builder class must implement [%s]. "%s" given.',
+                    IContainerBuilderFactory::class,
+                    $class,
+                )
+            );
         }
-        return $instances;
     }
 }

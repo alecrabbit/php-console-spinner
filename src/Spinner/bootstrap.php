@@ -26,6 +26,8 @@ ContainerFactories::register(
     ContainerFactory::class,
 );
 
+Facade::useFactoryClass(ContainerBuilderFactory::class);
+
 $registry = DefinitionRegistry::getInstance();
 
 /**
