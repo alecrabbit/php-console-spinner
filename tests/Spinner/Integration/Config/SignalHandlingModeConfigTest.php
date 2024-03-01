@@ -19,18 +19,20 @@ final class SignalHandlingModeConfigTest extends ConfigurationTestCase
 {
     protected static function setTestContainer(): void
     {
-        self::modifyContainer(
-            [
-                // Detected settings considered as AUTO
-                IDetectedSettingsFactory::class => static function () {
-                    return new class() implements IDetectedSettingsFactory {
-                        public function create(): ISettings
-                        {
-                            return new Settings();
-                        }
-                    };
-                },
-            ],
+        self::setContainer(
+            self::modifyContainer(
+                [
+                    // Detected settings considered as AUTO
+                    IDetectedSettingsFactory::class => static function () {
+                        return new class() implements IDetectedSettingsFactory {
+                            public function create(): ISettings
+                            {
+                                return new Settings();
+                            }
+                        };
+                    },
+                ],
+            )
         );
     }
 

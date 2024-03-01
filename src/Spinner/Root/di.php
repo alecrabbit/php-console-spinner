@@ -26,7 +26,7 @@ ContainerFactories::register(
     PHPDIContainerFactory::class,
 );
 
-// Register container builder factory
+// Set container builder factory
 Facade::useFactoryClass(ContainerBuilderFactory::class);
 
 

@@ -11,10 +11,12 @@ use AlecRabbit\Spinner\Container\Exception\ContainerException;
 
 abstract class AContainerEnclosure
 {
+    private const EMPTY = '';
+
     private static ?IContainer $container = null;
 
     /** @var class-string<IContainerBuilderFactory> */
-    private static string $factoryClass = IContainerBuilderFactory::class;
+    private static string $factoryClass = self::EMPTY;
 
     /**
      * @codeCoverageIgnore
@@ -24,7 +26,7 @@ abstract class AContainerEnclosure
         // No instances allowed.
     }
 
-    public static function useFactoryClass(string $class): void
+    public static function useFactoryClass(string $class): void // method name [2d254244-98d1-47b2-83c3-f761ad83f042]
     {
         self::assertClass($class);
         self::$factoryClass = $class;
@@ -46,7 +48,7 @@ abstract class AContainerEnclosure
     final protected static function getContainer(): IContainer
     {
         if (self::$container === null) {
-            self::$container = self::createContainer();
+            self::$container = self::getContainerBuilder()->build();
         }
         return self::$container;
     }
@@ -59,13 +61,17 @@ abstract class AContainerEnclosure
         self::$container = $container;
     }
 
-    private static function createContainer(): IContainer
+    private static function getContainerBuilder(): IContainerBuilder
     {
-        return self::getBuilder()->build();
-    }
+        if (self::$factoryClass === self::EMPTY) {
+            throw new ContainerException(
+                sprintf(
+                    'Container builder factory class must be set. Use %s method for that.',
+                    static::class . '::useFactoryClass()' // method name [2d254244-98d1-47b2-83c3-f761ad83f042]
+                )
+            );
+        }
 
-    private static function getBuilder(): IContainerBuilder
-    {
         self::assertClass(self::$factoryClass);
 
         return (new (self::$factoryClass)())->create();
