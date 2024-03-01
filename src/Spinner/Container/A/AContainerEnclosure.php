@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container\A;
 
+use AlecRabbit\Spinner\Container\Builder\ContainerBuilder;
+use AlecRabbit\Spinner\Container\ContainerFactoryStore;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
-use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
+use AlecRabbit\Spinner\Container\Contract\IContainerBuilder;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
-use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
+use AlecRabbit\Spinner\ContainerFactories;
 
 abstract class AContainerEnclosure
 {
     private static ?IContainer $container = null;
 
-    /** @var class-string<IContainerFactory> */
-    private static string $factoryClass = ContainerFactory::class;
+    /** @var class-string<IContainerBuilder> */
+    private static string $containerBuilderClass = ContainerBuilder::class;
 
     /**
      * @codeCoverageIgnore
@@ -26,19 +27,18 @@ abstract class AContainerEnclosure
         // No instances allowed.
     }
 
-    public static function useContainerFactory(string $factoryClass): void
+    public static function useContainerBuilderClass(string $class): void
     {
-        if (!is_subclass_of($factoryClass, IContainerFactory::class)) {
+        if (!is_subclass_of($class, IContainerBuilder::class)) {
             throw new ContainerException(
                 sprintf(
-                    'Factory class must implement [%s]. "%s" given.',
-                    IContainerFactory::class,
-                    $factoryClass,
+                    'Container builder class must implement [%s]. "%s" given.',
+                    IContainerBuilder::class,
+                    $class,
                 )
             );
         }
-
-        self::$factoryClass = $factoryClass;
+        self::$containerBuilderClass = $class;
     }
 
     final protected static function getContainer(): IContainer
@@ -59,16 +59,25 @@ abstract class AContainerEnclosure
 
     private static function createContainer(): IContainer
     {
-        return self::getFactory()->create(self::getDefinitionRegistry());
+        return self::getBuilder()->build();
     }
 
-    private static function getFactory(): IContainerFactory
+    private static function getBuilder(): IContainerBuilder
     {
-        return new (self::$factoryClass)();
+        return new (self::$containerBuilderClass)(
+            DefinitionRegistry::getInstance(),
+            new ContainerFactoryStore(
+                self::getFactories(),
+            ),
+        );
     }
 
-    private static function getDefinitionRegistry(): IDefinitionRegistry
+    private static function getFactories(): \ArrayObject
     {
-        return DefinitionRegistry::getInstance();
+        $instances = new \ArrayObject();
+        foreach (ContainerFactories::load() as $factoryClass) {
+            $instances->append(new $factoryClass());
+        }
+        return $instances;
     }
 }

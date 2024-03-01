@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
+use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Core\Probe\SignalHandlingProbe;
 use AlecRabbit\Spinner\Core\Probe\StylingMethodProbe;
@@ -19,6 +20,10 @@ require_once __DIR__ . '/Root/definitions.php';
 Probes::register(
     SignalHandlingProbe::class,
     StylingMethodProbe::class,
+);
+
+ContainerFactories::register(
+    ContainerFactory::class,
 );
 
 $registry = DefinitionRegistry::getInstance();

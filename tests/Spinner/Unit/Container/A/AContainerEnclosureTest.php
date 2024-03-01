@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Container\A;
 
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IContainerBuilder;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\Spinner\Unit\Container\A\Override\AContainerEnclosureOverride;
@@ -22,18 +23,13 @@ final class AContainerEnclosureTest extends TestCase
     private static ?ContainerInterface $container;
 
     #[Test]
-    public function canUseContainerFactoryClass(): void
+    public function canUseContainerBuilderClass(): void
     {
-        $factoryClass = $this->getContainerFactoryMock();
+        $builder = $this->getContainerBuilderMock();
 
-        AContainerEnclosure::useContainerFactory($factoryClass::class);
+        AContainerEnclosure::useContainerBuilderClass($builder::class);
 
         self::assertInstanceOf(IContainer::class, self::extractContainer());
-    }
-
-    private function getContainerFactoryMock(): MockObject&IContainerFactory
-    {
-        return $this->createMock(IContainerFactory::class);
     }
 
     private static function extractContainer(): mixed
@@ -42,18 +38,18 @@ final class AContainerEnclosureTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfFactoryClassISInvalid(): void
+    public function throwsIfContainerBuilderClassIsInvalid(): void
     {
         $class = stdClass::class;
         $this->expectException(ContainerException::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Factory class must implement [%s]. "%s" given.',
-                IContainerFactory::class,
+                'Container builder class must implement [%s]. "%s" given.',
+                IContainerBuilder::class,
                 $class,
             )
         );
-        AContainerEnclosure::useContainerFactory($class);
+        AContainerEnclosure::useContainerBuilderClass($class);
     }
 
     protected function setUp(): void
@@ -72,5 +68,10 @@ final class AContainerEnclosureTest extends TestCase
     {
         parent::tearDown();
         self::setContainer(self::$container);
+    }
+
+    private function getContainerBuilderMock(): MockObject&IContainerBuilder
+    {
+        return $this->createMock(IContainerBuilder::class);
     }
 }
