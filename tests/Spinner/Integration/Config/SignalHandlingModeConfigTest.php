@@ -20,7 +20,6 @@ final class SignalHandlingModeConfigTest extends ConfigurationTestCase
     protected static function setTestContainer(): void
     {
         self::modifyContainer(
-            self::getStoredContainer(),
             [
                 // Detected settings considered as AUTO
                 IDetectedSettingsFactory::class => static function () {

@@ -14,8 +14,6 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class LinkerModeConfigTest extends ConfigurationTestCase
 {
-
-
     #[Test]
     public function canSetLinkerOptionEnabled(): void
     {

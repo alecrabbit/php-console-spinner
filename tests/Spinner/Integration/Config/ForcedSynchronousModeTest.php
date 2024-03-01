@@ -27,7 +27,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         parent::setTestContainer();
 
         self::modifyContainer(
-            self::getCurrentContainer(),
+
             [
                 // Detected settings considered as AUTO
                 IDetectedSettingsFactory::class => static function () {

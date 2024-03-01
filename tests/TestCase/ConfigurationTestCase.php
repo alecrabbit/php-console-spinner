@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
+use AlecRabbit\Spinner\Container\Adapter\ContainerAdapter;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
 use AlecRabbit\Spinner\DI\ContainerFactories;
@@ -22,9 +23,20 @@ abstract class ConfigurationTestCase extends ContainerModifyingTestCase
         throw new RuntimeException('Unable to get required config: ' . $class);
     }
 
+    protected static function getService(string $id): mixed
+    {
+        $container = self::getCurrentContainer();
+        if($container instanceof ContainerAdapter) {
+            dump(get_class(self::getPropertyValue('container', $container)));
+        } else {
+            dump(get_class($container));
+        }
+        return $container->get($id);
+    }
+
     protected function setUp(): void
     {
-        self::removeOtherContainerFactories();
+//        self::removeOtherContainerFactories();
         parent::setUp();
     }
 
@@ -47,6 +59,6 @@ abstract class ConfigurationTestCase extends ContainerModifyingTestCase
     protected function tearDown(): void
     {
         parent::tearDown();
-        self::setFactories(self::$factories);
+//        self::setFactories(self::$factories);
     }
 }
