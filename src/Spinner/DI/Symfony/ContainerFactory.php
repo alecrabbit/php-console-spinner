@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Reference as SymfonyReference;
 use function class_exists;
 use function is_string;
 
-final class ContainerFactory implements IContainerFactory
+final readonly class ContainerFactory implements IContainerFactory
 {
     public function create(IDefinitionRegistry $registry): IContainer
     {

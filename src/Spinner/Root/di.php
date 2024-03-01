@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\DI\ContainerBuilderFactory;
 use AlecRabbit\Spinner\DI\ContainerFactories;
 use AlecRabbit\Spinner\DI\Symfony\ContainerFactory as SymfonyContainerFactory;
+use AlecRabbit\Spinner\DI\PhpDI\ContainerFactory as PHPDIContainerFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Facade;
 
@@ -22,6 +23,7 @@ require_once __DIR__ . '/definitions.php';
 ContainerFactories::register(
     ContainerFactory::class,
     SymfonyContainerFactory::class,
+    PHPDIContainerFactory::class,
 );
 
 // Register container builder factory

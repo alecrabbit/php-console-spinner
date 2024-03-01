@@ -49,6 +49,4 @@ abstract class ConfigurationTestCase extends ContainerModifyingTestCase
         parent::tearDown();
         self::setFactories(self::$factories);
     }
-
-
 }
