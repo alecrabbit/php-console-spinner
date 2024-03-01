@@ -24,4 +24,9 @@ final readonly class ContainerFactory implements IContainerFactory
             definitions: $definitionRegistry->load(),
         );
     }
+
+    public function isSupported(): bool
+    {
+        return true;
+    }
 }
