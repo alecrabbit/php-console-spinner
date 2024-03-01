@@ -17,4 +17,9 @@ abstract class ConfigurationTestCase extends ContainerModifyingTestCase
         }
         throw new RuntimeException('Unable to get required config: ' . $class);
     }
+
+    protected static function getService(string $id): mixed
+    {
+        return self::getCurrentContainer()->get($id);
+    }
 }

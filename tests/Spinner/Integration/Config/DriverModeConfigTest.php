@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Complex\Config;
+namespace AlecRabbit\Tests\Spinner\Integration\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\DriverMode;
 use AlecRabbit\Spinner\Contract\Option\DriverOption;

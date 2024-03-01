@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
@@ -11,12 +12,17 @@ use AlecRabbit\Spinner\Core\DummySignalHandlingSetup;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\SignalHandlingSetup;
 
-final class SignalHandlingSetupFactory implements Contract\ISignalHandlingSetupFactory
+final class SignalHandlingSetupFactory implements Contract\ISignalHandlingSetupFactory, IInvokable
 {
     public function __construct(
         protected ILoopProvider $loopProvider,
         protected ILoopConfig $loopConfig,
     ) {
+    }
+
+    public function __invoke(): ISignalHandlingSetup
+    {
+        return $this->create();
     }
 
     public function create(): ISignalHandlingSetup

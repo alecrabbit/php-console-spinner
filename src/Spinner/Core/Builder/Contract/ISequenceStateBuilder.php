@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder\Contract;
 
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
-use AlecRabbit\Spinner\Core\Contract\ISequenceState;
+use AlecRabbit\Spinner\Contract\ISequenceState;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 interface ISequenceStateBuilder

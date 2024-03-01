@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILinkerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILinkerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\ILinkerConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 
-final readonly class LinkerConfigFactory implements ILinkerConfigFactory
+final readonly class LinkerConfigFactory implements ILinkerConfigFactory, IInvokable
 {
     public function __construct(
         protected ILinkerModeSolver $linkerModeSolver,
         protected ILinkerConfigBuilder $linkerConfigBuilder,
     ) {
+    }
+
+    public function __invoke(): ILinkerConfig
+    {
+        return $this->create();
     }
 
     public function create(): ILinkerConfig

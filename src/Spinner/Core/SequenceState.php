@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ISequenceState;
+use AlecRabbit\Spinner\Contract\ISequenceState;
 
 final readonly class SequenceState implements ISequenceState
 {

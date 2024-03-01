@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Complex\Config;
+namespace AlecRabbit\Tests\Spinner\Integration\Config;
 
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -24,7 +24,6 @@ final class SignalHandlersContainerConfigTest extends ConfigurationTestCase
     {
         self::setContainer(
             self::modifyContainer(
-                self::getStoredContainer(),
                 [
                     // Detected settings considered as AUTO
                     IDetectedSettingsFactory::class => static function () {

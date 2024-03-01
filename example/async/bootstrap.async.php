@@ -8,6 +8,7 @@ use AlecRabbit\Lib\Spinner\Factory\DriverLinkerDecoratorFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
+use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Facade;
@@ -24,9 +25,7 @@ $registry = DefinitionRegistry::getInstance();
 $registry->bind(
     new ServiceDefinition(
         IDriverLinker::class,
-        static function (IContainer $container): IDriverLinker {
-            return $container->get(IDriverLinkerDecoratorFactory::class)->create();
-        },
+        new Reference(IDriverLinkerDecoratorFactory::class),
         IServiceDefinition::SINGLETON,
     ),
     // Register driver linker decorator factory

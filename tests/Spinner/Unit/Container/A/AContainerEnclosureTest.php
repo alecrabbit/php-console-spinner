@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Container\A;
 
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
+use AlecRabbit\Spinner\Container\Contract\IContainerBuilderFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\Spinner\Unit\Container\A\Override\AContainerEnclosureOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -22,18 +22,18 @@ final class AContainerEnclosureTest extends TestCase
     private static ?ContainerInterface $container;
 
     #[Test]
-    public function canUseContainerFactoryClass(): void
+    public function canUseFactoryClass(): void
     {
-        $factoryClass = $this->getContainerFactoryMock();
+        $factory = $this->getContainerBuilderFactoryMock();
 
-        AContainerEnclosure::useContainerFactory($factoryClass::class);
+        AContainerEnclosure::useFactoryClass($factory::class);
 
         self::assertInstanceOf(IContainer::class, self::extractContainer());
     }
 
-    private function getContainerFactoryMock(): MockObject&IContainerFactory
+    private function getContainerBuilderFactoryMock(): MockObject&IContainerBuilderFactory
     {
-        return $this->createMock(IContainerFactory::class);
+        return $this->createMock(IContainerBuilderFactory::class);
     }
 
     private static function extractContainer(): mixed
@@ -42,18 +42,18 @@ final class AContainerEnclosureTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfFactoryClassISInvalid(): void
+    public function throwsIfContainerBuilderClassFactoryIsInvalid(): void
     {
         $class = stdClass::class;
         $this->expectException(ContainerException::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Factory class must implement [%s]. "%s" given.',
-                IContainerFactory::class,
+                'Container builder class must implement [%s]. "%s" given.',
+                IContainerBuilderFactory::class,
                 $class,
             )
         );
-        AContainerEnclosure::useContainerFactory($class);
+        AContainerEnclosure::useFactoryClass($class);
     }
 
     protected function setUp(): void

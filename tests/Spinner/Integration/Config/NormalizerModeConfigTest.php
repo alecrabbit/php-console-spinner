@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Complex\Config;
+namespace AlecRabbit\Tests\Spinner\Integration\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
@@ -21,7 +21,6 @@ final class NormalizerModeConfigTest extends ConfigurationTestCase
     {
         self::setContainer(
             self::modifyContainer(
-                self::getStoredContainer(),
                 [
                     // Detected settings considered as AUTO
                     IDetectedSettingsFactory::class => static function () {

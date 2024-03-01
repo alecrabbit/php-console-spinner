@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Root;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
+use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\ICharFrameTransformer;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
 use AlecRabbit\Spinner\Contract\INowTimer;
 use AlecRabbit\Spinner\Contract\IStyleFrameTransformer;
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
-use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
-use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDeltaTimerBuilder;
@@ -116,7 +113,6 @@ use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Contract\IDivisorProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\IDriverMessages;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
@@ -139,20 +135,30 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopCreatorClassProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSupportDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSupportDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStylingMethodDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\DeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Factory\INowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopCreatorClassProviderFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopSupportDetectorFactory;
+use AlecRabbit\Spinner\Core\Factory\NowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateFactory;
 use AlecRabbit\Spinner\Core\Factory\SequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlingSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\SignalHandlingSupportDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\StylingMethodDetectorFactory;
 use AlecRabbit\Spinner\Core\Feature\Resolver\AutoStartResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IAutoStartResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
@@ -162,13 +168,11 @@ use AlecRabbit\Spinner\Core\Feature\Resolver\LinkerResolver;
 use AlecRabbit\Spinner\Core\IntervalComparator;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Loop\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Factory\LoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassExtractor;
-use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
 use AlecRabbit\Spinner\Core\Output\BufferedOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\Factory\IWritableStreamFactory;
@@ -195,9 +199,6 @@ use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Detector\SignalHandlingSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Detector\StylingMethodDetector;
 use AlecRabbit\Spinner\Core\Settings\Factory\DefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
@@ -211,10 +212,7 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
-use AlecRabbit\Spinner\Probes;
 use Traversable;
-
-use function hrtime;
 
 // @codeCoverageIgnoreStart
 /**
@@ -235,51 +233,37 @@ function getDefinitions(): Traversable
         ),
         new ServiceDefinition(
             IWritableStream::class,
-            static function (IContainer $container): IWritableStream {
-                return $container->get(IWritableStreamFactory::class)->create();
-            },
+            new Reference(IWritableStreamFactory::class),
             IServiceDefinition::SINGLETON,
         ),
         new ServiceDefinition(
             ISettingsProvider::class,
-            static function (IContainer $container): ISettingsProvider {
-                return $container->get(ISettingsProviderFactory::class)->create();
-            },
-            IServiceDefinition::SINGLETON,
+            new Reference(ISettingsProviderFactory::class),
+            IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC,
         ),
         new ServiceDefinition(
             ILoopProvider::class,
-            static function (IContainer $container): ILoopProvider {
-                return $container->get(ILoopProviderFactory::class)->create();
-            },
-            IServiceDefinition::SINGLETON,
+            new Reference(ILoopProviderFactory::class),
+            IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC,
         ),
         new ServiceDefinition(
             IDriverProvider::class,
-            static function (IContainer $container): IDriverProvider {
-                return $container->get(IDriverProviderFactory::class)->create();
-            },
-            IServiceDefinition::SINGLETON,
+            new Reference(IDriverProviderFactory::class),
+            IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC,
         ),
         new ServiceDefinition(
             IDriverLinker::class,
-            static function (IContainer $container): IDriverLinker {
-                return $container->get(IDriverLinkerFactory::class)->create();
-            },
+            new Reference(IDriverLinkerFactory::class),
             IServiceDefinition::SINGLETON,
         ),
         new ServiceDefinition(
             ISequenceStateWriter::class,
-            static function (IContainer $container): ISequenceStateWriter {
-                return $container->get(ISequenceStateWriterFactory::class)->create();
-            },
+            new Reference(ISequenceStateWriterFactory::class),
             IServiceDefinition::SINGLETON,
         ),
         new ServiceDefinition(
             IDeltaTimer::class,
-            static function (IContainer $container): IDeltaTimer {
-                return $container->get(IDeltaTimerFactory::class)->create();
-            },
+            new Reference(IDeltaTimerFactory::class),
             IServiceDefinition::SINGLETON,
         ),
         new ServiceDefinition(
@@ -289,36 +273,19 @@ function getDefinitions(): Traversable
         ),
         IRenderer::class => Renderer::class,
         IModePaletteRenderer::class => ModePaletteRenderer::class,
-        INowTimer::class => new class() implements INowTimer {
-            public function now(): float
-            {
-                return hrtime(true) * 1e-6; // returns milliseconds
-            }
-        },
+        INowTimer::class => new Reference(INowTimerFactory::class),
 
         IOutput::class => Output::class,
         IDriverSetup::class => DriverSetup::class,
-        ISignalHandlingSetup::class => static function (IContainer $container): ISignalHandlingSetup {
-            return $container->get(ISignalHandlingSetupFactory::class)->create();
-        },
+        ISignalHandlingSetup::class => new Reference(ISignalHandlingSetupFactory::class),
 
         IIntervalComparator::class => IntervalComparator::class,
-        IIntervalNormalizer::class => static function (IContainer $container): IIntervalNormalizer {
-            $normalizerMode = $container->get(INormalizerConfig::class)->getNormalizerMode();
-
-            return $container->get(IIntervalNormalizerFactory::class)->create($normalizerMode);
-        },
-        ILoopCreatorClassProvider::class => static function (IContainer $container): ILoopCreatorClassProvider {
-            $creatorClass =
-                $container->get(ILoopCreatorClassExtractor::class)
-                    ->extract(
-                        Probes::load(ILoopProbe::class)
-                    )
-            ;
-            return new LoopCreatorClassProvider(
-                $creatorClass,
-            );
-        },
+        IIntervalNormalizer::class => new Reference(IIntervalNormalizerFactory::class),
+        ILoopCreatorClassProvider::class => new ServiceDefinition(
+            ILoopCreatorClassProvider::class,
+            new Reference(ILoopCreatorClassProviderFactory::class),
+            IServiceDefinition::SINGLETON,
+        ),
         ILoopCreatorClassExtractor::class => LoopCreatorClassExtractor::class,
         ILoopSetup::class => LoopSetup::class,
 
@@ -337,36 +304,16 @@ function getDefinitions(): Traversable
 function configs(): Traversable
 {
     yield from [
-        IDriverConfig::class => static function (IContainer $container): IDriverConfig {
-            return $container->get(IDriverConfigFactory::class)->create();
-        },
-        ILinkerConfig::class => static function (IContainer $container): ILinkerConfig {
-            return $container->get(ILinkerConfigFactory::class)->create();
-        },
-        IOutputConfig::class => static function (IContainer $container): IOutputConfig {
-            return $container->get(IOutputConfigFactory::class)->create();
-        },
-        ILoopConfig::class => static function (IContainer $container): ILoopConfig {
-            return $container->get(ILoopConfigFactory::class)->create();
-        },
-        INormalizerConfig::class => static function (IContainer $container): INormalizerConfig {
-            return $container->get(INormalizerConfigFactory::class)->create();
-        },
-        IGeneralConfig::class => static function (IContainer $container): IGeneralConfig {
-            return $container->get(IGeneralConfigFactory::class)->create();
-        },
-        IWidgetConfig::class => static function (IContainer $container): IWidgetConfig {
-            return $container->get(IInitialWidgetConfigFactory::class)->create();
-        },
-        IRootWidgetConfig::class => static function (IContainer $container): IRootWidgetConfig {
-            return $container->get(IInitialRootWidgetConfigFactory::class)->create();
-        },
-        RunMethodMode::class => static function (IContainer $container): RunMethodMode {
-            return $container->get(IGeneralConfig::class)->getRunMethodMode();
-        },
-        IRevolverConfig::class => static function (IContainer $container): IRevolverConfig {
-            return $container->get(IRevolverConfigFactory::class)->create();
-        },
+        IDriverConfig::class => new Reference(IDriverConfigFactory::class),
+        ILinkerConfig::class => new Reference(ILinkerConfigFactory::class),
+        IOutputConfig::class => new Reference(IOutputConfigFactory::class),
+        ILoopConfig::class => new Reference(ILoopConfigFactory::class),
+        INormalizerConfig::class => new Reference(INormalizerConfigFactory::class),
+        IGeneralConfig::class => new Reference(IGeneralConfigFactory::class),
+        IWidgetConfig::class => new Reference(IInitialWidgetConfigFactory::class),
+        IRootWidgetConfig::class => new Reference(IInitialRootWidgetConfigFactory::class),
+
+        IRevolverConfig::class => new Reference(IRevolverConfigFactory::class),
         IInitializationResolver::class => InitializationResolver::class,
         IAutoStartResolver::class => AutoStartResolver::class,
         ILinkerResolver::class => LinkerResolver::class,
@@ -374,9 +321,6 @@ function configs(): Traversable
         ILinkerModeDetector::class => LinkerModeDetector::class,
         IDriverModeDetector::class => DriverModeDetector::class,
         IInitializationModeDetector::class => InitializationModeDetector::class,
-        IDriverMessages::class => static function (IContainer $container): IDriverMessages {
-            return $container->get(IDriverConfig::class)->getDriverMessages();
-        },
     ];
 }
 
@@ -429,6 +373,7 @@ function solvers(): Traversable
 function factories(): Traversable
 {
     yield from [
+        INowTimerFactory::class => NowTimerFactory::class,
         IDriverFactory::class => DriverFactory::class,
         IDriverConfigFactory::class => DriverConfigFactory::class,
         ILoopProviderFactory::class => LoopProviderFactory::class,
@@ -444,7 +389,11 @@ function factories(): Traversable
         IIntervalFactory::class => IntervalFactory::class,
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
-        ISpinnerFactory::class => SpinnerFactory::class,
+        ISpinnerFactory::class => new ServiceDefinition(
+            ISpinnerFactory::class,
+            SpinnerFactory::class,
+            IServiceDefinition::PUBLIC,
+        ),
         IDeltaTimerFactory::class => DeltaTimerFactory::class,
         IUserSettingsFactory::class => UserSettingsFactory::class,
         IWidgetFactory::class => WidgetFactory::class,
@@ -453,6 +402,7 @@ function factories(): Traversable
         ICharPatternFactory::class => CharPatternFactory::class,
 
         IPaletteModeFactory::class => PaletteModeFactory::class,
+        ILoopCreatorClassProviderFactory::class => LoopCreatorClassProviderFactory::class,
 
         IGeneralConfigFactory::class => GeneralConfigFactory::class,
         INormalizerConfigFactory::class => NormalizerConfigFactory::class,
@@ -460,6 +410,9 @@ function factories(): Traversable
         IOutputConfigFactory::class => OutputConfigFactory::class,
         ILinkerConfigFactory::class => LinkerConfigFactory::class,
         IRevolverConfigFactory::class => RevolverConfigFactory::class,
+        ILoopSupportDetectorFactory::class => LoopSupportDetectorFactory::class,
+        ISignalHandlingSupportDetectorFactory::class => SignalHandlingSupportDetectorFactory::class,
+        IStylingMethodDetectorFactory::class => StylingMethodDetectorFactory::class,
 
         ILoopFactory::class => LoopFactory::class,
 
@@ -474,21 +427,9 @@ function factories(): Traversable
 function detectors(): Traversable
 {
     yield from [
-        ILoopSupportDetector::class => static function (IContainer $container): LoopSupportDetector {
-            return new LoopSupportDetector(
-                $container->get(ILoopCreatorClassProvider::class)->getCreatorClass(),
-            );
-        },
-        ISignalHandlingSupportDetector::class => static function (): SignalHandlingSupportDetector {
-            return new SignalHandlingSupportDetector(
-                Probes::load(ISignalHandlingProbe::class)
-            );
-        },
-        IStylingMethodDetector::class => static function (): IStylingMethodDetector {
-            return new StylingMethodDetector(
-                Probes::load(IStylingMethodProbe::class)
-            );
-        },
+        ILoopSupportDetector::class => new Reference(ILoopSupportDetectorFactory::class),
+        ISignalHandlingSupportDetector::class => new Reference(ISignalHandlingSupportDetectorFactory::class),
+        IStylingMethodDetector::class => new Reference(IStylingMethodDetectorFactory::class),
     ];
 }
 // @codeCoverageIgnoreEnd

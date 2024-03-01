@@ -17,11 +17,16 @@ final readonly class ContainerFactory implements IContainerFactory
     ) {
     }
 
-    public function create(IDefinitionRegistry $definitionRegistry): IContainer
+    public function create(IDefinitionRegistry $registry): IContainer
     {
         return new Container(
             spawnerFactory: $this->spawnerFactory,
-            definitions: $definitionRegistry->load(),
+            definitions: $registry->load(),
         );
+    }
+
+    public function isSupported(): bool
+    {
+        return true;
     }
 }

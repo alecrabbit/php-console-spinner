@@ -36,7 +36,9 @@
         "react/http": "*",
         "revolt/event-loop": "*",
         "symfony/console": "*",
-        "symfony/var-dumper": "*"
+        "symfony/dependency-injection": "^7.0",
+        "symfony/var-dumper": "*",
+        "php-di/php-di": "^7.0"
     },
     "suggest": {
         "ext-mbstring": "For multibyte Unicode string functionality.",

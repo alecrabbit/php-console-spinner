@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Container;
 
 use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IReference;
 use AlecRabbit\Spinner\Container\Contract\IService;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceFactory;
@@ -13,6 +14,7 @@ use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Tests\Spinner\Unit\Container\Override\ClassForSpawner;
 use AlecRabbit\Tests\Spinner\Unit\Container\Override\ClassForSpawnerTwo;
 use AlecRabbit\Tests\Spinner\Unit\Container\Override\ClassForSpawnerUnionNotAllowingNull;
@@ -76,7 +78,7 @@ final class ServiceSpawnerTest extends TestCase
 
         $serviceObjectFactory = $this->getServiceObjectFactoryMock();
         $serviceObjectFactory
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('create')
             ->with(
                 value: self::identicalTo($object),
@@ -90,12 +92,12 @@ final class ServiceSpawnerTest extends TestCase
         );
 
         $serviceDefinition
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getId')
             ->willReturn($id)
         ;
         $serviceDefinition
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefinition')
             ->willReturn($object)
         ;
@@ -116,6 +118,79 @@ final class ServiceSpawnerTest extends TestCase
     }
 
     #[Test]
+    public function canSpawnByReference(): void
+    {
+        $id = 'id';
+        $reference = $this->getReferenceMock();
+        $reference
+            ->expects($this->once())
+            ->method('__toString')
+            ->willReturn($id)
+        ;
+
+        $container = $this->getContainerMock();
+        $service = $this->getServiceMock();
+
+        $factory = $this->getInvokableFactoryMock();
+        $factory
+            ->expects($this->once())
+            ->method('__invoke')
+            ->with()
+            ->willReturn($service)
+        ;
+
+        $container
+            ->expects($this->once())
+            ->method('get')
+            ->with($id)
+            ->willReturn($factory)
+        ;
+
+        $serviceDefinition = $this->getServiceDefinitionMock();
+
+        $serviceObjectFactory = $this->getServiceObjectFactoryMock();
+        $serviceObjectFactory
+            ->expects($this->once())
+            ->method('create')
+            ->with(
+                value: self::identicalTo($service),
+                serviceDefinition: $serviceDefinition,
+            )
+            ->willReturn($service)
+        ;
+
+        $spawner = $this->getTesteeInstance(
+            container: $container,
+            serviceObjectFactory: $serviceObjectFactory,
+        );
+
+        $serviceDefinition
+            ->expects($this->once())
+            ->method('getId')
+            ->willReturn($id)
+        ;
+        $serviceDefinition
+            ->expects($this->once())
+            ->method('getDefinition')
+            ->willReturn($reference)
+        ;
+
+        $serviceObject = $spawner->spawn($serviceDefinition);
+
+        self::assertSame($service, $serviceObject);
+    }
+
+    private function getReferenceMock(): MockObject&IReference
+    {
+        return $this->createMock(IReference::class);
+    }
+
+    private function getInvokableFactoryMock(): MockObject&IInvokable
+    {
+        return $this->createMock(IInvokable::class);
+    }
+
+    #[Test]
     public function canSpawnWithClassString(): void
     {
         $classString = ClassForSpawner::class;
@@ -125,7 +200,7 @@ final class ServiceSpawnerTest extends TestCase
 
         $serviceObjectFactory = $this->getServiceObjectFactoryMock();
         $serviceObjectFactory
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('create')
             ->with(
                 value: self::isInstanceOf($classString),
@@ -139,12 +214,12 @@ final class ServiceSpawnerTest extends TestCase
         );
 
         $serviceDefinition
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getId')
             ->willReturn($classString)
         ;
         $serviceDefinition
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefinition')
             ->willReturn($classString)
         ;
@@ -164,7 +239,7 @@ final class ServiceSpawnerTest extends TestCase
 
         $serviceObjectFactory = $this->getServiceObjectFactoryMock();
         $serviceObjectFactory
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('create')
             ->with(
                 value: self::isInstanceOf($classString),
@@ -178,12 +253,12 @@ final class ServiceSpawnerTest extends TestCase
         );
 
         $serviceDefinition
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getId')
             ->willReturn($classString)
         ;
         $serviceDefinition
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefinition')
             ->willReturn($classString)
         ;
@@ -202,7 +277,7 @@ final class ServiceSpawnerTest extends TestCase
 
         $serviceObjectFactory = $this->getServiceObjectFactoryMock();
         $serviceObjectFactory
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('create')
             ->with(
                 value: self::isInstanceOf(ClassForSpawner::class),
@@ -216,12 +291,12 @@ final class ServiceSpawnerTest extends TestCase
         );
 
         $serviceDefinition
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getId')
             ->willReturn(ClassForSpawner::class)
         ;
         $serviceDefinition
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefinition')
             ->willReturn($callable)
         ;
@@ -236,7 +311,7 @@ final class ServiceSpawnerTest extends TestCase
     {
         $container = $this->getContainerMock();
         $container
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('get')
             ->with(ClassForSpawner::class)
             ->willReturn(new ClassForSpawner())
@@ -249,7 +324,7 @@ final class ServiceSpawnerTest extends TestCase
 
         $serviceObjectFactory = $this->getServiceObjectFactoryMock();
         $serviceObjectFactory
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('create')
             ->with(
                 value: self::isInstanceOf($classString),
@@ -264,12 +339,12 @@ final class ServiceSpawnerTest extends TestCase
         );
 
         $serviceDefinition
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getId')
             ->willReturn(ClassForSpawner::class)
         ;
         $serviceDefinition
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefinition')
             ->willReturn($classString)
         ;
@@ -400,6 +475,60 @@ final class ServiceSpawnerTest extends TestCase
             id: 'id',
             definition: fn() => throw new Exception('Intentional Error.'),
         );
+
+        $spawner->spawn($serviceDefinition);
+
+        self::fail(
+            self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
+        );
+    }
+
+    #[Test]
+    public function throwsWhenReferenceIsNotInvokable(): void
+    {
+        $id = 'id';
+        $factoryId = 'factory';
+
+        $exceptionClass = SpawnFailed::class;
+        $exceptionMessage = sprintf(
+            'Failed to spawn service with id "%s". [%s]: "Service with id "%s" is not invokable.".',
+            $id,
+            SpawnFailed::class,
+            $factoryId,
+        );
+
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
+
+
+        $reference = $this->getReferenceMock();
+        $reference
+            ->expects($this->once())
+            ->method('__toString')
+            ->willReturn($factoryId)
+        ;
+
+        $container = $this->getContainerMock();
+        $container
+            ->expects($this->once())
+            ->method('get')
+            ->with($factoryId)
+            ->willReturn(new ClassForSpawner())
+        ;
+
+        $serviceDefinition = $this->getServiceDefinitionMock();
+        $serviceDefinition
+            ->expects($this->exactly(2))
+            ->method('getId')
+            ->willReturn($id)
+        ;
+        $serviceDefinition
+            ->expects($this->once())
+            ->method('getDefinition')
+            ->willReturn($reference)
+        ;
+
+        $spawner = $this->getTesteeInstance(container: $container);
 
         $spawner->spawn($serviceDefinition);
 

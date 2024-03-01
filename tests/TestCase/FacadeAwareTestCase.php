@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
+use AlecRabbit\Spinner\Container\Adapter\ContainerAdapter;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Facade;
 
@@ -12,11 +13,6 @@ abstract class FacadeAwareTestCase extends PcntlAwareTestCase
     private const GET_CONTAINER = 'getContainer';
     private const SET_CONTAINER = 'setContainer';
     private static ?IContainer $container = null;
-
-    protected static function getStoredContainer(): ?IContainer
-    {
-        return self::$container;
-    }
 
     protected static function getCurrentContainer(): IContainer
     {
@@ -28,10 +24,6 @@ abstract class FacadeAwareTestCase extends PcntlAwareTestCase
         return self::callMethod(Facade::class, self::GET_CONTAINER);
     }
 
-    protected static function getService(string $id): mixed
-    {
-        return self::extractContainer()->get($id);
-    }
 
     protected function setUp(): void
     {

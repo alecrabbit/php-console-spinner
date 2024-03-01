@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
@@ -18,11 +19,16 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Exception\DomainException;
 
-final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigFactory
+final readonly class InitialWidgetConfigFactory implements IInitialWidgetConfigFactory, IInvokable
 {
     public function __construct(
         protected IWidgetSettingsSolver $widgetSettingsSolver,
     ) {
+    }
+
+    public function __invoke(): IWidgetConfig
+    {
+        return $this->create();
     }
 
     public function create(): IWidgetConfig

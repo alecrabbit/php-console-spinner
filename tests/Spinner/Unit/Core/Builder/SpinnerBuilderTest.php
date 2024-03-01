@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Builder\SpinnerBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateFactory;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;

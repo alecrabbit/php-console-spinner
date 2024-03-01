@@ -48,12 +48,20 @@ final class ContainerFactoryTest extends TestCase
         self::assertInstanceOf(Container::class, $container);
     }
 
-    protected function getDefinitionRegistryMock(): MockObject&IDefinitionRegistry
+    private function getDefinitionRegistryMock(): MockObject&IDefinitionRegistry
     {
         return $this->createMock(IDefinitionRegistry::class);
     }
 
-    protected function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
+    #[Test]
+    public function canIsSupported(): void
+    {
+        $containerFactory = $this->getTesteeInstance();
+
+        self::assertTrue($containerFactory->isSupported());
+    }
+
+    private function getSpawnerBuilderMock(): MockObject&IServiceSpawnerBuilder
     {
         return $this->createMock(IServiceSpawnerBuilder::class);
     }

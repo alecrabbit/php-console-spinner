@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\ICircularDependencyDetector;
+use AlecRabbit\Spinner\Container\Contract\IReference;
 use AlecRabbit\Spinner\Container\Contract\IService;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Contract\IServiceFactory;
@@ -21,6 +22,10 @@ use ReflectionException;
 use ReflectionNamedType;
 use ReflectionType;
 use Throwable;
+
+use function is_callable;
+
+use const E_USER_DEPRECATED;
 
 final readonly class ServiceSpawner implements IServiceSpawner
 {
@@ -61,15 +66,42 @@ final readonly class ServiceSpawner implements IServiceSpawner
      */
     private function spawnService(IServiceDefinition $serviceDefinition): IService
     {
-        $this->circularDependencyDetector->push($serviceDefinition->getId());
+        $id = $serviceDefinition->getId();
+
+        $this->circularDependencyDetector->push($id);
 
         $definition = $serviceDefinition->getDefinition();
+
+        static $counter = 0;
+
+        if (match (true) {
+            is_callable($definition) => true,
+            is_string($definition) => false,
+            default => !$definition instanceof IReference,
+        }) {
+            // FIXME (2024-02-29 13:57) [Alec Rabbit]: Remove this block and remove callable and object spawning support
+            @trigger_error(
+                sprintf(
+                    'Using callable or object as service definition("%s") is deprecated. Use class-string or Reference to invokable instead.',
+                    $id,
+                ),
+                E_USER_DEPRECATED
+            );
+
+//            echo "\e[33m" .
+//                sprintf(
+//                    '%s [%s]: Using callable or object as service definition is deprecated.',
+//                    str_pad((string)++$counter, 3, ' ', STR_PAD_LEFT),
+//                    $id,
+//                ) . "\e[0m"
+//                . PHP_EOL;
+        }
 
         $value =
             match (true) {
                 is_callable($definition) => $this->spawnByCallable($definition),
                 is_string($definition) => $this->spawnByClassConstructor($definition),
-                default => $definition, // return object as is
+                default => $this->refine($definition), // return object as is
             };
 
         $this->circularDependencyDetector->pop();
@@ -178,5 +210,31 @@ final readonly class ServiceSpawner implements IServiceSpawner
     private function getServiceFromContainer(string $id): object
     {
         return $this->container->get($id);
+    }
+
+    private function refine(object $object): object
+    {
+        if ($object instanceof IReference) {
+            return $this->spawnFromReference($object);
+        }
+
+        return $object;
+    }
+
+    protected function spawnFromReference(IReference $object)
+    {
+        $id = $object->__toString();
+        $invokable = $this->getServiceFromContainer($id);
+
+        if (is_callable($invokable)) {
+            return $invokable();
+        }
+
+        throw new SpawnFailed(
+            sprintf(
+                'Service with id "%s" is not invokable.',
+                $id,
+            )
+        );
     }
 }

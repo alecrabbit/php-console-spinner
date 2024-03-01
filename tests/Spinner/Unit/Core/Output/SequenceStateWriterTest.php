@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Output;
 
+use AlecRabbit\Spinner\Contract\ISequenceState;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Contract\ISequenceState;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;

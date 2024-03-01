@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISequenceStateWriterBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
@@ -11,7 +12,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
 use AlecRabbit\Spinner\Core\Output\Contract\ISequenceStateWriter;
 
-final readonly class SequenceStateWriterFactory implements ISequenceStateWriterFactory
+final readonly class SequenceStateWriterFactory implements ISequenceStateWriterFactory, IInvokable
 {
     public function __construct(
         private ISequenceStateWriterBuilder $sequenceStateWriterBuilder,
@@ -19,6 +20,11 @@ final readonly class SequenceStateWriterFactory implements ISequenceStateWriterF
         private IConsoleCursorFactory $cursorFactory,
         private IInitializationResolver $initializationResolver,
     ) {
+    }
+
+    public function __invoke(): ISequenceStateWriter
+    {
+        return $this->create();
     }
 
     public function create(): ISequenceStateWriter

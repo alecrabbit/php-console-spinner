@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container\A;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
-use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
-use AlecRabbit\Spinner\Container\DefinitionRegistry;
+use AlecRabbit\Spinner\Container\Contract\IContainerBuilder;
+use AlecRabbit\Spinner\Container\Contract\IContainerBuilderFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
-use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 
 abstract class AContainerEnclosure
 {
+    private const EMPTY = '';
+
     private static ?IContainer $container = null;
 
-    /** @var class-string<IContainerFactory> */
-    private static string $factoryClass = ContainerFactory::class;
+    /** @var class-string<IContainerBuilderFactory> */
+    private static string $factoryClass = self::EMPTY;
 
     /**
      * @codeCoverageIgnore
@@ -26,25 +26,29 @@ abstract class AContainerEnclosure
         // No instances allowed.
     }
 
-    public static function useContainerFactory(string $factoryClass): void
+    public static function useFactoryClass(string $class): void // method name [2d254244-98d1-47b2-83c3-f761ad83f042]
     {
-        if (!is_subclass_of($factoryClass, IContainerFactory::class)) {
+        self::assertClass($class);
+        self::$factoryClass = $class;
+    }
+
+    private static function assertClass(string $class): void
+    {
+        if (!is_subclass_of($class, IContainerBuilderFactory::class)) {
             throw new ContainerException(
                 sprintf(
-                    'Factory class must implement [%s]. "%s" given.',
-                    IContainerFactory::class,
-                    $factoryClass,
+                    'Container builder class must implement [%s]. "%s" given.',
+                    IContainerBuilderFactory::class,
+                    $class,
                 )
             );
         }
-
-        self::$factoryClass = $factoryClass;
     }
 
     final protected static function getContainer(): IContainer
     {
         if (self::$container === null) {
-            self::$container = self::createContainer();
+            self::$container = self::getContainerBuilder()->build();
         }
         return self::$container;
     }
@@ -57,18 +61,19 @@ abstract class AContainerEnclosure
         self::$container = $container;
     }
 
-    private static function createContainer(): IContainer
+    private static function getContainerBuilder(): IContainerBuilder
     {
-        return self::getFactory()->create(self::getDefinitionRegistry());
-    }
+        if (self::$factoryClass === self::EMPTY) {
+            throw new ContainerException(
+                sprintf(
+                    'Container builder factory class must be set. Use %s method for that.',
+                    static::class . '::useFactoryClass()' // method name [2d254244-98d1-47b2-83c3-f761ad83f042]
+                )
+            );
+        }
 
-    private static function getFactory(): IContainerFactory
-    {
-        return new (self::$factoryClass)();
-    }
+        self::assertClass(self::$factoryClass);
 
-    private static function getDefinitionRegistry(): IDefinitionRegistry
-    {
-        return DefinitionRegistry::getInstance();
+        return (new (self::$factoryClass)())->create();
     }
 }

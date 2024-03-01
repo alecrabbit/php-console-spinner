@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\TestCase;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
+use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
@@ -22,27 +23,17 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
     protected static function setTestContainer(): void
     {
         self::setContainer(
-            self::modifyContainer(
-                self::getStoredContainer()
-            )
+            self::modifyContainer()
         );
     }
 
     protected static function modifyContainer(
-        IContainer $container,
         array $substitutes = []
     ): IContainer {
-        $definitions = self::extractDefinitions($container);
-
         return
             self::createContainer(
-                self::modifyDefinitions(clone $definitions, $substitutes)
+                self::modifyDefinitions(self::getDefinitions(), $substitutes)
             );
-    }
-
-    private static function extractDefinitions(IContainer $container): ArrayObject
-    {
-        return self::getPropertyValue(self::DEFINITIONS, $container);
     }
 
     private static function createContainer(ArrayObject $definitions): IContainer
@@ -113,6 +104,15 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                 ),
             ],
             $substitutes
+        );
+    }
+
+    private static function getDefinitions(): ArrayObject
+    {
+        return new ArrayObject(
+            iterator_to_array(
+                DefinitionRegistry::getInstance()->load(),
+            )
         );
     }
 }

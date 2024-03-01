@@ -6,5 +6,7 @@ namespace AlecRabbit\Spinner\Container\Contract;
 
 interface IContainerFactory
 {
-    public function create(IDefinitionRegistry $definitionRegistry): IContainer;
+    public function create(IDefinitionRegistry $registry): IContainer;
+
+    public function isSupported(): bool;
 }

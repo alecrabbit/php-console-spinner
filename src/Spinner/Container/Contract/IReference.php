@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AlecRabbit\Spinner\Container\Contract;
+
+use Stringable;
+
+interface IReference extends Stringable
+{
+
+}

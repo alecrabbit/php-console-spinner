@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
+use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IInitialRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
@@ -20,12 +21,17 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Exception\DomainException;
 
-final readonly class InitialRootWidgetConfigFactory implements IInitialRootWidgetConfigFactory
+final readonly class InitialRootWidgetConfigFactory implements IInitialRootWidgetConfigFactory, IInvokable
 {
     public function __construct(
         protected IRootWidgetSettingsSolver $rootWidgetSettingsSolver,
         protected IWidgetSettingsSolver $widgetSettingsSolver,
     ) {
+    }
+
+    public function __invoke(): IRootWidgetConfig
+    {
+        return $this->create();
     }
 
     public function create(): IRootWidgetConfig

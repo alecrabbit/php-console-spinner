@@ -1,11 +1,28 @@
+ ----------- -------------------------------------------------------------------------------------------------------------------------- 
+  Reason      Core                                                                                                                      
+ ----------- -------------------------------------------------------------------------------------------------------------------------- 
+  Violation   AlecRabbit\Spinner\Core\Factory\LoopCreatorClassProviderFactory must not depend on AlecRabbit\Spinner\Probes (Root)       
+              /app/src/Spinner/Core/Factory/LoopCreatorClassProviderFactory.php:35                                                      
+  Violation   AlecRabbit\Spinner\Core\Factory\LoopCreatorClassProviderFactory must not depend on AlecRabbit\Spinner\Probes (Root)       
+              /app/src/Spinner/Core/Factory/LoopCreatorClassProviderFactory.php:13                                                      
+  Violation   AlecRabbit\Spinner\Core\Factory\StylingMethodDetectorFactory must not depend on AlecRabbit\Spinner\Probes (Root)          
+              /app/src/Spinner/Core/Factory/StylingMethodDetectorFactory.php:25                                                         
+  Violation   AlecRabbit\Spinner\Core\Factory\StylingMethodDetectorFactory must not depend on AlecRabbit\Spinner\Probes (Root)          
+              /app/src/Spinner/Core/Factory/StylingMethodDetectorFactory.php:12                                                         
+  Violation   AlecRabbit\Spinner\Core\Factory\SignalHandlingSupportDetectorFactory must not depend on AlecRabbit\Spinner\Probes (Root)  
+              /app/src/Spinner/Core/Factory/SignalHandlingSupportDetectorFactory.php:26                                                 
+  Violation   AlecRabbit\Spinner\Core\Factory\SignalHandlingSupportDetectorFactory must not depend on AlecRabbit\Spinner\Probes (Root)  
+              /app/src/Spinner/Core/Factory/SignalHandlingSupportDetectorFactory.php:12                                                 
+ ----------- -------------------------------------------------------------------------------------------------------------------------- 
+
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           0     
+  Violations           6     
   Skipped violations   0     
-  Uncovered            177   
-  Allowed              3075  
+  Uncovered            195   
+  Allowed              2999  
   Warnings             0     
   Errors               0     
  -------------------- ------ 

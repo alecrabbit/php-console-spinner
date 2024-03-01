@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Complex\Config;
+namespace AlecRabbit\Tests\Spinner\Integration\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
@@ -20,25 +20,26 @@ final class RunMethodModeConfigForcedTest extends ConfigurationTestCase
 {
     protected static function setTestContainer(): void
     {
-        self::modifyContainer(
-            self::getStoredContainer(),
-            [
-                // Detected settings considered as AUTO
-                IDetectedSettingsFactory::class => static function () {
-                    return new class() implements IDetectedSettingsFactory {
-                        public function create(): ISettings
-                        {
-                            return new Settings(
-                                new ArrayObject([
-                                    new GeneralSettings(
-                                        runMethodOption: RunMethodOption::ASYNC,
-                                    )
-                                ])
-                            );
-                        }
-                    };
-                },
-            ]
+        self::setContainer(
+            self::modifyContainer(
+                [
+                    // Detected settings considered as AUTO
+                    IDetectedSettingsFactory::class => static function () {
+                        return new class() implements IDetectedSettingsFactory {
+                            public function create(): ISettings
+                            {
+                                return new Settings(
+                                    new ArrayObject([
+                                        new GeneralSettings(
+                                            runMethodOption: RunMethodOption::ASYNC,
+                                        )
+                                    ])
+                                );
+                            }
+                        };
+                    },
+                ]
+            )
         );
     }
 

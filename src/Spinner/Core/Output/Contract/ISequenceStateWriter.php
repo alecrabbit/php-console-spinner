@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Output\Contract;
 
 use AlecRabbit\Spinner\Contract\IFinalizable;
 use AlecRabbit\Spinner\Contract\IInitializable;
-use AlecRabbit\Spinner\Core\Contract\ISequenceState;
+use AlecRabbit\Spinner\Contract\ISequenceState;
 
 interface ISequenceStateWriter extends IInitializable, IFinalizable
 {
