@@ -23,30 +23,28 @@ use AlecRabbit\Benchmark\DatetimeFormatter;
 use AlecRabbit\Benchmark\Factory\BenchmarkFactory;
 use AlecRabbit\Benchmark\Factory\BenchmarkResultsFactory;
 use AlecRabbit\Benchmark\Factory\MeasurementFactory;
-use AlecRabbit\Benchmark\Factory\ReportPrinterFactory;
+use AlecRabbit\Benchmark\Factory\MicrosecondTimerFactory;
 use AlecRabbit\Benchmark\Factory\ResultMaker;
 use AlecRabbit\Benchmark\Factory\StopwatchFactory;
 use AlecRabbit\Benchmark\KeyFormatter;
 use AlecRabbit\Benchmark\ReportFormatter;
 use AlecRabbit\Benchmark\Stopwatch\Builder\StopwatchBuilder;
-use AlecRabbit\Benchmark\Stopwatch\MicrosecondTimer;
 use AlecRabbit\Benchmark\Stopwatch\ResultFormatter;
 use AlecRabbit\Lib\Spinner\Builder\BenchmarkingDriverBuilder;
 use AlecRabbit\Lib\Spinner\Contract\Builder\IBenchmarkingDriverBuilder;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
 use AlecRabbit\Lib\Spinner\Factory\BenchmarkingDriverFactory;
 use AlecRabbit\Lib\Spinner\Factory\BenchmarkingDriverProviderFactory;
+use AlecRabbit\Lib\Spinner\Factory\BenchmarkReportPrinterFactory;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
+use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
-use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
-use AlecRabbit\Spinner\Core\Output\Output;
-use Psr\Container\ContainerInterface;
 
 $registry = DefinitionRegistry::getInstance();
 
 $registry->bind(
-    new ServiceDefinition(ITimer::class, new MicrosecondTimer()),
+    new ServiceDefinition(ITimer::class, new Reference(MicrosecondTimerFactory::class)),
     new ServiceDefinition(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class),
     new ServiceDefinition(IResultMaker::class, ResultMaker::class),
     new ServiceDefinition(IBenchmarkResultsFactory::class, BenchmarkResultsFactory::class),
@@ -63,33 +61,6 @@ $registry->bind(
     new ServiceDefinition(IKeyFormatter::class, KeyFormatter::class),
     new ServiceDefinition(
         IReportPrinter::class,
-        static function (ContainerInterface $container): IReportPrinter {
-            return $container->get(IReportPrinterFactory::class)->create();
-        }
+        new Reference(BenchmarkReportPrinterFactory::class),
     ),
-    new ServiceDefinition(
-        IReportPrinterFactory::class,
-        static function (ContainerInterface $container): IReportPrinterFactory {
-            $stream =
-                new class() implements IWritableStream {
-                    public function write(Traversable $data): void
-                    {
-                        foreach ($data as $el) {
-                            echo $el;
-                        }
-                    }
-                };
-
-            $output =
-                new Output(
-                    $stream
-                );
-
-            return new ReportPrinterFactory(
-                $container->get(IReportPrinterBuilder::class),
-                $output,
-                $container->get(IReportFormatter::class),
-            );
-        }
-    )
 );

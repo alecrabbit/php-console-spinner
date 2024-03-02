@@ -18,8 +18,6 @@ use Traversable;
 
 abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
 {
-    private const DEFINITIONS = 'definitions';
-
     protected static function setTestContainer(): void
     {
         self::setContainer(

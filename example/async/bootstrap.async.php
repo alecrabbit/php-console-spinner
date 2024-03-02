@@ -28,7 +28,6 @@ $registry->bind(
         new Reference(IDriverLinkerDecoratorFactory::class),
         IServiceDefinition::SINGLETON,
     ),
-    // Register driver linker decorator factory
     new ServiceDefinition(IDriverLinkerDecoratorFactory::class, DriverLinkerDecoratorFactory::class),
 );
 
