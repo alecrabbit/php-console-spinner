@@ -31,7 +31,7 @@ final class StringBufferTest extends TestCase
 
     protected static function extractBufferContents(IBuffer $buffer): mixed
     {
-        return self::getPropertyValue('buffer', $buffer);
+        return self::getPropertyValue($buffer, 'buffer');
     }
 
     #[Test]

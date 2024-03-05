@@ -23,7 +23,7 @@ final class SequenceStateWriterTest extends TestCase
         $sequenceStateWriter = $this->getTesteeInstance();
 
         self::assertInstanceOf(SequenceStateWriter::class, $sequenceStateWriter);
-        self::assertFalse(self::getPropertyValue('initialized', $sequenceStateWriter));
+        self::assertFalse(self::getPropertyValue($sequenceStateWriter, 'initialized'));
     }
 
     public function getTesteeInstance(
@@ -84,7 +84,7 @@ final class SequenceStateWriterTest extends TestCase
         $sequenceStateWriter->initialize();
         $sequenceStateWriter->finalize($message);
 
-        self::assertFalse(self::getPropertyValue('initialized', $sequenceStateWriter));
+        self::assertFalse(self::getPropertyValue($sequenceStateWriter, 'initialized'));
     }
 
     #[Test]
@@ -117,7 +117,7 @@ final class SequenceStateWriterTest extends TestCase
         $sequenceStateWriter->initialize();
         $sequenceStateWriter->finalize($message);
 
-        self::assertFalse(self::getPropertyValue('initialized', $sequenceStateWriter));
+        self::assertFalse(self::getPropertyValue($sequenceStateWriter, 'initialized'));
     }
 
     #[Test]
@@ -148,7 +148,7 @@ final class SequenceStateWriterTest extends TestCase
         );
 
         $sequenceStateWriter->initialize();
-        self::assertTrue(self::getPropertyValue('initialized', $sequenceStateWriter));
+        self::assertTrue(self::getPropertyValue($sequenceStateWriter, 'initialized'));
         $sequenceStateWriter->finalize($message);
     }
 

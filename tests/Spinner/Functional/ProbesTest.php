@@ -27,7 +27,7 @@ final class ProbesTest extends TestCase
         $probe = RevoltLoopProbe::class;
         Probes::register($probe);
 
-        $probes = self::getPropertyValue(self::PROBES, Probes::class);
+        $probes = self::getPropertyValue(Probes::class, self::PROBES);
         self::assertContains($probe, $probes);
     }
 
@@ -318,7 +318,7 @@ final class ProbesTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->probes = self::getPropertyValue(self::PROBES, Probes::class);
+        $this->probes = self::getPropertyValue(Probes::class, self::PROBES);
         $this->setProbes([]);
     }
 

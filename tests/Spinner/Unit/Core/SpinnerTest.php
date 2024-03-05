@@ -171,11 +171,11 @@ final class SpinnerTest extends TestCase
 
         $observer = $this->getObserverMock();
 
-        self::assertNull(self::getPropertyValue('observer', $spinner));
+        self::assertNull(self::getPropertyValue($spinner, 'observer'));
 
         $spinner->attach($observer);
 
-        self::assertSame($observer, self::getPropertyValue('observer', $spinner));
+        self::assertSame($observer, self::getPropertyValue($spinner, 'observer'));
     }
 
     #[Test]
@@ -187,11 +187,11 @@ final class SpinnerTest extends TestCase
             observer: $observer
         );
 
-        self::assertSame($observer, self::getPropertyValue('observer', $spinner));
+        self::assertSame($observer, self::getPropertyValue($spinner, 'observer'));
 
         $spinner->detach($observer);
 
-        self::assertNull(self::getPropertyValue('observer', $spinner));
+        self::assertNull(self::getPropertyValue($spinner, 'observer'));
     }
 
     #[Test]

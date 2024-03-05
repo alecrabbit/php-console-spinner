@@ -25,7 +25,7 @@ final class ConsoleCursorTest extends TestCase
         );
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
-        self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $cursor));
+        self::assertSame($cursorMode, self::getPropertyValue($cursor, 'cursorVisibilityMode'));
     }
 
     public function getTesteeInstance(
@@ -62,7 +62,7 @@ final class ConsoleCursorTest extends TestCase
         $cursor = $this->getTesteeInstance(buffer: $buffer, cursorMode: $cursorMode);
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
-        self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $cursor));
+        self::assertSame($cursorMode, self::getPropertyValue($cursor, 'cursorVisibilityMode'));
 
         $cursor->hide();
     }
@@ -80,7 +80,7 @@ final class ConsoleCursorTest extends TestCase
 
         $cursor = $this->getTesteeInstance(buffer: $buffer, cursorMode: $cursorMode);
 
-        self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $cursor));
+        self::assertSame($cursorMode, self::getPropertyValue($cursor, 'cursorVisibilityMode'));
 
         $cursor->hide();
         $cursor->show();
@@ -104,7 +104,7 @@ final class ConsoleCursorTest extends TestCase
         $cursor = $this->getTesteeInstance(buffer: $buffer, cursorMode: $cursorMode);
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
-        self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $cursor));
+        self::assertSame($cursorMode, self::getPropertyValue($cursor, 'cursorVisibilityMode'));
 
         $cursor->show();
     }

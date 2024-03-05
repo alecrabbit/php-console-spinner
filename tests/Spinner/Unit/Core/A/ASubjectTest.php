@@ -58,11 +58,11 @@ final class ASubjectTest extends TestCase
 
         $observer = $this->getObserverMock();
 
-        self::assertNull(self::getPropertyValue('observer', $subject));
+        self::assertNull(self::getPropertyValue($subject, 'observer'));
 
         $subject->attach($observer);
 
-        self::assertSame($observer, self::getPropertyValue('observer', $subject));
+        self::assertSame($observer, self::getPropertyValue($subject, 'observer'));
     }
 
     #[Test]
@@ -74,11 +74,11 @@ final class ASubjectTest extends TestCase
             observer: $observer
         );
 
-        self::assertSame($observer, self::getPropertyValue('observer', $subject));
+        self::assertSame($observer, self::getPropertyValue($subject, 'observer'));
 
         $subject->detach($observer);
 
-        self::assertNull(self::getPropertyValue('observer', $subject));
+        self::assertNull(self::getPropertyValue($subject, 'observer'));
     }
 
     #[Test]
@@ -91,11 +91,11 @@ final class ASubjectTest extends TestCase
             observer: $observer
         );
 
-        self::assertSame($observer, self::getPropertyValue('observer', $subject));
+        self::assertSame($observer, self::getPropertyValue($subject, 'observer'));
 
         $subject->detach($otherObserver);
 
-        self::assertSame($observer, self::getPropertyValue('observer', $subject));
+        self::assertSame($observer, self::getPropertyValue($subject, 'observer'));
     }
 
     #[Test]

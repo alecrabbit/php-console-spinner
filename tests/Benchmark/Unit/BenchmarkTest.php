@@ -154,7 +154,7 @@ final class BenchmarkTest extends TestCase
 
     protected function extractPrefix(IBenchmark $benchmark): mixed
     {
-        return self::getPropertyValue(self::PREFIX, $benchmark);
+        return self::getPropertyValue($benchmark, self::PREFIX);
     }
 
     private function getResultsFactoryMock(): MockObject&IBenchmarkResultsFactory

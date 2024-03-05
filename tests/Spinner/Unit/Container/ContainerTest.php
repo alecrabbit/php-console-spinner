@@ -30,7 +30,7 @@ final class ContainerTest extends TestCase
         $container = $this->getTesteeInstance();
 
         self::assertFalse($container->has('service'));
-        self::assertCount(0, self::getPropertyValue('definitions', $container));
+        self::assertCount(0, self::getPropertyValue($container, 'definitions'));
     }
 
     protected function getTesteeInstance(
@@ -55,7 +55,7 @@ final class ContainerTest extends TestCase
         $container = $this->getTesteeInstance(definitions: new ArrayObject([]));
 
         self::assertFalse($container->has('foo'));
-        self::assertCount(0, self::getPropertyValue('definitions', $container));
+        self::assertCount(0, self::getPropertyValue($container, 'definitions'));
     }
 
     #[Test]
@@ -70,7 +70,7 @@ final class ContainerTest extends TestCase
 
         self::assertTrue($container->has('foo'));
         self::assertTrue($container->has('bar'));
-        self::assertCount(2, self::getPropertyValue('definitions', $container));
+        self::assertCount(2, self::getPropertyValue($container, 'definitions'));
     }
 
     #[Test]
@@ -85,7 +85,7 @@ final class ContainerTest extends TestCase
 
         self::assertTrue($container->has('foo'));
         self::assertTrue($container->has('bar'));
-        self::assertCount(2, self::getPropertyValue('definitions', $container));
+        self::assertCount(2, self::getPropertyValue($container, 'definitions'));
     }
 
     #[Test]

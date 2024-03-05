@@ -23,7 +23,7 @@ final class ContainerFactoriesTest extends TestCase
         $factory = $this->getContainerFactoryMock();
         ContainerFactories::register($factory::class);
 
-        $factories = self::getPropertyValue(self::FACTORIES, ContainerFactories::class);
+        $factories = self::getPropertyValue(ContainerFactories::class, self::FACTORIES);
 
         self::assertContains($factory::class, $factories);
     }
@@ -63,7 +63,7 @@ final class ContainerFactoriesTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->factories = self::getPropertyValue(self::FACTORIES, ContainerFactories::class);
+        $this->factories = self::getPropertyValue(ContainerFactories::class, self::FACTORIES);
         $this->setFactories([]);
     }
 

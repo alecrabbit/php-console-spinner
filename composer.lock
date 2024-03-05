@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "474c7f7570cd92fa4d0403f34aa10a4d",
+    "content-hash": "1baa69425a9a874e7fbac58348faef1f",
     "packages": [
         {
             "name": "psr/container",
@@ -61,6 +61,58 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "alecrabbit/php-sneaky-peek",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alecrabbit/php-sneaky-peek.git",
+                "reference": "baa926abb0c23ce7a9b470ea4d066c37a12b92df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alecrabbit/php-sneaky-peek/zipball/baa926abb0c23ce7a9b470ea4d066c37a12b92df",
+                "reference": "baa926abb0c23ce7a9b470ea4d066c37a12b92df",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "fakerphp/faker": "*",
+                "nunomaduro/collision": "*",
+                "phpunit/php-code-coverage": "*",
+                "phpunit/phpunit": "^11.0",
+                "symfony/console": "*",
+                "symfony/var-dumper": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Sneaky/Functions.php"
+                ],
+                "psr-4": {
+                    "AlecRabbit\\Sneaky\\": "src\\Sneaky\\"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Private and protected properties and methods accessors. NOT FOR PRODUCTION USE.",
+            "keywords": [
+                "accessor",
+                "php",
+                "private",
+                "protected",
+                "reflection"
+            ],
+            "support": {
+                "issues": "https://github.com/alecrabbit/php-sneaky-peek/issues",
+                "source": "https://github.com/alecrabbit/php-sneaky-peek/tree/0.0.1"
+            },
+            "time": "2024-03-05T14:27:27+00:00"
+        },
         {
             "name": "evenement/evenement",
             "version": "v3.0.2",

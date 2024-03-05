@@ -169,7 +169,7 @@ final class DefinitionRegistryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->registry = self::getPropertyValue('instance', DefinitionRegistry::class);
+        $this->registry = self::getPropertyValue(DefinitionRegistry::class, 'instance');
         self::setPropertyValue(DefinitionRegistry::class, 'instance', null);
     }
 

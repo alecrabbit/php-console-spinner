@@ -24,9 +24,9 @@ abstract class TestCase extends PHPUnitTestCase
     final protected const FLOAT_EQUALITY_DELTA = 0.0000001;
     private const FORMAT_THROWABLE = "%s('%s')";
 
-    protected static function getPropertyValue(string $property, mixed $from): mixed
+    protected static function getPropertyValue(object|string $objectOrClass, string $propertyName): mixed
     {
-        return PickLock::getValue($from, $property);
+        return PickLock::getValue($objectOrClass, $propertyName);
     }
 
     protected static function setPropertyValue(object|string $objectOrClass, string $propertyName, mixed $value): void

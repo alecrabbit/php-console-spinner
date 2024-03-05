@@ -42,8 +42,8 @@ final class ConsoleCursorBuilderTest extends TestCase
                 ->build()
         ;
         self::assertInstanceOf(ConsoleCursor::class, $consoleCursor);
-        self::assertSame($buffer, self::getPropertyValue('buffer', $consoleCursor));
-        self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $consoleCursor));
+        self::assertSame($buffer, self::getPropertyValue($consoleCursor, 'buffer'));
+        self::assertSame($cursorMode, self::getPropertyValue($consoleCursor, 'cursorVisibilityMode'));
     }
 
     private function getBufferMock(): MockObject&IBuffer

@@ -38,7 +38,7 @@ final class IntegerNormalizerBuilderTest extends TestCase
             ->build()
         ;
         self::assertInstanceOf(IntegerNormalizer::class, $integerNormalizer);
-        self::assertEquals($divisor, self::getPropertyValue('divisor', $integerNormalizer));
-        self::assertEquals($min, self::getPropertyValue('min', $integerNormalizer));
+        self::assertEquals($divisor, self::getPropertyValue($integerNormalizer, 'divisor'));
+        self::assertEquals($min, self::getPropertyValue($integerNormalizer, 'min'));
     }
 }

@@ -116,7 +116,7 @@ final class LoopProviderFactoryTest extends TestCase
         $loopProvider = $factory->create();
 
         self::assertInstanceOf(LoopProvider::class, $loopProvider);
-        self::assertNull(self::getPropertyValue('loop', $loopProvider));
+        self::assertNull(self::getPropertyValue($loopProvider, 'loop'));
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');
@@ -134,7 +134,7 @@ final class LoopProviderFactoryTest extends TestCase
         $loopProvider = $factory->create();
 
         self::assertInstanceOf(LoopProvider::class, $loopProvider);
-        self::assertNull(self::getPropertyValue('loop', $loopProvider));
+        self::assertNull(self::getPropertyValue($loopProvider, 'loop'));
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');

@@ -17,7 +17,7 @@ final class CommonDriverTest extends TestCaseForDriver
 
         self::assertInstanceOf(Driver::class, $driver);
 
-        self::assertNull(self::getPropertyValue('spinner', $driver));
+        self::assertNull(self::getPropertyValue($driver, 'spinner'));
     }
 
     #[Test]
@@ -57,24 +57,24 @@ final class CommonDriverTest extends TestCaseForDriver
         $spinnerOne = $this->getSpinnerStub();
 
         $driver->add($spinnerOne);
-        self::assertSame($spinnerOne, self::getPropertyValue('spinner', $driver));
+        self::assertSame($spinnerOne, self::getPropertyValue($driver, 'spinner'));
 
         $spinnerTwo = $this->getSpinnerStub();
 
         $driver->add($spinnerTwo);
 
-        self::assertSame($spinnerTwo, self::getPropertyValue('spinner', $driver));
+        self::assertSame($spinnerTwo, self::getPropertyValue($driver, 'spinner'));
 
         $driver->remove($spinnerTwo);
 
-        self::assertNull(self::getPropertyValue('spinner', $driver));
+        self::assertNull(self::getPropertyValue($driver, 'spinner'));
 
         $driver->remove($spinnerTwo);
 
-        self::assertNull(self::getPropertyValue('spinner', $driver));
+        self::assertNull(self::getPropertyValue($driver, 'spinner'));
 
         $driver->remove($spinnerOne);
 
-        self::assertNull(self::getPropertyValue('spinner', $driver));
+        self::assertNull(self::getPropertyValue($driver, 'spinner'));
     }
 }

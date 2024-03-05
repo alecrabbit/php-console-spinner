@@ -38,7 +38,8 @@
         "symfony/console": "*",
         "symfony/dependency-injection": "^7.0",
         "symfony/var-dumper": "*",
-        "php-di/php-di": "^7.0"
+        "php-di/php-di": "^7.0",
+        "alecrabbit/php-sneaky-peek": "^0.0.1"
     },
     "suggest": {
         "ext-mbstring": "For multibyte Unicode string functionality.",

@@ -69,7 +69,7 @@ final class StopwatchTest extends TestCase
 
         $stopwatch->start($key);
 
-        $current = self::getPropertyValue('current', $stopwatch);
+        $current = self::getPropertyValue($stopwatch, 'current');
 
         self::assertArrayHasKey($key, $current);
         self::assertSame($value, $current[$key]);
@@ -97,14 +97,14 @@ final class StopwatchTest extends TestCase
 
         $stopwatch->start($key);
 
-        $current = self::getPropertyValue('current', $stopwatch);
+        $current = self::getPropertyValue($stopwatch, 'current');
 
         self::assertArrayHasKey($key, $current);
         self::assertSame($valueStart, $current[$key]);
 
         $stopwatch->stop($key);
 
-        $current = self::getPropertyValue('current', $stopwatch);
+        $current = self::getPropertyValue($stopwatch, 'current');
         self::assertArrayNotHasKey($key, $current);
 
         $measurements = iterator_to_array($stopwatch->getMeasurements());
