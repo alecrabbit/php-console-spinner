@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+
 namespace AlecRabbit\Tests\TestCase;
 
-use AlecRabbit\Tests\TestCase\Helper\PickLock;
 use AlecRabbit\Tests\TestCase\Mixin\AppRelatedConstTrait;
 use ArrayAccess;
 use Faker\Factory as FakerFactory;
@@ -12,6 +12,7 @@ use Faker\Generator as FakerGenerator;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Throwable;
 
+use function AlecRabbit\Tests\TestCase\Sneaky\peek;
 use function array_key_exists;
 use function is_array;
 use function is_string;
@@ -26,17 +27,17 @@ abstract class TestCase extends PHPUnitTestCase
 
     protected static function getPropertyValue(object|string $objectOrClass, string $propertyName): mixed
     {
-        return PickLock::getValue($objectOrClass, $propertyName);
+        return peek($objectOrClass)->{$propertyName};
     }
 
     protected static function setPropertyValue(object|string $objectOrClass, string $propertyName, mixed $value): void
     {
-        PickLock::setValue($objectOrClass, $propertyName, $value);
+        peek($objectOrClass)->{$propertyName} = $value;
     }
 
     protected static function callMethod(mixed $objectOrClass, string $methodName, ...$args): mixed
     {
-        return PickLock::callMethod($objectOrClass, $methodName, ...$args);
+        return peek($objectOrClass)->{$methodName}(...$args);
     }
 
     protected static function failTest(string|Throwable $messageOrException): never
