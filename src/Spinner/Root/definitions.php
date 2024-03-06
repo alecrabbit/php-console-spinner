@@ -133,13 +133,13 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopCreatorClassProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSupportDetectorFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\INowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSetupFactory;
@@ -147,8 +147,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSupportDetectorFacto
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStylingMethodDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\DeltaTimerFactory;
-use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
-use AlecRabbit\Spinner\Core\Factory\INowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopCreatorClassProviderFactory;
@@ -386,7 +384,6 @@ function factories(): Traversable
         IDriverLinkerFactory::class => DriverLinkerFactory::class,
         ISignalHandlingSetupFactory::class => SignalHandlingSetupFactory::class,
         ISequenceStateWriterFactory::class => SequenceStateWriterFactory::class,
-        IFrameCollectionFactory::class => FrameCollectionFactory::class,
         IIntervalFactory::class => IntervalFactory::class,
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
