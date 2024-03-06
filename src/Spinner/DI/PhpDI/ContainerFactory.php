@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Container\Reference;
 use DI;
 
 use function class_exists;
+use function is_string;
 
 final readonly class ContainerFactory implements IContainerFactory
 {
@@ -22,7 +23,7 @@ final readonly class ContainerFactory implements IContainerFactory
         foreach ($registry->load() as $serviceDefinition) {
             $definition = $serviceDefinition->getDefinition();
 
-            if (\is_string($definition) && \class_exists($definition)) {
+            if (is_string($definition) && class_exists($definition)) {
                 $builder->addDefinitions([$serviceDefinition->getId() => DI\autowire($definition)]);
             }
 

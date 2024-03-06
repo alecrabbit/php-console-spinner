@@ -10,9 +10,10 @@ use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 
+// @codeCoverageIgnoreStart
+
 require_once __DIR__ . '/definitions.php';
 
-// @codeCoverageIgnoreStart
 $registry = DefinitionRegistry::getInstance();
 
 // Bind definitions
