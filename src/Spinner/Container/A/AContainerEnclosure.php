@@ -11,12 +11,12 @@ use AlecRabbit\Spinner\Container\Exception\ContainerException;
 
 abstract class AContainerEnclosure
 {
-    private const EMPTY = '';
+    private const EMPTY = null;
 
     private static ?IContainer $container = null;
 
-    /** @var class-string<IContainerBuilderFactory> */
-    private static string $factoryClass = self::EMPTY;
+    /** @var null|class-string<IContainerBuilderFactory> */
+    private static ?string $factoryClass = self::EMPTY;
 
     /**
      * @codeCoverageIgnore

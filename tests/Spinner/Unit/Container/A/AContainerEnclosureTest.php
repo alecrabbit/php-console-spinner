@@ -19,6 +19,7 @@ use function AlecRabbit\Tests\TestCase\Sneaky\peek;
 final class AContainerEnclosureTest extends TestCase
 {
     private static ?ContainerInterface $container;
+    private static ?string $factoryClass;
 
     #[Test]
     public function canUseFactoryClass(): void
@@ -55,10 +56,21 @@ final class AContainerEnclosureTest extends TestCase
         AContainerEnclosure::useFactoryClass($class);
     }
 
+    #[Test]
+    public function throwsIfContainerBuilderClassFactoryIsNotSet(): void
+    {
+        $this->expectException(ContainerException::class);
+        $this->expectExceptionMessage('Container builder factory class must be set.');
+        self::extractContainer();
+    }
+
     protected function setUp(): void
     {
         self::$container = self::extractContainer();
+        self::$factoryClass = peek(AContainerEnclosure::class)->factoryClass;
+
         self::setContainer(null);
+        peek(AContainerEnclosure::class)->factoryClass = null;
         parent::setUp();
     }
 
@@ -70,6 +82,7 @@ final class AContainerEnclosureTest extends TestCase
     protected function tearDown(): void
     {
         parent::tearDown();
+        peek(AContainerEnclosure::class)->factoryClass = self::$factoryClass;
         self::setContainer(self::$container);
     }
 }
