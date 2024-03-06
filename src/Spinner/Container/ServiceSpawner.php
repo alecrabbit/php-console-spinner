@@ -25,8 +25,6 @@ use Throwable;
 
 use function is_callable;
 
-use const E_USER_DEPRECATED;
-
 final readonly class ServiceSpawner implements IServiceSpawner
 {
     public function __construct(
