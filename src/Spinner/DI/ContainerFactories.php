@@ -35,7 +35,7 @@ final class ContainerFactories
         }
     }
 
-    private static function assertClass(string $factoryClass)
+    private static function assertClass(string $factoryClass): void
     {
         if (!self::isFactorySubclass($factoryClass)) {
             throw new InvalidArgument(

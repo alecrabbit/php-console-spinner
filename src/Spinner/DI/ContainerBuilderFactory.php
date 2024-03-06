@@ -30,6 +30,7 @@ final readonly class ContainerBuilderFactory implements IContainerBuilderFactory
 
     private function findFactory(): IContainerFactory
     {
+        /** @var IContainerFactory $factory */
         foreach ($this->createFactories() as $factory) {
             if ($factory->isSupported()) {
                 return $factory;

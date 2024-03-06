@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\IUpdateChecker;
 
 final class StylePaletteWrapper implements IHasStyleSequenceFrame
 {
-    private IFrame $currentFrame;
+    private IStyleSequenceFrame $currentFrame;
 
     public function __construct(
         private readonly IHasFrame $frames,

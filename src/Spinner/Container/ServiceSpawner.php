@@ -70,6 +70,7 @@ final readonly class ServiceSpawner implements IServiceSpawner
 
         $definition = $serviceDefinition->getDefinition();
 
+        /** @var object $value */
         $value =
             match (true) {
                 is_string($definition) => $this->spawnByClassConstructor($definition),
@@ -87,6 +88,8 @@ final readonly class ServiceSpawner implements IServiceSpawner
 
     /**
      * @param class-string $definition
+     *
+     * @return object
      *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
@@ -176,12 +179,14 @@ final readonly class ServiceSpawner implements IServiceSpawner
         return $this->container->get($id);
     }
 
-    protected function spawnFromReference(IReference $object)
+    /** @psalm-suppress MixedInferredReturnType */
+    private function spawnFromReference(IReference $object): object
     {
         $id = $object->__toString();
         $invokable = $this->getServiceFromContainer($id);
 
         if (is_callable($invokable)) {
+            /** @psalm-suppress MixedReturnStatement */
             return $invokable();
         }
 

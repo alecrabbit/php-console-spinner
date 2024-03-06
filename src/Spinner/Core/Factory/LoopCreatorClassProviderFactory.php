@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\ICreator;
 use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Core\Contract\IProbesLoader;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopCreatorClassProviderFactory;
@@ -27,6 +28,9 @@ final readonly class LoopCreatorClassProviderFactory implements ILoopCreatorClas
         );
     }
 
+    /**
+     * @return class-string<ICreator>|null
+     */
     private function getCreatorClass(): ?string
     {
         return $this->loopCreatorClassExtractor->extract(

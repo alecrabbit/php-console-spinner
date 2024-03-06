@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\IUpdateChecker;
 
 final class CharPaletteWrapper implements IHasCharSequenceFrame
 {
-    private IFrame $currentFrame;
+    private ICharSequenceFrame $currentFrame;
 
     public function __construct(
         private readonly IHasFrame $frames,
