@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Container\Adapter\ContainerAdapter;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
+use AlecRabbit\Spinner\Container\Contract\IReference;
 use AlecRabbit\Spinner\Container\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference as SymfonyReference;
@@ -30,7 +31,7 @@ final readonly class ContainerFactory implements IContainerFactory
                 $service = $container->autowire($serviceDefinition->getId(), $definition);
             }
 
-            if ($definition instanceof Reference) {
+            if ($definition instanceof IReference) {
                 $service = $container->register($serviceDefinition->getId());
                 $service->setFactory(new SymfonyReference((string)$definition));
             }

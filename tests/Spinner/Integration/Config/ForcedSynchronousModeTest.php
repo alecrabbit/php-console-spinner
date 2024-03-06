@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Integration\Config;
 
+use AlecRabbit\Spinner\Container\Reference;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
@@ -17,6 +19,8 @@ use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
+use AlecRabbit\Tests\TestCase\Stub\DetectedSettingsFactoryFactoryModeAsyncStub;
+use AlecRabbit\Tests\TestCase\Stub\DetectedSettingsFactoryFactoryStub;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -30,20 +34,14 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
 
             [
                 // Detected settings considered as AUTO
-                IDetectedSettingsFactory::class => static function () {
-                    return new class() implements IDetectedSettingsFactory {
-                        public function create(): ISettings
-                        {
-                            return new Settings(
-                                new ArrayObject([
-                                    new GeneralSettings(
-                                        runMethodOption: RunMethodOption::ASYNC,
-                                    )
-                                ])
-                            );
-                        }
-                    };
-                },
+                new ServiceDefinition(
+                    IDetectedSettingsFactory::class,
+                    new Reference(DetectedSettingsFactoryFactoryModeAsyncStub::class),
+                ),
+                new ServiceDefinition(
+                    DetectedSettingsFactoryFactoryModeAsyncStub::class,
+                    DetectedSettingsFactoryFactoryModeAsyncStub::class,
+                ),
             ]
         );
     }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Integration\Config;
 
+use AlecRabbit\Spinner\Container\Reference;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Core\Config\Contract\INormalizerConfig;
@@ -13,6 +15,7 @@ use AlecRabbit\Spinner\Core\Settings\NormalizerSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
+use AlecRabbit\Tests\TestCase\Stub\DetectedSettingsFactoryFactoryStub;
 use PHPUnit\Framework\Attributes\Test;
 
 final class NormalizerModeConfigTest extends ConfigurationTestCase
@@ -23,14 +26,14 @@ final class NormalizerModeConfigTest extends ConfigurationTestCase
             self::modifyContainer(
                 [
                     // Detected settings considered as AUTO
-                    IDetectedSettingsFactory::class => static function () {
-                        return new class() implements IDetectedSettingsFactory {
-                            public function create(): ISettings
-                            {
-                                return new Settings(); // empty object considered as AUTO
-                            }
-                        };
-                    },
+                    new ServiceDefinition(
+                        IDetectedSettingsFactory::class,
+                        new Reference(DetectedSettingsFactoryFactoryStub::class),
+                    ),
+                    new ServiceDefinition(
+                        DetectedSettingsFactoryFactoryStub::class,
+                        DetectedSettingsFactoryFactoryStub::class,
+                    ),
                 ]
             )
         );

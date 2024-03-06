@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Root;
 
+use AlecRabbit\Spinner\Container\Contract\IReference;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
@@ -216,7 +217,7 @@ use Traversable;
 
 // @codeCoverageIgnoreStart
 /**
- * @return Traversable<string|int, callable|object|string|IServiceDefinition>
+ * @return Traversable<string|int, class-string|IReference|IServiceDefinition>
  */
 function getDefinitions(): Traversable
 {
@@ -281,7 +282,7 @@ function getDefinitions(): Traversable
 
         IIntervalComparator::class => IntervalComparator::class,
         IIntervalNormalizer::class => new Reference(IIntervalNormalizerFactory::class),
-        ILoopCreatorClassProvider::class => new ServiceDefinition(
+        new ServiceDefinition(
             ILoopCreatorClassProvider::class,
             new Reference(ILoopCreatorClassProviderFactory::class),
             IServiceDefinition::SINGLETON,
@@ -389,7 +390,7 @@ function factories(): Traversable
         IIntervalFactory::class => IntervalFactory::class,
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
-        ISpinnerFactory::class => new ServiceDefinition(
+        new ServiceDefinition(
             ISpinnerFactory::class,
             SpinnerFactory::class,
             IServiceDefinition::PUBLIC,

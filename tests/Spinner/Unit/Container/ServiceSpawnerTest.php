@@ -269,44 +269,6 @@ final class ServiceSpawnerTest extends TestCase
     }
 
     #[Test]
-    public function canSpawnWithCallable(): void
-    {
-        $callable = static fn(ContainerInterface $container) => new ClassForSpawner();
-        $service = $this->getServiceMock();
-        $serviceDefinition = $this->getServiceDefinitionMock();
-
-        $serviceObjectFactory = $this->getServiceObjectFactoryMock();
-        $serviceObjectFactory
-            ->expects($this->once())
-            ->method('create')
-            ->with(
-                value: self::isInstanceOf(ClassForSpawner::class),
-                serviceDefinition: $serviceDefinition,
-            )
-            ->willReturn($service)
-        ;
-
-        $spawner = $this->getTesteeInstance(
-            serviceObjectFactory: $serviceObjectFactory,
-        );
-
-        $serviceDefinition
-            ->expects($this->once())
-            ->method('getId')
-            ->willReturn(ClassForSpawner::class)
-        ;
-        $serviceDefinition
-            ->expects($this->once())
-            ->method('getDefinition')
-            ->willReturn($callable)
-        ;
-
-        $serviceObject = $spawner->spawn($serviceDefinition);
-
-        self::assertSame($service, $serviceObject);
-    }
-
-    #[Test]
     public function canSpawnWithClassStringForClassConstructorWithParameters(): void
     {
         $container = $this->getContainerMock();
@@ -449,31 +411,6 @@ final class ServiceSpawnerTest extends TestCase
         $serviceDefinition = new ServiceDefinition(
             id: 'id',
             definition: $classString,
-        );
-
-        $spawner->spawn($serviceDefinition);
-
-        self::fail(
-            self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
-        );
-    }
-
-    #[Test]
-    public function throwsWhenUnableToSpawnByCallable(): void
-    {
-        $exceptionClass = SpawnFailed::class;
-        $exceptionMessage = 'Failed to spawn service with id "id".';
-
-        $this->expectException($exceptionClass);
-        $this->expectExceptionMessage($exceptionMessage);
-
-        $spawner = $this->getTesteeInstance();
-
-        self::assertInstanceOf(ServiceSpawner::class, $spawner);
-
-        $serviceDefinition = new ServiceDefinition(
-            id: 'id',
-            definition: fn() => throw new Exception('Intentional Error.'),
         );
 
         $spawner->spawn($serviceDefinition);

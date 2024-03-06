@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Integration\Config;
 
+use AlecRabbit\Spinner\Container\Reference;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
@@ -13,6 +15,7 @@ use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
+use AlecRabbit\Tests\TestCase\Stub\DetectedSettingsFactoryFactoryStub;
 use PHPUnit\Framework\Attributes\Test;
 
 final class SignalHandlingModeConfigTest extends ConfigurationTestCase
@@ -23,14 +26,14 @@ final class SignalHandlingModeConfigTest extends ConfigurationTestCase
             self::modifyContainer(
                 [
                     // Detected settings considered as AUTO
-                    IDetectedSettingsFactory::class => static function () {
-                        return new class() implements IDetectedSettingsFactory {
-                            public function create(): ISettings
-                            {
-                                return new Settings();
-                            }
-                        };
-                    },
+                    new ServiceDefinition(
+                        IDetectedSettingsFactory::class,
+                        new Reference(DetectedSettingsFactoryFactoryStub::class),
+                    ),
+                    new ServiceDefinition(
+                        DetectedSettingsFactoryFactoryStub::class,
+                        DetectedSettingsFactoryFactoryStub::class,
+                    ),
                 ],
             )
         );

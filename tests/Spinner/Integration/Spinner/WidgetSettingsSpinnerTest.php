@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Integration\Spinner;
 
 
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
+use AlecRabbit\Spinner\Container\Reference;
+use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
@@ -19,6 +22,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ContainerModifyingTestCase;
+use AlecRabbit\Tests\TestCase\Stub\WidgetFactoryTestStub;
 use Closure;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -42,7 +46,17 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
 
         $widgetFactory = $this->createWidgetFactory($widget, $test);
 
-        self::replaceService(IWidgetFactory::class, $widgetFactory);
+        self::replaceService(
+            new ServiceDefinition(
+                IWidgetFactory::class,
+                new Reference(WidgetFactoryTestStub::class),
+            ),
+            new ServiceDefinition(
+                WidgetFactoryTestStub::class,
+                WidgetFactoryTestStub::class,
+            ),
+
+        );
 
         $spinnerSettings = new SpinnerSettings(widgetSettings: $widgetSettings);
         $spinner = Facade::createSpinner($spinnerSettings);
@@ -86,13 +100,11 @@ final class WidgetSettingsSpinnerTest extends ContainerModifyingTestCase
             };
     }
 
-    private static function replaceService(string $id, object|callable|string $definition): void
+    private static function replaceService(IServiceDefinition ...$definitions): void
     {
         self::setContainer(
             self::modifyContainer(
-                [
-                    $id => $definition,
-                ]
+                $definitions
             ),
         );
     }

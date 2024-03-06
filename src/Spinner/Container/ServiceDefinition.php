@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container;
 
+use AlecRabbit\Spinner\Container\Contract\IReference;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Exception\InvalidDefinitionArgument;
 use AlecRabbit\Spinner\Container\Exception\InvalidOptionsArgument;
@@ -11,20 +12,19 @@ use AlecRabbit\Spinner\Container\Exception\InvalidOptionsArgument;
 final readonly class ServiceDefinition implements IServiceDefinition
 {
     private string $id;
-    /** @var object|callable|class-string */
-    private mixed $definition;
+    /** @var IReference|class-string */
+    private IReference|string $definition;
     private int $options;
 
     public function __construct(
         string $id,
-        mixed $definition,
+        IReference|string $definition,
         int $options = self::DEFAULT,
     ) {
         self::assertOptions($options);
-        self::assertDefinition($definition);
 
         $this->id = $id;
-        /** @var object|callable|class-string $definition */
+        /** @var IReference|class-string $definition */
         $this->definition = $definition;
         $this->options = $options;
     }
@@ -52,24 +52,12 @@ final readonly class ServiceDefinition implements IServiceDefinition
             | self::PUBLIC;
     }
 
-    private static function assertDefinition(mixed $definition): void
-    {
-        if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
-            throw new InvalidDefinitionArgument(
-                sprintf(
-                    'Definition should be callable, object or string, "%s" given.',
-                    get_debug_type($definition),
-                )
-            );
-        }
-    }
-
     public function getId(): string
     {
         return $this->id;
     }
 
-    public function getDefinition(): object|callable|string
+    public function getDefinition(): object|string
     {
         return $this->definition;
     }

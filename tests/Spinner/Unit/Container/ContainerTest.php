@@ -150,47 +150,6 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function throwsWhenFailsToInstantiateServiceWithCallable(): void
-    {
-        $exceptionClass = ContainerException::class;
-        $exceptionMessage = 'Could not instantiate service with callable for "foo".';
-
-        $this->expectException($exceptionClass);
-        $this->expectExceptionMessage($exceptionMessage);
-
-        $spawner = $this->getServiceSpawnerMock();
-
-        $spawnerFactory = $this->getSpawnerFactoryMock();
-        $spawnerFactory
-            ->expects(self::once())
-            ->method('create')
-            ->willReturn($spawner)
-        ;
-
-        $closure = static fn() => throw new InvalidArgumentException('Intentional exception.');
-
-        $spawner
-            ->expects(self::once())
-            ->method('spawn')
-            ->with(self::isInstanceOf(IServiceDefinition::class))
-            ->willThrowException(new ContainerException($exceptionMessage))
-        ;
-
-        $definitions = new ArrayObject([
-            'foo' => new ServiceDefinition('foo', $closure),
-        ]);
-
-        $container = $this->getTesteeInstance(
-            spawnerFactory: $spawnerFactory,
-            definitions: $definitions,
-        );
-
-        $container->get('foo');
-
-        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
-    }
-
-    #[Test]
     public function throwsWhenFailsToInstantiateServiceByConstructor(): void
     {
         $exceptionClass = ContainerException::class;

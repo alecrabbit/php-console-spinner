@@ -9,10 +9,13 @@ use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
+use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
+use AlecRabbit\Tests\TestCase\Stub\LoopSetupFactoryStub;
+use AlecRabbit\Tests\TestCase\Stub\WritableStreamFactoryStub;
 use ArrayObject;
 use Traversable;
 
@@ -82,24 +85,16 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                 // disable output
                 new ServiceDefinition(
                     IWritableStream::class,
-                    new class() implements IWritableStream {
-                        public function write(Traversable $data): void
-                        {
-                            // do nothing
-                        }
-                    },
+                    new Reference(WritableStreamFactoryStub::class),
                     IServiceDefinition::SINGLETON,
                 ),
                 // disable auto start
                 new ServiceDefinition(
                     ILoopSetup::class,
-                    new class() implements ILoopSetup {
-                        public function setup(ILoop $loop): void
-                        {
-                            // do nothing
-                        }
-                    },
+                    new Reference(LoopSetupFactoryStub::class),
                 ),
+                LoopSetupFactoryStub::class => LoopSetupFactoryStub::class,
+                WritableStreamFactoryStub::class => WritableStreamFactoryStub::class,
             ],
             $substitutes
         );

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Integration\Spinner;
 
 
+use AlecRabbit\Spinner\Container\Contract\IReference;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
@@ -119,7 +120,7 @@ final class FacadeSettingsWidgetSettingsSpinnerTest extends ContainerModifyingTe
             };
     }
 
-    private static function replaceService(string $id, object|callable|string $definition): void
+    private static function replaceService(string $id, IReference|string $definition): void
     {
         self::setContainer(
             self::modifyContainer(

@@ -72,36 +72,11 @@ final readonly class ServiceSpawner implements IServiceSpawner
 
         $definition = $serviceDefinition->getDefinition();
 
-        static $counter = 0;
-
-        if (match (true) {
-            is_callable($definition) => true,
-            is_string($definition) => false,
-            default => !$definition instanceof IReference,
-        }) {
-            // FIXME (2024-02-29 13:57) [Alec Rabbit]: Remove this block and remove callable and object spawning support
-            @trigger_error(
-                sprintf(
-                    'Using callable or object as service definition("%s") is deprecated. Use class-string or Reference to invokable instead.',
-                    $id,
-                ),
-                E_USER_DEPRECATED
-            );
-
-//            echo "\e[33m" .
-//                sprintf(
-//                    '%s [%s]: Using callable or object as service definition is deprecated.',
-//                    str_pad((string)++$counter, 3, ' ', STR_PAD_LEFT),
-//                    $id,
-//                ) . "\e[0m"
-//                . PHP_EOL;
-        }
-
         $value =
             match (true) {
-                is_callable($definition) => $this->spawnByCallable($definition),
                 is_string($definition) => $this->spawnByClassConstructor($definition),
-                default => $this->refine($definition), // return object as is
+                $definition instanceof IReference => $this->spawnFromReference($definition),
+                default => $definition,
             };
 
         $this->circularDependencyDetector->pop();

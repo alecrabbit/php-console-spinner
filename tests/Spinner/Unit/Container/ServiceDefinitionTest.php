@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Container;
 
 
+use AlecRabbit\Spinner\Container\Contract\IReference;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\Exception\InvalidDefinitionArgument;
 use AlecRabbit\Spinner\Container\Exception\InvalidOptionsArgument;
@@ -25,7 +26,7 @@ final class ServiceDefinitionTest extends TestCase
 
     private function getTesteeInstance(
         ?string $id = null,
-        mixed $definition = null,
+        IReference|string $definition = null,
         ?int $options = null,
     ): IServiceDefinition {
         return
@@ -49,7 +50,7 @@ final class ServiceDefinitionTest extends TestCase
     #[Test]
     public function canGetDefinition(): void
     {
-        $def = fn() => 1;
+        $def = stdClass::class;
 
         $serviceDefinition = $this->getTesteeInstance(definition: $def);
 
@@ -74,17 +75,6 @@ final class ServiceDefinitionTest extends TestCase
         $serviceDefinition = $this->getTesteeInstance(options: $options);
 
         self::assertTrue($serviceDefinition->isPublic());
-    }
-
-    #[Test]
-    public function throwsIfDefinitionIsInvalid(): void
-    {
-        $this->expectException(InvalidDefinitionArgument::class);
-        $this->expectExceptionMessage('Definition should be callable, object or string, "int" given.');
-
-        $serviceDefinition = $this->getTesteeInstance(definition: 1);
-
-        self::assertInstanceOf(ServiceDefinition::class, $serviceDefinition);
     }
 
     #[Test]

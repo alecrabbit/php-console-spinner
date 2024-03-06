@@ -13,9 +13,9 @@ interface IServiceDefinition
     public function getId(): string;
 
     /**
-     * @return object|callable|class-string
+     * @return object|class-string
      */
-    public function getDefinition(): object|callable|string;
+    public function getDefinition(): object|string;
 
     public function isSingleton(): bool;
 
