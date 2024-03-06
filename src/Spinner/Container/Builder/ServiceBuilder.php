@@ -14,7 +14,7 @@ use InvalidArgumentException;
  */
 final class ServiceBuilder implements IServiceBuilder
 {
-    private mixed $value;
+    private mixed $value = null;
     private ?bool $isStorable = null;
     private ?string $id = null;
 
@@ -32,7 +32,7 @@ final class ServiceBuilder implements IServiceBuilder
     private function validate(): void
     {
         match (true) {
-            !isset($this->value) => throw new InvalidArgumentException('Value is not set.'),
+            $this->value === null => throw new InvalidArgumentException('Value is not set.'),
             $this->id === null => throw new InvalidArgumentException('Id is not set.'),
             $this->isStorable === null => throw new InvalidArgumentException('isStorable is not set.'),
             default => null,

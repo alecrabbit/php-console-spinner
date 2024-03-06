@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Probes;
+use AlecRabbit\Spinner\Core\Probes;
 
 require_once __DIR__ . '/../bootstrap.php';
 

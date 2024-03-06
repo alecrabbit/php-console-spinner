@@ -26,6 +26,9 @@ abstract class AContainerEnclosure
         // No instances allowed.
     }
 
+    /**
+     * @param class-string<IContainerBuilderFactory> $class
+     */
     public static function useFactoryClass(string $class): void // method name [2d254244-98d1-47b2-83c3-f761ad83f042]
     {
         self::assertClass($class);

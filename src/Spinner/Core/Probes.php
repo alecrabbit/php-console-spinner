@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner;
+namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
@@ -29,7 +29,7 @@ final class Probes
     }
 
     /**
-     * @template TProbe of T
+     * @template TProbe of IStaticProbe
      *
      * @param array<class-string<TProbe>> $classes
      *
@@ -44,7 +44,7 @@ final class Probes
     }
 
     /**
-     * @template TProbe of T
+     * @template TProbe of IStaticProbe
      *
      * @psalm-param class-string<TProbe>|null $class
      *
@@ -67,7 +67,7 @@ final class Probes
     }
 
     /**
-     * @template TProbe of T
+     * @template TProbe of IStaticProbe
      *
      * @psalm-param class-string<TProbe> $class
      */
@@ -81,12 +81,11 @@ final class Probes
      * Note that the order of loading is reversed.
      *
      *
-     * @template TProbe of T
+     * @template TProbe of IStaticProbe
      *
      * @psalm-param class-string<TProbe>|null $filter
      *
-     * @psalm-return ($filter is null ? Traversable<class-string<T>>: Traversable<class-string<TProbe>>)
-     *
+     * @psalm-return Traversable
      * @throws InvalidArgument
      */
     public static function load(?string $filter = null): Traversable
@@ -122,7 +121,7 @@ final class Probes
      * Unregister a probe(s) by class name(s). If interface is passed, all probes implementing this interface will be
      * unregistered.
      *
-     * @template TProbe of T
+     * @template TProbe of IStaticProbe
      *
      * @param array<class-string<TProbe>> $classes
      *

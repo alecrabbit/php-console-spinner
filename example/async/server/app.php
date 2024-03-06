@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
+use AlecRabbit\Spinner\Core\Probes;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Spinner\Probes;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 

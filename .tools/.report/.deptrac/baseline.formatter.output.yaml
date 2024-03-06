@@ -1,8 +1,2 @@
 deptrac:
-  skip_violations:
-    AlecRabbit\Spinner\Core\Factory\LoopCreatorClassProviderFactory:
-      - AlecRabbit\Spinner\Probes
-    AlecRabbit\Spinner\Core\Factory\SignalHandlingSupportDetectorFactory:
-      - AlecRabbit\Spinner\Probes
-    AlecRabbit\Spinner\Core\Factory\StylingMethodDetectorFactory:
-      - AlecRabbit\Spinner\Probes
+  skip_violations: {  }

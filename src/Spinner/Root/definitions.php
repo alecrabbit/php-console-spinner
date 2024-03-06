@@ -118,6 +118,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComparator;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
+use AlecRabbit\Spinner\Core\Contract\IProbesLoader;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlingSetup;
 use AlecRabbit\Spinner\Core\DivisorProvider;
@@ -188,6 +189,7 @@ use AlecRabbit\Spinner\Core\Pattern\Factory\CharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\ICharPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IStylePatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\StylePatternFactory;
+use AlecRabbit\Spinner\Core\ProbesLoader;
 use AlecRabbit\Spinner\Core\Settings\Builder\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
@@ -290,6 +292,7 @@ function getDefinitions(): Traversable
 
         IStyleFrameTransformer::class => StyleFrameTransformer::class,
         ICharFrameTransformer::class => CharFrameTransformer::class,
+        IProbesLoader::class => ProbesLoader::class,
     ];
 
     yield from configs();

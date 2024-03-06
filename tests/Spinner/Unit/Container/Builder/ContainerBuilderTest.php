@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Container\Builder\ContainerBuilder;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IContainerBuilder;
 use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
-use AlecRabbit\Spinner\Container\Contract\IContainerFactoryStore;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -45,8 +44,7 @@ final class ContainerBuilderTest extends TestCase
             ->willReturn($container)
         ;
 
-        $builder = $this->getTesteeInstance(
-        );
+        $builder = $this->getTesteeInstance();
 
         $actual = $builder
             ->withRegistry($registry)
@@ -95,10 +93,5 @@ final class ContainerBuilderTest extends TestCase
             ->withFactory($this->getContainerFactoryMock())
             ->build()
         ;
-    }
-
-    private function getContainerFactoryStoreMock(): MockObject&IContainerFactoryStore
-    {
-        return $this->createMock(IContainerFactoryStore::class);
     }
 }

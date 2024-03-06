@@ -7,8 +7,8 @@ use AlecRabbit\Lib\Helper\MemoryUsage;
 use AlecRabbit\Lib\Spinner\BenchmarkFacade;
 use AlecRabbit\Lib\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
+use AlecRabbit\Spinner\Core\Probes;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Spinner\Probes;
 
 // in seconds
 const RUNTIME = 600;

@@ -7,8 +7,8 @@ use AlecRabbit\Lib\Helper\MemoryUsage;
 use AlecRabbit\Lib\Spinner\BenchmarkFacade;
 use AlecRabbit\Lib\Spinner\Contract\IBenchmarkingDriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Probes;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Spinner\Probes;
 
 const CYCLES = 2_000_000;
 const PROGRESS_EVERY_CYCLES = CYCLES / 10;

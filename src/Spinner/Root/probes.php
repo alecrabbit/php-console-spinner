@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Root;
 
 use AlecRabbit\Spinner\Core\Probe\SignalHandlingProbe;
 use AlecRabbit\Spinner\Core\Probe\StylingMethodProbe;
-use AlecRabbit\Spinner\Probes;
+use AlecRabbit\Spinner\Core\Probes;
 
 // @codeCoverageIgnoreStart
 

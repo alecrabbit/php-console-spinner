@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
+use AlecRabbit\Spinner\Core\Probes;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Spinner\Probes;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 

@@ -114,7 +114,7 @@ final readonly class ServiceSpawner implements IServiceSpawner
         $reflection = new ReflectionClass($class);
 
         $constructorParameters = $reflection->getConstructor()?->getParameters();
-        if ($constructorParameters) {
+        if ($constructorParameters !== null && count($constructorParameters) > 0) {
             $parameters = [];
             foreach ($constructorParameters as $parameter) {
                 $name = $parameter->getName();
