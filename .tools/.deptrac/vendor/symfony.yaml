@@ -5,7 +5,7 @@ deptrac:
         - type: bool
           must:
             - type: className
-              value: .*Symfony\\.*
+              value: ^Symfony\\.*
           must_not:
             - type: className
               value: .*Symfony\\.*\\Test\\.*

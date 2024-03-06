@@ -1,0 +1,11 @@
+deptrac:
+  layers:
+    - name: VendorPHPDI
+      collectors:
+        - type: bool
+          must:
+            - type: className
+              value: ^DI\\.*
+#          must_not:
+#            - type: className
+#              value: .*DI\\.*\\Test\\.*

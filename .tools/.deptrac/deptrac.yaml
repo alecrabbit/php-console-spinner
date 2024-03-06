@@ -8,11 +8,13 @@ imports:
   - module/container.yaml
   - module/contract.yaml
   - module/core.yaml
+  - module/di.yaml
   - module/exception.yaml
   - module/extras.yaml
   - module/helper.yaml
   - module/mixin.yaml
   - module/root.yaml
+  - vendor/di.yaml
   - vendor/container.yaml
   - vendor/react.yaml
   - vendor/revolt.yaml
@@ -38,6 +40,11 @@ deptrac:
       - Exception
       - Helper
       - Mixin
+    DI:
+      - +Container
+      - +Exception
+      - +VendorPHPDI
+      - +VendorSymfony
     Exception: ~
     Extras:
       - +Contract
@@ -60,6 +67,8 @@ deptrac:
       - +VendorContainer
     VendorRevolt: ~
     VendorReact: ~
+    VendorPHPDI:
+      - +VendorContainer
     VendorContainer: ~
 #  skip_violations:
 #    NS\Class:

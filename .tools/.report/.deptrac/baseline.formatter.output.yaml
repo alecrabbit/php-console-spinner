@@ -6,9 +6,3 @@ deptrac:
       - AlecRabbit\Spinner\Probes
     AlecRabbit\Spinner\Core\Factory\StylingMethodDetectorFactory:
       - AlecRabbit\Spinner\Probes
-    AlecRabbit\Spinner\DI\Symfony\ContainerFactory:
-      - AlecRabbit\Spinner\Container\Adapter\ContainerAdapter
-      - AlecRabbit\Spinner\Container\Contract\IContainer
-      - AlecRabbit\Spinner\Container\Contract\IContainerFactory
-      - AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry
-      - AlecRabbit\Spinner\Container\Reference
