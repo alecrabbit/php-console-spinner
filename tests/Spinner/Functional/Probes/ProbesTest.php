@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Functional;
+namespace AlecRabbit\Tests\Spinner\Functional\Probes;
 
 use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
@@ -10,8 +10,8 @@ use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use AlecRabbit\Spinner\Probes;
-use AlecRabbit\Tests\Spinner\Functional\Override\DummyInterface;
-use AlecRabbit\Tests\Spinner\Functional\Override\StaticProbeOverride;
+use AlecRabbit\Tests\Spinner\Functional\Probes\Stub\DummyInterfaceStub;
+use AlecRabbit\Tests\Spinner\Functional\Probes\Stub\StaticProbeStub;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
@@ -35,7 +35,7 @@ final class ProbesTest extends TestCase
     public function canLoadAllProbes(): void
     {
         $probe1 = ReactLoopProbe::class;
-        $probe2 = StaticProbeOverride::class;
+        $probe2 = StaticProbeStub::class;
 
         Probes::register($probe2);
         Probes::register($probe1);
@@ -51,7 +51,7 @@ final class ProbesTest extends TestCase
     public function loadsProbesInAReverseOrder(): void
     {
         $probe1 = ReactLoopProbe::class;
-        $probe2 = StaticProbeOverride::class;
+        $probe2 = StaticProbeStub::class;
 
         Probes::register($probe1);
         Probes::register($probe2);
@@ -68,7 +68,7 @@ final class ProbesTest extends TestCase
     {
         $probe1 = ReactLoopProbe::class;
         $probe2 = RevoltLoopProbe::class;
-        $probe3 = StaticProbeOverride::class;
+        $probe3 = StaticProbeStub::class;
 
         Probes::register($probe3);
         Probes::register($probe2, $probe1);
@@ -85,7 +85,7 @@ final class ProbesTest extends TestCase
     {
         $probe1 = ReactLoopProbe::class;
         $probe2 = RevoltLoopProbe::class;
-        $probe3 = StaticProbeOverride::class;
+        $probe3 = StaticProbeStub::class;
 
         Probes::register($probe3);
         Probes::register($probe2, $probe1);
@@ -104,7 +104,7 @@ final class ProbesTest extends TestCase
     {
         $probe1 = ReactLoopProbe::class;
         $probe2 = RevoltLoopProbe::class;
-        $probe3 = StaticProbeOverride::class;
+        $probe3 = StaticProbeStub::class;
 
         Probes::register($probe2);
         Probes::register($probe1);
@@ -121,7 +121,7 @@ final class ProbesTest extends TestCase
     {
         $probe1 = ReactLoopProbe::class;
         $probe2 = RevoltLoopProbe::class;
-        $probe3 = StaticProbeOverride::class;
+        $probe3 = StaticProbeStub::class;
 
         Probes::register($probe2);
         Probes::register($probe1);
@@ -141,7 +141,7 @@ final class ProbesTest extends TestCase
     {
         $probe1 = ReactLoopProbe::class;
         $probe2 = RevoltLoopProbe::class;
-        $probe3 = StaticProbeOverride::class;
+        $probe3 = StaticProbeStub::class;
 
         Probes::register($probe2);
         Probes::register($probe1);
@@ -161,7 +161,7 @@ final class ProbesTest extends TestCase
     {
         $probe1 = ReactLoopProbe::class;
         $probe2 = RevoltLoopProbe::class;
-        $probe3 = StaticProbeOverride::class;
+        $probe3 = StaticProbeStub::class;
 
         Probes::register($probe2);
         Probes::register($probe1);
@@ -181,7 +181,7 @@ final class ProbesTest extends TestCase
     {
         $probe1 = ReactLoopProbe::class;
         $probe2 = RevoltLoopProbe::class;
-        $probe3 = StaticProbeOverride::class;
+        $probe3 = StaticProbeStub::class;
 
         Probes::register($probe1);
         Probes::register($probe3);
@@ -199,7 +199,7 @@ final class ProbesTest extends TestCase
     public function loadsAllProbesIfFilterClassIsNull(): void
     {
         $probe1 = ReactLoopProbe::class;
-        $probe3 = StaticProbeOverride::class;
+        $probe3 = StaticProbeStub::class;
 
         Probes::register($probe3);
         Probes::register($probe1);
@@ -214,7 +214,7 @@ final class ProbesTest extends TestCase
     public function loadsAllProbesIfFilterClassIsProbeInterface(): void
     {
         $probe1 = ReactLoopProbe::class;
-        $probe3 = StaticProbeOverride::class;
+        $probe3 = StaticProbeStub::class;
 
         Probes::register($probe3);
         Probes::register($probe1);
@@ -284,7 +284,7 @@ final class ProbesTest extends TestCase
     #[Test]
     public function throwsIfInterfaceToUnregisterIsNotAStaticProbeSubClass(): void
     {
-        $class = DummyInterface::class;
+        $class = DummyInterfaceStub::class;
 
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(

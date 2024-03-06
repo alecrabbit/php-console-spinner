@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Container\Contract\IServiceSpawnerFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailed;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
-use AlecRabbit\Tests\Spinner\Unit\Container\Override\NonInstantiableClass;
+use AlecRabbit\Tests\Spinner\Unit\Container\Stub\NonInstantiableClass;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use Generator;

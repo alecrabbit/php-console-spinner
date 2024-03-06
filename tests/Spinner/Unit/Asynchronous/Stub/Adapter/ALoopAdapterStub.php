@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Asynchronous\Override;
+namespace AlecRabbit\Tests\Spinner\Unit\Asynchronous\Stub\Adapter;
 
 use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopAdapter;
 use Closure;
 use RuntimeException;
 
-final class ALoopAdapterOverride extends ALoopAdapter
+final class ALoopAdapterStub extends ALoopAdapter
 {
     public function stop(): void
     {

@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector;
-use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Override\LoopCreatorOverride;
+use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub\LoopCreatorStub;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -20,7 +20,7 @@ final class LoopSupportDetectorTest extends TestCase
             // $result, $probes
             [false, null],
             [false, stdClass::class],
-            [true, LoopCreatorOverride::class],
+            [true, LoopCreatorStub::class],
         ];
     }
 

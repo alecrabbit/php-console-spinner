@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Container\Override;
+namespace AlecRabbit\Tests\Spinner\Unit\Container\Stub;
 
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 

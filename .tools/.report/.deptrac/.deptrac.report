@@ -1,16 +1,49 @@
+ ----------- ----------------------------------------------------------------------------------------------------------------------------------------- 
+  Reason      VendorSymfony                                                                                                                            
+ ----------- ----------------------------------------------------------------------------------------------------------------------------------------- 
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Reference (Container)                     
+              /app/src/Spinner/DI/Symfony/ContainerFactory.php:33                                                                                      
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Adapter\ContainerAdapter (Container)      
+              /app/src/Spinner/DI/Symfony/ContainerFactory.php:51                                                                                      
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry (Container)  
+              /app/src/Spinner/DI/Symfony/ContainerFactory.php:20                                                                                      
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Contract\IContainer (Container)           
+              /app/src/Spinner/DI/Symfony/ContainerFactory.php:20                                                                                      
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Contract\IContainerFactory (Container)    
+              /app/src/Spinner/DI/Symfony/ContainerFactory.php:18                                                                                      
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Adapter\ContainerAdapter (Container)      
+              /app/src/Spinner/DI/Symfony/ContainerFactory.php:7                                                                                       
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Contract\IContainer (Container)           
+              /app/src/Spinner/DI/Symfony/ContainerFactory.php:8                                                                                       
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Contract\IContainerFactory (Container)    
+              /app/src/Spinner/DI/Symfony/ContainerFactory.php:9                                                                                       
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry (Container)  
+              /app/src/Spinner/DI/Symfony/ContainerFactory.php:10                                                                                      
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Reference (Container)                     
+              /app/src/Spinner/DI/Symfony/ContainerFactory.php:11                                                                                      
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry (Container)  
+              AlecRabbit\Spinner\Container\Contract\IContainerFactory::18 ->                                                                           
+              AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry::9                                                                             
+              /app/src/Spinner/Container/Contract/IContainerFactory.php:9                                                                              
+  Violation   AlecRabbit\Spinner\DI\Symfony\ContainerFactory must not depend on AlecRabbit\Spinner\Container\Contract\IContainer (Container)           
+              AlecRabbit\Spinner\Container\Contract\IContainerFactory::18 ->                                                                           
+              AlecRabbit\Spinner\Container\Contract\IContainer::9                                                                                      
+              /app/src/Spinner/Container/Contract/IContainerFactory.php:9                                                                              
+ ----------- ----------------------------------------------------------------------------------------------------------------------------------------- 
+
  ----------- -------------------------------------------------------------------------------------------------------------------------- 
   Reason      Core                                                                                                                      
  ----------- -------------------------------------------------------------------------------------------------------------------------- 
   Violation   AlecRabbit\Spinner\Core\Factory\LoopCreatorClassProviderFactory must not depend on AlecRabbit\Spinner\Probes (Root)       
-              /app/src/Spinner/Core/Factory/LoopCreatorClassProviderFactory.php:35                                                      
+              /app/src/Spinner/Core/Factory/LoopCreatorClassProviderFactory.php:28                                                      
   Violation   AlecRabbit\Spinner\Core\Factory\LoopCreatorClassProviderFactory must not depend on AlecRabbit\Spinner\Probes (Root)       
               /app/src/Spinner/Core/Factory/LoopCreatorClassProviderFactory.php:13                                                      
   Violation   AlecRabbit\Spinner\Core\Factory\StylingMethodDetectorFactory must not depend on AlecRabbit\Spinner\Probes (Root)          
-              /app/src/Spinner/Core/Factory/StylingMethodDetectorFactory.php:25                                                         
+              /app/src/Spinner/Core/Factory/StylingMethodDetectorFactory.php:26                                                         
   Violation   AlecRabbit\Spinner\Core\Factory\StylingMethodDetectorFactory must not depend on AlecRabbit\Spinner\Probes (Root)          
               /app/src/Spinner/Core/Factory/StylingMethodDetectorFactory.php:12                                                         
   Violation   AlecRabbit\Spinner\Core\Factory\SignalHandlingSupportDetectorFactory must not depend on AlecRabbit\Spinner\Probes (Root)  
-              /app/src/Spinner/Core/Factory/SignalHandlingSupportDetectorFactory.php:26                                                 
+              /app/src/Spinner/Core/Factory/SignalHandlingSupportDetectorFactory.php:27                                                 
   Violation   AlecRabbit\Spinner\Core\Factory\SignalHandlingSupportDetectorFactory must not depend on AlecRabbit\Spinner\Probes (Root)  
               /app/src/Spinner/Core/Factory/SignalHandlingSupportDetectorFactory.php:12                                                 
  ----------- -------------------------------------------------------------------------------------------------------------------------- 
@@ -19,10 +52,10 @@
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           6     
+  Violations           18    
   Skipped violations   0     
   Uncovered            195   
-  Allowed              2999  
+  Allowed              2971  
   Warnings             0     
   Errors               0     
  -------------------- ------ 

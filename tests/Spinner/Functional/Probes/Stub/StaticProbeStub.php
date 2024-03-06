@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Override;
+namespace AlecRabbit\Tests\Spinner\Functional\Probes\Stub;
 
-use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
+use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
 use RuntimeException;
 
-class NegativeSignalHandlingProbeOverride implements ISignalHandlingProbe
+class StaticProbeStub implements IStaticProbe
 {
     public static function isSupported(): bool
     {
-        return false;
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 
     public static function getCreatorClass(): string

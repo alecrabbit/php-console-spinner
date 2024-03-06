@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
-use AlecRabbit\Tests\Spinner\Unit\Core\A\Override\ObserverASubjectOverride;
+use AlecRabbit\Tests\Spinner\Unit\Core\A\Stub\ObserverASubjectStub;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -25,7 +25,7 @@ final class ObserverASubjectTest extends TestCase
     protected function getTesteeInstance(
         ?IObserver $observer = null,
     ): ISubject&IObserver {
-        return new ObserverASubjectOverride(
+        return new ObserverASubjectStub(
             observer: $observer,
         );
     }

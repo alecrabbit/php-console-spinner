@@ -28,8 +28,10 @@
         "psr/container": "^2.0"
     },
     "require-dev": {
+        "alecrabbit/php-sneaky-peek": "*",
         "fakerphp/faker": "*",
         "nunomaduro/collision": "*",
+        "php-di/php-di": "^7.0",
         "phpunit/php-code-coverage": "*",
         "phpunit/phpunit": "^10.0",
         "react/event-loop": "*",
@@ -37,9 +39,7 @@
         "revolt/event-loop": "*",
         "symfony/console": "*",
         "symfony/dependency-injection": "^7.0",
-        "symfony/var-dumper": "*",
-        "php-di/php-di": "^7.0",
-        "alecrabbit/php-sneaky-peek": "^0.0.1"
+        "symfony/var-dumper": "*"
     },
     "suggest": {
         "ext-mbstring": "For multibyte Unicode string functionality.",

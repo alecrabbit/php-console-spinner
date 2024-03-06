@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\StylingMethodDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
-use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Override\NegativeStylingMethodProbeOverride;
-use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Override\PositiveStylingMethodProbeOverride;
+use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub\NegativeStylingMethodProbeStub;
+use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub\PositiveStylingMethodProbeStub;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -31,20 +31,20 @@ final class StylingMethodDetectorTest extends TestCase
             [
                 StylingMethodOption::ANSI24,
                 [
-                    PositiveStylingMethodProbeOverride::class,
+                    PositiveStylingMethodProbeStub::class,
                 ],
             ],
             [
                 StylingMethodOption::ANSI24,
                 [
-                    NegativeStylingMethodProbeOverride::class,
-                    PositiveStylingMethodProbeOverride::class,
+                    NegativeStylingMethodProbeStub::class,
+                    PositiveStylingMethodProbeStub::class,
                 ],
             ],
             [
                 StylingMethodOption::NONE,
                 [
-                    NegativeStylingMethodProbeOverride::class,
+                    NegativeStylingMethodProbeStub::class,
                 ],
             ],
         ];

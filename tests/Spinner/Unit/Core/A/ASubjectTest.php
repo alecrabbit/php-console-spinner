@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
-use AlecRabbit\Tests\Spinner\Unit\Core\A\Override\ASubjectOverride;
+use AlecRabbit\Tests\Spinner\Unit\Core\A\Stub\ASubjectStub;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -26,7 +26,7 @@ final class ASubjectTest extends TestCase
     protected function getTesteeInstance(
         ?IObserver $observer = null,
     ): ISubject {
-        return new ASubjectOverride(
+        return new ASubjectStub(
             observer: $observer,
         );
     }

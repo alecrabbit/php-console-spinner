@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Override;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub;
 
 use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
 
-class PositiveSignalHandlingProbeOverride implements ISignalHandlingProbe
+class PositiveSignalHandlingProbeStub implements ISignalHandlingProbe
 {
     public static function isSupported(): bool
     {
@@ -15,6 +15,6 @@ class PositiveSignalHandlingProbeOverride implements ISignalHandlingProbe
 
     public static function getCreatorClass(): string
     {
-        return SignalHandlingOptionCreatorOverride::class;
+        return SignalHandlingOptionCreatorStub::class;
     }
 }

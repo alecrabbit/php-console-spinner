@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\A\Override;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\A\Stub;
 
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use RuntimeException;
 
-final class ObserverASubjectOverride extends ASubjectOverride implements IObserver
+final class ObserverASubjectStub extends ASubjectStub implements IObserver
 {
     public function update(ISubject $subject): void
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\Core\Palette\Factory;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette\Factory;
 
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePaletteRenderer;

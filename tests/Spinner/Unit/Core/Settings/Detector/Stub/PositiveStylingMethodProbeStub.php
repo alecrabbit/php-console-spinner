@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Override;
+namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub;
 
 use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
 
-class PositiveStylingMethodProbeOverride implements IStylingMethodProbe
+class PositiveStylingMethodProbeStub implements IStylingMethodProbe
 {
     public static function isSupported(): bool
     {
@@ -15,6 +15,6 @@ class PositiveStylingMethodProbeOverride implements IStylingMethodProbe
 
     public static function getCreatorClass(): string
     {
-        return StylingMethodOptionCreatorOverride::class;
+        return StylingMethodOptionCreatorStub::class;
     }
 }

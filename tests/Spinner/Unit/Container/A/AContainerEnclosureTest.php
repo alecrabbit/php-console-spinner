@@ -8,17 +8,16 @@ use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IContainerBuilderFactory;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
-use AlecRabbit\Tests\Spinner\Unit\Container\A\Override\AContainerEnclosureOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Container\ContainerInterface;
 use stdClass;
 
+use function AlecRabbit\Tests\TestCase\Sneaky\peek;
+
 final class AContainerEnclosureTest extends TestCase
 {
-    private const GET_CONTAINER = 'getContainer';
-    private const SET_CONTAINER = 'setContainer';
     private static ?ContainerInterface $container;
 
     #[Test]
@@ -38,7 +37,7 @@ final class AContainerEnclosureTest extends TestCase
 
     private static function extractContainer(): mixed
     {
-        return self::callMethod(AContainerEnclosureOverride::class, self::GET_CONTAINER);
+        return peek(AContainerEnclosure::class)->getContainer();
     }
 
     #[Test]
@@ -65,7 +64,7 @@ final class AContainerEnclosureTest extends TestCase
 
     protected static function setContainer(?ContainerInterface $container): void
     {
-        self::callMethod(AContainerEnclosureOverride::class, self::SET_CONTAINER, $container);
+        peek(AContainerEnclosure::class)->setContainer($container);
     }
 
     protected function tearDown(): void

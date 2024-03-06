@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\SignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
-use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Override\NegativeSignalHandlingProbeOverride;
-use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Override\PositiveSignalHandlingProbeOverride;
+use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub\NegativeSignalHandlingProbeStub;
+use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub\PositiveSignalHandlingProbeStub;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -28,20 +28,20 @@ final class SignalHandlingSupportDetectorTest extends TestCase
             [
                 SignalHandlingOption::ENABLED,
                 [
-                    PositiveSignalHandlingProbeOverride::class,
+                    PositiveSignalHandlingProbeStub::class,
                 ]
             ],
             [
                 SignalHandlingOption::ENABLED,
                 [
-                    NegativeSignalHandlingProbeOverride::class,
-                    PositiveSignalHandlingProbeOverride::class,
+                    NegativeSignalHandlingProbeStub::class,
+                    PositiveSignalHandlingProbeStub::class,
                 ]
             ],
             [
                 SignalHandlingOption::DISABLED,
                 [
-                    NegativeSignalHandlingProbeOverride::class,
+                    NegativeSignalHandlingProbeStub::class,
                 ]
             ],
         ];
