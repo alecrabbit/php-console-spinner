@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Lib\Spinner\Factory;
 
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
-use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
+use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
 use AlecRabbit\Spinner\Contract\IInvokable;
-use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Driver\DummyDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
@@ -17,9 +16,15 @@ final readonly class DecoratedDriverLinkerFactory implements IDecoratedDriverLin
 {
     public function __construct(
         private IDriverLinkerFactory $driverLinkerFactory,
-        private IOutput $output,
-        private IIntervalFormatter $intervalFormatter,
+//        private ILoopProvider $loopProvider,
+//        private IAdditionalLoopSetup $loopSetup,
+        private IDriverInfoPrinter $infoPrinter,
     ) {
+    }
+
+    public function __invoke(): IDriverLinker
+    {
+        return $this->create();
     }
 
     public function create(): IDriverLinker
@@ -32,13 +37,7 @@ final readonly class DecoratedDriverLinkerFactory implements IDecoratedDriverLin
 
         return new DecoratedDriverLinker(
             $linker,
-            $this->output,
-            $this->intervalFormatter,
+            $this->infoPrinter,
         );
-    }
-
-    public function __invoke(): IDriverLinker
-    {
-        return $this->create();
     }
 }

@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Lib\Unit\Spinner\Factory;
 
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
+use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
+use AlecRabbit\Lib\Spinner\Core\Loop\IAdditionalLoopSetup;
 use AlecRabbit\Lib\Spinner\Factory\DecoratedDriverLinkerFactory;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Driver\DummyDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -28,20 +31,27 @@ final class DecoratedDriverLinkerFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IDriverLinkerFactory $driverLinkerFactory = null,
-        ?IOutput $output = null,
-        ?IIntervalFormatter $intervalFormatter = null,
+        ?ILoopProvider $loopProvider = null,
+        ?IAdditionalLoopSetup $loopSetup = null,
+        ?IDriverInfoPrinter $infoPrinter = null,
     ): IDecoratedDriverLinkerFactory {
         return
             new DecoratedDriverLinkerFactory(
                 driverLinkerFactory: $driverLinkerFactory ?? $this->getDriverLinkerFactoryMock(),
-                output: $output ?? $this->getOutputMock(),
-                intervalFormatter: $intervalFormatter ?? $this->getIntervalFormatterMock(),
+//                loopProvider: $loopProvider ?? $this->getLoopProviderMock(),
+//                loopSetup: $loopSetup ?? $this->getLoopSetupMock(),
+            infoPrinter: $infoPrinter ?? $this->getIntervalPrinterMock(),
             );
     }
 
     private function getDriverLinkerFactoryMock(): MockObject&IDriverLinkerFactory
     {
         return $this->createMock(IDriverLinkerFactory::class);
+    }
+
+    private function getLoopProviderMock(): MockObject&ILoopProvider
+    {
+        return $this->createMock(ILoopProvider::class);
     }
 
     private function getOutputMock(): MockObject&IOutput
@@ -99,5 +109,15 @@ final class DecoratedDriverLinkerFactoryTest extends TestCase
     private function getDriverLinkerMock(): MockObject&IDriverLinker
     {
         return $this->createMock(IDriverLinker::class);
+    }
+
+    private function getLoopSetupMock(): MockObject&IAdditionalLoopSetup
+    {
+        return $this->createMock(IAdditionalLoopSetup::class);
+    }
+
+    private function getIntervalPrinterMock(): MockObject&IDriverInfoPrinter
+    {
+        return $this->createMock(IDriverInfoPrinter::class);
     }
 }

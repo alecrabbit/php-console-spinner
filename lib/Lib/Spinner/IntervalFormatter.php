@@ -14,7 +14,7 @@ final readonly class IntervalFormatter implements IIntervalFormatter
     public function format(IInterval $interval): string
     {
         return sprintf(
-            'Interval: %sms' . PHP_EOL,
+            '%sms',
             $interval->toMilliseconds()
         );
     }

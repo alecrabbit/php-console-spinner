@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Lib\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Lib\Spinner\Contract\ILoopInfoFormatter;
+use AlecRabbit\Lib\Spinner\Contract\ILoopInfoPrinter;
 use AlecRabbit\Lib\Spinner\Core\Factory\DecoratedLoopProviderFactory;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
@@ -26,13 +26,11 @@ final class DecoratedLoopProviderFactoryTest extends TestCase
 
     private function getTesteeInstance(
         ?ILoopProviderFactory $loopProviderFactory = null,
-        ?IOutput $output = null,
-        ?ILoopInfoFormatter $loopInfoFormatter = null,
+        ?ILoopInfoPrinter $loopInfoPrinter = null,
     ): ILoopProviderFactory {
         return new DecoratedLoopProviderFactory(
             loopProviderFactory: $loopProviderFactory ?? $this->getLoopProviderFactoryMock(),
-            output: $output ?? $this->getOutputMock(),
-            loopInfoFormatter: $loopInfoFormatter ?? $this->getLoopInfoFormatterMock(),
+            loopInfoPrinter: $loopInfoPrinter ?? $this->getLoopInfoPrinterMock(),
         );
     }
 
@@ -46,22 +44,20 @@ final class DecoratedLoopProviderFactoryTest extends TestCase
         return $this->createMock(IOutput::class);
     }
 
-    private function getLoopInfoFormatterMock(): MockObject&ILoopInfoFormatter
+    private function getLoopInfoPrinterMock(): MockObject&ILoopInfoPrinter
     {
-        return $this->createMock(ILoopInfoFormatter::class);
+        return $this->createMock(ILoopInfoPrinter::class);
     }
 
     #[Test]
     public function canCreateWithoutLoop(): void
     {
         $loopProviderFactory = $this->getLoopProviderFactoryMock();
-        $output = $this->getOutputMock();
-        $loopInfoFormatter = $this->getLoopInfoFormatterMock();
+        $loopInfoPrinter = $this->getLoopInfoPrinterMock();
 
         $provider = $this->getTesteeInstance(
             loopProviderFactory: $loopProviderFactory,
-            output: $output,
-            loopInfoFormatter: $loopInfoFormatter
+            loopInfoPrinter: $loopInfoPrinter
         );
         $loopProvider = $this->createMock(ILoopProvider::class);
 
@@ -82,19 +78,10 @@ final class DecoratedLoopProviderFactoryTest extends TestCase
             ->method('getLoop')
         ;
 
-        $str = 'None';
-
-        $loopInfoFormatter
+        $loopInfoPrinter
             ->expects($this->once())
-            ->method('format')
+            ->method('print')
             ->with(null)
-            ->willReturn($str)
-        ;
-
-        $output
-            ->expects($this->once())
-            ->method('writeln')
-            ->with($str)
         ;
 
         $actual = $provider->__invoke();
@@ -107,13 +94,11 @@ final class DecoratedLoopProviderFactoryTest extends TestCase
     {
         $loop = $this->createMock(ILoop::class);
         $loopProviderFactory = $this->getLoopProviderFactoryMock();
-        $output = $this->getOutputMock();
-        $loopInfoFormatter = $this->getLoopInfoFormatterMock();
+        $loopInfoPrinter = $this->getLoopInfoPrinterMock();
 
         $provider = $this->getTesteeInstance(
             loopProviderFactory: $loopProviderFactory,
-            output: $output,
-            loopInfoFormatter: $loopInfoFormatter
+            loopInfoPrinter: $loopInfoPrinter
         );
         $loopProvider = $this->createMock(ILoopProvider::class);
 
@@ -135,19 +120,10 @@ final class DecoratedLoopProviderFactoryTest extends TestCase
             ->willReturn($loop)
         ;
 
-        $str = 'Using loop: ' . $loop::class;
-
-        $loopInfoFormatter
+        $loopInfoPrinter
             ->expects($this->once())
-            ->method('format')
+            ->method('print')
             ->with($loop)
-            ->willReturn($str)
-        ;
-
-        $output
-            ->expects($this->once())
-            ->method('writeln')
-            ->with($str)
         ;
 
         $actual = $provider->create();

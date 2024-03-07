@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Lib\Spinner\Core;
 
+use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\IntervalFormatter;
 use AlecRabbit\Spinner\Contract\ISubject;
@@ -20,8 +21,7 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
 {
     public function __construct(
         private IDriverLinker $linker,
-        private IOutput $output,
-        private IIntervalFormatter $intervalFormatter,
+        private IDriverInfoPrinter $infoPrinter,
     ) {
     }
 
@@ -41,20 +41,7 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
             // ignore
         }
 
-        $this->write($driver);
-    }
-
-    private function write(IDriver $driver): void
-    {
-        $messages = [
-            sprintf('%s:', $this::class),
-            ' ',
-            sprintf('[%s]', $driver::class),
-            ' ',
-            $this->intervalFormatter->format($driver->getInterval()),
-        ];
-
-        $this->output->write($messages);
+        $this->infoPrinter->print($driver);
     }
 
     public function update(ISubject $subject): void
@@ -62,7 +49,7 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
         $this->linker->update($subject);
 
         if ($subject instanceof IDriver) {
-            $this->write($subject);
+            $this->infoPrinter->print($subject);
         }
     }
 }

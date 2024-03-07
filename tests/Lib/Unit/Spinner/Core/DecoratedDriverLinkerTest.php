@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Lib\Unit\Spinner\Core;
 
 
+use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
 use AlecRabbit\Spinner\Contract\IInterval;
@@ -28,14 +29,12 @@ final class DecoratedDriverLinkerTest extends TestCase
 
     private function getTesteeInstance(
         ?IDriverLinker $linker = null,
-        ?IOutput $output = null,
-        ?IIntervalFormatter $intervalFormatter = null,
+        ?IDriverInfoPrinter $infoPrinter = null,
     ): IDriverLinker {
         return
             new DecoratedDriverLinker(
                 linker: $linker ?? $this->getDriverLinkerMock(),
-                output: $output ?? $this->getOutputMock(),
-                intervalFormatter: $intervalFormatter ?? $this->getIntervalFormatterMock(),
+                infoPrinter: $infoPrinter ?? $this->getDriverInfoPrinterMock(),
             );
     }
 
@@ -83,39 +82,24 @@ final class DecoratedDriverLinkerTest extends TestCase
     public function canLink(): void
     {
         $driverLinker = $this->getDriverLinkerMock();
-        $output = $this->getOutputMock();
-        $formatter = $this->getIntervalFormatterMock();
+        $printer = $this->getDriverInfoPrinterMock();
 
         $linker = $this->getTesteeInstance(
             linker: $driverLinker,
-            output: $output,
-            intervalFormatter: $formatter,
+            infoPrinter: $printer,
         );
 
-        $interval = $this->getIntervalMock();
         $driver = $this->getDriverMock();
-        $driver
+        $printer
             ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
-
-        $formatter
-            ->expects(self::once())
-            ->method('format')
-            ->with($interval)
+            ->method('print')
+            ->with($driver)
         ;
 
         $driverLinker
             ->expects(self::once())
             ->method('link')
             ->with($driver)
-        ;
-
-
-        $output
-            ->expects(self::once())
-            ->method('write')
         ;
 
         $driver
@@ -137,26 +121,20 @@ final class DecoratedDriverLinkerTest extends TestCase
     {
         $driverLinker = $this->getDriverLinkerMock();
         $output = $this->getOutputMock();
-        $formatter = $this->getIntervalFormatterMock();
+        $printer = $this->getDriverInfoPrinterMock();
+
 
         $linker = $this->getTesteeInstance(
             linker: $driverLinker,
-            output: $output,
-            intervalFormatter: $formatter,
+            infoPrinter: $printer,
         );
 
-        $interval = $this->getIntervalMock();
         $driver = $this->getDriverMock();
-        $driver
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
 
-        $formatter
+        $printer
             ->expects(self::once())
-            ->method('format')
-            ->with($interval)
+            ->method('print')
+            ->with($driver)
         ;
 
         $driverLinker
@@ -166,11 +144,6 @@ final class DecoratedDriverLinkerTest extends TestCase
             ->willThrowException(new ObserverCanNotBeOverwritten())
         ;
 
-        $output
-            ->expects(self::once())
-            ->method('write')
-        ;
-
         $driver
             ->expects(self::once())
             ->method('attach')
@@ -178,5 +151,10 @@ final class DecoratedDriverLinkerTest extends TestCase
         ;
 
         $linker->link($driver);
+    }
+
+    private function getDriverInfoPrinterMock(): MockObject&IDriverInfoPrinter
+    {
+        return $this->createMock(IDriverInfoPrinter::class);
     }
 }

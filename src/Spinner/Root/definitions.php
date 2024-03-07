@@ -139,6 +139,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopCreatorClassProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSupportDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\INowTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateFactory;
@@ -172,6 +173,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Loop\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Factory\LoopProviderFactory;
+use AlecRabbit\Spinner\Core\Loop\Factory\LoopSetupFactory;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
 use AlecRabbit\Spinner\Core\Output\BufferedOutput;
@@ -288,7 +290,7 @@ function getDefinitions(): Traversable
             IServiceDefinition::SINGLETON,
         ),
         ILoopCreatorClassExtractor::class => LoopCreatorClassExtractor::class,
-        ILoopSetup::class => LoopSetup::class,
+        ILoopSetup::class => new Reference(LoopSetupFactory::class),
 
         IStyleFrameTransformer::class => StyleFrameTransformer::class,
         ICharFrameTransformer::class => CharFrameTransformer::class,
@@ -397,6 +399,7 @@ function factories(): Traversable
         ),
         IDeltaTimerFactory::class => DeltaTimerFactory::class,
         IUserSettingsFactory::class => UserSettingsFactory::class,
+        ILoopSetupFactory::class => LoopSetupFactory::class,
         IWidgetFactory::class => WidgetFactory::class,
         IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
         IStylePatternFactory::class => StylePatternFactory::class,

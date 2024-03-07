@@ -37,6 +37,6 @@ final class IntervalFormatterTest extends TestCase
             ->willReturn(10.0)
         ;
 
-        self::assertStringContainsString('Interval: 10ms', $formatter->format($interval));
+        self::assertStringContainsString('10ms', $formatter->format($interval));
     }
 }

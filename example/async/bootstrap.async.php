@@ -5,12 +5,21 @@ declare(strict_types=1);
 use AlecRabbit\Lib\Helper\MemoryUsage;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedLoopProviderFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedLoopSetupFactory;
+use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Contract\ILoopInfoFormatter;
+use AlecRabbit\Lib\Spinner\Contract\ILoopInfoPrinter;
+use AlecRabbit\Lib\Spinner\Contract\IMemoryReportFormatter;
+use AlecRabbit\Lib\Spinner\Contract\IMemoryReportPrinter;
 use AlecRabbit\Lib\Spinner\Core\Factory\DecoratedLoopProviderFactory;
+use AlecRabbit\Lib\Spinner\Core\Factory\DecoratedLoopSetupFactory;
+use AlecRabbit\Lib\Spinner\DriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Factory\DecoratedDriverLinkerFactory;
 use AlecRabbit\Lib\Spinner\IntervalFormatter;
 use AlecRabbit\Lib\Spinner\LoopInfoFormatter;
+use AlecRabbit\Lib\Spinner\LoopInfoPrinter;
+use AlecRabbit\Lib\Spinner\MemoryReportPrinter;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
@@ -18,7 +27,9 @@ use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Facade;
 
 const MEMORY_REPORT_INTERVAL = 60; // seconds
@@ -38,6 +49,7 @@ $registry->bind(
         IServiceDefinition::SINGLETON,
     ),
     new ServiceDefinition(IDecoratedDriverLinkerFactory::class, DecoratedDriverLinkerFactory::class),
+    new ServiceDefinition(IDriverInfoPrinter::class, DriverInfoPrinter::class),
     new ServiceDefinition(IIntervalFormatter::class, IntervalFormatter::class),
     // LoopProvider
     new ServiceDefinition(
@@ -46,7 +58,17 @@ $registry->bind(
         IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC,
     ),
     new ServiceDefinition(IDecoratedLoopProviderFactory::class, DecoratedLoopProviderFactory::class),
+    new ServiceDefinition(ILoopInfoPrinter::class, LoopInfoPrinter::class),
     new ServiceDefinition(ILoopInfoFormatter::class, LoopInfoFormatter::class),
+//    // LoopSetup
+//    new ServiceDefinition(
+//        ILoopSetup::class,
+//        new Reference(IDecoratedLoopSetupFactory::class),
+//        IServiceDefinition::SINGLETON,
+//    ),
+//    new ServiceDefinition(IDecoratedLoopSetupFactory::class, DecoratedLoopSetupFactory::class),
+//    new ServiceDefinition(IMemoryReportPrinter::class, MemoryReportPrinter::class),
+//    new ServiceDefinition(IMemoryReportFormatter::class, MemoryReportFormatter::class),
 );
 
 register_shutdown_function(
