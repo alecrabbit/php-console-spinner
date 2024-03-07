@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IExecutionModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\ExecutionModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
@@ -19,12 +19,12 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 use function sprintf;
 
-final class RunMethodModeSolverTest extends TestCase
+final class ExecutionModeSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {
-        $mS = RunMethodMode::SYNCHRONOUS;
-        $mA = RunMethodMode::ASYNC;
+        $mS = ExecutionMode::SYNCHRONOUS;
+        $mA = ExecutionMode::ASYNC;
 
         $oAu = RunMethodOption::AUTO;
         $oSy = RunMethodOption::SYNCHRONOUS;
@@ -36,7 +36,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', ExecutionMode::class),
                     ],
                 ],
                 [null, null, null],
@@ -45,7 +45,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', ExecutionMode::class),
                     ],
                 ],
                 [$oAu, null, null],
@@ -54,7 +54,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', ExecutionMode::class),
                     ],
                 ],
                 [null, $oAu, null],
@@ -63,7 +63,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', ExecutionMode::class),
                     ],
                 ],
                 [null, null, $oAu],
@@ -109,14 +109,14 @@ final class RunMethodModeSolverTest extends TestCase
     {
         $solver = $this->getTesteeInstance();
 
-        self::assertInstanceOf(RunMethodModeSolver::class, $solver);
+        self::assertInstanceOf(ExecutionModeSolver::class, $solver);
     }
 
     protected function getTesteeInstance(
         ?ISettingsProvider $settingsProvider = null,
-    ): IRunMethodModeSolver {
+    ): IExecutionModeSolver {
         return
-            new RunMethodModeSolver(
+            new ExecutionModeSolver(
                 settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
             );
     }

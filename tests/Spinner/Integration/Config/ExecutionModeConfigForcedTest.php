@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Integration\Config;
 
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
@@ -19,7 +19,7 @@ use AlecRabbit\Tests\TestCase\Stub\DetectedSettingsFactoryFactoryStub;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
-final class RunMethodModeConfigForcedTest extends ConfigurationTestCase
+final class ExecutionModeConfigForcedTest extends ConfigurationTestCase
 {
     protected static function setTestContainer(): void
     {
@@ -54,7 +54,7 @@ final class RunMethodModeConfigForcedTest extends ConfigurationTestCase
         /** @var IGeneralConfig $generalConfig */
         $generalConfig = self::getRequiredConfig(IGeneralConfig::class);
 
-        self::assertSame(RunMethodMode::ASYNC, $generalConfig->getRunMethodMode());
+        self::assertSame(ExecutionMode::ASYNC, $generalConfig->getExecutionMode());
     }
 
     #[Test]
@@ -71,7 +71,7 @@ final class RunMethodModeConfigForcedTest extends ConfigurationTestCase
         /** @var IGeneralConfig $generalConfig */
         $generalConfig = self::getRequiredConfig(IGeneralConfig::class);
 
-        self::assertSame(RunMethodMode::ASYNC, $generalConfig->getRunMethodMode());
+        self::assertSame(ExecutionMode::ASYNC, $generalConfig->getExecutionMode());
     }
 
     #[Test]
@@ -88,6 +88,6 @@ final class RunMethodModeConfigForcedTest extends ConfigurationTestCase
         /** @var IGeneralConfig $generalConfig */
         $generalConfig = self::getRequiredConfig(IGeneralConfig::class);
 
-        self::assertEquals(RunMethodMode::SYNCHRONOUS, $generalConfig->getRunMethodMode());
+        self::assertEquals(ExecutionMode::SYNCHRONOUS, $generalConfig->getExecutionMode());
     }
 }

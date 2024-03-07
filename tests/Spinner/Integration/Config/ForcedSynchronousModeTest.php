@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Integration\Config;
 
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
@@ -71,7 +71,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         /** @var IGeneralConfig $generalConfig */
         $generalConfig = self::getRequiredConfig(IGeneralConfig::class);
 
-        self::assertEquals(RunMethodMode::SYNCHRONOUS, $generalConfig->getRunMethodMode());
+        self::assertEquals(ExecutionMode::SYNCHRONOUS, $generalConfig->getExecutionMode());
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');

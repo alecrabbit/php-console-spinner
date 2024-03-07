@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Config;
 
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Config\GeneralConfig;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -21,24 +21,24 @@ final class GeneralConfigTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?RunMethodMode $runMethodMode = null,
+        ?ExecutionMode $executionMode = null,
     ): IGeneralConfig {
         return
             new GeneralConfig(
-                runMethodMode: $runMethodMode ?? RunMethodMode::ASYNC,
+                executionMode: $executionMode ?? ExecutionMode::ASYNC,
             );
     }
 
     #[Test]
-    public function canGetRunMethodMode(): void
+    public function canGetExecutionMode(): void
     {
-        $runMethodMode = RunMethodMode::SYNCHRONOUS;
+        $executionMode = ExecutionMode::SYNCHRONOUS;
 
         $config = $this->getTesteeInstance(
-            runMethodMode: $runMethodMode,
+            executionMode: $executionMode,
         );
 
-        self::assertSame($runMethodMode, $config->getRunMethodMode());
+        self::assertSame($executionMode, $config->getExecutionMode());
     }
 
     #[Test]

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
@@ -51,13 +51,13 @@ final class LoopProviderFactoryTest extends TestCase
         return $this->createMock(ILoopSetup::class);
     }
 
-    private function getGeneralConfigMock(?RunMethodMode $runMethodMode = null): IGeneralConfig&MockObject
+    private function getGeneralConfigMock(?ExecutionMode $executionMode = null): IGeneralConfig&MockObject
     {
         $mock = $this->createMock(IGeneralConfig::class);
-        $runMethodMode ??= RunMethodMode::ASYNC;
+        $executionMode ??= ExecutionMode::ASYNC;
         $mock
-            ->method('getRunMethodMode')
-            ->willReturn($runMethodMode)
+            ->method('getExecutionMode')
+            ->willReturn($executionMode)
         ;
 
         return $mock;
@@ -125,10 +125,10 @@ final class LoopProviderFactoryTest extends TestCase
     }
 
     #[Test]
-    public function canCreateWithRunMethodModeSynchronous(): void
+    public function canCreateWithExecutionModeSynchronous(): void
     {
         $factory = $this->getTesteeInstance(
-            generalConfig: $this->getGeneralConfigMock(RunMethodMode::SYNCHRONOUS),
+            generalConfig: $this->getGeneralConfigMock(ExecutionMode::SYNCHRONOUS),
         );
 
         $loopProvider = $factory->create();

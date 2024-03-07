@@ -2,7 +2,7 @@
 
  ```php
 // General config
-$generalConfig->getRunMethodMode(); // RunMethodMode::ASYNC
+$generalConfig->getExecutionMode(); // ExecutionMode::ASYNC
 
 // Normalizer config
 $normalizerConfig->getNormalizerMode(); // NormalizerMode::BALANCED

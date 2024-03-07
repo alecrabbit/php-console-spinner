@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Contract;
 
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 
 interface IGeneralConfig extends IConfigElement
 {
-    public function getRunMethodMode(): RunMethodMode;
+    public function getExecutionMode(): ExecutionMode;
 }

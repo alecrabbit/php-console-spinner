@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\INormalizerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\INormalizerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\INormalizerConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\NormalizerConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IExecutionModeSolver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -101,13 +101,13 @@ final class NormalizerConfigFactoryTest extends TestCase
             );
     }
 
-    protected function getRunMethodModeSolverMock(?RunMethodMode $runMethodMode = null
-    ): MockObject&IRunMethodModeSolver {
+    protected function getExecutionModeSolverMock(?ExecutionMode $executionMode = null
+    ): MockObject&IExecutionModeSolver {
         return
             $this->createConfiguredMock(
-                IRunMethodModeSolver::class,
+                IExecutionModeSolver::class,
                 [
-                    'solve' => $runMethodMode ?? RunMethodMode::SYNCHRONOUS,
+                    'solve' => $executionMode ?? ExecutionMode::SYNCHRONOUS,
                 ]
             );
     }

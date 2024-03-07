@@ -90,7 +90,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRootWidgetSettingsSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IExecutionModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
@@ -104,7 +104,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\NormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RootWidgetSettingsSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\ExecutionModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StreamSolver;
@@ -362,7 +362,7 @@ function solvers(): Traversable
         ILinkerModeSolver::class => LinkerModeSolver::class,
         INormalizerModeSolver::class => NormalizerModeSolver::class,
         IRootWidgetSettingsSolver::class => RootWidgetSettingsSolver::class,
-        IRunMethodModeSolver::class => RunMethodModeSolver::class,
+        IExecutionModeSolver::class => ExecutionModeSolver::class,
         ISignalHandlersContainerSolver::class => SignalHandlersContainerSolver::class,
         ISignalHandlingModeSolver::class => SignalHandlingModeSolver::class,
         IStreamSolver::class => StreamSolver::class,

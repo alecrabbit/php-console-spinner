@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 use AlecRabbit\Spinner\Core\Config\Builder\GeneralConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IGeneralConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\GeneralConfig;
@@ -34,7 +34,7 @@ final class GeneralConfigBuilderTest extends TestCase
         $configBuilder = $this->getTesteeInstance();
 
         $config = $configBuilder
-            ->withRunMethodMode(RunMethodMode::SYNCHRONOUS)
+            ->withExecutionMode(ExecutionMode::SYNCHRONOUS)
             ->build()
         ;
 
@@ -42,23 +42,23 @@ final class GeneralConfigBuilderTest extends TestCase
     }
 
     #[Test]
-    public function withRunMethodModeReturnsOtherInstanceOfBuilder(): void
+    public function withExecutionModeReturnsOtherInstanceOfBuilder(): void
     {
         $configBuilder = $this->getTesteeInstance();
 
         $builder =
             $configBuilder
-                ->withRunMethodMode(RunMethodMode::SYNCHRONOUS)
+                ->withExecutionMode(ExecutionMode::SYNCHRONOUS)
         ;
 
         self::assertNotSame($builder, $configBuilder);
     }
 
     #[Test]
-    public function throwsIfRunMethodModeIsNotSet(): void
+    public function throwsIfExecutionModeIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'RunMethodMode is not set.';
+        $exceptionMessage = 'ExecutionMode is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();

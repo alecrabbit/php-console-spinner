@@ -8,12 +8,12 @@ use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IGeneralConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IGeneralConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IExecutionModeSolver;
 
 final readonly class GeneralConfigFactory implements IGeneralConfigFactory, IInvokable
 {
     public function __construct(
-        protected IRunMethodModeSolver $runMethodModeSolver,
+        protected IExecutionModeSolver $executionModeSolver,
         protected IGeneralConfigBuilder $generalConfigBuilder,
     ) {
     }
@@ -26,8 +26,8 @@ final readonly class GeneralConfigFactory implements IGeneralConfigFactory, IInv
     public function create(): IGeneralConfig
     {
         return $this->generalConfigBuilder
-            ->withRunMethodMode(
-                $this->runMethodModeSolver->solve()
+            ->withExecutionMode(
+                $this->executionModeSolver->solve()
             )
             ->build()
         ;

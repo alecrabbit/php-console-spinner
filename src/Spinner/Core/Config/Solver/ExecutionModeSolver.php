@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IExecutionModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 
 use function sprintf;
 
-final readonly class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
+final readonly class ExecutionModeSolver extends ASolver implements IExecutionModeSolver
 {
-    public function solve(): RunMethodMode
+    public function solve(): ExecutionMode
     {
         return $this->doSolve(
             $this->extractOption($this->settingsProvider->getUserSettings()),
@@ -32,7 +32,7 @@ final readonly class RunMethodModeSolver extends ASolver implements IRunMethodMo
         ?RunMethodOption $userOption,
         ?RunMethodOption $detectedOption,
         ?RunMethodOption $defaultOption,
-    ): RunMethodMode {
+    ): ExecutionMode {
         $options = [$userOption, $detectedOption, $defaultOption];
 
         return match ($options) {
@@ -85,7 +85,7 @@ final readonly class RunMethodModeSolver extends ASolver implements IRunMethodMo
                 RunMethodOption::ASYNC,
                 null,
                 RunMethodOption::ASYNC,
-            ] => RunMethodMode::ASYNC,
+            ] => ExecutionMode::ASYNC,
             [
                 RunMethodOption::AUTO,
                 RunMethodOption::SYNCHRONOUS,
@@ -145,12 +145,12 @@ final readonly class RunMethodModeSolver extends ASolver implements IRunMethodMo
                 RunMethodOption::SYNCHRONOUS,
                 RunMethodOption::SYNCHRONOUS,
                 RunMethodOption::ASYNC,
-            ] => RunMethodMode::SYNCHRONOUS,
+            ] => ExecutionMode::SYNCHRONOUS,
             default // DEFAULT BRANCH
             => throw new InvalidArgument(
                 sprintf(
                     'Unable to solve "%s". From values %s.',
-                    RunMethodMode::class,
+                    ExecutionMode::class,
                     sprintf(
                         '[%s, %s, %s]',
                         $userOption?->name ?? 'null',

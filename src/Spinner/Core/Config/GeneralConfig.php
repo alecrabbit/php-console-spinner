@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 
 final readonly class GeneralConfig implements IGeneralConfig
 {
     public function __construct(
-        protected RunMethodMode $runMethodMode,
+        protected ExecutionMode $executionMode,
     ) {
     }
 
-    public function getRunMethodMode(): RunMethodMode
+    public function getExecutionMode(): ExecutionMode
     {
-        return $this->runMethodMode;
+        return $this->executionMode;
     }
 
     /**

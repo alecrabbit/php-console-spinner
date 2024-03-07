@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IGeneralConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IGeneralConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\GeneralConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IExecutionModeSolver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -25,23 +25,23 @@ final class GeneralConfigFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IRunMethodModeSolver $runMethodModeSolver = null,
+        ?IExecutionModeSolver $executionModeSolver = null,
         ?IGeneralConfigBuilder $generalConfigBuilder = null,
     ): IGeneralConfigFactory {
         return
             new GeneralConfigFactory(
-                runMethodModeSolver: $runMethodModeSolver ?? $this->getRunMethodModeSolverMock(),
+                executionModeSolver: $executionModeSolver ?? $this->getExecutionModeSolverMock(),
                 generalConfigBuilder: $generalConfigBuilder ?? $this->getGeneralConfigBuilderMock(),
             );
     }
 
-    protected function getRunMethodModeSolverMock(?RunMethodMode $runMethodMode = null
-    ): MockObject&IRunMethodModeSolver {
+    protected function getExecutionModeSolverMock(?ExecutionMode $executionMode = null
+    ): MockObject&IExecutionModeSolver {
         return
             $this->createConfiguredMock(
-                IRunMethodModeSolver::class,
+                IExecutionModeSolver::class,
                 [
-                    'solve' => $runMethodMode ?? RunMethodMode::SYNCHRONOUS,
+                    'solve' => $executionMode ?? ExecutionMode::SYNCHRONOUS,
                 ]
             );
     }
@@ -54,18 +54,18 @@ final class GeneralConfigFactoryTest extends TestCase
     #[Test]
     public function canCreate(): void
     {
-        $runMethodMode = RunMethodMode::ASYNC;
+        $executionMode = ExecutionMode::ASYNC;
 
         $generalConfig =
             $this->getGeneralConfigMock(
-                $runMethodMode,
+                $executionMode,
             );
 
         $generalConfigBuilder = $this->getGeneralConfigBuilderMock();
         $generalConfigBuilder
             ->expects(self::once())
-            ->method('withRunMethodMode')
-            ->with($runMethodMode)
+            ->method('withExecutionMode')
+            ->with($executionMode)
             ->willReturnSelf()
         ;
         $generalConfigBuilder
@@ -76,7 +76,7 @@ final class GeneralConfigFactoryTest extends TestCase
 
         $factory =
             $this->getTesteeInstance(
-                runMethodModeSolver: $this->getRunMethodModeSolverMock($runMethodMode),
+                executionModeSolver: $this->getExecutionModeSolverMock($executionMode),
                 generalConfigBuilder: $generalConfigBuilder,
             );
 
@@ -84,17 +84,17 @@ final class GeneralConfigFactoryTest extends TestCase
 
         self::assertSame($generalConfig, $config);
 
-        self::assertSame($runMethodMode, $config->getRunMethodMode());
+        self::assertSame($executionMode, $config->getExecutionMode());
     }
 
     private function getGeneralConfigMock(
-        RunMethodMode $runMethodMode,
+        ExecutionMode $executionMode,
     ): MockObject&IGeneralConfig {
         return
             $this->createConfiguredMock(
                 IGeneralConfig::class,
                 [
-                    'getRunMethodMode' => $runMethodMode,
+                    'getExecutionMode' => $executionMode,
                 ]
             );
     }
