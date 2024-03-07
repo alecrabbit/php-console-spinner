@@ -21,7 +21,7 @@ require_once __DIR__ . '/../bootstrap.php'; // <-- except this line - it is requ
 
 $registry = DefinitionRegistry::getInstance();
 
-// Replace default driver linker with driver linker with output
+// Replace default driver linker with decorated driver linker(outputs some debug info)
 $registry->bind(
     new ServiceDefinition(
         IDriverLinker::class,
