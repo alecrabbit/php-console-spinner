@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use AlecRabbit\Lib\Helper\MemoryUsage;
-use AlecRabbit\Lib\Spinner\Contract\Factory\IDriverLinkerDecoratorFactory;
-use AlecRabbit\Lib\Spinner\Factory\DriverLinkerDecoratorFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
+use AlecRabbit\Lib\Spinner\Factory\DecoratedDriverLinkerFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
@@ -25,10 +25,10 @@ $registry = DefinitionRegistry::getInstance();
 $registry->bind(
     new ServiceDefinition(
         IDriverLinker::class,
-        new Reference(IDriverLinkerDecoratorFactory::class),
+        new Reference(IDecoratedDriverLinkerFactory::class),
         IServiceDefinition::SINGLETON,
     ),
-    new ServiceDefinition(IDriverLinkerDecoratorFactory::class, DriverLinkerDecoratorFactory::class),
+    new ServiceDefinition(IDecoratedDriverLinkerFactory::class, DecoratedDriverLinkerFactory::class),
 );
 
 register_shutdown_function(

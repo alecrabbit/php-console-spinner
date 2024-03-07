@@ -16,7 +16,7 @@ use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
  * This class is a decorator for the DriverLinker class.
  * It writes the current driver interval to the output during 'link' and 'update' method calls.
  */
-final readonly class DriverLinkerDecorator implements IDriverLinker
+final readonly class DecoratedDriverLinker implements IDriverLinker
 {
     public function __construct(
         private IDriverLinker $linker,

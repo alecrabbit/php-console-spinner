@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Lib\Unit\Spinner\Factory;
 
-use AlecRabbit\Lib\Spinner\Contract\Factory\IDriverLinkerDecoratorFactory;
-use AlecRabbit\Lib\Spinner\Core\DriverLinkerDecorator;
-use AlecRabbit\Lib\Spinner\Factory\DriverLinkerDecoratorFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
+use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
+use AlecRabbit\Lib\Spinner\Factory\DecoratedDriverLinkerFactory;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Driver\DummyDriverLinker;
@@ -15,22 +15,22 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverLinkerDecoratorFactoryTest extends TestCase
+final class DecoratedDriverLinkerFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $factory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverLinkerDecoratorFactory::class, $factory);
+        self::assertInstanceOf(DecoratedDriverLinkerFactory::class, $factory);
     }
 
     public function getTesteeInstance(
         ?IDriverLinkerFactory $driverLinkerFactory = null,
         ?IOutput $output = null,
-    ): IDriverLinkerDecoratorFactory {
+    ): IDecoratedDriverLinkerFactory {
         return
-            new DriverLinkerDecoratorFactory(
+            new DecoratedDriverLinkerFactory(
                 driverLinkerFactory: $driverLinkerFactory ?? $this->getDriverLinkerFactoryMock(),
                 output: $output ?? $this->getOutputMock(),
             );
@@ -85,7 +85,7 @@ final class DriverLinkerDecoratorFactoryTest extends TestCase
 
         $linker = $factory->create();
 
-        self::assertInstanceOf(DriverLinkerDecorator::class, $linker);
+        self::assertInstanceOf(DecoratedDriverLinker::class, $linker);
     }
 
     private function getDriverLinkerMock(): MockObject&IDriverLinker
