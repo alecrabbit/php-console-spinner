@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Lib\Spinner\Core\Factory;
 
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedLoopSetupFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportLoopSetupFactory;
 use AlecRabbit\Lib\Spinner\Core\Loop\DecoratedLoopSetup;
 use AlecRabbit\Lib\Spinner\Core\Loop\IMemoryReportLoopSetup;
 use AlecRabbit\Spinner\Contract\IInvokable;
@@ -15,7 +16,7 @@ final readonly class DecoratedLoopSetupFactory implements IDecoratedLoopSetupFac
 {
     public function __construct(
         private ILoopSetupFactory $loopSetupFactory,
-        private IMemoryReportLoopSetup $memoryReportLoopSetup,
+        private IMemoryReportLoopSetupFactory $memoryReportLoopSetupFactory,
     ) {
     }
 
@@ -28,7 +29,7 @@ final readonly class DecoratedLoopSetupFactory implements IDecoratedLoopSetupFac
     {
         return new DecoratedLoopSetup(
             loopSetup: $this->loopSetupFactory->create(),
-            memoryReportLoopSetup: $this->memoryReportLoopSetup,
+            loopSetupFactory: $this->memoryReportLoopSetupFactory,
         );
     }
 }

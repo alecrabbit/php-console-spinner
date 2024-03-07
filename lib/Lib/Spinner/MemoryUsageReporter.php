@@ -6,6 +6,8 @@ namespace AlecRabbit\Lib\Spinner;
 
 use AlecRabbit\Lib\Spinner\Contract\IMemoryUsageReporter;
 use AlecRabbit\Lib\Spinner\Contract\IMemoryUsageReportPrinter;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 
 final readonly class MemoryUsageReporter implements IMemoryUsageReporter
 {

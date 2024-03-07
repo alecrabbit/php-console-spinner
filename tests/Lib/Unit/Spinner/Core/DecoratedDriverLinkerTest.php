@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Lib\Unit\Spinner\Core;
 
 
+use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportLoopSetupFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
@@ -13,6 +14,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -31,11 +33,15 @@ final class DecoratedDriverLinkerTest extends TestCase
     private function getTesteeInstance(
         ?IDriverLinker $linker = null,
         ?IDriverInfoPrinter $infoPrinter = null,
+        ?ILoopProvider $loopProvider = null,
+        ?IMemoryReportLoopSetupFactory $loopSetupFactory = null,
     ): IDriverLinker {
         return
             new DecoratedDriverLinker(
                 linker: $linker ?? $this->getDriverLinkerMock(),
                 infoPrinter: $infoPrinter ?? $this->getDriverInfoPrinterMock(),
+                loopProvider: $loopProvider ?? $this->getLoopProviderMock(),
+                loopSetupFactory: $loopSetupFactory ?? $this->getMemoryReportLoopSetupFactoryMock(),
             );
     }
 
@@ -149,18 +155,18 @@ final class DecoratedDriverLinkerTest extends TestCase
         return $this->createMock(IOutput::class);
     }
 
-    private function getIntervalFormatterMock(): MockObject&IIntervalFormatter
-    {
-        return $this->createMock(IIntervalFormatter::class);
-    }
-
-    private function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
-    }
-
     private function getMemoryReportLoopSetupMock(): MockObject&IMemoryReportLoopSetup
     {
         return $this->createMock(IMemoryReportLoopSetup::class);
+    }
+
+    private function getLoopProviderMock(): MockObject&ILoopProvider
+    {
+        return $this->createMock(ILoopProvider::class);
+    }
+
+    private function getMemoryReportLoopSetupFactoryMock(): MockObject&IMemoryReportLoopSetupFactory
+    {
+        return $this->createMock(IMemoryReportLoopSetupFactory::class);
     }
 }

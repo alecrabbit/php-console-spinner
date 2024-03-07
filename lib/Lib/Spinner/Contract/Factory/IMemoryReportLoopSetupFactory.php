@@ -1,0 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AlecRabbit\Lib\Spinner\Contract\Factory;
+
+use AlecRabbit\Lib\Spinner\Core\Loop\IMemoryReportLoopSetup;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
+
+interface IMemoryReportLoopSetupFactory
+{
+    public function create(IDriver $driver): IMemoryReportLoopSetup;
+}

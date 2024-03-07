@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Lib\Spinner\Core;
 
+use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportLoopSetupFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
+use AlecRabbit\Lib\Spinner\Core\Loop\IMemoryReportLoopSetup;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 
 /**
@@ -19,6 +22,8 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
     public function __construct(
         private IDriverLinker $linker,
         private IDriverInfoPrinter $infoPrinter,
+        private ILoopProvider $loopProvider,
+        private IMemoryReportLoopSetupFactory $loopSetupFactory,
     ) {
     }
 
@@ -29,6 +34,10 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
         $driver->attach($this); // setting $this as an observer
 
         try {
+            if ($this->loopProvider->hasLoop()) {
+                $this->loopSetupFactory->create($driver)->setup($this->loopProvider->getLoop());
+            }
+
             // Observer can not be overwritten so `attach()` will throw and should
             // be the last line in the method:
             //
