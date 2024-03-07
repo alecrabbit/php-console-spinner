@@ -15,7 +15,7 @@ $max = 500000;
 Facade::getSettings()
     ->set(
         new GeneralSettings(
-            runMethodOption: ExecutionModeOption::SYNCHRONOUS,
+            executionModeOption: ExecutionModeOption::SYNCHRONOUS,
         ),
     )
 ;

@@ -45,7 +45,7 @@ final class ExecutionModeConfigTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    runMethodOption: ExecutionModeOption::AUTO,
+                    executionModeOption: ExecutionModeOption::AUTO,
                 ),
             )
         ;
@@ -62,7 +62,7 @@ final class ExecutionModeConfigTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    runMethodOption: ExecutionModeOption::ASYNC,
+                    executionModeOption: ExecutionModeOption::ASYNC,
                 ),
             )
         ;
@@ -79,7 +79,7 @@ final class ExecutionModeConfigTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    runMethodOption: ExecutionModeOption::SYNCHRONOUS,
+                    executionModeOption: ExecutionModeOption::SYNCHRONOUS,
                 ),
             )
         ;

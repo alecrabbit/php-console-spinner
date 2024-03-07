@@ -48,7 +48,7 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
     {
         $settings->set(
             new GeneralSettings(
-                runMethodOption: $this->getExecutionModeOption(),
+                executionModeOption: $this->getExecutionModeOption(),
             ),
             new LinkerSettings(
                 linkerOption: $this->getLinkerOption(),

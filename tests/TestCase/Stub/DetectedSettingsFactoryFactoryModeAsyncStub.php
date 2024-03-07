@@ -24,7 +24,7 @@ class DetectedSettingsFactoryFactoryModeAsyncStub implements IInvokable
                 return new Settings(
                     new \ArrayObject([
                         new GeneralSettings(
-                            runMethodOption: ExecutionModeOption::ASYNC,
+                            executionModeOption: ExecutionModeOption::ASYNC,
                         )
                     ])
                 );

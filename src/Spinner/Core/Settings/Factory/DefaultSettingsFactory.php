@@ -49,7 +49,7 @@ final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
         // ATTENTION! MUST be filled with all required values
         $settings->set(
             new GeneralSettings(
-                runMethodOption: ExecutionModeOption::ASYNC,
+                executionModeOption: ExecutionModeOption::ASYNC,
             ),
             new NormalizerSettings(
                 normalizerOption: NormalizerOption::BALANCED,

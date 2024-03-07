@@ -198,15 +198,15 @@ final class ExecutionModeSolverTest extends TestCase
         }
     }
 
-    protected function getGeneralSettingsMock(?ExecutionModeOption $runMethodOption = null
+    protected function getGeneralSettingsMock(?ExecutionModeOption $executionModeOption = null
     ): (MockObject&IGeneralSettings)|null {
         return
-            $runMethodOption === null
+            $executionModeOption === null
                 ? null :
                 $this->createConfiguredMock(
                     IGeneralSettings::class,
                     [
-                        'getExecutionModeOption' => $runMethodOption,
+                        'getExecutionModeOption' => $executionModeOption,
                     ]
                 );
     }

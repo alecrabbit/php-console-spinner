@@ -21,11 +21,11 @@ final class GeneralSettingsTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?ExecutionModeOption $runMethodOption = null,
+        ?ExecutionModeOption $executionModeOption = null,
     ): IGeneralSettings {
         return
             new GeneralSettings(
-                runMethodOption: $runMethodOption ?? ExecutionModeOption::AUTO,
+                executionModeOption: $executionModeOption ?? ExecutionModeOption::AUTO,
             );
     }
 
@@ -40,12 +40,12 @@ final class GeneralSettingsTest extends TestCase
     #[Test]
     public function canGetExecutionModeOption(): void
     {
-        $runMethodOption = ExecutionModeOption::ASYNC;
+        $executionModeOption = ExecutionModeOption::ASYNC;
 
         $settings = $this->getTesteeInstance(
-            runMethodOption: $runMethodOption,
+            executionModeOption: $executionModeOption,
         );
 
-        self::assertEquals($runMethodOption, $settings->getExecutionModeOption());
+        self::assertEquals($executionModeOption, $settings->getExecutionModeOption());
     }
 }

@@ -10,13 +10,13 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 final readonly class GeneralSettings implements IGeneralSettings
 {
     public function __construct(
-        private ExecutionModeOption $runMethodOption = ExecutionModeOption::AUTO,
+        private ExecutionModeOption $executionModeOption = ExecutionModeOption::AUTO,
     ) {
     }
 
     public function getExecutionModeOption(): ExecutionModeOption
     {
-        return $this->runMethodOption;
+        return $this->executionModeOption;
     }
 
     public function getIdentifier(): string

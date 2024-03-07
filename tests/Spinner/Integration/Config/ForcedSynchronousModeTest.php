@@ -52,7 +52,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    runMethodOption: ExecutionModeOption::SYNCHRONOUS,
+                    executionModeOption: ExecutionModeOption::SYNCHRONOUS,
                 ),
             )
         ;
@@ -87,7 +87,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    runMethodOption: ExecutionModeOption::SYNCHRONOUS,
+                    executionModeOption: ExecutionModeOption::SYNCHRONOUS,
                 ),
             )
         ;
@@ -114,7 +114,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    runMethodOption: ExecutionModeOption::SYNCHRONOUS,
+                    executionModeOption: ExecutionModeOption::SYNCHRONOUS,
                 ),
             )
         ;
