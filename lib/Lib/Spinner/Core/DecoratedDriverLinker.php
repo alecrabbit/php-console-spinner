@@ -21,7 +21,7 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
     public function __construct(
         private IDriverLinker $linker,
         private IOutput $output,
-        private IIntervalFormatter $intervalFormatter = new IntervalFormatter(),
+        private IIntervalFormatter $intervalFormatter,
     ) {
     }
 

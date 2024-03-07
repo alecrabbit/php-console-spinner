@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Lib\Spinner\Factory;
 
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
+use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
 use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
@@ -17,6 +18,7 @@ final readonly class DecoratedDriverLinkerFactory implements IDecoratedDriverLin
     public function __construct(
         private IDriverLinkerFactory $driverLinkerFactory,
         private IOutput $output,
+        private IIntervalFormatter $intervalFormatter,
     ) {
     }
 
@@ -31,6 +33,7 @@ final readonly class DecoratedDriverLinkerFactory implements IDecoratedDriverLin
         return new DecoratedDriverLinker(
             $linker,
             $this->output,
+            $this->intervalFormatter,
         );
     }
 

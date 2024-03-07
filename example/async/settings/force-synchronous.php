@@ -6,11 +6,11 @@ use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Facade;
 
-require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../bootstrap.async.php';
 
 $cycles = 100;
 $min = 1000;
-$max = 500000;
+$max = 50000;
 
 Facade::getSettings()
     ->set(

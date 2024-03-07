@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Lib\Unit\Spinner\Factory;
 
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
+use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
 use AlecRabbit\Lib\Spinner\Factory\DecoratedDriverLinkerFactory;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
@@ -28,11 +29,13 @@ final class DecoratedDriverLinkerFactoryTest extends TestCase
     public function getTesteeInstance(
         ?IDriverLinkerFactory $driverLinkerFactory = null,
         ?IOutput $output = null,
+        ?IIntervalFormatter $intervalFormatter = null,
     ): IDecoratedDriverLinkerFactory {
         return
             new DecoratedDriverLinkerFactory(
                 driverLinkerFactory: $driverLinkerFactory ?? $this->getDriverLinkerFactoryMock(),
                 output: $output ?? $this->getOutputMock(),
+                intervalFormatter: $intervalFormatter ?? $this->getIntervalFormatterMock(),
             );
     }
 
@@ -44,6 +47,11 @@ final class DecoratedDriverLinkerFactoryTest extends TestCase
     private function getOutputMock(): MockObject&IOutput
     {
         return $this->createMock(IOutput::class);
+    }
+
+    private function getIntervalFormatterMock(): MockObject&IIntervalFormatter
+    {
+        return $this->createMock(IIntervalFormatter::class);
     }
 
     #[Test]

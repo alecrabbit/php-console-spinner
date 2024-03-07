@@ -5,8 +5,12 @@ declare(strict_types=1);
 use AlecRabbit\Lib\Helper\MemoryUsage;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedLoopProviderFactory;
+use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
+use AlecRabbit\Lib\Spinner\Contract\ILoopInfoFormatter;
 use AlecRabbit\Lib\Spinner\Core\Factory\DecoratedLoopProviderFactory;
 use AlecRabbit\Lib\Spinner\Factory\DecoratedDriverLinkerFactory;
+use AlecRabbit\Lib\Spinner\IntervalFormatter;
+use AlecRabbit\Lib\Spinner\LoopInfoFormatter;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
@@ -25,20 +29,24 @@ require_once __DIR__ . '/../bootstrap.php'; // <-- except this line - it is requ
 
 $registry = DefinitionRegistry::getInstance();
 
-// Replace default driver linker with decorated driver linker(outputs some debug info)
+// Replace services with decorated ones (to output some info)
 $registry->bind(
+    // DriverLinker
     new ServiceDefinition(
         IDriverLinker::class,
         new Reference(IDecoratedDriverLinkerFactory::class),
         IServiceDefinition::SINGLETON,
     ),
     new ServiceDefinition(IDecoratedDriverLinkerFactory::class, DecoratedDriverLinkerFactory::class),
+    new ServiceDefinition(IIntervalFormatter::class, IntervalFormatter::class),
+    // LoopProvider
     new ServiceDefinition(
         ILoopProvider::class,
         new Reference(IDecoratedLoopProviderFactory::class),
         IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC,
     ),
     new ServiceDefinition(IDecoratedLoopProviderFactory::class, DecoratedLoopProviderFactory::class),
+    new ServiceDefinition(ILoopInfoFormatter::class, LoopInfoFormatter::class),
 );
 
 register_shutdown_function(
