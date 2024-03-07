@@ -34,8 +34,14 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory, IInvok
 
     public function create(): ILoopProvider
     {
+        $loop = $this->createLoop();
+
+        if ($loop instanceof ILoop) {
+            $this->loopSetup->setup($loop);
+        }
+
         return new LoopProvider(
-            loop: $this->createLoop(),
+            loop: $loop,
         );
     }
 
@@ -44,12 +50,9 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory, IInvok
         if ($this->executionMode === ExecutionMode::SYNCHRONOUS) {
             return null;
         }
+
         try {
-            $loop = $this->loopFactory->create();
-
-            $this->loopSetup->setup($loop);
-
-            return $loop;
+            return $this->loopFactory->create();
         } catch (Throwable $_) {
             return null;
         }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use AlecRabbit\Lib\Helper\MemoryUsage;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedLoopProviderFactory;
+use AlecRabbit\Lib\Spinner\Core\Factory\DecoratedLoopProviderFactory;
 use AlecRabbit\Lib\Spinner\Factory\DecoratedDriverLinkerFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
@@ -11,6 +13,8 @@ use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Facade;
 
 const MEMORY_REPORT_INTERVAL = 60; // seconds
@@ -29,6 +33,12 @@ $registry->bind(
         IServiceDefinition::SINGLETON,
     ),
     new ServiceDefinition(IDecoratedDriverLinkerFactory::class, DecoratedDriverLinkerFactory::class),
+    new ServiceDefinition(
+        ILoopProvider::class,
+        new Reference(IDecoratedLoopProviderFactory::class),
+        IServiceDefinition::SINGLETON | IServiceDefinition::PUBLIC,
+    ),
+    new ServiceDefinition(IDecoratedLoopProviderFactory::class, DecoratedLoopProviderFactory::class),
 );
 
 register_shutdown_function(
@@ -58,10 +68,6 @@ register_shutdown_function(
             };
 
         $loop = Facade::getLoop();
-
-        $echo();
-        $echo(sprintf('Using loop: "%s"', get_debug_type($loop)));
-        $echo();
 
         // Schedule memory report function
         $loop

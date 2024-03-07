@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Exception\DomainException;
 final readonly class LoopProvider implements ILoopProvider
 {
     public function __construct(
-        protected ?ILoop $loop,
+        private ?ILoop $loop,
     ) {
     }
 
