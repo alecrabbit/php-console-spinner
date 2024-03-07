@@ -72,6 +72,15 @@ final class StylingMethodModeSolverTest extends TestCase
                 ],
                 [null, null, $oAu],
             ],
+            [
+                [
+                    self::EXCEPTION => [
+                        self::CLASS_ => InvalidArgument::class,
+                        self::MESSAGE => sprintf('Unable to solve "%s".', StylingMethodMode::class),
+                    ],
+                ],
+                [null, $oAu, $oAu],
+            ],
             // [result], [$user, $detected, $default]
             [[$mNo], [$oAu, null, $oNo],], // #4
             [[$mNo], [$oAu, $oNo, $o4b],], // #5
