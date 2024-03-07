@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\TestCase\Stub;
 
 use AlecRabbit\Spinner\Contract\IInvokable;
-use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
@@ -24,7 +24,7 @@ class DetectedSettingsFactoryFactoryModeAsyncStub implements IInvokable
                 return new Settings(
                     new \ArrayObject([
                         new GeneralSettings(
-                            runMethodOption: RunMethodOption::ASYNC,
+                            runMethodOption: ExecutionModeOption::ASYNC,
                         )
                     ])
                 );

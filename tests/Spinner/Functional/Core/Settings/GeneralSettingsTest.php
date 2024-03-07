@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -21,11 +21,11 @@ final class GeneralSettingsTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?RunMethodOption $runMethodOption = null,
+        ?ExecutionModeOption $runMethodOption = null,
     ): IGeneralSettings {
         return
             new GeneralSettings(
-                runMethodOption: $runMethodOption ?? RunMethodOption::AUTO,
+                runMethodOption: $runMethodOption ?? ExecutionModeOption::AUTO,
             );
     }
 
@@ -38,14 +38,14 @@ final class GeneralSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canGetRunMethodOption(): void
+    public function canGetExecutionModeOption(): void
     {
-        $runMethodOption = RunMethodOption::ASYNC;
+        $runMethodOption = ExecutionModeOption::ASYNC;
 
         $settings = $this->getTesteeInstance(
             runMethodOption: $runMethodOption,
         );
 
-        self::assertEquals($runMethodOption, $settings->getRunMethodOption());
+        self::assertEquals($runMethodOption, $settings->getExecutionModeOption());
     }
 }

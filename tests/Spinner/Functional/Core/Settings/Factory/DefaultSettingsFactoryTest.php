@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
-use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
@@ -77,7 +77,7 @@ final class DefaultSettingsFactoryTest extends TestCase
         self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
         self::assertInstanceOf(RootWidgetSettings::class, $rootWidgetSettings);
 
-        self::assertEquals(RunMethodOption::ASYNC, $generalSettings->getRunMethodOption());
+        self::assertEquals(ExecutionModeOption::ASYNC, $generalSettings->getExecutionModeOption());
         self::assertEquals(NormalizerOption::BALANCED, $normalizerSettings->getNormalizerOption());
 
         self::assertEquals(LinkerOption::ENABLED, $linkerSettings->getLinkerOption());

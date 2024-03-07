@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\Option\DriverOption;
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
-use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
@@ -49,7 +49,7 @@ final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
         // ATTENTION! MUST be filled with all required values
         $settings->set(
             new GeneralSettings(
-                runMethodOption: RunMethodOption::ASYNC,
+                runMethodOption: ExecutionModeOption::ASYNC,
             ),
             new NormalizerSettings(
                 normalizerOption: NormalizerOption::BALANCED,

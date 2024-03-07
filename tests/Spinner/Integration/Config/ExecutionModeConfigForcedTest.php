@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Integration\Config;
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
-use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
@@ -41,12 +41,12 @@ final class ExecutionModeConfigForcedTest extends ConfigurationTestCase
     }
 
     #[Test]
-    public function canSetLoopRunMethodOptionAuto(): void
+    public function canSetLoopExecutionModeOptionAuto(): void
     {
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    runMethodOption: RunMethodOption::AUTO,
+                    runMethodOption: ExecutionModeOption::AUTO,
                 ),
             )
         ;
@@ -58,12 +58,12 @@ final class ExecutionModeConfigForcedTest extends ConfigurationTestCase
     }
 
     #[Test]
-    public function canSetLoopRunMethodOptionEnabled(): void
+    public function canSetLoopExecutionModeOptionEnabled(): void
     {
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    runMethodOption: RunMethodOption::ASYNC,
+                    runMethodOption: ExecutionModeOption::ASYNC,
                 ),
             )
         ;
@@ -75,12 +75,12 @@ final class ExecutionModeConfigForcedTest extends ConfigurationTestCase
     }
 
     #[Test]
-    public function canSetLoopRunMethodOptionDisabled(): void
+    public function canSetLoopExecutionModeOptionDisabled(): void
     {
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    runMethodOption: RunMethodOption::SYNCHRONOUS,
+                    runMethodOption: ExecutionModeOption::SYNCHRONOUS,
                 ),
             )
         ;
