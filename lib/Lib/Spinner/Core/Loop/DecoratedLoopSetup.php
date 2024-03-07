@@ -4,29 +4,21 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Lib\Spinner\Core\Loop;
 
-use AlecRabbit\Lib\Spinner\Contract\IMemoryReportPrinter;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 
-final readonly class DecoratedLoopSetup implements IAdditionalLoopSetup
+final readonly class DecoratedLoopSetup implements ILoopSetup
 {
     public function __construct(
-        private IMemoryReportPrinter $memoryReportPrinter,
+        private ILoopSetup $loopSetup,
+        private IMemoryReportLoopSetup $memoryReportLoopSetup,
     ) {
     }
 
     public function setup(ILoop $loop): void
     {
-        $this->setupMemoryReport($loop);
-    }
-
-    private function setupMemoryReport(ILoop $loop): void
-    {
-        $this->memoryReportPrinter->print();
-
-        $loop->repeat(
-            $this->memoryReportPrinter->getReportInterval(),
-            $this->memoryReportPrinter->print(...),
-        );
+        dump(__METHOD__);
+        $this->loopSetup->setup($loop);
+        $this->memoryReportLoopSetup->setup($loop);
     }
 }

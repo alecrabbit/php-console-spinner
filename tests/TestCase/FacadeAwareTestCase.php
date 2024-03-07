@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
-use AlecRabbit\Spinner\Container\Adapter\ContainerAdapter;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Facade;
 

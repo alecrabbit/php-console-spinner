@@ -6,20 +6,26 @@ use AlecRabbit\Lib\Helper\MemoryUsage;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedLoopProviderFactory;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedLoopSetupFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportSetupFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Contract\ILoopInfoFormatter;
 use AlecRabbit\Lib\Spinner\Contract\ILoopInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IMemoryReportFormatter;
-use AlecRabbit\Lib\Spinner\Contract\IMemoryReportPrinter;
+use AlecRabbit\Lib\Spinner\Contract\IMemoryUsageReportPrinter;
+use AlecRabbit\Lib\Spinner\Contract\IMemoryUsageReporter;
 use AlecRabbit\Lib\Spinner\Core\Factory\DecoratedLoopProviderFactory;
 use AlecRabbit\Lib\Spinner\Core\Factory\DecoratedLoopSetupFactory;
+use AlecRabbit\Lib\Spinner\Core\Loop\IMemoryReportLoopSetup;
+use AlecRabbit\Lib\Spinner\Core\Loop\MemoryReportLoopSetup;
 use AlecRabbit\Lib\Spinner\DriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Factory\DecoratedDriverLinkerFactory;
+use AlecRabbit\Lib\Spinner\Factory\MemoryReportSetupFactory;
 use AlecRabbit\Lib\Spinner\IntervalFormatter;
 use AlecRabbit\Lib\Spinner\LoopInfoFormatter;
 use AlecRabbit\Lib\Spinner\LoopInfoPrinter;
-use AlecRabbit\Lib\Spinner\MemoryReportPrinter;
+use AlecRabbit\Lib\Spinner\MemoryUsageReportPrinter;
+use AlecRabbit\Lib\Spinner\MemoryUsageReporter;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
@@ -60,15 +66,17 @@ $registry->bind(
     new ServiceDefinition(IDecoratedLoopProviderFactory::class, DecoratedLoopProviderFactory::class),
     new ServiceDefinition(ILoopInfoPrinter::class, LoopInfoPrinter::class),
     new ServiceDefinition(ILoopInfoFormatter::class, LoopInfoFormatter::class),
-//    // LoopSetup
-//    new ServiceDefinition(
-//        ILoopSetup::class,
-//        new Reference(IDecoratedLoopSetupFactory::class),
-//        IServiceDefinition::SINGLETON,
-//    ),
-//    new ServiceDefinition(IDecoratedLoopSetupFactory::class, DecoratedLoopSetupFactory::class),
-//    new ServiceDefinition(IMemoryReportPrinter::class, MemoryReportPrinter::class),
-//    new ServiceDefinition(IMemoryReportFormatter::class, MemoryReportFormatter::class),
+    new ServiceDefinition(IMemoryReportLoopSetup::class, MemoryReportLoopSetup::class),
+    new ServiceDefinition(IMemoryUsageReporter::class, MemoryUsageReporter::class),
+    new ServiceDefinition(IMemoryUsageReportPrinter::class, MemoryUsageReportPrinter::class),
+    new ServiceDefinition(IMemoryReportSetupFactory::class, new Reference(MemoryReportSetupFactory::class)),
+    // LoopSetup
+    new ServiceDefinition(
+        ILoopSetup::class,
+        new Reference(IDecoratedLoopSetupFactory::class),
+        IServiceDefinition::SINGLETON,
+    ),
+    new ServiceDefinition(IDecoratedLoopSetupFactory::class, DecoratedLoopSetupFactory::class),
 );
 
 register_shutdown_function(

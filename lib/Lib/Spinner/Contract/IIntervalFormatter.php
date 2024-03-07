@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Lib\Spinner\Contract;
 
-use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IInterval;
 
 interface IIntervalFormatter

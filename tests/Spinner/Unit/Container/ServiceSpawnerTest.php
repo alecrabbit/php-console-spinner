@@ -22,7 +22,6 @@ use AlecRabbit\Tests\Spinner\Unit\Container\Stub\ClassForSpawnerWithParameters;
 use AlecRabbit\Tests\Spinner\Unit\Container\Stub\ClassForSpawnerWithParametersNoType;
 use AlecRabbit\Tests\Spinner\Unit\Container\Stub\NonInstantiableClass;
 use AlecRabbit\Tests\TestCase\TestCase;
-use Exception;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Container\ContainerInterface;

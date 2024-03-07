@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Lib\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Lib\Spinner\Contract\ILoopInfoFormatter;
-use AlecRabbit\Lib\Spinner\Contract\IMemoryReportPrinter;
 use AlecRabbit\Lib\Spinner\Core\Factory\DecoratedLoopSetupFactory;
-use AlecRabbit\Spinner\Contract\Output\IOutput;
+use AlecRabbit\Lib\Spinner\Core\Loop\IMemoryReportLoopSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -20,18 +16,18 @@ final class DecoratedLoopSetupFactoryTest extends TestCase
     #[Test]
     public function canBeInstantiated(): void
     {
-        $provider = $this->getTesteeInstance();
+        $loopSetupFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DecoratedLoopSetupFactory::class, $provider);
+        self::assertInstanceOf(DecoratedLoopSetupFactory::class, $loopSetupFactory);
     }
 
     private function getTesteeInstance(
         ?ILoopSetupFactory $loopSetupFactory = null,
-        ?IMemoryReportPrinter $memoryReportPrinter = null,
+        ?IMemoryReportLoopSetup $memoryReportLoopSetup = null,
     ): ILoopSetupFactory {
         return new DecoratedLoopSetupFactory(
             loopSetupFactory: $loopSetupFactory ?? $this->getLoopSetupFactoryMock(),
-            memoryReportPrinter: $memoryReportPrinter ?? $this->getMemoryReportPrinterMock(),
+            memoryReportLoopSetup: $memoryReportLoopSetup ?? $this->getMemoryReportLoopSetupMock(),
         );
     }
 
@@ -40,9 +36,8 @@ final class DecoratedLoopSetupFactoryTest extends TestCase
         return $this->createMock(ILoopSetupFactory::class);
     }
 
-    private function getMemoryReportPrinterMock(): MockObject&IMemoryReportPrinter
+    private function getMemoryReportLoopSetupMock(): MockObject&IMemoryReportLoopSetup
     {
-        return $this->createMock(IMemoryReportPrinter::class);
+        return $this->createMock(IMemoryReportLoopSetup::class);
     }
-
 }

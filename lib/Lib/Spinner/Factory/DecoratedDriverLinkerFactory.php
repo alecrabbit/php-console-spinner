@@ -7,6 +7,7 @@ namespace AlecRabbit\Lib\Spinner\Factory;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
+use AlecRabbit\Lib\Spinner\Core\Loop\IMemoryReportLoopSetup;
 use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Driver\DummyDriverLinker;
@@ -16,9 +17,8 @@ final readonly class DecoratedDriverLinkerFactory implements IDecoratedDriverLin
 {
     public function __construct(
         private IDriverLinkerFactory $driverLinkerFactory,
-//        private ILoopProvider $loopProvider,
-//        private IAdditionalLoopSetup $loopSetup,
         private IDriverInfoPrinter $infoPrinter,
+        private IMemoryReportLoopSetup $loopSetup,
     ) {
     }
 
@@ -38,6 +38,7 @@ final readonly class DecoratedDriverLinkerFactory implements IDecoratedDriverLin
         return new DecoratedDriverLinker(
             $linker,
             $this->infoPrinter,
+            $this->loopSetup,
         );
     }
 }

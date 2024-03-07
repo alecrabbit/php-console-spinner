@@ -8,12 +8,11 @@ use AlecRabbit\Benchmark\Contract\Builder\IReportPrinterBuilder;
 use AlecRabbit\Benchmark\Contract\Factory\IReportPrinterFactory;
 use AlecRabbit\Benchmark\Contract\IReportFormatter;
 use AlecRabbit\Benchmark\Contract\IReportPrinter;
-use AlecRabbit\Benchmark\Factory\ReportPrinterFactory;
-use AlecRabbit\Benchmark\ReportPrinter;
 use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
 use AlecRabbit\Spinner\Core\Output\Output;
+use Traversable;
 
 final class BenchmarkReportPrinterFactory implements IReportPrinterFactory, IInvokable
 {
@@ -40,7 +39,7 @@ final class BenchmarkReportPrinterFactory implements IReportPrinterFactory, IInv
     private function getOutput(): IOutput
     {
         $stream = new class() implements IWritableStream {
-            public function write(\Traversable $data): void
+            public function write(Traversable $data): void
             {
                 foreach ($data as $el) {
                     echo $el;

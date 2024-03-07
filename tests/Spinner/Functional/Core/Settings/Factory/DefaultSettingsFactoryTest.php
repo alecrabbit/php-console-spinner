@@ -6,9 +6,9 @@ namespace AlecRabbit\Tests\Spinner\Functional\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
-use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;

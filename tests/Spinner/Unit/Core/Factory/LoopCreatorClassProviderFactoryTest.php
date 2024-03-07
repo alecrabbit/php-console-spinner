@@ -15,6 +15,7 @@ use AlecRabbit\Tests\Spinner\Unit\Asynchronous\Stub\LoopCreatorStub;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class LoopCreatorClassProviderFactoryTest extends TestCase
 {
@@ -49,7 +50,7 @@ final class LoopCreatorClassProviderFactoryTest extends TestCase
     #[Test]
     public function canInvoke(): void
     {
-        $probes = $this->createMock(\Traversable::class);
+        $probes = $this->createMock(Traversable::class);
         $probesLoader = $this->getProbesLoaderMock();
         $probesLoader
             ->expects($this->once())
@@ -63,7 +64,8 @@ final class LoopCreatorClassProviderFactoryTest extends TestCase
             ->expects($this->once())
             ->method('extract')
             ->with(self::identicalTo($probes))
-            ->willReturn(LoopCreatorStub::class);
+            ->willReturn(LoopCreatorStub::class)
+        ;
 
         $factory = $this->getTesteeInstance(
             loopCreatorClassExtractor: $loopCreatorClassExtractor,

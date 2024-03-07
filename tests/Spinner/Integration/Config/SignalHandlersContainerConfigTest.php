@@ -11,8 +11,6 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IHandlerCreator;
-use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Settings\SignalHandlerCreator;
 use AlecRabbit\Spinner\Core\Settings\SignalHandlerSettings;
 use AlecRabbit\Spinner\Facade;

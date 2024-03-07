@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Output\IWritableStream;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use AlecRabbit\Tests\TestCase\Stub\LoopSetupFactoryStub;
 use AlecRabbit\Tests\TestCase\Stub\WritableStreamFactoryStub;

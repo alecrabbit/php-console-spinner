@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Lib\Spinner\Core;
 
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
-use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
-use AlecRabbit\Lib\Spinner\IntervalFormatter;
 use AlecRabbit\Spinner\Contract\ISubject;
-use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;

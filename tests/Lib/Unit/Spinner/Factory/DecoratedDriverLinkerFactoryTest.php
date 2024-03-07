@@ -8,7 +8,7 @@ use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
-use AlecRabbit\Lib\Spinner\Core\Loop\IAdditionalLoopSetup;
+use AlecRabbit\Lib\Spinner\Core\Loop\IMemoryReportLoopSetup;
 use AlecRabbit\Lib\Spinner\Factory\DecoratedDriverLinkerFactory;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -31,16 +31,15 @@ final class DecoratedDriverLinkerFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IDriverLinkerFactory $driverLinkerFactory = null,
-        ?ILoopProvider $loopProvider = null,
-        ?IAdditionalLoopSetup $loopSetup = null,
         ?IDriverInfoPrinter $infoPrinter = null,
+        ?IMemoryReportLoopSetup $loopSetup = null,
     ): IDecoratedDriverLinkerFactory {
         return
             new DecoratedDriverLinkerFactory(
                 driverLinkerFactory: $driverLinkerFactory ?? $this->getDriverLinkerFactoryMock(),
 //                loopProvider: $loopProvider ?? $this->getLoopProviderMock(),
-//                loopSetup: $loopSetup ?? $this->getLoopSetupMock(),
-            infoPrinter: $infoPrinter ?? $this->getIntervalPrinterMock(),
+                infoPrinter: $infoPrinter ?? $this->getIntervalPrinterMock(),
+                loopSetup: $loopSetup ?? $this->getMemoryReportLoopSetupMock(),
             );
     }
 
@@ -49,19 +48,14 @@ final class DecoratedDriverLinkerFactoryTest extends TestCase
         return $this->createMock(IDriverLinkerFactory::class);
     }
 
-    private function getLoopProviderMock(): MockObject&ILoopProvider
+    private function getIntervalPrinterMock(): MockObject&IDriverInfoPrinter
     {
-        return $this->createMock(ILoopProvider::class);
+        return $this->createMock(IDriverInfoPrinter::class);
     }
 
-    private function getOutputMock(): MockObject&IOutput
+    private function getMemoryReportLoopSetupMock(): MockObject&IMemoryReportLoopSetup
     {
-        return $this->createMock(IOutput::class);
-    }
-
-    private function getIntervalFormatterMock(): MockObject&IIntervalFormatter
-    {
-        return $this->createMock(IIntervalFormatter::class);
+        return $this->createMock(IMemoryReportLoopSetup::class);
     }
 
     #[Test]
@@ -111,13 +105,18 @@ final class DecoratedDriverLinkerFactoryTest extends TestCase
         return $this->createMock(IDriverLinker::class);
     }
 
-    private function getLoopSetupMock(): MockObject&IAdditionalLoopSetup
+    private function getLoopProviderMock(): MockObject&ILoopProvider
     {
-        return $this->createMock(IAdditionalLoopSetup::class);
+        return $this->createMock(ILoopProvider::class);
     }
 
-    private function getIntervalPrinterMock(): MockObject&IDriverInfoPrinter
+    private function getOutputMock(): MockObject&IOutput
     {
-        return $this->createMock(IDriverInfoPrinter::class);
+        return $this->createMock(IOutput::class);
+    }
+
+    private function getIntervalFormatterMock(): MockObject&IIntervalFormatter
+    {
+        return $this->createMock(IIntervalFormatter::class);
     }
 }

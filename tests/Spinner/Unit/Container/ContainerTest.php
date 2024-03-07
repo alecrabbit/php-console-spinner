@@ -16,7 +16,6 @@ use AlecRabbit\Tests\Spinner\Unit\Container\Stub\NonInstantiableClass;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use Generator;
-use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;

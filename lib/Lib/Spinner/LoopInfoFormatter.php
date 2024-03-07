@@ -12,7 +12,7 @@ final readonly class LoopInfoFormatter implements ILoopInfoFormatter
     public function format(?ILoop $loop): string
     {
         return $loop instanceof ILoop
-            ? sprintf ('Using loop: "%s".', $loop::class)
+            ? sprintf('Using loop: "%s".', $loop::class)
             : 'No loop available.';
     }
 }

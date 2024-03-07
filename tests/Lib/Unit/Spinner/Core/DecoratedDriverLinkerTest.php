@@ -8,6 +8,7 @@ namespace AlecRabbit\Tests\Lib\Unit\Spinner\Core;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
+use AlecRabbit\Lib\Spinner\Core\Loop\IMemoryReportLoopSetup;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -43,14 +44,9 @@ final class DecoratedDriverLinkerTest extends TestCase
         return $this->createMock(IDriverLinker::class);
     }
 
-    private function getOutputMock(): MockObject&IOutput
+    private function getDriverInfoPrinterMock(): MockObject&IDriverInfoPrinter
     {
-        return $this->createMock(IOutput::class);
-    }
-
-    private function getIntervalFormatterMock(): MockObject&IIntervalFormatter
-    {
-        return $this->createMock(IIntervalFormatter::class);
+        return $this->createMock(IDriverInfoPrinter::class);
     }
 
     #[Test]
@@ -111,11 +107,6 @@ final class DecoratedDriverLinkerTest extends TestCase
         $linker->link($driver);
     }
 
-    private function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
-    }
-
     #[Test]
     public function canLinkEvenIfThereWasAnException(): void
     {
@@ -153,8 +144,23 @@ final class DecoratedDriverLinkerTest extends TestCase
         $linker->link($driver);
     }
 
-    private function getDriverInfoPrinterMock(): MockObject&IDriverInfoPrinter
+    private function getOutputMock(): MockObject&IOutput
     {
-        return $this->createMock(IDriverInfoPrinter::class);
+        return $this->createMock(IOutput::class);
+    }
+
+    private function getIntervalFormatterMock(): MockObject&IIntervalFormatter
+    {
+        return $this->createMock(IIntervalFormatter::class);
+    }
+
+    private function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
+
+    private function getMemoryReportLoopSetupMock(): MockObject&IMemoryReportLoopSetup
+    {
+        return $this->createMock(IMemoryReportLoopSetup::class);
     }
 }

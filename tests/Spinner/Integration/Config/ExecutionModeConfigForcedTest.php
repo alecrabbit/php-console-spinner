@@ -10,13 +10,10 @@ use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
 use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
-use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
 use AlecRabbit\Tests\TestCase\Stub\DetectedSettingsFactoryFactoryStub;
-use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ExecutionModeConfigForcedTest extends ConfigurationTestCase
