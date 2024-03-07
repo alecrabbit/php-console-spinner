@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Lib\Helper\MemoryUsage;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedLoopProviderFactory;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportLoopSetupFactory;
-use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportSetupFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Contract\ILoopInfoFormatter;
@@ -17,7 +15,6 @@ use AlecRabbit\Lib\Spinner\Core\Factory\DecoratedLoopProviderFactory;
 use AlecRabbit\Lib\Spinner\DriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Factory\DecoratedDriverLinkerFactory;
 use AlecRabbit\Lib\Spinner\Factory\MemoryReportLoopSetupFactory;
-use AlecRabbit\Lib\Spinner\Factory\MemoryReportSetupFactory;
 use AlecRabbit\Lib\Spinner\IntervalFormatter;
 use AlecRabbit\Lib\Spinner\LoopInfoFormatter;
 use AlecRabbit\Lib\Spinner\LoopInfoPrinter;
@@ -29,9 +26,6 @@ use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
-use AlecRabbit\Spinner\Facade;
-
-const MEMORY_REPORT_INTERVAL = 60; // seconds
 
 // Code in this file is NOT REQUIRED
 // and is used only for demonstration convenience.
@@ -62,57 +56,4 @@ $registry->bind(
     new ServiceDefinition(IMemoryUsageReporter::class, MemoryUsageReporter::class),
     new ServiceDefinition(IMemoryUsageReportPrinter::class, MemoryUsageReportPrinter::class),
     new ServiceDefinition(IMemoryReportLoopSetupFactory::class, MemoryReportLoopSetupFactory::class),
-//    // LoopSetup
-//    new ServiceDefinition(
-//        ILoopSetup::class,
-//        new Reference(IDecoratedLoopSetupFactory::class),
-//        IServiceDefinition::SINGLETON,
-//    ),
-//    new ServiceDefinition(IDecoratedLoopSetupFactory::class, DecoratedLoopSetupFactory::class),
-);
-
-register_shutdown_function(
-    static function (): void {
-        $driver = Facade::getDriver();
-
-        // Create echo function
-        $echo =
-            $driver->wrap(
-                static function (?string $message = null): void {
-                    echo $message . PHP_EOL;
-                }
-            );
-
-        // Create memory report function
-        $memoryReport =
-            static function () use ($echo): void {
-                static $memoryUsage = new MemoryUsage();
-
-                $echo(
-                    sprintf(
-                        '%s %s',
-                        (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
-                        $memoryUsage->report(),
-                    )
-                );
-            };
-
-        $loop = Facade::getLoop();
-
-        // Schedule memory report function
-        $loop
-            ->repeat(
-                MEMORY_REPORT_INTERVAL,
-                $memoryReport
-            )
-        ;
-
-        // Schedule initial memory report immediately after loop start
-        $loop
-            ->delay(
-                0,
-                $memoryReport
-            )
-        ;
-    }
 );

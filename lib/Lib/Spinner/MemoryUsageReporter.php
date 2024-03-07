@@ -13,12 +13,13 @@ final readonly class MemoryUsageReporter implements IMemoryUsageReporter
 {
     public function __construct(
         private IMemoryUsageReportPrinter $printer,
+        private float $reportInterval = 60.0,
     ) {
     }
 
     public function getReportInterval(): float
     {
-        return 2.0;
+        return $this->reportInterval;
     }
 
     public function report(): void

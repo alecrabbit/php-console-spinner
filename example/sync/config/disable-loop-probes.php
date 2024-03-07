@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 $cycles = 100;
 $min = 1000; // 1ms
-$max = 500000;  // 500ms
+$max = 50000;  // 50ms
 
 // bootstrap.sync.php has this line:
 Probes::unregister(ILoopProbe::class);
@@ -20,7 +20,6 @@ echo 'All loop probes disabled.' . PHP_EOL;
 $spinner = Facade::createSpinner();
 
 $driver = Facade::getDriver();
-
 echo 'Runtime: ' . ($cycles * $min / 1e6) . '..' . ($cycles * $max / 1e6) . 's' . PHP_EOL;
 
 // Will throw:

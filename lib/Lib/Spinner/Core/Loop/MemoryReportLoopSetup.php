@@ -19,11 +19,14 @@ final readonly class MemoryReportLoopSetup implements IMemoryReportLoopSetup
 
     public function setup(ILoop $loop): void
     {
-        $loop->repeat(
-            $this->reporter->getReportInterval(),
-            $this->driver->wrap(
-                $this->reporter->report(...),
-            ),
+        $report = $this->driver->wrap(
+            $this->reporter->report(...),
         );
+
+        $loop->delay(0, $report); // Initial report
+
+        $interval = $this->reporter->getReportInterval();
+
+        $loop->repeat($interval, $report);
     }
 }

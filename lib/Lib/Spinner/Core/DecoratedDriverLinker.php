@@ -28,11 +28,18 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
 
     public function link(IDriver $driver): void
     {
-        // this depends on the implementation of the DriverLinker::link() method
-
         $driver->attach($this); // setting $this as an observer
 
+        $this->doLink($driver);
+
+        $this->infoPrinter->print($driver);
+
         $this->memoryReportSetup($driver);
+    }
+
+    private function doLink(IDriver $driver): void
+    {
+        // this method depends on the implementation of the DriverLinker::link() method
 
         try {
             // Observer can not be overwritten so `attach()` will throw and should
@@ -43,8 +50,15 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
         } catch (ObserverCanNotBeOverwritten $_) {
             // ignore
         }
+    }
 
-        $this->infoPrinter->print($driver);
+    private function memoryReportSetup(IDriver $driver): void
+    {
+        if ($this->loopProvider->hasLoop()) {
+            $this->loopSetupFactory->create($driver)
+                ->setup($this->loopProvider->getLoop())
+            ;
+        }
     }
 
     public function update(ISubject $subject): void
@@ -53,15 +67,6 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
 
         if ($subject instanceof IDriver) {
             $this->infoPrinter->print($subject);
-        }
-    }
-
-    protected function memoryReportSetup(IDriver $driver): void
-    {
-        if ($this->loopProvider->hasLoop()) {
-            $this->loopSetupFactory->create($driver)
-                ->setup($this->loopProvider->getLoop())
-            ;
         }
     }
 }
