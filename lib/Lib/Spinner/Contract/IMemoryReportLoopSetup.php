@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Lib\Spinner\Core\Loop;
+namespace AlecRabbit\Lib\Spinner\Contract;
 
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 

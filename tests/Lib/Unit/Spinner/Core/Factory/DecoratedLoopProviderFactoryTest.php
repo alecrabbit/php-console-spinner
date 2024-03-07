@@ -125,9 +125,4 @@ final class DecoratedLoopProviderFactoryTest extends TestCase
 
         self::assertSame($loopProvider, $actual);
     }
-
-    private function getOutputMock(): MockObject&IOutput
-    {
-        return $this->createMock(IOutput::class);
-    }
 }

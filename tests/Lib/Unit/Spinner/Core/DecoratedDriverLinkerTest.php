@@ -7,10 +7,8 @@ namespace AlecRabbit\Tests\Lib\Unit\Spinner\Core;
 
 use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportLoopSetupFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
-use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
+use AlecRabbit\Lib\Spinner\Contract\IMemoryReportLoopSetup;
 use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
-use AlecRabbit\Lib\Spinner\Core\Loop\IMemoryReportLoopSetup;
-use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;

@@ -6,7 +6,6 @@ namespace AlecRabbit\Lib\Spinner\Core;
 
 use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportLoopSetupFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
-use AlecRabbit\Lib\Spinner\Core\Loop\IMemoryReportLoopSetup;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -33,11 +32,9 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
 
         $driver->attach($this); // setting $this as an observer
 
-        try {
-            if ($this->loopProvider->hasLoop()) {
-                $this->loopSetupFactory->create($driver)->setup($this->loopProvider->getLoop());
-            }
+        $this->memoryReportSetup($driver);
 
+        try {
             // Observer can not be overwritten so `attach()` will throw and should
             // be the last line in the method:
             //
@@ -56,6 +53,15 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
 
         if ($subject instanceof IDriver) {
             $this->infoPrinter->print($subject);
+        }
+    }
+
+    protected function memoryReportSetup(IDriver $driver): void
+    {
+        if ($this->loopProvider->hasLoop()) {
+            $this->loopSetupFactory->create($driver)
+                ->setup($this->loopProvider->getLoop())
+            ;
         }
     }
 }
