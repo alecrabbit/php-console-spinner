@@ -35,7 +35,7 @@ $spinnerSettings =
 //{
 //    $outputSettings =
 //        new OutputSettings(
-//            stylingOpion: StylingOption::NONE,
+//            stylingOption: StylingOption::NONE,
 //        );
 //
 //    Facade::getSettings()

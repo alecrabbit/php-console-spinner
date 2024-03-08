@@ -46,12 +46,12 @@ final class DetectedSettingsFactoryTest extends TestCase
     }
 
     private function getStylingMethodDetectorMock(
-        ?StylingOption $stylingOpion = null,
+        ?StylingOption $stylingOption = null,
     ): MockObject&IStylingMethodDetector {
         return $this->createConfiguredMock(
             IStylingMethodDetector::class,
             [
-                'getSupportValue' => $stylingOpion ?? StylingOption::ANSI8,
+                'getSupportValue' => $stylingOption ?? StylingOption::ANSI8,
             ]
         );
     }

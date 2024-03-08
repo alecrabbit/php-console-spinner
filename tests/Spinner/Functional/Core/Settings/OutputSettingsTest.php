@@ -23,14 +23,14 @@ final class OutputSettingsTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?StylingOption $stylingOpion = null,
+        ?StylingOption $stylingOption = null,
         ?CursorOption $cursorOption = null,
         ?InitializationOption $initializationOption = null,
         mixed $stream = null,
     ): IOutputSettings {
         return
             new OutputSettings(
-                stylingOpion: $stylingOpion ?? StylingOption::AUTO,
+                stylingOption: $stylingOption ?? StylingOption::AUTO,
                 cursorOption: $cursorOption ?? CursorOption::AUTO,
                 initializationOption: $initializationOption ?? InitializationOption::AUTO,
                 stream: $stream,
@@ -72,13 +72,13 @@ final class OutputSettingsTest extends TestCase
     #[Test]
     public function canGetStylingOption(): void
     {
-        $stylingOpion = StylingOption::ANSI8;
+        $stylingOption = StylingOption::ANSI8;
 
         $settings = $this->getTesteeInstance(
-            stylingOpion: $stylingOpion,
+            stylingOption: $stylingOption,
         );
 
-        self::assertEquals($stylingOpion, $settings->getStylingOption());
+        self::assertEquals($stylingOption, $settings->getStylingOption());
     }
 
     #[Test]

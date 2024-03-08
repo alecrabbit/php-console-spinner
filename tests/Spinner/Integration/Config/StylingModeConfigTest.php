@@ -43,7 +43,7 @@ final class StylingModeConfigTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingOpion: StylingOption::NONE,
+                    stylingOption: StylingOption::NONE,
                 ),
             )
         ;
@@ -60,7 +60,7 @@ final class StylingModeConfigTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingOpion: StylingOption::ANSI4,
+                    stylingOption: StylingOption::ANSI4,
                 ),
             )
         ;
@@ -77,7 +77,7 @@ final class StylingModeConfigTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingOpion: StylingOption::ANSI8,
+                    stylingOption: StylingOption::ANSI8,
                 ),
             )
         ;
@@ -94,7 +94,7 @@ final class StylingModeConfigTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingOpion: StylingOption::ANSI24,
+                    stylingOption: StylingOption::ANSI24,
                 ),
             )
         ;
