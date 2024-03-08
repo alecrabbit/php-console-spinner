@@ -31,14 +31,6 @@ if (!$driver instanceof IBenchmarkingDriver) {
     );
 }
 
-// Create echo function
-$echo =
-    $driver->wrap(
-        static function (?string $message = null): void {
-            echo $message . PHP_EOL;
-        }
-    );
-
 $benchmarkResultsFactory = BenchmarkFacade::getBenchmarkResultsFactory();
 
 $benchmarkResults =
@@ -62,19 +54,6 @@ $fullReport =
         $reportPrinter->print($reportObject);
     };
 
-$memoryReport =
-    static function () use ($echo): void {
-        static $memoryUsage = new MemoryUsage();
-
-        $echo(
-            sprintf(
-                '%s %s',
-                (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
-                $memoryUsage->report(),
-            )
-        );
-    };
-
 $loop = Facade::getLoop();
 
 // Stop loop after RUNTIME seconds
@@ -86,14 +65,6 @@ $loop
             $driver->finalize();
             $fullReport();
         }
-    )
-;
-
-// Execute memory report function every MEMORY_REPORT_INTERVAL seconds
-$loop
-    ->repeat(
-        MEMORY_REPORT_INTERVAL,
-        $memoryReport,
     )
 ;
 
@@ -110,10 +81,4 @@ $loop
 ;
 
 // Begin benchmarking
-$echo(sprintf('Runtime: %ss', RUNTIME));
-$echo(sprintf('Render interval, ms: %s', $driver->getInterval()->toMilliseconds()));
-$echo();
-$echo(sprintf('Using loop: "%s"', get_debug_type($loop)));
-$echo();
-
-$memoryReport(); // initial memory report
+echo sprintf('Runtime: %ss', RUNTIME) .PHP_EOL;
