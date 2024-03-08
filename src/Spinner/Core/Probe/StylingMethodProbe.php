@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Probe;
 
-use AlecRabbit\Spinner\Contract\Probe\IStylingMethodOptionCreator;
+use AlecRabbit\Spinner\Contract\Probe\IStylingModeOptionCreator;
 use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
 
 final class StylingMethodProbe implements IStylingMethodProbe
@@ -15,10 +15,10 @@ final class StylingMethodProbe implements IStylingMethodProbe
     }
 
     /**
-     * @return class-string<IStylingMethodOptionCreator>
+     * @return class-string<IStylingModeOptionCreator>
      */
     public static function getCreatorClass(): string
     {
-        return StylingMethodOptionCreator::class;
+        return StylingModeOptionCreator::class;
     }
 }

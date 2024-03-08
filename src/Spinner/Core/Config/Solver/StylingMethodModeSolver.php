@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
@@ -24,11 +24,11 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
     }
 
     private function doSolve(
-        ?StylingMethodOption $userOption,
-        ?StylingMethodOption $detectedOption,
-        ?StylingMethodOption $defaultOption
+        ?StylingModeOption $userOption,
+        ?StylingModeOption $detectedOption,
+        ?StylingModeOption $defaultOption
     ): StylingMethodMode {
-        if ($detectedOption === StylingMethodOption::NONE) {
+        if ($detectedOption === StylingModeOption::NONE) {
             return StylingMethodMode::NONE;
         }
 
@@ -37,7 +37,7 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
         $detectedMode = $this->createModeFromOption($detectedOption);
         $defaultMode = $this->createModeFromOption($defaultOption);
 
-        if ($userOption === StylingMethodOption::AUTO || $userOption === null) {
+        if ($userOption === StylingModeOption::AUTO || $userOption === null) {
             $mode = $detectedMode ?? $defaultMode;
         }
 
@@ -67,19 +67,19 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
         );
     }
 
-    private function createModeFromOption(?StylingMethodOption $option): ?StylingMethodMode
+    private function createModeFromOption(?StylingModeOption $option): ?StylingMethodMode
     {
         return match ($option) {
-            StylingMethodOption::NONE => StylingMethodMode::NONE,
-            StylingMethodOption::ANSI4 => StylingMethodMode::ANSI4,
-            StylingMethodOption::ANSI8 => StylingMethodMode::ANSI8,
-            StylingMethodOption::ANSI24 => StylingMethodMode::ANSI24,
+            StylingModeOption::NONE => StylingMethodMode::NONE,
+            StylingModeOption::ANSI4 => StylingMethodMode::ANSI4,
+            StylingModeOption::ANSI8 => StylingMethodMode::ANSI8,
+            StylingModeOption::ANSI24 => StylingMethodMode::ANSI24,
             default => null,
         };
     }
 
-    protected function extractOption(ISettings $settings): ?StylingMethodOption
+    protected function extractOption(ISettings $settings): ?StylingModeOption
     {
-        return $this->extractSettingsElement($settings, IOutputSettings::class)?->getStylingMethodOption();
+        return $this->extractSettingsElement($settings, IOutputSettings::class)?->getStylingModeOption();
     }
 }

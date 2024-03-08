@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
@@ -46,12 +46,12 @@ final class DetectedSettingsFactoryTest extends TestCase
     }
 
     private function getStylingMethodDetectorMock(
-        ?StylingMethodOption $stylingMethodOption = null,
+        ?StylingModeOption $stylingModeOption = null,
     ): MockObject&IStylingMethodDetector {
         return $this->createConfiguredMock(
             IStylingMethodDetector::class,
             [
-                'getSupportValue' => $stylingMethodOption ?? StylingMethodOption::ANSI8,
+                'getSupportValue' => $stylingModeOption ?? StylingModeOption::ANSI8,
             ]
         );
     }

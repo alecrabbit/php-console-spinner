@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Functional\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -23,14 +23,14 @@ final class OutputSettingsTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?StylingMethodOption $stylingMethodOption = null,
+        ?StylingModeOption $stylingModeOption = null,
         ?CursorVisibilityOption $cursorVisibilityOption = null,
         ?InitializationOption $initializationOption = null,
         mixed $stream = null,
     ): IOutputSettings {
         return
             new OutputSettings(
-                stylingMethodOption: $stylingMethodOption ?? StylingMethodOption::AUTO,
+                stylingModeOption: $stylingModeOption ?? StylingModeOption::AUTO,
                 cursorVisibilityOption: $cursorVisibilityOption ?? CursorVisibilityOption::AUTO,
                 initializationOption: $initializationOption ?? InitializationOption::AUTO,
                 stream: $stream,
@@ -70,15 +70,15 @@ final class OutputSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canGetStylingMethodOption(): void
+    public function canGetStylingModeOption(): void
     {
-        $stylingMethodOption = StylingMethodOption::ANSI8;
+        $stylingModeOption = StylingModeOption::ANSI8;
 
         $settings = $this->getTesteeInstance(
-            stylingMethodOption: $stylingMethodOption,
+            stylingModeOption: $stylingModeOption,
         );
 
-        self::assertEquals($stylingMethodOption, $settings->getStylingMethodOption());
+        self::assertEquals($stylingModeOption, $settings->getStylingModeOption());
     }
 
     #[Test]

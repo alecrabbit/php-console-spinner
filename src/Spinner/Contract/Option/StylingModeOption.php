@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Option;
 
-enum StylingMethodOption: int
+enum StylingModeOption: int
 {
     case AUTO = -1;
     case NONE = 0;

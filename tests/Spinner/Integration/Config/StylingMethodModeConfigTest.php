@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Integration\Config;
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
@@ -38,12 +38,12 @@ final class StylingMethodModeConfigTest extends ConfigurationTestCase
     }
 
     #[Test]
-    public function canSetStylingMethodOptionNone(): void
+    public function canSetStylingModeOptionNone(): void
     {
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingMethodOption: StylingMethodOption::NONE,
+                    stylingModeOption: StylingModeOption::NONE,
                 ),
             )
         ;
@@ -55,12 +55,12 @@ final class StylingMethodModeConfigTest extends ConfigurationTestCase
     }
 
     #[Test]
-    public function canSetStylingMethodOptionAnsi4(): void
+    public function canSetStylingModeOptionAnsi4(): void
     {
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingMethodOption: StylingMethodOption::ANSI4,
+                    stylingModeOption: StylingModeOption::ANSI4,
                 ),
             )
         ;
@@ -72,12 +72,12 @@ final class StylingMethodModeConfigTest extends ConfigurationTestCase
     }
 
     #[Test]
-    public function canSetStylingMethodOptionAnsi8(): void
+    public function canSetStylingModeOptionAnsi8(): void
     {
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingMethodOption: StylingMethodOption::ANSI8,
+                    stylingModeOption: StylingModeOption::ANSI8,
                 ),
             )
         ;
@@ -89,12 +89,12 @@ final class StylingMethodModeConfigTest extends ConfigurationTestCase
     }
 
     #[Test]
-    public function canSetStylingMethodOptionAnsi24(): void
+    public function canSetStylingModeOptionAnsi24(): void
     {
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingMethodOption: StylingMethodOption::ANSI24,
+                    stylingModeOption: StylingModeOption::ANSI24,
                 ),
             )
         ;

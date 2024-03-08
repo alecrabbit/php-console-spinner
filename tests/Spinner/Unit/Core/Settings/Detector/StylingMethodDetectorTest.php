@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector;
 
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
 use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\StylingMethodDetector;
@@ -25,24 +25,24 @@ final class StylingMethodDetectorTest extends TestCase
         yield from [
             // $result, $probes
             [
-                StylingMethodOption::NONE,
+                StylingModeOption::NONE,
                 [],
             ],
             [
-                StylingMethodOption::ANSI24,
+                StylingModeOption::ANSI24,
                 [
                     PositiveStylingMethodProbeStub::class,
                 ],
             ],
             [
-                StylingMethodOption::ANSI24,
+                StylingModeOption::ANSI24,
                 [
                     NegativeStylingMethodProbeStub::class,
                     PositiveStylingMethodProbeStub::class,
                 ],
             ],
             [
-                StylingMethodOption::NONE,
+                StylingModeOption::NONE,
                 [
                     NegativeStylingMethodProbeStub::class,
                 ],
@@ -69,7 +69,7 @@ final class StylingMethodDetectorTest extends TestCase
 
     #[Test]
     #[DataProvider('canDetectDataProvider')]
-    public function canDetect(StylingMethodOption $result, array $probes): void
+    public function canDetect(StylingModeOption $result, array $probes): void
     {
         $detector = $this->getTesteeInstance(
             probes: new ArrayObject($probes),
@@ -91,7 +91,7 @@ final class StylingMethodDetectorTest extends TestCase
         $detector = $this->getTesteeInstance(
             probes: new ArrayObject([stdClass::class]),
         );
-        self::assertEquals(StylingMethodOption::AUTO, $detector->getSupportValue());
+        self::assertEquals(StylingModeOption::AUTO, $detector->getSupportValue());
 
         self::fail('Exception was not thrown.');
     }

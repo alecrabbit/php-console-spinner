@@ -6,22 +6,22 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 
 final readonly class OutputSettings implements IOutputSettings
 {
     public function __construct(
-        private StylingMethodOption $stylingMethodOption = StylingMethodOption::AUTO,
+        private StylingModeOption $stylingModeOption = StylingModeOption::AUTO,
         private CursorVisibilityOption $cursorVisibilityOption = CursorVisibilityOption::AUTO,
         private InitializationOption $initializationOption = InitializationOption::AUTO,
         private mixed $stream = null,
     ) {
     }
 
-    public function getStylingMethodOption(): StylingMethodOption
+    public function getStylingModeOption(): StylingModeOption
     {
-        return $this->stylingMethodOption;
+        return $this->stylingModeOption;
     }
 
     public function getCursorVisibilityOption(): CursorVisibilityOption

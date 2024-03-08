@@ -15,6 +15,6 @@ class PositiveStylingMethodProbeStub implements IStylingMethodProbe
 
     public static function getCreatorClass(): string
     {
-        return StylingMethodOptionCreatorStub::class;
+        return StylingModeOptionCreatorStub::class;
     }
 }

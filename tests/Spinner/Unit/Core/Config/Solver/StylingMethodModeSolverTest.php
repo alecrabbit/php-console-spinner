@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
@@ -28,11 +28,11 @@ final class StylingMethodModeSolverTest extends TestCase
         $m8b = StylingMethodMode::ANSI8;
         $m24 = StylingMethodMode::ANSI24;
 
-        $oAu = StylingMethodOption::AUTO;
-        $oNo = StylingMethodOption::NONE;
-        $o4b = StylingMethodOption::ANSI4;
-        $o8b = StylingMethodOption::ANSI8;
-        $o24 = StylingMethodOption::ANSI24;
+        $oAu = StylingModeOption::AUTO;
+        $oNo = StylingModeOption::NONE;
+        $o4b = StylingModeOption::ANSI4;
+        $o8b = StylingModeOption::ANSI8;
+        $o24 = StylingModeOption::ANSI24;
 
         yield from [
             // [Exception], [$user, $detected, $default]
@@ -180,14 +180,14 @@ final class StylingMethodModeSolverTest extends TestCase
         $result = $expected[0] ?? null;
 
         [
-            $userStylingMethodOption,
-            $detectedStylingMethodOption,
-            $defaultStylingMethodOption
+            $userStylingModeOption,
+            $detectedStylingModeOption,
+            $defaultStylingModeOption
         ] = $args;
 
-        $userOutputSettings = $this->getOutputSettingsMock($userStylingMethodOption);
-        $detectedOutputSettings = $this->getOutputSettingsMock($detectedStylingMethodOption);
-        $defaultOutputSettings = $this->getOutputSettingsMock($defaultStylingMethodOption);
+        $userOutputSettings = $this->getOutputSettingsMock($userStylingModeOption);
+        $detectedOutputSettings = $this->getOutputSettingsMock($detectedStylingModeOption);
+        $defaultOutputSettings = $this->getOutputSettingsMock($defaultStylingModeOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
@@ -242,7 +242,7 @@ final class StylingMethodModeSolverTest extends TestCase
         }
     }
 
-    protected function getOutputSettingsMock(?StylingMethodOption $normalizerOption = null
+    protected function getOutputSettingsMock(?StylingModeOption $normalizerOption = null
     ): (MockObject&IOutputSettings)|null {
         return
             $normalizerOption === null
@@ -250,7 +250,7 @@ final class StylingMethodModeSolverTest extends TestCase
                 $this->createConfiguredMock(
                     IOutputSettings::class,
                     [
-                        'getStylingMethodOption' => $normalizerOption,
+                        'getStylingModeOption' => $normalizerOption,
                     ]
                 );
     }

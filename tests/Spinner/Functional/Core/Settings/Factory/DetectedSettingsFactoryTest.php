@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
@@ -58,12 +58,12 @@ final class DetectedSettingsFactoryTest extends TestCase
         return $this->createMock(ILoopSupportDetector::class);
     }
 
-    private function getStylingMethodDetectorMock(?StylingMethodOption $stylingMethodOption = null
+    private function getStylingMethodDetectorMock(?StylingModeOption $stylingModeOption = null
     ): MockObject&IStylingMethodDetector {
         return $this->createConfiguredMock(
             IStylingMethodDetector::class,
             [
-                'getSupportValue' => $stylingMethodOption ?? StylingMethodOption::NONE,
+                'getSupportValue' => $stylingModeOption ?? StylingModeOption::NONE,
             ]
         );
     }
@@ -94,10 +94,10 @@ final class DetectedSettingsFactoryTest extends TestCase
                 ? SignalHandlingOption::ENABLED
                 : SignalHandlingOption::DISABLED;
 
-        $stylingMethodOption = StylingMethodOption::ANSI24;
+        $stylingModeOption = StylingModeOption::ANSI24;
 
         $colorSupportDetector =
-            $this->getStylingMethodDetectorMock($stylingMethodOption);
+            $this->getStylingMethodDetectorMock($stylingModeOption);
 
         $signalHandlingDetector =
             $this->getSignalProcessingSupportDetectorMock($signalHandlersOption);
@@ -131,6 +131,6 @@ final class DetectedSettingsFactoryTest extends TestCase
         self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlingOption());
 
         self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlingOption());
-        self::assertSame($stylingMethodOption, $outputSettings->getStylingMethodOption());
+        self::assertSame($stylingModeOption, $outputSettings->getStylingModeOption());
     }
 }

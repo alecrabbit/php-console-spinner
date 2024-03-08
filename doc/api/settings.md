@@ -86,7 +86,7 @@ $signalHandlerSettings =
 // Output settings 
 $outputSettings = 
     new OutputSettings(
-        stylingMethodOption: StylingMethodOption::AUTO, 
+        stylingModeOption: StylingModeOption::AUTO, 
         cursorVisibilityOption: CursorVisibilityOption::AUTO, 
         initializationOption: InitializationOption::AUTO,
         stream: null, // defaults to: STDERR

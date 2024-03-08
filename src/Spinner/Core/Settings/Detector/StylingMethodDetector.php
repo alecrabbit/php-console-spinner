@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Contract\Probe\IStylingMethodOptionCreator;
+use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
+use AlecRabbit\Spinner\Contract\Probe\IStylingModeOptionCreator;
 use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
@@ -19,19 +19,19 @@ final readonly class StylingMethodDetector implements IStylingMethodDetector
     ) {
     }
 
-    public function getSupportValue(): StylingMethodOption
+    public function getSupportValue(): StylingModeOption
     {
         /** @var class-string<IStylingMethodProbe> $probe */
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);
             if ($probe::isSupported()) {
-                /** @var class-string<IStylingMethodOptionCreator> $class */
+                /** @var class-string<IStylingModeOptionCreator> $class */
                 $class = $probe::getCreatorClass();
                 return (new $class())->create();
             }
         }
 
-        return StylingMethodOption::NONE;
+        return StylingModeOption::NONE;
     }
 
     private static function assertProbe(mixed $probe): void
