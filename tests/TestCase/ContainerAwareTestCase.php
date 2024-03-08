@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\TestCase;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Facade;
 
-abstract class FacadeAwareTestCase extends PcntlAwareTestCase
+abstract class ContainerAwareTestCase extends PcntlAwareTestCase
 {
     private const GET_CONTAINER = 'getContainer';
     private const SET_CONTAINER = 'setContainer';
