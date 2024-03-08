@@ -290,7 +290,7 @@ function getDefinitions(): Traversable
             IServiceDefinition::SINGLETON,
         ),
         ILoopCreatorClassExtractor::class => LoopCreatorClassExtractor::class,
-        ILoopSetup::class => new Reference(LoopSetupFactory::class),
+        ILoopSetup::class => new Reference(ILoopSetupFactory::class),
 
         IStyleFrameTransformer::class => StyleFrameTransformer::class,
         ICharFrameTransformer::class => CharFrameTransformer::class,
