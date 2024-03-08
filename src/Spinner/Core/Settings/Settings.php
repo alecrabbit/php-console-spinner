@@ -26,7 +26,7 @@ final readonly class Settings implements ISettings
     {
         foreach ($settingsElements as $settingsElement) {
             $identifier = $settingsElement->getIdentifier();
-            self::assertIdentifier($identifier);
+            $this->assertIdentifier($identifier);
             $this->settingsElements->offsetSet($identifier, $settingsElement);
         }
     }
@@ -36,7 +36,7 @@ final readonly class Settings implements ISettings
      *
      * @throws InvalidArgument
      */
-    private static function assertIdentifier(string $id): void
+    private function assertIdentifier(string $id): void
     {
         if (!interface_exists($id)) {
             throw new InvalidArgument(
@@ -52,7 +52,7 @@ final readonly class Settings implements ISettings
 
     public function get(string $id): ?ISettingsElement
     {
-        self::assertIdentifier($id);
+        $this->assertIdentifier($id);
 
         return $this->settingsElements->offsetExists($id)
             ? $this->settingsElements->offsetGet($id)

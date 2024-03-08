@@ -20,7 +20,7 @@ final readonly class ServiceDefinition implements IServiceDefinition
         IReference|string $definition,
         int $options = self::DEFAULT,
     ) {
-        self::assertOptions($options);
+        $this->assertOptions($options);
 
         $this->id = $id;
         /** @var IReference|class-string $definition */
@@ -28,7 +28,7 @@ final readonly class ServiceDefinition implements IServiceDefinition
         $this->options = $options;
     }
 
-    private static function assertOptions(int $options): void
+    private function assertOptions(int $options): void
     {
         if ($options < 0) {
             throw new InvalidOptionsArgument(
@@ -36,7 +36,7 @@ final readonly class ServiceDefinition implements IServiceDefinition
             );
         }
 
-        $maxValue = self::maxOptionsValue();
+        $maxValue = $this->maxOptionsValue();
 
         if ($options > $maxValue) {
             throw new InvalidOptionsArgument(
@@ -45,7 +45,7 @@ final readonly class ServiceDefinition implements IServiceDefinition
         }
     }
 
-    private static function maxOptionsValue(): int
+    private function maxOptionsValue(): int
     {
         return self::SINGLETON
             | self::PUBLIC;
