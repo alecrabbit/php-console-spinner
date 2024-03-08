@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Lib\Unit\Spinner\Factory;
 
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
-use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportLoopSetupFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportSetupFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Contract\IMemoryReportLoopSetup;
@@ -34,7 +34,7 @@ final class DecoratedDriverLinkerFactoryTest extends TestCase
         ?IDriverLinkerFactory $driverLinkerFactory = null,
         ?IDriverInfoPrinter $infoPrinter = null,
         ?ILoopProvider $loopProvider = null,
-        ?IMemoryReportLoopSetupFactory $loopSetupFactory = null,
+        ?IMemoryReportSetupFactory $loopSetupFactory = null,
     ): IDecoratedDriverLinkerFactory {
         return
             new DecoratedDriverLinkerFactory(
@@ -122,8 +122,8 @@ final class DecoratedDriverLinkerFactoryTest extends TestCase
         return $this->createMock(IIntervalFormatter::class);
     }
 
-    private function getMemoryReportLoopSetupFactoryMock(): MockObject&IMemoryReportLoopSetupFactory
+    private function getMemoryReportLoopSetupFactoryMock(): MockObject&IMemoryReportSetupFactory
     {
-        return $this->createMock(IMemoryReportLoopSetupFactory::class);
+        return $this->createMock(IMemoryReportSetupFactory::class);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedLoopProviderFactory;
-use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportLoopSetupFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportSetupFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Contract\IIntervalFormatter;
 use AlecRabbit\Lib\Spinner\Contract\ILoopInfoFormatter;
@@ -14,7 +14,7 @@ use AlecRabbit\Lib\Spinner\Contract\IMemoryUsageReportPrinter;
 use AlecRabbit\Lib\Spinner\Core\Factory\DecoratedLoopProviderFactory;
 use AlecRabbit\Lib\Spinner\DriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Factory\DecoratedDriverLinkerFactory;
-use AlecRabbit\Lib\Spinner\Factory\MemoryReportLoopSetupFactory;
+use AlecRabbit\Lib\Spinner\Factory\MemoryReportSetupFactory;
 use AlecRabbit\Lib\Spinner\IntervalFormatter;
 use AlecRabbit\Lib\Spinner\LoopInfoFormatter;
 use AlecRabbit\Lib\Spinner\LoopInfoPrinter;
@@ -55,5 +55,5 @@ $registry->bind(
     new ServiceDefinition(ILoopInfoFormatter::class, LoopInfoFormatter::class),
     new ServiceDefinition(IMemoryUsageReporter::class, MemoryUsageReporter::class),
     new ServiceDefinition(IMemoryUsageReportPrinter::class, MemoryUsageReportPrinter::class),
-    new ServiceDefinition(IMemoryReportLoopSetupFactory::class, MemoryReportLoopSetupFactory::class),
+    new ServiceDefinition(IMemoryReportSetupFactory::class, MemoryReportSetupFactory::class),
 );

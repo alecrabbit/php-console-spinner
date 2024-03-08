@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Lib\Spinner\Factory;
 
 use AlecRabbit\Lib\Spinner\Contract\Factory\IDecoratedDriverLinkerFactory;
-use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportLoopSetupFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportSetupFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Lib\Spinner\Core\DecoratedDriverLinker;
 use AlecRabbit\Spinner\Contract\IInvokable;
@@ -20,7 +20,7 @@ final readonly class DecoratedDriverLinkerFactory implements IDecoratedDriverLin
         private IDriverLinkerFactory $driverLinkerFactory,
         private IDriverInfoPrinter $infoPrinter,
         private ILoopProvider $loopProvider,
-        private IMemoryReportLoopSetupFactory $loopSetupFactory,
+        private IMemoryReportSetupFactory $loopSetupFactory,
     ) {
     }
 

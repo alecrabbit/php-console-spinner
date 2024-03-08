@@ -29,7 +29,7 @@ final class DriverLinker implements IDriverLinker
 
         if ($this->driver === null) {
             $this->driver = $driver;
-            $driver->attach($this);
+            $driver->attach($this); // [f61da847-b343-42d1-9cf0-9a7ecbba737d]
         }
     }
 

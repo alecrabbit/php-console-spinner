@@ -7,7 +7,7 @@ namespace AlecRabbit\Lib\Spinner\Contract\Factory;
 use AlecRabbit\Lib\Spinner\Contract\IMemoryReportLoopSetup;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 
-interface IMemoryReportLoopSetupFactory
+interface IMemoryReportSetupFactory
 {
     public function create(IDriver $driver): IMemoryReportLoopSetup;
 }

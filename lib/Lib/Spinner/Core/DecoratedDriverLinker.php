@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Lib\Spinner\Core;
 
-use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportLoopSetupFactory;
+use AlecRabbit\Lib\Spinner\Contract\Factory\IMemoryReportSetupFactory;
 use AlecRabbit\Lib\Spinner\Contract\IDriverInfoPrinter;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -14,7 +14,10 @@ use AlecRabbit\Spinner\Exception\ObserverCanNotBeOverwritten;
 
 /**
  * This class is a decorator for the DriverLinker class.
- * It writes the current driver interval to the output during 'link' and 'update' method calls.
+ * !!!ATTENTION!!! Use it for demonstration purposes only.
+ *
+ * Sets up a memory report if the loop is available.
+ * Writes the current driver interval to the output on 'link' and 'update' method calls.
  */
 final readonly class DecoratedDriverLinker implements IDriverLinker
 {
@@ -22,42 +25,42 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
         private IDriverLinker $linker,
         private IDriverInfoPrinter $infoPrinter,
         private ILoopProvider $loopProvider,
-        private IMemoryReportLoopSetupFactory $loopSetupFactory,
+        private IMemoryReportSetupFactory $reportSetupFactory,
     ) {
     }
 
     public function link(IDriver $driver): void
     {
-        $driver->attach($this); // setting $this as an observer
-
         $this->doLink($driver);
 
-        $this->infoPrinter->print($driver);
-
-        $this->memoryReportSetup($driver);
+        $this->setupMemoryReport($driver);
     }
 
     private function doLink(IDriver $driver): void
     {
         // this method depends on the implementation of the DriverLinker::link() method
 
+        $driver->attach($this); // setting $this as an observer
+
         try {
-            // Observer can not be overwritten so `attach()` will throw and should
-            // be the last line in the method:
+            // Observer can not be overwritten so `attach()` will throw
+            // so it should be the last line in the method:
             //
-            //    #    $driver->attach($this);  // <-- this line
-            $this->linker->link($driver);
+            //    #    $driver->attach($this);  // <-- this line [f61da847-b343-42d1-9cf0-9a7ecbba737d]
+            $this->linker->link($driver);       // <-- in this method
         } catch (ObserverCanNotBeOverwritten $_) {
             // ignore
         }
+
+        $this->infoPrinter->print($driver);
     }
 
-    private function memoryReportSetup(IDriver $driver): void
+    private function setupMemoryReport(IDriver $driver): void
     {
+        $reportSetup = $this->reportSetupFactory->create($driver);
+
         if ($this->loopProvider->hasLoop()) {
-            $this->loopSetupFactory->create($driver)
-                ->setup($this->loopProvider->getLoop())
-            ;
+            $reportSetup->setup($this->loopProvider->getLoop());
         }
     }
 
