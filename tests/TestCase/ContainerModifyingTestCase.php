@@ -18,7 +18,7 @@ use AlecRabbit\Tests\TestCase\Stub\WritableStreamFactoryStub;
 use ArrayObject;
 use Traversable;
 
-abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
+abstract class ContainerModifyingTestCase extends ContainerAwareTestCase
 {
     protected static function setTestContainer(): void
     {

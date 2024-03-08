@@ -16,11 +16,11 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Tests\TestCase\FacadeAwareTestCase;
+use AlecRabbit\Tests\TestCase\ContainerAwareTestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class FacadeTest extends FacadeAwareTestCase
+final class FacadeTest extends ContainerAwareTestCase
 {
     #[Test]
     public function canGetSettings(): void

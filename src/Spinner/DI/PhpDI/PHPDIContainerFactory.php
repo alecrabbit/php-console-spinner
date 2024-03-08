@@ -14,7 +14,7 @@ use DI;
 use function class_exists;
 use function is_string;
 
-final readonly class ContainerFactory implements IContainerFactory
+final readonly class PHPDIContainerFactory implements IContainerFactory
 {
     public function create(IDefinitionRegistry $registry): IContainer
     {
