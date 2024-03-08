@@ -14,7 +14,7 @@ $loopConfig->getSignalHandlersContainer(); // ISignalHandlersContainer (SIGINT h
 
 // Output config
 $outputConfig->getStylingMode(); // StylingMode::ANSI8
-$outputConfig->getCursorVisibilityMode(); // CursorVisibilityMode::HIDDEN
+$outputConfig->getCursorMode(); // CursorMode::HIDDEN
 $outputConfig->getInitializationMode(); // InitializationMode::ENABLED
 $outputConfig->getStream(); // STDERR
 

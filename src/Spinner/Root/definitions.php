@@ -83,7 +83,7 @@ use AlecRabbit\Spinner\Core\Config\Factory\RootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IDriverModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
@@ -97,7 +97,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IToleranceSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\CursorModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\DriverMessagesSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\DriverModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
@@ -357,7 +357,7 @@ function solvers(): Traversable
 {
     yield from [
         IAutoStartModeSolver::class => AutoStartModeSolver::class,
-        ICursorVisibilityModeSolver::class => CursorVisibilityModeSolver::class,
+        ICursorModeSolver::class => CursorModeSolver::class,
         IDriverMessagesSolver::class => DriverMessagesSolver::class,
         IDriverModeSolver::class => DriverModeSolver::class,
         IInitializationModeSolver::class => InitializationModeSolver::class,

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Config;
 
-use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Mode\CursorMode;
 use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Mode\StylingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
@@ -24,14 +24,14 @@ final class OutputConfigTest extends TestCase
 
     protected function getTesteeInstance(
         ?StylingMode $stylingMode = null,
-        ?CursorVisibilityMode $cursorVisibilityMode = null,
+        ?CursorMode $cursorVisibilityMode = null,
         ?InitializationMode $initializationMode = null,
         mixed $stream = STDOUT,
     ): IOutputConfig {
         return
             new OutputConfig(
                 stylingMode: $stylingMode ?? StylingMode::ANSI8,
-                cursorVisibilityMode: $cursorVisibilityMode ?? CursorVisibilityMode::HIDDEN,
+                cursorVisibilityMode: $cursorVisibilityMode ?? CursorMode::HIDDEN,
                 initializationMode: $initializationMode ?? InitializationMode::ENABLED,
                 stream: $stream,
             );
@@ -50,15 +50,15 @@ final class OutputConfigTest extends TestCase
     }
 
     #[Test]
-    public function canGetCursorVisibilityMode(): void
+    public function canGetCursorMode(): void
     {
-        $cursorVisibilityMode = CursorVisibilityMode::VISIBLE;
+        $cursorVisibilityMode = CursorMode::VISIBLE;
 
         $config = $this->getTesteeInstance(
             cursorVisibilityMode: $cursorVisibilityMode,
         );
 
-        self::assertSame($cursorVisibilityMode, $config->getCursorVisibilityMode());
+        self::assertSame($cursorVisibilityMode, $config->getCursorMode());
     }
 
     #[Test]

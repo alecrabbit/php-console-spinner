@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Integration\Config;
 
-use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
-use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Mode\CursorMode;
+use AlecRabbit\Spinner\Contract\Option\CursorOption;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class CursorVisibilityModeConfigTest extends ConfigurationTestCase
+final class CursorModeConfigTest extends ConfigurationTestCase
 {
     #[Test]
-    public function canSetCursorVisibilityOptionVisible(): void
+    public function canSetCursorOptionVisible(): void
     {
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    cursorVisibilityOption: CursorVisibilityOption::VISIBLE,
+                    cursorOption: CursorOption::VISIBLE,
                 ),
             )
         ;
@@ -28,15 +28,15 @@ final class CursorVisibilityModeConfigTest extends ConfigurationTestCase
         /** @var IOutputConfig $outputConfig */
         $outputConfig = self::getRequiredConfig(IOutputConfig::class);
 
-        self::assertSame(CursorVisibilityMode::VISIBLE, $outputConfig->getCursorVisibilityMode());
+        self::assertSame(CursorMode::VISIBLE, $outputConfig->getCursorMode());
     }
 
-    public function canSetCursorVisibilityOptionHidden(): void
+    public function canSetCursorOptionHidden(): void
     {
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    cursorVisibilityOption: CursorVisibilityOption::HIDDEN,
+                    cursorOption: CursorOption::HIDDEN,
                 ),
             )
         ;
@@ -44,6 +44,6 @@ final class CursorVisibilityModeConfigTest extends ConfigurationTestCase
         /** @var IOutputConfig $outputConfig */
         $outputConfig = self::getRequiredConfig(IOutputConfig::class);
 
-        self::assertSame(CursorVisibilityMode::HIDDEN, $outputConfig->getCursorVisibilityMode());
+        self::assertSame(CursorMode::HIDDEN, $outputConfig->getCursorMode());
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Mode\CursorMode;
 use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Mode\StylingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
 final class OutputConfigBuilder implements IOutputConfigBuilder
 {
     private ?StylingMode $stylingMode = null;
-    private ?CursorVisibilityMode $cursorVisibilityMode = null;
+    private ?CursorMode $cursorVisibilityMode = null;
     private ?InitializationMode $initializationMode = null;
     private mixed $stream = null;
 
@@ -41,7 +41,7 @@ final class OutputConfigBuilder implements IOutputConfigBuilder
     {
         match (true) {
             $this->stylingMode === null => throw new LogicException('StylingMode is not set.'),
-            $this->cursorVisibilityMode === null => throw new LogicException('CursorVisibilityMode is not set.'),
+            $this->cursorVisibilityMode === null => throw new LogicException('CursorMode is not set.'),
             $this->initializationMode === null => throw new LogicException('InitializationMode is not set.'),
             $this->stream === null => throw new LogicException('Stream is not set.'),
             default => null,
@@ -55,7 +55,7 @@ final class OutputConfigBuilder implements IOutputConfigBuilder
         return $clone;
     }
 
-    public function withCursorVisibilityMode(CursorVisibilityMode $cursorVisibilityMode): IOutputConfigBuilder
+    public function withCursorMode(CursorMode $cursorVisibilityMode): IOutputConfigBuilder
     {
         $clone = clone $this;
         $clone->cursorVisibilityMode = $cursorVisibilityMode;

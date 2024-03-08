@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
-use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\CursorOption;
 use AlecRabbit\Spinner\Contract\Option\DriverOption;
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
@@ -67,7 +67,7 @@ final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
             ),
             new OutputSettings(
                 stylingModeOption: StylingOption::ANSI8,
-                cursorVisibilityOption: CursorVisibilityOption::HIDDEN,
+                cursorOption: CursorOption::HIDDEN,
                 initializationOption: InitializationOption::ENABLED,
                 stream: STDERR,
             ),

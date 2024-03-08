@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\CursorOption;
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\StylingOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
@@ -24,14 +24,14 @@ final class OutputSettingsTest extends TestCase
 
     public function getTesteeInstance(
         ?StylingOption $stylingModeOption = null,
-        ?CursorVisibilityOption $cursorVisibilityOption = null,
+        ?CursorOption $cursorOption = null,
         ?InitializationOption $initializationOption = null,
         mixed $stream = null,
     ): IOutputSettings {
         return
             new OutputSettings(
                 stylingModeOption: $stylingModeOption ?? StylingOption::AUTO,
-                cursorVisibilityOption: $cursorVisibilityOption ?? CursorVisibilityOption::AUTO,
+                cursorOption: $cursorOption ?? CursorOption::AUTO,
                 initializationOption: $initializationOption ?? InitializationOption::AUTO,
                 stream: $stream,
             );
@@ -82,14 +82,14 @@ final class OutputSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canGetCursorVisibilityOption(): void
+    public function canGetCursorOption(): void
     {
-        $cursorVisibilityOption = CursorVisibilityOption::VISIBLE;
+        $cursorOption = CursorOption::VISIBLE;
 
         $settings = $this->getTesteeInstance(
-            cursorVisibilityOption: $cursorVisibilityOption,
+            cursorOption: $cursorOption,
         );
 
-        self::assertEquals($cursorVisibilityOption, $settings->getCursorVisibilityOption());
+        self::assertEquals($cursorOption, $settings->getCursorOption());
     }
 }

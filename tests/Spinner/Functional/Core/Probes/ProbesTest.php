@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Functional\Probes;
+namespace AlecRabbit\Tests\Spinner\Functional\Core\Probes;
 
 use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
@@ -10,8 +10,8 @@ use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Probes;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
-use AlecRabbit\Tests\Spinner\Functional\Probes\Stub\DummyInterfaceStub;
-use AlecRabbit\Tests\Spinner\Functional\Probes\Stub\StaticProbeStub;
+use AlecRabbit\Tests\Spinner\Functional\Core\Probes\Stub\DummyInterfaceStub;
+use AlecRabbit\Tests\Spinner\Functional\Core\Probes\Stub\StaticProbeStub;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;

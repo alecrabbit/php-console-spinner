@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Builder;
 
-use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Mode\CursorMode;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Output\ConsoleCursor;
@@ -34,11 +34,11 @@ final class ConsoleCursorBuilderTest extends TestCase
     {
         $buffer = $this->getBufferMock();
         $consoleCursorBuilder = $this->getTesteeInstance();
-        $cursorMode = CursorVisibilityMode::VISIBLE;
+        $cursorMode = CursorMode::VISIBLE;
         $consoleCursor =
             $consoleCursorBuilder
                 ->withBuffer($buffer)
-                ->withCursorVisibilityMode($cursorMode)
+                ->withCursorMode($cursorMode)
                 ->build()
         ;
         self::assertInstanceOf(ConsoleCursor::class, $consoleCursor);
@@ -60,18 +60,18 @@ final class ConsoleCursorBuilderTest extends TestCase
         $this->expectExceptionMessage('Buffer is not set.');
 
         $consoleCursorBuilder
-            ->withCursorVisibilityMode(CursorVisibilityMode::VISIBLE)
+            ->withCursorMode(CursorMode::VISIBLE)
             ->build()
         ;
     }
 
     #[Test]
-    public function throwsIfCursorVisibilityModeIsNotSet(): void
+    public function throwsIfCursorModeIsNotSet(): void
     {
         $consoleCursorBuilder = $this->getTesteeInstance();
 
         $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('CursorVisibilityMode is not set.');
+        $this->expectExceptionMessage('CursorMode is not set.');
 
         $consoleCursorBuilder
             ->withBuffer($this->getBufferMock())

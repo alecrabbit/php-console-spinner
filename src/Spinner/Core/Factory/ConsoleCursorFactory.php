@@ -25,8 +25,8 @@ final class ConsoleCursorFactory implements IConsoleCursorFactory
             ->withBuffer(
                 $this->buffer
             )
-            ->withCursorVisibilityMode(
-                $this->outputConfig->getCursorVisibilityMode()
+            ->withCursorMode(
+                $this->outputConfig->getCursorMode()
             )
             ->build()
         ;

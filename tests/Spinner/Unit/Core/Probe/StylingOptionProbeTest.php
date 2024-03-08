@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Probe\StylingOptionProbe;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class StylingMethodProbeTest extends TestCase
+final class StylingOptionProbeTest extends TestCase
 {
     #[Test]
     public function returnsTrueOnIsSupported(): void

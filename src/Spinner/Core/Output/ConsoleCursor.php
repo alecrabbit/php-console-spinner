@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Mode\CursorMode;
 use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 
@@ -12,7 +12,7 @@ final readonly class ConsoleCursor implements IConsoleCursor
 {
     public function __construct(
         protected IBuffer $buffer,
-        protected CursorVisibilityMode $cursorVisibilityMode,
+        protected CursorMode $cursorVisibilityMode,
     ) {
     }
 
@@ -27,7 +27,7 @@ final readonly class ConsoleCursor implements IConsoleCursor
 
     private function isHideCursorEnabled(): bool
     {
-        return $this->cursorVisibilityMode === CursorVisibilityMode::HIDDEN;
+        return $this->cursorVisibilityMode === CursorMode::HIDDEN;
     }
 
     public function show(): IConsoleCursor

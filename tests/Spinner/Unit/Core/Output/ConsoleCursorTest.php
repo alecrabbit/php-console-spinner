@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Output;
 
-use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Mode\CursorMode;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Output\ConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IBuffer;
@@ -18,7 +18,7 @@ final class ConsoleCursorTest extends TestCase
     #[Test]
     public function isCreatedWithGivenOption(): void
     {
-        $cursorMode = CursorVisibilityMode::VISIBLE;
+        $cursorMode = CursorMode::VISIBLE;
 
         $cursor = $this->getTesteeInstance(
             cursorMode: $cursorMode
@@ -30,7 +30,7 @@ final class ConsoleCursorTest extends TestCase
 
     public function getTesteeInstance(
         ?IBuffer $buffer = null,
-        CursorVisibilityMode $cursorMode = CursorVisibilityMode::HIDDEN,
+        CursorMode $cursorMode = CursorMode::HIDDEN,
     ): IConsoleCursor {
         return
             new ConsoleCursor(
@@ -47,7 +47,7 @@ final class ConsoleCursorTest extends TestCase
     #[Test]
     public function writesToOutputWhenHideCalledIfHidden(): void
     {
-        $cursorMode = CursorVisibilityMode::HIDDEN;
+        $cursorMode = CursorMode::HIDDEN;
 
         $buffer = $this->getBufferMock();
 
@@ -70,7 +70,7 @@ final class ConsoleCursorTest extends TestCase
     #[Test]
     public function doesNotWriteToOutputWhenHideOrShowCalledIfEnabled(): void
     {
-        $cursorMode = CursorVisibilityMode::VISIBLE;
+        $cursorMode = CursorMode::VISIBLE;
 
         $buffer = $this->getBufferMock();
         $buffer
@@ -89,7 +89,7 @@ final class ConsoleCursorTest extends TestCase
     #[Test]
     public function writesToOutputWhenShowCalledIfHidden(): void
     {
-        $cursorMode = CursorVisibilityMode::HIDDEN;
+        $cursorMode = CursorMode::HIDDEN;
 
         $buffer = $this->getBufferMock();
 

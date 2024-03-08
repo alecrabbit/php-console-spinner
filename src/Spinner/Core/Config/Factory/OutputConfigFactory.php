@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IInvokable;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingModeSolver;
@@ -17,7 +17,7 @@ final readonly class OutputConfigFactory implements IOutputConfigFactory, IInvok
 {
     public function __construct(
         private IStylingModeSolver $stylingModeSolver,
-        private ICursorVisibilityModeSolver $cursorVisibilityModeSolver,
+        private ICursorModeSolver $cursorVisibilityModeSolver,
         private IInitializationModeSolver $initializationModeSolver,
         private IStreamSolver $streamSolver,
         private IOutputConfigBuilder $outputConfigBuilder,
@@ -35,7 +35,7 @@ final readonly class OutputConfigFactory implements IOutputConfigFactory, IInvok
             ->withStylingMode(
                 $this->stylingModeSolver->solve(),
             )
-            ->withCursorVisibilityMode(
+            ->withCursorMode(
                 $this->cursorVisibilityModeSolver->solve(),
             )
             ->withInitializationMode(

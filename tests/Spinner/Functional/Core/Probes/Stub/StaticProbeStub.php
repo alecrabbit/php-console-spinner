@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Functional\Probes\Stub;
+namespace AlecRabbit\Tests\Spinner\Functional\Core\Probes\Stub;
 
 use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
 use RuntimeException;

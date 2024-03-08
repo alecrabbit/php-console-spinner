@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
-use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
+use AlecRabbit\Spinner\Contract\Mode\CursorMode;
+use AlecRabbit\Spinner\Contract\Option\CursorOption;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\CursorModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
@@ -19,16 +19,16 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 use function sprintf;
 
-final class CursorVisibilityModeSolverTest extends TestCase
+final class CursorModeSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {
-        $mH = CursorVisibilityMode::HIDDEN;
-        $mV = CursorVisibilityMode::VISIBLE;
+        $mH = CursorMode::HIDDEN;
+        $mV = CursorMode::VISIBLE;
 
-        $oAu = CursorVisibilityOption::AUTO;
-        $oHi = CursorVisibilityOption::HIDDEN;
-        $oVi = CursorVisibilityOption::VISIBLE;
+        $oAu = CursorOption::AUTO;
+        $oHi = CursorOption::HIDDEN;
+        $oVi = CursorOption::VISIBLE;
 
         yield from [
             // [Exception], [$user, $detected, $default]
@@ -36,7 +36,7 @@ final class CursorVisibilityModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', CursorVisibilityMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', CursorMode::class),
                     ],
                 ],
                 [null, null, null],
@@ -45,7 +45,7 @@ final class CursorVisibilityModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', CursorVisibilityMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', CursorMode::class),
                     ],
                 ],
                 [$oAu, null, null],
@@ -54,7 +54,7 @@ final class CursorVisibilityModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', CursorVisibilityMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', CursorMode::class),
                     ],
                 ],
                 [null, $oAu, null],
@@ -63,7 +63,7 @@ final class CursorVisibilityModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', CursorVisibilityMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', CursorMode::class),
                     ],
                 ],
                 [null, null, $oAu],
@@ -109,14 +109,14 @@ final class CursorVisibilityModeSolverTest extends TestCase
     {
         $solver = $this->getTesteeInstance();
 
-        self::assertInstanceOf(CursorVisibilityModeSolver::class, $solver);
+        self::assertInstanceOf(CursorModeSolver::class, $solver);
     }
 
     protected function getTesteeInstance(
         ?ISettingsProvider $settingsProvider = null,
-    ): ICursorVisibilityModeSolver {
+    ): ICursorModeSolver {
         return
-            new CursorVisibilityModeSolver(
+            new CursorModeSolver(
                 settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
             );
     }
@@ -136,14 +136,14 @@ final class CursorVisibilityModeSolverTest extends TestCase
         $result = $expected[0] ?? null;
 
         [
-            $userCursorVisibilityOption,
-            $detectedCursorVisibilityOption,
-            $defaultCursorVisibilityOption
+            $userCursorOption,
+            $detectedCursorOption,
+            $defaultCursorOption
         ] = $args;
 
-        $userOutputSettings = $this->getOutputSettingsMock($userCursorVisibilityOption);
-        $detectedOutputSettings = $this->getOutputSettingsMock($detectedCursorVisibilityOption);
-        $defaultOutputSettings = $this->getOutputSettingsMock($defaultCursorVisibilityOption);
+        $userOutputSettings = $this->getOutputSettingsMock($userCursorOption);
+        $detectedOutputSettings = $this->getOutputSettingsMock($detectedCursorOption);
+        $defaultOutputSettings = $this->getOutputSettingsMock($defaultCursorOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
@@ -199,15 +199,15 @@ final class CursorVisibilityModeSolverTest extends TestCase
     }
 
     protected function getOutputSettingsMock(
-        ?CursorVisibilityOption $cursorVisibilityOption = null
+        ?CursorOption $cursorOption = null
     ): (MockObject&IOutputSettings)|null {
         return
-            $cursorVisibilityOption === null
+            $cursorOption === null
                 ? null :
                 $this->createConfiguredMock(
                     IOutputSettings::class,
                     [
-                        'getCursorVisibilityOption' => $cursorVisibilityOption,
+                        'getCursorOption' => $cursorOption,
                     ]
                 );
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Mode\CursorMode;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
@@ -48,12 +48,12 @@ final class ConsoleCursorFactoryTest extends TestCase
         return $this->createMock(IConsoleCursorBuilder::class);
     }
 
-    private function getOutputConfigMock(?CursorVisibilityMode $cursorVisibilityMode = null): MockObject&IOutputConfig
+    private function getOutputConfigMock(?CursorMode $cursorVisibilityMode = null): MockObject&IOutputConfig
     {
         return $this->createConfiguredMock(
             IOutputConfig::class,
             [
-                'getCursorVisibilityMode' => $cursorVisibilityMode ?? CursorVisibilityMode::VISIBLE,
+                'getCursorMode' => $cursorVisibilityMode ?? CursorMode::VISIBLE,
             ]
         );
     }
@@ -61,7 +61,7 @@ final class ConsoleCursorFactoryTest extends TestCase
     #[Test]
     public function canCreate(): void
     {
-        $cursorVisibilityMode = CursorVisibilityMode::HIDDEN;
+        $cursorVisibilityMode = CursorMode::HIDDEN;
         $outputConfig = $this->getOutputConfigMock($cursorVisibilityMode);
 
         $cursorStub = $this->getCursorStub();
@@ -76,7 +76,7 @@ final class ConsoleCursorFactoryTest extends TestCase
 
         $cursorBuilder
             ->expects(self::once())
-            ->method('withCursorVisibilityMode')
+            ->method('withCursorMode')
             ->with(self::identicalTo($cursorVisibilityMode))
             ->willReturnSelf()
         ;

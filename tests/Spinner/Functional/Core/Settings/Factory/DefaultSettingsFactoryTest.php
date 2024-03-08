@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
-use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\CursorOption;
 use AlecRabbit\Spinner\Contract\Option\ExecutionOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
@@ -86,7 +86,7 @@ final class DefaultSettingsFactoryTest extends TestCase
         self::assertEquals(SignalHandlingOption::ENABLED, $loopSettings->getSignalHandlingOption());
 
         self::assertEquals(StylingOption::ANSI8, $outputSettings->getStylingOption());
-        self::assertEquals(CursorVisibilityOption::HIDDEN, $outputSettings->getCursorVisibilityOption());
+        self::assertEquals(CursorOption::HIDDEN, $outputSettings->getCursorOption());
 
         self::assertEquals(new CharSequenceFrame('', 0), $widgetSettings->getLeadingSpacer());
         self::assertEquals(new CharSequenceFrame(' ', 1), $widgetSettings->getTrailingSpacer());
