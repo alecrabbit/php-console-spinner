@@ -13,6 +13,7 @@ use AlecRabbit\Benchmark\Contract\Factory\IMeasurementFactory;
 use AlecRabbit\Benchmark\Contract\Factory\IReportPrinterFactory;
 use AlecRabbit\Benchmark\Contract\Factory\IResultMaker;
 use AlecRabbit\Benchmark\Contract\Factory\IStopwatchFactory;
+use AlecRabbit\Benchmark\Contract\Factory\ITimerFactory;
 use AlecRabbit\Benchmark\Contract\IDatetimeFormatter;
 use AlecRabbit\Benchmark\Contract\IKeyFormatter;
 use AlecRabbit\Benchmark\Contract\IReportFormatter;
@@ -36,6 +37,7 @@ use AlecRabbit\Lib\Spinner\Contract\Factory\IBenchmarkingDriverFactory;
 use AlecRabbit\Lib\Spinner\Factory\BenchmarkingDriverFactory;
 use AlecRabbit\Lib\Spinner\Factory\BenchmarkingDriverProviderFactory;
 use AlecRabbit\Lib\Spinner\Factory\BenchmarkReportPrinterFactory;
+use AlecRabbit\Spinner\Container\Contract\IServiceDefinition;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
@@ -44,10 +46,15 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 $registry = DefinitionRegistry::getInstance();
 
 $registry->bind(
-    new ServiceDefinition(ITimer::class, new Reference(MicrosecondTimerFactory::class)),
+    new ServiceDefinition(ITimer::class, new Reference(ITimerFactory::class)),
+    new ServiceDefinition(ITimerFactory::class, MicrosecondTimerFactory::class),
     new ServiceDefinition(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class),
     new ServiceDefinition(IResultMaker::class, ResultMaker::class),
-    new ServiceDefinition(IBenchmarkResultsFactory::class, BenchmarkResultsFactory::class),
+    new ServiceDefinition(
+        IBenchmarkResultsFactory::class,
+        BenchmarkResultsFactory::class,
+        IServiceDefinition::PUBLIC,
+    ),
     new ServiceDefinition(IBenchmarkingDriverFactory::class, BenchmarkingDriverFactory::class),
     new ServiceDefinition(IBenchmarkingDriverBuilder::class, BenchmarkingDriverBuilder::class),
     new ServiceDefinition(IBenchmarkFactory::class, BenchmarkFactory::class),
@@ -59,8 +66,10 @@ $registry->bind(
     new ServiceDefinition(IDatetimeFormatter::class, DatetimeFormatter::class),
     new ServiceDefinition(IResultFormatter::class, ResultFormatter::class),
     new ServiceDefinition(IKeyFormatter::class, KeyFormatter::class),
+    new ServiceDefinition(IReportPrinterFactory::class, BenchmarkReportPrinterFactory::class),
     new ServiceDefinition(
         IReportPrinter::class,
-        new Reference(BenchmarkReportPrinterFactory::class),
+        new Reference(IReportPrinterFactory::class),
+        IServiceDefinition::PUBLIC,
     ),
 );
