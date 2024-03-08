@@ -19,7 +19,7 @@ final readonly class PaletteModeFactory implements IPaletteModeFactory
     public function create(): IPaletteMode
     {
         return new PaletteMode(
-            stylingMode: $this->outputConfig->getStylingMethodMode(),
+            stylingMode: $this->outputConfig->getStylingMode(),
         );
     }
 }

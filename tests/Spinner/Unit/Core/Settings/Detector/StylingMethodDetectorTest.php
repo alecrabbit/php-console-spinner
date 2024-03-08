@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector;
 
-use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
-use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
+use AlecRabbit\Spinner\Contract\Option\StylingOption;
+use AlecRabbit\Spinner\Contract\Probe\IStylingOptionProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\StylingMethodDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
-use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub\NegativeStylingMethodProbeStub;
-use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub\PositiveStylingMethodProbeStub;
+use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub\NegativeStylingOptionProbeStub;
+use AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub\PositiveStylingOptionProbeStub;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -25,26 +25,26 @@ final class StylingMethodDetectorTest extends TestCase
         yield from [
             // $result, $probes
             [
-                StylingModeOption::NONE,
+                StylingOption::NONE,
                 [],
             ],
             [
-                StylingModeOption::ANSI24,
+                StylingOption::ANSI24,
                 [
-                    PositiveStylingMethodProbeStub::class,
+                    PositiveStylingOptionProbeStub::class,
                 ],
             ],
             [
-                StylingModeOption::ANSI24,
+                StylingOption::ANSI24,
                 [
-                    NegativeStylingMethodProbeStub::class,
-                    PositiveStylingMethodProbeStub::class,
+                    NegativeStylingOptionProbeStub::class,
+                    PositiveStylingOptionProbeStub::class,
                 ],
             ],
             [
-                StylingModeOption::NONE,
+                StylingOption::NONE,
                 [
-                    NegativeStylingMethodProbeStub::class,
+                    NegativeStylingOptionProbeStub::class,
                 ],
             ],
         ];
@@ -69,7 +69,7 @@ final class StylingMethodDetectorTest extends TestCase
 
     #[Test]
     #[DataProvider('canDetectDataProvider')]
-    public function canDetect(StylingModeOption $result, array $probes): void
+    public function canDetect(StylingOption $result, array $probes): void
     {
         $detector = $this->getTesteeInstance(
             probes: new ArrayObject($probes),
@@ -85,13 +85,13 @@ final class StylingMethodDetectorTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 'Probe must be an instance of "%s" interface.',
-                IStylingMethodProbe::class
+                IStylingOptionProbe::class
             )
         );
         $detector = $this->getTesteeInstance(
             probes: new ArrayObject([stdClass::class]),
         );
-        self::assertEquals(StylingModeOption::AUTO, $detector->getSupportValue());
+        self::assertEquals(StylingOption::AUTO, $detector->getSupportValue());
 
         self::fail('Exception was not thrown.');
     }

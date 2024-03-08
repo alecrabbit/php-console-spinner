@@ -41,7 +41,7 @@ final class SignalHandlersContainerConfigTest extends ConfigurationTestCase
     }
 
     #[Test]
-    public function canSetStylingModeOptionNone(): void
+    public function canSetStylingOptionNone(): void
     {
         $signal = 2;
         $handlerCreator =

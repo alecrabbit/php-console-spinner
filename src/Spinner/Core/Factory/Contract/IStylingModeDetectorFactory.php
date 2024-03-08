@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
-interface IStylingMethodDetectorFactory
+interface IStylingModeDetectorFactory
 {
 
 }

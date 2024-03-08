@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Contract\Mode;
+namespace AlecRabbit\Spinner\Contract\Option;
 
-enum StylingMethodMode: int
+enum StylingOption: int
 {
+    case AUTO = -1;
     case NONE = 0;
     case ANSI4 = 16;
     case ANSI8 = 256;

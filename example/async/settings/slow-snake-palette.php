@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
+use AlecRabbit\Spinner\Contract\Option\StylingOption;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
@@ -35,7 +35,7 @@ $spinnerSettings =
 //{
 //    $outputSettings =
 //        new OutputSettings(
-//            stylingModeOption: StylingModeOption::NONE,
+//            stylingModeOption: StylingOption::NONE,
 //        );
 //
 //    Facade::getSettings()

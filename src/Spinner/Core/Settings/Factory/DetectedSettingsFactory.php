@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
-use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
+use AlecRabbit\Spinner\Contract\Option\StylingOption;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
@@ -55,10 +55,10 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
             ),
             new LoopSettings(
                 autoStartOption: $this->getAutoStartOption(),
-                signalHandlingOption: $this->getSignalMethodOption(),
+                signalHandlingOption: $this->getSignalHandlingOption(),
             ),
             new OutputSettings(
-                stylingModeOption: $this->detectStylingModeOption(),
+                stylingModeOption: $this->detectStylingOption(),
             ),
         );
         if ($this->isSignalHandlingEnabled()) {
@@ -110,18 +110,18 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
             : AutoStartOption::DISABLED;
     }
 
-    private function getSignalMethodOption(): SignalHandlingOption
+    private function getSignalHandlingOption(): SignalHandlingOption
     {
         return $this->signalProcessingSupportDetector->getSupportValue();
     }
 
-    private function detectStylingModeOption(): StylingModeOption
+    private function detectStylingOption(): StylingOption
     {
         return $this->colorSupportDetector->getSupportValue();
     }
 
     private function isSignalHandlingEnabled(): bool
     {
-        return $this->getSignalMethodOption() === SignalHandlingOption::ENABLED;
+        return $this->getSignalHandlingOption() === SignalHandlingOption::ENABLED;
     }
 }

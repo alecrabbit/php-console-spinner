@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
-use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
+use AlecRabbit\Spinner\Contract\Option\StylingOption;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
@@ -85,7 +85,7 @@ final class DefaultSettingsFactoryTest extends TestCase
         self::assertEquals(AutoStartOption::ENABLED, $loopSettings->getAutoStartOption());
         self::assertEquals(SignalHandlingOption::ENABLED, $loopSettings->getSignalHandlingOption());
 
-        self::assertEquals(StylingModeOption::ANSI8, $outputSettings->getStylingModeOption());
+        self::assertEquals(StylingOption::ANSI8, $outputSettings->getStylingOption());
         self::assertEquals(CursorVisibilityOption::HIDDEN, $outputSettings->getCursorVisibilityOption());
 
         self::assertEquals(new CharSequenceFrame('', 0), $widgetSettings->getLeadingSpacer());

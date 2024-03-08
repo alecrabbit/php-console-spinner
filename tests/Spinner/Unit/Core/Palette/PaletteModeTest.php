@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette;
 
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\StylingMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\PaletteMode;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -21,18 +21,18 @@ final class PaletteModeTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?StylingMethodMode $stylingMode = null,
+        ?StylingMode $stylingMode = null,
     ): IPaletteMode {
         return
             new PaletteMode(
-                stylingMode: $stylingMode ?? StylingMethodMode::NONE,
+                stylingMode: $stylingMode ?? StylingMode::NONE,
             );
     }
 
     #[Test]
     public function canGetStylingMode(): void
     {
-        $stylingMode = StylingMethodMode::ANSI8;
+        $stylingMode = StylingMode::ANSI8;
 
         $palette = $this->getTesteeInstance(
             stylingMode: $stylingMode,

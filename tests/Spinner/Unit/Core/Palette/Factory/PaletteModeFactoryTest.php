@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette\Factory;
 
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\StylingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
@@ -40,12 +40,12 @@ final class PaletteModeFactoryTest extends TestCase
     #[Test]
     public function canCreate(): void
     {
-        $stylingMode = StylingMethodMode::ANSI4;
+        $stylingMode = StylingMode::ANSI4;
 
         $outputConfig = $this->getOutputConfigMock();
         $outputConfig
             ->expects(self::once())
-            ->method('getStylingMethodMode')
+            ->method('getStylingMode')
             ->willReturn($stylingMode)
         ;
 

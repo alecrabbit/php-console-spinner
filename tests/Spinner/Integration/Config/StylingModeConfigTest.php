@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Spinner\Integration\Config;
 
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
+use AlecRabbit\Spinner\Contract\Mode\StylingMode;
+use AlecRabbit\Spinner\Contract\Option\StylingOption;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
@@ -16,7 +16,7 @@ use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
 use AlecRabbit\Tests\TestCase\Stub\DetectedSettingsFactoryFactoryStub;
 use PHPUnit\Framework\Attributes\Test;
 
-final class StylingMethodModeConfigTest extends ConfigurationTestCase
+final class StylingModeConfigTest extends ConfigurationTestCase
 {
     protected static function setTestContainer(): void
     {
@@ -38,12 +38,12 @@ final class StylingMethodModeConfigTest extends ConfigurationTestCase
     }
 
     #[Test]
-    public function canSetStylingModeOptionNone(): void
+    public function canSetStylingOptionNone(): void
     {
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingModeOption: StylingModeOption::NONE,
+                    stylingModeOption: StylingOption::NONE,
                 ),
             )
         ;
@@ -51,16 +51,16 @@ final class StylingMethodModeConfigTest extends ConfigurationTestCase
         /** @var IOutputConfig $outputConfig */
         $outputConfig = self::getRequiredConfig(IOutputConfig::class);
 
-        self::assertSame(StylingMethodMode::NONE, $outputConfig->getStylingMethodMode());
+        self::assertSame(StylingMode::NONE, $outputConfig->getStylingMode());
     }
 
     #[Test]
-    public function canSetStylingModeOptionAnsi4(): void
+    public function canSetStylingOptionAnsi4(): void
     {
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingModeOption: StylingModeOption::ANSI4,
+                    stylingModeOption: StylingOption::ANSI4,
                 ),
             )
         ;
@@ -68,16 +68,16 @@ final class StylingMethodModeConfigTest extends ConfigurationTestCase
         /** @var IOutputConfig $outputConfig */
         $outputConfig = self::getRequiredConfig(IOutputConfig::class);
 
-        self::assertSame(StylingMethodMode::ANSI4, $outputConfig->getStylingMethodMode());
+        self::assertSame(StylingMode::ANSI4, $outputConfig->getStylingMode());
     }
 
     #[Test]
-    public function canSetStylingModeOptionAnsi8(): void
+    public function canSetStylingOptionAnsi8(): void
     {
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingModeOption: StylingModeOption::ANSI8,
+                    stylingModeOption: StylingOption::ANSI8,
                 ),
             )
         ;
@@ -85,16 +85,16 @@ final class StylingMethodModeConfigTest extends ConfigurationTestCase
         /** @var IOutputConfig $outputConfig */
         $outputConfig = self::getRequiredConfig(IOutputConfig::class);
 
-        self::assertSame(StylingMethodMode::ANSI8, $outputConfig->getStylingMethodMode());
+        self::assertSame(StylingMode::ANSI8, $outputConfig->getStylingMode());
     }
 
     #[Test]
-    public function canSetStylingModeOptionAnsi24(): void
+    public function canSetStylingOptionAnsi24(): void
     {
         Facade::getSettings()
             ->set(
                 new OutputSettings(
-                    stylingModeOption: StylingModeOption::ANSI24,
+                    stylingModeOption: StylingOption::ANSI24,
                 ),
             )
         ;
@@ -102,6 +102,6 @@ final class StylingMethodModeConfigTest extends ConfigurationTestCase
         /** @var IOutputConfig $outputConfig */
         $outputConfig = self::getRequiredConfig(IOutputConfig::class);
 
-        self::assertSame(StylingMethodMode::ANSI24, $outputConfig->getStylingMethodMode());
+        self::assertSame(StylingMode::ANSI24, $outputConfig->getStylingMode());
     }
 }

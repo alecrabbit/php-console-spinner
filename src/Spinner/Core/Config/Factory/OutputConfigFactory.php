@@ -11,12 +11,12 @@ use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingModeSolver;
 
 final readonly class OutputConfigFactory implements IOutputConfigFactory, IInvokable
 {
     public function __construct(
-        private IStylingMethodModeSolver $stylingMethodModeSolver,
+        private IStylingModeSolver $stylingModeSolver,
         private ICursorVisibilityModeSolver $cursorVisibilityModeSolver,
         private IInitializationModeSolver $initializationModeSolver,
         private IStreamSolver $streamSolver,
@@ -32,8 +32,8 @@ final readonly class OutputConfigFactory implements IOutputConfigFactory, IInvok
     public function create(): IOutputConfig
     {
         return $this->outputConfigBuilder
-            ->withStylingMethodMode(
-                $this->stylingMethodModeSolver->solve(),
+            ->withStylingMode(
+                $this->stylingModeSolver->solve(),
             )
             ->withCursorVisibilityMode(
                 $this->cursorVisibilityModeSolver->solve(),

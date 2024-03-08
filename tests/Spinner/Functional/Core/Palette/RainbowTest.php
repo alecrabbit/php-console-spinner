@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Palette;
 
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\StylingMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
@@ -46,7 +46,7 @@ final class RainbowTest extends TestCase
         $mode
             ->expects(self::once())
             ->method('getStylingMode')
-            ->willReturn(StylingMethodMode::NONE)
+            ->willReturn(StylingMode::NONE)
         ;
 
         $palette = $this->getTesteeInstance();
@@ -67,7 +67,7 @@ final class RainbowTest extends TestCase
         $mode
             ->expects(self::exactly(2))
             ->method('getStylingMode')
-            ->willReturn(StylingMethodMode::NONE)
+            ->willReturn(StylingMode::NONE)
         ;
 
         $palette = $this->getTesteeInstance();
@@ -90,7 +90,7 @@ final class RainbowTest extends TestCase
         $mode
             ->expects(self::exactly(2))
             ->method('getStylingMode')
-            ->willReturn(StylingMethodMode::NONE)
+            ->willReturn(StylingMode::NONE)
         ;
 
         $palette = $this->getTesteeInstance();
@@ -120,7 +120,7 @@ final class RainbowTest extends TestCase
         $mode
             ->expects(self::exactly(2))
             ->method('getStylingMode')
-            ->willReturn(StylingMethodMode::ANSI4)
+            ->willReturn(StylingMode::ANSI4)
         ;
 
         $palette = $this->getTesteeInstance();
@@ -150,7 +150,7 @@ final class RainbowTest extends TestCase
         $mode
             ->expects(self::exactly(2))
             ->method('getStylingMode')
-            ->willReturn(StylingMethodMode::ANSI8)
+            ->willReturn(StylingMode::ANSI8)
         ;
 
         $traversable = $palette->getEntries($mode);
@@ -206,7 +206,7 @@ final class RainbowTest extends TestCase
         $mode
             ->expects(self::exactly(2))
             ->method('getStylingMode')
-            ->willReturn(StylingMethodMode::ANSI24)
+            ->willReturn(StylingMode::ANSI24)
         ;
 
         $palette = $this->getTesteeInstance();

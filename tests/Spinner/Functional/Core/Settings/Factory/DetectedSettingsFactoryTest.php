@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
-use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
+use AlecRabbit\Spinner\Contract\Option\StylingOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
@@ -58,12 +58,12 @@ final class DetectedSettingsFactoryTest extends TestCase
         return $this->createMock(ILoopSupportDetector::class);
     }
 
-    private function getStylingMethodDetectorMock(?StylingModeOption $stylingModeOption = null
+    private function getStylingMethodDetectorMock(?StylingOption $stylingModeOption = null
     ): MockObject&IStylingMethodDetector {
         return $this->createConfiguredMock(
             IStylingMethodDetector::class,
             [
-                'getSupportValue' => $stylingModeOption ?? StylingModeOption::NONE,
+                'getSupportValue' => $stylingModeOption ?? StylingOption::NONE,
             ]
         );
     }
@@ -94,7 +94,7 @@ final class DetectedSettingsFactoryTest extends TestCase
                 ? SignalHandlingOption::ENABLED
                 : SignalHandlingOption::DISABLED;
 
-        $stylingModeOption = StylingModeOption::ANSI24;
+        $stylingModeOption = StylingOption::ANSI24;
 
         $colorSupportDetector =
             $this->getStylingMethodDetectorMock($stylingModeOption);
@@ -131,6 +131,6 @@ final class DetectedSettingsFactoryTest extends TestCase
         self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlingOption());
 
         self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlingOption());
-        self::assertSame($stylingModeOption, $outputSettings->getStylingModeOption());
+        self::assertSame($stylingModeOption, $outputSettings->getStylingOption());
     }
 }

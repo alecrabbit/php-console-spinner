@@ -13,7 +13,7 @@ $loopConfig->getSignalHandlingMode(); // SignalHandlingMode::ENABLED
 $loopConfig->getSignalHandlersContainer(); // ISignalHandlersContainer (SIGINT handler by default)
 
 // Output config
-$outputConfig->getStylingMethodMode(); // StylingMethodMode::ANSI8
+$outputConfig->getStylingMode(); // StylingMode::ANSI8
 $outputConfig->getCursorVisibilityMode(); // CursorVisibilityMode::HIDDEN
 $outputConfig->getInitializationMode(); // InitializationMode::ENABLED
 $outputConfig->getStream(); // STDERR

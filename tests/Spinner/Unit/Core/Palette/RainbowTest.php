@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Palette;
 
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\StylingMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
@@ -66,7 +66,7 @@ final class RainbowTest extends TestCase
         $mode
             ->expects(self::once())
             ->method('getStylingMode')
-            ->willReturn(StylingMethodMode::NONE)
+            ->willReturn(StylingMode::NONE)
         ;
         self::assertInstanceOf(PaletteOptions::class, $palette->getOptions($mode));
     }

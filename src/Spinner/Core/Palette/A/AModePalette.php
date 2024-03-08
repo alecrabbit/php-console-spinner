@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Palette\A;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\ISequenceFrame;
 use AlecRabbit\Spinner\Contract\IStyleSequenceFrame;
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\StylingMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IModePalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
@@ -37,15 +37,15 @@ abstract class AModePalette implements IModePalette
     protected function modeInterval(?IPaletteMode $mode = null): ?int
     {
         return match ($this->extractStylingMode($mode)) {
-            StylingMethodMode::ANSI8 => 1000,
-            StylingMethodMode::ANSI24 => 100,
+            StylingMode::ANSI8 => 1000,
+            StylingMode::ANSI24 => 100,
             default => null,
         };
     }
 
-    protected function extractStylingMode(?IPaletteMode $mode): StylingMethodMode
+    protected function extractStylingMode(?IPaletteMode $mode): StylingMode
     {
-        return $mode?->getStylingMode() ?? StylingMethodMode::NONE;
+        return $mode?->getStylingMode() ?? StylingMode::NONE;
     }
 
     /**
@@ -71,10 +71,10 @@ abstract class AModePalette implements IModePalette
         $stylingMode = $this->extractStylingMode($mode);
 
         yield from match ($stylingMode) {
-            StylingMethodMode::NONE => $this->noStyleFrames(),
-            StylingMethodMode::ANSI4 => $this->ansi4StyleFrames(),
-            StylingMethodMode::ANSI8 => $this->ansi8StyleFrames(),
-            StylingMethodMode::ANSI24 => $this->ansi24StyleFrames(),
+            StylingMode::NONE => $this->noStyleFrames(),
+            StylingMode::ANSI4 => $this->ansi4StyleFrames(),
+            StylingMode::ANSI8 => $this->ansi8StyleFrames(),
+            StylingMode::ANSI24 => $this->ansi24StyleFrames(),
         };
     }
 

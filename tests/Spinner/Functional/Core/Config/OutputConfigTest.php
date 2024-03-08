@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Functional\Core\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\StylingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\OutputConfig;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -23,14 +23,14 @@ final class OutputConfigTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?StylingMethodMode $stylingMethodMode = null,
+        ?StylingMode $stylingMode = null,
         ?CursorVisibilityMode $cursorVisibilityMode = null,
         ?InitializationMode $initializationMode = null,
         mixed $stream = STDOUT,
     ): IOutputConfig {
         return
             new OutputConfig(
-                stylingMethodMode: $stylingMethodMode ?? StylingMethodMode::ANSI8,
+                stylingMode: $stylingMode ?? StylingMode::ANSI8,
                 cursorVisibilityMode: $cursorVisibilityMode ?? CursorVisibilityMode::HIDDEN,
                 initializationMode: $initializationMode ?? InitializationMode::ENABLED,
                 stream: $stream,
@@ -38,15 +38,15 @@ final class OutputConfigTest extends TestCase
     }
 
     #[Test]
-    public function canGetStylingMethodMode(): void
+    public function canGetStylingMode(): void
     {
-        $stylingMethodMode = StylingMethodMode::ANSI4;
+        $stylingMode = StylingMode::ANSI4;
 
         $config = $this->getTesteeInstance(
-            stylingMethodMode: $stylingMethodMode,
+            stylingMode: $stylingMode,
         );
 
-        self::assertSame($stylingMethodMode, $config->getStylingMethodMode());
+        self::assertSame($stylingMode, $config->getStylingMode());
     }
 
     #[Test]

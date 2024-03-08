@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub;
 
-use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
+use AlecRabbit\Spinner\Contract\Probe\IStylingOptionProbe;
 use RuntimeException;
 
-class NegativeStylingMethodProbeStub implements IStylingMethodProbe
+class NegativeStylingOptionProbeStub implements IStylingOptionProbe
 {
     public static function isSupported(): bool
     {

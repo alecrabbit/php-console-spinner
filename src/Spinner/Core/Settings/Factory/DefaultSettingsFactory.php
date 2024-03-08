@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
-use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
+use AlecRabbit\Spinner\Contract\Option\StylingOption;
 use AlecRabbit\Spinner\Core\CharSequenceFrame;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
@@ -66,7 +66,7 @@ final readonly class DefaultSettingsFactory implements IDefaultSettingsFactory
                 signalHandlingOption: SignalHandlingOption::ENABLED,
             ),
             new OutputSettings(
-                stylingModeOption: StylingModeOption::ANSI8,
+                stylingModeOption: StylingOption::ANSI8,
                 cursorVisibilityOption: CursorVisibilityOption::HIDDEN,
                 initializationOption: InitializationOption::ENABLED,
                 stream: STDERR,

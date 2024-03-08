@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
+use AlecRabbit\Spinner\Contract\Mode\StylingMode;
+use AlecRabbit\Spinner\Contract\Option\StylingOption;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\StylingModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
@@ -19,20 +19,20 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 use function sprintf;
 
-final class StylingMethodModeSolverTest extends TestCase
+final class StylingModeSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {
-        $mNo = StylingMethodMode::NONE;
-        $m4b = StylingMethodMode::ANSI4;
-        $m8b = StylingMethodMode::ANSI8;
-        $m24 = StylingMethodMode::ANSI24;
+        $mNo = StylingMode::NONE;
+        $m4b = StylingMode::ANSI4;
+        $m8b = StylingMode::ANSI8;
+        $m24 = StylingMode::ANSI24;
 
-        $oAu = StylingModeOption::AUTO;
-        $oNo = StylingModeOption::NONE;
-        $o4b = StylingModeOption::ANSI4;
-        $o8b = StylingModeOption::ANSI8;
-        $o24 = StylingModeOption::ANSI24;
+        $oAu = StylingOption::AUTO;
+        $oNo = StylingOption::NONE;
+        $o4b = StylingOption::ANSI4;
+        $o8b = StylingOption::ANSI8;
+        $o24 = StylingOption::ANSI24;
 
         yield from [
             // [Exception], [$user, $detected, $default]
@@ -40,7 +40,7 @@ final class StylingMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', StylingMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', StylingMode::class),
                     ],
                 ],
                 [null, null, null],
@@ -49,7 +49,7 @@ final class StylingMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', StylingMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', StylingMode::class),
                     ],
                 ],
                 [$oAu, null, null],
@@ -58,7 +58,7 @@ final class StylingMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', StylingMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', StylingMode::class),
                     ],
                 ],
                 [null, $oAu, null],
@@ -67,7 +67,7 @@ final class StylingMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', StylingMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', StylingMode::class),
                     ],
                 ],
                 [null, null, $oAu],
@@ -76,7 +76,7 @@ final class StylingMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', StylingMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', StylingMode::class),
                     ],
                 ],
                 [null, $oAu, $oAu],
@@ -154,14 +154,14 @@ final class StylingMethodModeSolverTest extends TestCase
     {
         $solver = $this->getTesteeInstance();
 
-        self::assertInstanceOf(StylingMethodModeSolver::class, $solver);
+        self::assertInstanceOf(StylingModeSolver::class, $solver);
     }
 
     protected function getTesteeInstance(
         ?ISettingsProvider $settingsProvider = null,
-    ): IStylingMethodModeSolver {
+    ): IStylingModeSolver {
         return
-            new StylingMethodModeSolver(
+            new StylingModeSolver(
                 settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
             );
     }
@@ -180,14 +180,14 @@ final class StylingMethodModeSolverTest extends TestCase
         $result = $expected[0] ?? null;
 
         [
-            $userStylingModeOption,
-            $detectedStylingModeOption,
-            $defaultStylingModeOption
+            $userStylingOption,
+            $detectedStylingOption,
+            $defaultStylingOption
         ] = $args;
 
-        $userOutputSettings = $this->getOutputSettingsMock($userStylingModeOption);
-        $detectedOutputSettings = $this->getOutputSettingsMock($detectedStylingModeOption);
-        $defaultOutputSettings = $this->getOutputSettingsMock($defaultStylingModeOption);
+        $userOutputSettings = $this->getOutputSettingsMock($userStylingOption);
+        $detectedOutputSettings = $this->getOutputSettingsMock($detectedStylingOption);
+        $defaultOutputSettings = $this->getOutputSettingsMock($defaultStylingOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
@@ -242,7 +242,7 @@ final class StylingMethodModeSolverTest extends TestCase
         }
     }
 
-    protected function getOutputSettingsMock(?StylingModeOption $normalizerOption = null
+    protected function getOutputSettingsMock(?StylingOption $normalizerOption = null
     ): (MockObject&IOutputSettings)|null {
         return
             $normalizerOption === null
@@ -250,7 +250,7 @@ final class StylingMethodModeSolverTest extends TestCase
                 $this->createConfiguredMock(
                     IOutputSettings::class,
                     [
-                        'getStylingModeOption' => $normalizerOption,
+                        'getStylingOption' => $normalizerOption,
                     ]
                 );
     }

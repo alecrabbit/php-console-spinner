@@ -94,7 +94,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IExecutionModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStreamSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IToleranceSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
@@ -108,7 +108,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\ExecutionModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersContainerSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StreamSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\StylingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\ToleranceSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\WidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Contract\IDivisorProvider;
@@ -147,7 +147,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlingSupportDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStylingMethodDetectorFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStylingModeDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\DeltaTimerFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
@@ -159,7 +159,7 @@ use AlecRabbit\Spinner\Core\Factory\SequenceStateWriterFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlingSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlingSupportDetectorFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\StylingMethodDetectorFactory;
+use AlecRabbit\Spinner\Core\Factory\StylingModeDetectorFactory;
 use AlecRabbit\Spinner\Core\Feature\Resolver\AutoStartResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IAutoStartResolver;
 use AlecRabbit\Spinner\Core\Feature\Resolver\Contract\IInitializationResolver;
@@ -368,7 +368,7 @@ function solvers(): Traversable
         ISignalHandlersContainerSolver::class => SignalHandlersContainerSolver::class,
         ISignalHandlingModeSolver::class => SignalHandlingModeSolver::class,
         IStreamSolver::class => StreamSolver::class,
-        IStylingMethodModeSolver::class => StylingMethodModeSolver::class,
+        IStylingModeSolver::class => StylingModeSolver::class,
         IToleranceSolver::class => ToleranceSolver::class,
         IWidgetSettingsSolver::class => WidgetSettingsSolver::class,
     ];
@@ -416,7 +416,7 @@ function factories(): Traversable
         IRevolverConfigFactory::class => RevolverConfigFactory::class,
         ILoopSupportDetectorFactory::class => LoopSupportDetectorFactory::class,
         ISignalHandlingSupportDetectorFactory::class => SignalHandlingSupportDetectorFactory::class,
-        IStylingMethodDetectorFactory::class => StylingMethodDetectorFactory::class,
+        IStylingModeDetectorFactory::class => StylingModeDetectorFactory::class,
 
         ILoopFactory::class => LoopFactory::class,
 
@@ -433,7 +433,7 @@ function detectors(): Traversable
     yield from [
         ILoopSupportDetector::class => new Reference(ILoopSupportDetectorFactory::class),
         ISignalHandlingSupportDetector::class => new Reference(ISignalHandlingSupportDetectorFactory::class),
-        IStylingMethodDetector::class => new Reference(IStylingMethodDetectorFactory::class),
+        IStylingMethodDetector::class => new Reference(IStylingModeDetectorFactory::class),
     ];
 }
 // @codeCoverageIgnoreEnd

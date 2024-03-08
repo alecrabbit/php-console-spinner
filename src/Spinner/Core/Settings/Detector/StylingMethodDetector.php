@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
-use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
-use AlecRabbit\Spinner\Contract\Probe\IStylingModeOptionCreator;
-use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
+use AlecRabbit\Spinner\Contract\Option\StylingOption;
+use AlecRabbit\Spinner\Contract\Probe\IStylingOptionCreator;
+use AlecRabbit\Spinner\Contract\Probe\IStylingOptionProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IStylingMethodDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 use ArrayObject;
@@ -19,28 +19,28 @@ final readonly class StylingMethodDetector implements IStylingMethodDetector
     ) {
     }
 
-    public function getSupportValue(): StylingModeOption
+    public function getSupportValue(): StylingOption
     {
-        /** @var class-string<IStylingMethodProbe> $probe */
+        /** @var class-string<IStylingOptionProbe> $probe */
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);
             if ($probe::isSupported()) {
-                /** @var class-string<IStylingModeOptionCreator> $class */
+                /** @var class-string<IStylingOptionCreator> $class */
                 $class = $probe::getCreatorClass();
                 return (new $class())->create();
             }
         }
 
-        return StylingModeOption::NONE;
+        return StylingOption::NONE;
     }
 
     private static function assertProbe(mixed $probe): void
     {
-        if (!is_a($probe, IStylingMethodProbe::class, true)) {
+        if (!is_a($probe, IStylingOptionProbe::class, true)) {
             throw new InvalidArgument(
                 sprintf(
                     'Probe must be an instance of "%s" interface.',
-                    IStylingMethodProbe::class
+                    IStylingOptionProbe::class
                 )
             );
         }

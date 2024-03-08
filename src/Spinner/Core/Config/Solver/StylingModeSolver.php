@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Contract\Option\StylingModeOption;
+use AlecRabbit\Spinner\Contract\Mode\StylingMode;
+use AlecRabbit\Spinner\Contract\Option\StylingOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgument;
 
-final readonly class StylingMethodModeSolver extends ASolver implements IStylingMethodModeSolver
+final readonly class StylingModeSolver extends ASolver implements IStylingModeSolver
 {
-    public function solve(): StylingMethodMode
+    public function solve(): StylingMode
     {
         return $this->doSolve(
             $this->extractOption($this->settingsProvider->getUserSettings()),
@@ -24,12 +24,12 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
     }
 
     private function doSolve(
-        ?StylingModeOption $userOption,
-        ?StylingModeOption $detectedOption,
-        ?StylingModeOption $defaultOption
-    ): StylingMethodMode {
-        if ($detectedOption === StylingModeOption::NONE) {
-            return StylingMethodMode::NONE;
+        ?StylingOption $userOption,
+        ?StylingOption $detectedOption,
+        ?StylingOption $defaultOption
+    ): StylingMode {
+        if ($detectedOption === StylingOption::NONE) {
+            return StylingMode::NONE;
         }
 
         $mode = $this->createModeFromOption($userOption);
@@ -37,7 +37,7 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
         $detectedMode = $this->createModeFromOption($detectedOption);
         $defaultMode = $this->createModeFromOption($defaultOption);
 
-        if ($userOption === StylingModeOption::AUTO || $userOption === null) {
+        if ($userOption === StylingOption::AUTO || $userOption === null) {
             $mode = $detectedMode ?? $defaultMode;
         }
 
@@ -49,14 +49,14 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
             $mode = $detectedMode;
         }
 
-        if ($mode instanceof StylingMethodMode) {
+        if ($mode instanceof StylingMode) {
             return $mode;
         }
 
         throw new InvalidArgument(
             sprintf(
                 'Unable to solve "%s". From values %s.',
-                StylingMethodMode::class,
+                StylingMode::class,
                 sprintf(
                     '[%s, %s, %s]',
                     $userOption?->name ?? 'null',
@@ -67,19 +67,19 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
         );
     }
 
-    private function createModeFromOption(?StylingModeOption $option): ?StylingMethodMode
+    private function createModeFromOption(?StylingOption $option): ?StylingMode
     {
         return match ($option) {
-            StylingModeOption::NONE => StylingMethodMode::NONE,
-            StylingModeOption::ANSI4 => StylingMethodMode::ANSI4,
-            StylingModeOption::ANSI8 => StylingMethodMode::ANSI8,
-            StylingModeOption::ANSI24 => StylingMethodMode::ANSI24,
+            StylingOption::NONE => StylingMode::NONE,
+            StylingOption::ANSI4 => StylingMode::ANSI4,
+            StylingOption::ANSI8 => StylingMode::ANSI8,
+            StylingOption::ANSI24 => StylingMode::ANSI24,
             default => null,
         };
     }
 
-    protected function extractOption(ISettings $settings): ?StylingModeOption
+    protected function extractOption(ISettings $settings): ?StylingOption
     {
-        return $this->extractSettingsElement($settings, IOutputSettings::class)?->getStylingModeOption();
+        return $this->extractSettingsElement($settings, IOutputSettings::class)?->getStylingOption();
     }
 }

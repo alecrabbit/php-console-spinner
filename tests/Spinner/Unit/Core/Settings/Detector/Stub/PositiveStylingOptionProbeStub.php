@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Settings\Detector\Stub;
 
-use AlecRabbit\Spinner\Contract\Probe\IStylingMethodProbe;
+use AlecRabbit\Spinner\Contract\Probe\IStylingOptionProbe;
 
-class PositiveStylingMethodProbeStub implements IStylingMethodProbe
+class PositiveStylingOptionProbeStub implements IStylingOptionProbe
 {
     public static function isSupported(): bool
     {
@@ -15,6 +15,6 @@ class PositiveStylingMethodProbeStub implements IStylingMethodProbe
 
     public static function getCreatorClass(): string
     {
-        return StylingModeOptionCreatorStub::class;
+        return StylingOptionCreatorStub::class;
     }
 }
