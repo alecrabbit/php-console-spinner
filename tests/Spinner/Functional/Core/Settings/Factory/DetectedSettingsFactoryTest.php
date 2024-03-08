@@ -58,12 +58,12 @@ final class DetectedSettingsFactoryTest extends TestCase
         return $this->createMock(ILoopSupportDetector::class);
     }
 
-    private function getStylingMethodDetectorMock(?StylingOption $stylingModeOption = null
+    private function getStylingMethodDetectorMock(?StylingOption $stylingOpion = null
     ): MockObject&IStylingMethodDetector {
         return $this->createConfiguredMock(
             IStylingMethodDetector::class,
             [
-                'getSupportValue' => $stylingModeOption ?? StylingOption::NONE,
+                'getSupportValue' => $stylingOpion ?? StylingOption::NONE,
             ]
         );
     }
@@ -94,10 +94,10 @@ final class DetectedSettingsFactoryTest extends TestCase
                 ? SignalHandlingOption::ENABLED
                 : SignalHandlingOption::DISABLED;
 
-        $stylingModeOption = StylingOption::ANSI24;
+        $stylingOpion = StylingOption::ANSI24;
 
         $colorSupportDetector =
-            $this->getStylingMethodDetectorMock($stylingModeOption);
+            $this->getStylingMethodDetectorMock($stylingOpion);
 
         $signalHandlingDetector =
             $this->getSignalProcessingSupportDetectorMock($signalHandlersOption);
@@ -131,6 +131,6 @@ final class DetectedSettingsFactoryTest extends TestCase
         self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlingOption());
 
         self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlingOption());
-        self::assertSame($stylingModeOption, $outputSettings->getStylingOption());
+        self::assertSame($stylingOpion, $outputSettings->getStylingOption());
     }
 }

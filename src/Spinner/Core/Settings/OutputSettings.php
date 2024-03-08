@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 final readonly class OutputSettings implements IOutputSettings
 {
     public function __construct(
-        private StylingOption $stylingModeOption = StylingOption::AUTO,
+        private StylingOption $stylingOpion = StylingOption::AUTO,
         private CursorOption $cursorOption = CursorOption::AUTO,
         private InitializationOption $initializationOption = InitializationOption::AUTO,
         private mixed $stream = null,
@@ -21,7 +21,7 @@ final readonly class OutputSettings implements IOutputSettings
 
     public function getStylingOption(): StylingOption
     {
-        return $this->stylingModeOption;
+        return $this->stylingOpion;
     }
 
     public function getCursorOption(): CursorOption

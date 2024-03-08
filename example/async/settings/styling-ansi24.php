@@ -10,7 +10,7 @@ require_once __DIR__ . '/../bootstrap.async.php';
 
 $outputSettings =
     new OutputSettings(
-        stylingModeOption: StylingOption::ANSI24,
+        stylingOpion: StylingOption::ANSI24,
     );
 
 Facade::getSettings()
