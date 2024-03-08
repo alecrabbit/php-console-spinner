@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Benchmark\Factory;
+namespace AlecRabbit\Lib\Spinner\Factory;
 
 use AlecRabbit\Benchmark\Core\RandomDeltaTimer;
 use AlecRabbit\Spinner\Contract\IDeltaTimer;
@@ -18,6 +18,12 @@ final class RandomDeltaTimerFactory implements IDeltaTimerFactory, IInvokable
 
     public function create(): IDeltaTimer
     {
-        return new RandomDeltaTimer();
+        return new class() implements IDeltaTimer {
+            public function getDelta(): float
+            {
+                // simulate unequal time intervals
+                return (float)random_int(1000, 500000);
+            }
+        };
     }
 }
