@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
 
 final readonly class GeneralSettings implements IGeneralSettings
 {
     public function __construct(
-        private ExecutionModeOption $executionModeOption = ExecutionModeOption::AUTO,
+        private ExecutionOption $executionOption = ExecutionOption::AUTO,
     ) {
     }
 
-    public function getExecutionModeOption(): ExecutionModeOption
+    public function getExecutionOption(): ExecutionOption
     {
-        return $this->executionModeOption;
+        return $this->executionOption;
     }
 
     public function getIdentifier(): string

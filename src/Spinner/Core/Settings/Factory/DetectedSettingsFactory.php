@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
-use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingOption;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -48,7 +48,7 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
     {
         $settings->set(
             new GeneralSettings(
-                executionModeOption: $this->getExecutionModeOption(),
+                executionOption: $this->getExecutionOption(),
             ),
             new LinkerSettings(
                 linkerOption: $this->getLinkerOption(),
@@ -84,11 +84,11 @@ final readonly class DetectedSettingsFactory implements IDetectedSettingsFactory
         }
     }
 
-    private function getExecutionModeOption(): ExecutionModeOption
+    private function getExecutionOption(): ExecutionOption
     {
         return $this->loopIsAvailable()
-            ? ExecutionModeOption::ASYNC
-            : ExecutionModeOption::SYNCHRONOUS;
+            ? ExecutionOption::ASYNC
+            : ExecutionOption::SYNCHRONOUS;
     }
 
     private function loopIsAvailable(): bool

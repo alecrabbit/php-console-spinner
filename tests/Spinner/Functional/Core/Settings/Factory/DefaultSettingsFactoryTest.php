@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Functional\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
-use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
@@ -77,7 +77,7 @@ final class DefaultSettingsFactoryTest extends TestCase
         self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
         self::assertInstanceOf(RootWidgetSettings::class, $rootWidgetSettings);
 
-        self::assertEquals(ExecutionModeOption::ASYNC, $generalSettings->getExecutionModeOption());
+        self::assertEquals(ExecutionOption::ASYNC, $generalSettings->getExecutionOption());
         self::assertEquals(NormalizerOption::BALANCED, $normalizerSettings->getNormalizerOption());
 
         self::assertEquals(LinkerOption::ENABLED, $linkerSettings->getLinkerOption());

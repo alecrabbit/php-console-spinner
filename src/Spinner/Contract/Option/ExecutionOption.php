@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Option;
 
-enum ExecutionModeOption
+enum ExecutionOption
 {
     case AUTO;
 

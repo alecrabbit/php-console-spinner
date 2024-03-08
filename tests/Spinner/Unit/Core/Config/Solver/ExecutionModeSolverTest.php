@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
-use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IExecutionModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\ExecutionModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
@@ -26,9 +26,9 @@ final class ExecutionModeSolverTest extends TestCase
         $mS = ExecutionMode::SYNCHRONOUS;
         $mA = ExecutionMode::ASYNC;
 
-        $oAu = ExecutionModeOption::AUTO;
-        $oSy = ExecutionModeOption::SYNCHRONOUS;
-        $oAs = ExecutionModeOption::ASYNC;
+        $oAu = ExecutionOption::AUTO;
+        $oSy = ExecutionOption::SYNCHRONOUS;
+        $oAs = ExecutionOption::ASYNC;
 
         yield from [
             // [Exception], [$user, $detected, $default]
@@ -136,14 +136,14 @@ final class ExecutionModeSolverTest extends TestCase
         $result = $expected[0] ?? null;
 
         [
-            $userExecutionModeOption,
-            $detectedExecutionModeOption,
-            $defaultExecutionModeOption
+            $userExecutionOption,
+            $detectedExecutionOption,
+            $defaultExecutionOption
         ] = $args;
 
-        $userGeneralSettings = $this->getGeneralSettingsMock($userExecutionModeOption);
-        $detectedGeneralSettings = $this->getGeneralSettingsMock($detectedExecutionModeOption);
-        $defaultGeneralSettings = $this->getGeneralSettingsMock($defaultExecutionModeOption);
+        $userGeneralSettings = $this->getGeneralSettingsMock($userExecutionOption);
+        $detectedGeneralSettings = $this->getGeneralSettingsMock($detectedExecutionOption);
+        $defaultGeneralSettings = $this->getGeneralSettingsMock($defaultExecutionOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
@@ -198,15 +198,15 @@ final class ExecutionModeSolverTest extends TestCase
         }
     }
 
-    protected function getGeneralSettingsMock(?ExecutionModeOption $executionModeOption = null
+    protected function getGeneralSettingsMock(?ExecutionOption $executionOption = null
     ): (MockObject&IGeneralSettings)|null {
         return
-            $executionModeOption === null
+            $executionOption === null
                 ? null :
                 $this->createConfiguredMock(
                     IGeneralSettings::class,
                     [
-                        'getExecutionModeOption' => $executionModeOption,
+                        'getExecutionOption' => $executionOption,
                     ]
                 );
     }

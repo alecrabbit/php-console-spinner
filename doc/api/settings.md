@@ -52,7 +52,7 @@ $rootWidgetSettings =
 // General settings 
 $generalSettings = 
     new GeneralSettings(
-        executionModeOption: ExecutionModeOption::AUTO, 
+        executionOption: ExecutionOption::AUTO, 
     );
 
 // Loop settings 

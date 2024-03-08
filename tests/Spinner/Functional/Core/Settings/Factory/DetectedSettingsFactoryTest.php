@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Functional\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
-use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingOption;
@@ -125,7 +125,7 @@ final class DetectedSettingsFactoryTest extends TestCase
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
         self::assertInstanceOf(OutputSettings::class, $outputSettings);
 
-        self::assertSame(ExecutionModeOption::ASYNC, $generalSettings->getExecutionModeOption());
+        self::assertSame(ExecutionOption::ASYNC, $generalSettings->getExecutionOption());
         self::assertSame(LinkerOption::ENABLED, $linkerSettings->getLinkerOption());
         self::assertSame(AutoStartOption::ENABLED, $loopSettings->getAutoStartOption());
         self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlingOption());

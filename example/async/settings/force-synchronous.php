@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionOption;
 use AlecRabbit\Spinner\Core\Settings\GeneralSettings;
 use AlecRabbit\Spinner\Facade;
 
@@ -15,7 +15,7 @@ $max = 50000;
 Facade::getSettings()
     ->set(
         new GeneralSettings(
-            executionModeOption: ExecutionModeOption::SYNCHRONOUS,
+            executionOption: ExecutionOption::SYNCHRONOUS,
         ),
     )
 ;

@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Integration\Config;
 use AlecRabbit\Spinner\Container\Reference;
 use AlecRabbit\Spinner\Container\ServiceDefinition;
 use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
-use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionOption;
 use AlecRabbit\Spinner\Core\Config\Contract\IGeneralConfig;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
@@ -48,7 +48,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    executionModeOption: ExecutionModeOption::SYNCHRONOUS,
+                    executionOption: ExecutionOption::SYNCHRONOUS,
                 ),
             )
         ;
@@ -83,7 +83,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    executionModeOption: ExecutionModeOption::SYNCHRONOUS,
+                    executionOption: ExecutionOption::SYNCHRONOUS,
                 ),
             )
         ;
@@ -110,7 +110,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new GeneralSettings(
-                    executionModeOption: ExecutionModeOption::SYNCHRONOUS,
+                    executionOption: ExecutionOption::SYNCHRONOUS,
                 ),
             )
         ;

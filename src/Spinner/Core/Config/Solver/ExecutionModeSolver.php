@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\ExecutionMode;
-use AlecRabbit\Spinner\Contract\Option\ExecutionModeOption;
+use AlecRabbit\Spinner\Contract\Option\ExecutionOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IExecutionModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IGeneralSettings;
@@ -29,122 +29,122 @@ final readonly class ExecutionModeSolver extends ASolver implements IExecutionMo
      * @throws InvalidArgument
      */
     private function doSolve(
-        ?ExecutionModeOption $userOption,
-        ?ExecutionModeOption $detectedOption,
-        ?ExecutionModeOption $defaultOption,
+        ?ExecutionOption $userOption,
+        ?ExecutionOption $detectedOption,
+        ?ExecutionOption $defaultOption,
     ): ExecutionMode {
         $options = [$userOption, $detectedOption, $defaultOption];
 
         return match ($options) {
             [
-                ExecutionModeOption::ASYNC,
-                ExecutionModeOption::ASYNC,
-                ExecutionModeOption::ASYNC,
+                ExecutionOption::ASYNC,
+                ExecutionOption::ASYNC,
+                ExecutionOption::ASYNC,
             ],
             [
-                ExecutionModeOption::AUTO,
-                ExecutionModeOption::ASYNC,
-                ExecutionModeOption::ASYNC,
+                ExecutionOption::AUTO,
+                ExecutionOption::ASYNC,
+                ExecutionOption::ASYNC,
             ],
             [
-                ExecutionModeOption::AUTO,
-                ExecutionModeOption::ASYNC,
-                null,
-            ],
-            [
-                ExecutionModeOption::AUTO,
-                null,
-                ExecutionModeOption::ASYNC,
-            ],
-            [
-                null,
-                null,
-                ExecutionModeOption::ASYNC,
-            ],
-            [
-                null,
-                ExecutionModeOption::AUTO,
-                ExecutionModeOption::ASYNC,
-            ],
-            [
-                null,
-                ExecutionModeOption::ASYNC,
+                ExecutionOption::AUTO,
+                ExecutionOption::ASYNC,
                 null,
             ],
             [
+                ExecutionOption::AUTO,
                 null,
-                ExecutionModeOption::ASYNC,
-                ExecutionModeOption::ASYNC,
+                ExecutionOption::ASYNC,
             ],
             [
-                ExecutionModeOption::ASYNC,
+                null,
+                null,
+                ExecutionOption::ASYNC,
+            ],
+            [
+                null,
+                ExecutionOption::AUTO,
+                ExecutionOption::ASYNC,
+            ],
+            [
+                null,
+                ExecutionOption::ASYNC,
+                null,
+            ],
+            [
+                null,
+                ExecutionOption::ASYNC,
+                ExecutionOption::ASYNC,
+            ],
+            [
+                ExecutionOption::ASYNC,
                 null,
                 null,
             ],
             [
-                ExecutionModeOption::ASYNC,
+                ExecutionOption::ASYNC,
                 null,
-                ExecutionModeOption::ASYNC,
+                ExecutionOption::ASYNC,
             ] => ExecutionMode::ASYNC,
             [
-                ExecutionModeOption::AUTO,
-                ExecutionModeOption::SYNCHRONOUS,
-                ExecutionModeOption::ASYNC,
+                ExecutionOption::AUTO,
+                ExecutionOption::SYNCHRONOUS,
+                ExecutionOption::ASYNC,
             ],
             [
-                ExecutionModeOption::SYNCHRONOUS,
-                ExecutionModeOption::ASYNC,
-                ExecutionModeOption::ASYNC,
+                ExecutionOption::SYNCHRONOUS,
+                ExecutionOption::ASYNC,
+                ExecutionOption::ASYNC,
             ],
             [
-                ExecutionModeOption::AUTO,
-                ExecutionModeOption::SYNCHRONOUS,
-                null,
-            ],
-            [
-                ExecutionModeOption::AUTO,
-                null,
-                ExecutionModeOption::SYNCHRONOUS,
-            ],
-            [
-                null,
-                null,
-                ExecutionModeOption::SYNCHRONOUS,
-            ],
-            [
-                null,
-                ExecutionModeOption::AUTO,
-                ExecutionModeOption::SYNCHRONOUS,
-            ],
-            [
-                null,
-                ExecutionModeOption::SYNCHRONOUS,
+                ExecutionOption::AUTO,
+                ExecutionOption::SYNCHRONOUS,
                 null,
             ],
             [
+                ExecutionOption::AUTO,
                 null,
-                ExecutionModeOption::SYNCHRONOUS,
-                ExecutionModeOption::SYNCHRONOUS,
-            ],
-            [
-                ExecutionModeOption::SYNCHRONOUS,
-                null,
-                null,
-            ],
-            [
-                ExecutionModeOption::SYNCHRONOUS,
-                null,
-                ExecutionModeOption::ASYNC,
+                ExecutionOption::SYNCHRONOUS,
             ],
             [
                 null,
-                ExecutionModeOption::SYNCHRONOUS,
-                ExecutionModeOption::ASYNC,
+                null,
+                ExecutionOption::SYNCHRONOUS,
             ],
             [
-                ExecutionModeOption::SYNCHRONOUS,
-                ExecutionModeOption::SYNCHRONOUS,
-                ExecutionModeOption::ASYNC,
+                null,
+                ExecutionOption::AUTO,
+                ExecutionOption::SYNCHRONOUS,
+            ],
+            [
+                null,
+                ExecutionOption::SYNCHRONOUS,
+                null,
+            ],
+            [
+                null,
+                ExecutionOption::SYNCHRONOUS,
+                ExecutionOption::SYNCHRONOUS,
+            ],
+            [
+                ExecutionOption::SYNCHRONOUS,
+                null,
+                null,
+            ],
+            [
+                ExecutionOption::SYNCHRONOUS,
+                null,
+                ExecutionOption::ASYNC,
+            ],
+            [
+                null,
+                ExecutionOption::SYNCHRONOUS,
+                ExecutionOption::ASYNC,
+            ],
+            [
+                ExecutionOption::SYNCHRONOUS,
+                ExecutionOption::SYNCHRONOUS,
+                ExecutionOption::ASYNC,
             ] => ExecutionMode::SYNCHRONOUS,
             default // DEFAULT BRANCH
             => throw new InvalidArgument(
@@ -162,8 +162,8 @@ final readonly class ExecutionModeSolver extends ASolver implements IExecutionMo
         };
     }
 
-    protected function extractOption(ISettings $settings): ?ExecutionModeOption
+    protected function extractOption(ISettings $settings): ?ExecutionOption
     {
-        return $this->extractSettingsElement($settings, IGeneralSettings::class)?->getExecutionModeOption();
+        return $this->extractSettingsElement($settings, IGeneralSettings::class)?->getExecutionOption();
     }
 }
