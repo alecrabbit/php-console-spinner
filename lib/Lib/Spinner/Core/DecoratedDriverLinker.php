@@ -43,7 +43,7 @@ final readonly class DecoratedDriverLinker implements IDriverLinker
         $driver->attach($this); // setting $this as an observer
 
         try {
-            // Observer can not be overwritten so `attach()` will throw
+            // Observer can not be overwritten calling `attach()` will throw
             // so it should be the last line in the method:
             //
             //    #    $driver->attach($this);  // <-- this line [f61da847-b343-42d1-9cf0-9a7ecbba737d]
